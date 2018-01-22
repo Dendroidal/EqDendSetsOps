@@ -1,0 +1,254 @@
+\message{ !name(comp_prod.tex)}\documentclass[psamsfonts,onesided,10pt,draft]{amsart}%{amsart, a4paper, article
+
+\usepackage[hidelinks]{hyperref}
+\hypersetup{
+  % colorlinks,
+  linktoc=page,
+  final
+}
+\usepackage{bookmark}
+
+\input{commands.tex}%
+
+\usepackage{showkeys}
+\usepackage{stmaryrd}
+\usepackage{upgreek}
+\usepackage{mathtools}
+\usepackage[margin=1in]{geometry}
+\usepackage{etoolbox}
+
+
+%-------- TIKZ ------------------------------------------------------------
+\usepackage{tikz}%
+\usetikzlibrary[decorations.pathreplacing, arrows, backgrounds, patterns]
+\tikzset{%
+  treenode/.style = {shape=rectangle, rounded corners,%
+    draw, align=center,%
+1    top color=white, bottom color=blue!20},%
+  root/.style     = {treenode, font=\Large, bottom color=red!30},%
+  env/.style      = {treenode, font=\ttfamily\normalsize},%
+  dummy/.style    = {circle,draw,inner sep=0pt,minimum size=2mm},%
+  bicolor/.style 2 args={
+    dashed,dash pattern=on 6pt off 6pt,->,#1,
+    postaction={draw,dashed,dash pattern=on 6pt off 6pt,->,#2,dash phase=6pt}
+  }
+}%
+\newcommand{\overedge}[1]{%
+  edge[-, line width=6pt, draw=white] (#1)
+  edge[->] (#1)
+}
+
+
+%--------- SidewaysFigures----------------------------------
+\usepackage[figuresright]{rotating}
+\newenvironment{amssidewaysfigure}
+{\begin{sidewaysfigure}[htpb]
+        \vspace*{.5\textwidth}
+        \begin{minipage}{\textheight}\centering
+            }
+            {\end{minipage}\end{sidewaysfigure}
+}
+
+%--------Background Coloring IFDRAFT--------------------------
+\usepackage{ifdraft}
+\ifdraft{
+  \color[RGB]{63,63,63}
+  % \pagecolor[rgb]{0.5,0.5,0.5}
+  \pagecolor[RGB]{220,220,204}
+  % \color[rgb]{1,1,1}
+}
+
+
+
+
+%-------Commands--------------------------------------------
+\newcommand{\mycircled}[2][none]{%
+  \mathbin{
+    \tikz[baseline=(a.base)]\node[draw,circle,inner sep=-1.5pt, outer sep=0pt,fill=#1](a){\ensuremath #2\strut};
+  }
+}
+\newcommand{\owr}{\mycircled{\wr}}
+\newcommand{\UV}{\underline{\mathcal V}}
+
+%-------Subsection Titles out of line-----------------------
+\patchcmd{\subsection}{-.5em}{.5em}{}{}
+
+% -------Table of Contents------------------------------
+\makeatletter
+%Table of Contents
+\setcounter{tocdepth}{3}
+
+% Add bold to \section titles in ToC and remove . after numbers
+\renewcommand{\tocsection}[3]{%
+  \indentlabel{\@ifnotempty{#2}{\bfseries\ignorespaces#1 #2\quad}}\bfseries#3}
+% Remove . after numbers in \subsection
+\renewcommand{\tocsubsection}[3]{%
+  \indentlabel{\@ifnotempty{#2}{\ignorespaces#1 #2\quad}}#3}
+%\let\tocsubsubsection\tocsubsection% Update for \subsubsection
+%...
+
+\newcommand\@dotsep{4.5}
+\def\@tocline#1#2#3#4#5#6#7{\relax
+  \ifnum #1>\c@tocdepth % then omit
+  \else
+    \par \addpenalty\@secpenalty\addvspace{#2}%
+    \begingroup \hyphenpenalty\@M
+    \@ifempty{#4}{%
+      \@tempdima\csname r@tocindent\number#1\endcsname\relax
+    }{%
+      \@tempdima#4\relax
+    }%
+    \parindent\z@ \leftskip#3\relax \advance\leftskip\@tempdima\relax
+    \rightskip\@pnumwidth plus1em \parfillskip-\@pnumwidth
+    #5\leavevmode\hskip-\@tempdima{#6}\nobreak
+    \leaders\hbox{$\m@th\mkern \@dotsep mu\hbox{.}\mkern \@dotsep mu$}\hfill
+    \nobreak
+    \hbox to\@pnumwidth{\@tocpagenum{\ifnum#1=1\bfseries\fi#7}}\par% <-- \bfseries for \section page
+    \nobreak
+    \endgroup
+  \fi}
+\AtBeginDocument{%
+\expandafter\renewcommand\csname r@tocindent0\endcsname{0pt}
+}
+\def\l@subsection{\@tocline{2}{0pt}{2.5pc}{5pc}{}}
+\makeatother
+
+
+%------Personal Info------------------------------------
+\title{Composition Product Stuff}%
+
+\author{}
+\address{}
+
+\date{\today}
+
+\begin{document}
+
+\message{ !name(comp_prod.tex) !offset(-127) }
+\documentclass[psamsfonts,onesided,10pt,draft]{amsart}%{amsart, a4paper, article
+
+\usepackage[hidelinks]{hyperref}
+\hypersetup{
+  % colorlinks,
+  linktoc=page,
+  final
+}
+\usepackage{bookmark}
+
+\input{commands.tex}%
+
+\usepackage{showkeys}
+\usepackage{stmaryrd}
+\usepackage{upgreek}
+\usepackage{mathtools}
+\usepackage[margin=1in]{geometry}
+\usepackage{etoolbox}
+
+
+%-------- TIKZ ------------------------------------------------------------
+\usepackage{tikz}%
+\usetikzlibrary[decorations.pathreplacing, arrows, backgrounds, patterns]
+\tikzset{%
+  treenode/.style = {shape=rectangle, rounded corners,%
+    draw, align=center,%
+1    top color=white, bottom color=blue!20},%
+  root/.style     = {treenode, font=\Large, bottom color=red!30},%
+  env/.style      = {treenode, font=\ttfamily\normalsize},%
+  dummy/.style    = {circle,draw,inner sep=0pt,minimum size=2mm},%
+  bicolor/.style 2 args={
+    dashed,dash pattern=on 6pt off 6pt,->,#1,
+    postaction={draw,dashed,dash pattern=on 6pt off 6pt,->,#2,dash phase=6pt}
+  }
+}%
+\newcommand{\overedge}[1]{%
+  edge[-, line width=6pt, draw=white] (#1)
+  edge[->] (#1)
+}
+
+
+%--------- SidewaysFigures----------------------------------
+\usepackage[figuresright]{rotating}
+\newenvironment{amssidewaysfigure}
+{\begin{sidewaysfigure}[htpb]
+        \vspace*{.5\textwidth}
+        \begin{minipage}{\textheight}\centering
+            }
+            {\end{minipage}\end{sidewaysfigure}
+}
+
+%--------Background Coloring IFDRAFT--------------------------
+\usepackage{ifdraft}
+\ifdraft{
+  \color[RGB]{63,63,63}
+  % \pagecolor[rgb]{0.5,0.5,0.5}
+  \pagecolor[RGB]{220,220,204}
+  % \color[rgb]{1,1,1}
+}
+
+
+
+
+%-------Commands--------------------------------------------
+\newcommand{\mycircled}[2][none]{%
+  \mathbin{
+    \tikz[baseline=(a.base)]\node[draw,circle,inner sep=-1.5pt, outer sep=0pt,fill=#1](a){\ensuremath #2\strut};
+  }
+}
+\newcommand{\owr}{\mycircled{\wr}}
+\newcommand{\UV}{\underline{\mathcal V}}
+
+%-------Subsection Titles out of line-----------------------
+\patchcmd{\subsection}{-.5em}{.5em}{}{}
+
+% -------Table of Contents------------------------------
+\makeatletter
+%Table of Contents
+\setcounter{tocdepth}{3}
+
+% Add bold to \section titles in ToC and remove . after numbers
+\renewcommand{\tocsection}[3]{%
+  \indentlabel{\@ifnotempty{#2}{\bfseries\ignorespaces#1 #2\quad}}\bfseries#3}
+% Remove . after numbers in \subsection
+\renewcommand{\tocsubsection}[3]{%
+  \indentlabel{\@ifnotempty{#2}{\ignorespaces#1 #2\quad}}#3}
+%\let\tocsubsubsection\tocsubsection% Update for \subsubsection
+%...
+
+\newcommand\@dotsep{4.5}
+\def\@tocline#1#2#3#4#5#6#7{\relax
+  \ifnum #1>\c@tocdepth % then omit
+  \else
+    \par \addpenalty\@secpenalty\addvspace{#2}%
+    \begingroup \hyphenpenalty\@M
+    \@ifempty{#4}{%
+      \@tempdima\csname r@tocindent\number#1\endcsname\relax
+    }{%
+      \@tempdima#4\relax
+    }%
+    \parindent\z@ \leftskip#3\relax \advance\leftskip\@tempdima\relax
+    \rightskip\@pnumwidth plus1em \parfillskip-\@pnumwidth
+    #5\leavevmode\hskip-\@tempdima{#6}\nobreak
+    \leaders\hbox{$\m@th\mkern \@dotsep mu\hbox{.}\mkern \@dotsep mu$}\hfill
+    \nobreak
+    \hbox to\@pnumwidth{\@tocpagenum{\ifnum#1=1\bfseries\fi#7}}\par% <-- \bfseries for \section page
+    \nobreak
+    \endgroup
+  \fi}
+\AtBeginDocument{%
+\expandafter\renewcommand\csname r@tocindent0\endcsname{0pt}
+}
+\def\l@subsection{\@tocline{2}{0pt}{2.5pc}{5pc}{}}
+\makeatother
+
+
+%------Personal Info------------------------------------
+\title{Composition Product Stuff}%
+
+\author{}
+\address{}
+
+\date{\today}
+
+\message{ !name(comp_prod.tex) !offset(3800) }
+
+\end{document}
