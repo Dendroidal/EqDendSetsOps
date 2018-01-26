@@ -7,13 +7,13 @@
 \hypersetup{
   % colorlinks,
   final,
-  pdftitle={Equivariant Dendroidal Segal Spaces},
+  pdftitle={Coloured genuine operads},
   pdfauthor={Bonventre, P. and Pereira, L. A.},
   % pdfsubject={Your subject here},
   % pdfkeywords={keyword1, keyword2},
   linktoc=page
 }
-% \usepackage[open=false]{bookmark}
+\usepackage[open=false]{bookmark}
 
 \input{commands.tex}%
 
@@ -61,11 +61,6 @@
 \usepackage[obeyDraft]{todonotes}
 
 
-% -------- Referenece Numbering
-\numberwithin{equation}{section}%
-\numberwithin{figure}{section} 
-
-
 % ----- What Labels Changed? --------------------------------
 \makeatletter
 
@@ -87,58 +82,8 @@
 }
 \newcommand{\owr}{\mycircled{\wr}}
 \newcommand{\UV}{\underline{\mathcal V}}
-
-
-%%%%%%%%%%%%%%% AMSART FIXES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% -------Subsection Titles out of line for AMSART -----------------------
-\usepackage{etoolbox}
-\patchcmd{\subsection}{-.5em}{.5em}{}{}
-
-% -------Table of Contents for AMSART ------------------------------
-\makeatletter
-% Table of Contents
-\setcounter{tocdepth}{2}
-
-
-% Add bold to \section titles in ToC and remove . after numbers
-\renewcommand{\tocsection}[3]{%
-  \indentlabel{\@ifnotempty{#2}{\bfseries\ignorespaces#1 #2\quad}}\bfseries#3}
-% Remove . after numbers in \subsection
-\renewcommand{\tocsubsection}[3]{%
-  \indentlabel{\@ifnotempty{#2}{\ignorespaces#1 #2\quad}}#3}
-% \let\tocsubsubsection\tocsubsection% Update for \subsubsection
-% ...
-
-\newcommand\@dotsep{4.5}
-\def\@tocline#1#2#3#4#5#6#7{\relax
-  \ifnum #1>\c@tocdepth % then omit
-  \else
-  \par \addpenalty\@secpenalty\addvspace{#2}%
-  \begingroup \hyphenpenalty\@M
-  \@ifempty{#4}{%
-    \@tempdima\csname r@tocindent\number#1\endcsname\relax
-  }{%
-    \@tempdima#4\relax
-  }%
-  \parindent\z@ \leftskip#3\relax \advance\leftskip\@tempdima\relax
-  \rightskip\@pnumwidth plus1em \parfillskip-\@pnumwidth
-  #5\leavevmode\hskip-\@tempdima{#6}\nobreak
-  \leaders\hbox{$\m@th\mkern \@dotsep mu\hbox{.}\mkern \@dotsep mu$}\hfill
-  \nobreak
-  \hbox to\@pnumwidth{\@tocpagenum{\ifnum#1=1\bfseries\fi#7}}\par% <-- \bfseries for \section page
-  \nobreak
-  \endgroup
-  \fi}
-\AtBeginDocument{%
-  \expandafter\renewcommand\csname r@tocindent0\endcsname{0pt}
-}
-\def\l@subsection{\@tocline{2}{0pt}{2.5pc}{5pc}{}}
-
-%% add spacing between section names
-\pretocmd{\section}{\addtocontents{toc}{\protect\addvspace{5\p@}}}{}{}
-
-\makeatother
+\renewcommand{\phi}{\varphi}
+\newcommand{\UC}{\underline{\mathfrak C}}
 
 
 
@@ -303,6 +248,7 @@ Fix a closed symmetric monoidal category $\V$.
       We note that $\mathrm{Ob}(\mathfrak C \Sigma)$ is precisely the set of \textit{signatures} in $\mathfrak C$.
       Further, we observe that this is equivalent to the pullback
       \begin{equation}
+            \label{CSIGMA_EQ}
             \begin{tikzcd}
                   \mathfrak C \Sigma \arrow[d] \arrow[r, "E"]
                   &
@@ -314,11 +260,13 @@ Fix a closed symmetric monoidal category $\V$.
             \end{tikzcd}
       \end{equation}
       where $E: \Omega \to \mathsf F$ sends a tree to its set of edges.
+      \todo[inline]{$B_{\mathfrak C}G = G \ltimes \mathfrak C$}
       
       More generally, let $\mathfrak C \Omega$ be the pullback
       \begin{equation}
+            \label{COMEGA_EQ}
             \begin{tikzcd}
-                  \mathfrak C \Sigma \arrow[d] \arrow[r, "E"]
+                  \mathfrak C \Omega \arrow[d] \arrow[r, "E"]
                   &
                   \mathsf F \wr B_{\mathfrak C}G \arrow[d]
                   \\
@@ -370,7 +318,31 @@ Fix a closed symmetric monoidal category $\V$.
                   \Fun(E(T), \mathfrak C).
             \end{tikzcd}
       \end{equation}
+      \todo[inline]{compare with genuine case: RHS equals $\Fun(\Phi(E(T)), \mathfrak C) = \Fun(\Phi(E(G \cdot T)), \mathfrak C))$}
       and a similar result holds for $\mathfrak C \Sigma$. 
+\end{remark}
+
+\begin{remark}
+      Note that we can replace the $G$-set $\mathfrak C$ with a \textit{coefficient system} $\underline{\mathfrak C}$,
+      substituting the rectangle of pullbacks below for \eqref{COMEGA_EQ}
+      \begin{equation}
+            \begin{tikzcd}
+                  \underline{\mathfrak C}\Omega \arrow[d] \arrow[r, "E"]
+                  &
+                  \mathsf F \wr B_{\mathfrak C(G/e)}G \arrow[r] \arrow[d]
+                  &
+                  \mathsf F \wr \underline{\mathfrak C} \arrow[d]
+                  \\
+                  \Omega \times G \arrow[r, "E"]
+                  &
+                  \mathsf F \wr G \arrow[r]
+                  &
+                  \mathsf F \wr O_G
+            \end{tikzcd}
+      \end{equation}
+      with $\mathfrak C(G/e) \into \underline{\mathfrak C}$ and $G \into O_G$ the natural inclusions.
+      \todo[inline]{compare $B_{\mathfrak C(G/e)}G = G \ltimes \mathfrak C(G/e)$ and $\underline{\mathfrak C} = O_G \ltimes \underline{\mathfrak C}$.}
+      In this case, $\underline{\mathfrak C}\Omega = \mathfrak C(G/e)\Omega$.
 \end{remark}
 
 Many of the natural functors around $\Omega$ and $\Sigma$ have generalizations to the coloured setting,
@@ -502,6 +474,9 @@ $\mathfrak C \Sigma = \Sigma \times G$.
 \begin{theorem}
       For every $G$-set $\mathfrak C$, $\mathbb F^{\mathfrak C}$ is a monad, with category of algebras given by $\Op^{G,\mathfrak C}(\V)$. 
 \end{theorem}
+\begin{proof}
+      \todo[inline]{This will be a corollary of Genuine Coloured stuff}
+\end{proof}
 
 
 
@@ -512,17 +487,32 @@ $\mathfrak C \Sigma = \Sigma \times G$.
 
 \section{Coloured Genuine Equivariant Operads}
 
-\newcommand{\CS}{\underline{\mathfrak C} \Sigma_G}
-\newcommand{\CO}{\underline{\mathfrak C} \Omega_G}
-
 Throughout this section, we will abuse notation, and refer to
 a coefficient system and its associated (Grothendieck) category over $O_G$ by the same name.
 
+Idea: we have a \textit{coefficient system} $\UC$ of colours, and
+a \textit{signature} will consist of a tuple $\ksi = (x_1, \dots, x_n;x_0)$
+with $x_i \in \mathfrak C(G/H_i)$ for subgroups $H_i \leq H_0 \leq G$.
+
+\subsection{Coloured $G$-Trees}
+
+\newcommand{\CS}{\underline{\mathfrak C} \Sigma_G}
+\newcommand{\CO}{\underline{\mathfrak C} \Omega_G}
+
+
 \begin{definition}
-      Let $\underline{\mathfrak C}$ be a coefficient system of sets.
-      Then the category $\underline{\mathfrak C}\Omega_G$ of \textit{$\underline{\mathfrak C}$-coloured trees}
+      The \textit{edge orbit} functor $E_G: \Omega_G \to \mathsf F \wr O_G$ sends a $G$-tree $T$ to the tuple $(E_G(T), (G/G_e)_{Ge \in E_G(T)})$
+      with $G_e$ denoting $\mathrm{Stab}_G(e)$, and
+      where we have canonical representatives for elements in $E_G(T)$ by choosing
+      $e \in Ge$ minimal with respect to the planar structure on $T$.
+\end{definition}
+
+\begin{definition}
+      Let $\underline{\mathfrak C}$ be a $G$-coefficient system of sets.
+      Then the category $\underline{\mathfrak C}\Omega_G$ of \textit{$\underline{\mathfrak C}$-coloured $G$-trees}
       is defined to be the pullback below.
       \begin{equation}
+            \label{COMEGA_G_EQ}
             \begin{tikzcd}
                   \CO \arrow[d] \arrow[r]
                   &
@@ -537,36 +527,73 @@ a coefficient system and its associated (Grothendieck) category over $O_G$ by th
       with $\Omega_G$ replaced with $\Sigma_G$.
 \end{definition}
 
+
+Explicitly, objects of $\CO$ are pairs $(T, \mathfrak c)$ of
+a $G$-tree $T$ and
+a map $\mathfrak c: E_G(T) \to \underline{\mathfrak C}$ over $O_G$.
+That is, each orbit of edges $Ge$ (with $e$ minimal)
+is assigned a ``colour'' $\mathfrak c(Ge) \in \underline{\mathfrak C}(G/G_{e})$.
+Morphisms $(T, \mathfrak c) \to (S, \mathfrak d)$
+are given by maps of trees $\phi: T \to S$ such that, for every edge orbit $Ge$ of $T$, we have
+\begin{equation}
+      \mathfrak c(Ge) = \phi_{e}^{\**}g_e^{\**}\mathfrak d(Gf),
+\end{equation}
+where $\phi_{e}: G / G_{e} \to G / G_{\phi(e)}$ is the map in $O_G$ induced by $\phi$,
+and $\phi(e) = g_e f$ for $f \in Gf \in E_G(S)$ minimal; as $g_e$ is unique modulo $G_f$, $g_e^{\**}$ is well-defined.
+
+
 \begin{remark}
-      Consider the Grothendieck construction on the functor
-      \begin{equation}
-            \begin{tikzcd}[row sep = tiny]
-                  \mathsf F^{G,op} \arrow[r]
-                  &
-                  \mathsf{Set}
-                  \\
-                  A \arrow[r, mapsto]
-                  &
-                  \Set^{O_G^{op}}(\Phi(A), \underline{\mathfrak C}),
-            \end{tikzcd}
-      \end{equation}
-      where $\Phi: \Set^G \to \Set^{O_G^{op}}$ sends a $G$-set $X$ to its fixed-point system $G/H \mapsto X^H$.
-      We will denote this by $\mathsf F^G \wr \underline{\mathfrak C}$.
-      Then $\CO$ is also isomorphic to the pullback
-      \begin{equation}
-            \begin{tikzcd}
-                  \CO \arrow[d] \arrow[r]
-                  &
-                  \mathsf F^G \wr \underline{\mathfrak C} \arrow[d]
-                  \\
-                  \Omega_G \arrow[r, "E"]
-                  &
-                  \mathsf F^G.
-            \end{tikzcd}
-      \end{equation}
-      We note that the class of morphisms in $\mathsf F^G$ in the image of $E$ are those isomorphic to an adjunction counit $G \cdot_H A|_H \to A$.
+      { \color{blue} % -------------------- ALTERNATIVELY: ----------------------------------------
+        Alternatively,
+        consider the Grothendieck construction on the functor
+        \begin{equation}
+              \begin{tikzcd}[row sep = tiny]
+                    \mathsf F^{G,op} \arrow[r]
+                    &
+                    \mathsf{Set}
+                    \\
+                    A \arrow[r, mapsto]
+                    &
+                    \Set^{O_G^{op}}(\Phi(A), \underline{\mathfrak C}),
+              \end{tikzcd}
+        \end{equation}
+        where $\Phi: \Set^G \to \Set^{O_G^{op}}$ sends a $G$-set $X$ to its fixed-point system $G/H \mapsto X^H$.
+        We will denote this by $\mathsf F^G \wr \underline{\mathfrak C}$.
+        Then $\CO$ is also isomorphic to the pullback
+        \begin{equation}
+              \begin{tikzcd}
+                    \CO \arrow[d] \arrow[r]
+                    &
+                    \mathsf F^G \wr \underline{\mathfrak C} \arrow[d]
+                    \\
+                    \Omega_G \arrow[r, "E"]
+                    &
+                    \mathsf F^G.
+              \end{tikzcd}
+        \end{equation}
+        \todo[inline]{We note that the class of morphisms in $\mathsf F^G$ in the image of $E$ (restricted to $\Omega_G^0$)
+          are those isomorphic to an adjunction counit $G \cdot_H A|_H \to A$.}
+        In this case, a colouring is a map $\mathfrak c: \Phi E(T) \to \mathfrak C$ of coefficient systems,
+        and morphisms are maps $\phi: T \to S$ such that
+        $\mathfrak c(G/H,e) = \mathfrak d(G/H,e)$ for all $e \in E(T)^H$.
+        \begin{equation}
+              \begin{tikzcd}
+                    \Phi A \arrow[rr, "f"] \arrow[dr, "\mathfrak c"']
+                    &&
+                    \Phi B \arrow[dl, "\mathfrak d"]
+                    \\
+                    &
+                    \underline{\mathfrak C}
+              \end{tikzcd}
+        \end{equation}
+        It is easy to show this is equivalent to requiring that
+        $\mathfrak c(G/G_e,e) = \phi_e^{\**} \mathfrak d(G/G_{\phi(e)}, \phi(e))$.
+      }
+      %%%%%%%%%%%%% COLOR: BLUE ----------------------------------------
+      \todo[inline]{figure out whether first or ``alternatively'' is more useful as the chosen construction}
+
       
-      Equivalently, $\underline{\mathfrak C}\Omega_G$ is isomorphic to the Grothendieck construction on the functor
+      Similarly, $\underline{\mathfrak C}\Omega_G$ is isomorphic to the Grothendieck construction on the functor
       \begin{equation}
             \begin{tikzcd}[row sep = tiny]
                   \Omega_G^{op} \arrow[r]
@@ -576,25 +603,505 @@ a coefficient system and its associated (Grothendieck) category over $O_G$ by th
                   T \arrow[r, mapsto]
                   &
                   \Set^{O_G^{op}}(\Phi(E(T)), \underline{\mathfrak C}),
-              \end{tikzcd}
-        \end{equation}
-
-        $\CS$ can be defined similarly, with the relevant sources restricted to
-        $\Sigma_G \subseteq \Omega_G$. 
+            \end{tikzcd}
+      \end{equation}
+      
+      $\CS$ can be defined similarly, with the relevant sources restricted to
+      $\Sigma_G \subseteq \Omega_G$. 
 \end{remark}
 
-Objects of $\CO$ are pairs $(T, \mathfrak c)$ of a $G$-tree $T$ with a map $\mathfrak c: E_G(T) \to \underline{\mathfrak C}$ over $O_G$.
-That is, each orbit of edges $[e]$ is assigned a ``colour'' $\mathfrak c([e]) \in \underline{\mathfrak C}(G/G_{[e]})$,
-where $G_{[e]}$ is the stabilizer in $G$ of $e$.
-Morphisms $(T, \mathfrak c) \to (S, \mathfrak d)$
-are given by quotients of trees $q: S \to T$ such that, for every edge orbit $[e]$ of $S$, we have
+
+\begin{remark}
+      $\underline{\mathfrak C}\Omega_G$ is also a root fibration ---
+      that is, a split Grothendieck fibration over the orbit category.
+      \todo[inline]{cite reading material}
+      Formally, as $\mathsf F \wr (-)$ and pullbacks preserve such fibrations, and these are compatible under composition,
+      this follows from the natural maps $\underline{\mathfrak C}\Omega_G \to \Omega_G \to O_G$.
+      Explicitly, $\underline{\mathfrak C}\Omega_G(G/H)$ has as objects those pairs $(T,\mathfrak c)$ such that
+      $T \simeq G \cdot_H T_*$ for $T_{\**} \in \Omega^H$.
+      % In this case, we have a canonical isomorphism
+      % $E_H(T_{\**}) \to E_G(T) \simeq E_H(T_{\**})$, and we have a natural factorization
+      % \begin{equation}
+      %       \begin{tikzcd}
+      %             E_G(T) \simeq E_H(T_{\**}) \arrow[r, "\mathfrak c"] \arrow[dr]
+      %             &
+      %             \mathfrak C|_{H} \arrow[r, hookrightarrow] \arrow[d]
+      %             &
+      %             \mathfrak C \arrow[d]
+      %             \\
+      %             &
+      %             O_H \arrow[r, hookrightarrow]
+      %             &
+      %             O_G.
+      %       \end{tikzcd}
+      % \end{equation}
+      Maps $\phi:(T,\mathfrak c) \to (S, \mathfrak d)$ in each fiber are called \textit{root-fixed}:
+      as maps in $\Omega_G$, they are \textit{rooted} ($G r_T \to G r_S$ is a planar isomorphism),
+      and moreover $\mathfrak c(Gr_T) = \mathfrak d(G r_S)$.
+      
+      Given $q: G/H \to G/K$ in the orbit category,
+      the chosen Cartesian maps are the induced root pullback maps $q: q^{\**}T \to T$ on $G$-trees,
+      with the colouring of $q^{\**}T$ defined as follows:
+      for $b\in E(q^{\**}T)$, minimal in it's $G$-orbit, we have $q(b) = g a$ for some $g \in G$ and $a \in E(T)$ minimal in its orbit.
+      Moreover, as this $g$ is unique modulo $G_a$, we have that there is a well-defined map $g_*: G/G_{q(b)} \to G/G_a$,
+      and as $q$ induces a unique map $q_b^{\**}: G/G_b \to G/G_{q(b)}$, we have
+      \begin{equation}
+            (q^{\**}\mathfrak c)([b]) q^{\**}g^{\**}\mathfrak c([a]).
+      \end{equation}
+
+      {\color{blue} % ---------- ALTERNATIVELY --------------------
+        Alternatively, on $\Phi E(q^{\**} T)$, we have
+        $(q^{\**}\mathfrak c)(G/H, b) = q_b^{\**}(\mathfrak c(G/H, q(b)))$.
+      } % --------------------------------------------------
+\end{remark}
+
+\begin{remark}
+      We note that any \textit{planar} map of coloured $G$-trees is always \textit{colour-fixed}, in that
+      $\mathfrak c(Ge) = \mathfrak d(G \phi (e))$ for all $Ge \in E_G(T)$.
+\end{remark}
+
+\begin{remark}
+      A \textit{quotient} map in $\UC \Omega_G$ is any morphism such that the underlying map in $\Omega_G$ is a quotient.
+\end{remark}
+
+% \begin{remark}
+%       Replacing the bottom-left corner in \eqref{COMEGA_G_EQ} with $\Omega^G$ changes the pullback to the category
+%       $\underline{\mathfrak C}\Omega^G$ of ``$\underline{\mathfrak C}$-coloured trees with $G$-action''.
+%       \todo[inline]{leaf-root for later?}
+%       Any coloured $G$-tree $(T, \mathfrak c)$ with $T = (T_a)_{a \in A}$ has that each $T_a$ is a
+%       ``$\underline{\mathfrak C|_{G_a}}$-coloured tree with $G_a$-action.''
+% \end{remark}
+
+We have natural inclusions on the left
 \begin{equation}
-      \mathfrak c([e]) = q_{[e]}^{\**}\mathfrak d([q(e)]),
+      \begin{tikzcd}
+            \underline{\mathfrak C}\Sigma \arrow[d, "\iota"] \arrow[r]
+            &
+            \underline{\mathfrak C}\Omega \arrow[d]
+            &&
+            \Sigma \times G \arrow[d] \arrow[r]
+            &
+            \Omega \times G \arrow[d]
+            \\
+            \underline{\mathfrak C}\Sigma_G \arrow[r]
+            &
+            \underline{\mathfrak C}\Omega_G
+            &&
+            \Sigma_G \arrow[r]
+            &
+            \Omega_G
+      \end{tikzcd}
 \end{equation}
-where $q_{[e]}: G / G_{[e]} \to G / G_{[q(e)]}$ is the map in $O_G$ induced by $q$.
+which forget to the uncoloured inclusions on the right.
+Specifically, $U \mapsto G \cdot U$ and, as $E_G(G \cdot U) = E(U)$, the associated colouring map is simply $\mathfrak c$ again.
+On morphisms, $(\phi,g)$ maps to $(\phi)_{G} \circ g$.
+
+\subsection{Planar Strings and Stuff}
+
+\todo[inline]{Need to strike a balance between what to show explicitly, and what to just state.
+  \S 3.4 and \S 4 from \cite{BP17} extend almost formally, though phrasing it as such...
+
+  We still have natural span $\UC\Sigma_G \leftarrow \UC\Omega_G^0 \to \mathsf F_s \wr \UC\Sigma_G$, such that
+  the left arrow is a map of rooted fibrations.
+  This, plus whats already in \S 3.4 and \S 4, may be enough to just formally push through.}
+
+Generalizing \cite[Remark 3.78]{BP17}
+\todo[inline]{otherwise, have to force on the non-equivariant trees the correct isotropy of their colours. If not, we just see $\Phi\mathfrak C(G/e)$, and not the whole coefficient system.}
+\begin{definition}
+      Given $(T,\mathfrak c) \in \underline{\mathfrak C}\Omega_G$, a
+      \textit{planar (resp. rooted) $T$-substitution datum} is a tuple
+      $((U_{v_{Ge}}, \mathfrak c_{v_{Ge}}))_{v_{Ge} \in V_G(T)}$ of $\underline{\mathfrak C}$-coloured $G$-trees along with
+      planar (resp. rooted colour-fixed) tall maps
+      $T_{v_{Ge}} \to U_{v_{Ge}}$.
+
+      A map of planar (resp. rooted) $T$-substitution data $(U_{v_{Ge}}) \to (V_{v_{Ge}})$ is a compatible tuple of planar (resp. rooted colour-fixed) tall maps $(U_{v_{Ge}} \to V_{v_{Ge}})$.
+      Let $\mathsf{Sub}_p(T)$ and $\mathsf{Sub}(T)$ denote the categories of planar (resp. rooted) $T$-substituion datum.
+\end{definition}
+
+\begin{lemma}[{cf. \cite[Prop. 3.41]{BP17}}]
+      Let $(T,\mathfrak c) \in \underline{\mathfrak C}\Omega_G$ be a $\underline{\mathfrak C}$-coloured $G$-tree.
+      There are isomorphisms of categories
+      \begin{equation}
+            \label{SUB_EQUIV_EQ}
+            \begin{tikzcd}[row sep = 4pt]
+                  \mathsf{Sub}_p(T) \arrow[r, shift left]
+                  &
+                  (T, \mathfrak c) \downarrow \underline{\mathfrak C}\Omega_G^{pt}
+                  \arrow[l, shift left]
+                  &
+                  \mathsf{Sub}(T) \arrow[r, shift left]
+                  &
+                  (T, \mathfrak c) \downarrow \underline{\mathfrak C}\Omega_G^{r}
+                  \arrow[l, shift left]                  
+                  \\
+                  (U_{v_{Ge}}) \arrow[r, mapsto]
+                  &
+                  ((T, \mathfrak c) \to \colim_{Sc_G(T)}U_{(-)}).
+                  &
+                  (U_{v_{Ge}}) \arrow[r, mapsto]
+                  &
+                  ((T, \mathfrak c) \to \colim_{Sc_G(T)}U_{(-)}).
+            \end{tikzcd}
+      \end{equation}
+      where $\underline{\mathfrak C}\Omega_G^{pt}, \underline{\mathfrak C}\Omega_G^{r}$ are the categories of planar tall (resp. rooted) maps under $(T, \mathfrak c)$. 
+\end{lemma}
+\begin{proof}
+      This follows as in \cite[Prop. 3.41]{BP17}, going by induction on $n=|V_G(T)|$.
+      Let $(U_T,\mathfrak c_{U_T})$ denote the colimit, if it exists.
+      If $n$ is 0 or 1, $T$ is terminal in $Sc_G(T)$, and the colouring $\mathfrak c_{U_T}$ is just $\mathfrak c$.
+      Otherwise, we have a decomposition $T = R \amalg_{Ge} S$ with
+      the planar ordering on $Ge$ in $R$, $S$, and $T$ the same,
+      $E_G(T) = E_G(R) \amalg_{Ge} E_G(S)$
+      $\mathfrak c_{R} = \mathfrak c|_{E_G(R)}$,
+      $\mathfrak c_{S} = \mathfrak c|_{E_G(S)}$,
+      such that
+      the existance of $U_T$ and $\mathfrak c_{U_T}$ follow from the existance of the pushout below in $\underline{\mathfrak C}\Omega_G^{pt,cf}$.
+      \begin{equation}
+            \begin{tikzcd}
+                  (\eta_{Ge}, \mathfrak c) \arrow[d] \arrow[r]
+                  &
+                  (U_S, \mathfrak c_{U_S}) \arrow[d, dashed]
+                  \\
+                  (U_R, \mathfrak c_{U_R}) \arrow[r, dashed]
+                  &
+                  (U_T, \mathfrak c_{U_T})
+            \end{tikzcd}
+      \end{equation}
+      By induction, $U_S$, $U_R$, $\mathfrak c_{U_S}$, $\mathfrak c_{U_R}$ exist
+      (with unique choices such that $(U_{v_{Ge}}, \mathfrak c_{U_{v_{Ge}}}) \into(U_R, \mathfrak c_{U_R})$ is planar [and colour-fixed]).
+      Forgetting colours, this is an equivariant grafting diagram, and hence the $G$-tree $U_T$ exists.
+      Moreover, we have $E_G(U_T) = E_G(U_S) \amalg_{Ge} E_G(U_R)$, and so we have a well-defined colouring
+      \begin{equation}
+            \mathfrak c_{U_T}(Gf) =
+            \begin{cases}
+                  \mathfrak c_{U_R}(Gf) \qquad \qquad & Gf \in E_G(R) \\
+                  \mathfrak c_{U_S}(Gf) & Gf \in E_G(S)
+            \end{cases}
+      \end{equation}
+      since the overlap $Ge$ is in $T$, and hence it is dictated that $\mathfrak c_{U_T}(Ge) = \mathfrak c (Ge)$.
+\end{proof}
+
+\begin{lemma}[{cf. \cite[Lemma 3.63]{BP17}}]
+      $\underline{\mathfrak C}\Omega_G^0 \to \mathsf F_s \wr \underline{\mathfrak C}\Sigma_G$
+      sends root pullbacks to pullbacks over $\mathsf F_s \wr O_G$.
+\end{lemma}
+\begin{proof}
+      Exactly as in \textit{loc cite}, with the additional note that
+      the colouring of $\psi^{\**}T$ is precisely such that each $(\psi^{\**}T)_{v_{Ge}} \to T_{v_{G\phi(e)}}$
+      is a pullback in $\UC \Sigma_G$.
+\end{proof}
+
+\begin{definition}
+      The category $\UC\Omega_G^n$ of \textit{coloured planar $n$-strings} is the category
+      whoses objects are strings
+      \begin{equation}
+            (T_0,\mathfrak c_0)
+            \xrightarrow{\phi_1} (T_1, \mathfrak c_1)
+            \xrightarrow{\phi_2} \ldots
+            \xrightarrow{\phi_n} (T_n, \mathfrak c_n)
+      \end{equation}
+      where $(T_i, \mathfrak c_i) \in \UC\Omega_G$ and the $\phi_i$ are all coloured planar tall maps,
+      while arrows are commutative diagrams of quotient maps.
+\end{definition}
+
+\begin{remark}
+      We observe
+      \begin{enumerate}
+      \item $\UC\Omega_G^\bullet \to \UC\Sigma_G$ is an augmented simplicial object in categories.
+      \item $\UC\Omega_G^n \to O_G$ is a root fibration.
+      \item We have a vertex functor $V_G: \UC\Omega_G^{n+1} \to \mathsf F_s \wr \UC\Omega_G^n$ by
+            \begin{equation}
+                  \large(
+                  (T_0,\mathfrak c_0)
+                  \to (T_1, \mathfrak c_1)
+                  \to \dots
+                  \to (T_n, \mathfrak c_n)
+                  \large)
+                  \mapsto
+                  \large(
+                  (T_{1,v_{Ge}},\mathfrak c_1)
+                  \to \dots \to
+                  (T_{n,v_{Ge}}, \mathfrak c_n)
+                  \large)_{v_{Ge} \in V_G(T_0)}
+            \end{equation}
+            where we write abusively denote by $T_{i,v_{Ge}}$ the $G$-tree $(T_{i,\bar\phi_i(f)^\uparrow \leq \bar\phi_i(f)})_{f \in Ge}$
+            and by $\mathfrak c_i$ the restriction to any of its sub-$G$-trees.
+
+            Alternatively, regarding the source above as a string of $n-1$ arrows in
+            $(T_0, \mathfrak c_0) \downarrow \UC\Omega_G^{pt}$,
+            the image under $V_G$ can be recognized as the inverse image under \eqref{SUB_EQUIV_EQ}.
+      \end{enumerate}
+\end{remark}
+
+\begin{proposition}[{cf. \cite[Prop 3.82]{BP17}}]
+      For any $n \geq 0$, the commutative diagram
+      \begin{equation}
+            \begin{tikzcd}
+                  \UC\Omega_G^n \arrow[d, "d_{1,\dots,n}"'] \arrow[r, "V_G"]
+                  &
+                  \mathsf F_s \wr \UC\Omega_G^{n-1} \arrow[d, "\mathsf F \wr d_{0,\dots,n-1}"]
+                  \\
+                  \UC\Omega_G^0 \arrow[r, "V_G"']
+                  &
+                  \mathsf F_s \wr \UC\Sigma_G
+            \end{tikzcd}
+      \end{equation}
+      is a pullback diagram in $\Cat$.
+\end{proposition}
+\begin{proof}
+      \todo[inline]{come back - how much do I need?}
+      % This follows as in \textit{loc cite}, as the colourings descend to all sub-$G$-trees. 
+\end{proof}
+
+\begin{proposition}
+      [{cf. \cite[Lemma 4.28]{BP17}}]
+      $N_{\mathfrak C}$ on spans preserves right Kan extensions over $\mathsf F \wr \mathcal A \downarrow \mathsf F \wr \UC\Sigma_G$.
+\end{proposition}
+\begin{proof}
+      Stuff
+      \todo[inline]{come back - how much do I need?}
+\end{proof}
+
+Similarly, \cite[Prop 3.47, 3.90, 4.12, 4.15, 4.26, 4.30]{BP17} naturally generalized to the coloured-setting,
+replacing all instances of $\Omega_G^n$ or $\Sigma_G$ with $\UC\Omega_G^n$ and $\UC\Sigma_G$.
+In particular, this yields the following definitions and proposition.
+\begin{definition}[{cf. \cite[Defn 4.3]{BP17}}]
+      Let $\mathsf{WSpan}^l(\mathcal C, \mathcal D)$ (resp. $\mathsf{WSpan}^r(\mathcal C, \mathcal D)$)
+      denote the category of \textit{left (resp. right) weak spans}, with objects
+      \begin{equation}
+            \mathcal C \xleftarrow{k} \mathcal A \xrightarrow{X} \mathcal D
+      \end{equation}
+      and arrows those diagrams as on the left (resp. right) below
+      \begin{equation}
+            \begin{tikzcd}[row sep = tiny]
+                  & \mathcal A_1 \arrow[dr, "X_1", ""'{name=U}] \arrow[dl, "k_1"'] \arrow[dd, "i"']
+                  &
+                  &&
+                  &
+                  \mathcal A_1 \arrow[dr, "X_1", ""'{name=A}] \arrow[dl, "k_1"'] \arrow[dd, "i"']
+                  \\
+                  \mathcal C
+                  &&
+                  \mathcal D
+                  &&
+                  \mathcal C
+                  &&
+                  \mathcal D
+                  \\
+                  & |[alias=V]| \mathcal A_2 \arrow[ur, "X_2"'] \arrow[ul, "k_2"]
+                  &
+                  &&
+                  &
+                  |[alias=B]| \mathcal A_2 \arrow[ur, "X_2"'] \arrow[ul, "k_2"]
+                  \arrow[Rightarrow, from = U, to = V]
+                  \arrow[Rightarrow, from = A, to = B]
+            \end{tikzcd}
+      \end{equation}
+      denoted by $(i,\phi): (k_1,X_1) \to (k_2,X_2)$, with composition defined in the natural way.      
+\end{definition}
+
+\todo[inline]{recall adjunctions with $\Lan$ and $\Ran$, canonical op-isos, etc}
+
+\begin{definition}[{cf. \cite[Defn 4.16]{BP17}}]
+      Suppose $\V$ is a symmetric monoidal category with diagonals \todo{recall}.
+      We define an endofunctor $N_{\UC}$ on $\mathsf{WSpan}^r(\UC\Sigma_G, \V^{op})$
+      by letting $N_{\UC}(\UC\Sigma_G \leftarrow \mathcal A \to \V^{op})$ be given by the span
+      \begin{equation}
+            \begin{tikzcd}
+                  \UC\Omega_G^0 \wr \mathcal A \arrow[d] \arrow[r, "V_G"]
+                  &
+                  \mathsf F \wr \mathcal A \arrow[d] \arrow[r]
+                  &
+                  \mathsf F \wr \V^{op} \arrow[r, "\otimes^{op}"]
+                  &
+                  \V^{op}
+                  \\
+                  \UC\Omega_G^0 \arrow[r, "V_G"'] \arrow[d]
+                  &
+                  \mathsf F \wr \UC\Sigma_G
+                  \\
+                  \UC\Sigma_G
+            \end{tikzcd}
+      \end{equation}
+      where the given square is a pullback, and on arrows in the natural way.
+
+      Moreover, we have a multiplication $\mu: N_{\UC} \circ N_{\UC} \Rightarrow N_{\UC}$ given by the natural isomorphism
+      \begin{equation}\label{MULTDEFSPAN EQ}
+            \begin{tikzcd}
+                  \UC\Sigma_G \ar[equal]{d}&
+                  \UC\Omega_{G}^1 \wr A \ar{r}{V_G} \ar{d}[swap]{d_{0}} \ar{l}&
+                  \Fin \wr \UC\Omega_{G}^0 \wr A \ar{r}{\Fin \wr V_G} &
+                  |[alias=FFOmega]| \Fin^{\wr 2} \wr A \ar{d}{\sigma^0} \ar{r} &
+                  \Fin^{\wr 2} \wr \mathcal{V}^{op} \ar{d}{\sigma^0} \ar{r}{\otimes^{op}} &
+                  \Fin \wr \mathcal{V}^{op} \ar{r}{\otimes^{op}} &
+                  |[alias=dog]|
+                  \mathcal{V}^{op} \ar[equal]{d}
+                  \\
+                  \UC\Sigma_G &
+                  |[alias=Omega]|\UC\Omega_{G}^{0} \wr A \ar{rr}[swap]{V_G} \ar{l}&&
+                  \Fin \wr A \ar{r} &
+                  |[alias=cat]|
+                  \Fin \wr \mathcal{V}^{op} \ar{rr}[swap]{\otimes^{op}} &&
+                  \mathcal{V}^{op}
+                  \arrow[Leftrightarrow, from=FFOmega, to=Omega,shorten <=0.15cm,,shorten >=0.15cm,"\pi_0"]
+                  \arrow[Leftrightarrow, from=dog, to=cat,shorten <=0.15cm,,shorten >=0.15cm,"\alpha"]
+            \end{tikzcd}
+      \end{equation}
+      and a unit $\eta: id \Rightarrow N_{\UC}$ give by the strictly commuting diagram
+      \begin{equation}\label{UNITSPAN EQ}
+            \begin{tikzcd}
+                  \UC\Sigma_G \ar[equal]{d} &
+                  A \ar{l} \ar{d}[swap]{s_{-1}} \ar[equal]{r} &
+                  A \ar{d}{\delta^0} \ar{r} &
+                  \mathcal{V}^{op} \ar{d}{\delta^0} \ar[equal]{r}&
+                  \mathcal{V}^{op} \ar[equal]{d}
+                  \\
+                  \UC\Sigma_G &
+                  \UC\Omega_{G}^{0} \wr A \ar{l} \ar{r}[swap]{V_G}&
+                  \Fin \wr A \ar{r} &
+                  \Fin \wr \mathcal{V}^{op} \ar{r}[swap]{\otimes^{op}} &
+                  \mathcal{V}^{op}.
+            \end{tikzcd}
+      \end{equation}	
+\end{definition}
+
+\begin{proposition}
+      [{cf. \cite[Prop 4.19]{BP17}}]
+      $(N_{\UC},\mu,\eta)$ is a monad on $\mathsf{WSpan}^r(\UC\UC\Sigma_G, \V^{op})$.
+\end{proposition}
+
+
+\begin{definition}
+      The \textit{genuine $\UC$-coloured operad monad} is the monad
+      $\mathbb F_{G,\UC}$ on $\Sym_{G, \UC}(\V) = \Fun(\UC\Sigma_G^{op}, \V)$ given by
+      \begin{equation}
+            \mathbb F_{G,\UC} = \Lan \circ N_{\UC} \circ \iota
+      \end{equation}
+      with multiplication and unit given by
+      \begin{equation}
+            \mathsf{Lan} \circ N_{\UC} \circ \iota \circ
+            \mathsf{Lan} \circ N_{\UC} \circ \iota
+            \overset{\simeq}{\Leftarrow}
+            \mathsf{Lan} \circ N_{\UC} \circ  N_{\UC} \circ \iota
+            \Rightarrow
+            \mathsf{Lan} \circ N_{\UC} \circ \iota
+      \end{equation}
+      \begin{equation}
+            id \overset{\simeq}{\Leftarrow} \mathsf{Lan} \circ \iota
+            \Rightarrow
+            \mathsf{Lan} \circ N_{\UC} \circ \iota.
+      \end{equation}
+      We will write $\Op_{G,\UC}(\V)$ for the category 
+      $\mathsf{Alg}_{\mathbb{F}_{G,\UC}}(\mathsf{Sym}_{G,\UC}(\mathcal{V}))$ of \textit{genuine $\UC$-coloured operads}.
+\end{definition}
+
+
+\subsection{Genuine $\mathfrak C$-coloured operads}
+
+
+\todo[inline]{Come back : Something about profiles.}
+\todo[inline]{come back: Combine with above}
+
+\begin{remark}
+      Given $X\in \dSet_G$ with $X(\eta_{G/H}) = \mathfrak C(G/H)$, we have that
+      $\UC\Sigma_G$ is equal to the category of \textit{profiles} $\partial\Omega[C] \to X$,
+      where $C$ ranges over all of $\Sigma_G$.
+      \todo[inline]{come back}
+\end{remark}
+
+\subsection{Comparison with $\mathfrak C$-coloured operads}
+
+Given $(T = (T_i)_I, \mathfrak c) \in \UC\Omega_G$, we define
+$\mathfrak c_i: E(T_i) \to \mathfrak C(G/e)$ by
+\begin{equation}
+      \mathfrak c_i(e) = g^{\**}q_e^{\**}(\mathfrak c[f]),
+\end{equation}
+where
+$e \in Gf$ (with $f$ minimal in the planar structure on $T$),
+$g\in G$ minimal such that $g e = f$,
+$q: G \to r(T)$ the unique quotient map preserving minimal elements,
+and $q_e:G/G_e \to G / G_{q(e)}$ the induced map.
+
+Then $(T_i, \mathfrak c_i) \in \UC\Omega$, and moreover
+$i \mapsto (T_i, \mathfrak c_i)$ yields a well-defined functor $B_{I}G \to \UC\Omega$.
+
+
+\begin{remark}
+      The colouring $\mathfrak c_i$ is \textit{almost} the composite
+      \begin{equation}
+            E(T_i) \to E_{G_i}(T_i) \xrightarrow{\simeq} E_G(T) \to \mathfrak C \to G \ltimes \mathfrak C(G/e)
+      \end{equation}
+      where $G_i$ is the stabilizer in $G$ of $T_i$, and
+      $E_{G_i}(T_i) \to E_G(T)$ is the canonical isomorphism sending
+      $e{G_i} \to Gf$
+      with $f \in Ge$ minimal.
+      However, this composite does not record the ``twisting'' action by the element $g_e$.
+\end{remark}
+
+
+With that, we have the formula
+\begin{equation}
+      \begin{tikzcd}
+            \iota_{\**}Y(T,\mathfrak c) =
+            \left(
+                  \prod_I Y(T_i, \mathfrak c_i)
+            \right)^G.
+      \end{tikzcd}
+\end{equation}
+
+\begin{remark}[{cf. \cite[Rem 4.35]{BP17}}]
+      Equivalently, the essential image of $\iota_{\**}$ are those sheaves $X \in \Sym_{G, \mathfrak C}(\V)$ such that
+      the canonical map
+      \begin{equation}
+            X(C,\mathfrak c) \xrightarrow{\simeq} X(q^{\**}(C, \mathfrak c))^\Gamma
+      \end{equation}
+      is an isomorphism, where $q: G \to r(C)$ is the unique map preserving the minimal element, and
+      $\Gamma \leq \mathsf{Aut}(q^{\**}(C,\mathfrak c))$ the subgroup preserving the quotient map $q^{\**}C \to C$
+      under precomposition.
+\end{remark}
+
+\begin{remark}
+      Alternatively, $\mathfrak c_i$ is the composite
+      \begin{equation}
+            E(T_i) \to E(T) \to \mathfrak C(G/e).
+      \end{equation}
+\end{remark}
+
+
+\todo[inline]{Come BACK}
+
+DO STUFF.
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
 
 \section{In $\mathsf{dSet_G}$}
@@ -662,7 +1169,7 @@ The above reflects the following result.
       For the reverse direction, we will follow the construction of the homotopy operad as in \cite[\S 6]{MW08},
       replacing their use of inner horn inclusions with \textit{orbital} inner $G$-horn inclusions,
       to show that any $X \in (OHI)^{\boxslash !}$ is in the image of $N$; 
-      the result will then follow from \cite[HYPER PROP]{BP_Segal}.
+      the result will then follow from \cite[HYPER PROP]{BP18}.
 
       In fact, interpreting all of their pictures are as \textit{orbital} representations of $G$-trees yields that,
       for all $C \in \Sigma_G$
@@ -673,6 +1180,12 @@ The above reflects the following result.
       \end{itemize}
       \todo[inline]{need to show naturality, check associativity of composition}
 \end{proof}
+
+
+
+\section{Algebras and Examples}
+
+\subsection{Single Coloured}
 
 
 \bibliography{biblio}{}
