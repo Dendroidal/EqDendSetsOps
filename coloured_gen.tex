@@ -490,11 +490,22 @@ $\mathfrak C \Sigma = \Sigma \times G$.
 Throughout this section, we will abuse notation, and refer to
 a coefficient system and its associated (Grothendieck) category over $O_G$ by the same name.
 
+Idea: we have a \textit{coefficient system} $\UC$ of colours, and
+a \textit{signature} will consist of a tuple $\ksi = (x_1, \dots, x_n;x_0)$
+with $x_i \in \mathfrak C(G/H_i)$ for subgroups $H_i \leq H_0 \leq G$.
+
 \subsection{Coloured $G$-Trees}
 
 \newcommand{\CS}{\underline{\mathfrak C} \Sigma_G}
 \newcommand{\CO}{\underline{\mathfrak C} \Omega_G}
 
+
+\begin{definition}
+      The \textit{edge orbit} functor $E_G: \Omega_G \to \mathsf F \wr O_G$ sends a $G$-tree $T$ to the tuple $(E_G(T), (G/G_e)_{Ge \in E_G(T)})$
+      with $G_e$ denoting $\mathrm{Stab}_G(e)$, and
+      where we have canonical representatives for elements in $E_G(T)$ by choosing
+      $e \in Ge$ minimal with respect to the planar structure on $T$.
+\end{definition}
 
 \begin{definition}
       Let $\underline{\mathfrak C}$ be a $G$-coefficient system of sets.
@@ -516,69 +527,71 @@ a coefficient system and its associated (Grothendieck) category over $O_G$ by th
       with $\Omega_G$ replaced with $\Sigma_G$.
 \end{definition}
 
-\begin{remark}
-      For $X\in \dSet_G$ with $X(\eta_{G/H}) = \mathfrak C(G/H)$, we have that
-      $\UC\Sigma_G$ is equal to the category of \textit{profiles} $\partial\Omega[C] \to X$,
-      where $C$ ranges over all of $\Sigma_G$.
-      \todo[inline]{come back}
-\end{remark}
 
 Explicitly, objects of $\CO$ are pairs $(T, \mathfrak c)$ of
 a $G$-tree $T$ and
 a map $\mathfrak c: E_G(T) \to \underline{\mathfrak C}$ over $O_G$.
-That is, each orbit of edges $[e]$ is assigned a ``colour'' $\mathfrak c([e]) \in \underline{\mathfrak C}(G/G_{[e]})$,
-where $G_{[e]}$ is the stabilizer in $G$ of $e$.
+That is, each orbit of edges $Ge$ (with $e$ minimal)
+is assigned a ``colour'' $\mathfrak c(Ge) \in \underline{\mathfrak C}(G/G_{e})$.
 Morphisms $(T, \mathfrak c) \to (S, \mathfrak d)$
-are given by maps of trees $\phi: S \to T$ such that, for every edge orbit $[e]$ of $S$, we have
+are given by maps of trees $\phi: T \to S$ such that, for every edge orbit $Ge$ of $T$, we have
 \begin{equation}
-      \mathfrak c([e]) = \phi_{[e]}^{\**}\mathfrak d([\phi(e)]),
+      \mathfrak c(Ge) = \phi_{e}^{\**}g_e^{\**}\mathfrak d(Gf),
 \end{equation}
-where $\phi_{[e]}: G / G_{[e]} \to G / G_{[\phi(e)]}$ is the map in $O_G$ induced by $\phi$.
+where $\phi_{e}: G / G_{e} \to G / G_{\phi(e)}$ is the map in $O_G$ induced by $\phi$,
+and $\phi(e) = g_e f$ for $f \in Gf \in E_G(S)$ minimal; as $g_e$ is unique modulo $G_f$, $g_e^{\**}$ is well-defined.
 
 
 \begin{remark}
-      Consider the Grothendieck construction on the functor
-      \begin{equation}
-            \begin{tikzcd}[row sep = tiny]
-                  \mathsf F^{G,op} \arrow[r]
-                  &
-                  \mathsf{Set}
-                  \\
-                  A \arrow[r, mapsto]
-                  &
-                  \Set^{O_G^{op}}(\Phi(A), \underline{\mathfrak C}),
-            \end{tikzcd}
-      \end{equation}
-      where $\Phi: \Set^G \to \Set^{O_G^{op}}$ sends a $G$-set $X$ to its fixed-point system $G/H \mapsto X^H$.
-      We will denote this by $\mathsf F^G \wr \underline{\mathfrak C}$.
-      Then $\CO$ is also isomorphic to the pullback
-      \begin{equation}
-            \begin{tikzcd}
-                  \CO \arrow[d] \arrow[r]
-                  &
-                  \mathsf F^G \wr \underline{\mathfrak C} \arrow[d]
-                  \\
-                  \Omega_G \arrow[r, "E"]
-                  &
-                  \mathsf F^G.
-            \end{tikzcd}
-      \end{equation}
-      \todo[inline]{We note that the class of morphisms in $\mathsf F^G$ in the image of $E$ (restricted to $\Omega_G^0$)
-        are those isomorphic to an adjunction counit $G \cdot_H A|_H \to A$.}
-      In this case, a colouring is a map $\mathfrak c: \Phi E(T) \to \mathfrak C$ of coefficient systems,
-      and morphisms are maps $\phi: T \to S$ such that
-      $\mathfrak c(G/H,e) = \mathfrak d(G/H,e)$ for all $e \in E(T)^H$.
-      \begin{equation}
-            \begin{tikzcd}
-                  \Phi A \arrow[rr, "f"] \arrow[dr, "\mathfrak c"']
-                  &&
-                  \Phi B \arrow[dl, "\mathfrak d"]
-                  \\
-                  &
-                  \underline{\mathfrak C}
-            \end{tikzcd}
-      \end{equation}
-      It is easy to show this is equivalent to requiring that $\mathfrak c(G/G_e,e) = \phi_e^{\**} \mathfrak d(G/G_{\phi(e)}, \phi(e))$).
+      { \color{blue} % -------------------- ALTERNATIVELY: ----------------------------------------
+        Alternatively,
+        consider the Grothendieck construction on the functor
+        \begin{equation}
+              \begin{tikzcd}[row sep = tiny]
+                    \mathsf F^{G,op} \arrow[r]
+                    &
+                    \mathsf{Set}
+                    \\
+                    A \arrow[r, mapsto]
+                    &
+                    \Set^{O_G^{op}}(\Phi(A), \underline{\mathfrak C}),
+              \end{tikzcd}
+        \end{equation}
+        where $\Phi: \Set^G \to \Set^{O_G^{op}}$ sends a $G$-set $X$ to its fixed-point system $G/H \mapsto X^H$.
+        We will denote this by $\mathsf F^G \wr \underline{\mathfrak C}$.
+        Then $\CO$ is also isomorphic to the pullback
+        \begin{equation}
+              \begin{tikzcd}
+                    \CO \arrow[d] \arrow[r]
+                    &
+                    \mathsf F^G \wr \underline{\mathfrak C} \arrow[d]
+                    \\
+                    \Omega_G \arrow[r, "E"]
+                    &
+                    \mathsf F^G.
+              \end{tikzcd}
+        \end{equation}
+        \todo[inline]{We note that the class of morphisms in $\mathsf F^G$ in the image of $E$ (restricted to $\Omega_G^0$)
+          are those isomorphic to an adjunction counit $G \cdot_H A|_H \to A$.}
+        In this case, a colouring is a map $\mathfrak c: \Phi E(T) \to \mathfrak C$ of coefficient systems,
+        and morphisms are maps $\phi: T \to S$ such that
+        $\mathfrak c(G/H,e) = \mathfrak d(G/H,e)$ for all $e \in E(T)^H$.
+        \begin{equation}
+              \begin{tikzcd}
+                    \Phi A \arrow[rr, "f"] \arrow[dr, "\mathfrak c"']
+                    &&
+                    \Phi B \arrow[dl, "\mathfrak d"]
+                    \\
+                    &
+                    \underline{\mathfrak C}
+              \end{tikzcd}
+        \end{equation}
+        It is easy to show this is equivalent to requiring that
+        $\mathfrak c(G/G_e,e) = \phi_e^{\**} \mathfrak d(G/G_{\phi(e)}, \phi(e))$.
+      }
+      %%%%%%%%%%%%% COLOR: BLUE ----------------------------------------
+      \todo[inline]{figure out whether first or ``alternatively'' is more useful as the chosen construction}
+
       
       Similarly, $\underline{\mathfrak C}\Omega_G$ is isomorphic to the Grothendieck construction on the functor
       \begin{equation}
@@ -590,11 +603,11 @@ where $\phi_{[e]}: G / G_{[e]} \to G / G_{[\phi(e)]}$ is the map in $O_G$ induce
                   T \arrow[r, mapsto]
                   &
                   \Set^{O_G^{op}}(\Phi(E(T)), \underline{\mathfrak C}),
-              \end{tikzcd}
-        \end{equation}
-
-        $\CS$ can be defined similarly, with the relevant sources restricted to
-        $\Sigma_G \subseteq \Omega_G$. 
+            \end{tikzcd}
+      \end{equation}
+      
+      $\CS$ can be defined similarly, with the relevant sources restricted to
+      $\Sigma_G \subseteq \Omega_G$. 
 \end{remark}
 
 
@@ -606,31 +619,45 @@ where $\phi_{[e]}: G / G_{[e]} \to G / G_{[\phi(e)]}$ is the map in $O_G$ induce
       this follows from the natural maps $\underline{\mathfrak C}\Omega_G \to \Omega_G \to O_G$.
       Explicitly, $\underline{\mathfrak C}\Omega_G(G/H)$ has as objects those pairs $(T,\mathfrak c)$ such that
       $T \simeq G \cdot_H T_*$ for $T_{\**} \in \Omega^H$.
-      In this case, $E_G(T) \simeq E_H(T_{\**})$, and we have a natural factorization
-      \begin{equation}
-            \begin{tikzcd}
-                  E_G(T) \simeq E_H(T_{\**}) \arrow[r, "\mathfrak c"] \arrow[dr]
-                  &
-                  \mathfrak C|_{H} \arrow[r, hookrightarrow] \arrow[d]
-                  &
-                  \mathfrak C \arrow[d]
-                  \\
-                  &
-                  O_H \arrow[r, hookrightarrow]
-                  &
-                  O_G.
-            \end{tikzcd}
-      \end{equation}
-      Maps $\phi:(T,\mathfrak c) \to (S, \mathfrak d)$ in each fiber are called \textit{colour-fixed},
-      as $\mathfrak c([e]) = \mathfrak d([\phi (e)])$ for all $[e] \in E_G(T)$.
+      % In this case, we have a canonical isomorphism
+      % $E_H(T_{\**}) \to E_G(T) \simeq E_H(T_{\**})$, and we have a natural factorization
+      % \begin{equation}
+      %       \begin{tikzcd}
+      %             E_G(T) \simeq E_H(T_{\**}) \arrow[r, "\mathfrak c"] \arrow[dr]
+      %             &
+      %             \mathfrak C|_{H} \arrow[r, hookrightarrow] \arrow[d]
+      %             &
+      %             \mathfrak C \arrow[d]
+      %             \\
+      %             &
+      %             O_H \arrow[r, hookrightarrow]
+      %             &
+      %             O_G.
+      %       \end{tikzcd}
+      % \end{equation}
+      Maps $\phi:(T,\mathfrak c) \to (S, \mathfrak d)$ in each fiber are called \textit{root-fixed}:
+      as maps in $\Omega_G$, they are \textit{rooted} ($G r_T \to G r_S$ is a planar isomorphism),
+      and moreover $\mathfrak c(Gr_T) = \mathfrak d(G r_S)$.
       
       Given $q: G/H \to G/K$ in the orbit category,
       the chosen Cartesian maps are the induced root pullback maps $q: q^{\**}T \to T$ on $G$-trees,
-      with the colouring of $q^{\**}T$ defined by $(q^{\**}\mathfrak c)([e]) = q^{\**}(\mathfrak c([e]))$.
+      with the colouring of $q^{\**}T$ defined as follows:
+      for $b\in E(q^{\**}T)$, minimal in it's $G$-orbit, we have $q(b) = g a$ for some $g \in G$ and $a \in E(T)$ minimal in its orbit.
+      Moreover, as this $g$ is unique modulo $G_a$, we have that there is a well-defined map $g_*: G/G_{q(b)} \to G/G_a$,
+      and as $q$ induces a unique map $q_b^{\**}: G/G_b \to G/G_{q(b)}$, we have
+      \begin{equation}
+            (q^{\**}\mathfrak c)([b]) q^{\**}g^{\**}\mathfrak c([a]).
+      \end{equation}
+
+      {\color{blue} % ---------- ALTERNATIVELY --------------------
+        Alternatively, on $\Phi E(q^{\**} T)$, we have
+        $(q^{\**}\mathfrak c)(G/H, b) = q_b^{\**}(\mathfrak c(G/H, q(b)))$.
+      } % --------------------------------------------------
 \end{remark}
 
 \begin{remark}
-      We note that any \textit{planar} map of coloured $G$-trees is always colour-fixed.
+      We note that any \textit{planar} map of coloured $G$-trees is always \textit{colour-fixed}, in that
+      $\mathfrak c(Ge) = \mathfrak d(G \phi (e))$ for all $Ge \in E_G(T)$.
 \end{remark}
 
 \begin{remark}
@@ -720,23 +747,30 @@ Generalizing \cite[Remark 3.78]{BP17}
 \end{lemma}
 \begin{proof}
       This follows as in \cite[Prop. 3.41]{BP17}, going by induction on $n=|V_G(T)|$.
-      Let $U_T$ denote the colimit, if it exists.
-      If $n$ is 0 or 1, $T$ is terminal in $Sc_G(T)$, and the colouring on $U_T$ is just $\mathfrak c$.
-      Otherwise, we have a decomposition $T = R \amalg_{Ge} S$ with $R,S \in \underline{\mathfrak C}\Omega_G$, such that
-      the existance of $U_T$ follows from the existance of the pushout below in $\underline{\mathfrak C}\Omega_G^{pt,cf}$.
+      Let $(U_T,\mathfrak c_{U_T})$ denote the colimit, if it exists.
+      If $n$ is 0 or 1, $T$ is terminal in $Sc_G(T)$, and the colouring $\mathfrak c_{U_T}$ is just $\mathfrak c$.
+      Otherwise, we have a decomposition $T = R \amalg_{Ge} S$ with
+      the planar ordering on $Ge$ in $R$, $S$, and $T$ the same,
+      $E_G(T) = E_G(R) \amalg_{Ge} E_G(S)$
+      $\mathfrak c_{R} = \mathfrak c|_{E_G(R)}$,
+      $\mathfrak c_{S} = \mathfrak c|_{E_G(S)}$,
+      such that
+      the existance of $U_T$ and $\mathfrak c_{U_T}$ follow from the existance of the pushout below in $\underline{\mathfrak C}\Omega_G^{pt,cf}$.
       \begin{equation}
             \begin{tikzcd}
                   (\eta_{Ge}, \mathfrak c) \arrow[d] \arrow[r]
                   &
-                  U_S \arrow[d, dashed]
+                  (U_S, \mathfrak c_{U_S}) \arrow[d, dashed]
                   \\
-                  U_R \arrow[r, dashed]
+                  (U_R, \mathfrak c_{U_R}) \arrow[r, dashed]
                   &
-                  U_T
+                  (U_T, \mathfrak c_{U_T})
             \end{tikzcd}
       \end{equation}
+      By induction, $U_S$, $U_R$, $\mathfrak c_{U_S}$, $\mathfrak c_{U_R}$ exist
+      (with unique choices such that $(U_{v_{Ge}}, \mathfrak c_{U_{v_{Ge}}}) \into(U_R, \mathfrak c_{U_R})$ is planar [and colour-fixed]).
       Forgetting colours, this is an equivariant grafting diagram, and hence the $G$-tree $U_T$ exists.
-      Moreover, we have $E(U_T) = E(U_S) \amalg_{Ge} E(U_R)$, and so we have a well-defined colouring
+      Moreover, we have $E_G(U_T) = E_G(U_S) \amalg_{Ge} E_G(U_R)$, and so we have a well-defined colouring
       \begin{equation}
             \mathfrak c_{U_T}(Gf) =
             \begin{cases}
@@ -815,10 +849,20 @@ Generalizing \cite[Remark 3.78]{BP17}
       is a pullback diagram in $\Cat$.
 \end{proposition}
 \begin{proof}
-      This follows as in \textit{loc cite}, as the colourings descend to all sub-$G$-trees. 
+      \todo[inline]{come back - how much do I need?}
+      % This follows as in \textit{loc cite}, as the colourings descend to all sub-$G$-trees. 
 \end{proof}
 
-Similarly, \cite[Prop 3.90, 4.12, 4.15, 4.26, 4.28, 4.30]{BP17} naturally generalized to the coloured-setting,
+\begin{proposition}
+      [{cf. \cite[Lemma 4.28]{BP17}}]
+      $N_{\mathfrak C}$ on spans preserves right Kan extensions over $\mathsf F \wr \mathcal A \downarrow \mathsf F \wr \UC\Sigma_G$.
+\end{proposition}
+\begin{proof}
+      Stuff
+      \todo[inline]{come back - how much do I need?}
+\end{proof}
+
+Similarly, \cite[Prop 3.47, 3.90, 4.12, 4.15, 4.26, 4.30]{BP17} naturally generalized to the coloured-setting,
 replacing all instances of $\Omega_G^n$ or $\Sigma_G$ with $\UC\Omega_G^n$ and $\UC\Sigma_G$.
 In particular, this yields the following definitions and proposition.
 \begin{definition}[{cf. \cite[Defn 4.3]{BP17}}]
@@ -926,8 +970,9 @@ In particular, this yields the following definitions and proposition.
       $(N_{\UC},\mu,\eta)$ is a monad on $\mathsf{WSpan}^r(\UC\UC\Sigma_G, \V^{op})$.
 \end{proposition}
 
+
 \begin{definition}
-      The \textit{genuine equivariant $\UC$-coloured operad} is the monad
+      The \textit{genuine $\UC$-coloured operad monad} is the monad
       $\mathbb F_{G,\UC}$ on $\Sym_{G, \UC}(\V) = \Fun(\UC\Sigma_G^{op}, \V)$ given by
       \begin{equation}
             \mathbb F_{G,\UC} = \Lan \circ N_{\UC} \circ \iota
@@ -947,36 +992,81 @@ In particular, this yields the following definitions and proposition.
             \mathsf{Lan} \circ N_{\UC} \circ \iota.
       \end{equation}
       We will write $\Op_{G,\UC}(\V)$ for the category 
-      $\mathsf{Alg}_{\mathbb{F}_{G,\UC}}(\mathsf{Sym}_{G,\UC}(\mathcal{V}))$ of \textit{genuine equivariant $\UC$-coloured operads}.
+      $\mathsf{Alg}_{\mathbb{F}_{G,\UC}}(\mathsf{Sym}_{G,\UC}(\mathcal{V}))$ of \textit{genuine $\UC$-coloured operads}.
 \end{definition}
+
+
+\subsection{Genuine $\mathfrak C$-coloured operads}
+
+
+\todo[inline]{Come back : Something about profiles.}
+\todo[inline]{come back: Combine with above}
+
+\begin{remark}
+      Given $X\in \dSet_G$ with $X(\eta_{G/H}) = \mathfrak C(G/H)$, we have that
+      $\UC\Sigma_G$ is equal to the category of \textit{profiles} $\partial\Omega[C] \to X$,
+      where $C$ ranges over all of $\Sigma_G$.
+      \todo[inline]{come back}
+\end{remark}
 
 \subsection{Comparison with $\mathfrak C$-coloured operads}
 
-For $T = (T_i)_I$, we define
+Given $(T = (T_i)_I, \mathfrak c) \in \UC\Omega_G$, we define
+$\mathfrak c_i: E(T_i) \to \mathfrak C(G/e)$ by
 \begin{equation}
-      \iota_{\**}\mathfrak c_i: E(T_i) \to \mathfrak C(G/e)
+      \mathfrak c_i(e) = g^{\**}q_e^{\**}(\mathfrak c[f]),
 \end{equation}
-by $e \mapsto g^{\**}q_e^{\**}(\mathfrak c[f])$, where
+where
 $e \in Gf$ (with $f$ minimal in the planar structure on $T$),
 $g\in G$ minimal such that $g e = f$,
-$q$ the canonical quotient map out of $G$ such that $q^{\**}T$ is $G$-free,
-and $q_e$ the induced map $G/G_e \to G / G_{q(e)}$.
+$q: G \to r(T)$ the unique quotient map preserving minimal elements,
+and $q_e:G/G_e \to G / G_{q(e)}$ the induced map.
 
-We record that $(T_i, \mathfrak c_i) \in \UC\Omega$, and furthermore that
-$i \mapsto (T_i, \mathfrak c_i)$ is a well-defined functor $B_{I}G \to \UC\Omega$.
+Then $(T_i, \mathfrak c_i) \in \UC\Omega$, and moreover
+$i \mapsto (T_i, \mathfrak c_i)$ yields a well-defined functor $B_{I}G \to \UC\Omega$.
+
+
+\begin{remark}
+      The colouring $\mathfrak c_i$ is \textit{almost} the composite
+      \begin{equation}
+            E(T_i) \to E_{G_i}(T_i) \xrightarrow{\simeq} E_G(T) \to \mathfrak C \to G \ltimes \mathfrak C(G/e)
+      \end{equation}
+      where $G_i$ is the stabilizer in $G$ of $T_i$, and
+      $E_{G_i}(T_i) \to E_G(T)$ is the canonical isomorphism sending
+      $e{G_i} \to Gf$
+      with $f \in Ge$ minimal.
+      However, this composite does not record the ``twisting'' action by the element $g_e$.
+\end{remark}
+
 
 With that, we have the formula
 \begin{equation}
       \begin{tikzcd}
             \iota_{\**}Y(T,\mathfrak c) =
             \left(
-                  \prod_I Y(T_i, \iota_{\**}\mathfrak c_i)
-            \right)^G
-            \simeq
-            Y(q^{\**}(T,\mathfrak c))^H
+                  \prod_I Y(T_i, \mathfrak c_i)
+            \right)^G.
       \end{tikzcd}
 \end{equation}
-for $T \in \Omega_G(G/H)$.
+
+\begin{remark}[{cf. \cite[Rem 4.35]{BP17}}]
+      Equivalently, the essential image of $\iota_{\**}$ are those sheaves $X \in \Sym_{G, \mathfrak C}(\V)$ such that
+      the canonical map
+      \begin{equation}
+            X(C,\mathfrak c) \xrightarrow{\simeq} X(q^{\**}(C, \mathfrak c))^\Gamma
+      \end{equation}
+      is an isomorphism, where $q: G \to r(C)$ is the unique map preserving the minimal element, and
+      $\Gamma \leq \mathsf{Aut}(q^{\**}(C,\mathfrak c))$ the subgroup preserving the quotient map $q^{\**}C \to C$
+      under precomposition.
+\end{remark}
+
+\begin{remark}
+      Alternatively, $\mathfrak c_i$ is the composite
+      \begin{equation}
+            E(T_i) \to E(T) \to \mathfrak C(G/e).
+      \end{equation}
+\end{remark}
+
 
 \todo[inline]{Come BACK}
 
