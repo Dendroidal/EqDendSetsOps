@@ -1,13 +1,13 @@
-\documentclass[psamsfonts,onesided,10pt
+\documentclass[a4paper,10pt
 ,draft
-]{amsart}%{amsart, a4paper, article}
+]{article}%
 
 
 \usepackage[hidelinks]{hyperref}
 \hypersetup{
   % colorlinks,
   final,
-  pdftitle={Coloured genuine operads},
+  pdftitle={Equivariant Dendroidal Segal Spaces},
   pdfauthor={Bonventre, P. and Pereira, L. A.},
   % pdfsubject={Your subject here},
   % pdfkeywords={keyword1, keyword2},
@@ -15,39 +15,35 @@
 }
 \usepackage[open=false]{bookmark}
 
+\usepackage[draft]{showkeys}
+
 \input{commands.tex}%
 
 
 
 
-% -------- TIKZ ------------------------------------------------------------
+%-------- TIKZ -----------------------------------------
 \usepackage{tikz}%
-\usetikzlibrary[decorations.pathreplacing, arrows, cd, backgrounds, patterns]
+\usetikzlibrary{matrix,arrows,decorations.pathmorphing,
+cd,patterns,calc}
 \tikzset{%
   treenode/.style = {shape=rectangle, rounded corners,%
-    draw, align=center,%
-    1    top color=white, bottom color=blue!20},%
+                     draw, align=center,%
+                     top color=white, bottom color=blue!20},%
   root/.style     = {treenode, font=\Large, bottom color=red!30},%
   env/.style      = {treenode, font=\ttfamily\normalsize},%
-  dummy/.style    = {circle,draw,inner sep=0pt,minimum size=2mm},%
-  bicolor/.style 2 args={
-    dashed,dash pattern=on 6pt off 6pt,->,#1,
-    postaction={draw,dashed,dash pattern=on 6pt off 6pt,->,#2,dash phase=6pt}
-  }
+  dummy/.style    = {circle,draw,inner sep=0pt,minimum size=2mm}%
 }%
 
+\usetikzlibrary[decorations.pathreplacing]
+% \usetikzlibrary{external}\tikzexternalize
+% \makeatletters
+% \renewcommand{\todo}[2][]{\tikzexternaldisable\@todo[#1]{#2}\tikzexternalenable}
 
-% --------- SidewaysFigures----------------------------------
-\usepackage[figuresright]{rotating}
-\newenvironment{amssidewaysfigure}
-{\begin{sidewaysfigure}[htpb]
-        \vspace*{.5\textwidth}
-        \begin{minipage}{\textheight}\centering
-            }
-            {\end{minipage}\end{sidewaysfigure}
-}
+% \makeatother
 
-% -------- Commands on DRAFT --------------------------
+
+% -------- COMMANDS ON DRAFT--------------------------
 
 \usepackage{ifdraft}
 \ifdraft{
@@ -57,24 +53,23 @@
   % \color[rgb]{1,1,1}
 }
 
-\usepackage[draft]{showkeys}
-\usepackage[obeyDraft]{todonotes}
+
+\usepackage{todonotes}%[obeyDraft]
 
 
-% ----- What Labels Changed? --------------------------------
-\makeatletter
+% -------- Reference Numbering
+% \numberwithin{equation}{section}%
+% \numberwithin{figure}{section} 
 
-\def\@testdef #1#2#3{%
-  \def\reserved@a{#3}\expandafter \ifx \csname #1@#2\endcsname
-  \reserved@a  \else
-  \typeout{^^Jlabel #2 changed:^^J%
-    \meaning\reserved@a^^J%
-    \expandafter\meaning\csname #1@#2\endcsname^^J}%
-  \@tempswatrue \fi}
 
-\makeatother
+% ------- Author Info -----------------------
 
-% -------Commands--------------------------------------------
+\author{Peter Bonventre, Lu\'is A. Pereira}%
+\title{Equivariant dendroidal Segal spaces and $G$-$\infty$-operads}%
+\date{\today}
+
+
+% ------- Commands --------------------------------
 \newcommand{\mycircled}[2][none]{%
   \mathbin{
     \tikz[baseline=(a.base)]\node[draw,circle,inner sep=-1.5pt, outer sep=0pt,fill=#1](a){\ensuremath #2\strut};
@@ -86,22 +81,17 @@
 \newcommand{\UC}{\underline{\mathfrak C}}
 
 
-
-% ------Personal Info------------------------------------
-\title{Coloured Genuine Operads}%
-
-\author{Peter Bonventre and Lu\'is Pereria}
-\address{}
-
-\date{\today}
+%----- Document ---------------------------------
 
 \begin{document}
+
+\maketitle
 
 \begin{abstract}
       Things and stuff
 \end{abstract}
 
-\maketitle
+
 
 \tableofcontents
 
@@ -122,7 +112,7 @@ Fix a closed symmetric monoidal category $\V$.
       is called a \textit{signature} of $\mathfrak C$, and let $|\ksi|$ denote the length $n$
       (so $\ksi \in \mathfrak C^{\times |\ksi| + 1}$).
       
-      A \textit{$\mathfrak C$-coloured operad}\footnote{These are also known as \textit{symmetric multicategories}} in $\V$ consists of the following data:
+      A \textit{$\mathfrak C$-coloured operad} in $\V$ consists of the following data:
       \begin{enumerate}%\itemsep-4pt
       \item An object $\O(\ksi) \in \V$ for each signature $\ksi$.
       \item For each $c \in \mathfrak C$, a \textit{unit} $1_c \in \O(c;c)$.
@@ -315,10 +305,10 @@ Fix a closed symmetric monoidal category $\V$.
                   \\
                   T \arrow[r, mapsto]
                   &
-                  \Fun(E(T), \mathfrak C).
+                  \mathsf{Fun}(E(T), \mathfrak C).
             \end{tikzcd}
       \end{equation}
-      \todo[inline]{compare with genuine case: RHS equals $\Fun(\Phi(E(T)), \mathfrak C) = \Fun(\Phi(E(G \cdot T)), \mathfrak C))$}
+      \todo[inline]{compare with genuine case: RHS equals $\mathsf{Fun}(\Phi(E(T)), \mathfrak C) = \mathsf{Fun}(\Phi(E(G \cdot T)), \mathfrak C))$}
       and a similar result holds for $\mathfrak C \Sigma$. 
 \end{remark}
 
@@ -457,12 +447,12 @@ $\mathfrak C \Sigma = \Sigma \times G$.
 
 \begin{proposition}
       $\mathbb F^{\set{\**}}$ is a monad, and moreover
-      the category of $\mathbb F^{\set{\**}}$-algebras in $\Fun(\Sigma \times G, \V)$ is equivalent to
-      the category of $\mathbb F'$-algebras in $\Fun(\Sigma, \V^G)$.
+      the category of $\mathbb F^{\set{\**}}$-algebras in $\mathsf{Fun}(\Sigma \times G, \V)$ is equivalent to
+      the category of $\mathbb F'$-algebras in $\mathsf{Fun}(\Sigma, \V^G)$.
 \end{proposition}
 \begin{proof}
       Let $\tau: \tilde X \mapsto X$ denote the isomorphism of categories
-      $\Fun(\Sigma \times G, \V) \xrightarrow{\tau} \Fun(\Sigma, \V^G)$.
+      $\mathsf{Fun}(\Sigma \times G, \V) \xrightarrow{\tau} \mathsf{Fun}(\Sigma, \V^G)$.
       Then $\mathbb F^{\set{\**}} = \tau^{-1} \mathbb F' \tau$ by \ref{SPAN_LAN_LEM}, and so
       $\mathbb F^{\set{\**}}$ is in fact a monad, and the
       the isomorphism lifts to an isomorphism on the category of algebras.
@@ -849,7 +839,6 @@ Generalizing \cite[Remark 3.78]{BP17}
       is a pullback diagram in $\Cat$.
 \end{proposition}
 \begin{proof}
-      \todo[inline]{come back - how much do I need?}
       % This follows as in \textit{loc cite}, as the colourings descend to all sub-$G$-trees. 
 \end{proof}
 
@@ -859,7 +848,6 @@ Generalizing \cite[Remark 3.78]{BP17}
 \end{proposition}
 \begin{proof}
       Stuff
-      \todo[inline]{come back - how much do I need?}
 \end{proof}
 
 Similarly, \cite[Prop 3.47, 3.90, 4.12, 4.15, 4.26, 4.30]{BP17} naturally generalized to the coloured-setting,
@@ -900,7 +888,7 @@ In particular, this yields the following definitions and proposition.
       denoted by $(i,\phi): (k_1,X_1) \to (k_2,X_2)$, with composition defined in the natural way.      
 \end{definition}
 
-\todo[inline]{recall adjunctions with $\Lan$ and $\Ran$, canonical op-isos, etc}
+\todo[inline]{recall adjunctions with $\mathsf{Lan}$ and $\mathsf{Ran}$, canonical op-isos, etc}
 
 \begin{definition}[{cf. \cite[Defn 4.16]{BP17}}]
       Suppose $\V$ is a symmetric monoidal category with diagonals \todo{recall}.
@@ -973,7 +961,7 @@ In particular, this yields the following definitions and proposition.
 
 \begin{definition}
       The \textit{genuine $\UC$-coloured operad monad} is the monad
-      $\mathbb F_{G,\UC}$ on $\Sym_{G, \UC}(\V) = \Fun(\UC\Sigma_G^{op}, \V)$ given by
+      $\mathbb F_{G,\UC}$ on $\Sym_{G, \UC}(\V) = \mathsf{Fun}(\UC\Sigma_G^{op}, \V)$ given by
       \begin{equation}
             \mathbb F_{G,\UC} = \Lan \circ N_{\UC} \circ \iota
       \end{equation}
@@ -1104,7 +1092,7 @@ DO STUFF.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
 
-\section{In $\mathsf{dSet_G}$}
+\section{In $\mathsf{dSet}_G$}
 
 \begin{definition}
       Define the \textit{genuine operadic nerve} $N: \Op_G \to \dSet_G$ by
@@ -1166,7 +1154,7 @@ The above reflects the following result.
 \begin{proof}
       The fact that $N\P \in (SCI_G)^{\boxslash !}$ is immediate, as remarked above.
 
-      For the reverse direction, we will follow the construction of the homotopy operad as in \cite[\S 6]{MW08},
+      For the reverse direction, we will follow the construction of the homotopy operad as in \cite[\S 6]{MW09},
       replacing their use of inner horn inclusions with \textit{orbital} inner $G$-horn inclusions,
       to show that any $X \in (OHI)^{\boxslash !}$ is in the image of $N$; 
       the result will then follow from \cite[HYPER PROP]{BP18}.
@@ -1183,16 +1171,23 @@ The above reflects the following result.
 
 
 
-\section{Algebras and Examples}
+\newpage
 
-\subsection{Single Coloured}
+
+
+\section{Scratchwork}
+
+\subsection{Colored simplicial tensors and cotensors}
+
+
+
 
 
 \bibliography{biblio}{}
 
 
 
-\bibliographystyle{abbrv}
+\bibliographystyle{alpha}
 
 
 
