@@ -717,6 +717,20 @@ On morphisms, $(\phi,g)$ maps to $(\phi)_{G} \circ g$.
 
 \subsection{Planar Strings and Stuff}
 
+Main observation:
+\begin{remark}
+      Given a map $\phi: T \to S$ of $G$-trees such that $S$ is $\UC$-coloured, there is a unique colouring on $T$ such that
+      $\phi$ is a map of coloured trees.
+      Moreover, any factorization $T \to S' \to S$ in $\Omega_G$ of a map of coloured trees $T \to S$
+      comes equipped with a canonical colouring so that the factorization is in fact in $\UC\Omega_G$.
+
+      As an upshot, the vast majority of the operations and constructions in \cite[\S 3-5]{BP17}
+      follow through immediately to the coloured setting,
+      once we establish the requisit categorical characterizations of the objects in question.
+
+      In this section, we highlight some of those.
+\end{remark}
+
 \todo[inline]{Need to strike a balance between what to show explicitly, and what to just state.
   \S 3.4 and \S 4 from \cite{BP17} extend almost formally, though phrasing it as such...
 
@@ -1166,16 +1180,134 @@ As most of the construction/category theory is on the level of strings (or forma
       as there is a canonical colouring on $T'$, namely $\Phi E(T') \to \Phi E(S) \to \UC$. 
 \end{remark}
 
-The above gives \cite[Lem 5.57]{PB17}.
+The above gives \cite[Lem 5.57]{BP17}.
 
+The same proof as before gives this too.
 \begin{proposition}
       [{cf. \cite[Prop 5.66]{BP17}}]
-      For each $\UC$-profile $(C,\mathfrak c) \in \UC\Sigma_G$, we have a filtration of $\mathcal P[u]$ given by the following pushout in $\V^{\mathrm{Aut}(C)}$. 
+      For each $\UC$-profile $(C,\mathfrak c) \in \UC\Sigma_G$,
+      we have the following pushout in $\V^{\mathrm{Aut}(C, \mathfrak c)}$
+      \begin{equation}\label{FILTRATION_LAN_LEVEL}
+            \begin{tikzcd}
+                  \coprod\limits_{[T, \mathfrak d] \in \mathsf{Iso}
+                    \left((C,\mathfrak c) \downarrow_{\mathsf{r}} \UC\Omega_G^a[k]\right)}
+                  \left(
+                        \bigotimes\limits_{v \in V_{G}^{ac}(T)}\P(T_v, \mathfrak d_v) \otimes
+                        Q_T^{in}[u]
+                  \right)
+                  \mathop{\otimes}\limits_{\mathsf{Aut}(T, \mathfrak d)} \mathsf{Aut}(C, \mathfrak c)
+                  \arrow[r] \arrow[d] &
+                  \P_{k-1}(C, \mathfrak c) \arrow[d] 
+                  \\
+                  \coprod\limits_{[T, \mathfrak d] \in \mathsf{Iso}
+                    \left(C \downarrow_{\mathsf{r}} \UC\Omega_G^a[k]\right)}
+                  \left(
+                        \bigotimes\limits_{v \in V_{G}^{ac}(T)}\P(T_v, \mathfrak d_v) \otimes
+                        \bigotimes\limits_{v \in V_{G}^{in}(T)} Y(T_v, \mathfrak d_v)
+                  \right)
+                  \underset{\mathsf{Aut}(T, \mathfrak d)}{\otimes} \mathsf{Aut}(C, \mathfrak c)
+                  \arrow[r] &
+                  \P_k(C, \mathfrak c)
+            \end{tikzcd}
+      \end{equation}
+      where $ V_{G}^{ac}(T)$, $V_{G}^{in}(T)$ denote the active and inert vertices of the underlying $G$-tree $T \in \Omega_G^a[k]$,
+      and $Q_T^{in}[u]$ is the domain 
+      of the iterated pushout product
+      \begin{equation}
+            \underset{v \in V_G^{in}(T)}
+            {\mathlarger{\mathlarger{\mathlarger{\square}}}}u(T_v, \mathfrak d_v)
+            \colon
+            Q_T^{in}[u] \to
+            \bigotimes\limits_{v \in V_{G}^{in}(T)} Y(T_v, \mathfrak d_v).
+      \end{equation}
 \end{proposition}
 
 
+\subsection{Model structures}
 
+\begin{proposition}
+      Let $\V$ be a cocomplete model category will cellular fixed points.
+      Now suppose $\mathcal D$ is a groupoid, and let $\F_d$ be a family of subgroups of $\mathsf{Aut}(d)$ for each $d \in \mathcal D$.
+      Then the category of diagrams $\V^{\mathcal D}$ has a model structure where
+      a map $f: X \to Y$ is a
+      weak equivalence (resp. fibration) iff $f(d): X(d) \to Y(d)$ is so in $\V^{\mathsf{Aut}(d)}_{\F_d}$ for each $d \in \mathcal D$.
+\end{proposition}
+\begin{proof}
+      This is the model structure transfered along the adjunction
+      \begin{equation}
+            \begin{tikzcd}
+                  \V^\D \leftrightarrows
+                  \prod_{d \in \D}\V^{\mathsf{Aut}(d)}_{\F_d}
+            \end{tikzcd}
+      \end{equation}
+      which exists by adapting and combining the proofs of \cite[Thm 11.6.1]{Hir03} and \cite[Prop 2.6]{Ste16}.
+\end{proof}
 
+\begin{example}
+      Let $\V$ be a cocomplete model category with cellular fixed points,
+      $\mathfrak C$ a $G$-set, and $\F = \set{\F_n}$ a collection of families $\F_n$ of graph subgroups of $G \times \Sigma_n$.
+      Then $\Sym^{G,\mathfrak C}(\V) = \Fun(\UC\Sigma, \V)$ has an $\F$-model structure
+      \begin{equation}
+            \Sym^{G,\mathfrak C}_\F(\V) = \prod_n \V^{B_{\mathfrak C^{\times n+1}}(G \times \Sigma_n)}_{\F_n},
+      \end{equation}
+      where $\V^{B_{\mathfrak C^{\times n+1}}(G \times \Sigma_n)}_{\F_n}$ has the model structure lifted from the adjunction to
+      $\prod_{(c_i)}\V^{\mathsf{Aut}(c_1,\dots,c_n; c_0)}_{\F_{(c_i)}}$ where
+      $\F_{(c_i)}$ is the set of all $\Gamma \in \F_n$ such that $\Gamma \leq \mathsf{Aut}(c_1,\dots, c_n;c_0)$.
+\end{example}
+
+\begin{definition}
+      Given a coefficient system $\UC$, we define the category $\UC O_{\F_n}$ to be the Grothendieck construction of the functor
+      \begin{equation}
+            \begin{tikzcd}[row sep = tiny]
+                  O_{\F_n}^{op} \arrow[r]
+                  &
+                  \Set
+                  \\
+                  G \times \Sigma_n / \Gamma \arrow[r, mapsto]
+                  &
+                  \Hom_{\Set^{O_G^{op}}}(\Phi(G \cdot_\Gamma \underline{n+1}), \mathfrak C)
+            \end{tikzcd}
+      \end{equation}
+      where, for $\phi = \phi_\Gamma: H \to \Sigma_n$ the unique homomorphism such that $\Gamma = \Gamma(\phi)$,
+      the (right) action of $\Gamma$ on $G \cdot \underline{n+1}$ is given by
+      $(g,i).(h,\phi(h)) = (gh, \phi(h)^{-1}(i))$.
+\end{definition}
+
+Equivalently, objects are given by transitive sets $G \times \Sigma_n / \Gamma$
+equipped with $\UC$-colourings of the associated $G$-corollas $C_\Gamma$.
+
+\begin{notation}
+      For $\UC$ a coefficient system, we will write $B_{\UC^{\times n+1}}$ to mean
+      $B_{\UC(G/e)^{\times n+1}}(G \times \Sigma_n)$.
+\end{notation}
+
+We have a natural map
+$B_{\UC^{\times n+1}} \to \UC O_{\F_n}$
+sending the tuple $(c_1,\dots,c_n;c_0)$ to
+$(G \times \Sigma_n/e, (g,i) \mapsto g.c_i)$.
+
+This induces an adjunction:
+
+\begin{lemma}
+      $(\iota_{\**} X)(G \times \Sigma_n/\Gamma, \mathfrak c) = X(c_1,\dots, c_n;c_0)^\Gamma$,
+      where $c_i := \mathfrak c(G/e, [1, i])$.
+\end{lemma}
+\begin{lemma}
+      This and $\iota^{\**}$ form a Quillen adjunction.
+\end{lemma}
+\begin{proof}
+      \todo[inline]{make sure to type out $\epsilon$ and $\eta$}
+      $\iota_{\**}$ again fully-faithful since $\epsilon$ is an iso.
+
+      Again clear that $\iota_{\**}$ is right Quillen.
+\end{proof}
+
+\begin{proposition}
+      The above adjunction is an equivalence if and only if $\mathfrak C$ is a $G$-set.
+\end{proposition}
+\begin{proof}
+      \todo[inline]{come back: make sure to type up explicitly}
+\end{proof}
 
 
 \newpage
