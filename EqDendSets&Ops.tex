@@ -15,8 +15,6 @@
 }
 \usepackage[open=false]{bookmark}
 
-\usepackage[draft]{showkeys}
-
 \input{commands.tex}%
 
 
@@ -24,23 +22,20 @@
 
 %-------- TIKZ -----------------------------------------
 \usepackage{tikz}%
-\usetikzlibrary{matrix,arrows,decorations.pathmorphing,
-cd,patterns,calc}
+\usetikzlibrary{matrix,arrows,decorations.pathmorphing, cd, patterns, calc, decorations.pathreplacing}
 \tikzset{%
   treenode/.style = {shape=rectangle, rounded corners,%
-                     draw, align=center,%
-                     top color=white, bottom color=blue!20},%
+    draw, align=center,%
+    top color=white, bottom color=blue!20},%
   root/.style     = {treenode, font=\Large, bottom color=red!30},%
   env/.style      = {treenode, font=\ttfamily\normalsize},%
   dummy/.style    = {circle,draw,inner sep=0pt,minimum size=2mm}%
+  bicolor/.style 2 args={
+    dashed,dash pattern=on 6pt off 6pt,->,#1,
+    postaction={draw,dashed,dash pattern=on 6pt off 6pt,->,#2,dash phase=6pt}
+  }
 }%
 
-\usetikzlibrary[decorations.pathreplacing]
-% \usetikzlibrary{external}\tikzexternalize
-% \makeatletters
-% \renewcommand{\todo}[2][]{\tikzexternaldisable\@todo[#1]{#2}\tikzexternalenable}
-
-% \makeatother
 
 
 % -------- COMMANDS ON DRAFT--------------------------
@@ -54,20 +49,23 @@ cd,patterns,calc}
 }
 
 
+\usepackage[draft]{showkeys}
 \usepackage{todonotes}%[obeyDraft]
 
 
-% -------- Reference Numbering
-% \numberwithin{equation}{section}%
-% \numberwithin{figure}{section} 
 
+% ----- What Labels Changed? --------------------------------
+\makeatletter
 
-% ------- Author Info -----------------------
+\def\@testdef #1#2#3{%
+  \def\reserved@a{#3}\expandafter \ifx \csname #1@#2\endcsname
+  \reserved@a  \else
+  \typeout{^^Jlabel #2 changed:^^J%
+    \meaning\reserved@a^^J%
+    \expandafter\meaning\csname #1@#2\endcsname^^J}%
+  \@tempswatrue \fi}
 
-\author{Peter Bonventre, Lu\'is A. Pereira}%
-\title{Untitled}%
-\date{\today}
-
+\makeatother
 
 % ------- Commands --------------------------------
 \newcommand{\mycircled}[2][none]{%
@@ -81,22 +79,26 @@ cd,patterns,calc}
 \newcommand{\UC}{\underline{\mathfrak C}}
 
 
-%----- Document ---------------------------------
+
+
+
+% ------Personal Info------------------------------------
+\title{Coloured Genuine Operads}%
+
+\author{Peter Bonventre and Lu\'is Pereria}
+
+\date{\today}
 
 \begin{document}
 
+
 \maketitle
+
+\tableofcontents
 
 \begin{abstract}
       Things and stuff
 \end{abstract}
-
-
-
-\tableofcontents
-
-
-
 
 % ----------STUFF-----------------------------------------
 
@@ -171,6 +173,10 @@ Fix a closed symmetric monoidal category $\V$.
 \end{definition}
 
 \begin{remark}
+      (Coloured) operads are also known as \textit{symmetric multicategories} \todo{cite stuff}.
+\end{remark}
+
+\begin{remark}
       The category $\Op(\V)$ is isomorphic to the Grothendieck construction on the functor
       \begin{equation}
             \begin{tikzcd}[row sep = tiny]
@@ -180,6 +186,8 @@ Fix a closed symmetric monoidal category $\V$.
             \end{tikzcd}
       \end{equation}
 \end{remark}
+
+
 
 \begin{notation}
       In previous work \todo{cite}, $\Op(\V)$ has been used to denote \textit{single-coloured} operads specifically; that is, $\set{\**}$-coloured operads.
@@ -600,10 +608,6 @@ and $\phi(e) = g_e f$ for $f \in Gf \in E_G(S)$ minimal; as $g_e$ is unique modu
         \end{equation}
         It is easy to show this is equivalent to requiring that
         $\mathfrak c(G/G_e,e) = \phi_e^{\**} \mathfrak d(G/G_{\phi(e)}, \phi(e))$.
-      }
-      %%%%%%%%%%%%% COLOR: BLUE ----------------------------------------
-      \todo[inline]{figure out whether first or ``alternatively'' is more useful as the chosen construction}
-
       
       Similarly, $\underline{\mathfrak C}\Omega_G$ is isomorphic to the Grothendieck construction on the functor
       \begin{equation}
@@ -620,6 +624,9 @@ and $\phi(e) = g_e f$ for $f \in Gf \in E_G(S)$ minimal; as $g_e$ is unique modu
       
       $\CS$ can be defined similarly, with the relevant sources restricted to
       $\Sigma_G \subseteq \Omega_G$. 
+      }
+      %%%%%%%%%%%%% COLOR: BLUE ----------------------------------------
+      \todo[inline]{figure out whether first or ``alternatively'' is more useful as the chosen construction}
 \end{remark}
 
 
@@ -658,7 +665,7 @@ and $\phi(e) = g_e f$ for $f \in Gf \in E_G(S)$ minimal; as $g_e$ is unique modu
       Moreover, as this $g$ is unique modulo $G_a$, we have that there is a well-defined map $g_*: G/G_{q(b)} \to G/G_a$,
       and as $q$ induces a unique map $q_b^{\**}: G/G_b \to G/G_{q(b)}$, we have
       \begin{equation}
-            (q^{\**}\mathfrak c)([b]) q^{\**}g^{\**}\mathfrak c([a]).
+            (q^{\**}\mathfrak c)(Gb) q_b^{\**}g^{\**}\mathfrak c(Ga).
       \end{equation}
 
       {\color{blue} % ---------- ALTERNATIVELY --------------------
@@ -709,6 +716,20 @@ Specifically, $U \mapsto G \cdot U$ and, as $E_G(G \cdot U) = E(U)$, the associa
 On morphisms, $(\phi,g)$ maps to $(\phi)_{G} \circ g$.
 
 \subsection{Planar Strings and Stuff}
+
+Main observation:
+\begin{remark}
+      Given a map $\phi: T \to S$ of $G$-trees such that $S$ is $\UC$-coloured, there is a unique colouring on $T$ such that
+      $\phi$ is a map of coloured trees.
+      Moreover, any factorization $T \to S' \to S$ in $\Omega_G$ of a map of coloured trees $T \to S$
+      comes equipped with a canonical colouring so that the factorization is in fact in $\UC\Omega_G$.
+
+      As an upshot, the vast majority of the operations and constructions in \cite[\S 3-5]{BP17}
+      follow through immediately to the coloured setting,
+      once we establish the requisit categorical characterizations of the objects in question.
+
+      In this section, we highlight some of those.
+\end{remark}
 
 \todo[inline]{Need to strike a balance between what to show explicitly, and what to just state.
   \S 3.4 and \S 4 from \cite{BP17} extend almost formally, though phrasing it as such...
@@ -823,7 +844,7 @@ Generalizing \cite[Remark 3.78]{BP17}
       \item $\UC\Omega_G^n \to O_G$ is a root fibration.
       \item We have a vertex functor $V_G: \UC\Omega_G^{n+1} \to \mathsf F_s \wr \UC\Omega_G^n$ by
             \begin{equation}
-                  \large(
+                  \left(
                   (T_0,\mathfrak c_0)
                   \to (T_1, \mathfrak c_1)
                   \to \dots
@@ -834,7 +855,7 @@ Generalizing \cite[Remark 3.78]{BP17}
                   (T_{1,v_{Ge}},\mathfrak c_1)
                   \to \dots \to
                   (T_{n,v_{Ge}}, \mathfrak c_n)
-                  \large)_{v_{Ge} \in V_G(T_0)}
+                  \right)_{v_{Ge} \in V_G(T_0)}
             \end{equation}
             where we write abusively denote by $T_{i,v_{Ge}}$ the $G$-tree $(T_{i,\bar\phi_i(f)^\uparrow \leq \bar\phi_i(f)})_{f \in Ge}$
             and by $\mathfrak c_i$ the restriction to any of its sub-$G$-trees.
@@ -1021,6 +1042,22 @@ In particular, this yields the following definitions and proposition.
 
 \subsection{Comparison with $\mathfrak C$-coloured operads}
 
+We have an inclusion
+\begin{equation}
+      \begin{tikzcd}[row sep = tiny]
+            \UC\Omega \arrow[r, hookrightarrow]
+            &
+            \UC\Omega_G
+            \\
+            (U, \mathfrak c) \arrow[r, mapsto]
+            &
+            (G \cdot U, \mathfrak c: \Phi(G \cdot U) \to \UC)
+      \end{tikzcd}
+\end{equation}
+sending maps $(\phi, g)$ to $(h,e) \mapsto (hg^{-1}, \phi(e))$. 
+
+
+
 Given $(T = (T_i)_I, \mathfrak c) \in \UC\Omega_G$, we define
 $\mathfrak c_i: E(T_i) \to \mathfrak C(G/e)$ by
 \begin{equation}
@@ -1034,7 +1071,7 @@ and $q_e:G/G_e \to G / G_{q(e)}$ the induced map.
 
 Then $(T_i, \mathfrak c_i) \in \UC\Omega$, and moreover
 $i \mapsto (T_i, \mathfrak c_i)$ yields a well-defined functor $B_{I}G \to \UC\Omega$.
-
+\todo[inline]{come back: make sure that $i \mapsto (T_i, \mathfrak c_i)$ is in fact a functor: in particular, does the ``minimal'' thing hold up?}
 
 \begin{remark}
       The colouring $\mathfrak c_i$ is \textit{almost} the composite
@@ -1049,15 +1086,15 @@ $i \mapsto (T_i, \mathfrak c_i)$ yields a well-defined functor $B_{I}G \to \UC\O
 \end{remark}
 
 
+
 With that, we have the formula
 \begin{equation}
-      \begin{tikzcd}
-            \iota_{\**}Y(T,\mathfrak c) =
-            \left(
-                  \prod_I Y(T_i, \mathfrak c_i)
-            \right)^G.
-      \end{tikzcd}
+      \iota_{\**}Y(T,\mathfrak c) =
+      \left(
+            \prod_I Y(T_i, \mathfrak c_i)
+      \right)^G.
 \end{equation}
+
 
 \begin{remark}[{cf. \cite[Rem 4.35]{BP17}}]
       Equivalently, the essential image of $\iota_{\**}$ are those sheaves $X \in \Sym_{G, \mathfrak C}(\V)$ such that
@@ -1070,31 +1107,212 @@ With that, we have the formula
       under precomposition.
 \end{remark}
 
+\todo[inline]{come back:
+  same retraction from free guys,
+  same interpretation of essentially image of $\iota_{\**}$ and $\iota_!$,
+  $\iota_{\**}\iota^{\**} \to id$ is still an iso on free guys
+}
+
+
 \begin{remark}
+      {\color{blue} % ------------------------------ CoLOR BLUE --------------------
       Alternatively, $\mathfrak c_i$ is the composite
       \begin{equation}
-            E(T_i) \to E(T) \to \mathfrak C(G/e).
+            E(T_i) \to E(T) \xrightarrow{\mathfrak c_{G/e}} \mathfrak C(G/e).
       \end{equation}
+      Then the map $B_I \to \UC\Omega$, $i \mapsto (T_i, \mathfrak c_i)$ is a functor
+      (as the inclusion and $\mathfrak c_{G/e}$ are $G$-equivariant),
+      and we have
+      \begin{equation}
+            \iota_{\**}Y(T, \mathfrak c) =
+            \left(
+                  \prod_I Y(T_i, \mathfrak c_i)
+            \right)^G.
+      \end{equation}
+      } % ------------------------------ COLOR BLUE ------------------------------
 \end{remark}
 
-
+\cite[Prop 4.38]{BP17} follows as before.
 \todo[inline]{Come BACK}
 
 DO STUFF.
 
 
 
+\subsection{Free extensions}
+
+Category of labeled planar coloured strings, as before.
+As most of the construction/category theory is on the level of strings (or formal due to pullback constructions),
+``colouring'' does not affect the proofs of \cite[Prop 5.30,5.41]{BP17}.
+
+\begin{proposition}
+      [{cf. \cite[Prop 5.48]{BP17}}]
+      For any $(T, \mathfrak c) \in \UC\Omega_G^e$ there exists a unqiue $\mathsf{lr}_{\mathcal P}(T, \mathfrak c) \in \UC\hat\Omega_G^e$
+      equipped with a unique planar (hence colour-fixed) label map in $\UC\Omega_G^e$
+      $\mathsf{lr}_{\mathcal P}(T, \mathfrak c) \to (T, \mathfrak c)$.      
+      Furthermore, $\mathsf{lr}_{\mathcal P}$ extends to a right retraction
+      $\mathsf{lr}_{\mathcal P}: \UC\Omega_G^e \to \UC\hat{\Omega}_G^e$.
+\end{proposition}
+\begin{proof}
+      The underlying $G$-tree of $\mathsf{lr}_{\mathcal P}(T, \mathfrak c)$ is simply $\mathsf{lr}_{\mathcal P}(T)$, and since
+      the edges of this tree are a $G$-subset of $E(T)$, the colouring descends uniquely.       
+\end{proof}
 
 
+\begin{proposition}
+      [{cf. \cite[Prop 5.37]{BP17}}]
+      $\Ran$ behaves well.
+\end{proposition}
+\begin{proof}
+      The proof of this result in the Appendix of \cite{BP17} requires no assumptions on $\Sigma_G$.
+      In particular, the proof follows when replacing $\Sigma_G$ with $\UC\Sigma_G$.
+\end{proof}
+
+\begin{corollary}
+      $\mathcal P[u] = \mathcal P \hat\amalg_{\mathbb F_{\UC}X}\mathbb F_{\UC}Y
+      \simeq
+      \Lan_{\left(\UC\hat\Omega_G^e \to \UC\Sigma_G\right)^{op}}\tilde N^{(\mathcal P, X, Y)}$.
+\end{corollary}
 
 
+\begin{remark}
+      For $T,S \in \UC\Omega_G$, any factorization $T \to T' \to S$ in $\Omega_G$ uniquely extends to one in $\UC\Omega_G$,
+      as there is a canonical colouring on $T'$, namely $\Phi E(T') \to \Phi E(S) \to \UC$. 
+\end{remark}
+
+The above gives \cite[Lem 5.57]{BP17}.
+
+The same proof as before gives this too.
+\begin{proposition}
+      [{cf. \cite[Prop 5.66]{BP17}}]
+      For each $\UC$-profile $(C,\mathfrak c) \in \UC\Sigma_G$,
+      we have the following pushout in $\V^{\mathrm{Aut}(C, \mathfrak c)}$
+      \begin{equation}\label{FILTRATION_LAN_LEVEL}
+            \begin{tikzcd}
+                  \coprod\limits_{[T, \mathfrak d] \in \mathsf{Iso}
+                    \left((C,\mathfrak c) \downarrow_{\mathsf{r}} \UC\Omega_G^a[k]\right)}
+                  \left(
+                        \bigotimes\limits_{v \in V_{G}^{ac}(T)}\P(T_v, \mathfrak d_v) \otimes
+                        Q_T^{in}[u]
+                  \right)
+                  \mathop{\otimes}\limits_{\mathsf{Aut}(T, \mathfrak d)} \mathsf{Aut}(C, \mathfrak c)
+                  \arrow[r] \arrow[d] &
+                  \P_{k-1}(C, \mathfrak c) \arrow[d] 
+                  \\
+                  \coprod\limits_{[T, \mathfrak d] \in \mathsf{Iso}
+                    \left(C \downarrow_{\mathsf{r}} \UC\Omega_G^a[k]\right)}
+                  \left(
+                        \bigotimes\limits_{v \in V_{G}^{ac}(T)}\P(T_v, \mathfrak d_v) \otimes
+                        \bigotimes\limits_{v \in V_{G}^{in}(T)} Y(T_v, \mathfrak d_v)
+                  \right)
+                  \underset{\mathsf{Aut}(T, \mathfrak d)}{\otimes} \mathsf{Aut}(C, \mathfrak c)
+                  \arrow[r] &
+                  \P_k(C, \mathfrak c)
+            \end{tikzcd}
+      \end{equation}
+      where $ V_{G}^{ac}(T)$, $V_{G}^{in}(T)$ denote the active and inert vertices of the underlying $G$-tree $T \in \Omega_G^a[k]$,
+      and $Q_T^{in}[u]$ is the domain 
+      of the iterated pushout product
+      \begin{equation}
+            \underset{v \in V_G^{in}(T)}
+            {\mathlarger{\mathlarger{\mathlarger{\square}}}}u(T_v, \mathfrak d_v)
+            \colon
+            Q_T^{in}[u] \to
+            \bigotimes\limits_{v \in V_{G}^{in}(T)} Y(T_v, \mathfrak d_v).
+      \end{equation}
+\end{proposition}
 
 
+\subsection{Model structures}
+
+\begin{proposition}
+      Let $\V$ be a cocomplete model category will cellular fixed points.
+      Now suppose $\mathcal D$ is a groupoid, and let $\F_d$ be a family of subgroups of $\mathsf{Aut}(d)$ for each $d \in \mathcal D$.
+      Then the category of diagrams $\V^{\mathcal D}$ has a model structure where
+      a map $f: X \to Y$ is a
+      weak equivalence (resp. fibration) iff $f(d): X(d) \to Y(d)$ is so in $\V^{\mathsf{Aut}(d)}_{\F_d}$ for each $d \in \mathcal D$.
+\end{proposition}
+\begin{proof}
+      This is the model structure transfered along the adjunction
+      \begin{equation}
+            \begin{tikzcd}
+                  \V^\D \leftrightarrows
+                  \prod_{d \in \D}\V^{\mathsf{Aut}(d)}_{\F_d}
+            \end{tikzcd}
+      \end{equation}
+      which exists by adapting and combining the proofs of \cite[Thm 11.6.1]{Hir03} and \cite[Prop 2.6]{Ste16}.
+\end{proof}
+
+\begin{example}
+      Let $\V$ be a cocomplete model category with cellular fixed points,
+      $\mathfrak C$ a $G$-set, and $\F = \set{\F_n}$ a collection of families $\F_n$ of graph subgroups of $G \times \Sigma_n$.
+      Then $\Sym^{G,\mathfrak C}(\V) = \Fun(\UC\Sigma, \V)$ has an $\F$-model structure
+      \begin{equation}
+            \Sym^{G,\mathfrak C}_\F(\V) = \prod_n \V^{B_{\mathfrak C^{\times n+1}}(G \times \Sigma_n)}_{\F_n},
+      \end{equation}
+      where $\V^{B_{\mathfrak C^{\times n+1}}(G \times \Sigma_n)}_{\F_n}$ has the model structure lifted from the adjunction to
+      $\prod_{(c_i)}\V^{\mathsf{Aut}(c_1,\dots,c_n; c_0)}_{\F_{(c_i)}}$ where
+      $\F_{(c_i)}$ is the set of all $\Gamma \in \F_n$ such that $\Gamma \leq \mathsf{Aut}(c_1,\dots, c_n;c_0)$.
+\end{example}
+
+\begin{definition}
+      Given a coefficient system $\UC$, we define the category $\UC O_{\F_n}$ to be the Grothendieck construction of the functor
+      \begin{equation}
+            \begin{tikzcd}[row sep = tiny]
+                  O_{\F_n}^{op} \arrow[r]
+                  &
+                  \Set
+                  \\
+                  G \times \Sigma_n / \Gamma \arrow[r, mapsto]
+                  &
+                  \Hom_{\Set^{O_G^{op}}}(\Phi(G \cdot_\Gamma \underline{n+1}), \mathfrak C)
+            \end{tikzcd}
+      \end{equation}
+      where, for $\phi = \phi_\Gamma: H \to \Sigma_n$ the unique homomorphism such that $\Gamma = \Gamma(\phi)$,
+      the (right) action of $\Gamma$ on $G \cdot \underline{n+1}$ is given by
+      $(g,i).(h,\phi(h)) = (gh, \phi(h)^{-1}(i))$.
+\end{definition}
+
+Equivalently, objects are given by transitive sets $G \times \Sigma_n / \Gamma$
+equipped with $\UC$-colourings of the associated $G$-corollas $C_\Gamma$.
+
+\begin{notation}
+      For $\UC$ a coefficient system, we will write $B_{\UC^{\times n+1}}$ to mean
+      $B_{\UC(G/e)^{\times n+1}}(G \times \Sigma_n)$.
+\end{notation}
+
+We have a natural map
+$B_{\UC^{\times n+1}} \to \UC O_{\F_n}$
+sending the tuple $(c_1,\dots,c_n;c_0)$ to
+$(G \times \Sigma_n/e, (g,i) \mapsto g.c_i)$.
+
+This induces an adjunction:
+
+\begin{lemma}
+      $(\iota_{\**} X)(G \times \Sigma_n/\Gamma, \mathfrak c) = X(c_1,\dots, c_n;c_0)^\Gamma$,
+      where $c_i := \mathfrak c(G/e, [1, i])$.
+\end{lemma}
+\begin{lemma}
+      This and $\iota^{\**}$ form a Quillen adjunction.
+\end{lemma}
+\begin{proof}
+      \todo[inline]{make sure to type out $\epsilon$ and $\eta$}
+      $\iota_{\**}$ again fully-faithful since $\epsilon$ is an iso.
+
+      Again clear that $\iota_{\**}$ is right Quillen.
+\end{proof}
+
+\begin{proposition}
+      The above adjunction is an equivalence if and only if $\mathfrak C$ is a $G$-set.
+\end{proposition}
+\begin{proof}
+      \todo[inline]{come back: make sure to type up explicitly}
+\end{proof}
 
 
+\newpage
 
-
-
+\section{Algebras and Examples}
 
 
 
