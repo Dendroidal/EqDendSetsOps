@@ -15,8 +15,6 @@
 }
 \usepackage[open=false]{bookmark}
 
-\usepackage[draft]{showkeys}
-
 \input{commands.tex}%
 
 
@@ -24,23 +22,20 @@
 
 %-------- TIKZ -----------------------------------------
 \usepackage{tikz}%
-\usetikzlibrary{matrix,arrows,decorations.pathmorphing,
-cd,patterns,calc}
+\usetikzlibrary{matrix,arrows,decorations.pathmorphing, cd, patterns, calc, decorations.pathreplacing}
 \tikzset{%
   treenode/.style = {shape=rectangle, rounded corners,%
-                     draw, align=center,%
-                     top color=white, bottom color=blue!20},%
+    draw, align=center,%
+    top color=white, bottom color=blue!20},%
   root/.style     = {treenode, font=\Large, bottom color=red!30},%
   env/.style      = {treenode, font=\ttfamily\normalsize},%
   dummy/.style    = {circle,draw,inner sep=0pt,minimum size=2mm}%
+  bicolor/.style 2 args={
+    dashed,dash pattern=on 6pt off 6pt,->,#1,
+    postaction={draw,dashed,dash pattern=on 6pt off 6pt,->,#2,dash phase=6pt}
+  }
 }%
 
-\usetikzlibrary[decorations.pathreplacing]
-% \usetikzlibrary{external}\tikzexternalize
-% \makeatletters
-% \renewcommand{\todo}[2][]{\tikzexternaldisable\@todo[#1]{#2}\tikzexternalenable}
-
-% \makeatother
 
 
 % -------- COMMANDS ON DRAFT--------------------------
@@ -54,20 +49,23 @@ cd,patterns,calc}
 }
 
 
+\usepackage[draft]{showkeys}
 \usepackage{todonotes}%[obeyDraft]
 
 
-% -------- Reference Numbering
-% \numberwithin{equation}{section}%
-% \numberwithin{figure}{section} 
 
+% ----- What Labels Changed? --------------------------------
+\makeatletter
 
-% ------- Author Info -----------------------
+\def\@testdef #1#2#3{%
+  \def\reserved@a{#3}\expandafter \ifx \csname #1@#2\endcsname
+  \reserved@a  \else
+  \typeout{^^Jlabel #2 changed:^^J%
+    \meaning\reserved@a^^J%
+    \expandafter\meaning\csname #1@#2\endcsname^^J}%
+  \@tempswatrue \fi}
 
-\author{Peter Bonventre, Lu\'is A. Pereira}%
-\title{Equivariant dendroidal Segal spaces and $G$-$\infty$-operads}%
-\date{\today}
-
+\makeatother
 
 % ------- Commands --------------------------------
 \newcommand{\mycircled}[2][none]{%
@@ -81,19 +79,26 @@ cd,patterns,calc}
 \newcommand{\UC}{\underline{\mathfrak C}}
 
 
-%----- Document ---------------------------------
+
+
+
+% ------Personal Info------------------------------------
+\title{Coloured Genuine Operads}%
+
+\author{Peter Bonventre and Lu\'is Pereria}
+
+\date{\today}
 
 \begin{document}
 
+
 \maketitle
+
+\tableofcontents
 
 \begin{abstract}
       Things and stuff
 \end{abstract}
-
-
-
-\tableofcontents
 
 % ----------STUFF-----------------------------------------
 
@@ -149,6 +154,10 @@ Fix a closed symmetric monoidal category $\V$.
 \end{definition}
 
 \begin{remark}
+      (Coloured) operads are also known as \textit{symmetric multicategories} \todo{cite stuff}.
+\end{remark}
+
+\begin{remark}
       The category $\Op(\V)$ is isomorphic to the Grothendieck construction on the functor
       \begin{equation}
             \begin{tikzcd}[row sep = tiny]
@@ -158,6 +167,8 @@ Fix a closed symmetric monoidal category $\V$.
             \end{tikzcd}
       \end{equation}
 \end{remark}
+
+
 
 \begin{notation}
       In previous work \todo{cite}, $\Op(\V)$ has been used to denote \textit{single-coloured} operads specifically; that is, $\set{\**}$-coloured operads.
@@ -578,10 +589,6 @@ and $\phi(e) = g_e f$ for $f \in Gf \in E_G(S)$ minimal; as $g_e$ is unique modu
         \end{equation}
         It is easy to show this is equivalent to requiring that
         $\mathfrak c(G/G_e,e) = \phi_e^{\**} \mathfrak d(G/G_{\phi(e)}, \phi(e))$.
-      }
-      %%%%%%%%%%%%% COLOR: BLUE ----------------------------------------
-      \todo[inline]{figure out whether first or ``alternatively'' is more useful as the chosen construction}
-
       
       Similarly, $\underline{\mathfrak C}\Omega_G$ is isomorphic to the Grothendieck construction on the functor
       \begin{equation}
@@ -598,6 +605,9 @@ and $\phi(e) = g_e f$ for $f \in Gf \in E_G(S)$ minimal; as $g_e$ is unique modu
       
       $\CS$ can be defined similarly, with the relevant sources restricted to
       $\Sigma_G \subseteq \Omega_G$. 
+      }
+      %%%%%%%%%%%%% COLOR: BLUE ----------------------------------------
+      \todo[inline]{figure out whether first or ``alternatively'' is more useful as the chosen construction}
 \end{remark}
 
 
@@ -636,7 +646,7 @@ and $\phi(e) = g_e f$ for $f \in Gf \in E_G(S)$ minimal; as $g_e$ is unique modu
       Moreover, as this $g$ is unique modulo $G_a$, we have that there is a well-defined map $g_*: G/G_{q(b)} \to G/G_a$,
       and as $q$ induces a unique map $q_b^{\**}: G/G_b \to G/G_{q(b)}$, we have
       \begin{equation}
-            (q^{\**}\mathfrak c)([b]) q^{\**}g^{\**}\mathfrak c([a]).
+            (q^{\**}\mathfrak c)(Gb) q_b^{\**}g^{\**}\mathfrak c(Ga).
       \end{equation}
 
       {\color{blue} % ---------- ALTERNATIVELY --------------------
@@ -801,7 +811,7 @@ Generalizing \cite[Remark 3.78]{BP17}
       \item $\UC\Omega_G^n \to O_G$ is a root fibration.
       \item We have a vertex functor $V_G: \UC\Omega_G^{n+1} \to \mathsf F_s \wr \UC\Omega_G^n$ by
             \begin{equation}
-                  \large(
+                  \left(
                   (T_0,\mathfrak c_0)
                   \to (T_1, \mathfrak c_1)
                   \to \dots
@@ -812,7 +822,7 @@ Generalizing \cite[Remark 3.78]{BP17}
                   (T_{1,v_{Ge}},\mathfrak c_1)
                   \to \dots \to
                   (T_{n,v_{Ge}}, \mathfrak c_n)
-                  \large)_{v_{Ge} \in V_G(T_0)}
+                  \right)_{v_{Ge} \in V_G(T_0)}
             \end{equation}
             where we write abusively denote by $T_{i,v_{Ge}}$ the $G$-tree $(T_{i,\bar\phi_i(f)^\uparrow \leq \bar\phi_i(f)})_{f \in Ge}$
             and by $\mathfrak c_i$ the restriction to any of its sub-$G$-trees.
@@ -999,6 +1009,22 @@ In particular, this yields the following definitions and proposition.
 
 \subsection{Comparison with $\mathfrak C$-coloured operads}
 
+We have an inclusion
+\begin{equation}
+      \begin{tikzcd}[row sep = tiny]
+            \UC\Omega \arrow[r, hookrightarrow]
+            &
+            \UC\Omega_G
+            \\
+            (U, \mathfrak c) \arrow[r, mapsto]
+            &
+            (G \cdot U, \mathfrak c: \Phi(G \cdot U) \to \UC)
+      \end{tikzcd}
+\end{equation}
+sending maps $(\phi, g)$ to $(h,e) \mapsto (hg^{-1}, \phi(e))$. 
+
+
+
 Given $(T = (T_i)_I, \mathfrak c) \in \UC\Omega_G$, we define
 $\mathfrak c_i: E(T_i) \to \mathfrak C(G/e)$ by
 \begin{equation}
@@ -1012,7 +1038,7 @@ and $q_e:G/G_e \to G / G_{q(e)}$ the induced map.
 
 Then $(T_i, \mathfrak c_i) \in \UC\Omega$, and moreover
 $i \mapsto (T_i, \mathfrak c_i)$ yields a well-defined functor $B_{I}G \to \UC\Omega$.
-
+\todo[inline]{come back: make sure that $i \mapsto (T_i, \mathfrak c_i)$ is in fact a functor: in particular, does the ``minimal'' thing hold up?}
 
 \begin{remark}
       The colouring $\mathfrak c_i$ is \textit{almost} the composite
@@ -1027,15 +1053,15 @@ $i \mapsto (T_i, \mathfrak c_i)$ yields a well-defined functor $B_{I}G \to \UC\O
 \end{remark}
 
 
+
 With that, we have the formula
 \begin{equation}
-      \begin{tikzcd}
-            \iota_{\**}Y(T,\mathfrak c) =
-            \left(
-                  \prod_I Y(T_i, \mathfrak c_i)
-            \right)^G.
-      \end{tikzcd}
+      \iota_{\**}Y(T,\mathfrak c) =
+      \left(
+            \prod_I Y(T_i, \mathfrak c_i)
+      \right)^G.
 \end{equation}
+
 
 \begin{remark}[{cf. \cite[Rem 4.35]{BP17}}]
       Equivalently, the essential image of $\iota_{\**}$ are those sheaves $X \in \Sym_{G, \mathfrak C}(\V)$ such that
@@ -1048,31 +1074,94 @@ With that, we have the formula
       under precomposition.
 \end{remark}
 
+\todo[inline]{come back:
+  same retraction from free guys,
+  same interpretation of essentially image of $\iota_{\**}$ and $\iota_!$,
+  $\iota_{\**}\iota^{\**} \to id$ is still an iso on free guys
+}
+
+
 \begin{remark}
+      {\color{blue} % ------------------------------ CoLOR BLUE --------------------
       Alternatively, $\mathfrak c_i$ is the composite
       \begin{equation}
-            E(T_i) \to E(T) \to \mathfrak C(G/e).
+            E(T_i) \to E(T) \xrightarrow{\mathfrak c_{G/e}} \mathfrak C(G/e).
       \end{equation}
+      Then the map $B_I \to \UC\Omega$, $i \mapsto (T_i, \mathfrak c_i)$ is a functor
+      (as the inclusion and $\mathfrak c_{G/e}$ are $G$-equivariant),
+      and we have
+      \begin{equation}
+            \iota_{\**}Y(T, \mathfrak c) =
+            \left(
+                  \prod_I Y(T_i, \mathfrak c_i)
+            \right)^G.
+      \end{equation}
+      } % ------------------------------ COLOR BLUE ------------------------------
 \end{remark}
 
-
+\cite[Prop 4.38]{BP17} follows as before.
 \todo[inline]{Come BACK}
 
 DO STUFF.
 
 
 
+\subsection{Free extensions}
+
+Category of labeled planar coloured strings, as before.
+As most of the construction/category theory is on the level of strings (or formal due to pullback constructions),
+``colouring'' does not affect the proofs of \cite[Prop 5.30,5.41]{BP17}.
+
+\begin{proposition}
+      [{cf. \cite[Prop 5.48]{BP17}}]
+      For any $(T, \mathfrak c) \in \UC\Omega_G^e$ there exists a unqiue $\mathsf{lr}_{\mathcal P}(T, \mathfrak c) \in \UC\hat\Omega_G^e$
+      equipped with a unique planar (hence colour-fixed) label map in $\UC\Omega_G^e$
+      $\mathsf{lr}_{\mathcal P}(T, \mathfrak c) \to (T, \mathfrak c)$.      
+      Furthermore, $\mathsf{lr}_{\mathcal P}$ extends to a right retraction
+      $\mathsf{lr}_{\mathcal P}: \UC\Omega_G^e \to \UC\hat{\Omega}_G^e$.
+\end{proposition}
+\begin{proof}
+      The underlying $G$-tree of $\mathsf{lr}_{\mathcal P}(T, \mathfrak c)$ is simply $\mathsf{lr}_{\mathcal P}(T)$, and since
+      the edges of this tree are a $G$-subset of $E(T)$, the colouring descends uniquely.       
+\end{proof}
+
+
+\begin{proposition}
+      [{cf. \cite[Prop 5.37]{BP17}}]
+      $\Ran$ behaves well.
+\end{proposition}
+\begin{proof}
+      The proof of this result in the Appendix of \cite{BP17} requires no assumptions on $\Sigma_G$.
+      In particular, the proof follows when replacing $\Sigma_G$ with $\UC\Sigma_G$.
+\end{proof}
+
+\begin{corollary}
+      $\mathcal P[u] = \mathcal P \hat\amalg_{\mathbb F_{\UC}X}\mathbb F_{\UC}Y
+      \simeq
+      \Lan_{\left(\UC\hat\Omega_G^e \to \UC\Sigma_G\right)^{op}}\tilde N^{(\mathcal P, X, Y)}$.
+\end{corollary}
+
+
+\begin{remark}
+      For $T,S \in \UC\Omega_G$, any factorization $T \to T' \to S$ in $\Omega_G$ uniquely extends to one in $\UC\Omega_G$,
+      as there is a canonical colouring on $T'$, namely $\Phi E(T') \to \Phi E(S) \to \UC$. 
+\end{remark}
+
+The above gives \cite[Lem 5.57]{PB17}.
+
+\begin{proposition}
+      [{cf. \cite[Prop 5.66]{BP17}}]
+      For each $\UC$-profile $(C,\mathfrak c) \in \UC\Sigma_G$, we have a filtration of $\mathcal P[u]$ given by the following pushout in $\V^{\mathrm{Aut}(C)}$. 
+\end{proposition}
 
 
 
 
 
 
+\newpage
 
-
-
-
-
+\section{Algebras and Examples}
 
 
 
