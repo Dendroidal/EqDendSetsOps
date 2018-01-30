@@ -102,6 +102,25 @@
 
 % ----------STUFF-----------------------------------------
 
+
+
+\section{Overview}
+
+
+\[
+	\begin{tikzcd}
+		\mathsf{PreOp}^G
+\\
+		\mathsf{sdSet}^G \ar{r}[swap]{(-)_0} \ar{u}{\gamma_{\**}} &
+		\mathsf{dSet}^G
+	\end{tikzcd}
+\]
+
+
+
+
+
+
 \section{Coloured Operads}
 
 
@@ -1438,6 +1457,111 @@ But since $B'$ is $J$-fibrant, this follows from (a), which shows that the compo
 	Analyzing the proof above, one is free to replace the class of fibrant objects with any other class that is compatible with $J$-fibrations, in the sense that if 
 	$X \to Y$ is a $J$-fibration and $Y$ is in the class, then so is $X$.
 \end{remark}
+
+
+
+
+
+\subsection{Formalizing some stuff}
+
+The following is a reformalized proof of \cite[Thm. 8.14]{CM13b}.
+
+
+\begin{proposition}
+The (right) derived composite functors in the following diagram commute up to a zigzag of weak equivalences. 
+\[
+\begin{tikzcd}
+	\mathsf{PreOp} \ar{d}[swap]{\gamma^{\**}}&
+	\mathsf{sOp} \ar{l}[swap]{N} \ar{d}{hcN}
+\\
+	\mathsf{sdSet} &
+	\mathsf{dSet} \ar{l}{c_{!}}
+\end{tikzcd}
+\]
+\end{proposition}
+
+Note that though $\gamma^{\**}$ and $c_{!}$ are left Quillen, they both preserve all equivalences, 
+so that one needs only perform fibrant replacements in 
+$\mathsf{sOp}$.
+
+\begin{proof}
+	Recall that, given an object $X$ in a model category $\mathcal{M}$, a simplicial frame of $X$ is a fibrant replacement
+	$c_!(X) \to \widetilde{X}(\bullet)$ of the constant 
+	simplcial object $c_!(X)$ in the Reedy model structure on $\mathcal{M}^{\Delta^{op}}$.
+	Moreover, if $X$ was already fibrant one is free to assume that $\widetilde{X}(0) = X$.
+	
+	Let $\mathcal{O} \in \mathsf{sOp}$ be fibrant, 
+	choose a (functorial) fibrant simplicial frame
+	$\widetilde{\mathcal{O}}(\bullet) \in \mathsf{sOp}^{\Delta^{op}}$, where we assume $\widetilde{\mathcal{O}} (0) = \mathcal{O}$.
+	Next, let 
+	$\gamma^{\**} N \widetilde{\mathcal{O}}(\bullet) 
+	\to \widetilde{Q}(\bullet)$
+	be a Reedy fibrant replacement in  
+	$\mathsf{sdSet}^{\Delta^{op}}$.
+	
+	We claim that the following is a zigzag of weak equivalences in $\mathsf{sdSet}$.
+\begin{equation}\label{BIGZIG EQ}
+	\gamma^{\**} N \mathcal{O} \xrightarrow{\sim}
+	\widetilde{Q}(0) \xrightarrow{\sim}
+	\delta^{\**} \widetilde{Q} \xleftarrow{\sim}
+	\widetilde{Q}_0 \xleftarrow{\sim}
+	\left(\gamma^{\**} N \widetilde{\mathcal{O}}\right)_0
+	\xrightarrow{\sim}
+	hcN \widetilde{\mathcal{O}} \xleftarrow{\sim}
+	c_{!} hcN \mathcal{O}
+\end{equation}
+That the first map is an equivalence is obvious from definition of $\widetilde{Q}$ and the assumption $\widetilde{\mathcal{O}}(0) = \mathcal{O}$.
+
+For the second and third maps, note first that $\widetilde{Q}$ is homotopically constant, in the sense that all structure maps $\widetilde{Q}(m) \to \widetilde{Q}(m')$
+are equivalences.
+Moreover, since the levels $\widetilde{Q}$ are fibrant in 
+$\mathsf{sdSet}$, this implies that these are simplicial equivalences, i.e. that for each tree $T \in \Omega$
+the evaluations 
+$\widetilde{Q}(T)(m) \to \widetilde{Q}(T)(m')$
+are Kan equivalences in $\mathsf{sSet}$.
+Buy since $\widetilde{Q}(T) \in \mathsf{sSet}^{\Delta^{op}}$ is itself Reedy fibrant, this shows that it is in fact joint Reedy fibrant, so that one has Kan equivalences 
+$\widetilde{Q}(T)(0) \xrightarrow{\sim}
+\delta^{\**} \widetilde{Q}(T) \xleftarrow{\sim}
+\widetilde{Q}_0(T)$, showing that the second and third maps in \eqref{BIGZIG EQ} are indeed weak equivalences.
+
+For the fourth equivalence, note that one can write
+\[\widetilde{Q}_0(T) = 
+\mathsf{Hom}_{\mathsf{sdSet}}(\Omega[T],\widetilde{Q})=
+\mathsf{Hom}_{\mathsf{PreOp}}(\Omega[T],\gamma_{\**}\widetilde{Q})\]
+\[
+\left(\gamma^{\**} N \widetilde{\mathcal{O}}\right)_0(T) = 
+\mathsf{Hom}_{\mathsf{sdSet}}(\Omega[T],\gamma^{\**} N \widetilde{\mathcal{O}})=
+\mathsf{Hom}_{\mathsf{PreOp}}(\Omega[T], N \widetilde{\mathcal{O}})
+\]
+The claim now follows by noting that
+$N \mathcal{O} \to \gamma_{\**} \widetilde{Q}$
+is an equivalence of Reedy fibrant objects on 
+$\mathsf{PreOp}^{\Delta^{op}}$ (over the tame model structure) and that $\Omega(T)$ is tame cofibrant. 
+
+For the fifth equivalence, note that
+\[
+\left(\gamma^{\**} N \widetilde{\mathcal{O}}\right)_0(T) = 
+\mathsf{Hom}_{\mathsf{PreOp}}(\Omega[T], N \widetilde{\mathcal{O}}) =
+\mathsf{Hom}_{\mathsf{sOp}}(\Omega(T),  \widetilde{\mathcal{O}})
+\]
+\[
+\left(hcN \widetilde{\mathcal{O}} \right)(T) = 
+\mathsf{Hom}_{\mathsf{sOp}}(W_!(T),  \widetilde{\mathcal{O}})
+\]
+so that the required claim follows since 
+$\widetilde{\mathcal{O}}$ is Reedy fibrant and
+$W_!(T) \to \Omega(T)$ is a weak equivalence of cofibrant operads.
+
+Lastly, for the last map, one needs simply note that
+$c_! hcN \mathcal{O} = hcN c_! \mathcal{O}$, so that the required claim follows since 
+$c_! \mathcal{O} \to \widetilde{O}$
+is a levelwise equivalence of levelwise fibrant operads
+and $hcN$ is right Quillen.
+\end{proof}
+
+
+{\color{red} Maybe revise Lemmas A.21 and A.22, and the proof of Proposition 5.28 in \cite{BP18} to discuss evaluation of Reedy cofibrations/fibrations}
+
 
 
 \bibliography{biblio}{}
