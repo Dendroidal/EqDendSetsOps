@@ -19,8 +19,8 @@
 
 
 
+%-------- Tikz ---------------------------
 
-%-------- TIKZ -----------------------------------------
 \usepackage{tikz}%
 \usetikzlibrary{matrix,arrows,decorations.pathmorphing, cd, patterns, calc, decorations.pathreplacing}
 \tikzset{%
@@ -39,7 +39,7 @@
 
 
 
-% -------- COMMANDS ON DRAFT--------------------------
+% -------- Commands on draft -------------
 
 \usepackage{ifdraft}
 \ifdraft{
@@ -52,7 +52,6 @@
 
 \usepackage[draft]{showkeys}
 \usepackage{todonotes}%[obeyDraft]
-
 
 
 % ----- What Labels Changed? --------------------------------
@@ -68,7 +67,8 @@
 
 \makeatother
 
-% ------- Commands --------------------------------
+
+% ------- Commands --------------------
 \newcommand{\mycircled}[2][none]{%
   \mathbin{
     \tikz[baseline=(a.base)]\node[draw,circle,inner sep=-1.5pt, outer sep=0pt,fill=#1](a){\ensuremath #2\strut};
@@ -83,26 +83,28 @@
 
 
 
-% ------Personal Info------------------------------------
+% ------ Personal Info ---------------
 \title{Coloured Genuine Operads}%
 
 \author{Peter Bonventre and Lu\'is Pereria}
 
 \date{\today}
 
+
+
+
+
+% ------ Document body -----------
+
 \begin{document}
 
-
 \maketitle
-
-\tableofcontents
 
 \begin{abstract}
       Things and stuff
 \end{abstract}
 
-% ----------STUFF-----------------------------------------
-
+\tableofcontents
 
 
 \section{Overview}
@@ -119,14 +121,10 @@
 
 
 
-
-
-
 \section{Coloured Operads}
 
 
 \subsection{Non-Equivariant Coloured Operads}
-
 
 Fix a closed symmetric monoidal category $\V$.
 
@@ -134,10 +132,8 @@ Fix a closed symmetric monoidal category $\V$.
       Fix a set $\mathfrak C$ of \textit{colours}.
       A tuple
       $\ksi = (c_1, \ldots, c_n; c_0) \in \mathfrak C^{\times n} \times \mathfrak C$
-      is called a \textit{signature} of $\mathfrak C$, and let $|\ksi|$ denote the length $n$
-      (so $\ksi \in \mathfrak C^{\times |\ksi| + 1}$).
-      
-      A \textit{$\mathfrak C$-coloured operad} in $\V$ consists of the following data:
+      is called a \textit{signature} of $\mathfrak C$.
+      A \textit{$\mathfrak C$-coloured operad} $\mathcal{O}$ in $\V$ consists of the following data:
       \begin{enumerate}%\itemsep-4pt
       \item An object $\O(\ksi) \in \V$ for each signature $\ksi$.
       \item For each $c \in \mathfrak C$, a \textit{unit} $1_c \in \O(c;c)$.
@@ -152,7 +148,7 @@ Fix a closed symmetric monoidal category $\V$.
                   \O(\ksi) \times \O(\ksi_1) \times \ldots \times \O(\ksi_n) \to \O(c_{1,1}, \ldots, c_{n,m_n}; c_0)
             \end{equation}
       \end{enumerate}
-      subject to all the compatibilities you'd expect.
+      subject to the compatibilities one would expect.
 
       A map of $\mathfrak C$-coloured operads is a compatible collection of maps
       $\set{\O(\ksi) \to \O'(\ksi)}_{\ksi}$.
@@ -174,8 +170,9 @@ Fix a closed symmetric monoidal category $\V$.
 \end{definition}
 
 \begin{remark}
-      (Coloured) operads are also known as \textit{symmetric multicategories} \todo{cite stuff}.
+      (Coloured) operads are also known as \textit{symmetric multicategories}.
 \end{remark}
+
 
 \begin{remark}
       The category $\Op(\V)$ is isomorphic to the Grothendieck construction on the functor
@@ -188,12 +185,6 @@ Fix a closed symmetric monoidal category $\V$.
       \end{equation}
 \end{remark}
 
-
-
-\begin{notation}
-      In previous work \todo{cite}, $\Op(\V)$ has been used to denote \textit{single-coloured} operads specifically; that is, $\set{\**}$-coloured operads.
-      For this article, we will write these as $\Op^{\set{\**}}(\V)$. 
-\end{notation}
 
 
 \subsection{Equivariant Coloured Operads}
@@ -224,26 +215,28 @@ Fix a closed symmetric monoidal category $\V$.
 \end{remark}
 
 \begin{remark}
-      Unlike in the single-coloured case, this is \textit{not} the same as coloured operads in $\V^G$.
-      Indeed, objects in $\Op(\V^G)$ have a $G$-fixed set of colours, and each level $\O(\ksi)$ is a full $G$-set
-      (though only a partial $\Sigma_{|\ksi|}$-set).
+	Unlike in the single-coloured case, $\Op^G(\V)$ does \textit{not} coincide with the category of colored operads in $\V^G$.
+	Indeed, objects in $\Op(\V^G)$ have a $G$-fixed set of colors, and each level $\O(\ksi)$ is a full $G$-set
+	(though only a partial $\Sigma_{|\ksi|}$-set).
 \end{remark}
 
 \begin{definition}
-      Given a $G$-set $\mathfrak C$, let $\Op^{G,\mathfrak C}(\V)$ denote the category of \textit{$\mathfrak C$-coloured operads} and maps which are the identity on colours.
+      Given a $G$-set $\mathfrak C$, let $\Op^{G,\mathfrak C}(\V)$ denote the category of \textit{$\mathfrak C$-colored operads} and maps which are the identity on colors.
 
       Parallel to the non-equivariant case, $\Op^G(\V)$ is isomorphic to the Grothendieck construction on the functor
-            \begin{equation}
-            \begin{tikzcd}[row sep = tiny]
-                  \mathsf F^G \arrow[r] & \mathsf{Cat}
-                  \\
-                  \mathfrak C \arrow[r, mapsto] & \Op^{G,\mathfrak C}(\V).
-            \end{tikzcd}
-      \end{equation}
-      
+	\begin{equation}
+	\begin{tikzcd}[row sep = tiny]
+		\mathsf F^G \arrow[r] & \mathsf{Cat}
+			\\
+		\mathfrak C \arrow[r, mapsto] & \Op^{G,\mathfrak C}(\V).
+	\end{tikzcd}
+	\end{equation}
 \end{definition}
 
+
 \subsubsection{Categorical Description}
+
+{\color{red} HERE}
 
 \begin{definition}
       Given a $G$-set $X$, let $B_XG$ denote the \textit{translation category} of $X$,
@@ -632,9 +625,9 @@ and $\phi(e) = g_e f$ for $f \in Gf \in E_G(S)$ minimal; as $g_e$ is unique modu
 
 
 \begin{remark}
-      $\underline{\mathfrak C}\Omega_G$ is also a root fibration ---
+      $\underline{\mathfrak C}\Omega_G$ is also a root fibration, 
       that is, a split Grothendieck fibration over the orbit category.
-      \todo[inline]{cite reading material}
+
       Formally, as $\mathsf F \wr (-)$ and pullbacks preserve such fibrations, and these are compatible under composition,
       this follows from the natural maps $\underline{\mathfrak C}\Omega_G \to \Omega_G \to O_G$.
       Explicitly, $\underline{\mathfrak C}\Omega_G(G/H)$ has as objects those pairs $(T,\mathfrak c)$ such that
@@ -782,14 +775,14 @@ Generalizing \cite[Remark 3.78]{BP17}
 \begin{proof}
       This follows as in \cite[Prop. 3.41]{BP17}, going by induction on $n=|V_G(T)|$.
       Let $(U_T,\mathfrak c_{U_T})$ denote the colimit, if it exists.
-      If $n$ is 0 or 1, $T$ is terminal in $Sc_G(T)$, and the colouring $\mathfrak c_{U_T}$ is just $\mathfrak c$.
+      If $n$ is 0 or 1, $T$ is terminal in $Sc_G(T)$, and the coloring $\mathfrak c_{U_T}$ is just $\mathfrak c$.
       Otherwise, we have a decomposition $T = R \amalg_{Ge} S$ with
       the planar ordering on $Ge$ in $R$, $S$, and $T$ the same,
       $E_G(T) = E_G(R) \amalg_{Ge} E_G(S)$
       $\mathfrak c_{R} = \mathfrak c|_{E_G(R)}$,
       $\mathfrak c_{S} = \mathfrak c|_{E_G(S)}$,
       such that
-      the existance of $U_T$ and $\mathfrak c_{U_T}$ follow from the existance of the pushout below in $\underline{\mathfrak C}\Omega_G^{pt,cf}$.
+      the existence of $U_T$ and $\mathfrak c_{U_T}$ follow from the existence of the pushout below in $\underline{\mathfrak C}\Omega_G^{pt,cf}$.
       \begin{equation}
             \begin{tikzcd}
                   (\eta_{Ge}, \mathfrak c) \arrow[d] \arrow[r]
@@ -883,8 +876,7 @@ Generalizing \cite[Remark 3.78]{BP17}
       is a pullback diagram in $\Cat$.
 \end{proposition}
 \begin{proof}
-      This follows as in \textit{loc cite}, as the colourings descend to all sub-$G$-trees.
-      \todo{come back}
+      This follows as in \textit{loc cite}, as the colorings descend to all sub-$G$-trees.
 \end{proof}
 
 \begin{proposition}
@@ -893,7 +885,6 @@ Generalizing \cite[Remark 3.78]{BP17}
 \end{proposition}
 \begin{proof}
       Also follows from non-equivariant proof.
-      \todo{come back}
 \end{proof}
 
 Similarly, \cite[Prop 3.47, 3.90, 4.12, 4.15, 4.26, 4.30]{BP17} naturally generalized to the coloured-setting,
@@ -937,7 +928,7 @@ In particular, this yields the following definitions and proposition.
 \todo[inline]{recall adjunctions with $\mathsf{Lan}$ and $\mathsf{Ran}$, canonical op-isos, etc}
 
 \begin{definition}[{cf. \cite[Defn 4.16]{BP17}}]
-      Suppose $\V$ is a symmetric monoidal category with diagonals \todo{recall}.
+      Suppose $\V$ is a symmetric monoidal category with diagonals.
       We define an endofunctor $N_{\UC}$ on $\mathsf{WSpan}^r(\UC\Sigma_G, \V^{op})$
       by letting $N_{\UC}(\UC\Sigma_G \leftarrow \mathcal A \to \V^{op})$ be given by the span
       \begin{equation}
@@ -1004,7 +995,7 @@ In particular, this yields the following definitions and proposition.
       $(N_{\UC},\mu,\eta)$ is a monad on $\mathsf{WSpan}^r(\UC\Sigma_G, \V^{op})$.
 \end{proposition}
 \begin{proof}
-      Nothing new. \todo{come back}
+      Nothing new.
 \end{proof}
 
 
@@ -1035,16 +1026,13 @@ In particular, this yields the following definitions and proposition.
 
 \subsection{Genuine $\mathfrak C$-coloured operads}
 
-\todo[inline]{come back: More explicit description}
-
-\todo[inline]{Include something about profiles.}
 
 \begin{remark}
       Given $X\in \dSet_G$ with $X(\eta_{G/H}) = \mathfrak C(G/H)$, we have that
       $\UC\Sigma_G$ is equal to the category of \textit{profiles} $\partial\Omega[C] \to X$,
       where $C$ ranges over all of $\Sigma_G$.
-      \todo[inline]{come back}
 \end{remark}
+
 
 \subsection{Comparison with $\mathfrak C$-coloured operads}
 
@@ -1141,9 +1129,7 @@ With that, we have the formula
 
 
 \cite[Prop 4.38]{BP17} follows as before.
-\todo[inline]{Come BACK}
 
-DO STUFF.
 
 
 
@@ -1389,20 +1375,6 @@ We record that $\iota_{\**}$ again fully-faithful since $\epsilon$ is an iso.
 
 
 
-\newpage
-
-\section{Algebras and Examples}
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1483,9 +1455,8 @@ The above reflects the following result.
       \begin{itemize}
       \item $\sim_{G e}$ is an equivalence relation on $X(C)$ for all $Ge \in E_G(C)$.
       \item The relations $\sim_{G e}$ and $\sim_{G e'}$ are equal for all $e,e'\in E(C)$.
-      \item $[h] \circ [f] = [h \circ f]$ yields a well-defined composition map. \todo[inline]{come back}
+      \item $[h] \circ [f] = [h \circ f]$ yields a well-defined composition map.
       \end{itemize}
-      \todo[inline]{need to show naturality, check associativity of composition}
 \end{proof}
 
 
