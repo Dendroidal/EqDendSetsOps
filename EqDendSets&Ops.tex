@@ -120,6 +120,25 @@
 \]
 
 
+\section{Preliminaries}
+
+Recall the notation $\mathsf F \wr \mathcal C$ for a category $\mathcal C$.
+
+Similarly, consider the Grothendieck construction on the functor
+\begin{equation}
+      \label{FG_GR_EQ}
+      \begin{tikzcd}[row sep = tiny]
+            \mathsf F^{G,op} \arrow[r]
+            &
+            \mathsf{Set}
+            \\
+            A \arrow[r, mapsto]
+            &
+            \Set^{O_G^{op}}(\Phi(A), \underline{\mathfrak C}),
+      \end{tikzcd}
+\end{equation}
+where $\Phi: \Set^G \to \Set^{O_G^{op}}$ sends a $G$-set $X$ to its fixed-point system $G/H \mapsto X^H$.
+We will denote this by $\mathsf F^G \wr \underline{\mathfrak C}$.
 
 \section{Colored Operads}
 
@@ -134,7 +153,7 @@ Fix a closed symmetric monoidal category $\V$.
       $\ksi = (c_1, \ldots, c_n; c_0) \in \mathfrak C^{\times n} \times \mathfrak C$
       is called a \textit{signature} of $\mathfrak C$.
       A \textit{$\mathfrak C$-colored operad} $\mathcal{O}$ in $\V$ consists of the following data:
-      \begin{enumerate}%\itemsep-4pt
+      \begin{enumerate}[label = (\arabic*)]
       \item An object $\O(\ksi) \in \V$ for each signature $\ksi$.
       \item For each $c \in \mathfrak C$, a \textit{unit} $1_c \in \O(c;c)$.
       \item For any signature $\ksi \in \mathfrak C^{\times n+1}$ and $\sigma \in \Sigma_n$, a map $\O(\ksi) \to \O(\sigma \cdot \ksi)$,
@@ -143,14 +162,13 @@ Fix a closed symmetric monoidal category $\V$.
             \begin{equation}
                   \O(c_1, \ldots, c_n; c_0) \xrightarrow{\sigma} \O(c_{\sigma^{-1}1}, \ldots, c_{\sigma^{-1}n}; c_0).
             \end{equation}
-      \item For any compatible signatures $\ksi = (c_1, \ldots, c_n; c_0)$, $\ksi_i = (c_{i,1}, \ldots, c_{i,m_i}; c_i)$, a \textit{composition} map
+      \item For any compatible signatures $\ksi = (c_1, \ldots, c_n; c_0)$, $\ksi_i = (c_{1}^i, \ldots, c_{m_i}^i; c_i)$, a \textit{composition} map
             \begin{equation}
-                  \O(\ksi) \times \O(\ksi_1) \times \ldots \times \O(\ksi_n) \to \O(c_{1,1}, \ldots, c_{n,m_n}; c_0)
+                  \O(\ksi) \times \O(\ksi_1) \times \ldots \times \O(\ksi_n) \to \O(\ksi \circ (\ksi_i))
             \end{equation}
       \end{enumerate}
-      subject to the compatibilities one would expect.
-
-      
+      where $\ksi \circ (\ksi_i) = (c_1^1,c_2^1,\dots,c_{m_n}^{n}; c_0)$,
+      subject to the associativity, unitality, and $\Sigma$-equivariant compatibilities one would expect.      
       
       A map of $\mathfrak C$-colored operads is a compatible collection of maps
       $\set{\O(\ksi) \to \O'(\ksi)}_{\ksi}$.
@@ -162,7 +180,7 @@ Fix a closed symmetric monoidal category $\V$.
       Given a map $f: \mathfrak C' \to \mathfrak C$ and a $\mathfrak C$-colored operad $\O$,
       there is a natural $\mathfrak C'$-colored operad $f^*(\O)$, where
       \begin{equation}
-            f^{\**}(\O)(c'_1, \ldots, c'_n; c'_0) = \O(f(c'_1), \ldots, f(c'_n); f(c'_0)).
+            f^{\**}(\O)(\ksi') = \O(f(\ksi')),
       \end{equation}
 
       A \textit{map of colored operads} $\O' \to \O$ is given by the data of a map of colors $f: \mathfrak C' \to \mathfrak C$,
@@ -175,12 +193,11 @@ Fix a closed symmetric monoidal category $\V$.
       (Colored) operads are also known as \textit{symmetric multicategories}.
 \end{remark}
 
-
 \begin{remark}
       The category $\Op(\V)$ is isomorphic to the Grothendieck construction on the functor
       \begin{equation}
             \begin{tikzcd}[row sep = tiny]
-                  \mathsf F \arrow[r] & \mathsf{Cat}
+                  \mathsf F^{op} \arrow[r] & \mathsf{Cat}
                   \\
                   \mathfrak C \arrow[r, mapsto] & \Op^{\mathfrak C}(\V).
             \end{tikzcd}
@@ -192,48 +209,52 @@ Fix a closed symmetric monoidal category $\V$.
 
 \subsection{Equivariant Colored Operads}
 
+Let $G$ be a finite group.
+\begin{notation}
+      For any $G$-set $A$ and $a \in A$, let $G_a$ denote the stabilizer $\Stab_G(a)$ of $a$ in $G$.
+\end{notation}
+
 \begin{definition}
       The category $\Op^G(\V)$ of  \textit{$G$-colored operads} in $\V$ is the category of
       $G$-objects in $\Op(\V)$.
 \end{definition}
 
+Unpacking this definition, we see $\O \in \Op^G(\V)$ consists of the following data:
+\begin{enumerate}[label = (\arabic*)]
+\item A $G$-set $\mathfrak C$ of colors.
+\item For each signature $\ksi$ of $\mathfrak C$, an object $\O(\ksi) \in \V$.
+\item For each signature $\ksi \in \mathfrak C^{\times n+1}$ and $(g,\sigma) \in G\times \Sigma_n$, a map
+      $\O(\ksi) \to \O((g,\sigma)\cdot \ksi)$,
+      where $G$ acts on $\mathfrak C^{\times n+1}$ diagonally (across all $n+1$ coordinates), and $\Sigma_n$ acts on the first $n$.
+\item For each $c \in \mathfrak C$, a \textit{unit} $1_c \in \O(c;c)^{G_c}$.
+\item For compatible signatures $\ksi$, $\ksi_1$, $\ldots$, $\ksi_n$, \textit{composition maps}
+      \begin{equation}
+            \O(\ksi) \otimes \O(\ksi_1) \otimes \ldots \otimes \O(\ksi_n) \to \O(\ksi \circ (\ksi_i)),
+      \end{equation}
+\end{enumerate}
+such that composition is
+compatible with the $G$-action on each component as well as the appropriate actions of $\Sigma$,
+and is unital and associative. 
 
-\begin{remark}
-      Unpacking this definition, we see $\O \in \Op^G(\V)$ consists of the following data:
-      \begin{enumerate}
-      \item A $G$-set $\mathfrak C$ of colors.
-      \item For each signature $\ksi$ of $\mathfrak C$, an object $\O(\ksi) \in \V$.
-      \item For each signature $\ksi \in \mathfrak C^{\times n+1}$ and $(g,\sigma) \in G\times \Sigma_n$, a map
-            $\O(\ksi) \to \O((g,\sigma)\cdot \ksi)$,
-            where $G$ acts on $\mathfrak C^{\times n+1}$ diagonally (across all $n+1$ coordinates), and $\Sigma_n$ acts on the first $n$.
-      \item For each $c \in \mathfrak C$, a \textit{unit} $1_c \in \O(c;c)^{G_c}$, where $G_c$ is the stabilizer of $c$.
-      \item For compatible signatures $\ksi$, $\ksi_1$, $\ldots$, $\ksi_n$, \textit{composition maps}
-            \begin{equation}
-                  \O(\ksi) \otimes \O(\ksi_1) \otimes \ldots \otimes \O(\ksi_n) \to \O(\ksi \circ (\ksi_1, \ldots, \ksi_n)),
-            \end{equation}
-      \end{enumerate}
-      such that composition is
-      compatible with the $G$-action on each component as well as the appropriate actions of $\Sigma$,
-      and is unital and associative. 
-\end{remark}
 
 \begin{remark}
 	Unlike in the single-colored case, $\Op^G(\V)$ does \textit{not} coincide with the category of colored operads in $\V^G$.
-	Indeed, objects in $\Op(\V^G)$ have a $G$-fixed set of colors, and each level $\O(\ksi)$ is a full $G$-set
-	(though only a partial $\Sigma_{|\ksi|}$-set).
+	Indeed, objects in $\Op(\V^G)$ have a fixed $G$-set of colors,
+        and each level $\O(\ksi)$ has an action by the full group $G$
+	(though only a partial action by $\Sigma_{|\ksi|}$).
 \end{remark}
 
 \begin{definition}
       Given a $G$-set $\mathfrak C$, let $\Op^{G,\mathfrak C}(\V)$ denote the category of \textit{$\mathfrak C$-colored operads} and maps which are the identity on colors.
-
+      
       Parallel to the non-equivariant case, $\Op^G(\V)$ is isomorphic to the Grothendieck construction on the functor
-	\begin{equation}
-	\begin{tikzcd}[row sep = tiny]
-		\mathsf F^G \arrow[r] & \mathsf{Cat}
-			\\
-		\mathfrak C \arrow[r, mapsto] & \Op^{G,\mathfrak C}(\V).
-	\end{tikzcd}
-	\end{equation}
+      \begin{equation}
+            \begin{tikzcd}[row sep = tiny]
+                  \mathsf (F^G)^{op} \arrow[r] & \mathsf{Cat}
+                  \\
+                  \mathfrak C \arrow[r, mapsto] & \Op^{G,\mathfrak C}(\V).
+            \end{tikzcd}
+      \end{equation}
 \end{definition}
 
 
@@ -243,105 +264,119 @@ Fix a closed symmetric monoidal category $\V$.
 \begin{definition}
       Given a $G$-set $X$, let $B_XG$ denote the \textit{translation category} of $X$,
       with object set $X$ and morphisms $g: x \to g\cdot x$ for all pairs $(g,x) \in G \times X$.
-
-      We will denote $B_{\set{\**}}G$ by $\mathsf G$.
 \end{definition}
 
 \begin{remark}
       We observe that we have a natural diagonal map
-      \begin{equation}
-            F \times \mathsf G \into \mathsf F \wr \mathsf G,
-      \end{equation}
+%      \begin{equation}
+      $
+      F \times G \into \mathsf F \wr G,
+      $
+      % \end{equation}
       and so for any functor $F: \mathcal C \to \mathsf F$, we have an induced functor
-      $F: \mathcal C \times \mathsf G \to \mathsf F \wr \mathsf G$. 
+      $F: \mathcal C \times G \to \mathsf F \wr G$. 
 \end{remark}
 
 \begin{definition}
-      Let $\mathfrak C \Sigma$ be the category
+      Let $\mathfrak C \Sigma$ denote the \textit{$(G,\mathfrak C)$-symmetric category}, given by
       \begin{equation}
             \mathfrak C \Sigma = \coprod\limits_{n\geq 0} B_{\mathfrak C^{\times n} \times \mathfrak C}(G \times \Sigma_n).
       \end{equation}
+      
       We note that $\mathrm{Ob}(\mathfrak C \Sigma)$ is precisely the set of \textit{signatures} in $\mathfrak C$.
-      Further, we observe that this is equivalent to the pullback
+      We observe that this is equivalent to the pullback on the left below.
       \begin{equation}
-            \label{CSIGMA_EQ}
+            \label{COMEGA_B_EQ}
             \begin{tikzcd}
                   \mathfrak C \Sigma \arrow[d] \arrow[r, "E"]
                   &
                   \mathsf F \wr B_{\mathfrak C}G \arrow[d]
-                  \\
-                  \Sigma \times \mathsf G \arrow[r, "E"]
-                  &
-                  \mathsf F \wr \mathsf G
-            \end{tikzcd}
-      \end{equation}
-      where $E: \Omega \to \mathsf F$ sends a tree to its set of edges.
-      \todo[inline]{$B_{\mathfrak C}G = G \ltimes \mathfrak C$}
-      
-      More generally, let $\mathfrak C \Omega$ be the pullback
-      \begin{equation}
-            \label{COMEGA_EQ}
-            \begin{tikzcd}
+                  &&
                   \mathfrak C \Omega \arrow[d] \arrow[r, "E"]
                   &
                   \mathsf F \wr B_{\mathfrak C}G \arrow[d]
                   \\
-                  \Omega \times \mathsf G \arrow[r, "E"]
+                  \Sigma \times G \arrow[r, "E"]
                   &
-                  \mathsf F \wr \mathsf G
+                  \mathsf F \wr G
+                  &&
+                  \Omega \times G \arrow[r, "E"]
+                  &
+                  \mathsf F \wr G
             \end{tikzcd}
       \end{equation}
+      where $E: \Sigma \to \mathsf F$ sends $\underline{n}$ to $\underline{n+1}$.
+      \todo[inline]{$B_{\mathfrak C}G = G \ltimes \mathfrak C$}
+      More generally, let $\mathfrak C \Omega$ be the pullback on the right above,
+      where $E: \Omega \to \mathsf F$ sends a tree $T$ to its set $E(T)$ of edges.
 
-      We have a natural inclusion of categories $\mathfrak C \Sigma \into \mathfrak C \Omega$.
-      Moreover, we will called elements of these categories
+      We have a natural inclusion of categories $\mathfrak C \Sigma \into \mathfrak C \Omega$,
+      and as such we will called elements of these categories
       \textit{colored trees} (or \textit{colored corollas}),
       and denote them by $(T,\mathfrak c)$, where $\mathfrak c: E(T) \to \mathfrak C$ is a map of sets.
 \end{definition}
 
 \begin{remark}
-      Unpacking definitions, we see that a map $(T, \mathfrak c) \to (S, \mathfrak d)$ is given by
-      a map $f: T \to S$ in $\Omega$ and an element $g\in G$,
-      such that $g.\mathfrak c(e) = \mathfrak d(f(e))$ for all $e \in E(T)$.
-      \begin{equation}
-            \begin{tikzcd}
-                  E(T) \arrow[r, "f"] \arrow[d, "\mathfrak c"']
-                  &
-                  E(S) \arrow[d, "\mathfrak d"]
-                  \\
-                  \mathfrak C \arrow[r, "g"]
-                  &
-                  \mathfrak C
-            \end{tikzcd}
-      \end{equation}
-      
-      In particular, we have maps of the form
-      \begin{equation}
-            g = (id, g): (T, E(T) \to \mathfrak C) \to (T, E(T) \to \mathfrak C \xrightarrow{g \cdot} \mathfrak C). 
-      \end{equation}
+      When $G = \set{e}$ and $\mathfrak C = \set{*}$, $\mathfrak C \Sigma = \Sigma$.
 \end{remark}
 
+Unpacking definitions, we see that a map $(T, \mathfrak c) \to (S, \mathfrak d)$ is given by
+a map $f: T \to S$ in $\Omega$ and an element $g\in G$,
+such that $g.\mathfrak c(e) = \mathfrak d(f(e))$ for all $e \in E(T)$.
+\begin{equation}
+      \begin{tikzcd}
+            E(T) \arrow[r, "f"] \arrow[d, "\mathfrak c"']
+            &
+            E(S) \arrow[d, "\mathfrak d"]
+            \\
+            \mathfrak C \arrow[r, "g"]
+            &
+            \mathfrak C
+      \end{tikzcd}
+\end{equation}
+
+In particular, we have maps of the form
+\begin{equation}
+      g = (id, g): (T, E(T) \to \mathfrak C) \to (T, E(T) \to \mathfrak C \xrightarrow{g \cdot} \mathfrak C). 
+\end{equation}
+
 \begin{remark}
-      $\mathfrak C \Omega$ is equivalent to the
+      $\mathfrak C \Omega$ is equal to the
       Grothendieck construction on the functor
       \begin{equation}
+            \label{COMEGA_B_GR_EQ}
             \begin{tikzcd}[row sep = tiny]
-                  \Omega^{op} \times G \arrow[r]
+                  \Omega^{op} \times G^{op} \arrow[r]
                   &
-                  \mathsf{Cat}
+                  \mathsf{Set}
                   \\
                   T \arrow[r, mapsto]
                   &
-                  \mathsf{Fun}(E(T), \mathfrak C).
+                  \Hom_{\mathsf{Cat}}(E(T), B_{\mathfrak C}G)
+                  \\
+                  (\phi: S \to T,g) \arrow[r, mapsto]
+                  &
+                  (E(S) \xrightarrow{\phi} E(T) \xrightarrow{\mathfrak c} \mathfrak C \xrightarrow{g^{-1}} \mathfrak C)
             \end{tikzcd}
       \end{equation}
-      \todo[inline]{compare with genuine case: RHS equals $\mathsf{Fun}(\Phi(E(T)), \mathfrak C) = \mathsf{Fun}(\Phi(E(G \cdot T)), \mathfrak C))$}
+      \todo[inline]{compare with genuine case: RHS equals
+        $\Hom(\Phi(E(T)), \mathfrak C_{const})$ equals
+        $\Hom(\Phi(E(G \cdot T)), \mathfrak C_{fr}))$}
       and a similar result holds for $\mathfrak C \Sigma$. 
 \end{remark}
 
 \begin{remark}
-      Note that we can replace the $G$-set $\mathfrak C$ with a \textit{coefficient system} $\underline{\mathfrak C}$,
-      substituting the rectangle of pullbacks below for \eqref{COMEGA_EQ}
+      Note that we can replace the $G$-set $\mathfrak C$ with a
+      \textit{coefficient system} $\underline{\mathfrak C}$ in multiple ways,
+      defining categories $\UC\Omega$.
+      In each case, the $G$-set definitions are recovered by replacing $\UC$ with $\Phi(\mathfrak C)$,
+      and the resulting categories are always equal to $\mathfrak C(G/e)\Omega$.
+
+      % ------------------------------------------------------------
+      
+      First, we can substitute \eqref{COMEGA_B_EQ} for the rectangle of pullbacks below
       \begin{equation}
+            \label{COMEGA_OG_EQ}
             \begin{tikzcd}
                   \underline{\mathfrak C}\Omega \arrow[d] \arrow[r, "E"]
                   &
@@ -358,10 +393,87 @@ Fix a closed symmetric monoidal category $\V$.
       \end{equation}
       with $\mathfrak C(G/e) \into \underline{\mathfrak C}$ and $G \into O_G$ the natural inclusions.
       \todo[inline]{compare $B_{\mathfrak C(G/e)}G = G \ltimes \mathfrak C(G/e)$ and $\underline{\mathfrak C} = O_G \ltimes \underline{\mathfrak C}$.}
-      In this case, $\underline{\mathfrak C}\Omega = \mathfrak C(G/e)\Omega$.
+      Analogously to \eqref{COMEGA_B_GR_EQ}, this is equal to the Grothendieck construction on the functor
+      \begin{equation}
+            \label{COMEGA_OG_GR_EQ}
+            \begin{tikzcd}[row sep = tiny]
+                  \Omega^{op} \times G^{op} \arrow[r]
+                  &
+                  \mathsf{Set}
+                  \\
+                  T \arrow[r, mapsto]
+                  &
+                  \Hom_{\mathsf{Cat} \downarrow O_G}((G \cdot E(T))/G, \UC).
+            \end{tikzcd}
+      \end{equation}
+
+      % ------------------------------------------------------------
+
+      {\color{blue} % -------------------- ALTERNATIVELY ------------------------------
+      Alternatively (cf. \eqref{FG_GR_EQ}),
+      $\UC \Omega$ is isomorphic to the rectangle of pullbacks
+      \begin{equation}
+            \label{COMEGA_FG_EQ}
+            \begin{tikzcd}
+                  \UC \Omega \arrow[d] \arrow[r]
+                  &
+                  F \wr B_{\mathfrak C(G/e)}G \arrow[r] \arrow[d]
+                  &
+                  \mathsf F^G \wr \UC \arrow[d]
+                  \\
+                  \Omega \times G \arrow[r]
+                  &
+                  F \wr G \arrow[r]
+                  &
+                  \mathsf F^G,
+            \end{tikzcd}
+      \end{equation}
+      where the map $F \wr G \to F^G$ sends objects $A$ to $G \cdot A$ and
+      maps $(\phi, (g_a))$ to $G \cdot A \to G \cdot B$, $(h, a) \mapsto (h g_a^{-1}, \phi(a))$.
+      % bottom arrow sends $T$ to $G \cdot E(T)$, and
+      % on arrows sends $(\phi,g)$ to
+      % \begin{equation}
+      %       \begin{tikzcd}[row sep = tiny]
+      %             G \cdot E(S) \arrow[r, "\phi \times {g^{-1}}"]
+      %             &
+      %             G \cdot E(T)
+      %             \\
+      %             (h,s) \arrow[r, mapsto]
+      %             &
+      %             {(hg^{-1}, \phi (s))}.
+      %       \end{tikzcd}
+      % \end{equation}
+      Further, this is equal to the Grothendieck construction 
+      \begin{equation}
+            \label{COMEGA_FG_GR_EQ}
+            \begin{tikzcd}[row sep = tiny]
+                  \Omega^{op} \times G^{op} \arrow[r]
+                  &
+                  \mathsf{Set}
+                  \\
+                  T \arrow[r, mapsto]
+                  &
+                  \Hom_{\mathsf{Set}^{O_G^{op}}}(\Phi(G \cdot E(T)), \UC)
+            \end{tikzcd}
+      \end{equation}
+      In this context, a map $\phi: (S,\mathfrak c) \to (T, \mathfrak d)$ of colored $G$-trees is itself colored iff
+      the triangle below commutes.
+      \begin{equation}
+            \label{COLORED_MAP_FG_EQ}
+            \begin{tikzcd}[row sep = tiny]
+                  \Phi(G \cdot E(S)) \arrow[rr, "\phi"] \arrow[dr, "\mathfrak c"']
+                  &&
+                  \Phi(G \cdot E(T)) \arrow[dl, "\mathfrak d"]
+                  \\
+                  &
+                  \UC
+            \end{tikzcd}
+      \end{equation}
+      } % -------------------- ALTERNATIVELY: END ------------------------------
 \end{remark}
 
-Many of the natural functors around $\Omega$ and $\Sigma$ have generalizations to the colored setting,
+
+Now, many of the natural functors around $\Omega$ and $\Sigma$ have generalizations to the colored setting,
 which can be built through a straightforward use of the universal property of pullbacks.
 
 \begin{definition}
@@ -369,15 +481,19 @@ which can be built through a straightforward use of the universal property of pu
       $V: \mathfrak C \Omega \to \Sigma \wr \mathfrak C \Sigma$,
       as colorings of a tree restrict to colorings of each vertex corolla.
 
-      Similarly, there is a \textit{leaf-root} funct or
+      Similarly, there is a \textit{leaf-root} functor
       $\mathsf{lr}: \mathfrak C \Omega \to \mathfrak C \Sigma$,
       where the coloring of $\mathsf{lr}(T)$ is a restrict of the coloring of $T$.
 \end{definition}
 
 \begin{definition}
-      The category $\Sym^{G,\mathfrak C}$ of \textit{symmetric $(G,\mathfrak C)$-sequences} is
+      The category of \textit{symmetric $(G,\mathfrak C)$-sequences}, denoted $\Sym^{G,\mathfrak C}$, is
       the category of functors $X: \mathfrak C \Sigma^{op} \to \V$.
 \end{definition}
+
+We observe that the set of objects in $\mathfrak C\Sigma$ is precisely the set of $\mathfrak C$-signatures.
+Hence every $\mathfrak C$-colored operad has an underlying symmetric $(G,\mathfrak C)$-sequence.
+Moreover, the algebraic structure on these operads is determined by a monad on symmetric sequences.
 
 \begin{definition}
       Given $X \in \Sym^{G, \mathfrak C}$, let $\mathbb F^{\mathfrak C} X$ denote the left Kan extension below.
@@ -399,16 +515,16 @@ which can be built through a straightforward use of the universal property of pu
       \end{equation}
 \end{definition}
 
-
 \subsection{Single-Colored Operads}
 We first show that this generalizes the free single-colored operad monad.
-When $\mathfrak C = \set{\**}$, we have
-$\mathfrak C \Omega = \Omega \times G$, and similarly
+
+Note that when $\mathfrak C = \set{\**}$, we have
+$\mathfrak C \Omega = \Omega \times G$ and 
 $\mathfrak C \Sigma = \Sigma \times G$.
 
 \begin{notation}
-      Given $X \in \mathsf{Cat}(\C, \mathsf{Fun}(\mathcal D, \V))$,
-      let $\tilde X$ denote the adjoint functor in the isomorphic category $\mathsf{Cat}(\C \times \mathcal D, \V)$.
+      Given a functor $X : \C \to \mathsf{Fun}(\mathcal D, \V))$,
+      let $\tilde X$ denote the adjoint functor $\tilde X: \C \times \mathcal D \to \V$.
 \end{notation}
 
 \begin{lemma}
@@ -434,7 +550,7 @@ $\mathfrak C \Sigma = \Sigma \times G$.
       Then $\Lan_p X$ is adjoint to $\Lan_{p \times \mathsf{id}} \tilde X$. 
 \end{lemma}
 \begin{proof}
-      We have
+      Using the pointwise description of the Kan extension, we have
       \begin{align}
         \widetilde{\Lan_p X}(e,d)
         &= (\Lan_p X(e))(d)
@@ -520,7 +636,7 @@ with $x_i \in \mathfrak C(G/H_i)$ for subgroups $H_i \leq H_0 \leq G$.
       Then the category $\underline{\mathfrak C}\Omega_G$ of \textit{$\underline{\mathfrak C}$-colored $G$-trees}
       is defined to be the pullback below.
       \begin{equation}
-            \label{COMEGA_G_EQ}
+            \label{COMEGAG_OG_EQ}
             \begin{tikzcd}
                   \CO \arrow[d] \arrow[r]
                   &
@@ -553,24 +669,10 @@ and $\phi(e) = g_e f$ for $f \in Gf \in E_G(S)$ minimal; as $g_e$ is unique modu
 \begin{remark}
       { \color{blue} % -------------------- ALTERNATIVELY: ----------------------------------------
         Alternatively,
-        consider the Grothendieck construction on the functor
-        \begin{equation}
-              \begin{tikzcd}[row sep = tiny]
-                    \mathsf F^{G,op} \arrow[r]
-                    &
-                    \mathsf{Set}
-                    \\
-                    A \arrow[r, mapsto]
-                    &
-                    \Set^{O_G^{op}}(\Phi(A), \underline{\mathfrak C}),
-              \end{tikzcd}
-        \end{equation}
-        where $\Phi: \Set^G \to \Set^{O_G^{op}}$ sends a $G$-set $X$ to its fixed-point system $G/H \mapsto X^H$.
-        We will denote this by $\mathsf F^G \wr \underline{\mathfrak C}$.
-        Then $\CO$ is also isomorphic to the pullback below\footnote{We note that the class of morphisms in $\mathsf F^G$ in the image of $E$ (restricted to $\Omega_G^0$)
+        then $\UC\Omega_G$ is also isomorphic to the pullback below\footnote{We note that the class of morphisms in $\mathsf F^G$ in the image of $E$ (restricted to $\Omega_G^0$)
           are those isomorphic to an adjunction counit $G \cdot_H A|_H \to A$.}.
-
         \begin{equation}
+              \label{COMEGAG_FG_EQ}
               \begin{tikzcd}
                     \CO \arrow[d] \arrow[r]
                     &
@@ -2273,15 +2375,15 @@ The following two theorems have the same proof.
       After this difference, the proofs are identical,
       once we establish that
       \begin{enumerate*}
-      \item[(iv)] $\sSet$ is right proper,
-      \item[(v)] $\sSet$ has a generating set of intervals, and
-      \item[(vi)] the class of genuine weak equivalences in $\mathsf{Op}^G(\sSet)$ is closed under transfinite compositions.
+      \item[$(v)$] $\sSet$ is right proper,
+      \item[$(vi)$] $\sSet$ has a generating set of intervals, and
+      \item[$(vii)$] the class of genuine weak equivalences in $\mathsf{Op}^G(\sSet)$ is closed under transfinite compositions.
       \end{enumerate*}
-      $(iv)$ follows by e.g. \cite[Prop 2.1.5]{Cis06},,
-      $(v)$ follows by e.g. \cite[Lemma 1.12]{BM13}, and
-      $(vi)$ follows by an argument analogous to \cite[Lemma 1.24]{CM13b}.
+      $(v)$ follows by e.g. \cite[Prop 2.1.5]{Cis06},,
+      $(vi)$ follows by e.g. \cite[Lemma 1.12]{BM13}, and
+      $(vii)$ follows by an argument analogous to \cite[Lemma 1.24]{CM13b}.
 
-      Now, we note that condition $(vi)$ proves the analogous statement for any $\F$,
+      Now, we note that condition $(vii)$ proves the analogous statement for any $\F$,
       since the transfinite composite of local $\F$-equivalences is a local $\F$-equivalence.
       Since $\mathsf{Op}^G(\V)$ is complete and cocomplete, it thus suffices to prove (following \cite{Hov98} Theorem 2.1.19) that:
       \begin{enumerate}[label = (\arabic*)]
