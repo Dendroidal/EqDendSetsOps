@@ -1,5 +1,5 @@
 \documentclass[a4paper,10pt
-,draft
+%,draft
 ]{article}%
 
 \usepackage[hidelinks]{hyperref}
@@ -258,8 +258,8 @@ and is unital and associative.
 \end{definition}
 
 
-\subsubsection{Categorical Description}
-
+\subsubsection{Categorical description: colored trees}
+\label{COMEGA_SEC}
 
 \begin{definition}
       Given a $G$-set $X$, let $B_XG$ denote the \textit{translation category} of $X$,
@@ -354,13 +354,14 @@ In particular, we have maps of the form
                   &
                   \Hom_{\mathsf{Cat}}(E(T), B_{\mathfrak C}G)
                   \\
-                  (\phi: S \to T,g) \arrow[r, mapsto]
+                  (\phi: T \to S, g) \arrow[r, mapsto]
                   &
-                  (E(S) \xrightarrow{\phi} E(T) \xrightarrow{\mathfrak c} \mathfrak C \xrightarrow{g^{-1}} \mathfrak C)
+                  (E(T) \xrightarrow{\phi} E(S) \xrightarrow{\mathfrak c} \mathfrak C \xrightarrow{g^{-1}} \mathfrak C)
             \end{tikzcd}
       \end{equation}
       \todo[inline]{compare with genuine case: RHS equals
-        $\Hom(\Phi(E(T)), \mathfrak C_{const})$ equals
+        $\Hom(\Phi(E(T)), \Phi(\mathfrak C))$
+        equals
         $\Hom(\Phi(E(G \cdot T)), \mathfrak C_{fr}))$}
       and a similar result holds for $\mathfrak C \Sigma$. 
 \end{remark}
@@ -443,7 +444,7 @@ In particular, we have maps of the form
       %             {(hg^{-1}, \phi (s))}.
       %       \end{tikzcd}
       % \end{equation}
-      Further, this is equal to the Grothendieck construction 
+      Further, this is equal to the Grothendieck construction (cf. \eqref{COMEGA_B_GR_EQ})
       \begin{equation}
             \label{COMEGA_FG_GR_EQ}
             \begin{tikzcd}[row sep = tiny]
@@ -456,14 +457,14 @@ In particular, we have maps of the form
                   \Hom_{\mathsf{Set}^{O_G^{op}}}(\Phi(G \cdot E(T)), \UC)
             \end{tikzcd}
       \end{equation}
-      In this context, a map $\phi: (S,\mathfrak c) \to (T, \mathfrak d)$ of colored $G$-trees is itself colored iff
+      In this context, a map $\phi: (T,\mathfrak c) \to (S, \mathfrak d)$ of colored $G$-trees is itself colored iff
       the triangle below commutes.
       \begin{equation}
-            \label{COLORED_MAP_FG_EQ}
+            \label{COLOR_MAP_FG_EQ}
             \begin{tikzcd}[row sep = tiny]
-                  \Phi(G \cdot E(S)) \arrow[rr, "\phi"] \arrow[dr, "\mathfrak c"']
+                  \Phi(G \cdot E(T)) \arrow[rr, "\phi"] \arrow[dr, "\mathfrak c"']
                   &&
-                  \Phi(G \cdot E(T)) \arrow[dl, "\mathfrak d"]
+                  \Phi(G \cdot E(S)) \arrow[dl, "\mathfrak d"]
                   \\
                   &
                   \UC
@@ -616,65 +617,125 @@ a coefficient system and its associated (Grothendieck) category over $O_G$ by th
 
 Idea: we have a \textit{coefficient system} $\UC$ of colors, and
 a \textit{signature} will consist of a tuple $\ksi = (x_1, \dots, x_n;x_0)$
-with $x_i \in \mathfrak C(G/H_i)$ for subgroups $H_i \leq H_0 \leq G$.
+with $x_i \in \mathfrak C(G/H_i)$ for subgroups $H_i \leq H_0 \leq G$
+(or, equivalently, each $x_i$ is secretly in fact a whole $G$-diagram of objects).
 
 \subsection{Colored $G$-Trees}
 
-\newcommand{\CS}{\underline{\mathfrak C} \Sigma_G}
-\newcommand{\CO}{\underline{\mathfrak C} \Omega_G}
-
+Extending \S \ref{COMEGA_SEC}, we make the following definitions.
 
 \begin{definition}
-      The \textit{edge orbit} functor $E_G: \Omega_G \to \mathsf F \wr O_G$ sends a $G$-tree $T$ to the tuple $(E_G(T), (G/G_e)_{Ge \in E_G(T)})$
-      with $G_e$ denoting $\mathrm{Stab}_G(e)$, and
-      where we have canonical representatives for elements in $E_G(T)$ by choosing
+      \label{EG_DEFN}
+      The \textit{edge orbit} functor $E_G: \Omega_G \to \mathsf F \wr O_G$ sends a $G$-tree $T$ to
+      the tuple $(E_G(T), (G/G_e)_{Ge \in E_G(T)})$,
+      where we have chosen canonical representatives for elements in $E_G(T)$ by choosing
       $e \in Ge$ minimal with respect to the planar structure on $T$.
+      Given $\phi: T \to S$, $G t \in E_G(T)$,
+      the $G t$ component of the image $E_G(\phi)$ is given the map
+      $(g_t)_{\**}: G/G_t \to G/G_s$, $h G_t \mapsto h g_t G_s$, where
+      $s$ in minimal in $G \phi(t)$ and
+      $g_t \in G$ such that $\phi(t) = g_t s$
+      (as $g_t$ is unique modulo $G_s$, the map $(g_t)_{\**}$ is well-defined).
 \end{definition}
 
-\begin{definition}
+\begin{remark}
+      \label{EG_OVER_OG_REM}
+      {\color{OliveGreen}
+        One may be tempted to say that $E_G$ gives a functor $\Omega_G \to \Set \downarrow O_G$,
+        with $E_G(T) \to O_G$ given by $G t \mapsto G/G_t$ for $t \in G t$ minimal.
+        However, this fails to be a functor, as it does not allow for the action of \textit{quotient} maps.
+        It is however a functor when restricted to the category $\Omega_G^{fr}$ of \textit{free} $G$-trees
+        (cf. \eqref{COMEGA_FG_GR_EQ}).
+
+        Instead, $E_G$ defines a functor to $\Cat \downarrow_w O_G$ of functors and ``weakly-commuting'' triangles,
+        as for all $\phi: T \to S$ there is a well-defined natural transformation as below.
+        \begin{equation}
+              \begin{tikzcd}
+                    E_G(T) \arrow[rr, "\phi"] \arrow[dr, "\mathfrak c"', ""{name = U}]
+                    &&
+                    |[alias = V]| E_G(S) \arrow[dl, "\mathfrak d"]
+                    \\
+                    &
+                    O_G
+                    \arrow[Rightarrow, from = U, to = V, "{(g_{(\minus)})_{\**}}"]
+              \end{tikzcd}
+        \end{equation}
+      }
+\end{remark}
+
+\begin{definition}[{cf. \eqref{COMEGA_OG_EQ}}]
       Let $\underline{\mathfrak C}$ be a $G$-coefficient system of sets.
-      Then the category $\underline{\mathfrak C}\Omega_G$ of \textit{$\underline{\mathfrak C}$-colored $G$-trees}
-      is defined to be the pullback below.
+      Then the category $\underline{\mathfrak C}\Omega_G$ (resp. its subcategory $\UC \Sigma_G$)
+      of \textit{$\underline{\mathfrak C}$-colored $G$-trees}
+      (resp. \textit{$\UC$-colored $G$-corollas})
+      is defined to be the pullback on the right (left) below.
       \begin{equation}
             \label{COMEGAG_OG_EQ}
             \begin{tikzcd}
-                  \CO \arrow[d] \arrow[r]
+                  \UC \Sigma_G \arrow[d] \arrow[r]
+                  &
+                  \mathsf F \wr \UC \arrow[d]
+                  &&
+                  \UC \Omega_G \arrow[d] \arrow[r]
                   &
                   \mathsf F \wr \underline{\mathfrak C} \arrow[d]
                   \\
+                  \Sigma_G \arrow[r, "E_G"]
+                  &
+                  \mathsf F \wr O_G
+                  &&
                   \Omega_G \arrow[r, "E_G"]
                   &
                   \mathsf F \wr O_G
             \end{tikzcd}
       \end{equation}
-      The category $\CS$ of $\underline{\mathfrak C}$-colored corollas is the subcategory defined similarly,
-      with $\Omega_G$ replaced with $\Sigma_G$.
 \end{definition}
 
-
-Explicitly, objects of $\CO$ are pairs $(T, \mathfrak c)$ of
+Objects of $\UC \Omega_G$ are pairs $(T, \mathfrak c)$ of
 a $G$-tree $T$ and
-a map $\mathfrak c: E_G(T) \to \underline{\mathfrak C}$ over $O_G$.
-That is, each orbit of edges $Ge$ (with $e$ minimal)
-is assigned a ``color'' $\mathfrak c(Ge) \in \underline{\mathfrak C}(G/G_{e})$.
+a functor $\mathfrak c: E_G(T) \to \underline{\mathfrak C}$ over $O_G$.
+Explicitly, each orbit of edges $G t$ (with $t$ minimal)
+is assigned a color $\mathfrak c(G t) \in \underline{\mathfrak C}(G/G_{t})$.
 Morphisms $(T, \mathfrak c) \to (S, \mathfrak d)$
-are given by maps of trees $\phi: T \to S$ such that, for every edge orbit $Ge$ of $T$, we have
+are given by maps of trees $\phi: T \to S$ such that, for every edge orbit $G t$ of $T$, we have
 \begin{equation}
-      \mathfrak c(Ge) = \phi_{e}^{\**}g_e^{\**}\mathfrak d(Gf),
+      \mathfrak c(G t) = g_t^{\**} \mathfrak d(G s),
+      %\phi_{e}^{\**}g_e^{\**}\mathfrak d(Gf),
 \end{equation}
-where $\phi_{e}: G / G_{e} \to G / G_{\phi(e)}$ is the map in $O_G$ induced by $\phi$,
-and $\phi(e) = g_e f$ for $f \in Gf \in E_G(S)$ minimal; as $g_e$ is unique modulo $G_f$, $g_e^{\**}$ is well-defined.
+with $g_t \in G$ defined as in Definition \ref{EG_DEFN}.
+% where $\phi_{e}: G / G_{e} \to G / G_{\phi(e)}$ is the map in $O_G$ induced by $\phi$,
+% and $\phi(e) = g_e f$ for $f \in Gf \in E_G(S)$ minimal; as $g_e$ is unique modulo $G_f$, $g_e^{\**}$ is well-defined.
 
+\begin{remark}
+      {\color{OliveGreen}
+        \todo[inline]{How do we define a Grothendieck construction that works, analogous to \eqref{COMEGA_OG_GR_EQ}?}
+        It is not
+        \begin{equation}
+              \begin{tikzcd}[row sep = tiny]
+                    \Omega_G^{op} \arrow[r]
+                    &
+                    \mathsf{Cat}
+                    \\
+                    T \arrow[r, mapsto]
+                    &
+                    \Hom_{\Cat \downarrow_w O_G}(E_G(T), \UC)
+              \end{tikzcd}
+        \end{equation}
+        as we want the coloring to be strictly equivariant.
+        Instead, it uses the fact the $E_G$ is weak, and that weakness can be exploited since $\UC$ is a root fibration.
+      }
+\end{remark}
 
 \begin{remark}
       { \color{blue} % -------------------- ALTERNATIVELY: ----------------------------------------
-        Alternatively,
-        then $\UC\Omega_G$ is also isomorphic to the pullback below\footnote{We note that the class of morphisms in $\mathsf F^G$ in the image of $E$ (restricted to $\Omega_G^0$)
-          are those isomorphic to an adjunction counit $G \cdot_H A|_H \to A$.}.
+        Alternatively, (cf. \eqref{COMEGA_FG_EQ})
+        $\UC\Omega_G$ is isomorphic to the pullback below.
+        \footnote{We note that the class of morphisms in $\mathsf F^G$ in the image of $E$, when restricted to $\Omega_G^0$
+          are those isomorphic to an adjunction counit $G \cdot_H A|_H \to A$.}
         \begin{equation}
               \label{COMEGAG_FG_EQ}
               \begin{tikzcd}
-                    \CO \arrow[d] \arrow[r]
+                    \UC \Omega_G \arrow[d] \arrow[r]
                     &
                     \mathsf F^G \wr \underline{\mathfrak C} \arrow[d]
                     \\
@@ -683,11 +744,25 @@ and $\phi(e) = g_e f$ for $f \in Gf \in E_G(S)$ minimal; as $g_e$ is unique modu
                     \mathsf F^G.
               \end{tikzcd}
         \end{equation}
-        In this case, a coloring is a map $\mathfrak c: \Phi E(T) \to \mathfrak C$ of coefficient systems,
-        and morphisms are maps $\phi: T \to S$ such that
-        $\mathfrak c(G/H,e) = \mathfrak d(G/H,e)$ for all $e \in E(T)^H$.
+      
+      Similarly, $\underline{\mathfrak C}\Omega_G$ is isomorphic to the Grothendieck construction on the functor
+      \begin{equation}
+            \begin{tikzcd}[row sep = tiny]
+                  \Omega_G^{op} \arrow[r]
+                  &
+                  \mathsf{Set}
+                  \\
+                  T \arrow[r, mapsto]
+                  &
+                  \Hom_{\Set^{O_G^{op}}}(\Phi(E(T)), \underline{\mathfrak C}),
+            \end{tikzcd}
+      \end{equation}
+
+        As in \eqref{COMEGA_FG_EQ}, a coloring is a map $\mathfrak c: \Phi E(T) \to \mathfrak C$ of coefficient systems,
+        and morphisms are maps $\phi: T \to S$ which are compatible on colorings,
+        in that the triangle below  (cf. \eqref{COLOR_MAP_FG_EQ}) commutes.
         \begin{equation}
-              \begin{tikzcd}
+              \begin{tikzcd}[row sep = tiny]
                     \Phi A \arrow[rr, "f"] \arrow[dr, "\mathfrak c"']
                     &&
                     \Phi B \arrow[dl, "\mathfrak d"]
@@ -697,23 +772,11 @@ and $\phi(e) = g_e f$ for $f \in Gf \in E_G(S)$ minimal; as $g_e$ is unique modu
               \end{tikzcd}
         \end{equation}
         It is easy to show this is equivalent to requiring that
-        $\mathfrak c(G/G_e,e) = \phi_e^{\**} \mathfrak d(G/G_{\phi(e)}, \phi(e))$.
-      
-      Similarly, $\underline{\mathfrak C}\Omega_G$ is isomorphic to the Grothendieck construction on the functor
-      \begin{equation}
-            \begin{tikzcd}[row sep = tiny]
-                  \Omega_G^{op} \arrow[r]
-                  &
-                  \mathsf{Cat}
-                  \\
-                  T \arrow[r, mapsto]
-                  &
-                  \Set^{O_G^{op}}(\Phi(E(T)), \underline{\mathfrak C}),
-            \end{tikzcd}
-      \end{equation}
-      
-      $\CS$ can be defined similarly, with the relevant sources restricted to
-      $\Sigma_G \subseteq \Omega_G$. 
+        $\mathfrak c(G/G_t,t) = \phi_t^{\**} \mathfrak d(G/G_{\phi(t)}, \phi(t))$,
+        where $\phi_t: G/G_t \to G/G_{\phi(t)}$ is the unique map preserving the coset of the unit.
+        
+        $\UC \Sigma_G$ can be defined similarly, with the relevant sources restricted to
+        $\Sigma_G \subseteq \Omega_G$. 
       }
       %%%%%%%%%%%%% COLOR: BLUE ----------------------------------------
       \todo[inline]{figure out whether first or ``alternatively'' is more useful as the chosen construction}
@@ -1571,7 +1634,7 @@ We record that $\iota_{\**}$ again fully-faithful since $\epsilon$ is an iso.
 \section{Model structure for all colors} 
 \renewcommand{\C}{\mathfrak C}
 
-{\color{red} In this section, assume that the canonical model structures on $\Cat(\V)$, $\Op(\V)$, and $\Op^{G,\C}(\V)$ exist.}
+{\color{OliveGreen} In this section, assume that the canonical model structures on $\Cat(\V)$, $\Op(\V)$, and $\Op^{G,\C}(\V)$ exist.}
 
 We follow \cite{BM13} and \cite{Cav14} to assemble the collection of "color-fixed" ($\F$)-model structures into
 a single model structure on $\Op^G(\V)$.
