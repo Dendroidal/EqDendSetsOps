@@ -1,5 +1,5 @@
 \documentclass[a4paper,10pt
-%,draft
+,draft
 ]{article}%
 
 \usepackage[hidelinks]{hyperref}
@@ -177,7 +177,8 @@ Fix a closed symmetric monoidal category $\V$.
 \end{definition}
 
 \begin{definition}
-      Given a map $f: \mathfrak C' \to \mathfrak C$ and a $\mathfrak C$-colored operad $\O$,
+      \label{OP_MAP_DEFN}
+      Given a map of $G$-sets $f: \mathfrak C' \to \mathfrak C$ and a $\mathfrak C$-colored operad $\O$,
       there is a natural $\mathfrak C'$-colored operad $f^*(\O)$, where
       \begin{equation}
             f^{\**}(\O)(\ksi') = \O(f(\ksi')),
@@ -209,7 +210,17 @@ Fix a closed symmetric monoidal category $\V$.
 
 \subsection{Equivariant Colored Operads}
 
-Let $G$ be a finite group.
+Let $G$ be a finite group, with a fixed (random) total ordering.
+\begin{notation}
+      [{cf. \cite{BP17}}]
+      Recall that $\mathsf F$ denotes the category of \textit{finite sets} equipped with a total order and set maps,
+      or more accurately any full subcategory where the only ordered isomorphisms are the identity.
+      
+      Moreover, let $\mathsf O_G \into \mathsf F^G$ denote the full subcategory of \textit{transitive} $G$-sets.
+      In particular, we note that the oribts $G/H$ are well-defined (using the chosen total order on $G$,
+      and the ``minimal representative'' total order on $G/H$).
+\end{notation}
+
 \begin{notation}
       For any $G$-set $A$ and $a \in A$, let $G_a$ denote the stabilizer $\Stab_G(a)$ of $a$ in $G$.
 \end{notation}
@@ -308,26 +319,26 @@ and is unital and associative.
       where $E: \Sigma \to \mathsf F$ sends $\underline{n}$ to $\underline{n+1}$.
       \todo[inline]{$B_{\mathfrak C}G = G \ltimes \mathfrak C$}
       More generally, let $\mathfrak C \Omega$ be the pullback on the right above,
-      where $E: \Omega \to \mathsf F$ sends a tree $T$ to its set $E(T)$ of edges.
+      where $E: \Omega \to \mathsf F$ sends a tree $U$ to its set $E(U)$ of edges.
 
       We have a natural inclusion of categories $\mathfrak C \Sigma \into \mathfrak C \Omega$,
       and as such we will called elements of these categories
       \textit{colored trees} (or \textit{colored corollas}),
-      and denote them by $(T,\mathfrak c)$, where $\mathfrak c: E(T) \to \mathfrak C$ is a map of sets.
+      and denote them by $(U,\mathfrak c)$, where $\mathfrak c: E(U) \to \mathfrak C$ is a map of sets.
 \end{definition}
 
 \begin{remark}
       When $G = \set{e}$ and $\mathfrak C = \set{*}$, $\mathfrak C \Sigma = \Sigma$.
 \end{remark}
 
-Unpacking definitions, we see that a map $(T, \mathfrak c) \to (S, \mathfrak d)$ is given by
-a map $f: T \to S$ in $\Omega$ and an element $g\in G$,
-such that $g.\mathfrak c(e) = \mathfrak d(f(e))$ for all $e \in E(T)$.
+Unpacking definitions, we see that a map $(U, \mathfrak c) \to (V, \mathfrak d)$ is given by
+a map $f: U \to V$ in $\Omega$ and an element $g\in G$,
+such that $g.\mathfrak c(e) = \mathfrak d(f(e))$ for all $e \in E(U)$.
 \begin{equation}
       \begin{tikzcd}
-            E(T) \arrow[r, "f"] \arrow[d, "\mathfrak c"']
+            E(U) \arrow[r, "f"] \arrow[d, "\mathfrak c"']
             &
-            E(S) \arrow[d, "\mathfrak d"]
+            E(V) \arrow[d, "\mathfrak d"]
             \\
             \mathfrak C \arrow[r, "g"]
             &
@@ -337,7 +348,7 @@ such that $g.\mathfrak c(e) = \mathfrak d(f(e))$ for all $e \in E(T)$.
 
 In particular, we have maps of the form
 \begin{equation}
-      g = (id, g): (T, E(T) \to \mathfrak C) \to (T, E(T) \to \mathfrak C \xrightarrow{g \cdot} \mathfrak C). 
+      g = (id, g): (U, E(U) \to \mathfrak C) \to (U, E(U) \to \mathfrak C \xrightarrow{g \cdot} \mathfrak C). 
 \end{equation}
 
 \begin{remark}
@@ -350,19 +361,19 @@ In particular, we have maps of the form
                   &
                   \mathsf{Set}
                   \\
-                  T \arrow[r, mapsto]
+                  U \arrow[r, mapsto]
                   &
-                  \Hom_{\mathsf{Cat}}(E(T), B_{\mathfrak C}G)
+                  \Hom_{\mathsf{Cat}}(E(U), B_{\mathfrak C}G)
                   \\
-                  (\phi: T \to S, g) \arrow[r, mapsto]
+                  (\phi: U \to V, g) \arrow[r, mapsto]
                   &
-                  (E(T) \xrightarrow{\phi} E(S) \xrightarrow{\mathfrak c} \mathfrak C \xrightarrow{g^{-1}} \mathfrak C)
+                  (E(U) \xrightarrow{\phi} E(V) \xrightarrow{\mathfrak c} \mathfrak C \xrightarrow{g^{-1}} \mathfrak C)
             \end{tikzcd}
       \end{equation}
-      \todo[inline]{compare with genuine case: RHS equals
-        $\Hom(\Phi(E(T)), \Phi(\mathfrak C))$
-        equals
-        $\Hom(\Phi(E(G \cdot T)), \mathfrak C_{fr}))$}
+      % \todo[inline]{compare with genuine case: RHS equals
+      %   $\Hom(\Phi(E(U)), \Phi(\mathfrak C))$
+      %   equals
+      %   $\Hom(\Phi(E(G \cdot U)), \mathfrak C_{fr}))$}
       and a similar result holds for $\mathfrak C \Sigma$. 
 \end{remark}
 
@@ -402,9 +413,9 @@ In particular, we have maps of the form
                   &
                   \mathsf{Set}
                   \\
-                  T \arrow[r, mapsto]
+                  U \arrow[r, mapsto]
                   &
-                  \Hom_{\mathsf{Cat} \downarrow O_G}((G \cdot E(T))/G, \UC).
+                  \Hom_{\mathsf{Cat} \downarrow O_G}((G \cdot E(U))/G, \UC).
             \end{tikzcd}
       \end{equation}
 
@@ -418,26 +429,26 @@ In particular, we have maps of the form
             \begin{tikzcd}
                   \UC \Omega \arrow[d] \arrow[r]
                   &
-                  F \wr B_{\mathfrak C(G/e)}G \arrow[r] \arrow[d]
+                  \mathsf F \wr B_{\mathfrak C(G/e)}G \arrow[r] \arrow[d]
                   &
                   \mathsf F^G \wr \UC \arrow[d]
                   \\
                   \Omega \times G \arrow[r]
                   &
-                  F \wr G \arrow[r]
+                  \mathsf F \wr G \arrow[r]
                   &
                   \mathsf F^G,
             \end{tikzcd}
       \end{equation}
       where the map $F \wr G \to F^G$ sends objects $A$ to $G \cdot A$ and
       maps $(\phi, (g_a))$ to $G \cdot A \to G \cdot B$, $(h, a) \mapsto (h g_a^{-1}, \phi(a))$.
-      % bottom arrow sends $T$ to $G \cdot E(T)$, and
+      % bottom arrow sends $U$ to $G \cdot E(U)$, and
       % on arrows sends $(\phi,g)$ to
       % \begin{equation}
       %       \begin{tikzcd}[row sep = tiny]
-      %             G \cdot E(S) \arrow[r, "\phi \times {g^{-1}}"]
+      %             G \cdot E(V) \arrow[r, "\phi \times {g^{-1}}"]
       %             &
-      %             G \cdot E(T)
+      %             G \cdot E(U)
       %             \\
       %             (h,s) \arrow[r, mapsto]
       %             &
@@ -452,25 +463,83 @@ In particular, we have maps of the form
                   &
                   \mathsf{Set}
                   \\
-                  T \arrow[r, mapsto]
+                  U \arrow[r, mapsto]
                   &
-                  \Hom_{\mathsf{Set}^{O_G^{op}}}(\Phi(G \cdot E(T)), \UC)
+                  \Hom_{\mathsf{Set}^{O_G^{op}}}(\Phi(G \cdot E(U)), \UC)
             \end{tikzcd}
       \end{equation}
-      In this context, a map $\phi: (T,\mathfrak c) \to (S, \mathfrak d)$ of colored $G$-trees is itself colored iff
+      In this context, a map $\phi: (U,\mathfrak c) \to (V, \mathfrak d)$ between colored trees is itself colored iff
       the triangle below commutes.
       \begin{equation}
             \label{COLOR_MAP_FG_EQ}
             \begin{tikzcd}[row sep = tiny]
                   \Phi(G \cdot E(T)) \arrow[rr, "\phi"] \arrow[dr, "\mathfrak c"']
                   &&
-                  \Phi(G \cdot E(S)) \arrow[dl, "\mathfrak d"]
+                  \Phi(G \cdot E(V)) \arrow[dl, "\mathfrak d"]
                   \\
                   &
                   \UC
             \end{tikzcd}
       \end{equation}
       } % -------------------- ALTERNATIVELY: END ------------------------------
+\end{remark}
+
+\begin{definition}
+      The category of \textit{symmetric $(G,\mathfrak C)$-sequences} in $\V$, denoted $\Sym^{G,\mathfrak C}(\V)$, is
+      the category of functors $X: \mathfrak C \Sigma^{op} \to \V$.
+\end{definition}
+
+\begin{remark}
+      \label{COLOR_CHANGE_REM}
+      We observe that the set of objects in $\mathfrak C\Sigma$ is precisely the set of $\mathfrak C$-signatures.
+      Hence every $\mathfrak C$-colored operad has an underlying symmetric $(G,\mathfrak C)$-sequence.
+      
+      Moreover, extending Defintion \ref{OP_MAP_DEFN}, we have that any map of $G$-sets
+      $F: \mathfrak C \to \mathfrak C'$ induces a pair of compatible adjoints
+      \begin{equation}
+            \label{COLOR_CHANGE_EQ}
+            \begin{tikzcd}
+                  \Op^{G, \mathfrak C'}(\V) \arrow[r, shift right, "F^{\**}"'] \arrow[d, "\mathsf{fgt}"']
+                  &
+                  \Op^{G, \mathfrak C}(\V) \arrow[l, shift right, "F_!"'] \arrow[d, "\mathsf{fgt}"]
+                  \\
+                  \Sym^{G, \mathfrak C'}(\V) \arrow[r, shift right, "F^{\**}"']
+                  &
+                  \Sym^{G, \mathfrak C}(\V) \arrow[l, shift right, "F_!"'].
+            \end{tikzcd}
+      \end{equation}
+
+      We also record the straightforward observation that if a map $F: \O_1 \to \O_2$ is color-fixed, then
+      a commuting square (resp. lifting diagram, pullback) as in the middle below is
+      equivalent to such squares on the left and right.
+      \begin{equation}
+            \label{COLOR_SQ_EQ}
+            \begin{tikzcd}
+                  a_! \O_1 \arrow[d, "a_! F"'] \arrow[r, "a"]
+                  &
+                  \O \arrow[d, "p"]
+                  &&
+                  \O_1 \arrow[d, "F"] \arrow[r, "a"]
+                  &
+                  \O \arrow[d, "p"]
+                  &&
+                  \O_1 \arrow[d, "F"] \arrow[r, "a"]
+                  &
+                  a^{\**} \O \arrow[d]
+                  \\
+                  a_! \O_2 \arrow[r]
+                  &
+                  p^{\**} \P
+                  &&
+                  \O_2 \arrow[r]
+                  &
+                  \P
+                  &&
+                  \O_2 \arrow[r]
+                  &
+                  a^{\**} p^{\**} \P
+            \end{tikzcd}
+      \end{equation}
 \end{remark}
 
 
@@ -487,13 +556,9 @@ which can be built through a straightforward use of the universal property of pu
       where the coloring of $\mathsf{lr}(T)$ is a restrict of the coloring of $T$.
 \end{definition}
 
-\begin{definition}
-      The category of \textit{symmetric $(G,\mathfrak C)$-sequences}, denoted $\Sym^{G,\mathfrak C}$, is
-      the category of functors $X: \mathfrak C \Sigma^{op} \to \V$.
-\end{definition}
 
-We observe that the set of objects in $\mathfrak C\Sigma$ is precisely the set of $\mathfrak C$-signatures.
-Hence every $\mathfrak C$-colored operad has an underlying symmetric $(G,\mathfrak C)$-sequence.
+\todo[inline]{come back - fix narative}
+
 Moreover, the algebraic structure on these operads is determined by a monad on symmetric sequences.
 
 \begin{definition}
@@ -626,41 +691,52 @@ Extending \S \ref{COMEGA_SEC}, we make the following definitions.
 
 \begin{definition}
       \label{EG_DEFN}
-      The \textit{edge orbit} functor $E_G: \Omega_G \to \mathsf F \wr O_G$ sends a $G$-tree $T$ to
-      the tuple $(E_G(T), (G/G_e)_{Ge \in E_G(T)})$,
-      where we have chosen canonical representatives for elements in $E_G(T)$ by choosing
-      $e \in Ge$ minimal with respect to the planar structure on $T$.
-      Given $\phi: T \to S$, $G t \in E_G(T)$,
-      the $G t$ component of the image $E_G(\phi)$ is given the map
-      $(g_t)_{\**}: G/G_t \to G/G_s$, $h G_t \mapsto h g_t G_s$, where
-      $s$ in minimal in $G \phi(t)$ and
-      $g_t \in G$ such that $\phi(t) = g_t s$
-      (as $g_t$ is unique modulo $G_s$, the map $(g_t)_{\**}$ is well-defined).
+      For $T \in \Omega_G$, let $E_G(T)$ denote the set of \textit{edge orbits} $E(T)/G$.
+      The \textit{edge orbit} functor $E_G: \Omega_G \to \mathsf F \wr \mathsf O_G$ sends a $G$-tree $T$ to
+      % the tuple $(E_G(T), (G/G_e)_{Ge \in E_G(T)})$,
+      % where we have chosen canonical representatives for elements in $E_G(T)$ by choosing
+      % $e \in Ge$ minimal with respect to the planar structure on $T$.
+      % Given $\phi: T \to S$, $G t \in E_G(T)$,
+      % the $G t$ component of the image $E_G(\phi)$ is given the map
+      % $(g_t)_{\**}: G/G_t \to G/G_s$, $h G_t \mapsto h g_t G_s$, where
+      % $s$ in minimal in $G \phi(t)$ and
+      % $g_t \in G$ such that $\phi(t) = g_t s$
+      % (as $g_t$ is unique modulo $G_s$, the map $(g_t)_{\**}$ is well-defined).
+      the tuple $(E_G(T), (Gt))$.
 \end{definition}
 
 \begin{remark}
       \label{EG_OVER_OG_REM}
-      {\color{OliveGreen}
-        One may be tempted to say that $E_G$ gives a functor $\Omega_G \to \Set \downarrow O_G$,
-        with $E_G(T) \to O_G$ given by $G t \mapsto G/G_t$ for $t \in G t$ minimal.
-        However, this fails to be a functor, as it does not allow for the action of \textit{quotient} maps.
-        It is however a functor when restricted to the category $\Omega_G^{fr}$ of \textit{free} $G$-trees
-        (cf. \eqref{COMEGA_FG_GR_EQ}).
-
-        Instead, $E_G$ defines a functor to $\Cat \downarrow_w O_G$ of functors and ``weakly-commuting'' triangles,
-        as for all $\phi: T \to S$ there is a well-defined natural transformation as below.
-        \begin{equation}
-              \begin{tikzcd}
-                    E_G(T) \arrow[rr, "\phi"] \arrow[dr, "\mathfrak c"', ""{name = U}]
-                    &&
-                    |[alias = V]| E_G(S) \arrow[dl, "\mathfrak d"]
-                    \\
-                    &
-                    O_G
-                    \arrow[Rightarrow, from = U, to = V, "{(g_{(\minus)})_{\**}}"]
-              \end{tikzcd}
-        \end{equation}
-      }
+      One may be tempted to say that $E_G$ is in fact a functor .
+      % with $E_G(T) \to \mathsf O_G$ given by $G t \mapsto G/G_t$ for $t \in G t$ minimal.
+      We warn that $E_G$ is \textit{not} a functor
+      $\Omega_G \to \Set \downarrow \mathsf O_G$,
+      as it does not allow for the action of quotient maps.
+      It is however a functor when restricted to the category $\Omega_G^{fr}$ of \textit{free} $G$-trees
+      (cf. \eqref{COMEGA_FG_GR_EQ}).
+      
+      Instead, $E_G$ defines a functor to $\Cat \downarrow_w \mathsf O_G$ of functors and ``weakly-commuting'' triangles,
+      as for all $\phi: T \to S$ there is a well-defined natural transformation as below.
+      \begin{equation}
+            \begin{tikzcd}
+                  E_G(T) \arrow[rr, "\phi"] \arrow[dr, "\mathfrak c"', ""{name = U}]
+                  &&
+                  |[alias = V]| E_G(S) \arrow[dl, "\mathfrak d"]
+                  \\
+                  &
+                  \mathsf O_G
+                  % \arrow[Rightarrow, from = U, to = V, "{(g_{(\minus)})_{\**}}"]
+                  \arrow[Rightarrow, from = U, to = V, "\phi_{(-)}^{\**}"'{near start}]
+            \end{tikzcd}
+      \end{equation}
+      
+      However, we may augment $E_G$ to a functor
+      $\tilde E_G: \Omega_G \to \mathsf{Fib}(\mathsf \mathsf O_G)$
+      to the category of fibrations over $\mathsf \mathsf O_G$.
+      In particular, let $\tilde E_G(T)$ denote the Grothendieck construction on the functor
+      $E_G(T) \to \Set$, $G t \mapsto \mathsf \mathsf \mathsf O_G \downarrow G t$;
+      This has the natural structure of a fibration $p: \tilde E_G(T) \to \mathsf O_G$
+      with $p(G t, q: I \to G t) = I$ and Cartesian arrows defined by pre-composition.
 \end{remark}
 
 \begin{definition}[{cf. \eqref{COMEGA_OG_EQ}}]
@@ -682,48 +758,67 @@ Extending \S \ref{COMEGA_SEC}, we make the following definitions.
                   \\
                   \Sigma_G \arrow[r, "E_G"]
                   &
-                  \mathsf F \wr O_G
+                  \mathsf F \wr \mathsf O_G
                   &&
                   \Omega_G \arrow[r, "E_G"]
                   &
-                  \mathsf F \wr O_G
+                  \mathsf F \wr \mathsf O_G
             \end{tikzcd}
       \end{equation}
 \end{definition}
 
 Objects of $\UC \Omega_G$ are pairs $(T, \mathfrak c)$ of
 a $G$-tree $T$ and
-a functor $\mathfrak c: E_G(T) \to \underline{\mathfrak C}$ over $O_G$.
-Explicitly, each orbit of edges $G t$ (with $t$ minimal)
-is assigned a color $\mathfrak c(G t) \in \underline{\mathfrak C}(G/G_{t})$.
-Morphisms $(T, \mathfrak c) \to (S, \mathfrak d)$
+a functor $\mathfrak c: E_G(T) \to \underline{\mathfrak C}$ over $\mathsf O_G$.
+Explicitly, each orbit of edges $G t$ % (with $t$ minimal)
+is assigned a color $\mathfrak c(G t) \in \underline{\mathfrak C}(G t)$. % $\underline{\mathfrak C}(G/G_{t})$.
+Morphisms $(T, \mathfrak c) \to (S, \mathfrak d)$ 
 are given by maps of trees $\phi: T \to S$ such that, for every edge orbit $G t$ of $T$, we have
 \begin{equation}
-      \mathfrak c(G t) = g_t^{\**} \mathfrak d(G s),
+      \mathfrak c(G t) = \phi_{G t}^{\**} \mathfrak d(G \phi(t))
+      % \mathfrak c(G t) = g_t^{\**} \mathfrak d(G s),
       %\phi_{e}^{\**}g_e^{\**}\mathfrak d(Gf),
 \end{equation}
-with $g_t \in G$ defined as in Definition \ref{EG_DEFN}.
-% where $\phi_{e}: G / G_{e} \to G / G_{\phi(e)}$ is the map in $O_G$ induced by $\phi$,
+with $\phi_{G t}: G t \to G \phi(t)$.
+% with $g_t \in G$ defined as in Definition \ref{EG_DEFN}.
+% where $\phi_{e}: G / G_{e} \to G / G_{\phi(e)}$ is the map in $\mathsf O_G$ induced by $\phi$,
 % and $\phi(e) = g_e f$ for $f \in Gf \in E_G(S)$ minimal; as $g_e$ is unique modulo $G_f$, $g_e^{\**}$ is well-defined.
 
 \begin{remark}
-      {\color{OliveGreen}
-        \todo[inline]{How do we define a Grothendieck construction that works, analogous to \eqref{COMEGA_OG_GR_EQ}?}
-        It is not
-        \begin{equation}
-              \begin{tikzcd}[row sep = tiny]
-                    \Omega_G^{op} \arrow[r]
-                    &
-                    \mathsf{Cat}
-                    \\
-                    T \arrow[r, mapsto]
-                    &
-                    \Hom_{\Cat \downarrow_w O_G}(E_G(T), \UC)
-              \end{tikzcd}
-        \end{equation}
-        as we want the coloring to be strictly equivariant.
-        Instead, it uses the fact the $E_G$ is weak, and that weakness can be exploited since $\UC$ is a root fibration.
-      }
+      In analogue to \eqref{COMEGA_OG_GR_EQ}, we note that $\UC \Omega_G$ is equivalent to the Grothendieck construction
+      \begin{equation}
+            \label{COMEGAG_OG_GR_EQ}
+            \begin{tikzcd}[row sep = tiny]
+                  \Omega_G^{op} \arrow[r]
+                  &
+                  \mathsf{Set}
+                  \\
+                  T \arrow[r, mapsto]
+                  &
+                  \Hom_{\mathsf{Fib} (\mathsf O_G)}(\tilde E_G(T), \UC).
+            \end{tikzcd}
+      \end{equation}
+      The (standard) coloring of $G t$ is recovered by $\mathfrak c(G t, id_{G t})$, and
+      a triangle of fibrations on the left below over $\mathsf O_G$
+      implies that the right triangle commutes.
+      \begin{equation}
+            \begin{tikzcd}[column sep = small]
+                  \tilde E_G(T) \arrow[rr, "\phi"] \arrow[dr, "\mathfrak c"']
+                  &&
+                  \tilde E_G(S) \arrow[dl, "\mathfrak d"]
+                  &
+                  (G t, id) \arrow[rr, mapsto] \arrow[dr, mapsto]
+                  &&
+                  (G \phi(t), \phi_{G t}) \arrow[dl, mapsto]
+                  \\
+                  &
+                  \UC
+                  &
+                  &
+                  &
+                  \mathfrak c(G t) = \phi_{G t}^{\**} \mathfrak d(G \phi(t)).
+            \end{tikzcd}
+      \end{equation}
 \end{remark}
 
 \begin{remark}
@@ -744,53 +839,57 @@ with $g_t \in G$ defined as in Definition \ref{EG_DEFN}.
                     \mathsf F^G.
               \end{tikzcd}
         \end{equation}
-      
-      Similarly, $\underline{\mathfrak C}\Omega_G$ is isomorphic to the Grothendieck construction on the functor
-      \begin{equation}
-            \begin{tikzcd}[row sep = tiny]
-                  \Omega_G^{op} \arrow[r]
-                  &
-                  \mathsf{Set}
-                  \\
-                  T \arrow[r, mapsto]
-                  &
-                  \Hom_{\Set^{O_G^{op}}}(\Phi(E(T)), \underline{\mathfrak C}),
-            \end{tikzcd}
-      \end{equation}
-
+        
+        Similarly to \eqref{COMEGA_B_GR_EQ}, $\underline{\mathfrak C}\Omega_G$ is isomorphic to the Grothendieck construction on the functor
+        \begin{equation}
+              \begin{tikzcd}[row sep = tiny]
+                    \Omega_G^{op} \arrow[r]
+                    &
+                    \mathsf{Set}
+                    \\
+                    T \arrow[r, mapsto]
+                    &
+                    \Hom_{\Set^{\mathsf O_G^{op}}}(\Phi(E(T)), \underline{\mathfrak C}),
+              \end{tikzcd}
+        \end{equation}
+        In particular, we note that
+        $\Hom_{\mathsf{Cat}}(E(T), B_{\mathfrak C} G) = \Hom_{\Set^{\mathsf O_G^{op}}}(\Phi(E(T)), \Phi(\mathfrak C))$. 
+        
+        
         As in \eqref{COMEGA_FG_EQ}, a coloring is a map $\mathfrak c: \Phi E(T) \to \mathfrak C$ of coefficient systems,
         and morphisms are maps $\phi: T \to S$ which are compatible on colorings,
         in that the triangle below  (cf. \eqref{COLOR_MAP_FG_EQ}) commutes.
         \begin{equation}
               \begin{tikzcd}[row sep = tiny]
-                    \Phi A \arrow[rr, "f"] \arrow[dr, "\mathfrak c"']
+                    \Phi E(T) \arrow[rr, "f"] \arrow[dr, "\mathfrak c"']
                     &&
-                    \Phi B \arrow[dl, "\mathfrak d"]
+                    \Phi E(S) \arrow[dl, "\mathfrak d"]
                     \\
                     &
                     \underline{\mathfrak C}
               \end{tikzcd}
         \end{equation}
         It is easy to show this is equivalent to requiring that
-        $\mathfrak c(G/G_t,t) = \phi_t^{\**} \mathfrak d(G/G_{\phi(t)}, \phi(t))$,
-        where $\phi_t: G/G_t \to G/G_{\phi(t)}$ is the unique map preserving the coset of the unit.
+        % $\mathfrak c(G/G_t,t) = \phi_t^{\**} \mathfrak d(G/G_{\phi(t)}, \phi(t))$,
+        % where $\phi_t: G/G_t \to G/G_{\phi(t)}$ is the unique map preserving the coset of the unit.
+        $\mathfrak c(G t, t) = \phi_{G t}^{\**} \mathfrak d(G \phi(t), \phi(t))$. 
         
         $\UC \Sigma_G$ can be defined similarly, with the relevant sources restricted to
         $\Sigma_G \subseteq \Omega_G$. 
       }
       %%%%%%%%%%%%% COLOR: BLUE ----------------------------------------
-      \todo[inline]{figure out whether first or ``alternatively'' is more useful as the chosen construction}
 \end{remark}
 
 
 \begin{remark}
-      $\underline{\mathfrak C}\Omega_G$ is also a root fibration, 
+      $\underline{\mathfrak C}\Omega_G$ is also naturally a root fibration, 
       that is, a split Grothendieck fibration over the orbit category.
 
       Formally, as $\mathsf F \wr (-)$ and pullbacks preserve such fibrations, and these are compatible under composition,
-      this follows from the natural maps $\underline{\mathfrak C}\Omega_G \to \Omega_G \to O_G$.
-      Explicitly, $\underline{\mathfrak C}\Omega_G(G/H)$ has as objects those pairs $(T,\mathfrak c)$ such that
-      $T \simeq G \cdot_H T_*$ for $T_{\**} \in \Omega^H$.
+      this follows from the natural maps $\underline{\mathfrak C}\Omega_G \to \Omega_G \to \mathsf O_G$.
+      Explicitly, $\underline{\mathfrak C}\Omega_G(I)$ has as objects those pairs $(T,\mathfrak c)$ such that
+      % $T \simeq G \cdot_H T_*$ for $T_{\**} \in \Omega^H$.
+      $r(T) = I$. 
       % In this case, we have a canonical isomorphism
       % $E_H(T_{\**}) \to E_G(T) \simeq E_H(T_{\**})$, and we have a natural factorization
       % \begin{equation}
@@ -804,37 +903,29 @@ with $g_t \in G$ defined as in Definition \ref{EG_DEFN}.
       %             &
       %             O_H \arrow[r, hookrightarrow]
       %             &
-      %             O_G.
+      %             \mathsf O_G.
       %       \end{tikzcd}
       % \end{equation}
       Maps $\phi:(T,\mathfrak c) \to (S, \mathfrak d)$ in each fiber are called \textit{root-fixed}:
-      as maps in $\Omega_G$, they are \textit{rooted} ($G r_T \to G r_S$ is a planar isomorphism),
-      and moreover $\mathfrak c(Gr_T) = \mathfrak d(G r_S)$.
+      as maps in $\Omega_G$, they are \textit{rooted} ($r(T) \to r(S)$ is a planar isomorphism),
+      and moreover $\mathfrak c(r(T)) = \mathfrak d(r(S))$.
       
-      Given $q: G/H \to G/K$ in the orbit category,
+      Given $q: I \to J$ in the orbit category,
       the chosen Cartesian maps are the induced root pullback maps $q: q^{\**}T \to T$ on $G$-trees,
-      with the coloring of $q^{\**}T$ defined as follows:
-      for $b\in E(q^{\**}T)$, minimal in it's $G$-orbit, we have $q(b) = g a$ for some $g \in G$ and $a \in E(T)$ minimal in its orbit.
-      Moreover, as this $g$ is unique modulo $G_a$, we have that there is a well-defined map $g_*: G/G_{q(b)} \to G/G_a$,
-      and as $q$ induces a unique map $q_b^{\**}: G/G_b \to G/G_{q(b)}$, we have
-      \begin{equation}
-            (q^{\**}\mathfrak c)(Gb) q_b^{\**}g^{\**}\mathfrak c(Ga).
-      \end{equation}
+      with the coloring $q^{\**}\mathfrak c$ of $q^{\**}T$ defined by
+      $(q^{\**}\mathfrak c)(G t) = q_{G t}^{\**}(G \phi(t))$.
+      % for $b\in E(q^{\**}T)$, minimal in it's $G$-orbit, we have $q(b) = g a$ for some $g \in G$ and $a \in E(T)$ minimal in its orbit.
+      % Moreover, as this $g$ is unique modulo $G_a$, we have that there is a well-defined map $g_*: G/G_{q(b)} \to G/G_a$,
+      % and as $q$ induces a unique map $q_b^{\**}: G/G_b \to G/G_{q(b)}$, we have
+      % \begin{equation}
+      %       (q^{\**}\mathfrak c)(Gb) q_b^{\**}g^{\**}\mathfrak c(Ga).
+      % \end{equation}
 
       {\color{blue} % ---------- ALTERNATIVELY --------------------
         Alternatively, on $\Phi E(q^{\**} T)$, we have
-        $(q^{\**}\mathfrak c)(G/H, b) = q_b^{\**}(\mathfrak c(G/H, q(b)))$.
+        $(q^{\**}\mathfrak c)(G/H, s) = q_b^{\**}(\mathfrak c(G/H, q(s)))$.
       } % --------------------------------------------------
 \end{remark}
-
-
-\begin{remark}
-      Given $X\in \dSet_G$ with $X(\eta_{G/H}) = \mathfrak C(G/H)$, we have that
-      $\UC\Sigma_G$ is equal to the category of \textit{profiles} $\partial\Omega[C] \to X$,
-      where $C$ ranges over all of $\Sigma_G$.
-      \todo[inline]{come back: contextualize}
-\end{remark}
-
 
 \begin{remark}
       We note that any \textit{planar} map of colored $G$-trees is always \textit{color-fixed}, in that
@@ -844,14 +935,6 @@ with $g_t \in G$ defined as in Definition \ref{EG_DEFN}.
 \begin{remark}
       A \textit{quotient} map in $\UC \Omega_G$ is any morphism such that the underlying map in $\Omega_G$ is a quotient.
 \end{remark}
-
-% \begin{remark}
-%       Replacing the bottom-left corner in \eqref{COMEGA_G_EQ} with $\Omega^G$ changes the pullback to the category
-%       $\underline{\mathfrak C}\Omega^G$ of ``$\underline{\mathfrak C}$-colored trees with $G$-action''.
-%       \todo[inline]{leaf-root for later?}
-%       Any colored $G$-tree $(T, \mathfrak c)$ with $T = (T_a)_{a \in A}$ has that each $T_a$ is a
-%       ``$\underline{\mathfrak C|_{G_a}}$-colored tree with $G_a$-action.''
-% \end{remark}
 
 We have natural inclusions on the left
 \begin{equation}
@@ -875,9 +958,18 @@ We have natural inclusions on the left
 \end{equation}
 which forget to the uncolored inclusions on the right.
 Specifically, $U \mapsto G \cdot U$ and, as $E_G(G \cdot U) = E(U)$, the associated coloring map is simply $\mathfrak c$ again.
-On morphisms, $(\phi,g)$ maps to $(\phi)_{G} \circ g$.
+On morphisms, $(\phi,g)$ maps to $g \cdot (\phi)_{G}$.
+
+\begin{remark}
+      Given $X\in \dSet_G$ with $X(\eta_{G/H}) = \mathfrak C(G/H)$, we have that
+      $\UC\Sigma_G$ is equal to the category of \textit{profiles} $\partial\Omega[C] \to X$,
+      where $C$ ranges over all of $\Sigma_G$.
+      \todo[inline]{come back: contextualize}
+\end{remark}
 
 \subsection{Planar Strings and Stuff}
+
+\todo[inline]{come back}
 
 Main observation:
 \begin{remark}
@@ -956,7 +1048,7 @@ Generalizing \cite[Remark 3.78]{BP17}
       $\mathfrak c_{R} = \mathfrak c|_{E_G(R)}$,
       $\mathfrak c_{S} = \mathfrak c|_{E_G(S)}$,
       such that
-      the existence of $U_T$ and $\mathfrak c_{U_T}$ follow from the existence of the pushout below in $\underline{\mathfrak C}\Omega_G^{pt,cf}$.
+      the existence of $U_T$ and $\mathfrak c_{U_T}$ follow from the existence of the pushout below in $\underline{\mathfrak C}\Omega_G^{pt}$.
       \begin{equation}
             \begin{tikzcd}
                   (\eta_{Ge}, \mathfrak c) \arrow[d] \arrow[r]
@@ -969,7 +1061,7 @@ Generalizing \cite[Remark 3.78]{BP17}
             \end{tikzcd}
       \end{equation}
       By induction, $U_S$, $U_R$, $\mathfrak c_{U_S}$, $\mathfrak c_{U_R}$ exist
-      (with unique choices such that $(U_{v_{Ge}}, \mathfrak c_{U_{v_{Ge}}}) \into(U_R, \mathfrak c_{U_R})$ is planar [and color-fixed]).
+      (with unique choices such that $(U_{v_{Ge}}, \mathfrak c_{U_{v_{Ge}}}) \into(U_R, \mathfrak c_{U_R})$ is planar).
       Forgetting colors, this is an equivariant grafting diagram, and hence the $G$-tree $U_T$ exists.
       Moreover, we have $E_G(U_T) = E_G(U_S) \amalg_{Ge} E_G(U_R)$, and so we have a well-defined coloring
       \begin{equation}
@@ -984,7 +1076,7 @@ Generalizing \cite[Remark 3.78]{BP17}
 
 \begin{lemma}[{cf. \cite[Lemma 3.63]{BP17}}]
       $\underline{\mathfrak C}\Omega_G^0 \to \mathsf F_s \wr \underline{\mathfrak C}\Sigma_G$
-      sends root pullbacks to pullbacks over $\mathsf F_s \wr O_G$.
+      sends root pullbacks to pullbacks over $\mathsf F_s \wr \mathsf O_G$.
 \end{lemma}
 \begin{proof}
       Exactly as in \textit{loc cite}, with the additional note that
@@ -1009,7 +1101,7 @@ Generalizing \cite[Remark 3.78]{BP17}
       We observe
       \begin{enumerate}
       \item $\UC\Omega_G^\bullet \to \UC\Sigma_G$ is an augmented simplicial object in categories.
-      \item $\UC\Omega_G^n \to O_G$ is a root fibration.
+      \item $\UC\Omega_G^n \to \mathsf O_G$ is a root fibration.
       \item We have a vertex functor $V_G: \UC\Omega_G^{n+1} \to \mathsf F_s \wr \UC\Omega_G^n$ by
             \begin{equation}
                   \left(
@@ -1218,16 +1310,17 @@ We have an inclusion
 sending maps $(\phi, g)$ to $g \cdot \phi$.
 {\color{blue} Alternatively, sending $(\phi,g)$ to $((h,t) \mapsto (hg^{-1}, \phi(t)))$.}
 
-Now, we have component maps in the opposite direction.
+We have component maps in the opposite direction.
 Given $(T = (T_i)_I, \mathfrak c) \in \UC\Omega_G$, we define
-$\mathfrak c_i: E(T_i) \to \mathfrak C(G/e)$ by
+$\mathfrak c_i: E(T_i) \to \mathfrak C(G)$ by
 \begin{equation}
-      \mathfrak c_i(t) = q_t^{\**}(\mathfrak c (G f)),
+      \mathfrak c_i(t) = q_t^{\**}(\mathfrak c (G t)),
 \end{equation}
 where
-$t \in Gf$ (with $f$ minimal in the planar structure on $T$),
-$g_t\in G$ such that $t = g_t \cdot f$ (well-defined up to $G_f$),
-and $(q_t)_{\**}: G/e \to G/G_f$ the map $x \mapsto g G_f$.
+$q_t: G \to Gt$ sending $e \mapsto t$. 
+% $t \in Gf$ (with $f$ minimal in the planar structure on $T$),
+% $g_t\in G$ such that $t = g_t \cdot f$ (well-defined up to $G_f$),
+% and $(q_t)_{\**}: G/e \to G/G_f$ the map $x \mapsto g G_f$.
 
 % \begin{remark} % this is still true, but less important.
 %       The coloring $\mathfrak c_i$ is \textit{almost} the composite
@@ -1297,6 +1390,8 @@ In particular:
 \end{remark}
 
 \subsection{Free extensions}
+
+\todo[inline]{come back}
 
 Category of labeled planar colored strings, as before.
 As most of the construction/category theory is on the level of strings (or formally due to pullback constructions),
@@ -1505,7 +1600,18 @@ On the other hand, let $\Sym_{\F, \mathfrak C}(\V)$ denote the category $\V^{\UC
       \end{equation}      
 \end{proof}
 
+\begin{corollary}
+      \label{COLOR_CHANGE_Q_COR}
+      The change of color adjunctions from \eqref{COLOR_CHANGE_EQ} form Quillen adjunctions.
+\end{corollary}
+\begin{proof}
+      For any $F: \mathfrak C \to \mathfrak C'$, $F_{\**}$ clearly preserves (trivial) fibrations.
+\end{proof}
+
+
 \subsection{Comparisons and cofibrancy}
+
+\todo[inline]{come back}
 
 \begin{definition}
       Given a coefficient system $\UC$, we define the category $\UC O_{\F_n}$ to be the Grothendieck construction of the functor
@@ -1517,7 +1623,7 @@ On the other hand, let $\Sym_{\F, \mathfrak C}(\V)$ denote the category $\V^{\UC
                   \\
                   G \times \Sigma_n / \Gamma \arrow[r, mapsto]
                   &
-                  \Hom_{\Set^{O_G^{op}}}(\Phi(G \cdot_\Gamma \underline{n+1}), \mathfrak C)
+                  \Hom_{\Set^{\mathsf O_G^{op}}}(\Phi(G \cdot_\Gamma \underline{n+1}), \mathfrak C)
             \end{tikzcd}
       \end{equation}
       where, for $\phi = \phi_\Gamma: H \to \Sigma_n$ the unique homomorphism such that $\Gamma = \Gamma(\phi)$,
@@ -1599,7 +1705,7 @@ We equip $\V^{\UC O_{\F_n}^{op}}$ with the projective model structure.
       $\Phi(G \cdot \underline{n+1}) \xrightarrow{q} \Phi(G \cdot_\Gamma \underline{n+1})$
       where $q: G \times \Sigma_n \to G \times \Sigma_n / \Gamma$
       preserves the minimal element\todo{sends $[e]$ to $[e]$},
-      \todo[inline]{or just $Y(q^{\**}(-))$, with $\UC O_{\F_n}$ a fibration over $O_G$}
+      \todo[inline]{or just $Y(q^{\**}(-))$, with $\UC O_{\F_n}$ a fibration over $\mathsf O_G$}
       and $\eta$ is the natural map.      
       
       We have that $\iota_{\**}$ is right Quillen by construction of the model structures.
@@ -1634,9 +1740,12 @@ We record that $\iota_{\**}$ again fully-faithful since $\epsilon$ is an iso.
 \section{Model structure for all colors} 
 \renewcommand{\C}{\mathfrak C}
 
+Fix a cofibrantly generated model category $\V$.
+
 {\color{OliveGreen} In this section, assume that the canonical model structures on $\Cat(\V)$, $\Op(\V)$, and $\Op^{G,\C}(\V)$ exist.}
 
-We follow \cite{BM13} and \cite{Cav14} to assemble the collection of "color-fixed" ($\F$)-model structures into
+We follow \cite{BM13} and \cite{Cav14} to assemble the collection of ``color-fixed''
+($\F$)-model structures into
 a single model structure on $\Op^G(\V)$.
 
 As in the previous section, we fix a collection $\F = \set{\F_n}$ of families $\F_n$ of graph subgroupos of $G \times \Sigma_n$
@@ -1712,6 +1821,8 @@ We have another free-forgetful adjunction $j^*: \mathsf{Op}^G(\V) \leftrightarro
       \end{enumerate}
 \end{definition}
 
+Now and forever we further suppose that $\V$ has \textit{cellular fixed points}.
+
 \begin{definition}
       We call a map $F: \O \to \P$ in $\mathsf{Op}^G(\V)$
       \begin{itemize}
@@ -1743,7 +1854,7 @@ Fix a graph subgroup $\Gamma \in \F_n$ of $G \times \Sigma_n$, and $X \in \V^\Ga
 Define $C_\Gamma[X]$ to be the ``free operad with stabilizer $\Gamma$ generated by $X$''.
 Specifically, this operad has colours $\mathfrak C_\Gamma := G \cdot_\Gamma \underline{n+1}$.
 Now, letting $\ksi_0$ denote the signature $([e,1],[e,2],\dots,[e,n];[e,0])$,
-we define
+we define the $(G,\mathfrak C_\Gamma)$-symmetric sequence
 \begin{equation}
       C_\Gamma[X](\ksi) =
       \begin{cases}
@@ -1755,14 +1866,15 @@ we define
 where $g \in G$ and $\sigma \in \Sigma_n$ are chosen to be the \textit{minimal} elements in those groups with this property,
 and $\varnothing$ is the initial object in $\V$.
 
-It is straightforward that the operad $C_\Gamma[X]$ has the universal property
+Let $\mathbb F_\Gamma[X]$ denote free operad $\mathbb F^{\mathfrak C_\Gamma} C_\Gamma[X]$.
+It is straightforward that the operad $\mathbb F_\Gamma[X]$ has the universal property
 \begin{equation}
-      \Hom_{\Op^G(\V)}(C_\Gamma[X], \O) = \mathop\prod\limits_{\ksi \in (\mathfrak C(\O)^{\times n+1})^\Gamma}\Hom_{\V^\Gamma}(X, \O(\ksi)).
+      \Hom_{\Op^G(\V)}(\mathbb F_\Gamma[X], \O) = \mathop\prod\limits_{\ksi \in (\mathfrak C(\O)^{\times n+1})^\Gamma}\Hom_{\V^\Gamma}(X, \O(\ksi)).
 \end{equation}
 
 Define $I_{\F,loc}$ and $J_{\F, loc}$ to be the sets
 \begin{align*}
-  \set{C_{\Gamma}[\Gamma/\Gamma \cdot i]}, \qquad \qquad \set{C_{\Gamma}[\Gamma/\Gamma \cdot j]},
+  \set{\mathbb F_\Gamma[\Gamma/\Gamma \cdot i]}, \qquad \qquad \set{\mathbb F_\Gamma[\Gamma/\Gamma \cdot j]},
 \end{align*}
 where $\Gamma$ runs over all graph subgroups of $G \times \Sigma_n$ in $\F_n$,
 and $i$ (resp. $j$) runs over all generating (trivial) cofibrations in $\V$.
@@ -1776,11 +1888,12 @@ The universal property makes the following immediate.
 Now, define $I_{\F}:= I_{\F, loc} \mathbin{\cup} \set{\varnothing \to G/H \cdot \1}_{H\leq G}$
 and
 $J_{\F} := J_{\F, loc} \mathbin{\cup} \set{G/H \cdot (\1 \to \J)}_{H\leq G,\ \J\in\mathbb{G}}$
-where again $\1$ is the initial $\V$-category (thought as an operad), and $\mathbb{G}$ is a generating set of $\V$-intervals. 
+where again $\1$ is the initial $\V$-category (considered as an operad), and $\mathbb{G}$ is a generating set of $\V$-intervals. 
 
 \begin{lemma}
       [{cf. \cite[4.8]{Cav14}, \cite[2.3]{BM13}, \cite[1.18]{CM13b}}]
       \label{CAV_4.8}
+      Suppose $\V$ has a generating set of intervals.
       A map $F$ in $\mathsf{Op}^G(\V)$ is a trivial $\F$-fibration
       iff
       $F$ is a local trivial $\F$-fibration such that $F^H$ is surjective on $H$-fixed colors for all $H\leq G$
@@ -1788,12 +1901,15 @@ where again $\1$ is the initial $\V$-category (thought as an operad), and $\math
       $F$ has the right lifting property against $I_{\F}$.. 
 \end{lemma}
 \begin{proof}
-      By definition, $F$ is a trivial $\F$-fibration iff
+      The second iff is immediate by the construction of $I_{\F}$.
+      For the first, we have by definition that
+      $F$ is a trivial $\F$-fibration
+      iff
       it is a local trivial $\F$-fibration such that $j^*F^H$ is path-lifting and essentially surjective for all $H\leq G$.
-      Thus, \cite[4.8]{Cav14} immediately implies the first step.
-      Moreover, right lifting against $I_{\F, loc}$ is identical to being a local trivial $\F$-fibration, while
-      lifting against $\varnothing \to G/H\otimes \1$ precisely say that $F^H$ is surjective on colors;
-      combining these observations yields the result.
+      \cite[2.4]{BM13} completes the proof. 
+      % Moreover, right lifting against $I_{\F, loc}$ is identical to being a local trivial $\F$-fibration, while
+      % lifting against $\varnothing \to G/H\otimes \1$ precisely say that $F^H$ is surjective on colors;
+      % combining these observations yields the result.
 \end{proof}
 
 \begin{lemma}
@@ -1802,7 +1918,7 @@ where again $\1$ is the initial $\V$-category (thought as an operad), and $\math
 \end{lemma}
 \begin{proof}
       Again, lifting against $J_{\F, loc}$ is identical to being a local $\F$-fibration, while lifting against $G/H \cdot (\1 \to \J)$
-      is equivalent to $F^H$ lifting against $\1 \to \J$, which is true exactly when it is path lifting by \cite{Cav14}. 
+      is equivalent to $F^H$ lifting against $\1 \to \J$.
 \end{proof}
 
 \begin{lemma}
@@ -1813,9 +1929,11 @@ where again $\1$ is the initial $\V$-category (thought as an operad), and $\math
 \begin{proof}
       % It suffices to show that if $F$ has (right) lifting against $I_\F$, it has lifting aginst $J_{\F}$.
       Clearly a local trivial $\F$-fibration is a local $\F$-fibration.
-      On the other hand, by locality, any cofibration in $\mathsf{Op}^{G, \mathfrak C}(\V)$ for any $G$-set $\C$
+      On the other hand, by locality and \eqref{COLOR_SQ_EQ},
+      any cofibration in $\mathsf{Op}^{G, \mathfrak C}(\V)$ for any $G$-set $\C$
       is a cofibration when considered in $\mathsf{Op}^G(\V)$.
-      Hence, since $G/H \cdot (\1 \to \1 \amalg \1)$ is in $I_{\F}\mbox{-cof}$, the composite
+      Thus, since $G/H \cdot (\1 \to \1 \amalg \1)$ is a pushout of $G/H \cdot(\varnothing \to \1)$
+      and hence is in $I_{\F}\mbox{-cof}$, the composite
       \begin{equation}
             \begin{tikzcd}
                   G/H \cdot \1 \arrow[r, rightarrowtail]
@@ -1833,6 +1951,7 @@ where again $\1$ is the initial $\V$-category (thought as an operad), and $\math
 
 \begin{lemma}
       \label{TRANSCOMP_ES_LEM}
+      Suppose $\V$ is a monoidal model category.
       The transfinite composition of essentially surjective maps is essentially surjective.
 \end{lemma}
 \begin{proof}
@@ -1843,27 +1962,28 @@ where again $\1$ is the initial $\V$-category (thought as an operad), and $\math
 \begin{lemma}
       [{c.f. \cite[4.20]{Cav14}}]
       \label{J-CELL_LEMMA}
-      Suppose the unit $1_\V \in \V$ is cofibrant.
-      If weak $\F$-equivalences are closed under transfinite compositions, then relative $J_{\F}$-cells are weak equivalences.
+      Suppose the unit $1_\V \in \V$ is cofibrant,
+      and weak $\F$-equivalences are closed under transfinite compositions.
+      If $\V$ admits (semi)-transfer for operads, then relative $J_{\F}$-cells (with cofibrant source) are weak equivalences.
 \end{lemma}
 \begin{proof}
+      We first assume $\V$ admits transfer for operads.
+      
       Since local weak $\F$-equivalences are closed under transfinite composition by assumption, and
       essentially surjective maps are closed under transfinite composition by Lemma \ref{TRANSCOMP_ES_LEM},
       it suffices to prove that the pushout of a map $j \in J_{\F}$ is a weak $\F$-equivalence.
-      If $j \in J_{\F, loc}$, then since colimits in $\mathsf{Op}^G(\V)$ are computed in $\Op(\V)$,
-      and since by \cite{Cav14} pushouts of this form can be computed fiberwise
-      (that is, after shifting the operads into a single color),
-      we are computing the pushout of a trivial cofibration in $\mathsf{Op}^{G,\C_{\ksi}}(\V)$,
-      where $\C_{\ksi}$ is the $G$-set generated by the colors in the given signature $\ksi$.
-      By the existance of the transferred model structure, this is again a trivial cofibration.
-      Hence, the pushout is a local weak $\F$-equivalence in $\mathsf{Op}^G(\V)$ which is the identity on colors,
-      and hence a weak $\F$-equivalence itself.
+
+      If $j \in J_{\F, loc}$, then
+      the existance of the model structure on $\Op^{G, \mathfrak C(\O)}(\V)$
+      combined with \eqref{COLOR_SQ_EQ}
+      implies that the pushout is again a local weak $\F$-equivalence which is the identity on colors,
+      and hence is a weak $\F$-equivalence. 
       
-      Now, supppose $j$ is the map $G/H \cdot (\1 \to \J)$ for $\J$ a $\V$-interval.
+      Now, supppose $j$ is of the form $G/H \cdot (\1 \to \J)$ for $\J$ a $\V$-interval.
       As in \cite{Cav14}, we can split this pushout into a composition of two pushouts
       \begin{equation}
             \begin{tikzcd}
-                  G/H \cdot \1 \arrow[r] \arrow[d, "G/H \cdot \phi"']
+                  G/H \cdot \1 \arrow[r, "a"] \arrow[d, "G/H \cdot \phi"']
                   % \arrow[dr,phantom, yshift=.1em, xshift=.5em, "\lrcorner" near end]
                   &
                   X \arrow[d,"\phi'"]
@@ -1878,18 +1998,16 @@ where again $\1$ is the initial $\V$-category (thought as an operad), and $\math
                   Y
             \end{tikzcd}
       \end{equation}
-      where $\J_{\set{0,0}}$ is the full subcategory of $\J$ spanned by the object $O$.
+      where $\J_{\set{0,0}}$ is the full subcategory of $\J$ spanned by the object $0$.
       It suffices to show both $\psi'$ and $\phi'$ are local weak $\F$-equivalences which are essentially surjective on fixed points. 
       
       We first consider the bottom pushout.
-      We know that $\psi$ is injective on colors and fully-faithful
-      (that is, induces an isomorphism in $\Op^{\set{0}}(\V)$),
-      and hence $G/H \cdot \psi$ is also injective on colors and fully-faithful as a map in $\Op(\V)$.
-      Since colimits are created non-equivariantly, by \cite[Prop B.22]{Cav14} and the remark thereafter,
-      we conclude that $\psi'$ is fully faithful in $\Op(\V)$, and hence is an isomorphism in $\Op^{\C(X')}(\V)$.
-      But $\psi'$ is a $G$-map, and hence it is an isomorphism in $\mathsf{Op}^{G, \C(X')}(\V)$ as well,
-      and hence is a local weak $\F$-equivalence in $\mathsf{Op}^G(\V)$. 
-      
+      We know that $\psi$ is injective on colors and a local isomorphism in $\Op(\V)$,
+      and hence so is $G/H \cdot \psi$ in $\Op^G(\V)$.
+      Since colimits are created non-equivariantly, and equivariant isomorphisms are detected by invertible equivariant maps,
+      \cite[Prop B.22]{Cav14} implies that $\psi'$ is also a local isomorphism in $\Op^G(\V)$,
+      so in particular a local weak $\F$-equivalence.
+
       Moreover, we observe that $\C(Y) = \C(X') \amalg (G/H \times \set{1})$.
       Thus, if $x \in \C(Y)^K$ for $K \leq G$ is in $\C(X')$, we have essential surjectivity trivially,
       as shown below.
@@ -1909,50 +2027,48 @@ where again $\1$ is the initial $\V$-category (thought as an operad), and $\math
                   (Y)^K
             \end{tikzcd}
       \end{equation}
-      Lastly, if we consider any orbit of the new object $1\in \C(Y)$,
-      there is an associated object $0 \in \C(X')$ such that the essentially surjectivity diagram
-      is the same as the pushout diagram for $\psi$:
+      Lastly, if we consider (any element in the orbit of) the new object $1\in \C(Y)^H$,
+      there is an associated object $0 \in \C(X')^H$ such that the essentially surjectivity diagram
+      factors through the pushout diagram for $\psi$:
       \begin{equation}
             \begin{tikzcd}
-                  G/H \cdot \1 \arrow[rr,"0"] \arrow[dr, "G/H \cdot i_0"]
-                  &&
-                  X' \arrow[dd, "\psi'"]
+                  G/H \cdot \1 \arrow[r,"0"] \arrow[dr, "G/H \cdot i_0"']
+                  &
+                  G/H \cdot \J_{\set{0,0}} \arrow[r] \arrow[d]
+                  &
+                  X' \arrow[d, "\psi'"]
                   \\
                   &
-                  G/H \cdot \J \arrow[dr, "\mbox{\large $\lrcorner$}" near end]
+                  G/H \cdot \J \arrow[r]
+                  &
+                  Y \arrow[d, equal]
                   \\
-                  G/H \cdot \1 \arrow[ur, "G/H\otimes i_1"] \arrow[rr, "1"]
+                  G/H \cdot \1 \arrow[ur, "G/H \cdot i_1"] \arrow[rr, "1"]
                   &&
-                  Y
+                  Y.
             \end{tikzcd}
       \end{equation}
-      Hence $\psi'$ is essentially surjective and a local weak $\F$-equivalence, hence a weak $\F$-equivalence in $\mathsf{Op}^G(\V)$. 
+      Hence $\psi'$ is essentially surjective and a local weak $\F$-equivalence, thus a weak $\F$-equivalence.
 
-      Now, consider the top pushout. Similarly, \cite[4.20]{Cav14}says that pushouts of this form are created in $\Op(\V)_{\C(X)}$
-      as the pushout
-      \begin{equation}
-            \begin{tikzcd}
-                  p_! (G/H \cdot \1) \arrow[r, "p"] \arrow[d, "p_! (G/H \cdot \phi)"']
-                  &
-                  X \arrow[d,"\phi'"]
-                  \\
-                  p_! (G/H \cdot \J_{\set{0,0}}) \arrow[r]
-                  &
-                  Y
-            \end{tikzcd}
-      \end{equation}
+      Now, consider the top pushout. \eqref{COLOR_SQ_EQ} again implies that this pushout is created in $\Op^{G, \mathfrak C(X)}(\V)$.
       In particular, this implies $\phi'$ is bijective on objects, and hence essentially surjective.
-      Moreover, by \cite[Thm. 1.15]{BM13} and the assumption that $1_\V$ is cofibrant,
-      $\phi$ is a trivial cofibration in $\Op(\V)$,
-      and hence $p_! (G/H \cdot \phi)$ is a trivial cofibration in $\Op^{G,\C(X)}(\V)$.
-      Thus $\phi'$ is a trivial cofibration in $\mathsf{Op}^{G,\C(X)}(\V)$,
+      Further, since $1_\V$ is both cofibrant and the initial object in $\Op^{\**}(\V)$,
+      \cite[Thm. 1.15]{BM13} implies that $\1 \to \J_{\set{0,0}}$ is a trivial cofibration in $\Op^{\**}(\V)$.
+      Thus $G/H \cdot \phi$ (resp. $a_! (G/H \cdot \phi)$) is a trivial cofibration in $\Op^{G, \**}(\V)$
+      (resp. $\Op^{G, \mathfrak C(X)}(\V)$, by Corollary \ref{COLOR_CHANGE_Q_COR}),
+      and hence $\phi'$ is a trivial cofibration in $\mathsf{Op}^{G,\C(X)}(\V)$,
       and thus is a local weak $\F$-equivalence in $\Op^G(\V)$.
 
       Hence both $\phi'$ and $\psi'$ are weak $\F$-equivalences in $\mathsf{Op}^G(\V)$, so the result is proved.
+
+      If $\V$ only admits semi-transfer, then the assumption that $\O$ is cofibrant is sufficient to run an identical argument
+      (as the utilized pushouts remain weak equivalences in the underlying semi-model structure).
 \end{proof}
 
 
 \subsection{2-out-of-3}
+
+\todo[inline]{come back}
 
 \begin{definition}
       If $\V$ has intervals, then in any $\V$-category $\mathcal C$,
