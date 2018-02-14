@@ -20,19 +20,18 @@
 %-------- Tikz ---------------------------
 
 \usepackage{tikz}%
-\usetikzlibrary{matrix,arrows,decorations.pathmorphing, cd, patterns, calc, decorations.pathreplacing}
+\usetikzlibrary{matrix,arrows,decorations.pathmorphing,
+cd,patterns,calc}
 \tikzset{%
   treenode/.style = {shape=rectangle, rounded corners,%
-    draw, align=center,%
-    top color=white, bottom color=blue!20},%
+                     draw, align=center,%
+                     top color=white, bottom color=blue!20},%
   root/.style     = {treenode, font=\Large, bottom color=red!30},%
   env/.style      = {treenode, font=\ttfamily\normalsize},%
   dummy/.style    = {circle,draw,inner sep=0pt,minimum size=2mm}%
-  bicolor/.style 2 args={
-    dashed,dash pattern=on 6pt off 6pt,->,#1,
-    postaction={draw,dashed,dash pattern=on 6pt off 6pt,->,#2,dash phase=6pt}
-  }
 }%
+
+\usetikzlibrary[decorations.pathreplacing]
 
 
 
@@ -3253,7 +3252,7 @@ for the standard adjunctions (note the need to distinguish notations for the lef
 \end{notation}
 
 
-\begin{example}
+\begin{example}\label{GCORMPA EX}
 Given a $G$-corolla $C \in \Sigma_G$, we write $\partial C$ for the set of edges of $C$, which is naturally identified with the set of objects of the associated $G$-operad
 $\Omega(C) \in \mathsf{Op}^G$.
 
@@ -3322,16 +3321,139 @@ $\mathsf{Lan}_{\Sigma_{\partial C} \to \Sigma_{\mathfrak{C}}}$
 	$X(C)$ is $\mathcal{F}^{\Gamma}_C$-cofibrant.
 \end{definition}
 
-{\color{red} HERE}
 
 \begin{remark}
-	Writing a $\mathfrak{C}$-corolla as $C^f \in \Sigma_{\mathfrak{C}}$,
+	Write a $\mathfrak{C}$-corolla as $C^f \in \Sigma_{\mathfrak{C}}$,
 	where $C \in \Sigma$ is the underlying corolla and
 	$f\colon \partial C \to \mathfrak{C}$
-	is the coloring, 
-	a $G$-graph subgroup 
-	$\Gamma \leq \mathsf{Aut}_{G \ltimes \Sigma_{\mathfrak{C^f}}^{op}}(C)$
+	is the coloring.
+	A $G$-graph subgroup 
+	$\Gamma \leq \mathsf{Aut}_{G \ltimes \Sigma_{\mathfrak{C}}^{op}}(C^f)$ is, under the map 
+	$G \ltimes \Sigma_{\mathfrak{C}}^{op} \to
+	G \times \Sigma^{op}$,
+	identified with a 
+	$G$-graph subgroup of 
+	$G \times \mathsf{Aut}_{\Sigma^{op}}(C)$,
+	i.e., with the graph of a partial antihomomorphism
+\[
+	G^{op} \geq H^{op} \xrightarrow{(-)^{-1}} H 
+	\xrightarrow{\tau_{(-)}} \mathsf{Aut}_{\Sigma^{op}}(C)
+\]
+	which is subject to the requirement
+\[
+	f(\tau_h(e)) = h f(e).
+\]
+Using the $\tau$ automorphisms one can then
+\begin{inparaenum}
+\item[(i)] equip $C$ with a $H$-action,
+so that one can regard $C \in \Sigma^H \subseteq \Sigma_H$;
+\item[(ii)] extend $\Sigma_{\mathfrak{C}}[C^f]$ to 
+an object in $\mathsf{Set}^{H \ltimes \Sigma_{\mathfrak{C}}}$
+by defining the action of the $H$-action arrows $h$ via 
+$\sigma \mapsto \tau_{h} \circ (h \sigma)$;
+\item[(iii)]
+following Example \ref{GCORMPA EX}, one thus has an identification
+\[
+	f_{\**} \Omega'(C) \simeq \Sigma_{\mathfrak{C}}[C^f]
+\]
+of objects in $\mathsf{Set}^{H \ltimes \Sigma_{\mathfrak{C}}}$ and therefore an identification 
+\[
+	f_{\**} \left( G \cdot_H \Omega'(C) \right) \simeq 
+	G\cdot_H \Sigma_{\mathfrak{C}}[C^f]
+\]
+of objects in $\mathsf{Set}^{G \ltimes \Sigma_{\mathfrak{C}}}$.
+\end{inparaenum}
 \end{remark}
+
+
+\begin{example}
+Let $G = \mathbb{Z}_{/2} = \{\pm 1\}$ and 
+$\mathfrak{C} = \{\mathfrak{a}, -\mathfrak{a}, \mathfrak{b}\}$ where we implicitly have
+$-\mathfrak{b} = \mathfrak{b}$.
+Consider the two $\mathfrak{C}$-corollas 
+$C,D \in \Sigma_{\mathfrak{C}}$ below.
+\begin{equation}
+	\begin{tikzpicture}[auto,grow=up, level distance = 2.2em,
+	every node/.style={font=\scriptsize,inner sep = 2pt}]%
+		\tikzstyle{level 2}=[sibling distance=3em]%
+			\node at (0,0) [font = \normalsize] {$C$}%	
+				child{node [dummy] {}%
+					child{node {}%
+					edge from parent node [swap] {$-\mathfrak{a}$}}%
+					child[level distance = 2.9em]{node {}%
+					edge from parent node [swap,	near end] {$\mathfrak{b}$}}%
+					child[level distance = 2.9em]{node {}%
+					edge from parent node [near end] {$\mathfrak{b}$}}%
+					child{node {}%
+					edge from parent node  {$\mathfrak{a}$}}%
+				edge from parent node [swap] {$\mathfrak{b}$}};%
+			\node at (7,0) [font = \normalsize] {$D$}%	
+				child{node [dummy] {}%
+					child{node {}%
+					edge from parent node [swap] {$-\mathfrak{a}$}}%
+					child[level distance = 2.9em]{node {}%
+					edge from parent node [swap,	near end] {$-\mathfrak{a}$}}%
+					child[level distance = 2.9em]{node {}%
+					edge from parent node [near end] {$\mathfrak{a}$}}%
+					child{node {}%
+					edge from parent node  {$\mathfrak{a}$}}%
+				edge from parent node [swap] {$\mathfrak{b}$}};%
+	\end{tikzpicture}%
+\end{equation}%
+Each of $C,D$ admit exactly two non-trivial $G$-graph subgroups,
+which are encoded by the $\mathbb{Z}_{/2}$-actions on the underlying corollas depicted below.
+\begin{equation}
+	\begin{tikzpicture}[auto,grow=up, level distance = 2.2em,
+	every node/.style={font=\scriptsize,inner sep = 2pt}]%
+		\tikzstyle{level 2}=[sibling distance=3em]%
+			\node at (-1.6,0) [font = \normalsize] {$C_1$}%	
+				child{node [dummy] {}%
+					child{node {}%
+					edge from parent node [swap] {$-a$}}%
+					child[level distance = 2.9em]{node {}%
+					edge from parent node [swap,	near end] {$c\phantom{b}$}}%
+					child[level distance = 2.9em]{node {}%
+					edge from parent node [near end] {$b$}}%
+					child{node {}%
+					edge from parent node  {$a$}}%
+				edge from parent node [swap] {$r$}};%
+			\node at (1.6,0) [font = \normalsize] {$C_2$}%	
+				child{node [dummy] {}%
+					child{node {}%
+					edge from parent node [swap] {$-a$}}%
+					child[level distance = 2.9em]{node {}%
+					edge from parent node [swap,	near end] {$-b$}}%
+					child[level distance = 2.9em]{node {}%
+					edge from parent node [near end] {$b$}}%
+					child{node {}%
+					edge from parent node  {$a$}}%
+				edge from parent node [swap] {$r$}};%
+			\node at (5.4,0) [font = \normalsize] {$D_1$}%	
+				child{node [dummy] {}%
+					child{node {}%
+					edge from parent node [swap] {$-a$}}%
+					child[level distance = 2.9em]{node {}%
+					edge from parent node [swap,	near end] {$-b$}}%
+					child[level distance = 2.9em]{node {}%
+					edge from parent node [near end] {$b$}}%
+					child{node {}%
+					edge from parent node  {$a$}}%
+				edge from parent node [swap] {$r$}};%
+			\node at (8.6,0) [font = \normalsize] {$D_2$}%	
+				child{node [dummy] {}%
+					child{node {}%
+					edge from parent node [swap] {$-b$}}%
+					child[level distance = 2.9em]{node {}%
+					edge from parent node [swap,	near end] {$-a$}}%
+					child[level distance = 2.9em]{node {}%
+					edge from parent node [near end] {$b$}}%
+					child{node {}%
+					edge from parent node  {$a$}}%
+				edge from parent node [swap] {$r$}};%
+	\end{tikzpicture}%
+\end{equation}%
+
+\end{example}
 
 
 The following is the analogue of \cite[Prop. 3.2]{CM13b}
@@ -3341,20 +3463,27 @@ Suppose that $\mathcal{O} \in \mathsf{Op}^{G,\mathfrak{C}}$
 is $\Sigma$-cofibrant.
 Further, let $C \in \Sigma_G$ be any $G$-corolla and consider 
 a pushout in $\mathsf{Op}^{G}$ of the form
-\[
+\begin{equation}\label{PUSHOUTPROP EQ}
 \begin{tikzcd}
 	\partial \Omega(C) \ar{r} \ar{d} & \mathcal{O} \ar{d}
 \\
 	\Omega(C) \ar{r} & \mathcal{P}.
 \end{tikzcd}
-\]
+\end{equation}
 Then the induced map
 \[
 	\Omega[C] \amalg_{\partial \Omega[C]} N\mathcal{O} \to N\mathcal{P}
 \]
 is $G$-inner anodyne.
-
 \end{proposition}
+
+\begin{proof}
+The first step is to rewrite \eqref{PUSHOUTPROP EQ} as a pushout diagram in $\mathsf{Op}^{G,\mathfrak{C}}$.
+Let us write $f \colon \partial C \to \mathfrak{C}$
+for the induced map of colors.
+
+{\color{red} HERE}
+\end{proof}
 
 
 
