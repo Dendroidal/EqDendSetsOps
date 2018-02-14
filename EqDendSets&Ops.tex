@@ -20,19 +20,18 @@
 %-------- Tikz ---------------------------
 
 \usepackage{tikz}%
-\usetikzlibrary{matrix,arrows,decorations.pathmorphing, cd, patterns, calc, decorations.pathreplacing}
+\usetikzlibrary{matrix,arrows,decorations.pathmorphing,
+cd,patterns,calc}
 \tikzset{%
   treenode/.style = {shape=rectangle, rounded corners,%
-    draw, align=center,%
-    top color=white, bottom color=blue!20},%
+                     draw, align=center,%
+                     top color=white, bottom color=blue!20},%
   root/.style     = {treenode, font=\Large, bottom color=red!30},%
   env/.style      = {treenode, font=\ttfamily\normalsize},%
   dummy/.style    = {circle,draw,inner sep=0pt,minimum size=2mm}%
-  bicolor/.style 2 args={
-    dashed,dash pattern=on 6pt off 6pt,->,#1,
-    postaction={draw,dashed,dash pattern=on 6pt off 6pt,->,#2,dash phase=6pt}
-  }
 }%
+
+\usetikzlibrary[decorations.pathreplacing]
 
 
 
@@ -157,22 +156,22 @@ Fix a closed symmetric monoidal category $\V$.
       \begin{enumerate}[label = (\arabic*)]
       \item An object $\O(\ksi) \in \V$ for each signature $\ksi$.
       \item For each $c \in \mathfrak C$, a \textit{unit} $1_c \in \O(c;c)$.
-      \item For any signature $\ksi \in \mathfrak C^{\times n+1}$ and $\sigma \in \Sigma_n$, a map $\O(\ksi) \to \O(\sigma \cdot \ksi)$,
+      \item For any signature $\ksi \in \mathfrak C^{\times n+1}$ and $\sigma \in \Sigma_n$, a map $\O(\xi) \to \O(\sigma \cdot \xi)$,
             where $\Sigma_n$ acts on the left of $\mathfrak C^{\times n+1}$ by acting on the first $n$ coordinates.
             Explicitly, this is a map
             \begin{equation}
                   \O(c_1, \ldots, c_n; c_0) \xrightarrow{\sigma} \O(c_{\sigma^{-1}1}, \ldots, c_{\sigma^{-1}n}; c_0).
             \end{equation}
-      \item For any compatible signatures $\ksi = (c_1, \ldots, c_n; c_0)$, $\ksi_i = (c_{1}^i, \ldots, c_{m_i}^i; c_i)$, a \textit{composition} map
+      \item For any compatible signatures $\xi = (c_1, \ldots, c_n; c_0)$, $\xi_i = (c_{1}^i, \ldots, c_{m_i}^i; c_i)$, a \textit{composition} map
             \begin{equation}
-                  \O(\ksi) \times \O(\ksi_1) \times \ldots \times \O(\ksi_n) \to \O(\ksi \circ (\ksi_i))
+                  \O(\xi) \times \O(\xi_1) \times \ldots \times \O(\xi_n) \to \O(\xi \circ (\xi_i))
             \end{equation}
       \end{enumerate}
-      where $\ksi \circ (\ksi_i) = (c_1^1,c_2^1,\dots,c_{m_n}^{n}; c_0)$,
+      where $\xi \circ (\xi_i) = (c_1^1,c_2^1,\dots,c_{m_n}^{n}; c_0)$,
       subject to the associativity, unitality, and $\Sigma$-equivariant compatibilities one would expect.      
       
       A map of $\mathfrak C$-colored operads is a compatible collection of maps
-      $\set{\O(\ksi) \to \O'(\ksi)}_{\ksi}$.
+      $\set{\O(\xi) \to \O'(\xi)}_{\xi}$.
       
       Let $\Op^{\mathfrak C}(\V)$ denote the category of $\mathfrak C$-colored operads in $\V$.
 \end{definition}
@@ -182,7 +181,7 @@ Fix a closed symmetric monoidal category $\V$.
       Given a map of $G$-sets $f: \mathfrak C' \to \mathfrak C$ and a $\mathfrak C$-colored operad $\O$,
       there is a natural $\mathfrak C'$-colored operad $f^*(\O)$, where
       \begin{equation}
-            f^{\**}(\O)(\ksi') = \O(f(\ksi')),
+            f^{\**}(\O)(\xi') = \O(f(\xi')),
       \end{equation}
 
       A \textit{map of colored operads} $\O' \to \O$ is given by the data of a map of colors $f: \mathfrak C' \to \mathfrak C$,
@@ -234,14 +233,14 @@ Let $G$ be a finite group, with a fixed (random) total ordering.
 Unpacking this definition, we see $\O \in \Op^G(\V)$ consists of the following data:
 \begin{enumerate}[label = (\arabic*)]
 \item A $G$-set $\mathfrak C$ of colors.
-\item For each signature $\ksi$ of $\mathfrak C$, an object $\O(\ksi) \in \V$.
-\item For each signature $\ksi \in \mathfrak C^{\times n+1}$ and $(g,\sigma) \in G\times \Sigma_n$, a map
-      $\O(\ksi) \to \O((g,\sigma)\cdot \ksi)$,
+\item For each signature $\xi$ of $\mathfrak C$, an object $\O(\xi) \in \V$.
+\item For each signature $\xi \in \mathfrak C^{\times n+1}$ and $(g,\sigma) \in G\times \Sigma_n$, a map
+      $\O(\xi) \to \O((g,\sigma)\cdot \xi)$,
       where $G$ acts on $\mathfrak C^{\times n+1}$ diagonally (across all $n+1$ coordinates), and $\Sigma_n$ acts on the first $n$.
 \item For each $c \in \mathfrak C$, a \textit{unit} $1_c \in \O(c;c)^{G_c}$.
-\item For compatible signatures $\ksi$, $\ksi_1$, $\ldots$, $\ksi_n$, \textit{composition maps}
+\item For compatible signatures $\xi$, $\xi_1$, $\ldots$, $\xi_n$, \textit{composition maps}
       \begin{equation}
-            \O(\ksi) \otimes \O(\ksi_1) \otimes \ldots \otimes \O(\ksi_n) \to \O(\ksi \circ (\ksi_i)),
+            \O(\xi) \otimes \O(\xi_1) \otimes \ldots \otimes \O(\xi_n) \to \O(\xi \circ (\xi_i)),
       \end{equation}
 \end{enumerate}
 such that composition is
@@ -252,8 +251,8 @@ and is unital and associative.
 \begin{remark}
 	Unlike in the single-colored case, $\Op^G(\V)$ does \textit{not} coincide with the category of colored operads in $\V^G$.
 	Indeed, objects in $\Op(\V^G)$ have a fixed $G$-set of colors,
-        and each level $\O(\ksi)$ has an action by the full group $G$
-	(though only a partial action by $\Sigma_{|\ksi|}$).
+        and each level $\O(\xi)$ has an action by the full group $G$
+	(though only a partial action by $\Sigma_{|\xi|}$).
 \end{remark}
 
 \begin{definition}
@@ -682,7 +681,7 @@ Throughout this section, we will abuse notation, and refer to
 a coefficient system and its associated (Grothendieck) category over $O_G$ by the same name.
 
 Idea: we have a \textit{coefficient system} $\UC$ of colors, and
-a \textit{signature} will consist of a tuple $\ksi = (x_1, \dots, x_n;x_0)$
+a \textit{signature} will consist of a tuple $\xi = (x_1, \dots, x_n;x_0)$
 with $x_i \in \mathfrak C(G/H_i)$ for subgroups $H_i \leq H_0 \leq G$
 (or, equivalently, each $x_i$ is secretly in fact a whole $G$-diagram of objects).
 
@@ -1414,6 +1413,9 @@ In particular:
       $\iota_{\**}$.
 \end{remark}
 
+
+
+
 \subsection{Free extensions}
 
 \todo[inline]{come back}
@@ -1531,7 +1533,7 @@ The above gives \cite[Lem 5.57]{BP17}.
             \Sym^{G,\mathfrak C}_\F(\V) = \prod_n \V^{B_{\mathfrak C^{\times n+1}}(G \times \Sigma_n)}_{\F_n},
       \end{equation}
       where
-      $(\F_n)_{\ksi}$ is all $\Gamma \in \F_n$ such that $\Gamma \leq \mathsf{Aut}(\ksi)$.
+      $(\F_n)_{\xi}$ is all $\Gamma \in \F_n$ such that $\Gamma \leq \mathsf{Aut}(\xi)$.
       % $\V^{B_{\mathfrak C^{\times n+1}}(G \times \Sigma_n)}_{\F_n}$ has the model structure lifted from the adjunction to
       % $\prod_{(c_i)}\V^{\mathsf{Aut}(c_1,\dots,c_n; c_0)}_{\F_{(c_i)}}$ where
       % $\F_{(c_i)}$ is the set of all $\Gamma \in \F_n$ such that $\Gamma \leq \mathsf{Aut}(c_1,\dots, c_n;c_0)$.
@@ -1566,11 +1568,11 @@ On the other hand, let $\Sym_{\F, \mathfrak C}(\V)$ denote the category $\V^{\UC
       there exist model structures on $\Op^{G, \mathfrak C}(\V)$ such that
       $\O \to \O'$ is a weak equivalence (resp. fibration) if the maps
       \begin{equation}
-            \O(\ksi)^\Gamma \to \O'(\ksi)^\Gamma
+            \O(\xi)^\Gamma \to \O'(\xi)^\Gamma
       \end{equation}
       are weak equivalences (resp. fibrations) in $\V$ for all
-      $\mathfrak C$-signatures $\ksi$ and
-      graph subgroups $\Gamma \leq \Stab(\ksi)$.
+      $\mathfrak C$-signatures $\xi$ and
+      graph subgroups $\Gamma \leq \Stab(\xi)$.
 
       {\color{red} More generally \ldots}
 \end{theorem}
@@ -1611,12 +1613,12 @@ On the other hand, let $\Sym_{\F, \mathfrak C}(\V)$ denote the category $\V^{\UC
                   \mathsf{Op}_{\F, \mathfrak C}(\mathcal{V})
                   \ar[shift left=1.5]{l}
                   \\ % ---------- NEXT ROW ----------
-                  \mathop{\prod}\limits_{\ksi \in \UC\Sigma}
-                  \mathcal{V}^{\mathsf{Aut}(\ksi)}_{\F_\ksi}
+                  \mathop{\prod}\limits_{\xi \in \UC\Sigma}
+                  \mathcal{V}^{\mathsf{Aut}(\xi)}_{\F_\xi}
                   \ar[shift left=1.5]{r}
                   &
                   \mathsf{Sym}^{G, \mathfrak C}_\F(\mathcal{V}) 
-                  \arrow[l, shift left=1.5, "\left(\text{ev}_{\ksi}(\minus)\right)"] 
+                  \arrow[l, shift left=1.5, "\left(\text{ev}_{\xi}(\minus)\right)"] 
                   \arrow[r, shift left=1.5,swap,"\mathbb{F}^{G, \mathfrak C}"']
                   &
                   \mathsf{Op}^{G, \mathfrak C}_\F(\mathcal{V})
@@ -1872,8 +1874,8 @@ Now and forever we further suppose that $\V$ has \textit{cellular fixed points}.
       We call a map $F: \O \to \P$ in $\mathsf{Op}^G(\V)$
       \begin{itemize}
       \item a {\em local $\F$-fibration} (resp. {\em local weak $\F$-equivalence}) if
-            $F(\ksi): \O(\ksi)\to \P(F(\ksi))$
-            is a fibration (resp. weak equivalence) in $\V^{\Stab(\ksi)}_{\F_\ksi}$ for all $\ksi\in \C(\O)^{\times n+1}$ and all $n$;
+            $F(\xi): \O(\xi)\to \P(F(\xi))$
+            is a fibration (resp. weak equivalence) in $\V^{\Stab(\xi)}_{\F_\xi}$ for all $\xi\in \C(\O)^{\times n+1}$ and all $n$;
       \item a {\em local trivial $\F$-fibration} if both a local $\F$-fibration and a local weak $\F$-equivalence;
       \item {\em essentially surjective} (resp. {\em path lifting}) if $j^*F^H$ is essentially surjective (resp. path lifting) in $\Cat(\V)$ for all $H\leq G$;
       \item a {\em $\F$-fibration} if both path-lifting and a local $\F$-fibration
@@ -1908,12 +1910,13 @@ We generalize and combine efforts from \cite{CM13b, BM13, Cav14}.
 Fix a graph subgroup $\Gamma \in \F_n$ of $G \times \Sigma_n$, and $X \in \V^\Gamma$.
 Define $C_\Gamma[X]$ to be the ``free operad with stabilizer $\Gamma$ generated by $X$''.
 Specifically, this operad has colours $\mathfrak C_\Gamma := G \cdot_\Gamma \underline{n+1}$.
-Now, letting $\ksi_0$ denote the signature $([e,1],[e,2],\dots,[e,n];[e,0])$,
+
+Now, letting $\xi_0$ denote the signature $([e,1],[e,2],\dots,[e,n];[e,0])$,
 we define the $(G,\mathfrak C_\Gamma)$-symmetric sequence
 \begin{equation}
-      C_\Gamma[X](\ksi) =
+      C_\Gamma[X](\xi) =
       \begin{cases}
-            (g,\sigma)^{\**} X \qquad \qquad & \ksi = (g,\sigma).\ksi_0
+            (g,\sigma)^{\**} X \qquad \qquad & \xi = (g,\sigma).\xi_0
             \\
             \varnothing & \mbox{otherwise,}
       \end{cases}
@@ -1924,7 +1927,7 @@ and $\varnothing$ is the initial object in $\V$.
 Let $\mathbb F_\Gamma[X]$ denote free operad $\mathbb F^{\mathfrak C_\Gamma} C_\Gamma[X]$.
 It is straightforward that the operad $\mathbb F_\Gamma[X]$ has the universal property
 \begin{equation}
-      \Hom_{\Op^G(\V)}(\mathbb F_\Gamma[X], \O) = \mathop\prod\limits_{\ksi \in (\mathfrak C(\O)^{\times n+1})^\Gamma}\Hom_{\V^\Gamma}(X, \O(\ksi)).
+      \Hom_{\Op^G(\V)}(\mathbb F_\Gamma[X], \O) = \mathop\prod\limits_{\xi \in (\mathfrak C(\O)^{\times n+1})^\Gamma}\Hom_{\V^\Gamma}(X, \O(\xi)).
 \end{equation}
 
 Define $I_{\F,loc}$ and $J_{\F, loc}$ to be the sets
@@ -2028,11 +2031,14 @@ where again $\1$ is the initial $\V$-category (considered as an operad), and $\m
       essentially surjective maps are closed under transfinite composition by Lemma \ref{TRANSCOMP_ES_LEM},
       it suffices to prove that the pushout of a map $j \in J_{\F}$ is a weak $\F$-equivalence.
 
-      If $j \in J_{\F, loc}$, then
-      the existance of the model structure on $\Op^{G, \mathfrak C(\O)}(\V)$
-      combined with \eqref{COLOR_SQ_EQ}
-      implies that the pushout is again a local weak $\F$-equivalence which is the identity on colors,
-      and hence is a weak $\F$-equivalence. 
+      If $j \in J_{\F, loc}$, then since colimits in $\mathsf{Op}^G(\V)$ are computed in $\Op(\V)$,
+      and since by \cite{Cav14} pushouts of this form can be computed fiberwise
+      (that is, after shifting the operads into a single color),
+      we are computing the pushout of a trivial cofibration in $\mathsf{Op}^{G,\C_{\xi}}(\V)$,
+      where $\C_{\xi}$ is the $G$-set generated by the colors in the given signature $\xi$.
+      By the existance of the transferred model structure, this is again a trivial cofibration.
+      Hence, the pushout is a local weak $\F$-equivalence in $\mathsf{Op}^G(\V)$ which is the identity on colors,
+      and hence a weak $\F$-equivalence itself.
       
       Now, supppose $j$ is of the form $G/H \cdot (\1 \to \J)$ for $\J$ a $\V$-interval.
       As in \cite{Cav14}, we can split this pushout into a composition of two pushouts
@@ -2280,19 +2286,19 @@ The following three lemmas follow directly from the proofs of their non-equivari
 \subsubsection{Equivalences between levels}
 
 We would like to generalize \cite[4.14 and 4.15]{Cav14}, which state that
-$\O(\ksi)$ and $\O(\ksi')$ are equivalent in $\V$ if $\ksi$ and $\ksi'$ are related by a string of weak equivalences of colors,
+$\O(\xi)$ and $\O(\xi')$ are equivalent in $\V$ if $\xi$ and $\xi'$ are related by a string of weak equivalences of colors,
 as this would imply that weak $\F$-equivalences satisfy the 2-out-of-3 property.
-However, the relevant notion of weak $\F$-equivalence on colours for this paper lives in $\V^{\Aut(\ksi)}_{\F_\ksi}$ as opposed to $\V$,
+However, the relevant notion of weak $\F$-equivalence on colours for this paper lives in $\V^{\Aut(\xi)}_{\F_\xi}$ as opposed to $\V$,
 and moreover the colors can be interchanged via the action of $G$.
 Thus, we will need to be flexible and change an entire orbit worth of colors in order to create the desired homotopy equivalence. 
 
 \begin{proposition}
       [{c.f. \cite[4.14]{Cav14}}]
       \label{CAV_4.14_PROP}
-      Given $\O \in \Op^G(\V)$ with colors $\C$, $\ksi = (c_1,\dots,c_n;c)$ a signature in $\C$, and $K = \Stab(c)$.
+      Given $\O \in \Op^G(\V)$ with colors $\C$, $\xi = (c_1,\dots,c_n;c)$ a signature in $\C$, and $K = \Stab(c)$.
       Moreover, suppose that $c_1$ and $d_1$ are homotopy equivalent.
-      Then there exists a zig-zag of weak equivalences in $\V^{\Stab(\ksi)}_{\F_\ksi}$ between
-      $\O(\ksi)$ and $\O(\theta)$, where
+      Then there exists a zig-zag of weak equivalences in $\V^{\Stab(\xi)}_{\F_\xi}$ between
+      $\O(\xi)$ and $\O(\theta)$, where
       $\theta = (d_1,\ldots, d_n; c)$, with the colors $d_i$ defined as follows:
       
       Let $\lambda \subseteq \underline{n} = \set{1,2,\ldots, n}$ denote
@@ -2310,7 +2316,7 @@ Thus, we will need to be flexible and change an entire orbit worth of colors in 
       \end{equation}
 
       Moreover, any functor $F: \O \to \P$ induces a functorial zig-zag of weak equivalences between
-      $\P(F(\ksi)$ and $\P(F(\theta))$.
+      $\P(F(\xi)$ and $\P(F(\theta))$.
 \end{proposition}
 \begin{proof}
       Without loss of generality, we may assume $\O$ is fibrant,
@@ -2342,8 +2348,8 @@ Thus, we will need to be flexible and change an entire orbit worth of colors in 
       Further, $\Stab(c_i) = \Stab(d_i)$, and
       the pair $(\alpha_i,\beta_i)$ realizes a homotopy equivalence between $c_i$ and $d_i$.
 
-      We firstly claim that $\Stab_{G \times \Sigma_n}(\ksi) = \Stab_{G \times \Sigma_n}(\theta)$.
-      To that end, suppose $(k,\pi)\in \Stab_{G\times \Sigma_n}(\ksi)$, so that $k \cdot c_{\pi^{-1}(i)} = c_i$ for all $i$.
+      We firstly claim that $\Stab_{G \times \Sigma_n}(\xi) = \Stab_{G \times \Sigma_n}(\theta)$.
+      To that end, suppose $(k,\pi)\in \Stab_{G\times \Sigma_n}(\xi)$, so that $k \cdot c_{\pi^{-1}(i)} = c_i$ for all $i$.
       % We need to show $k d_{\pi^{-1}(i)} = d_i$.
       Thus $\pi$ must act on $\lambda$ and $\underline{n} \setminus \lambda$ independently,
       so for $i \in \lambda$ we have $k \cdot c_{\pi^{-1}(i)} = c_i$, or
@@ -2363,11 +2369,11 @@ Thus, we will need to be flexible and change an entire orbit worth of colors in 
                   \otimes \hat \beta_i :
                   % \O(c_1,\dots,c_n;c)
                   % =
-                  \O(\ksi)
+                  \O(\xi)
                   \cong
-                  \O(\ksi) \otimes 1_\V^{\otimes n} \arrow[rr, "1 \otimes\ \bigotimes_i \beta_i"]
+                  \O(\xi) \otimes 1_\V^{\otimes n} \arrow[rr, "1 \otimes\ \bigotimes_i \beta_i"]
                   &&
-                  \O(\ksi) \otimes \bigotimes_i \O^{H_i}(d_i;c_i) \arrow[r,"\circ"]
+                  \O(\xi) \otimes \bigotimes_i \O^{H_i}(d_i;c_i) \arrow[r,"\circ"]
                   &
                   % \O(d_1,\dots,d_n;c)
                   % =
@@ -2384,14 +2390,14 @@ Thus, we will need to be flexible and change an entire orbit worth of colors in 
                   &
                   % \O(c_1,\dots,c_n;c)
                   % =
-                  \O(\ksi).
+                  \O(\xi).
             \end{tikzcd}
       \end{equation}
 
       We secondly claim that the maps $\otimes \hat \alpha_i$ and $\otimes \hat \beta_i$ descend to $\Lambda$ fixed points 
-      for any subgroup $\Lambda \leq \Stab(\ksi) = \Stab(\theta)$.
+      for any subgroup $\Lambda \leq \Stab(\xi) = \Stab(\theta)$.
       Indeed, since the composition structure maps of $\O$ are natural in $G$ and $\Sigma$,
-      it suffices to show that $\otimes \hat \beta_i$ is preserved by $(k,\pi)\in Stab(\ksi)$.
+      it suffices to show that $\otimes \hat \beta_i$ is preserved by $(k,\pi)\in Stab(\xi)$.
       But we observe this directly:
       \begin{equation}
             (k, \pi) . (\otimes \hat \beta_i)
@@ -2410,8 +2416,8 @@ Thus, we will need to be flexible and change an entire orbit worth of colors in 
       
       Since all $\alpha_i$ and $\beta_i$ are homotopy equivalences,
       this second claim implies that the composites $\otimes \hat \beta_i$ and $\otimes \hat \alpha_i$
-      induce isomorphisms in the homotopy category of $\V^{\Stab(\ksi)}_{\F_\ksi}$,
-      and hence these are weak equivalences between $\O(\ksi)$ and $\O(\theta)$ in $\V^{\Stab(\ksi)}_{\F_\ksi}$,
+      induce isomorphisms in the homotopy category of $\V^{\Stab(\xi)}_{\F_\xi}$,
+      and hence these are weak equivalences between $\O(\xi)$ and $\O(\theta)$ in $\V^{\Stab(\xi)}_{\F_\xi}$,
       as desired.
 
       The moreover follows exactly as in \cite{Cav14}.
@@ -2428,7 +2434,7 @@ Thus, we will need to be flexible and change an entire orbit worth of colors in 
 % To that end, fix $\O_f$ fibrant in $\mathsf{Op}^G(\V)$ with colors $\C$.
 % Supppose $c_1$ and $d_1$ are homotopy equivalent in $\C$, each with stabilizer $H$,
 
-% Further, let $\ksi = (c_1,c_2,\dots, c_n;c)$ be a signature in $\C(\O_f)$, with $K := \Stab(c)$.
+% Further, let $\xi = (c_1,c_2,\dots, c_n;c)$ be a signature in $\C(\O_f)$, with $K := \Stab(c)$.
 
 % We define $\lambda \subseteq \underline{n} = \set{1,2,\ldots, n}$ to be
 % the set of all $i$ such that $c_i = k_i \cdot c_1$ for some $k_i\in K$;
@@ -2465,10 +2471,10 @@ Thus, we will need to be flexible and change an entire orbit worth of colors in 
 % We denote the new signature $\theta = (d_1,\cdots,d_n;c)$.
 
 % \begin{lemma}
-%       With the above notation, $\Stab_{G \times \Sigma_n}(\ksi) = \Stab_{G \times \Sigma_n}(\theta)$. 
+%       With the above notation, $\Stab_{G \times \Sigma_n}(\xi) = \Stab_{G \times \Sigma_n}(\theta)$. 
 % \end{lemma}
 % \begin{proof}
-%       Suppose $(k,\pi)\in \Stab_{G\times \Sigma_n}(\ksi)$, so that $k \cdot c_{\pi^{-1}(i)} = c_i$ for all $i$.
+%       Suppose $(k,\pi)\in \Stab_{G\times \Sigma_n}(\xi)$, so that $k \cdot c_{\pi^{-1}(i)} = c_i$ for all $i$.
 %       % We need to show $k d_{\pi^{-1}(i)} = d_i$.
 %       Thus $\pi$ must act on $R$ and $\underline{n} \setminus R$ independently,
 %       so $i \in \lambda$ we have $k \cdot c_{\pi^{-1}(i)} = c_i$, or
@@ -2490,11 +2496,11 @@ Thus, we will need to be flexible and change an entire orbit worth of colors in 
 %             \otimes \hat \beta_i :
 %             % \O_f(c_1,\dots,c_n;c)
 %             % =
-%             \O_f(\ksi)
+%             \O_f(\xi)
 %             \cong
-%             \O_f(\ksi) \otimes 1_\V^{\otimes n} \arrow[rr, "1 \otimes\ \bigotimes_i \beta_i"]
+%             \O_f(\xi) \otimes 1_\V^{\otimes n} \arrow[rr, "1 \otimes\ \bigotimes_i \beta_i"]
 %             &&
-%             \O_f(\ksi) \otimes \bigotimes_i \O_f^{H_i}(d_i;c_i) \arrow[r,"\circ"]
+%             \O_f(\xi) \otimes \bigotimes_i \O_f^{H_i}(d_i;c_i) \arrow[r,"\circ"]
 %             &
 %             % \O_f(d_1,\dots,d_n;c)
 %             % =
@@ -2511,16 +2517,16 @@ Thus, we will need to be flexible and change an entire orbit worth of colors in 
 %             &
 %             % \O_f(c_1,\dots,c_n;c)
 %             % =
-%             \O_f(\ksi).
+%             \O_f(\xi).
 %       \end{tikzcd}
 % \end{equation}
 
 % \begin{lemma}
-%       The map $\otimes \hat \beta_i$ descends to $\Gamma$ fixed points for any subgroup $\Lambda\leq \Stab(\ksi) = \Stab(\theta)$.
+%       The map $\otimes \hat \beta_i$ descends to $\Gamma$ fixed points for any subgroup $\Lambda\leq \Stab(\xi) = \Stab(\theta)$.
 % \end{lemma}
 % \begin{proof}
 %       Since the composition structure maps of $\O_f$ are natural in $G$ and $\Sigma$,
-%       it suffices to show that $\otimes \hat \beta_i$ is preserved by \textit{all} $(k,\pi)\in Stab(\ksi)$.
+%       it suffices to show that $\otimes \hat \beta_i$ is preserved by \textit{all} $(k,\pi)\in Stab(\xi)$.
 %       But we observe this directly:
 %       \begin{equation}
 %             (k, \pi) . (\otimes \hat \beta_i)
@@ -2539,38 +2545,38 @@ Thus, we will need to be flexible and change an entire orbit worth of colors in 
 
 % Since all $\alpha_i$ and $\beta_i$ are homotopy equivalences,
 % the above lemma implies that the composites $\otimes \hat \beta_i$ and $\otimes \hat \alpha_i$
-% induce an isomorphism in the homotopy category of $\V^{\Stab(\ksi)}_{\F_\ksi}$,
-% and hence these are weak equivalences between $\O_f(\ksi)$ and $\O_f(\theta)$ in $\V^{\Stab(\ksi)}_{\F_\ksi}$.
+% induce an isomorphism in the homotopy category of $\V^{\Stab(\xi)}_{\F_\xi}$,
+% and hence these are weak equivalences between $\O_f(\xi)$ and $\O_f(\theta)$ in $\V^{\Stab(\xi)}_{\F_\xi}$.
 
 % This discussion yields the following.
 % \begin{corollary}
 %       [{c.f. \cite[4.14]{Cav14}}]
 %       \label{CAV_4.14_PROP}
 %       Let $\O$ be any operad in $\mathsf{Op}^G(\V)$,
-%       $\ksi = (c_1,\ldots,c_n;c)$ a signature in $\C(\O)$,
+%       $\xi = (c_1,\ldots,c_n;c)$ a signature in $\C(\O)$,
 %       $K = \Stab_G(c)$,
 %       and suppose either $(c_j,d_j)$ or $(c,d)$ is a pair of homotopy equivalent colors.
-%       Then there exists a zig-zag of weak equivalences in $\V^{\Stab(\ksi)}_{\F_\ksi}$ between $\O(\ksi)$ and $\O(\theta)$,
+%       Then there exists a zig-zag of weak equivalences in $\V^{\Stab(\xi)}_{\F_\xi}$ between $\O(\xi)$ and $\O(\theta)$,
 %       where $\theta = (d_1,\dots,d_n;c)$ or $(c_1,\dots,c_n;d)$
 %       with $d_i$ defined as in \eqref{WEAKEQCOLORS_EQ}.
-%       % where $\ksi' = (d_1,\ldots, d_n;d)$ with
+%       % where $\xi' = (d_1,\ldots, d_n;d)$ with
 %       % \begin{itemize}
 %       % \item $R\subseteq \set{1,\ldots,n}$ those $r$ such that $c_r\in Kc_i$; in particular, choose $k_r\in K$ with $k_r c_i = c_r$ (if $i\not\in R$, let $k_i = 1$); and
 %       % \item $d_i = k_i c_i$.
 %       % \end{itemize}
-%       Moreover, any functor $F:\O\to \P$ induces a functorial zig-zag of weak equivalences between $\P(F(\ksi))$ and $\P(F(\ksi'))$.
+%       Moreover, any functor $F:\O\to \P$ induces a functorial zig-zag of weak equivalences between $\P(F(\xi))$ and $\P(F(\xi'))$.
 % \end{corollary}
 % \begin{proof}
 %       In the first case, without loss of generality we may take $j = 1$,
 %       and then the result follows by the above discussion.
 %       Similarly, if the homotopy equivalence between $c$ and $d$ is realized by the pair of maps $\alpha_0$ and $\beta_0$,
 %       then the analogous composites $\hat \alpha_0$ and $\hat \beta_0$ descend to all fixed points
-%       (as $K\times\ksi_n$ acts trivially on $\O_f^K(d;c)$),
+%       (as $K\times\xi_n$ acts trivially on $\O_f^K(d;c)$),
 %       and hence we again have a weak equivalence
 %       $\O_f(c_1,\ldots, c_n;c) \to \O_f(c_1,\ldots, c_n;d)$
-%       in $\V^{\Stab{\ksi}}_{\F_\ksi}$.
+%       in $\V^{\Stab{\xi}}_{\F_\xi}$.
       
-%       Lastly, the fibrant replacement weak equivalences $\O(\ksi)\to\O_f(\ksi)$ and $\O(\ksi')\to \O_f(\ksi')$ complete the zig-zag.
+%       Lastly, the fibrant replacement weak equivalences $\O(\xi)\to\O_f(\xi)$ and $\O(\xi')\to \O_f(\xi')$ complete the zig-zag.
  
 %      The second statement follows identically as in the non-equivariant case found in \cite[4.14]{Cav14}.
 % \end{proof}
@@ -2587,9 +2593,9 @@ Thus, we will need to be flexible and change an entire orbit worth of colors in 
       Now let $\O_1 \xrightarrow{F} \O_2 \xrightarrow{L} \O_3$ be a composition of maps in $\mathsf{Op}^G(\V)$.
       If $F$ and $L$ are weak $\F$-equivalences,
       the composite is obviously a local weak $\F$-equivalence:
-      $\O_1(\ksi)^\Gamma \simeq \O_2(F(\ksi))^\Gamma \simeq \O_3(LF(\ksi))^\Gamma$.
+      $\O_1(\xi)^\Gamma \simeq \O_2(F(\xi))^\Gamma \simeq \O_3(LF(\xi))^\Gamma$.
       If $L$ and $FL$ are weak $\F$-equivalences,
-      then $F$ is by 2-out-of-3 in each $\V^{\Stab(\ksi)}_{\F_\ksi}$.
+      then $F$ is by 2-out-of-3 in each $\V^{\Stab(\xi)}_{\F_\xi}$.
 
       Lastly, suppose $F$ and $LF$ are weak $\F$-equivalences.
       Given a signature $\theta = (d_1,\ldots,d_n;d$) in $\C(\O_2)$, let $K = \Stab(d)$,
@@ -2624,12 +2630,12 @@ k
                   \O_3(L(d_1),\ldots, L(d_n); L(d)).
             \end{tikzcd}
       \end{equation}
-      $(1)$ is a weak equivalence in $\V^{\Stab(\ksi)}_{\F_\ksi}$ by assumption,
-      $(2)$ is a weak-equivalence by 2-out-of-3 in $\V^{\Stab(\ksi)}_{\F_\ksi}$, and
+      $(1)$ is a weak equivalence in $\V^{\Stab(\xi)}_{\F_\xi}$ by assumption,
+      $(2)$ is a weak-equivalence by 2-out-of-3 in $\V^{\Stab(\xi)}_{\F_\xi}$, and
       $(3)$ and $(4)$ are zig-zags of weak equivalences by iterating applications of \ref{CAV_4.14_PROP} or \ref{CAV_4.14_REM},
       as each application only changes the colours in a particular partition class.
       As these zig-zags are functorial, the above diagram commutes.
-      Thus $(5)$ is a weak equivalence again by 2-out-of-3 in $\V^{\Stab(\ksi)}_{\F_\ksi}$, and hence
+      Thus $(5)$ is a weak equivalence again by 2-out-of-3 in $\V^{\Stab(\xi)}_{\F_\xi}$, and hence
       $L$ is a local weak $\F$-equivalence, as desired.
 \end{proof}
 
@@ -3131,13 +3137,78 @@ where $\tilde{H}$ is seen to be contractible since
 $\mathsf{sSet}$ is right proper.
 	A priori, $\tilde{H}$ will need not be countable nor cofibrant, but this is easily rectified:
 	indeed one can show that any countable subcomplex of $\tilde{H}$ is contained in a contractible countable subomplex, 
-	yielding a countable contractible subcomplex whose image in $\mathcal{O}$ contains $g$. Lastly, performing a cofibrant replacement if that complex finishes the proof.
-	
-{\color{red} HERE}
+	yielding a countable contractible subcomplex whose image in $\mathcal{O}$ contains $g$. Lastly, performing a cofibrant replacement of that complex finishes the proof.
 \end{proof}
 
 
-\subsection{Misc}
+
+
+
+\begin{example}\label{WJ EX}
+	Let $J = N \widetilde{[1]}$ be the nerve of the contractible groupoid on two objects.
+	
+	Then there is an identification
+\[
+	W_{!} J \simeq \mathbb{F}^{\bullet} \widetilde{[1]}
+\]
+	where $\mathbb{F}$ denotes the (unital) free operad monad.
+
+	To see this, we start by describing
+	$\mathbb{F}^{\bullet} \widetilde{[1]}$.
+	Writing $f \colon 0 \to 1$ and 
+	$g \colon  1\to 0$ for the non-identity arrows in 
+	$\widetilde{[1]}$ (so that $g=f^{-1}$), the $0$-simplices of $\mathbb{F}^{\bullet} \widetilde{[1]}$
+	are the alternating words
+	$f,g,fg,gf,fgf,gfg,fgfg,gfgf,\cdots$
+	in the letters $f$, $g$.
+	More generally
+	$n$-simplices are given by equipping such alternating words with ``$n$ nested layers of brackets''
+	(so that, for example, 
+	$\left((f)(gf)\right) 
+	\left( (gf) \right)$
+	encodes a $2$-simplex).
+	Alternatively, given an alternating word of length $l$, such bracketings are encoded by a flag of subsets
+	$F_1 \subseteq F_2 \subseteq \cdots 
+	\subseteq F_n \subseteq \{1,\cdots,l-1\}$.
+	
+	To describe $W_{!} J$, we apply the explicit description of the $W_{!} (-)$ construction given in 
+	\cite{DS11}.
+	Following \cite[Cor. 4.8]{DS11}, the $n$-simplices of $W_{!} J$ are uniquely encoded by a map
+\begin{equation}\label{NECMAP EQ}
+	N = \Delta^{k_1} \vee \Delta^{k_2} 
+	\vee \cdots \vee \Delta^{k_r} 
+	\to J 
+\end{equation}
+which is totally nondegenerate (this means that all simplices $\Delta^{k_i} \to J$ are nondegenerate)
+together with a flag of subsets
+	$\boldsymbol{J}(N) = 
+	G_0 \subseteq 
+	G_1 \subseteq \cdots \subseteq
+	G_{n-1} \subseteq \boldsymbol{E}^{\mathsf{i}}(N)$.
+	Noting that the nondegenerate simplices of $J$ (other than the points $0,1$)
+	are themselves identified with alternating words
+	$f,g,fg,gf,fgf,gfg,fgfg,gfgf,\cdots$,
+	one sees that so is the map \eqref{NECMAP EQ}.
+	Therefore, we see that a $n$-simplex of 
+	$W_{!} J$ is uniquely, determined by some alternating word of some size $l$ together with a flag  
+	$G_0 \subseteq 
+	G_1 \subseteq \cdots \subseteq
+	G_{n-1} \subseteq \boldsymbol{E}^{\mathsf{i}}(N)
+	=\{1,\cdots,l-1\}$, since 
+	$G_0$ suffices to recover the domain of 
+	\eqref{NECMAP EQ}.
+	
+	This shows that $W_{!} J$ $\mathbb{F}^{\bullet} \widetilde{[1]}$ indeed have the same simplices.
+	The fact that the simplicial operators coincide can be readily checked explicitly with the most interesting case is that of the top differential $d_n$, which in either case is induced by multiplication in 
+	$\widetilde{[1]}$ 
+	(that this is the case for $W_{!} J$ follows from the description of the simplicial operators in 
+	\cite[Cor. 4.4]{DS11} together with the description of the ``flanking'' procedure in \cite[Lemma 4.5]{DS11}).
+\end{example}
+
+
+
+
+\subsection{Extra lifts for $\infty$-categories}
 
 
 \begin{lemma}
@@ -3227,69 +3298,311 @@ But by factoring the left vertical map in the diagram below, we now see that all
 
 
 
-
-
-\begin{example}\label{WJ EX}
-	Let $J = N \widetilde{[1]}$ be the nerve of the contractible groupoid on two objects.
-	
-	Then there is an identification
+\begin{lemma}\label{REDUCELAN LEM}
+	Suppose that $F \colon \mathcal{C} \to \mathcal{D}$ is a functor in 
+	$\mathsf{Cat}^G$.
+Then the following square commutes up to natural isomorphism
 \[
-	W_{!} J \simeq \mathbb{F}^{\bullet} \widetilde{[1]}
+\begin{tikzcd}[column sep=50pt]
+	\mathcal{V}^{G \ltimes \mathcal{C}} 
+	\ar{r}{\mathsf{Lan}_{G \ltimes \mathcal{C} \to G \ltimes \mathcal{D}}} \ar{d}[swap]{\mathsf{fgt}}&
+	\mathcal{V}^{G \ltimes \mathcal{D}} \ar{d}{\mathsf{fgt}}
+\\
+	\mathcal{V}^{\mathcal{C}} 
+	\ar{r}[swap]{\mathsf{Lan}_{\mathcal{C} \to\mathcal{D}}} &
+	\mathcal{V}^{\mathcal{D}}
+\end{tikzcd}
 \]
-	where $\mathbb{F}$ denotes the (unital) free operad monad.
+\end{lemma}
 
-	To see this, we start by describing
-	$\mathbb{F}^{\bullet} \widetilde{[1]}$.
-	Writing $f \colon 0 \to 1$ and 
-	$g \colon  1\to 0$ for the non-identity arrows in 
-	$\widetilde{[1]}$ (so that $g=f^{-1}$), the $0$-simplices of $\mathbb{F}^{\bullet} \widetilde{[1]}$
-	are the alternating words
-	$f,g,fg,gf,fgf,gfg,fgfg,gfgf,\cdots$
-	in the letters $f$, $g$.
-	More generally
-	$n$-simplices are given by equipping such alternating words with ``$n$ nested layers of brackets''
-	(so that, for example, 
-	$\left((f)(gf)\right) 
-	\left( (gf) \right)$
-	encodes a $2$-simplex).
-	Alternatively, given an alternating word of length $l$, such bracketings are encoded by a flag of subsets
-	$F_1 \subseteq F_2 \subseteq \cdots 
-	\subseteq F_n \subseteq \{1,\cdots,l-1\}$.
-	
-	To describe $W_{!} J$, we apply the explicit description of the $W_{!} (-)$ construction given in 
-	\cite{DS11}.
-	Following \cite[Cor. 4.8]{DS11}, the $n$-simplices of $W_{!} J$ are uniquely encoded by a map
-\begin{equation}\label{NECMAP EQ}
-	N = \Delta^{k_1} \vee \Delta^{k_2} 
-	\vee \cdots \vee \Delta^{k_r} 
-	\to J 
+
+\begin{proof}
+For each $d \in \mathcal{D}$ (recall that $\mathcal{D}$ and $G \ltimes \mathcal{D}$ have the same objects) one has an obvious inclusion 
+$\mathcal{C} \downarrow d \to G\ltimes \mathcal{C} \downarrow d$.
+Moreover, for each object of $G\ltimes \mathcal{C} \downarrow d$
+there is a unique $g \in G$ such that the object is described as a composite
+$F(c) \xrightarrow{g} g F(c) \to d$,
+were $g F(c) \to d$ can be regarded as an object of $\mathcal{C} \downarrow d$.
+One thus has a retraction 
+$G \ltimes \mathcal{C} \downarrow d \to \mathcal{C} \downarrow d$
+showing that $\mathcal{C} \downarrow d$ is terminal in
+$G \ltimes \mathcal{C} \downarrow d$
+and finishing the proof. 
+\end{proof}
+
+
+
+\subsection{Fixed color lemmas}
+
+Given a set $\mathfrak{C}$ of colors,
+write $\Sigma_{\mathfrak{C}}$ for the groupoid of corollas with edges labeled by colors in $\mathfrak{C}$.
+
+If, in addition, $\mathfrak{C}$ is a $G$-set, 
+we write $G \ltimes \Sigma_{\mathfrak{C}}^{op}$ for the larger groupoid obtained via the associated Grothendieck construction.
+
+
+Writing
+$\mathsf{Sym}^{G,\mathfrak{C}} = 
+\mathsf{Set}^{G \ltimes \Sigma_{\mathfrak{C}}^{op}}$,
+we have a natural monad $\mathbb{F}$ on
+$\mathsf{Sym}^{G,\mathfrak{C}}$
+whose algebra category we denote by 
+$\mathsf{Op}^{G,\mathfrak{C}}$.
+
+
+\begin{notation}
+	Given a $G$-equivariant function 
+	$f \colon \mathfrak{C} \to \mathfrak{D}$
+	we write
+\[
+	f_{\**} \colon 
+	\mathsf{Sym}^{G,\mathfrak{C}}
+	\rightleftarrows
+	\mathsf{Sym}^{G,\mathfrak{D}}
+	\colon f^{\**}
+\qquad
+	\check{f}_{\**} \colon 
+	\mathsf{Op}^{G,\mathfrak{C}}
+	\rightleftarrows
+	\mathsf{Op}^{G,\mathfrak{D}}
+	\colon f^{\**}
+\]
+for the standard adjunctions (note the need to distinguish notations for the left adjoints).
+\end{notation}
+
+
+\begin{example}\label{GCORMPA EX}
+Given a $G$-corolla $C \in \Sigma_G$, we write $\partial C$ for the set of edges of $C$, which is naturally identified with the set of objects of the associated $G$-operad
+$\Omega(C) \in \mathsf{Op}^G$.
+
+One can then regard $\Omega(C) \in \mathsf{Op}^{G,\partial C}$ and, moreover, $\Omega(C)$ is in fact the free operad over the symmetric sequence obtained by removing the units of $\Omega(C)$,
+which we denote by
+$\Omega'(C) \in \mathsf{Sym}^{G,\partial C}$.
+
+Given the non-equivariant decomposition
+$C = C_1 \amalg \cdots \amalg C_k$
+with $C_i \in \Sigma$, 
+one can naturally regard the $C_i$ as objects of $\Sigma_{\partial C}$.
+In fact, one then has an identification
+\begin{equation}\label{SOMEIDEN EQ}
+	\Omega'(C) \simeq 
+	\Sigma_{\partial C}[C_1] \amalg \cdots \amalg \Sigma_{\partial C}[C_k]
 \end{equation}
-which is totally nondegenerate (this means that all simplices $\Delta^{k_i} \to J$ are nondegenerate)
-together with a flag of subsets
-	$\boldsymbol{J}(N) = 
-	G_0 \subseteq 
-	G_1 \subseteq \cdots \subseteq
-	G_{n-1} \subseteq \boldsymbol{E}^{\mathsf{i}}(N)$.
-	Noting that the nondegenerate simplices of $J$ (other than the points $0,1$)
-	are themselves identified with alternating words
-	$f,g,fg,gf,fgf,gfg,fgfg,gfgf,\cdots$,
-	one sees that so is the map \eqref{NECMAP EQ}.
-	Therefore, we see that a $n$-simplex of 
-	$W_{!} J$ is uniquely, determined by some alternating word of some size $l$ together with a flag  
-	$G_0 \subseteq 
-	G_1 \subseteq \cdots \subseteq
-	G_{n-1} \subseteq \boldsymbol{E}^{\mathsf{i}}(N)
-	=\{1,\cdots,l-1\}$, since 
-	$G_0$ suffices to recover the domain of 
-	\eqref{NECMAP EQ}.
-	
-	This shows that $W_{!} J$ $\mathbb{F}^{\bullet} \widetilde{[1]}$ indeed have the same simplices.
-	The fact that the simplicial operators coincide can be readily checked explicitly with the most interesting case is that of the top differential $d_n$, which in either case is induced by multiplication in 
-	$\widetilde{[1]}$ 
-	(that this is the case for $W_{!} J$ follows from the description of the simplicial operators in 
-	\cite[Cor. 4.4]{DS11} together with the description of the ``flanking'' procedure in \cite[Lemma 4.5]{DS11}).
+where $\Sigma_{\partial C}[-]$ denotes the representable presheaf in 
+$\mathsf{Set}^{\Sigma_{\partial C}^{op}}$.
+This claim requires some justification, since a priori the right hand side of \eqref{SOMEIDEN EQ} is an object in $\mathsf{Set}^{\Sigma_{\partial C}^{op}}$,
+rather than in $\mathsf{Set}^{G \ltimes \Sigma_{\partial C}^{op}}$,
+i.e. we need to describe the action of the additional action arrows
+$D \xrightarrow{g} gD$ on this presheaf.
+This action is given by the following diagram, where the vertical $g$ arrows simply act on labels, and all horizontal arrows are shuffle arrows (i.e. arrows in $\Sigma_{\partial C}$).
+The diagonal $C_g$ arrow corresponds to the structural $G$-action on $C$. It is then straightforward to check that there is a unique dashed shuffle $\tau_g$ as indicated
+\[
+\begin{tikzcd}
+	D \ar{d}[swap]{g} \ar{r}{\sigma} & C_i \ar{rd}{C_g} \ar{d}[swap]{g}
+\\
+	g D \ar{r}[swap]{g \sigma} & g C_i \ar[dashed]{r}{\simeq}[swap]{\tau_g} & C_{g i}
+\end{tikzcd}
+\]
+and one defines $g_{\**}\colon \Sigma_{\partial C}[C_i] \to \Sigma_{\partial C}[C_{gi}]$
+via $\sigma \mapsto \tau_g \circ (g \sigma)$.
+
+Moreover, letting $f \colon \partial C \to \mathfrak{C}$
+be a map of colors, 
+one obtains $\mathfrak{C}$-corollas $C_i^{f} \in \Sigma_{\mathfrak{C}}$
+by coloring each edge $e\in \partial C$ by $f(e) \in \mathfrak{C}$, resulting in a generalized identification 
+\begin{equation}\label{SOMEIDENGEN EQ}
+	f_{\**} \Omega'(C) \simeq 
+	\Sigma_{\mathfrak{C}}[C_1^f] \amalg \cdots \amalg \Sigma_{\mathfrak{C}}[C^f_k]
+\end{equation}
+Indeed, \eqref{SOMEIDENGEN EQ} follows from the observation
+that the Kan extension 
+$\mathsf{Lan}_{G \ltimes \Sigma_{\partial C} \to G \ltimes \Sigma_{\mathfrak{C}}}$ 
+coincides, after forgetting with the $G$-action arrows,
+with the Kan extension
+$\mathsf{Lan}_{\Sigma_{\partial C} \to \Sigma_{\mathfrak{C}}}$
+(cf. Lemma \ref{REDUCELAN LEM}).
 \end{example}
 
+
+\begin{definition}
+	Given a $\mathfrak{C}$-corolla $C$, 
+	a subgroup 
+	$\Gamma \leq \mathsf{Aut}_{G \ltimes \Sigma_{\mathfrak{C}}^{op}}(C)$
+	is called a \textit{$G$-graph subgroup} if
+	$\Gamma \cap \mathsf{Aut}_{\Sigma_{\mathfrak{C}}^{op}}(C) = \**$.
+	
+	We write $\mathcal{F}^{\Gamma} = \{\mathcal{F}^{\Gamma}_C\}$
+	for the collection of families of $G$-graph subgroups.
+	
+	A $G$-$\mathfrak{C}$-symmetric sequence
+	$X \in \mathsf{Sym}^{G,\mathfrak{C}}$
+	is called $\Sigma$-cofibrant if each level
+	$X(C)$ is $\mathcal{F}^{\Gamma}_C$-cofibrant.
+\end{definition}
+
+
+\begin{remark}
+	Write a $\mathfrak{C}$-corolla as $C^f \in \Sigma_{\mathfrak{C}}$,
+	where $C \in \Sigma$ is the underlying corolla and
+	$f\colon \partial C \to \mathfrak{C}$
+	is the coloring.
+	A $G$-graph subgroup 
+	$\Gamma \leq \mathsf{Aut}_{G \ltimes \Sigma_{\mathfrak{C}}^{op}}(C^f)$ is, under the map 
+	$G \ltimes \Sigma_{\mathfrak{C}}^{op} \to
+	G \times \Sigma^{op}$,
+	identified with a 
+	$G$-graph subgroup of 
+	$G \times \mathsf{Aut}_{\Sigma^{op}}(C)$,
+	i.e., with the graph of a partial antihomomorphism
+\[
+	G^{op} \geq H^{op} \xrightarrow{(-)^{-1}} H 
+	\xrightarrow{\tau_{(-)}} \mathsf{Aut}_{\Sigma^{op}}(C)
+\]
+	which is subject to the requirement
+\[
+	f(\tau_h(e)) = h f(e).
+\]
+Using the $\tau$ automorphisms one can then
+\begin{inparaenum}
+\item[(i)] equip $C$ with a $H$-action,
+so that one can regard $C \in \Sigma^H \subseteq \Sigma_H$;
+\item[(ii)] extend $\Sigma_{\mathfrak{C}}[C^f]$ to 
+an object in $\mathsf{Set}^{H \ltimes \Sigma_{\mathfrak{C}}}$
+by defining the action of the $H$-action arrows $h$ via 
+$\sigma \mapsto \tau_{h} \circ (h \sigma)$;
+\item[(iii)]
+following Example \ref{GCORMPA EX}, one thus has an identification
+\[
+	f_{\**} \Omega'(C) \simeq \Sigma_{\mathfrak{C}}[C^f]
+\]
+of objects in $\mathsf{Set}^{H \ltimes \Sigma_{\mathfrak{C}}}$ and therefore an identification 
+\[
+	f_{\**} \left( G \cdot_H \Omega'(C) \right) \simeq 
+	G\cdot_H \Sigma_{\mathfrak{C}}[C^f]
+\]
+of objects in $\mathsf{Set}^{G \ltimes \Sigma_{\mathfrak{C}}}$.
+\end{inparaenum}
+\end{remark}
+
+
+\begin{example}
+Let $G = \mathbb{Z}_{/2} = \{\pm 1\}$ and 
+$\mathfrak{C} = \{\mathfrak{a}, -\mathfrak{a}, \mathfrak{b}\}$ where we implicitly have
+$-\mathfrak{b} = \mathfrak{b}$.
+Consider the two $\mathfrak{C}$-corollas 
+$C,D \in \Sigma_{\mathfrak{C}}$ below.
+\begin{equation}
+	\begin{tikzpicture}[auto,grow=up, level distance = 2.2em,
+	every node/.style={font=\scriptsize,inner sep = 2pt}]%
+		\tikzstyle{level 2}=[sibling distance=3em]%
+			\node at (0,0) [font = \normalsize] {$C$}%	
+				child{node [dummy] {}%
+					child{node {}%
+					edge from parent node [swap] {$-\mathfrak{a}$}}%
+					child[level distance = 2.9em]{node {}%
+					edge from parent node [swap,	near end] {$\mathfrak{b}$}}%
+					child[level distance = 2.9em]{node {}%
+					edge from parent node [near end] {$\mathfrak{b}$}}%
+					child{node {}%
+					edge from parent node  {$\mathfrak{a}$}}%
+				edge from parent node [swap] {$\mathfrak{b}$}};%
+			\node at (7,0) [font = \normalsize] {$D$}%	
+				child{node [dummy] {}%
+					child{node {}%
+					edge from parent node [swap] {$-\mathfrak{a}$}}%
+					child[level distance = 2.9em]{node {}%
+					edge from parent node [swap,	near end] {$-\mathfrak{a}$}}%
+					child[level distance = 2.9em]{node {}%
+					edge from parent node [near end] {$\mathfrak{a}$}}%
+					child{node {}%
+					edge from parent node  {$\mathfrak{a}$}}%
+				edge from parent node [swap] {$\mathfrak{b}$}};%
+	\end{tikzpicture}%
+\end{equation}%
+Each of $C,D$ admit exactly two non-trivial $G$-graph subgroups,
+which are encoded by the $\mathbb{Z}_{/2}$-actions on the underlying corollas depicted below.
+\begin{equation}
+	\begin{tikzpicture}[auto,grow=up, level distance = 2.2em,
+	every node/.style={font=\scriptsize,inner sep = 2pt}]%
+		\tikzstyle{level 2}=[sibling distance=3em]%
+			\node at (-1.6,0) [font = \normalsize] {$C_1$}%	
+				child{node [dummy] {}%
+					child{node {}%
+					edge from parent node [swap] {$-a$}}%
+					child[level distance = 2.9em]{node {}%
+					edge from parent node [swap,	near end] {$c\phantom{b}$}}%
+					child[level distance = 2.9em]{node {}%
+					edge from parent node [near end] {$b$}}%
+					child{node {}%
+					edge from parent node  {$a$}}%
+				edge from parent node [swap] {$r$}};%
+			\node at (1.6,0) [font = \normalsize] {$C_2$}%	
+				child{node [dummy] {}%
+					child{node {}%
+					edge from parent node [swap] {$-a$}}%
+					child[level distance = 2.9em]{node {}%
+					edge from parent node [swap,	near end] {$-b$}}%
+					child[level distance = 2.9em]{node {}%
+					edge from parent node [near end] {$b$}}%
+					child{node {}%
+					edge from parent node  {$a$}}%
+				edge from parent node [swap] {$r$}};%
+			\node at (5.4,0) [font = \normalsize] {$D_1$}%	
+				child{node [dummy] {}%
+					child{node {}%
+					edge from parent node [swap] {$-a$}}%
+					child[level distance = 2.9em]{node {}%
+					edge from parent node [swap,	near end] {$-b$}}%
+					child[level distance = 2.9em]{node {}%
+					edge from parent node [near end] {$b$}}%
+					child{node {}%
+					edge from parent node  {$a$}}%
+				edge from parent node [swap] {$r$}};%
+			\node at (8.6,0) [font = \normalsize] {$D_2$}%	
+				child{node [dummy] {}%
+					child{node {}%
+					edge from parent node [swap] {$-b$}}%
+					child[level distance = 2.9em]{node {}%
+					edge from parent node [swap,	near end] {$-a$}}%
+					child[level distance = 2.9em]{node {}%
+					edge from parent node [near end] {$b$}}%
+					child{node {}%
+					edge from parent node  {$a$}}%
+				edge from parent node [swap] {$r$}};%
+	\end{tikzpicture}%
+\end{equation}%
+
+\end{example}
+
+
+The following is the analogue of \cite[Prop. 3.2]{CM13b}
+
+\begin{proposition}
+Suppose that $\mathcal{O} \in \mathsf{Op}^{G,\mathfrak{C}}$
+is $\Sigma$-cofibrant.
+Further, let $C \in \Sigma_G$ be any $G$-corolla and consider 
+a pushout in $\mathsf{Op}^{G}$ of the form
+\begin{equation}\label{PUSHOUTPROP EQ}
+\begin{tikzcd}
+	\partial \Omega(C) \ar{r} \ar{d} & \mathcal{O} \ar{d}
+\\
+	\Omega(C) \ar{r} & \mathcal{P}.
+\end{tikzcd}
+\end{equation}
+Then the induced map
+\[
+	\Omega[C] \amalg_{\partial \Omega[C]} N\mathcal{O} \to N\mathcal{P}
+\]
+is $G$-inner anodyne.
+\end{proposition}
+
+\begin{proof}
+The first step is to rewrite \eqref{PUSHOUTPROP EQ} as a pushout diagram in $\mathsf{Op}^{G,\mathfrak{C}}$.
+Let us write $f \colon \partial C \to \mathfrak{C}$
+for the induced map of colors.
+
+{\color{red} HERE}
+\end{proof}
 
 
 
