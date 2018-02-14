@@ -81,6 +81,7 @@
 \newcommand{\I}{\mathbb I}
 \newcommand{\J}{\mathbb J}
 \renewcommand{\1}{\ensuremath{\mathbb{id}}}
+\renewcommand{\hat}{\widehat}
 
 
 % ------ Personal Info ---------------
@@ -705,39 +706,62 @@ Extending \S \ref{COMEGA_SEC}, we make the following definitions.
       the tuple $(E_G(T), (Gt))$.
 \end{definition}
 
-\begin{remark}
-      \label{EG_OVER_OG_REM}
-      One may be tempted to say that $E_G$ is in fact a functor .
-      % with $E_G(T) \to \mathsf O_G$ given by $G t \mapsto G/G_t$ for $t \in G t$ minimal.
-      We warn that $E_G$ is \textit{not} a functor
-      $\Omega_G \to \Set \downarrow \mathsf O_G$,
-      as it does not allow for the action of quotient maps.
-      It is however a functor when restricted to the category $\Omega_G^{fr}$ of \textit{free} $G$-trees
-      (cf. \eqref{COMEGA_FG_GR_EQ}).
-      
-      Instead, $E_G$ defines a functor to $\Cat \downarrow_w \mathsf O_G$ of functors and ``weakly-commuting'' triangles,
-      as for all $\phi: T \to S$ there is a well-defined natural transformation as below.
-      \begin{equation}
-            \begin{tikzcd}
-                  E_G(T) \arrow[rr, "\phi"] \arrow[dr, "\mathfrak c"', ""{name = U}]
-                  &&
-                  |[alias = V]| E_G(S) \arrow[dl, "\mathfrak d"]
-                  \\
-                  &
-                  \mathsf O_G
-                  % \arrow[Rightarrow, from = U, to = V, "{(g_{(\minus)})_{\**}}"]
-                  \arrow[Rightarrow, from = U, to = V, "\phi_{(-)}^{\**}"'{near start}]
-            \end{tikzcd}
-      \end{equation}
-      
-      However, we may augment $E_G$ to a functor
-      $\tilde E_G: \Omega_G \to \mathsf{Fib}(\mathsf \mathsf O_G)$
-      to the category of fibrations over $\mathsf \mathsf O_G$.
-      In particular, let $\tilde E_G(T)$ denote the Grothendieck construction on the functor
-      $E_G(T) \to \Set$, $G t \mapsto \mathsf \mathsf \mathsf O_G \downarrow G t$;
-      This has the natural structure of a fibration $p: \tilde E_G(T) \to \mathsf O_G$
-      with $p(G t, q: I \to G t) = I$ and Cartesian arrows defined by pre-composition.
-\end{remark}
+
+% One may be tempted to say that $E_G$ is in fact a functor.
+% with $E_G(T) \to \mathsf O_G$ given by $G t \mapsto G/G_t$ for $t \in G t$ minimal.
+We warn that $E_G$ is \textit{not} a functor
+$\Omega_G \to \Set \downarrow \mathsf O_G$,
+as it does not allow for the action of quotient maps.
+It is however a functor when restricted to the category $\Omega_G^{fr}$ of \textit{free} $G$-trees
+(cf. \eqref{COMEGA_FG_GR_EQ}).
+
+Instead, $E_G$ defines a functor to $\Cat \downarrow_w \mathsf O_G$ of functors and ``weakly-commuting'' triangles,
+as for all $\phi: T \to S$ there is a well-defined natural transformation as below.
+\begin{equation}
+      \begin{tikzcd}
+            E_G(T) \arrow[rr, "\phi"] \arrow[dr, "\mathfrak c"', ""{name = U}]
+            &&
+            |[alias = V]| E_G(S) \arrow[dl, "\mathfrak d"]
+            \\
+            &
+            \mathsf O_G
+            % \arrow[Rightarrow, from = U, to = V, "{(g_{(\minus)})_{\**}}"]
+            \arrow[Rightarrow, from = U, to = V, "\phi_{(-)}^{\**}"'{near start}]
+      \end{tikzcd}
+\end{equation}
+
+We may however augment $E_G$ to a functor
+$\hat E_G: \Omega_G \to \mathsf{Fib}(\mathsf \mathsf O_G)$
+to the category of fibrations over $\mathsf \mathsf O_G$.
+
+More generally, for any category $\mathcal C$, the forgetful functor
+sending a fibration $p: \mathcal D \to \mathcal C$ to the map $p: \mathsf{Ob}(\mathcal D) \to \mathcal C$
+has a left adjoint.
+\begin{equation}
+      \label{FIB_HAT_EQ}
+      \begin{tikzcd}
+            \mathsf{Fib}(\mathcal C) \arrow[r, shift right, "\mathsf{fgt}"']
+            &
+            \mathsf{Set} \downarrow \mathcal C \arrow[l, shift right, dashed, "\hat{(-)}"']
+      \end{tikzcd}
+\end{equation}
+For a set $A$ and map $p: A \to \mathcal C$, define
+$\hat A$ to be the Grothendieck construction on the functor
+\begin{equation}
+      \begin{tikzcd}[row sep = tiny]
+            A \arrow[r]
+            &
+            \mathsf{Set}
+            \\
+            a \arrow[r, mapsto]
+            &
+            \mathcal C \downarrow p(a).
+      \end{tikzcd}
+\end{equation}
+This has the natural structure of a fibration over $\mathcal C$,
+sending $(a, c \to p(a))$ to $c$, with
+Cartesian arrows defined by precomposition.
+
 
 \begin{definition}[{cf. \eqref{COMEGA_OG_EQ}}]
       Let $\underline{\mathfrak C}$ be a $G$-coefficient system of sets.
@@ -795,17 +819,18 @@ with $\phi_{G t}: G t \to G \phi(t)$.
                   \\
                   T \arrow[r, mapsto]
                   &
-                  \Hom_{\mathsf{Fib} (\mathsf O_G)}(\tilde E_G(T), \UC).
+                  \Hom_{\mathsf{Fib} (\mathsf O_G)}(\hat E_G(T), \UC)
             \end{tikzcd}
       \end{equation}
+      with $\hat E_G(T)$ defined as in \eqref{FIB_HAT_EQ}.
       The (standard) coloring of $G t$ is recovered by $\mathfrak c(G t, id_{G t})$, and
       a triangle of fibrations on the left below over $\mathsf O_G$
       implies that the right triangle commutes.
       \begin{equation}
             \begin{tikzcd}[column sep = small]
-                  \tilde E_G(T) \arrow[rr, "\phi"] \arrow[dr, "\mathfrak c"']
+                  \hat E_G(T) \arrow[rr, "\phi"] \arrow[dr, "\mathfrak c"']
                   &&
-                  \tilde E_G(S) \arrow[dl, "\mathfrak d"]
+                  \hat E_G(S) \arrow[dl, "\mathfrak d"]
                   &
                   (G t, id) \arrow[rr, mapsto] \arrow[dr, mapsto]
                   &&
@@ -1343,7 +1368,7 @@ $q_t: G \to Gt$ sending $e \mapsto t$.
 } % ------------------------------ COLOR BLUE ------------------------------
 
 Then the map $B_I \to \UC\Omega$, $i \mapsto (T_i, \mathfrak c_i)$ is a functor
-(as the inclusion and $\mathfrak c_{G/e}$ are $G$-equivariant),
+(as the inclusion {\color{blue} and $\mathfrak c_{G/e}$} are $G$-equivariant),
 and we have
 \begin{equation}
       \iota_{\**}Y(T, \mathfrak c) =
@@ -1742,13 +1767,33 @@ We record that $\iota_{\**}$ again fully-faithful since $\epsilon$ is an iso.
 
 Fix a cofibrantly generated model category $\V$.
 
-{\color{OliveGreen} In this section, assume that the canonical model structures on $\Cat(\V)$, $\Op(\V)$, and $\Op^{G,\C}(\V)$ exist.}
-
 We follow \cite{BM13} and \cite{Cav14} to assemble the collection of ``color-fixed''
 ($\F$)-model structures into
 a single model structure on $\Op^G(\V)$.
 
-As in the previous section, we fix a collection $\F = \set{\F_n}$ of families $\F_n$ of graph subgroupos of $G \times \Sigma_n$
+
+\begin{definition}
+      We say $\V$ \textit{admits (semi)-transfer for categories/operads} if for any set $\mathfrak C$,
+      the categories $\Cat^{\mathfrak C}(\V)$, $\Op^{\mathfrak C}(\V)$
+      may be equipped with the canonical (semi)-model structure.
+\end{definition}
+
+{\color{OliveGreen} In this section, assume that $\V$ admits (semi)-transfer for categories and operads}.
+
+As in the previous section, we fix an \textit{indexing collection} $\F = \set{\F_n}$ of families $\F_n$ of graph subgroupos of $G \times \Sigma_n$
+
+\begin{definition}
+      We say $\V$ \textit{admits (semi)-transfers for $G$-categories/operads} if
+      $\V$ has cellular fixed points and
+      for any $G$-set $\mathfrak C$ and indexing collection $\F$,
+      the categories $\Cat^{G, \mathfrak C}(\V)$, $\Op^{G, \mathfrak C}(\V)$
+      may be equipped with the canonical $\F$-(semi)-model structure.
+\end{definition}
+
+\begin{remark}
+      In particular, $(\sSet, \times)$ and $(\sSet_{\**}, \wedge)$ admit transfers for $G$-operads,
+      and any $(\V, \otimes)$ satisfying the hypotheses of Theorem \ref{THM1_C} admits semi-transfers for $G$-operads.
+\end{remark}
 
 We have another free-forgetful adjunction $j^*: \mathsf{Op}^G(\V) \leftrightarrows \mathsf{Cat}^G(\V): j_!$, and note that $j^*$ commutes with taking $H$-fixed points for all $H\leq G$;
 \begin{equation}
@@ -1841,9 +1886,19 @@ Now and forever we further suppose that $\V$ has \textit{cellular fixed points}.
 
 \begin{theorem}
       [\cite{BM13,Cav14}]
-      With $G = e$, if $\V$ satisfies (2)-(6) of the assumptions in Theorem \ref{MODEL_THEOREM}, then
+      With $G = e$, if $\V$ is a
+      cofibrantly generated monoidal model category
+      that is right proper,
+      has a cofibrant unit,
+      admits transfer for operads,
+      has a set of generating $\V$-intervals, and
+      the class of weak equivalences is closed undedr transfinite composition,
+      then
       $\Cat(\V)$ and $\Op(\V)$ have a model structure where weak equivalences and fibrations are defined as above.
+
+      In particular, this holds for $(\V, \otimes)$ is $(\sSet, \times)$ or $(\sSet_{\**}, \wedge)$> 
 \end{theorem}
+\todo[inline]{compare with Theorem \ref{MODEL_THM}.}
 
 
 \subsection{Generating (Trivial) Cofibrations and Local Fibrations}
@@ -2010,7 +2065,7 @@ where again $\1$ is the initial $\V$-category (considered as an operad), and $\m
 
       Moreover, we observe that $\C(Y) = \C(X') \amalg (G/H \times \set{1})$.
       Thus, if $x \in \C(Y)^K$ for $K \leq G$ is in $\C(X')$, we have essential surjectivity trivially,
-      as shown below.
+      as shown below, where $\I_c \to \I$ is a cofibrant replacement in $\Op^{\set{0,1}}(\V)$.
       \begin{equation}
             \begin{tikzcd}
                   \1 \arrow[rrr, "x"] \arrow[dr, " i_0"]
@@ -2018,9 +2073,9 @@ where again $\1$ is the initial $\V$-category (considered as an operad), and $\m
                   (X')^K \arrow[dd, "\psi'"]
                   \\
                   &
-                  \J \arrow[r]
+                  \I_c \arrow[r]
                   &
-                  \1 \arrow[dr, "x"]
+                  \I \arrow[dr, "x"]
                   \\
                   \1 \arrow[ur, " i_1"] \arrow[rrr,"x"]
                   &&&
@@ -2052,7 +2107,7 @@ where again $\1$ is the initial $\V$-category (considered as an operad), and $\m
 
       Now, consider the top pushout. \eqref{COLOR_SQ_EQ} again implies that this pushout is created in $\Op^{G, \mathfrak C(X)}(\V)$.
       In particular, this implies $\phi'$ is bijective on objects, and hence essentially surjective.
-      Further, since $1_\V$ is both cofibrant and the initial object in $\Op^{\**}(\V)$,
+      Further, since $1_\V$ is cofibrant in $\V$ and $\1$ is the initial object in $\Op^{\**}(\V)$,
       \cite[Thm. 1.15]{BM13} implies that $\1 \to \J_{\set{0,0}}$ is a trivial cofibration in $\Op^{\**}(\V)$.
       Thus $G/H \cdot \phi$ (resp. $a_! (G/H \cdot \phi)$) is a trivial cofibration in $\Op^{G, \**}(\V)$
       (resp. $\Op^{G, \mathfrak C(X)}(\V)$, by Corollary \ref{COLOR_CHANGE_Q_COR}),
@@ -2070,23 +2125,24 @@ where again $\1$ is the initial $\V$-category (considered as an operad), and $\m
 
 \todo[inline]{come back}
 
-\begin{definition}
-      If $\V$ has intervals, then in any $\V$-category $\mathcal C$,
-      we say that two arrows  $f,g: \1 \to \mathcal C(x,y)$ are \textit{homotopic}
-      if there exists a factorization of the form below, with $\mathbb J$ a $\V$-interval.
-      \begin{equation}
-            \begin{tikzcd}
-                  1_\V \amalg 1_\V \arrow[rr, "{(f, g)}"] \arrow[dr, "{(id_0,id_0)}"']
-                  &&
-                  \mathcal C(x,y)
-                  \\
-                  &
-                  \mathbb J(0,0) \arrow[ur, dashed]
-            \end{tikzcd}
-      \end{equation}
+\todo[inline]{If $\J$ is a $\V$-interval, is $\J(0,0)$ a cylinder object?}
 
+\begin{definition}
+      % If $\V$ has intervals, then in any $\V$-category $\mathcal C$,
+      % we say that two arrows  $f,g: \1 \to \mathcal C(x,y)$ are \textit{homotopic}
+      % if there exists a factorization of the form below, with $\mathbb J$ a $\V$-interval.
+      % \begin{equation}
+      %       \begin{tikzcd}
+      %             1_\V \amalg 1_\V \arrow[rr, "{(f, g)}"] \arrow[dr, "{(id_0,id_0)}"']
+      %             &&
+      %             \mathcal C(x,y)
+      %             \\
+      %             &
+      %             \mathbb J(0,0) \arrow[ur, dashed]
+      %       \end{tikzcd}
+      % \end{equation}
       Given $\mathcal C \in \Cat(\V)$, define $\pi_0(\mathcal C)$ to be the (unenriched) category with
-      the same objects as $\mathcal C$, and $\pi_0(\mathcal C)(x,y) = \Ho(\V)(1_\V, \C(x,y))$.
+      the same objects as $\mathcal C$, and $\pi_0(\mathcal C)(x,y) = \Ho(\V)(1_\V, \mathcal C(x,y))$.
 \end{definition}
 
 We recall some equivalence relations on objects in a $\V$-category \cite{Cav14, BM13}:
@@ -2112,51 +2168,114 @@ We recall some equivalence relations on objects in a $\V$-category \cite{Cav14, 
 
 Equivariantly, we have the following:
 \begin{definition}
-      Given $\mathcal{C}\in \Cat^G(\V)$ and $a,b\in \mathrm{Ob}(\mathcal{C})$, we say $a$ and $b$ are
+      Fix $\mathcal{C}\in \Cat^G(\V)$, $a,b\in \mathrm{Ob}(\mathcal{C})$, and $H \leq G$.
+      We say $a$ and $b$ are
       \begin{itemize}
-      \item {\em equivalent} if $\Stab_G(a) = \Stab_G(b) =: H$ and are equivalent in $\mathcal{C}^H$;
-      \item {\em virtually equivalent} if they are equivalent in some fibrant replacement
-            $\mathcal{C}_f$ of $\mathcal{C}$ in $\Cat^{G, \mathrm{Ob}(\mathcal C)}(\V)$;
-      \item {\em homotopy equivalent} if $\Stab_G(a) = \Stab_G(b) =: H$ and they are homotopy equivalent in $\mathcal{C}^H$. 
+      \item \textit{$H$-equivalent} if they are equivalent in $\mathcal{C}^H$;
+      \item \textit{virtually $H$-equivalent } if
+            \begin{enumerate}[label=(roman*)]
+            \item they are virtually equivalent in $\mathcal C^H$
+            \item they are $H$-equivalent in some fibrant replacement $\mathcal C_f \to \mathcal C$
+                  in $\Op^{G, \mathfrak C(\O)}(\V)$.
+            \end{enumerate}
+      \item \textit{homotopy $H$-equivalent} if they are homotopy equivalent in $\mathcal{C}^H$.
       \end{itemize}
-      For an operad $\O\in \mathsf{Op}^G(\V)$ and $a,b\in \C(\O)$, we say $a$ and $b$ are
+\end{definition}
+
+\begin{definition}
+      For a $G$-operad $\O\in \mathsf{Op}^G(\V)$ and $a,b\in \C(\O)$, we say $a$ and $b$ are
       {\em equivalent} (resp. {\em virtually equivalent}, {\em homotopy equivalent}) if they are so in $j^*\O$. 
 \end{definition}
 
 The following three lemmas follow directly from the proofs of their non-equivariant counterparts:
 \begin{lemma}
       [{cf. \cite[4.10]{Cav14}}]
-      Equivalence and virtual equivalence define equivalence relations on $\C(\O)$. \qed
+      $H$-Equivalence and virtual $H$-equivalence define equivalence relations on $\C(\O)^H$.
 \end{lemma}
-\begin{lemma}
-      [{cf. \cite[4.13]{Cav14}, \cite[2.11]{BM13}}]
-      Virtually equivalent colors are homotopy equivalent. 
-\end{lemma}
+\begin{proof}
+      Follows exactly as in \textit{loc cite}; either version of virtual $H$-equivalence works.
+
+      Indeed,
+      symmetry follows from the transposition isomorphism $\tau^{\**}\J \to \J$.
+
+      Reflexivity follows from the composition $\I_c \to \I \to \C^H, \C_f^H$
+      \todo{either version (i) or (ii) works here}
+      of cofibrant replacement followed by the map realizing the identity map on $a$.
+      
+      Transitivity follows from the amalgamation of interval objects \cite[Cor. 1.16]{BM13}
+      by the following two claims.
+      First, for any maps of $G$-sets $f: A \to \mathfrak C(\O)$,
+      we have a canonical ``identity'' map $f^{\**}\O \to \O$.
+      Second, a chase through the adjunctions yields that
+      any pair of maps $h: \J \to \mathcal C$ and $h': \J' \to \mathcal C$
+      induces a map $h \** h' : \J \** \J' \to \mathcal C$ such that      
+      $(h \** h') \circ i_0 = h \circ i_0$ and $(h \** h') \circ i_1 = h' \circ i_1$.
+\end{proof}
+
 \begin{lemma}
       [{cf. \cite[4.12]{Cav14}, \cite[2.10]{BM13}}]
       \label{RIGHTPROPER_LEM}
-      If $\V$ is right proper, then all virtual equivalent colors are equivalent. 
+      If $\V$ is right proper, then all virtual $H$-equivalent colors are $H$-equivalent. 
 \end{lemma}
+\begin{proof}
+      {\color{OliveGreen}
+        Need: virtual $H$-equivalent (i). Then it follows identically as in \textit{loc cite}.
+        
+        Also, if ``interval'' means there is a direct weak equivalence $\J \to \I$, then
+        we also need that $1_\V$ is cofibrant;
+        the argument in \cite{BM13} just gives a zig-zag of weak equivalences.
+      }
+\end{proof}
+
+\begin{lemma}
+      [{cf. \cite[4.13]{Cav14}, \cite[2.11]{BM13}}]
+      Virtually $H$-equivalent colors are homotopy $H$-equivalent. 
+\end{lemma}
+\begin{proof}
+      {\color{OliveGreen}
+        Need: virtual $H$-equivalent (i). Then it follows exactly as in \textit{loc cite}.
+      }
+\end{proof}
 
 \begin{lemma}
       [{cf. \cite[4.11]{Cav14}, \cite[2.9]{BM13}}]
-      Any local weak $\F$-equivalence $F: \O\to \P$ in $\mathsf{Op}^G(\V)$ reflects virtual weak equivalences.
+      Any local weak $\F$-equivalence $F: \O\to \P$ in $\mathsf{Op}^G(\V)$
+      reflects virtual $H$-equivalences.
 \end{lemma}
 \begin{proof}
-      As in the non-equivariant case, $F$ being a local weak $\F$-equivalence implies
-      we have a local trivial $\F$-fibration $F': \O_f\to \P_f$,
-      so in particular each $(F')^H$ is path-lifting.
-      Thus, for $\Stab(a) = \Stab(b) =: H$, any virtual equivalence $\J \to \P_f^H$ between colors
+      {\color{OliveGreen}
+        Need: virtual $H$-equivalent (i).
+      }
+
+      Since each $j^{\**}: \Op^{G, \mathfrak C}(\V) \to \Cat^{G, \mathfrak C}(\V)$ is right Quillen,
+      it commutes with fibrant replacement.
+      we may choose a fibrant replacement $j^{\**}F_f$ of $j^{\**}F$ which is a local trivial $\F$-fibration:
+      \begin{equation}
+            \begin{tikzcd}
+                  \O \arrow[d, dashed, "\simeq"'] \arrow[r, "\simeq"]
+                  &
+                  F^{\**} \O' \arrow[r, "\cong", two heads] \arrow[d, "\simeq"']
+                  &
+                  \O' \arrow[d, "\simeq"]
+                  \\
+                  \O_f \arrow[r, dashed, two heads]
+                  &
+                  F^{\**} \O'_f \arrow[r, "\cong", two heads]
+                  &
+                  \O'_f
+            \end{tikzcd}
+      \end{equation}
+      (where all designations here are ``local'').
+      
+      This implies each $(F_f)^H$ is path-lifting,
+      and hence any virtual $H$-equivalence $\J \to (\O'_f)^H$ between colors  
       $F'(a) = F(a)$ and $F'(b) = F(b)$
-      lifts to one $\J \to \O_f^H$ between $a$ and $b$
+      lifts to one $\J \to (\O_f)^H$ between $a$ and $b$
       (in particular,
       % since the fibration has source $\O_f^H$,
-      the source colors $a$ and $b$ have stabilizer at least $H$, and since their images have stabilizer exactly $H$, so do they). 
+      the source colors $a$ and $b$ have stabilizer at least $H$, and since their images have stabilizer exactly $H$, so do they).
+      \todo[inline]{CHECK THE STABILIZERS}
 \end{proof}
-
-\begin{remark}
-      We can relax the assumption on the map $\F$ above; however, this will not be needed.
-\end{remark}
 
 \subsubsection{Equivalences between levels}
 
