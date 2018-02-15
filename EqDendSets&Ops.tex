@@ -1824,7 +1824,6 @@ We have another free-forgetful adjunction $j^*: \mathsf{Op}^G(\V) \leftrightarro
 % \end{definition}
 
 \begin{definition}
-      % Similarly but different:
       let $\I$ be the $\V$-category with objects $\set{0,1}$ with $\I(0,0) = \I(0,1) = \I(1,0) = \I(1,1) = 1_V$.
       A {\em $\V$-interval} is a cofibrant object in $\Cat^{\set{0,1}}(\V)$ (with the transfered model structure)
       weakly equivalent to $\I$.
@@ -3636,19 +3635,129 @@ a pushout in $\mathsf{Op}^{G}$ of the form
 \end{tikzcd}
 \end{equation}
 Then the induced map
-\[
+\begin{equation}\label{ANODYNE MAP}
 	\Omega[C] \amalg_{\partial \Omega[C]} N\mathcal{O} \to N\mathcal{P}
-\]
+\end{equation}
 is $G$-inner anodyne.
 \end{proposition}
 
 \begin{proof}
-The first step is to rewrite \eqref{PUSHOUTPROP EQ} as a pushout diagram in $\mathsf{Op}^{G,\mathfrak{C}}$.
+The desired claim that \eqref{ANODYNE MAP}
+is $G$-inner anodyne will follow by applying the  
+\textit{characteristic edge lemma} \cite[Lemma 3.4]{BP17},
+but we first need some preliminary discussion. 
+
 Let us write $f \colon \partial C \to \mathfrak{C}$
 for the induced map of colors.
+The first step is to rewrite \eqref{PUSHOUTPROP EQ} as a pushout diagram in $\mathsf{Op}^{G,\mathfrak{C}}$, which can be done by applying $\check{f}_{\**}$
+to the leftmost objects in \eqref{PUSHOUTPROP EQ}.
+Since
+\[
+	\check{f}_{\**} \Omega(C) \simeq 
+	\check{f}_{\**} \left( \mathbb{F} \Omega'(C) \right) \simeq 
+	\mathbb{F} \left(f_{\**}  \Omega'(C) \right)
+\]
+one has that, writing $C \simeq G \cdot_H C_{\star}$ one has the alternative pushout in $\mathsf{Op}^{G,\mathfrak{C}}$
+\begin{equation}
+\begin{tikzcd}
+	\mathbb{F} ( \emptyset ) \ar{r} \ar{d} & \mathcal{O} \ar{d}
+\\
+	\mathbb{F} \left( 
+	G \cdot_H \Sigma_{\mathfrak{C}}[C^f_{\star}] \right) \ar{r} & \mathcal{P}.
+\end{tikzcd}
+\end{equation}
+Writing $B = G \cdot_H \Sigma_{\mathfrak{C}}[C^f_{\star}]$, one then has
+\begin{equation}\label{PUSHOPPR EQ}
+	\mathcal{P}(C) = 
+	\coprod_{
+	[T] \in \mathsf{Iso}
+	\left( \Omega_{\mathfrak{C}}^a \downarrow_{\mathsf{r}} C \right)
+	}
+	\left(
+		\prod_{v \in V^{ac}(T)} \mathcal{O}(T_v)
+	\times
+		\prod_{v \in V^{in}(T)} B(T_v)
+	\right)
+	\cdot_{\mathsf{Aut}(T)} \mathsf{Aut}(C)
+\end{equation}
+
+We now discuss the dendrices of $N \mathcal{P}$. Firstly, recall that, by the strict Segal condition characterization of nerves \cite[Cor. 2.7]{CM13a},
+a dendrex $\Omega[T] \to N \mathcal{P}$
+is uniquely specified by the tree $T \in \Omega$ together with a choice of operations
+$\{p_v \in \mathcal{P}(T_v)\}_{v \in \boldsymbol{V}(T)}$.
+Noting that \eqref{PUSHOPPR EQ} implies that the canonical map (of sequences) 
+$\mathcal{O} \amalg B \to \mathcal{P}$
+is a monomorphism, 
+we will say a dendrex $(T,\{p_v\})$ is \textit{elementary}
+if all operations $p_v$ are in $\mathcal{O} \amalg B$.
+Additionally, an elementary dendrex $(T,\{p_v\})$ is called \textit{alternating} if $T$ is an alternating tree and 
+$p_v$ is in $\mathcal{O}$ (resp. $B$) if
+$v \in \boldsymbol{V}(T)$ is active (resp. inert).
+
+Given an elementary dendrex $(T,\{p_v\})$ and a map of trees 
+$\varphi \colon S \to T$
+we will need to know when 
+$\varphi^{\**}(T,\{p_v\})$
+is again elementary.
+Since all maps in $\Omega$ are, uniquely up to isomorphism,
+factored as a degeneracy followed by an inner face followed by an outer face, it suffices to discuss each of those cases.
+It is straightforward to check that 
+$\varphi^{\**}(T,\{p_v\})$ 
+is elementary whenever $\varphi$ is a degeneracy or an outer face.
+For an inner face
+$\varphi \colon T-D \to T$,
+noting that a partial composite $p \circ_i q$ of non-unit operations is in $\mathcal{O} \amalg B$ iff both operations are in $\mathcal{O}$,
+one sees that $\varphi^{\**}(T,\{p_v\})$ is elementary iff
+for each $d \in D$ the adjacent vertices of $T$ are either both labeled by operations of $\mathcal{P}$ or one of them is labeled by an identity.
+
+In what follows, we will find it convenient to work with elementary dendrices that have been suitably ``planarized''.
+To do so, fix a subset
+$\mathcal{O}^{\mathsf{st}} \amalg B^{\mathsf{st}} 
+\subset
+\coprod_{C \in \Sigma_{\mathfrak{C}}}
+\mathcal{O}(C) \amalg B(C)$
+of coset representatives for the $\Sigma$-action,
+which we call \textit{standard} representatives.
+An elementary dendrex $(T,\{p_v\})$ is then called \textit{standard}
+if all $p_v$ are standard (i.e. in 
+$\mathcal{O}^{\mathsf{st}} \amalg B^{\mathsf{st}}$).
+Moreover, since both $\mathcal{O}$ and $B$ are $\Sigma$-cofibrant/$\Sigma$-free sequences (the former by assumption),
+for each elementary simplex $(T,\{p_v\})$,
+there is a unique (replanarization) isomorphism
+$\varphi \colon T' \to T$ such that
+$(T',\{\varphi^{\**}p_v\})$ is standard,
+and we write 
+$\mathsf{st}(T,\{p_v\}) = \varphi^{\**} (T,\{p_v\}) = (T',\{\varphi^{\**}_v p_v\})$
+to denote this.
+
+We can now finally discuss how to apply \cite[Lemma 3.4]{BP17}.
+
+Firstly, we need to identify a $G$-poset $I$ and dendrices 
+$b_i \colon \Omega[U_i] \to N \mathcal{P}$ for $i \in I$.
+Firstly, the underlying set of $I$ is the set of 
+non-degenerate standard dendrices of $\mathcal{P}$,
+which we abbreviate as
+$i = (U_i,\{p_v^i\})$.
+The dendrex $b_i \colon \Omega[U_i] \to N \mathcal{P}$ is then tautological, being $i$ itself, but it will preferable to use distinct notations for $i \in I$ and
+$b_i \in N \mathcal{P} (U_i)$.
+Given $i,j \in I$, we write $i \leq j$ if exists a (in general not  planar) face map
+$\varphi \colon U_i \to U_j$
+such that $b_i = \varphi^{\**}(b_j)$.
+Note that by the uniqueness of standardizations $\varphi$ can only be an isomorphism if $i=j$, showing that $\leq$ indeed satisfies anti-symmetry.
+Lastly, we define the $G$-action on $I$ via
+\[b_{g i} = \mathsf{st} (g b_i).\]
+When reading this formula, note that
+$g b_i \in \mathcal{P}(U_i)$
+(since this uses the $G$-action
+on $\mathcal{P}$),
+while $b_{g i} \in \mathcal{P}(U_{g i})$,
+where $U_{g i}$ comes with the unique isomorphism
+$U_{g i} \xrightarrow{g^{-1}} U_i$ which standardizes $b g_i$.
+\end{proof}
 
 {\color{red} HERE}
-\end{proof}
+
+{\color{blue} Bla poset not finite but not important}
 
 
 
