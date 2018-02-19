@@ -3673,7 +3673,7 @@ Writing $B = G \cdot_H \Sigma_{\mathfrak{C}}[C^f_{\star}]$, one then has
 	\times
 		\prod_{v \in V^{in}(T)} B(T_v)
 	\right)
-	\cdot_{\mathsf{Aut}(T)} \mathsf{Aut}(C)
+	\cdot_{\mathsf{Aut}_{\Omega^a_{\mathfrak{C}}}(T)} \mathsf{Aut}_{\Sigma_{\mathfrak{C}}}(C)
 \end{equation}
 
 We now discuss the dendrices of $N \mathcal{P}$. Firstly, recall that, by the strict Segal condition characterization of nerves \cite[Cor. 2.7]{CM13a},
@@ -3879,9 +3879,144 @@ thus establishing (Ch0.1) and finishing the proof.
 	In fact, injectivity may in general fail even for large outer faces.
 \end{remark}
 
-{\color{red} HERE}
 
 {\color{blue} Bla poset not finite but still projective/injective, which is enough}
+
+
+\begin{remark}
+In addition to \eqref{PUSHOPPR EQ}, 
+one also has the alternative formula
+\begin{equation}\label{PUSHOPPRG EQ}
+	\mathcal{P}(C) = 
+	\coprod_{
+	[T] \in \mathsf{Iso}
+	\left( G \ltimes \Omega_{\mathfrak{C}}^a \downarrow_{\mathsf{r}} C \right)
+	}
+	\left(
+		\prod_{v \in V^{ac}(T)} \mathcal{O}(T_v)
+	\times
+		\prod_{v \in V^{in}(T)} B(T_v)
+	\right)
+	\cdot_{\mathsf{Aut}_{G \ltimes \Omega^a_{\mathfrak{C}}}(T)} \mathsf{Aut}_{G \ltimes \Sigma_{\mathfrak{C}}}(C)
+\end{equation}
+which replaces the roles of 
+$\Omega_{\mathfrak{C}}^a$, $\Sigma_{\mathfrak{C}}$
+with 
+$G \ltimes \Omega_{\mathfrak{C}}^a$,
+$G \ltimes \Sigma_{\mathfrak{C}}$.
+The connection between the two formulas is given by Lemma \ref{REDUCELAN LEM},
+though some care is needed.
+Namely, \eqref{PUSHOPPRG EQ} generally features fewer coproduct summands but this is compensated by the inductions
+$(-) \cdot_{\mathsf{Aut}_{G \ltimes \Omega^a_{\mathfrak{C}}}(T)} \mathsf{Aut}_{G \ltimes \Sigma_{\mathfrak{C}}}(C)$,
+which produce more terms than the 
+$(-) \cdot_{\mathsf{Aut}_{\Omega^a_{\mathfrak{C}}}(T)} \mathsf{Aut}_{\Sigma_{\mathfrak{C}}}(C)$
+inductions.
+\end{remark}
+
+
+
+\subsection{Tame time}
+
+\begin{definition}
+	The \textit{colored tensor product} 
+\[
+\begin{tikzcd}[row sep = 0, column sep = 40pt]
+	\mathsf{PreOp}^G \times \mathsf{sSet} \ar{r}{(-)\otimes_{\mathfrak{C}}(-)} &
+	\mathsf{PreOp}^G
+\end{tikzcd}
+\]
+is defined by $(X \otimes_{\mathfrak{C}} K)(T) = X(T) \times K$
+whenever $T$ is a non-linear tree (equivalently, 
+$\mathsf{Hom}_{\Omega}(T,\eta)=\emptyset$) and
+is defined by the following pushout when $T=[n]$ is linear.
+\[
+\begin{tikzcd}
+	X(\eta) \times K \ar{r} \ar{d} \arrow[dr, phantom, "\ulcorner", very near start]  &
+	X(\eta) \ar{d}
+\\
+	X([n]) \times K \ar{r} & 
+	(X \otimes_{\mathfrak{C}} K)([n]) 
+\end{tikzcd}
+\]
+\end{definition}
+
+\begin{remark}
+More concisely, $X \otimes_{\mathfrak{C}} K$ is defined by the pushout
+\[
+\begin{tikzcd}
+	\left(\mathsf{sk}_{\eta}X \right) \times K \ar{r} \ar{d} \arrow[dr, phantom, "\ulcorner", very near start]  &
+	\mathsf{sk}_{\eta}X \ar{d}
+\\
+	X \times K \ar{r} & 
+	X \otimes_{\mathfrak{C}} K 
+\end{tikzcd}
+\]
+\end{remark}
+
+
+\begin{remark}
+For fixed $K \in \mathsf{sSet}$, the functor
+$(-) \otimes_{\mathfrak{C}} K
+\colon \mathsf{PreOp}^G \to \mathsf{PreOp}^G$
+preserves all colimits (indeed, it is not hard to build the right adjoint explicitly).
+
+However, for a fixed $X \in \mathsf{PreOp}^G$,
+the functor 
+$X \otimes_{\mathfrak{C}} (-)
+\colon \mathsf{sSet} \to \mathsf{PreOp}^G$
+does not preserve all colimits.
+In particular, this functor can not preserve coproducts since, writing 
+$\mathcal{C} = X(\eta)$ for the $G$-set of objects of $X$,
+the image of $X \otimes_{\mathfrak{C}} (-)$ is entirely contained in the subcategory
+$\mathsf{PreOp}^{G,\mathfrak{C}} \subset
+\mathsf{PreOp}^G$
+of preoperads with $G$-set of objects $\mathfrak{C}$ and maps which are the identity on objects. 
+Instead, one has that the functor 
+\[
+X \otimes_{\mathfrak{C}} (-) \colon
+\mathsf{sSet} \to \mathsf{PreOp}^{G,\mathfrak{C}}
+\]
+does preserve colimits. 
+In practice, this means that some standard arguments concerning tensor products can only be applied after adjusting the objects of the relevant preoperads
+({\color{red} see later}).
+\end{remark}
+
+\begin{definition}
+	Let $f \colon \mathfrak{C} \to \mathfrak{D}$
+	be a map of $G$-sets (of colors).
+	We define adjoint functors
+\[
+	f_{!} \colon
+	\mathsf{PreOp}^{G,\mathfrak{C}}
+\rightleftarrows
+	\mathsf{PreOp}^{G,\mathfrak{D}}
+	\colon f^{\**}
+\]
+via the pushout and pullback squares
+(note that $\mathsf{sk}_{\eta} f_! A$ depends only on 
+$\mathfrak{C}$ while 
+$\mathsf{csk}_{\eta} f^{\**} X$ depends only on
+$\mathfrak{D}$)
+\[
+\begin{tikzcd}
+	\mathsf{sk}_{\eta} A \ar{r} \ar{d} \arrow[dr, phantom, "\ulcorner", very near start]  &
+	\mathsf{sk}_{\eta} f_! A \ar{d}
+&&
+	f^{\**} X \ar{r} \ar{d} &
+	X \ar{d}
+\\
+	A \ar{r} & 
+	f_! A
+&&
+	\mathsf{csk}_{\eta} f^{\**} X \ar{r} & 
+	\mathsf{csk}_{\eta} X
+	\arrow[ul, phantom, "\lrcorner", very near start]
+\end{tikzcd}
+\]
+\end{definition}
+
+
+
 
 
 
