@@ -3896,7 +3896,7 @@ Writing $B = G \cdot_H \Sigma_{\mathfrak{C}}[C^f_{\star}]$, one then has
 	\times
 		\prod_{v \in V^{in}(T)} B(T_v)
 	\right)
-	\cdot_{\mathsf{Aut}(T)} \mathsf{Aut}(C)
+	\cdot_{\mathsf{Aut}_{\Omega^a_{\mathfrak{C}}}(T)} \mathsf{Aut}_{\Sigma_{\mathfrak{C}}}(C)
 \end{equation}
 
 We now discuss the dendrices of $N \mathcal{P}$. Firstly, recall that, by the strict Segal condition characterization of nerves \cite[Cor. 2.7]{CM13a},
@@ -4102,10 +4102,200 @@ thus establishing (Ch0.1) and finishing the proof.
 	In fact, injectivity may in general fail even for large outer faces.
 \end{remark}
 
-{\color{red} HERE}
 
 {\color{blue} Bla poset not finite but still projective/injective, which is enough}
 
+
+\begin{remark}
+In addition to \eqref{PUSHOPPR EQ}, 
+one also has the alternative formula
+\begin{equation}\label{PUSHOPPRG EQ}
+	\mathcal{P}(C) = 
+	\coprod_{
+	[T] \in \mathsf{Iso}
+	\left( G \ltimes \Omega_{\mathfrak{C}}^a \downarrow_{\mathsf{r}} C \right)
+	}
+	\left(
+		\prod_{v \in V^{ac}(T)} \mathcal{O}(T_v)
+	\times
+		\prod_{v \in V^{in}(T)} B(T_v)
+	\right)
+	\cdot_{\mathsf{Aut}_{G \ltimes \Omega^a_{\mathfrak{C}}}(T)} \mathsf{Aut}_{G \ltimes \Sigma_{\mathfrak{C}}}(C)
+\end{equation}
+which replaces the roles of 
+$\Omega_{\mathfrak{C}}^a$, $\Sigma_{\mathfrak{C}}$
+with 
+$G \ltimes \Omega_{\mathfrak{C}}^a$,
+$G \ltimes \Sigma_{\mathfrak{C}}$.
+The connection between the two formulas is given by Lemma \ref{REDUCELAN LEM},
+though some care is needed.
+Namely, \eqref{PUSHOPPRG EQ} generally features fewer coproduct summands but this is compensated by the inductions
+$(-) \cdot_{\mathsf{Aut}_{G \ltimes \Omega^a_{\mathfrak{C}}}(T)} \mathsf{Aut}_{G \ltimes \Sigma_{\mathfrak{C}}}(C)$,
+which produce more terms than the 
+$(-) \cdot_{\mathsf{Aut}_{\Omega^a_{\mathfrak{C}}}(T)} \mathsf{Aut}_{\Sigma_{\mathfrak{C}}}(C)$
+inductions.
+\end{remark}
+
+
+
+\subsection{Tame time}
+
+\begin{definition}
+	The \textit{colored tensor product} 
+\[
+\begin{tikzcd}[row sep = 0, column sep = 40pt]
+	\mathsf{PreOp}^G \times \mathsf{sSet} \ar{r}{(-)\otimes_{\mathfrak{C}}(-)} &
+	\mathsf{PreOp}^G
+\end{tikzcd}
+\]
+is defined by $(X \otimes_{\mathfrak{C}} K)(T) = X(T) \times K$
+whenever $T$ is a non-linear tree (equivalently, 
+$\mathsf{Hom}_{\Omega}(T,\eta)=\emptyset$) and
+is defined by the following pushout when $T=[n]$ is linear.
+\[
+\begin{tikzcd}
+	X(\eta) \times K \ar{r} \ar{d} \arrow[dr, phantom, "\ulcorner", very near start]  &
+	X(\eta) \ar{d}
+\\
+	X([n]) \times K \ar{r} & 
+	(X \otimes_{\mathfrak{C}} K)([n]) 
+\end{tikzcd}
+\]
+\end{definition}
+
+\begin{remark}
+More concisely, $X \otimes_{\mathfrak{C}} K$ is defined by the pushout
+\[
+\begin{tikzcd}
+	\left(\mathsf{sk}_{\eta}X \right) \times K \ar{r} \ar{d} \arrow[dr, phantom, "\ulcorner", very near start]  &
+	\mathsf{sk}_{\eta}X \ar{d}
+\\
+	X \times K \ar{r} & 
+	X \otimes_{\mathfrak{C}} K 
+\end{tikzcd}
+\]
+\end{remark}
+
+
+\begin{remark}
+For fixed $K \in \mathsf{sSet}$, the functor
+$(-) \otimes_{\mathfrak{C}} K
+\colon \mathsf{PreOp}^G \to \mathsf{PreOp}^G$
+preserves all colimits (indeed, it is not hard to build the right adjoint explicitly).
+
+However, for a fixed $X \in \mathsf{PreOp}^G$,
+the functor 
+$X \otimes_{\mathfrak{C}} (-)
+\colon \mathsf{sSet} \to \mathsf{PreOp}^G$
+does not preserve all colimits.
+In particular, this functor can not preserve coproducts since, writing 
+$\mathcal{C} = X(\eta)$ for the $G$-set of objects of $X$,
+the image of $X \otimes_{\mathfrak{C}} (-)$ is entirely contained in the subcategory
+$\mathsf{PreOp}^{G,\mathfrak{C}} \subset
+\mathsf{PreOp}^G$
+of preoperads with $G$-set of objects $\mathfrak{C}$ and maps which are the identity on objects. 
+Instead, one has that the functor 
+\[
+X \otimes_{\mathfrak{C}} (-) \colon
+\mathsf{sSet} \to \mathsf{PreOp}^{G,\mathfrak{C}}
+\]
+does preserve colimits. 
+In practice, this means that some standard arguments concerning tensor products can only be applied after adjusting the objects of the relevant preoperads
+({\color{red} see later}).
+\end{remark}
+
+\begin{definition}
+	Let $f \colon \mathfrak{C} \to \mathfrak{D}$
+	be a map of $G$-sets (of colors).
+	We define adjoint functors
+\[
+	f_{!} \colon
+	\mathsf{PreOp}^{G,\mathfrak{C}}
+\rightleftarrows
+	\mathsf{PreOp}^{G,\mathfrak{D}}
+	\colon f^{\**}
+\]
+via the pushout and pullback squares
+(note that $\mathsf{sk}_{\eta} f_! A$ depends only on 
+$\mathfrak{C}$ while 
+$\mathsf{csk}_{\eta} f^{\**} X$ depends only on
+$\mathfrak{D}$)
+\[
+\begin{tikzcd}
+	\mathsf{sk}_{\eta} A \ar{r} \ar{d} \arrow[dr, phantom, "\ulcorner", very near start]  &
+	\mathsf{sk}_{\eta} f_! A \ar{d}
+&&
+	f^{\**} X \ar{r} \ar{d} &
+	X \ar{d}
+\\
+	A \ar{r} & 
+	f_! A
+&&
+	\mathsf{csk}_{\eta} f^{\**} X \ar{r} & 
+	\mathsf{csk}_{\eta} X
+	\arrow[ul, phantom, "\lrcorner", very near start]
+\end{tikzcd}
+\]
+\end{definition}
+
+
+\begin{definition}
+	A $G$-preoperad $X \in \mathsf{PreOp}^G$ is called a \textit{$G$-Segal operad} if, 
+	for each $G$-tree $T$,
+	the natural map 
+	$X\left( \Omega[T] \right) \to 
+	X \left( Sc[T] \right)$
+	is a Kan equivalence.
+\end{definition}
+
+
+
+\begin{theorem}
+	There is a model structure on 
+	$\mathsf{PreOp}^G$,
+	called the \textbf{tame model structure},
+	such that:
+\begin{itemize}
+	\item the weak equivalences are the complete equivalences (i.e. detected by inclusion into 
+	$\mathsf{sdSet}^G$);
+	\item generating cofibrations are given by the maps
+	\begin{itemize}
+		\item[(TC1)] $G/H \cdot \left(\emptyset \to\Omega[\eta]\right)$ for $H\leq G$;
+		\item[(TC2)] $\Omega[C] \otimes_{\mathfrak{C}} \left(\partial \Delta[n] \to \Delta[n]\right)$ for $C \in \Sigma_G$, $n \geq 0$;
+		\item[(TC3)] 
+$\left( Sc[T] \to \Omega[T] \right) 
+\square_{\mathfrak{C}} 
+\left(\partial \Delta[n] \to \Delta[n]\right)$ for $T \in \Omega_G$, $n \geq 0$.
+	\end{itemize}
+\end{itemize}
+Furthermore, one has generating anodyne cofibrations the maps
+\begin{itemize}
+	\item[(TA1)] $G/H \cdot 
+	\left(\Omega[\eta] \to I \right)$ for $H \leq G$,
+	and $\Omega[\eta] \to I$ a weak equivalence in $\mathsf{PreOp}$ such that $I(\eta) = \{0,1\}$ and $\Omega[\eta] \amalg \Omega[\eta] \to I$ is a tame cofibration;
+	\item[(TA2)] $\Omega[C] \otimes_{\mathfrak{C}}\left(\Lambda^i[n] \to \Delta[n]\right)$ for $C \in \Sigma_G$, $0 \leq i \leq n$;
+	\item[(TA3)] 
+$\left( Sc[T] \to \Omega[T] \right) 
+\square_{\mathfrak{C}} 
+\left(\partial \Delta[n] \to \Delta[n]\right)$ for $T \in \Omega_G$, $n \geq 0$.
+	\end{itemize}
+\end{theorem}
+
+{\color{red} HERE}
+
+\begin{proof}
+	The existence of the model structure will follow by applying J. Smith's theorem \cite[Thm. 1.7]{Bek00}. Conditions c0 and c2 therein are inherited from $\mathsf{sdSet}^G$
+	and the technical ``solution set condition'' c3 follows from
+	\cite[Prop. 1.15]{Bek00} since weak equivalences are accessible, being the preimage by $\gamma^{\**}$ if the weak equivalences in 
+	$\mathsf{sdSet}^G$ 
+	(see \cite[Cor. A.2.6.5]{Lur09} and \cite[Cor. A.2.6.6]{Lur09}).
+	
+	For c1, we must show that any map $X \to Y$ with the right lifting property against (TC1), (TC2), (TC3) is a weak equivalence.
+	Writing $f \colon \mathfrak{C} \to \mathfrak{D}$ for the underlying map of colors,
+	consider the factorization $X \to f^{\**}Y \to Y$.
+	
+{\color{red} HERE}	
+\end{proof}
 
 
 \bibliography{biblio}{}
