@@ -2358,6 +2358,7 @@ The following two lemmas follow directly from the proofs of their non-equivarian
 
 \begin{lemma}
       [{cf. \cite[4.13]{Cav14}, \cite[2.11]{BM13}}]
+      \label{VIR_HTPY_LEM}
       Virtually $H$-equivalent colors are homotopy $H$-equivalent. 
 \end{lemma}
 % \begin{proof}
@@ -2965,11 +2966,130 @@ The following two theorems have the same proof.
 \end{proof}
 
 
-Next goal:
-\begin{theorem}
-      Weak equivalences are Dwyer-Kan equivalences.
-\end{theorem}
 
+
+
+
+
+
+% ------------------------------- DWYER-KAN DESCRIPTION -----------------------------
+
+Next goal: Dwyer-Kan equivalences.
+
+\begin{definition}
+      $F: \O \to \P$ in $\Op^G(\V)$ is a \textit{Dwyer-Kan} (or \textit{DK}) \textit{$\F$-equivalence} if
+      $F$ is a local weak $\F$-equivalence and
+      $\pi_0F^H$ is an equivalence of operads for all $H \leq G$, ie.
+      $\pi_0F^H$ is a local bijection and $j^{\**}\pi_0 F^H$ is essentially surjective.
+\end{definition}
+
+\begin{lemma}
+      If the trivial subgroups $H \leq G \times \Sigma_n$ are $\F$-admissible for all $H$ and $n$
+      (equivalently, if $\F$ is a true indexing system) then
+      local weak $\F$-equivalences are local $\pi_0$-bijections.
+\end{lemma}
+\begin{proof}
+      $\O(\ksi) \to \P(F(\ksi)$ an $\F_\ksi$-equivalences implies that
+      $\O^H(\ksi) \to \P^H(F(\ksi))$ is a weak equivalence in $\V$,
+      and hence the $\O^H(\ksi)$ and $\P^H(F(\ksi))$ are isomorphic in $\Ho(\V)$,
+      implying the result.      
+\end{proof}
+
+\begin{lemma}
+      Weak $\F$-equivalences in the sense of Theorem \ref{MODEL_THM} are DK-$\F$-equivalences.
+\end{lemma}
+\begin{proof}
+      By the above lemma, local weak $\F$-equivalences are local $\pi_0$-bijections,
+      and by Lemma \ref{VIR_HTPY_LEM}, essential surjectivity implies $\pi_0$-essential surjectivity. 
+\end{proof}
+
+For the reverse direction (cf. \cite[\S 2]{BM13}):
+\begin{definition}
+      Recall the category $\mathbb A \in \Cat^{\set{0,1}}(\V)$ which detects arrows.
+      A cofibration $\mathbb A \to \J$ in $\Cat^{\set{0,1}}(\V)$ into a $\V$-interval is \textit{natural} if
+      it fits into a commuting diagram
+      \begin{equation}
+            \begin{tikzcd}
+                  \mathbb A \arrow[d, tail] \arrow[r]
+                  &
+                  \I \arrow[d, "\sim"]
+                  \\
+                  \J \arrow[r, "\sim"']
+                  &
+                  \I_f.
+            \end{tikzcd}
+      \end{equation}
+
+      A homotopy equivalence between two objects in a $\V$-category $\mathcal C$ is called \textit{coherent} if
+      the detecting map $\alpha: \mathbb A \to \mathcal C_f$ factors along a natural cofibration
+      \begin{equation}
+            \begin{tikzcd}
+                  \mathbb A \arrow[r, "\alpha"] \arrow[d, tail, dashed]
+                  &
+                  \mathcal C_f
+                  \\
+                  \J \arrow[ur, dashed]
+            \end{tikzcd}
+      \end{equation}
+      The $\V$-category $\mathcal C$ satisfies the \textit{coherence axiom} if all homotopy equivalences are coherent.
+\end{definition}
+
+\begin{proposition}
+      If $\V$ is right proper with cofibrant unit satisfying the coherence axiom, then
+      DK-$\F$-equivalences are weak $\F$-equivalences in $\Op^G(\V)$.
+\end{proposition}
+\begin{proof}
+      It suffices to show that any homotopy $H$-equivalence between objects in $\P$ is in fact an $H$-equivalence.
+      The coherence axiom implies that all homotopy $H$-equivalences are virtual $H$-equivalences, and then
+      right properness and Lemma \ref{RIGHTPROPER_LEM} imply these are actual $H$-equivalences.
+\end{proof}
+
+
+
+
+% -------------------- Satisfying the coherence axiom - nothing new --------------------
+
+\begin{proposition}
+      [{\cite[Prop 2.24]{BM13}}]
+      If $\V$ satisfies transfer for operads and
+      is right proper with cofibrant unit,
+      then $\V$ satisfies the coherence axiom.
+\end{proposition}
+\begin{proof}
+      This is proved in \textit{loc cite} using the $W$-construction $W(H,\I) \simeq W_!J$.
+      \todo[inline]{very unsatisfying.}
+\end{proof}
+
+This has been known for a while for $\sSet$ (implied by Dwyer-Kan, Begner).
+
+\begin{proposition}
+      [{cf. \cite[\S 1]{Joy02}}]
+      $(\sSet, \times)$       % or $(\sSet_{\**}, \wedge)$ then
+      satisfies the coherence axiom.
+\end{proposition}
+\begin{proof}
+      Let $\mathcal C_f \in \Cat(\sSet)$ be locally fibrant, and
+      suppose $\alpha: \mathbb A \to \mathcal C_f$ realizes a homotopy equivalence.
+      Then $h c N \alpha: \Delta[1] \to h c N \mathcal C$ realizes a quasi-isomorphism (as $\Ho(h c N (-)) \simeq \pi_0(-)$).
+      Since $W_!N \I$ is a $\V$-interval,
+      it suffices to show that $\Delta[1] \to N \I$ is a trivial cofibration.
+      This is obvious a weak equivalence as both are contractible,
+      and (by e.g. \cite[Lemma 0.15]{Rie}) is cellular on outer horn inclusions.
+\end{proof}
+
+\begin{remark}
+      There are other known examples.
+      In particular,   
+      if $\V$ satisfies the Lurie's \textit{Invertibility Hypothesis} \cite[A.3.2.12]{Lur09},
+      then $\V$ satisfies the coherence axiom.
+
+      Moreover, \cite{Law16} shows that it suffices to show
+      \begin{enumerate*}
+      \item $\V$ is cofibrantly generated and locally presentable
+      \item every object in $\V$ is cofibrant, and
+      \item weak equivalences are closed under filtered colimits.
+      \end{enumerate*}
+\end{remark}
 
 
 
