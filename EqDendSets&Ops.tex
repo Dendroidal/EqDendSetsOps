@@ -3160,7 +3160,7 @@ we write $D_{J\text{-fib}} \subseteq D$ to denote
 the subclass of maps whose target is $J$-fibrant.
 \end{definition}
 
-\begin{lemma}
+\begin{lemma}\label{SEMICOF LEM}
 	Let $\mathcal{M}$ be a model category with $(C,W,F)$
 	the corresponding classes of cofibrations, weak equivalences and fibrations. 
 	Further, $J$ be a set of maps admitting the small object argument and such that:
@@ -4204,6 +4204,28 @@ In practice, this means that some standard arguments concerning tensor products 
 ({\color{red} see later}).
 \end{remark}
 
+
+\begin{remark}\label{COLORTENSGAM REM}
+Let $X \to Y$ be any map in $\mathsf{PreOp}^G$
+which is the identity on colors and 
+$K \in \mathsf{sSet}$. Then the squares below are pushout squares.
+Moreover, whenever $K$ is connected the rightmost horizontal maps are isomorphisms.
+\[
+\begin{tikzcd}
+	X \times K \ar{r} \ar{d} 
+	\arrow[dr, phantom, "\ulcorner", very near start] &
+	\gamma_! \left( X \times K \right) \ar{r} \ar{d} 
+	\arrow[dr, phantom, "\ulcorner", very near start] &
+	X \otimes_{\mathfrak{C}} K \ar{d}
+\\
+	Y \times K \ar{r} &
+	\gamma_! \left( Y \times K \right) \ar{r} &
+	Y \otimes_{\mathfrak{C}} K
+\end{tikzcd}
+\]
+\end{remark}
+
+
 \begin{definition}
 	Let $f \colon \mathfrak{C} \to \mathfrak{D}$
 	be a map of $G$-sets (of colors).
@@ -4281,7 +4303,6 @@ $\left( Sc[T] \to \Omega[T] \right)
 	\end{itemize}
 \end{theorem}
 
-{\color{red} HERE}
 
 \begin{proof}
 	The existence of the model structure will follow by applying J. Smith's theorem \cite[Thm. 1.7]{Bek00}. Conditions c0 and c2 therein are inherited from $\mathsf{sdSet}^G$
@@ -4293,8 +4314,74 @@ $\left( Sc[T] \to \Omega[T] \right)
 	For c1, we must show that any map $X \to Y$ with the right lifting property against (TC1), (TC2), (TC3) is a weak equivalence.
 	Writing $f \colon \mathfrak{C} \to \mathfrak{D}$ for the underlying map of colors,
 	consider the factorization $X \to f^{\**}Y \to Y$.
+	Note that since maps out of (TC1) depend only on objects and both of (TC2) and (TC3) consist of maps which are identities on objects,
+	$X \to Y$ will have the right lifting property against (TC1) iff 
+	$f^{\**} X \to Y$ does
+	and the right lifting property against 
+	(TC2) and (TC3) iff $X \to f^{\**}Y$ does.
 	
+Note now that $f^{\**} Y \to Y$ has the right lifting proper against all maps 
+	$\left(\partial \Omega[T] \to \Omega[T] \right) \times \Delta[n]$.
+	Indeed, if $T \simeq G/H \cdot \eta$ is a stick, this is precisely the lifting condition agains (TC1), and otherwise it follows automatically since $\left(\partial \Omega[T] \to \Omega[T] \right) \times \Delta[n]$ is the identity on objects.
+	Therefore, the levels 
+	$\left(f^{\**} Y \right)_n \to Y_n$ are trivial fibrations in 
+	$\mathsf{dSet}^G$, showing that 
+	$f^{\**} Y \to Y$ is a dendroidal equivalence, 
+	and thus a complete equivalence. 
+	
+	Since the maps in both of (TC2) and (TC3) are the identify on objects, $X \to Y$ has the right lifting property against these maps iff $X \to f^{\**}Y$ does.
+The lifting property against (TC2) then says that the maps
+$X(\Omega[C]) \to f^{\**} Y (\Omega[C])$
+are trivial Kan fibrations for all $G$-corollas $C \in \Sigma_G$,
+and thus so are the maps
+$X(Sc[T]) \to f^{\**} Y (Sc[T])$ for all $G$-trees $T \in \Omega_G$.
+But it then follows from the lifting property against
+(TC3) that the maps 
+$X(\Omega[T]) \to f^{\**} Y (\Omega[T])$
+are trivial Kan fibrations for all $G$-trees,
+showing that $X \to f^{\**} Y$ is a simplicial equivalence, and thus a complete equivalence. 
+\[
+\begin{tikzcd}
+	X(\Omega[T]) \ar{r} \ar[->>]{d}{\sim} &
+	X(Sc[T]) \ar{r} \ar[->>]{d}{\sim} &
+	\prod_{v \in \boldsymbol{V}_G(T)} X(\Omega[T_v])
+	\ar[->>]{d}{\sim}
+\\
+	f^{\**} Y(\Omega[T]) \ar{r} &
+	f^{\**} Y(Sc[T]) \ar{r} \ar{d} &
+	\prod_{v \in \boldsymbol{V}_G(T)} f^{\**} Y
+	(\Omega[T_v]) \ar{d}
+	\arrow[ul, phantom, "\lrcorner", very near start]
+\\
+	&
+	\prod_{(G/H_i \cdot e_i) \in \boldsymbol{E}_G(T)} 
+	\mathfrak{C}^{H_i} \ar{r}  &
+	\prod_{v \in \boldsymbol{V}_G(T)}
+	\prod_{(G/H_i \cdot e_i) \in \boldsymbol{E}_G(T_v)} 
+	\mathfrak{C}^{H_i} 
+	\arrow[ul, phantom, "\lrcorner", very near start]
+\end{tikzcd}
+\]
+This completes the proof of c1, establishing the existence of the tame model structure.
+
+We now turn to the ``further'' claim considering the claimed generating anodyne cofibrations, i.e., 
+we wish to show that the maps in 
+(TA1), (TA2), (TA3) satisfy the conditions in
+Lemma \ref{SEMICOF LEM}.
+We first check condition (i).
+The case of maps in (TC1) is tautological.
+Since $\Lambda^{i}[n]$ is connected, 
+the maps in (TA2) have the form
+$\gamma_{!} 
+\left( \Omega[C] \times
+\left( \Lambda^i[n] \to \Delta[n] \right) \right)$,
+and are thus weak equivalences thanks to the pushouts
+in Remark \ref{COLORTENSGAM REM}.
+
+
 {\color{red} HERE}	
+
+
 \end{proof}
 
 
