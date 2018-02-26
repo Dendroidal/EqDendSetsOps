@@ -2065,29 +2065,77 @@ where $\1$ defined as in Definition \ref{PL_ES_DEFN}, and $\mathbb{G}$ is a gene
       and hence by \cite[4.17]{Cav14}, we are done.
 \end{proof}
 
+\begin{lemma}
+      \label{COF_TC_LEM}
+      Suppose $\V$ admits semi-transfer for operads.
+      Then levelwise (trival) cofibrations are closed under transfinite composition.
+\end{lemma}
+\begin{proof}
+      Explicitly, suppose we have a chain of maps
+      \begin{equation}
+            \O_0 \xrightarrow{f_0} \O_1 \xrightarrow{f_1} \dots \xrightarrow{f_\alpha} \O_{\alpha+1} \xrightarrow{f_{\alpha+1}} \dots
+      \end{equation}
+      in $\Op^G(\V)$, and let $F_\alpha$ denote the compoite $\O_0 \to \O_\alpha$.
+      Then we claim that
+      if the map on the left below
+      is a (trivial) $\F$-cofibrations in $\V^{\Stab(\theta)}_{\F_\theta}$
+      for all $\mathfrak C(\O_\alpha)$-signatures $\theta$, then
+      the map on the right below
+      is a (trivial) $\F$-cofibration in $\V^{\Stab(\ksi)}_{\F_\theta}$
+      for all $\mathfrak C(\O)$-signatures $\ksi$.
+      \begin{equation}
+            \O_\alpha(\theta) \to \O_{\alpha+1}(F_\alpha(\theta))
+            \qquad  \qquad
+            \O(\ksi) \to \O_\alpha(F_\alpha(\ksi))
+      \end{equation}
+      % 
+      Indeed, suppose $\theta = f_{\alpha-1}(\ksi)$.
+      Since $\Stab(\ksi) \leq \Stab(\theta)$, and as $\F_n$ is a family of subgroups of $G \times \Sigma_n$,
+      we have that, for any $r \in \Gamma \backslash \Stab(\theta) / \Stab(\ksi)$,
+      $r \Gamma r^{-1} \cap \Stab(\ksi) \in \F_\ksi$.
+      Thus, 
+      if $f_\alpha(\theta): \O_\alpha(\theta) \to \O_{\alpha+1}(f_{\alpha}(\theta))$ is constructed out of $\F_\theta$-admissible cells,
+      % $\Stab(\theta)/\Gamma \dot i$ for $\Gamma \in \F_\n \cap \Stab(\theta)$ and $i$ a generating (trivial) cofibration in $\V$,
+      then when restricted to a map in $\V^{\Stab(\ksi)}$, it is built out of $\F_\ksi$-admissible cells.
+      That is, if $f_\alpha(\theta)$ is a (trivial) $\F_\theta$-cofibration, it is a (trivial) $\F_\ksi$-cofibration as well.
+      %
+      Thus, we have a string of (trivial) $\F_\ksi$-cofibrations in $\V^{\Stab(\ksi)}_{\F_\ksi}$
+      \begin{equation}
+            \O_0(\ksi) \rightarrowtail \O_1(F_1(\ksi)) \rightarrowtail \O_2(F_2(\ksi)) \rightarrowtail \dots
+            \rightarrowtail \O_\alpha(F_\alpha(\ksi)) \rightarrowtail \dots
+      \end{equation}
+      As (trivial) cofibrations in $\V^{\Stab(\ksi)}_{\F_\ksi}$ are closed under transfinite composition, the result is proven.
+\end{proof}
+
+\begin{lemma}
+      \label{LEVEL_COF_LEM}
+      If $f: \O \to \P$ in $\Op^{G, \mathfrak C}(\V)$ is a (trivial) $\F$-cofibration, it is a levelwise (trivial) $\F$-cofibration.
+\end{lemma}
+\begin{proof}
+      This follows from the proof of Theorem \ref{THM1_C}, as \cite[Remark 6.64]{BP17} follows from \cite[Lemma 6.59]{BP17}.
+      \todo[inline]{come back: make sure this is clearly highlighted when reworking single-color section}
+\end{proof}
+
 \begin{proposition}
       [{c.f. \cite[4.20]{Cav14}}]
       \label{J-CELL_LEMMA}
-      Suppose the unit $1_\V \in \V$ is cofibrant,
-      and weak $\F$-equivalences are closed under transfinite compositions.
+      Suppose the unit $1_\V \in \V$ is cofibrant.
+      % and weak $\F$-equivalences are closed under transfinite compositions.
       If $\V$ admits (semi)-transfer for operads, then relative $J_{\F}$-cells (with cofibrant source) are weak equivalences.
 \end{proposition}
 \begin{proof}
-      \todo[inline]{come back: can we remove the assumption that weak equivalences are closed?
-        In particular, can we make this about composing trivial cofibrations?}
       \todo[inline]{come back: fix notation}
-      We first assume $\V$ admits transfer for operads.
-      
-      Since local trivi $\F$-equivalences are closed under transfinite composition by assumption, and
-      As essentially surjective maps are closed under transfinite composition by Lemma \ref{TRANSCOMP_ES_LEM},
-      it suffices to prove that the pushout of a map $j \in J_{\F}$ is a weak $\F$-equivalence.
-      \todo{weak $\F$-\textbf{cofibration}}
+      We begin with the case that $\V$ admits transfer for operads.
+           
+      Now, as essentially surjective maps are closed under transfinite composition by Lemma \ref{TRANSCOMP_ES_LEM},
+      by Lemma \ref{COF_TC_LEM}, it suffices to prove that the pushout of a map $j \in J_{\F}$ is a levelwise $\F$-cofibration.
 
       Firstly, if $j = \mathbb F_\Gamma[\Gamma/\Gamma \cdot i] \in J_{\F, loc}$, 
       we are considering the pushout of a trivial cofibration in $\mathsf{Op}^{G,\mathfrak C(\Q)}(\V)$ (cf. \eqref{COLOR_SQ_EQ}).
-      By the existance of the transferred model structure, this is again a trivial cofibration,
-      and moreover is a local weak $\F$-equivalence which is the identity on colors,
-      and hence a trivial $\F$-cofibration.
+      By the existance of the transferred model structure, this is again a trivial cofibration.
+      Moreover, it is a local weak $\F$-equivalence which is the identity on colors,
+      hence a trivial $\F$-cofibration,
+      and hence a level trivial $\F$-cofibration by Lemma \ref{LEVEL_COF_LEM}. 
       
       Secondly, supppose $j$ is of the form $G/H \cdot (\1 \to \J)$ for $\J$ a $\V$-interval.
       As in \cite{Cav14}, we can split this pushout into a composition of two pushouts
@@ -2109,14 +2157,14 @@ where $\1$ defined as in Definition \ref{PL_ES_DEFN}, and $\mathbb{G}$ is a gene
             \end{tikzcd}
       \end{equation}
       where $\J_{\set{0,0}}$ is the full subcategory of $\J$ spanned by the object $0$.
-      It suffices to show both $\psi'$ and $\phi'$ are local weak $\F$-equivalences which are essentially surjective on fixed points. 
+      It suffices to show both $\psi'$ and $\phi'$ are local trivial $\F$-cofibrations which are essentially surjective on fixed points. 
 
       We first consider the bottom pushout.
       We know that $\psi$ is injective on colors and a local isomorphism in $\Op(\V)$,
       and hence so is $G/H \cdot \psi$ in $\Op^G(\V)$.
       Since colimits are created non-equivariantly, and equivariant isomorphisms are detected by invertible equivariant maps,
       \cite[Prop B.22]{Cav14} implies that $\psi'$ is also a local isomorphism in $\Op^G(\V)$,
-      so in particular a local weak $\F$-equivalence.
+      so in particular a local trivial $\F$-cofibration.
 
       Moreover, we observe that $\C(Y) = \C(X') \amalg (G/H \times \set{1})$.
       Thus, if $x \in \C(Y)^K$ for $K \leq G$ is in $\C(X')$, we have essential surjectivity trivially,
@@ -2167,12 +2215,13 @@ where $\1$ defined as in Definition \ref{PL_ES_DEFN}, and $\mathbb{G}$ is a gene
       Thus $G/H \cdot \phi$ (resp. $a_! (G/H \cdot \phi)$) is a trivial cofibration in $\Op^{G, \**}(\V)$
       (resp. $\Op^{G, \mathfrak C(X)}(\V)$, by Corollary \ref{COLOR_CHANGE_Q_COR}),
       and hence $\phi'$ is a trivial cofibration in $\mathsf{Op}^{G,\C(X)}(\V)$,
-      and thus is a local weak $\F$-equivalence in $\Op^G(\V)$.
+      and thus is a local trivial $\F$-cofibration in $\Op^G(\V)$.
 
       Hence both $\phi'$ and $\psi'$ are weak $\F$-equivalences in $\mathsf{Op}^G(\V)$, so the result is proved.
 
-      If $\V$ only admits semi-transfer, then the assumption that $\O$ is cofibrant is sufficient to run an identical argument
+      If $\V$ only admits semi-transfer, then the extra assumption that $\O$ is cofibrant is sufficient to run an identical argument
       (as the utilized pushouts remain weak equivalences in the underlying semi-model structure).
+      \todo[inline]{come back: make sure $\F$'s appear where they should in the above}
 \end{proof}
 
 
@@ -3226,8 +3275,8 @@ The following two theorems have the same proof.
             \footnote{Needed so we have a \textit{set} of generating trivial cofibrations},
       % \item \label{FBF_LBL} has a fibrant replacement functor which commutes with taking fixed points
       %       \footnote{Needed for Lemmas \ref{CAV_4.14_PROP1}, \ref{CAV_4.14_PROP2}.}, and
-      \item \label{TCWE_LBL} has that the class of genuine weak equivalences in $\mathsf{Op}^G(\V)$ is closed under transfinite compositions
-            \footnote{Needed for \ref{J-CELL_LEMMA}}.
+      % \item \label{TCWE_LBL} has that the class of genuine weak equivalences in $\mathsf{Op}^G(\V)$ is closed under transfinite compositions
+      %       \footnote{Needed for \ref{J-CELL_LEMMA}}.
       \end{enumerate}
       Then there exists a cofibrantly generated semi-model structure $\Op^G_\F(\V)$ on $\mathsf{Op}^G(\V)$ with
       $\F$-fibrations, weak $\F$-equivalences, generating $\F$-cofibrations, and generating trivial $\F$-cofibrations
@@ -3241,16 +3290,13 @@ The following two theorems have the same proof.
       
       After this difference, the proofs are identical, as
       \ref{RP_LBL} $\sSet$ is right proper
-      by Lemma \ref{INTER_LEM} and e.g. \cite[Prop 2.1.5]{Cis06} or \cite[Lemma 1.12]{BM13},
+      by Lemma \ref{INTER_LEM} and e.g. \cite[Prop 2.1.5]{Cis06} or \cite[Lemma 1.12]{BM13}, and
       \ref{GENSET_LBL} $\sSet$ has a generating set of intervals
-      by e.g. \cite[Lemma 1.12]{BM13},
-      % \ref{FBF_LBL} $\sSet$ has a fibrant replacement functor which commutes with fixed points
-      % since $Ex^{\infty}$ commutes with finite limits, and
-      \ref{TCWE_LBL} the class of genuine weak equivalences in $\mathsf{Op}^G(\sSet)$ is closed under transfinite compositions
-      by an argument analogous to \cite[Lemma 1.24]{CM13b}.
-
-      Now, we note that condition \ref{TCWE_LBL} proves the analogous statement for any $\F$,
-      since the transfinite composite of local $\F$-equivalences is a local $\F$-equivalence.
+      by e.g. \cite[Lemma 1.12]{BM13}.
+      % \ref{TCWE_LBL} the class of genuine weak equivalences in $\mathsf{Op}^G(\sSet)$ is closed under transfinite compositions
+      % by an argument analogous to \cite[Lemma 1.24]{CM13b}.
+      % Now, we note that condition \ref{TCWE_LBL} proves the analogous statement for any $\F$,
+      % since the transfinite composite of local $\F$-equivalences is a local $\F$-equivalence.
       Since $\mathsf{Op}^G(\V)$ is complete and cocomplete, it thus suffices to prove (following \cite{Hov98} Theorem 2.1.19) that:
       \begin{enumerate}[label = (\arabic*)]
       \item the class of weak $\F$-equivalences has the 2-out-of-3 property and is closed under retracts;
@@ -3274,7 +3320,6 @@ The following two theorems have the same proof.
       cellularity in \cite{Pia91},
       cofibrant symmetric pushout powers in {\color{red} SOURCE},
       right proper and generating set of intervals follows from all objects being fibrant (and \cite[Lemma 2.1]{BM13} for the latter).
-      \todo[inline]{come back: can we remove the last constraint \ref{TCWE_LBL} in theorem.}
 \end{example}
 
 
