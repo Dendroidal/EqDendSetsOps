@@ -4267,7 +4267,7 @@ which are encoded by the $\mathbb{Z}_{/2}$-actions on the underlying corollas de
 
 The following is the analogue of \cite[Prop. 3.2]{CM13b}
 
-\begin{proposition}
+\begin{proposition}\label{KEYPR PROP}
 Suppose that $\mathcal{O} \in \mathsf{Op}^{G,\mathfrak{C}}$
 is $\Sigma$-cofibrant.
 Further, let $C \in \Sigma_G$ be any $G$-corolla and consider 
@@ -4928,6 +4928,122 @@ and $G$ preserves fibrations between fibrant objects.
 \end{corollary}
 
 
+\begin{lemma}
+	Let $A \to B$ be a tame cofibration in $\mathsf{PreOp}^G$, 
+	$\mathcal{O} \in \mathsf{sOp}^G$ a $\Sigma$-cofibrant 
+	$G$-operad,
+	and consider a pushout diagram in $\mathsf{sOp}^G$ of the form
+\[
+\begin{tikzcd}
+	\tau A \ar{r} \ar{d} & \mathcal{O} \ar{d}
+\\
+	\tau B \ar{r} & \mathcal{P}
+\end{tikzcd}
+\]
+	Then $\mathcal{O} \to \mathcal{P}$ is a $\Sigma$-cofibration and 
+\begin{equation}\label{UNITEQUIV EQ}
+B \amalg_{A} N \mathcal{O}
+	\to 
+N \mathcal{P}
+\end{equation}
+is a weak equivalence.
+\end{lemma}
+
+\begin{proof}
+	We first consider the case where $A\to B$ is in one of (TC1),(TC2),(TC3). 
+	
+	The (TC1) case is immediate, 
+	since $\mathcal{O} \to \mathcal{O} \amalg G/H \cdot \Omega(\eta)$ is a $\Sigma$-cofibration and
+	\eqref{UNITEQUIV EQ}
+	is the isomorphism
+	$N\mathcal{O} \amalg G/H\cdot \Omega[\eta] \simeq 
+	N\left( \mathcal{O} \amalg G/H \cdot \Omega(\eta) \right)$.
+
+	The (TC3) case is also straightforward:
+	since $\tau A \to \tau B$ is an isomorphism, one can take 
+	$\mathcal{O}=\mathcal{P}$, so that 
+	\eqref{UNITEQUIV EQ} becomes a section of the map
+	$N \mathcal{O} \to B \amalg_{A} N \mathcal{O}$, which is a trivial cofibration (it is a pushout of $A \to B$),
+	and 2-out-of-3 hence implies that \eqref{UNITEQUIV EQ} is a weak equivalence.
+
+	The most interesting case is then (TC2), 
+	in which case it is well known that 
+	$\mathcal{O} \to \mathcal{P}$ is a $\Sigma$-cofibration and
+	each of the levels
+$(B \amalg_{A} N \mathcal{O})_n
+	\to 
+(N \mathcal{P})_n$
+for $n \geq 0$
+is an equivalence in $\mathsf{dSet}^G$ by (an iteration of)
+Proposition \ref{KEYPR PROP}, 
+showing that \eqref{UNITEQUIV EQ} is in fact a dendroidal equivalence, and thus also a complete equivalence.
+
+	We now turn to the case of $A \to B$ a general cofibration between cofibrant objects.
+	As usual, $A \to B$ is a retract of a transfinite composition of pushouts of generating cofibrations.
+	Since the conclusions of the result are invariant under retracts,
+	we are free to assume that $A \to B$ is a transfinite composite
+\[
+A = A_0 \to A_1 \to A_2 \to \cdots \to A_{\beta} \to 
+colim_{\beta < \kappa} A_{\beta} = B.
+\]
+where each map $A_{\beta} \to A_{\beta +1}$ is a pushout of a map in one of (TC1),(TC2),(TC3).
+
+Defining $\mathcal{O}_{\beta}$ by replacing $A \to B$ with $A \to A_{\beta}$ in the pushout,
+$\mathcal{O} \to \mathcal{P}$ becomes the transfinite composite of the maps $\mathcal{O}_{\beta} \to \mathcal{O}_{\beta + 1}$
+and \eqref{UNITEQUIV EQ} becomes
+$
+colim_{\beta < \kappa} \left( 
+N \mathcal{O} \amalg_{N \tau A} N \tau A_{\beta}
+	\to 
+N \mathcal{O}_{\beta}
+\right)
+$.
+It thus suffices to show, by induction on $\beta < \kappa$, 
+that the maps $\mathcal{O}_{\beta} \to \mathcal{O}_{\beta + 1}$ are $\Sigma$-cofibrations and that the maps 
+$N \mathcal{O} \amalg_{N \tau A} N \tau A_{\beta}
+	\to 
+N \mathcal{O}_{\beta}$
+are weak equivalences
+(that this last condition suffices follows since
+filtered colimits of weak equivalences in $\mathsf{PreOp}^G$ are weak equivalences ({\color{red} add this})).
+Consider now the following diagrams.
+\[
+\begin{tikzcd}
+	\tau A \ar{r} \ar{d} & \mathcal{O} \ar{d}
+&&
+	A_{\beta} \amalg_{A} N \mathcal{O}
+	\ar[>->]{r} \ar{d}[swap]{\sim} &
+	A_{\beta+1} \amalg_{A} N \mathcal{O}
+	\ar{d}[swap]{\sim}
+\\
+	\tau A_{\beta} \ar{r} \ar{d} & \mathcal{O}_{\beta} \ar{d}
+&&
+	N \mathcal{O}_{\beta} \ar[>->]{r} &
+	A_{\beta+1} \amalg_{A_{\beta}} N \mathcal{O}_{\beta} \ar{d}
+\\
+	\tau A_{\beta + 1} \ar{r} & \mathcal{O}_{\beta + 1}
+&&
+	&
+	N \mathcal{O}_{\beta+1}
+\end{tikzcd}
+\]
+The induction hypothesis states that
+$\mathcal{O} \to \mathcal{O}_{\beta}$ is a $\Sigma$-cofibration and that the map
+$A_{\beta} \amalg_A N \mathcal{O} \to \mathcal{O}_{\beta}$ is a weak equivalence.
+Therefore, $\mathcal{O}_{\beta}$ is $\Sigma$-cofibrant 
+and the both vertical maps marked $\sim$ in the rightmost diagram above are weak equivalences 
+(this uses the fact that $\mathsf{PreOp}^G$ is left proper),
+and thus the induction step will follow provided that the result holds for
+the map $A_{\beta} \to A_{\beta + 1}$ and $\mathcal{O}_{\beta}$.
+But $A_{\beta} \to A_{\beta + 1}$ is assumed to be a pushout of a map in (TC1),(TC2),(TC3), in which case the result is already known, and thus noting that the result is clearly invariant under pushouts finishes the proof.
+\end{proof}
+
+Setting $A = \emptyset $, $\mathcal{O}= \emptyset$ in the previous result yields the following.
+
+\begin{corollary}
+	If $B \in \mathsf{PreOp}^G$ is tame cofibrant, then 
+	$B \to N \tau B$ is a weak equivalence.
+\end{corollary}
 
 \begin{proposition}
 The adjunction
