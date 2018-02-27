@@ -185,6 +185,7 @@ These cylinder objects provide another description of the mapping sets in the ho
 We can use these cylinder objects to extend the notion of homotopy to $\V$-categories or $\V$-operads.
 
 \begin{definition}
+      \label{HTPY_DEFN}
       Given $\mathcal C \in \Cat(\V)$, define $\pi_0(\mathcal C)$ to be the (unenriched) category with
       the same objects as $\mathcal C$, and $\pi_0(\mathcal C)(c,d) = \Ho(\V)(1_\V, \mathcal C(c,d))$.
 
@@ -830,6 +831,22 @@ In particular, we have maps of the form
       \end{equation}
 \end{remark}
 
+\begin{remark}
+      We also have a inclusion-forgetful adjunction
+      \begin{equation}
+            \label{JSTAR_CAT_EQ}
+            \begin{tikzcd}
+                  \Op^{G, \mathfrak C}(\V) \arrow[r, shift right, "j^{\**}"'] \arrow[d, "{(-)^H}"']
+                  &
+                  \Cat^{G, \mathfrak C}(\V) \arrow[l, shift right, "j_!"'] \arrow[d, "{(-)^H}"']
+                  \\
+                  \Op^{\mathfrak C^H}(\V)  \arrow[r, shift right, "j^{\**}"']
+                  &
+                  \Cat^{\mathfrak C^H}(\V) \arrow[l, shift right, "j_!"']
+            \end{tikzcd}
+      \end{equation}
+      and we see that $j^{\**}$ commutes with taking $H$-fixed points.
+\end{remark}
 
 Now, many of the natural functors around $\Omega$ and $\Sigma$ have generalizations to the colored setting,
 which can be built through a straightforward use of the universal property of pullbacks.
@@ -1916,13 +1933,20 @@ On the other hand, let $\Sym_{\F, \mathfrak C}(\V)$ denote the category $\V^{\UC
       \end{equation}      
 \end{proof}
 
+The following is immediate.
 \begin{corollary}
       \label{COLOR_CHANGE_Q_COR}
-      The change of color adjunctions from \eqref{COLOR_CHANGE_EQ} form Quillen adjunctions.
+      The change of color adjunctions from \eqref{COLOR_CHANGE_EQ},
+      and the forgetful functor $j^{\**}$ from \eqref{JSTAR_CAT_EQ}
+      form Quillen adjunctions.
 \end{corollary}
-\begin{proof}
-      For any $F: \mathfrak C \to \mathfrak C'$, $F_{\**}$ clearly preserves (trivial) fibrations.
-\end{proof}
+% \begin{proof}
+%       For any $F: \mathfrak C \to \mathfrak C'$, $F_{\**}$ clearly preserves (trivial) fibrations.
+% \end{proof}
+
+\begin{remark}
+      In particular, this implies that $j^{\**}$ commutes with fibrant replacement.
+\end{remark}
 
 
 
@@ -2063,9 +2087,8 @@ We record that $\iota_{\**}$ again fully-faithful since $\epsilon$ is an iso.
 \renewcommand{\C}{\mathfrak C}
 
 \textbf{Fix a cofibrantly generated model category $\V$.}
-We follow \cite{BM13} and \cite{Cav14} to assemble the collection of ``color-fixed''
-($\F$)-model structures into
-a single model structure on $\Op^G(\V)$.
+We generalize and sythesize \cite{BM13}, \cite{Cav14}, and \cite{CM13b} to assemble the collection of
+``color-fixed'' ($\F$)-model structures into a single model structure on $\Op^G(\V)$.
 
 
 \begin{definition}
@@ -2074,8 +2097,15 @@ a single model structure on $\Op^G(\V)$.
       may be equipped with the canonical (semi)-model structure.
 \end{definition}
 
+\begin{remark}
+      If $\V$ satisfies the \textit{monoid axiom} of \cite{SS00}
+      or has a monoidal fibrant replacement functor and a comonoidal Hopf interval object \cite{BM03},
+      then $\V$ admits transfers for categories and operads by \cite{Mur11,Mur14} and \cite{BM03}, respectively.
+\end{remark}
+
 As in the previous section, we fix a \textit{weak indexing system} $\F = \set{\F_n}$ of families $\F_n$ of graph subgroups of $G \times \Sigma_n$,
 with the maximal family denoted $\mathrm{Gr} = \set{\mathrm{Gr}_n}.$
+\todo[inline]{come back: when do I need a full weak indexing system vs an indexing family?}
 
 \begin{definition}
       We say $\V$ \textit{admits (semi)-transfers for $G$-categories/operads} if
@@ -2085,18 +2115,20 @@ with the maximal family denoted $\mathrm{Gr} = \set{\mathrm{Gr}_n}.$
       may be equipped with the canonical $\F$-(semi)-model structure.
 \end{definition}
 
-\begin{remark}
-      In particular, $(\sSet, \times)$ and $(\sSet_{\**}, \wedge)$ admit transfers for $G$-operads,
-      and any $(\V, \otimes)$ satisfying the hypotheses of Theorem \ref{THM1_C} admits semi-transfers for $G$-operads.
-\end{remark}
+\begin{example}
+      By Theorem \ref{THM1_C}, $(\sSet, \times)$ and $(\sSet_{\**}, \wedge)$ admit transfers for $G$-operads,
+      and any $(\V, \otimes)$ satisfying the hypotheses of said theorem admits semi-transfers for $G$-operads.
+\end{example}
+
+\begin{example}
+      \cite[Theorem 3.1]{GW17} shows that $(\sSet, \times)$ admits transfers for $G$-operads when $\mathfrak C = \set{*}$.
+\end{example}
 
 \textbf{\color{OliveGreen} In this section, assume that $\V$ admits (semi)-transfer for $G$-categories and $G$-operads}.
 
 \begin{remark}
       \label{JSTAR_REM}        
-      We have another free-forgetful adjunction $j^*: \mathsf{Op}^G(\V) \leftrightarrows \mathsf{Cat}^G(\V): j_!$,
-      and note that $j^*$ commutes with taking $H$-fixed points for all $H\leq G$;
-      
+      Extending \eqref{JSTAR_CAT_EQ}, we have another inclusion-forgetful adjunction,      
       \begin{equation}
             \begin{tikzcd}
                   \mathsf{Op}^G(\V) \arrow[d, "(-)^H"']
@@ -2109,23 +2141,22 @@ with the maximal family denoted $\mathrm{Gr} = \set{\mathrm{Gr}_n}.$
                   \Cat(\V) \arrow[l, shift right, swap, "j_!"]
             \end{tikzcd}
       \end{equation}
-      
-      Moreover, each ``color-fixed'' version
-      $j^{\**}: \Op^{G, \mathfrak C}(\V) \to \Cat^{G, \mathfrak C}(\V)$
-      also commutes with taking $H$-fixed points,
-      and additionally is right Quillen, and hence commutes with fibrant replacement.
+      and again $j^{\**}$ commutes with $H$-fixed points and fibrant replacement.
 \end{remark}
 
-% \begin{definition}
-%       For a category $\V$, a {\em Hopf interval object} in is a cofibrant Hopf object $\H\in\V$ for which there exists a factorization
-%       $\begin{tikzcd} 
-%             I\coprod I \arrow[r,rightarrowtail] & \H \arrow[r, twoheadrightarrow, "\simeq"] & I
-%       \end{tikzcd}$ 
-%       of the fold map $I$, the unit in $\V$. We can $\H$ {\em cocommutative} if its Hopf structure is. 
-% \end{definition}
+\begin{definition}
+      We highlight three particular $\V$-categories.
+      We let $1_\V$ and $\varnothing$ denote the unit object and initial object of $\V$, respectively.
+      \begin{enumerate}[label = (\roman*)]
+      \item Let $\I$ be the $\V$-category that detects isomorphisms: it has objects $\set{0,1}$,
+            with $\I(0,0) = \I(0,1) = \I(1,0) = \I(1,1) = 1_\V$.
+      \item Let $\mathbb A$ be the $\V$-category that detects arrows: it has objects $\set{0,1}$,
+            with $\mathbb A(0,0) = \mathbb A(0,1) = \mathbb A(1,1) = 1_\V$, and $\mathbb A(1,0) = \varnothing$.
+      \item Let $\1$ be the $\V$-category that detects objects: it has a single object $\set{\**}$, with $\1(\**, \**) = 1_\V$.
+      \end{enumerate}
+\end{definition}
 
 \begin{definition}
-      Let $\I$ be the $\V$-category with objects $\set{0,1}$ with $\I(0,0) = \I(0,1) = \I(1,0) = \I(1,1) = 1_V$.
       A {\em $\V$-interval} is a cofibrant object in $\Cat^{\set{0,1}}(\V)$ (with the transfered model structure)
       equipped with a weak equivalence $\J \to \I_f$.
       A set $\mathcal{G}$ of $\V$-intervals is {\em generating} if all $\V$-intervals $\J$ can be obtained
@@ -2141,45 +2172,14 @@ with the maximal family denoted $\mathrm{Gr} = \set{\mathrm{Gr}_n}.$
       \end{equation}
 \end{definition}
 
-% We recall that a (very good) \textit{cylinder object} in a model category $\V$ is an object $\mathbb C \in \V$ equipped with a factorization
-% \begin{equation}
-%       \begin{tikzcd}
-%             1_\V \amalg 1_\V \arrow[r, tail]
-%             &
-%             \mathbb C \arrow[r, two heads, "\sim"]
-%             &
-%             1_\V
-%       \end{tikzcd}
-% \end{equation}
-% of the fold map\footnote{
-%   These are cylinder objects of the unit.}.
-% These are used to define homotopies in our model category.
-% \begin{definition}
-%       Given $X \in \V$, we say two maps $f,g: 1_\V \to X$ are \textit{homotopic} if we have a factorization as below.
-%       \begin{equation}
-%             \begin{tikzcd}
-%                   1_\V \amalg 1_\V \arrow[rr, "(f,g)"] \arrow[dr]
-%                   &&
-%                   X
-%                   \\
-%                   &
-%                   \mathbb C \arrow[ur, dashed]
-%             \end{tikzcd}
-%       \end{equation}
-%       In particular, for any $\mathcal C \in \Cat(\V)$, this gives a notion of a homotopy between maps in
-%       any hom-object $\mathcal C(x,y)$.
-% \end{definition}
-
 \begin{definition}
       \label{PL_ES_DEFN}
-      We recall, a functor $F: \mathcal C \to \mathcal D$ in $\Cat(\V)$ is
-      \begin{enumerate}
+      We say a functor $F: \mathcal C \to \mathcal D$ in $\Cat(\V)$ is
+      \begin{enumerate}[label = (\roman*)]
       \item \textit{path-lifting}
-            if it has the right lifting property against all maps
+            if it has the right lifting property against all maps of the form
             $\1 \to \J$
-            where $\1$ is the $\V$-category representing a single object
-            (i.e. $\1$ has one object, and mapping object the tensor unit $1_\V$ of $\V$),
-            and $\J$ is a $\V$-interval.
+            where $\J$ is a $\V$-interval.
       \item \textit{essentially surjective}
             if for any object $d: \1 \to \mathcal D$,
             there is an object $c: \1 \to \mathcal C$
@@ -2212,9 +2212,21 @@ with the maximal family denoted $\mathrm{Gr} = \set{\mathrm{Gr}_n}.$
       \item {\em essentially surjective} (resp. {\em path lifting}) if $j^*F^H$ is essentially surjective (resp. path lifting) in $\Cat(\V)$ for all $H\leq G$.
       \item a {\em $\F$-fibration} if both path-lifting and a local $\F$-fibration.
       \item a {\em weak $\F$-equivalence} if both essentially surjective and a local weak $\F$-equivalence.
+      % \item a \textit{DK-$\F$-equivalence} if a local weak $\F$-equivalence such that
+      %       $\pi_0 j^{\**}F^H$ (cf. Definition \ref{HTPY_DEFN}) is essentially surjective.
       \item a \textit{(trivial) $\F$-cofibration} if it has the left lifting property against all trivial $\F$-fibrations (resp. $\F$-fibrations).
       \end{itemize}
 \end{definition}
+
+% \begin{remark}
+%       If $\V$ has diagonals, then $F \in \Op^G(\V)$ is a $DK$-$\F$-equivalence iff
+%       $F$ is a local weak $\F$-equivalence such that 
+%       the associated map of \textit{$\F$-genuine equivariant operads} under the composite
+%       \begin{equation}
+%             \Op^G(\V) \to \Op_\F(\V) \xrightarrow{\pi_0} \Op_\F(\Set) 
+%       \end{equation}
+%       is an equivalence.
+% \end{remark}
 
 % \begin{remark}
 %       Trivial $\F$-fibrations are precisely local $\F$-fibrations which are surjective on objects.
@@ -2223,33 +2235,82 @@ with the maximal family denoted $\mathrm{Gr} = \set{\mathrm{Gr}_n}.$
 %       $f_!\O \to \P$ is an $\F$-cofibration in $\Op^{G, \mathfrak C(\P)}(\V)$.
 % \end{remark}
 
+
 \begin{theorem}
-      [\cite{BM13,Cav14}]
-      With $G = e$, if $\V$ is a
-      cofibrantly generated monoidal model category
-      that is right proper,
-      has a cofibrant unit,
-      admits transfer for operads,
-      has a set of generating $\V$-intervals, and
-      the class of weak equivalences is closed undedr transfinite composition,
-      then
-      $\Cat(\V)$ and $\Op(\V)$ have a model structure where weak equivalences and fibrations are defined as above.
-
-      In particular, this holds for $(\V, \otimes)$ is $(\sSet, \times)$ or $(\sSet_{\**}, \wedge)$. 
+      \label{MODEL_THM}
+      Fix a weak indexing system $\F = \set{\F_n}$.
+      \todo[inline]{come back: where do I use the full closure condtions?}
+      Let $(\V, \otimes)$, denote either $(\sSet, \times)$ or $(\sSet_{\**}, \wedge)$.
+      Then there exists a cofibrantly generated model structure on the category $\Op^G(\V)$,
+      denoted $\Op^G_\F(\V)$, with
+      weak $\F$-equivalences, $\F$-fibrations, and $\F$-cofibrations defines as in Definition \ref{MODEL_DEFN}.
+           
+      Moreover, analogous semi-model category structures $\Op^G_\F(\V)$ exist
+      provided that $(\V, \otimes)$:
+      \begin{enumerate}[label = (\roman*)]\itemsep-4pt
+      \item is a cofibrantly generated model category,
+      \item is a closed monoidal model category with cofibrant unit
+            \footnote{Cofibrant unit also needed for \ref{J-CELL_PROP}.},
+      \item has cellular fixed-point functors,
+      \item \label{CSPP_LBL} has cofibrant symmetric pushout powers,
+            \footnote{Also needed for Lemma \ref{CAV_4.14_PROP2}.},            
+            % --------------------
+      \item \label{RP_LBL} is right proper
+            \footnote{Needed for \ref{RIGHTPROPER_LEM}, \ref{CAV_4.15_PROP}.},
+      \item \label{GENSET_LBL} has a set $\mathbb{G}$ of generating $\V$-intervals
+            \footnote{Needed so we have a \textit{set} of generating trivial cofibrations},
+      % \item \label{TCWE_LBL} has that the class of genuine weak equivalences in $\mathsf{Op}^G(\V)$ is closed under transfinite compositions
+      %       \footnote{Needed for \ref{J-CELL_PROP}}.
+      \end{enumerate}
 \end{theorem}
-\todo[inline]{compare with Theorem \ref{MODEL_THM}.}
+\begin{proof}
+      In the first case, we have that the model category $\Op^{G,\mathfrak C}_\F(\sSet)$ exists
+      for any $G$-set $\mathfrak C$ and weak indexing $\F$ by Theorem \ref{THM1_C},
+      while in the second case, conditions $(i)$ -- \ref{CSPP_LBL} are sufficient to construct the
+      semi-model category $\Op^{G, \mathfrak C}_\F(\V)$ from said theorem.
+      
+      After this difference, the proofs of the two cases are identical, as
+      \ref{RP_LBL} $\sSet$ is right proper
+      by Lemma \ref{INTER_LEM} and e.g. \cite[Prop 2.1.5]{Cis06} or \cite[Lemma 1.12]{BM13}, and
+      \ref{GENSET_LBL} $\sSet$ has a generating set of intervals
+      by e.g. \cite[Lemma 1.12]{BM13}.
+      % \ref{TCWE_LBL} the class of genuine weak equivalences in $\mathsf{Op}^G(\sSet)$ is closed under transfinite compositions
+      % by an argument analogous to \cite[Lemma 1.24]{CM13b}.
+      % Now, we note that condition \ref{TCWE_LBL} proves the analogous statement for any $\F$,
+      % since the transfinite composite of local $\F$-equivalences is a local $\F$-equivalence.
+
+      Since $\mathsf{Op}^G(\V)$ is complete and cocomplete, it thus suffices to prove (following \cite{Hov98} Theorem 2.1.19) that:
+      \begin{enumerate}[label = (\arabic*)]
+      \item the class of weak $\F$-equivalences has the 2-out-of-3 property and is closed under retracts;
+      \item the domains of $I_{\F}$ (resp. $J_{\F}$) are small relative to $I_{\F}$-cell (resp. $J_{\F}$-cell);
+      \item $I_{\F}$-inj $= W\cap J_{\F}$-inj;
+      \item $J_{\F}$-cell $\subseteq W\cap I_{\F}$-cof.
+      \end{enumerate}
+      (1) follows from Proposition \ref{CAV_4.15_PROP} and the fact that if $L$ is a retract of $F$, $L^H$ is a retract of $F^H$.
+      (2) follows since colimits in $\mathsf{Op}^G(\V)$ are created in $\Op(\V)$, and it holds non-equivariantly.
+      (3) follows from Lemma \ref{CAV_4.8}.
+      (4) follows from Lemma \ref{POINT_4_LEMMA} and Proposition \ref{J-CELL_PROP}.
+\end{proof}
+
+% \begin{remark}
+%       If we could show via some other method that $(\V, \otimes)$ satisfied actual transfer for $G$-operads, then
+%       conditions \ref{CSPP_LBL} -- \ref{TCWE_LBL} would imply that the $\F$-model structure existed on $\Op^G(\V)$. 
+% \end{remark}
+
+\begin{remark}
+      This recovers the main results of \cite{BM13, Cav14} for $G = \set{e}$. 
+\end{remark}
 
 
-\subsection{Generating (Trivial) Cofibrations and Local Fibrations}
 
-We generalize and combine efforts from \cite{CM13b, BM13, Cav14}.
+We spend the rest of this section proving the results needed in the proof of Theorem \ref{MODEL_THM},
+beginning with a description of the sets of generating (trivial) cofibrations.
 
 Fix a graph subgroup $\Gamma \in \F_n$ of $G \times \Sigma_n$, and $X \in \V^\Gamma$.
-Define $C_\Gamma[X]$ to be the ``free operad with stabilizer $\Gamma$ generated by $X$''.
-Specifically, this operad has colours $\mathfrak C_\Gamma := G \cdot_\Gamma \underline{n+1}$.
-
-Now, letting $\xi_0$ denote the signature $([e,1],[e,2],\dots,[e,n];[e,0])$,
-we define the $(G,\mathfrak C_\Gamma)$-symmetric sequence
+We now construct the ``free operad with stabilizer $\Gamma$ generated by $X$''.
+Consider the $G$-set of colors $\mathfrak C_\Gamma := G \cdot_\Gamma \underline{n+1}$,
+and let $\xi_0$ denote the signature $([e,1],[e,2],\dots,[e,n];[e,0])$.
+We define the $(G,\mathfrak C_\Gamma)$-symmetric sequence
 \begin{equation}
       C_\Gamma[X](\xi) =
       \begin{cases}
@@ -2280,9 +2341,12 @@ The universal property makes the following immediate.
       $\O \to \O'$ has the right lifting property against $J_{\F, loc}$ (resp. $I_{\F, loc}$).
 \end{corollary}
 
-Now, define $I_{\F}:= I_{\F, loc} \mathbin{\cup} \set{\varnothing \to G/H \cdot \1}_{H\leq G}$
-and
-$J_{\F} := J_{\F, loc} \mathbin{\cup} \set{G/H \cdot (\1 \to \J)}_{H\leq G,\ \J\in\mathbb{G}}$
+Now, define
+\begin{equation}
+      I_{\F}:= I_{\F, loc} \mathbin{\cup} \set{\varnothing \to G/H \cdot \1}_{H\leq G},
+      \qquad \qquad
+      J_{\F} := J_{\F, loc} \mathbin{\cup} \set{G/H \cdot (\1 \to \J)}_{H\leq G,\ \J\in\mathbb{G}}
+\end{equation}
 where $\1$ defined as in Definition \ref{PL_ES_DEFN}, and $\mathbb{G}$ is a generating set of $\V$-intervals. 
 
 \begin{lemma}
@@ -2293,7 +2357,7 @@ where $\1$ defined as in Definition \ref{PL_ES_DEFN}, and $\mathbb{G}$ is a gene
       iff
       $F$ is a local trivial $\F$-fibration such that $F^H$ is surjective on $H$-fixed colors for all $H\leq G$
       iff
-      $F$ has the right lifting property against $I_{\F}$.. 
+      $F$ has the right lifting property against $I_{\F}$.
 \end{lemma}
 \begin{proof}
       The second iff is immediate by the construction of $I_{\F}$.
@@ -2344,6 +2408,10 @@ where $\1$ defined as in Definition \ref{PL_ES_DEFN}, and $\mathbb{G}$ is a gene
 
 \subsection{Trivial cofibrations are weak equivalences}
 
+Similar to many cases in the literature, the two most difficult steps in the proof of Theorem \ref{MODEL_THM} are showing that
+$J_\F$-cells are weak equivalences, and that weak equivalences satisfy 2-out-of-3.
+The next two subsectiosn deal with these issues, in that order.
+
 \begin{lemma}
       \label{TRANSCOMP_ES_LEM}
       Suppose $\V$ is a monoidal model category.
@@ -2356,8 +2424,8 @@ where $\1$ defined as in Definition \ref{PL_ES_DEFN}, and $\mathbb{G}$ is a gene
 
 \begin{lemma}
       \label{COF_TC_LEM}
-      Suppose $\V$ admits semi-transfer for operads.
-      Then levelwise (trival) cofibrations are closed under transfinite composition.
+      Suppose $\V$ admits (semi)-transfer for operads.
+      Then local cofibrations and trivial cofibrations (with cofibrant source) are closed under transfinite composition.
 \end{lemma}
 \begin{proof}
       Explicitly, suppose we have a chain of maps
@@ -2366,14 +2434,15 @@ where $\1$ defined as in Definition \ref{PL_ES_DEFN}, and $\mathbb{G}$ is a gene
       \end{equation}
       in $\Op^G(\V)$, and let $F_\alpha$ denote the compoite $\O_0 \to \O_\alpha$.
       Then we claim that
-      if the map on the left below
+      if each map of the form on the left in \eqref{COF_TC_EQ}
       is a (trivial) $\F$-cofibrations in $\V^{\Stab(\theta)}_{\F_\theta}$
       for all $\mathfrak C(\O_\alpha)$-signatures $\theta$, then
-      the map on the right below
+      the composite map on the right in \eqref{COF_TC_EQ}
       is a (trivial) $\F$-cofibration in $\V^{\Stab(\ksi)}_{\F_\theta}$
-      for all $\mathfrak C(\O)$-signatures $\ksi$.
-      \begin{equation}
-            \O_\alpha(\theta) \to \O_{\alpha+1}(F_\alpha(\theta))
+      for all $\mathfrak C(\O)$-signatures $\ksi$.     
+       \begin{equation}
+            \label{COF_TC_EQ}
+            \O_\alpha(\theta) \to \O_{\alpha+1}(F_\alpha(\theta)),
             \qquad  \qquad
             \O(\ksi) \to \O_\alpha(F_\alpha(\ksi))
       \end{equation}
@@ -2393,7 +2462,8 @@ where $\1$ defined as in Definition \ref{PL_ES_DEFN}, and $\mathbb{G}$ is a gene
             \O_0(\ksi) \rightarrowtail \O_1(F_1(\ksi)) \rightarrowtail \O_2(F_2(\ksi)) \rightarrowtail \dots
             \rightarrowtail \O_\alpha(F_\alpha(\ksi)) \rightarrowtail \dots
       \end{equation}
-      As (trivial) cofibrations in $\V^{\Stab(\ksi)}_{\F_\ksi}$ are closed under transfinite composition, the result is proven.
+      As cofibrations and trivial cofibrations in $\V^{\Stab(\ksi)}_{\F_\ksi}$ (with cofibrant source if semi-admissible)
+      are closed under transfinite composition, the result is proven.
 \end{proof}
 
 \begin{lemma}
@@ -2407,7 +2477,7 @@ where $\1$ defined as in Definition \ref{PL_ES_DEFN}, and $\mathbb{G}$ is a gene
 
 \begin{proposition}
       [{c.f. \cite[4.20]{Cav14}}]
-      \label{J-CELL_LEMMA}
+      \label{J-CELL_PROP}
       Suppose the unit $1_\V \in \V$ is cofibrant.
       % and weak $\F$-equivalences are closed under transfinite compositions.
       If $\V$ admits (semi)-transfer for operads, then relative $J_{\F}$-cells (with cofibrant source) are weak equivalences.
@@ -2495,7 +2565,7 @@ where $\1$ defined as in Definition \ref{PL_ES_DEFN}, and $\mathbb{G}$ is a gene
       \end{equation}
       %
       If instead $x  = g \cdot 1 \in (G/H \cdot 1)^K \subseteq \mathfrak C(\P)^K$,
-      the pushout square yields the diagram on the right apve in \eqref{J-CELL_EQ},
+      the pushout square yields the diagram on the right above in \eqref{J-CELL_EQ},
       where the maps $\J_{\set{0}} \xrightarrow{g} (\O')^K$, $\J \xrightarrow{g} \P^K$ are adjoint to the composites
       \begin{equation}
             G/K \cdot \J_{\set{0}} \xrightarrow{g} G/H \cdot \J_{\set{0}} \longto \O',
@@ -2546,7 +2616,9 @@ where $\1$ defined as in Definition \ref{PL_ES_DEFN}, and $\mathbb{G}$ is a gene
 
 \subsection{2-out-of-3}
 
-We recall some equivalence relations on objects in a $\V$-category \cite{Cav14, BM13}:
+For the proof of 2-out-of-3 in Proposition \ref{2OUTOF3_PROP}, we will need to convert between
+``essential surjectivity'' and ``local equivalence'' information. 
+To begin, we recall some equivalence relations on objects in a $\V$-category \cite{Cav14, BM13}:
 \begin{definition}
       Given $\mathcal{C}$ in  $\Cat(\V)$ and $a,b\in\mathrm{Ob}(\mathcal C)$, we say $a$ and $b$ are
       \begin{itemize}
@@ -2556,12 +2628,10 @@ We recall some equivalence relations on objects in a $\V$-category \cite{Cav14, 
       \item {\em virtually equivalent} if $a$ and $b$ are equivalent in some fibrant replacement
             $\mathcal C_f$ of $\mathcal C$ in $\Cat^{\mathrm{Ob}(\mathcal C)}(\V)$;
       \item {\em homotopy equivalent} if $a$ and $b$ are isomorphic in the unenriched category $\pi_0 \mathcal C_f$
-            for some $\mathcal C_f$;
+            for some fibrant replacement $\mathcal C_f$ of $\mathcal C$;
             equivalently, if there exist maps
             $\alpha: 1_\V \to \mathcal C_f(a,b)$ and $\beta: 1_\V\to \mathcal C_f(b,a)$ such that
-            $\beta\alpha$ and $\alpha\beta$ and homotopic\footnote{
-              Recall that the factorizations in a model category give a notion of \textit{(left) homotopy} $\sim$,
-              with $\Ho(\V)(X,Y) = \V(QX,RY)/\sim$.}
+            $\beta\alpha$ and $\alpha\beta$ are homotopic (cf. Definition \ref{HTPY_DEFN})
             to the identity arrows
             $1_V\to \mathcal C_f(a,a)$ and $1_V \to \mathcal C_f(b,b)$, respectively.
       \end{itemize}
@@ -2583,7 +2653,7 @@ Equivariantly, we have the following:
 
 \begin{remark}
       \label{HK_EQUIV_REM}
-      We note that if $K \leq H \leq G$, then (virtual, homotopy) $H$-equivalent implies (virtual, homotopy) $K$-equivalent
+      We note that if $K \leq H \leq G$, then (virtually, homotopy) $H$-equivalent implies (virtually, homotopy) $K$-equivalent
       as we have inclusions of categories
       $j^{\**}(\O^H) \to j^{\**}(\O^K)$
       (resp. by functoriality of fibrant replacement,
@@ -2621,6 +2691,13 @@ Equivariantly, we have the following:
       if they are so in $j^*\O$. 
 \end{definition}
 
+\begin{remark}
+      \label{ESS_SUR_REM}
+      Unpacking definitions, we see
+      $F: \O \to \P$ in $\Op^G(\V)$ is essentially surjective iff
+      for any $b \in \P^H$ there exists $a \in \O^H$ such that $F(a)$ and $b$ are $H$-equivalent.
+\end{remark}
+
 \begin{notation}
       As fixed points $(-)^\Gamma$ and fibrant replacement $(-)_f$ need not commute, we will write
       \begin{equation}
@@ -2630,20 +2707,13 @@ Equivariantly, we have the following:
       \end{equation}
 \end{notation}
 
-\begin{remark}
-      \label{ESS_SUR_REM}
-      Unpacking definitions, we see
-      $F: \O \to \P$ in $\Op^G(\V)$ is essentially surjective iff
-      for any $b \in \P^H$ there exists $a \in \O^H$ such that $F(a)$ and $b$ are $H$-equivalent.
-\end{remark}
-
 
 
 The following two lemmas follow directly from the proofs of their non-equivariant counterparts:
 \begin{lemma}
       [{cf. \cite[4.10]{Cav14}}]
       \label{CAV_4.10_LEM}
-      $H$-Equivalence and virtual $H$-equivalence define equivalence relations on $\C(\O)^H$.
+      $H$-equivalence and virtual $H$-equivalence define equivalence relations on $\C(\O)^H$.
 \end{lemma}
 % \begin{proof}
 %       {\color{OliveGreen}
@@ -2674,7 +2744,7 @@ The following two lemmas follow directly from the proofs of their non-equivarian
 \begin{lemma}
       [{cf. \cite[4.12]{Cav14}, \cite[2.10]{BM13}}]
       \label{RIGHTPROPER_LEM}
-      If $\V$ is right proper, then two colors are virtual $H$-equivalent iff they are $H$-equivalent. 
+      If $\V$ is right proper, then two colors are virtually $H$-equivalent iff they are $H$-equivalent. 
 \end{lemma}
 % \begin{proof}
 %       {\color{OliveGreen}
@@ -2691,16 +2761,14 @@ We elaborate on the following two lemmas from \cite{BM13}.
 \end{lemma}
 \begin{proof}
       {\color{OliveGreen} We reframe and complete \cite[2.10]{BM13} (they were missing \eqref{J11_CYL_EQ}).}
-      Conversely, let $\C_f$ denote $(\O^H)_f$.
-      Suppose $H: \J \to \C_f(x,y)$ realizes a virtual equivalence between $x$ and $y$.
-      Let's factor the equipped map $\J \to \I_f$ (a weak equivalence in $\Cat^{\set{0,1}}(\V)$)
+      Let $\mathcal C_f$ denote $j^{\**}(\O^H)_f$.
+      Suppose $H: \J \to \mathcal C_f(x,y)$ realizes a virtual equivalence between $x$ and $y$.
+      Let's factor the equipped map $\J \xrightarrow{\sim} \I_f$ (a weak equivalence in $\Cat^{\set{0,1}}(\V)$)
       as a trivial cofibration and trivial fibration
-      $\J \to \J' \to \I_f$,
+      $\J \xrightarrow{\sim} \J' \xrightarrow{\sim} \I_f$,
       and then $H$ extends to $\J'$ since $\mathcal C_f$ is fibrant.
-      
-      Now, let $\mathbb A \in \Cat^{\set{0,1}}(\V)$ denote the $\V$-category which detects morphisms:
-      $\mathbb A(0,0) = \mathbb A(0,1) = \mathbb A(1,1) = 1_\V$ and $\mathbb A(1,0) = \varnothing$ is the intial object in $\V$.
-      Then we have a lift $f_{01}$ in the diagram below,
+
+      Thus we have lifts $f_{01}$ and $f_{10}$ in the diagrams below,
       where all designations on arrows are as maps in $\Cat^{\set{0,1}}(\V)$.
       \begin{equation}
             \begin{tikzcd}
@@ -2708,20 +2776,33 @@ We elaborate on the following two lemmas from \cite{BM13}.
                   \J \arrow[r, "H"] \arrow[d, tail, "\sim"]
                   &
                   \mathcal C_f
+                  &&
+                  \J \arrow[r, "H"] \arrow[d, tail, "\sim"]
+                  &
+                  \mathcal C_f
                   \\
+                  \1 \amalg \1 \arrow[r] \arrow[d, tail]
+                  &
+                  \J' \arrow[ur, dashed, "H'"'] \arrow[d, two heads, "\sim"]
+                  &&
                   \1 \amalg \1 \arrow[r] \arrow[d, tail]
                   &
                   \J' \arrow[ur, dashed, "H'"'] \arrow[d, two heads, "\sim"]
                   \\
                   \mathbb A \arrow[r] \arrow[ur, dashed, "f_{01}"]
                   &
-                  \I_f                   
+                  \I_f
+                  &&
+                  \mathbb A^{op} \arrow[r] \arrow[ur, dashed, "f_{10}"]
+                  &
+                  \I_f
             \end{tikzcd}
       \end{equation}
-      Changing the role of $0$ and $1$ in the definition of $\mathbb A$ yields a second map $f_{10}$.
-      
-      Thus, we have maps $\alpha: 1_\V \to \mathcal C_f(x,y)$ and $\beta: 1_\V \to \mathcal C_f(y,x)$.
-      By construction, the composite $\alpha\beta$ (resp. $\beta\alpha$) factor through $\J'(1,1)$ (resp. $\J'(0,0)$)
+      This provides maps
+      $\alpha = H'_{01} f_{01}: 1_\V \to \mathcal C_f(x,y)$
+      and
+      $\beta = H'_{10} f_{10}: 1_\V \to \mathcal C_f(y,x)$.
+      By construction, the composite $\alpha\beta$ (resp. $\beta\alpha$) factors through $\J'(1,1)$ (resp. $\J'(0,0)$)
       by a map we denote $f_1$ (resp. $f_0$).
       \begin{equation}
             \begin{tikzcd}
@@ -2740,13 +2821,13 @@ We elaborate on the following two lemmas from \cite{BM13}.
             \end{tikzcd}
       \end{equation}
       
-      Now, if $\mathbb C$ is any cylinder object in $\V$, we have a lift in the following diagram.
+      Now, if $\mathbb C$ is any cylinder object in $\V$, we have a lift in the following diagram, for $i \in \set{0,1}$.
       \begin{equation}
             \label{J11_CYL_EQ}
             \begin{tikzcd}
-                  1_\V \amalg 1_\V \arrow[rr, "{id, f_i}"] \arrow[d, tail]
+                  1_\V \amalg 1_\V \arrow[rr, "{(id, f_i)}"] \arrow[d, tail]
                   &&
-                  \J'(1,1) \arrow[d, "\sim", two heads]
+                  \J'(i,i) \arrow[d, "\sim", two heads]
                   \\
                   \mathbb C \arrow[r] \arrow[urr, dashed]
                   &
@@ -2762,10 +2843,12 @@ We elaborate on the following two lemmas from \cite{BM13}.
   
 \begin{lemma}
       [{cf. \cite[4.11]{Cav14}, \cite[2.9]{BM13}}]
-      \label{REF_VIRT_EQ_LEM}
-      Fix $H \leq G$, 
-      $a_0,a_1 \in \C(\O)^H$, and $F: \O \to \P$ in $\mathsf{Op}^G(\V)$ a local weak $\F$-equivalence.
-      If $F(a_0)$ and $F(a_1)$ are virtually $H$-equivalent, then so are $a_0$ and $a_1$.
+      \label{REF_VIRT_LEM}
+      Local weak $\F$-equivalences reflect $H$-equivalences.
+      Explicitly,
+      fixing $H \leq G$, 
+      $a_0,a_1 \in \C(\O)^H$, and $F: \O \to \P$ in $\mathsf{Op}^G(\V)$ a local weak $\F$-equivalence,
+      if $F(a_0)$ and $F(a_1)$ are virtually $H$-equivalent then so are $a_0$ and $a_1$.
 \end{lemma}
 \begin{proof}
       % {\color{OliveGreen}
@@ -2773,8 +2856,8 @@ We elaborate on the following two lemmas from \cite{BM13}.
       % }
       Since every weak indexing system $\F$ has that $\F_1$ contains all $H \leq G \times \Sigma_1$ (cf. \cite[Remark 4.50]{BP17}),
       $j^{\**}F^H: j^{\**}\O^H \to j^{\**}\P^H$ is a local weak equivalence in $\Cat(\V)$.
-      
-      As in \cite{BM13}, we may build a fibrant replacement $j^{\**}F^H$ which is a local trivial fibration in $\Cat(\V)$.
+      %
+      As in \cite{BM13}, we may build a fibrant replacement of $j^{\**}F^H$ which is a local trivial fibration in $\Cat(\V)$.
       \begin{equation}
             \begin{tikzcd}
                  j^{\**} \O^H \arrow[r, "\sim_l"] \arrow[d, dashed, "\sim"']
@@ -2791,13 +2874,14 @@ We elaborate on the following two lemmas from \cite{BM13}.
             \end{tikzcd}
       \end{equation}
       (where all designations $(-)_l$ on arrows denote ``local'').
-      Thus we have a lift on the left below,
-      where the bottom arrows realizes the virtual $H$-equivalence between $F(a_0)$ and $F(a_1)$,
+      Thus we have a lift on the left in \eqref{REF_VIRT_EQ},
+      where the bottom arrow realizes the virtual $H$-equivalence between $F(a_0)$ and $F(a_1)$,
       as such a lift in $\Cat(\V)$ is equivalent to a lift in $\Cat^{\set{0,1}}(\V)$
       after pulling the right vertical arrow back along the the inclusion
-      $a: \set{0,1} \to \set{a_0,a_1} \into \mathfrak C(\O)^H$, as on the right.
-      which exists by locality.
+      $a: \set{0,1} \to \set{a_0,a_1} \into \mathfrak C(\O)^H$ as on the right (cf. \eqref{COLOR_SQ_EQ}),
+      and this lift exists by locality.
       \begin{equation}
+            \label{REF_VIRT_EQ}
             \begin{tikzcd}
                   \1 \amalg \1 \arrow[r, "{(a_0,a_1)}"] \arrow[d, tail, "{(i_0, i_1)}"']
                   &
@@ -2818,11 +2902,8 @@ We elaborate on the following two lemmas from \cite{BM13}.
       \end{equation}
 \end{proof}
 
-\subsubsection{Equivalences between levels}
-
-
-The following two lemmas generalize \cite[Prop. 4.14]{Cav14} and \cite[Prop. 2.12]{BM13},
-and show that, in good cases, a homotopy equivalence of colors induces a homotopy equivalence of objects.
+We can now prove the following two similar lemmas, generalizing \cite[Prop. 4.14]{Cav14} and \cite[Prop. 2.12]{BM13},
+which show that in many cases, a homotopy equivalence of colors induces a homotopy equivalence of objects.
 
 \begin{lemma}
       \label{CAV_4.14_PROP1}
@@ -2847,9 +2928,10 @@ and show that, in good cases, a homotopy equivalence of colors induces a homotop
       representing the homotopy $H$-equivalence,
       with $H_{\beta\alpha,1}$ and $H_{\alpha\beta,1}$ the associated homotopies. 
 
-      Now, we may consider $\O_f(a;b) \in \V^{\Stab(\ksi)}$ via pullback on the projection $\Stab(\ksi) \to H$,
-      where $(a;b) \in \set{(c;c), (c;d), (d;c), (d;d)}$,
-      and naturality of composition implies
+      $\O_f(a;b) \in \V^{\Stab(\ksi)}$ has a $\Stab(\ksi)$-action 
+      for $(a;b) \in \set{(c;c), (c;d), (d;c), (d;d)}$
+      via the projection $\Stab(\ksi) \to H$,
+      and naturality of composition implies that the maps
       \begin{equation}
             \alpha_{\**}: \O_f(\ksi) \to \O_f(\ksi_c^d),
             \qquad
@@ -2864,7 +2946,8 @@ and show that, in good cases, a homotopy equivalence of colors induces a homotop
       \end{equation}
       for any graph subgroup $\Gamma \leq G \times \Sigma_n$,
       where $H_\Gamma$ is the projection of $\Gamma$ onto $G$,
-      and similarly when replacing $(c;d)$ with $(d;c)$, $(c;c)$, $(d;d)$.
+      and similarly when replacing $(c;d)$ with $(d;c)$, $(c;c)$, $(d;d)$,
+      and $\ksi$ by $\theta$ when required.
       %  
       By Remark \ref{HK_EQUIV_REM} and \eqref{FIBFIX_LIFT_EQ},
       this yields an induced homotopy $\beta\alpha \sim id_{\O_f(\ksi)^{\Gamma}}$ in $\V$
@@ -2896,7 +2979,7 @@ and show that, in good cases, a homotopy equivalence of colors induces a homotop
       and similarly $\alpha\beta \sim id_{\O_f(\ksi_c^d)^\Gamma}$.
       Hence, as $\O_f(\ksi)^\Gamma$ and $\O_f(\ksi_c^d)^\Gamma$ are fibrant,
       $\alpha_{\**}: \O_f(\ksi)^\Gamma \leftrightarrow \O_f(\ksi_c^d)^\Gamma : \beta_{\**}$ are inverse isomorphisms in $\Ho(\V)$ for all $\Gamma$.
-
+      %
       Thus, in particular, $\alpha_{\**}: \O_f(\ksi) \to \O_f(\ksi_c^d)$ is a weak equivalence in $\V^{\Stab(\ksi)}_{\mathrm{Gr}_\ksi}$.
       Composing with the functorial fibrant replacement weak equivalences yields our zig-zag
       \begin{equation}
@@ -2925,10 +3008,10 @@ and show that, in good cases, a homotopy equivalence of colors induces a homotop
       where
       $\theta = (d_1,\ldots, d_n; c)$, with the colors $d_i$ defined as follows:
             
-      For $K = \Stab_G(c)$, let $\lambda \subseteq \underline{n} = \set{1,2,\ldots, n}$ denote
+      Write $K = \Stab_G(c)$, and let $\lambda \subseteq \underline{n} = \set{1,2,\ldots, n}$ denote
       the set of all $i$ such that $c_i = k_i \cdot c_1$ for some $k_i\in K/H$;
       if $i \notin \lambda$, let $k_i$ denote the identity element of $G$.
-      Further, for all $i \in \underline{n}$, define
+      For all $i \in \underline{n}$, we define
       \begin{equation}
             \label{DCOLORS_EQ}
             d_i =
@@ -3052,9 +3135,10 @@ and show that, in good cases, a homotopy equivalence of colors induces a homotop
             \O_f(\theta)^\Gamma
       \end{equation}
       for any graph subgroup $\Gamma \leq G \times \Sigma_n$,
-      and similarly for any $(d_i;c_i)$, $(c_i;c_i)$, $(d_i;d_i)$.
+      and similarly for any $(d_i;c_i)$, $(c_i;c_i)$, $(d_i;d_i)$,
+      replacing $\ksi$ with $\theta$ when required.
 
-      Chose a set of lifts (cf. \eqref{FIBFIX_LIFT_EQ})
+      Choose a set of lifts (cf. \eqref{FIBFIX_LIFT_EQ})
       \begin{equation}
             \O^H(a_1;b_1)_f \to \O_f(a_1;b_1)^H,
             \qquad \qquad
@@ -3155,6 +3239,7 @@ and show that, in good cases, a homotopy equivalence of colors induces a homotop
                   % (\O(d;d)_f)^{H_\Gamma} \arrow[u, "{(-)_{\**}}"],
             \end{tikzcd}
       \end{equation}
+      (with $\Stab(\ksi)$ acting on $\otimes_\lambda \mathbb C$ via the projection $\Stab(\ksi) \to \Sigma_{|\ksi|}$)
       and similarly $(\alpha_i)_{\**}(\beta_i)_{\**} \sim id_{\O_f(\theta)^\Gamma}$.
       Hence
       $(\alpha_i)_{\**}: \O_f(\ksi)^\Gamma \leftrightarrow \O_f(\theta)^\Gamma: (\beta_i)_{\**}$
@@ -3175,20 +3260,18 @@ and show that, in good cases, a homotopy equivalence of colors induces a homotop
 
 \begin{remark}
       \label{CAV_4.14_REM}
-      The above proof also works to show an analogous result when given colors $c_j$ and $d_j$ that are homotopy equivalent.
+      The above proof also works to show an analogous result when given colors $c_j$ and $d_j$ that are homotopy equivalent
+      for any $j \in \underline{n}$. 
       % Furthermore, if we are given $c$ and $d$ homotopy equivalent, we may just take $\theta = (c_1,\dots, c_n;d)$,
       % and the same result holds (as $K\times\Sigma_n$ acts trivially on $\O^K(d;c)$).
 \end{remark}
 
-\begin{remark}
-      We note that, due to the fact that we have a $G$-action on the set of colors,
-      it is necessary to transform an entire orbit's worth of colors in this equivalence.
-\end{remark}
-
+We can now prove the main result of this subsection.
  
 \begin{proposition}
       [{c.f. \cite[4.15]{Cav14}, \cite[2.13]{BM13}}]
       \label{CAV_4.15_PROP}
+      \label{2OUTOF3_PROP}
       Suppose $\V$ is right proper and has cofibrant symmetric pushout powers.
       Then the class of weak $\F$-equivalences in $\mathsf{Op}^G(\V)$ satisfies the 2-out-of-3 condition.
 \end{proposition}
@@ -3196,8 +3279,8 @@ and show that, in good cases, a homotopy equivalence of colors induces a homotop
       Let $\O \xrightarrow{F} \P \xrightarrow{L} \Q$ be a composition of maps in $\mathsf{Op}^G(\V)$.
       If $F$ and $L$ are weak $\F$-equivalences,
       the composite is obviously a local weak $\F$-equivalence:
-      $\O(\ksi)^\Gamma \sim \P(F(\ksi))^\Gamma \sim \Q(LF(\ksi))^\Gamma$.
-      Moreover, as functors preserve equivalence, $L F$ is essentially surjective by Lemma \ref{CAV_4.10_LEM}. 
+      $\O(\ksi)^\Gamma \xrightarrow{\sim} \P(F(\ksi))^\Gamma \xrightarrow{\sim} \Q(LF(\ksi))^\Gamma$.
+      Moreover, as functors preserve equivalences of colors, $L F$ is essentially surjective by Lemma \ref{CAV_4.10_LEM}. 
       % Moreover, concatination of $\V$-intervals collapses the consecutive essential surjectivity diagrams on the left
       % onto the one on the right.
       % \begin{equation}
@@ -3232,24 +3315,26 @@ and show that, in good cases, a homotopy equivalence of colors induces a homotop
       
       If $L$ and $FL$ are weak $\F$-equivalences,
       then $F$ is a local weak $\F$-equivalence by 2-out-of-3 in each $\V^{\Stab(\ksi)}_{\F_\ksi}$.
-      Moreover, if $b \in \P^H$, then by Remark \ref{ESS_SUR_REM}, there exists $a \in \O^H$ such that
+      Moreover, if $b \in \P^H$, then by Remark \ref{ESS_SUR_REM}, there exists $a \in \mathfrak C(\O)^H$ such that
       $LF(a)$ and $L(b)$ are (virtually) $H$-equivalent.
-      Lemma \ref{REF_VIRT_EQ_LEM} then implies $F(a)$ and $b$ are virtually $H$-equivalent, 
+      Lemma \ref{REF_VIRT_LEM} then implies $F(a)$ and $b$ are virtually $H$-equivalent, 
       and since $\V$ is right proper, Lemma \ref{RIGHTPROPER_LEM} implies they are $H$-equivalent.
 
       Lastly, suppose $F$ and $LF$ are weak $\F$-equivalences.
       It is immediate that $L$ is essentially surjective.
-      Given a signature $\theta = (d_1,\ldots,d_n;d_0$) in $\C(\P)$, let $K = \Stab(d)$,
-      Now, let $\Lambda = \lambda_1 \amalg \dots \amalg \lambda_r$ denote the partition of $\underline{n}$
+      Now, given a signature $\theta = (d_1,\ldots,d_n;d_0$) in $\C(\P)$, write $K = \Stab(d)$,
+      and let $\Lambda = \lambda_1 \amalg \dots \amalg \lambda_r$ denote the partition of $\underline{n}$
       where $i < j$ are in the same class iff there exists $k_{i,j} \in K$ such that $d_j = k_{i,j} \cdot d_i$.
-      Define $R  = R' \amalg \set{0}$, with $R' \subseteq \underline{n}$ the subset of minimal representatives in each class,
-      and $H_r$ the stabilizer in $G$ of $c_r$.
-
+      Define $R' \subseteq \underline{n}$ to be the subset of minimal representatives in each class,
+      $R = R' \amalg \set{0}$,
+      and $H_r$ the stabilizer in $G$ of $c_r$ for each $r \in R$.
+      
       By the essential surjectivity of $F$, for all $r \in R$ there exist $c_r \in \C(\O)$ such that
       $F(c_r)$ is homotopy $H_r$-equivalent to $d_r$.
-
-      Now, we extend the set $\set{c_r}_{r\in R}$ to a signature $(c_1,\ldots, c_n;c_0)$ by defining $c_j = k_{r,j} \cdot c_r$
-      (again, these are independent of the choice of $k_{r,j} \in k_{r,j}H_r$).
+      %
+      We can extend the set $\set{c_r}_{r\in R}$ to a signature $(c_1,\ldots, c_n;c_0)$,
+      by defining $c_j = k_{r,j} \cdot c_r$;
+      again, these are independent of the choice of $k_{r,j} \in k_{r,j}H_r$.
       % Consequently, $F(c_i)$ is homotopy equivalent to $d_i$ via $k_{r,i}\gamma_r$,
       % where $\gamma_r$ realizes the homotopy equivalence between $F(c_r)$ and $d_r$ for $i \in \lambda_r$.
       This yields a diagram of the form
@@ -3279,122 +3364,12 @@ and show that, in good cases, a homotopy equivalence of colors induces a homotop
 \end{proof}
 
 
-\subsection{Model structure}
-
-The following two theorems have the same proof.
-
-\begin{theorem}
-      \label{SSET_MODEL_THM}
-      Fix a weak indexing system $\F$, and
-      suppose $(\V, \otimes)$ is either $(\sSet, \times)$ or $(\sSet_{\**}, \wedge)$.
-      Then there exists a cofibrantly generated model structure
-      $\mathsf{Op}^G_\F(\V)$ on $\mathsf{Op}^G(\V)$ with
-      $\F$-fibrations, weak $\F$-equivalences, generating $\F$-cofibrations, and generating trivial $\F$-cofibrations
-      as defined in Definition \ref{MODEL_DEFN}.
-\end{theorem}
-
-\begin{theorem}
-      \label{MODEL_THM}
-      Fix a weak indexing system $\F$, and
-      suppose $(\V, \otimes)$:
-      \begin{enumerate}[label = (\roman*)]\itemsep-4pt
-      \item is a cofibrantly generated model category,
-      \item is a closed monoidal model category with cofibrant unit
-            \footnote{Cofibrant unit also needed for \ref{J-CELL_LEMMA}.},
-      \item has cellular fixed-point functors,
-            % which commute with a symmetric monoidal fibrant replacement functor in $\V$.
-      \item \label{CSPP_LBL} has cofibrant symmetric pushout powers,
-            \footnote{Also needed for Lemma \ref{CAV_4.14_PROP2}.},            
-            % --------------------
-      \item \label{RP_LBL} is right proper
-            \footnote{Needed for \ref{RIGHTPROPER_LEM}, \ref{CAV_4.15_PROP}.},
-      \item \label{GENSET_LBL} has a set $\mathbb{G}$ of generating $\V$-intervals
-            \footnote{Needed so we have a \textit{set} of generating trivial cofibrations},
-      % \item \label{FBF_LBL} has a fibrant replacement functor which commutes with taking fixed points
-      %       \footnote{Needed for Lemmas \ref{CAV_4.14_PROP1}, \ref{CAV_4.14_PROP2}.}, and
-      % \item \label{TCWE_LBL} has that the class of genuine weak equivalences in $\mathsf{Op}^G(\V)$ is closed under transfinite compositions
-      %       \footnote{Needed for \ref{J-CELL_LEMMA}}.
-      \end{enumerate}
-      Then there exists a cofibrantly generated semi-model structure $\Op^G_\F(\V)$ on $\mathsf{Op}^G(\V)$ with
-      $\F$-fibrations, weak $\F$-equivalences, generating $\F$-cofibrations, and generating trivial $\F$-cofibrations
-      as defined in Definition \ref{MODEL_DEFN}.
-\end{theorem}
-\begin{proof}
-      In the first case, we have the model category $\Op^{G,\mathfrak C}_\F(\sSet)$
-      for any $G$-set $\mathfrak C$ and weak indexing $\F$ by Theorem \ref{THM1_C},
-      while in the second case, conditions $(i)$ -- \ref{CSPP_LBL} are sufficient to construct the
-      semi-model category $\Op^{G, \mathfrak C}_\F(\V)$ from said theorem.
-      
-      After this difference, the proofs are identical, as
-      \ref{RP_LBL} $\sSet$ is right proper
-      by Lemma \ref{INTER_LEM} and e.g. \cite[Prop 2.1.5]{Cis06} or \cite[Lemma 1.12]{BM13}, and
-      \ref{GENSET_LBL} $\sSet$ has a generating set of intervals
-      by e.g. \cite[Lemma 1.12]{BM13}.
-      % \ref{TCWE_LBL} the class of genuine weak equivalences in $\mathsf{Op}^G(\sSet)$ is closed under transfinite compositions
-      % by an argument analogous to \cite[Lemma 1.24]{CM13b}.
-      % Now, we note that condition \ref{TCWE_LBL} proves the analogous statement for any $\F$,
-      % since the transfinite composite of local $\F$-equivalences is a local $\F$-equivalence.
-      Since $\mathsf{Op}^G(\V)$ is complete and cocomplete, it thus suffices to prove (following \cite{Hov98} Theorem 2.1.19) that:
-      \begin{enumerate}[label = (\arabic*)]
-      \item the class of weak $\F$-equivalences has the 2-out-of-3 property and is closed under retracts;
-      \item the domains of $I_{\F}$ (resp. $J_{\F}$) are small relative to $I_{\F}$-cell (resp. $J_{\F}$-cell);
-      \item $I_{\F}$-inj $= W\cap J_{\F}$-inj;
-      \item $J_{\F}$-cell $\subseteq W\cap I_{\F}$-cof.
-      \end{enumerate}
-      (1) follows from \ref{CAV_4.15_PROP} and the fact that if $L$ is a retract of $F$, $L^H$ is a retract of $F^H$.
-      (2) follows since colimits in $\mathsf{Op}^G(\V)$ are created in $\Op(\V)$, and it holds non-equivariantly.
-      (3) follows from \ref{CAV_4.8}.
-      (4) follows from \ref{POINT_4_LEMMA} and \ref{J-CELL_LEMMA}.
-\end{proof}
-
-% \begin{remark}
-%       If we could show via some other method that $(\V, \otimes)$ satisfied actual transfer for $G$-operads, then
-%       conditions \ref{CSPP_LBL} -- \ref{TCWE_LBL} would imply that the $\F$-model structure existed on $\Op^G(\V)$. 
-% \end{remark}
-
-\begin{example}
-      $(\Top,\times)$:
-      cellularity in \cite{Pia91},
-      cofibrant symmetric pushout powers in {\color{red} SOURCE},
-      right proper and generating set of intervals follows from all objects being fibrant (and \cite[Lemma 2.1]{BM13} for the latter).
-\end{example}
-
-\todo[inline]{come back: compare cofibrant symmetric pushout powers with}
-\begin{itemize}
-\item freely powered of Lurie
-\item commutative monoid axiom of White-Yau
-\item symmetric h-monoidal of Pavlov-Scholbach
-\end{itemize}
-
-
-% \begin{example}
-%       $R$ a commutative ring containing the rational numbers,
-%       $\mathcal A$ the abelian category of projective $R$-modules,
-%       and consider $Ch(\mathcal A)$ with projective model strucutre:
-
-%       \begin{itemize}
-%       \item cellularity in \cite{Ste16},
-%       \item cofibrant symmetric pushout powers implied by ``freely powered'', proved in \cite[Prop 7.1.4/7]{Lur17},
-%       \item right proper?
-%       \item generating set of intervals?
-%       \item cofibrant unit?            
-%       \end{itemize}
-
-%       More generally, $\mathcal C$ locally presentable quasi-abelian category,
-%       $R$ a commutative monoid object in $\mathcal C$ containing the rational numbers,
-%       and consider $dg_R(\mathcal C)$ with the projective model structure \cite[Prop 2.12]{Wal15};
-%       this also satisfies cofibrant symmetric pushout powers by \cite[Prop 3.4]{Wal15}.
-% \end{example}
-
-
-
-
-
-
 
 % ------------------------------- DWYER-KAN DESCRIPTION -----------------------------
 
 \subsection{Dwyer-Kan equivalences}
+
+We would like to recognize our weak $\F$-equivalences slightly differently.
 
 \begin{definition}
       $F: \O \to \P$ in $\Op^G(\V)$ is a \textit{Dwyer-Kan} (or \textit{DK}) \textit{$\F$-equivalence} if
@@ -3413,13 +3388,18 @@ The following two theorems have the same proof.
 \end{remark}
 
 \begin{proposition}
+      \label{WE_ARE_DK_PROP}
       Weak $\F$-equivalences in the sense of Theorem \ref{MODEL_THM} are DK-$\F$-equivalences.
 \end{proposition}
 \begin{proof}
       By Lemma \ref{VIR_HTPY_LEM}, essential surjectivity implies $\pi_0$-essential surjectivity. 
 \end{proof}
 
-For the reverse direction (cf. \cite[\S 2]{BM13}):
+
+For the reverse direction (cf. \cite[\S 2]{BM13}), we need to show that
+homotopy equivalences are all virtual equivalences.
+This requires another condition on $\V$, namely that the homotopy equivalences must satisfy a coherence condition.
+
 \begin{definition}
       Recall the category $\mathbb A \in \Cat^{\set{0,1}}(\V)$ which detects arrows.
       A cofibration $\mathbb A \to \J$ in $\Cat^{\set{0,1}}(\V)$ into a $\V$-interval is \textit{natural} if
@@ -3465,6 +3445,7 @@ For the reverse direction (cf. \cite[\S 2]{BM13}):
 
 % -------------------- Satisfying the coherence axiom - nothing new --------------------
 \subsubsection{Satisfying the coherence axiom - nothing new}
+\todo[inline]{come back: blend in to the above better, maybe don't try to add anything}
 \begin{lemma}
       [{\cite[Prop 2.24]{BM13}}]
       If $\V$ satisfies transfer for operads and
@@ -3506,6 +3487,48 @@ This has been known for a while for $\sSet$ (implied by Dwyer-Kan, Begner).
       \item weak equivalences are closed under filtered colimits.
       \end{enumerate*}
 \end{remark}
+
+
+\subsection{Examples}
+
+
+
+
+% ---------------------------------------- EXAMPLES ------------------------------
+
+\begin{example}
+      $(\Top,\times)$:
+      cellularity in \cite{Pia91},
+      cofibrant symmetric pushout powers in {\color{red} SOURCE},
+      right proper and generating set of intervals follows from all objects being fibrant (and \cite[Lemma 2.1]{BM13} for the latter).
+\end{example}
+
+\todo[inline]{come back: compare cofibrant symmetric pushout powers with}
+\begin{itemize}
+\item freely powered of Lurie
+\item commutative monoid axiom of White-Yau
+\item symmetric h-monoidal of Pavlov-Scholbach
+\end{itemize}
+
+
+% \begin{example}
+%       $R$ a commutative ring containing the rational numbers,
+%       $\mathcal A$ the abelian category of projective $R$-modules,
+%       and consider $Ch(\mathcal A)$ with projective model strucutre:
+
+%       \begin{itemize}
+%       \item cellularity in \cite{Ste16},
+%       \item cofibrant symmetric pushout powers implied by ``freely powered'', proved in \cite[Prop 7.1.4/7]{Lur17},
+%       \item right proper?
+%       \item generating set of intervals?
+%       \item cofibrant unit?            
+%       \end{itemize}
+
+%       More generally, $\mathcal C$ locally presentable quasi-abelian category,
+%       $R$ a commutative monoid object in $\mathcal C$ containing the rational numbers,
+%       and consider $dg_R(\mathcal C)$ with the projective model structure \cite[Prop 2.12]{Wal15};
+%       this also satisfies cofibrant symmetric pushout powers by \cite[Prop 3.4]{Wal15}.
+% \end{example}
 
 
 
