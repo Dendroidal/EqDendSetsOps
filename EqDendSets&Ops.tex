@@ -141,6 +141,8 @@ where $\Phi: \Set^G \to \Set^{O_G^{op}}$ sends a $G$-set $X$ to its fixed-point 
 We will denote this by $\mathsf F^G \wr \underline{\mathfrak C}$.
 
 
+
+
 \subsection{Homotopy in a general model category}
 
 
@@ -3626,6 +3628,642 @@ The above reflects the following result.
 
 \newpage
 
+\subsection{The homotopy genuine equivariant operad}
+
+
+Our goal in this section is to build,
+for each $G$-$\infty$-operad $X \in \mathsf{dSet}^G$,
+the associated homotopy genuine equivariant operad
+$\mathsf{ho} (X)$,
+which we will describe as an object in
+$\mathsf{dSet}_G$
+satisfying a strict Segal condition.
+
+
+We start with some notation. 
+Given a multiset $I$ of edges of a tree $T \in \Omega$
+(formally, $I$ is a function 
+$I \colon \boldsymbol{E}(T) \to \mathbb{N}_0$),
+we write $\sigma^I T \in \Omega$
+for the tree obtained by degenerating $T$ once for each edge in $I$.
+More explicitly, $\sigma^I T$ is the unique tree such that there is a planar degeneracy
+$\pi \colon \sigma^I T \to T$
+such that $|\pi^{-1}(e)| = I(e) + 1$.
+Moreover,
+note that if $T\in \Omega_G$ is a $G$-tree, 
+then $\sigma^{I} T \in \Omega_{G}$
+can be defined if $I$ is $G$-equivariant
+(formally, this means that the multiset $I$ is a composite
+$\boldsymbol{E}(T) \to \boldsymbol{E}_G(T)
+\to \mathbb{N}_0$).
+
+Our main interest will be in degeneracies of $G$-corollas. Recall that, up to isomorphism, 
+a $G$-corolla $C \in \Sigma_G$ is determined the number $0 \leq k$ of leaf orbits
+and isotropy subgroups
+$H_i \leq H_0 \leq G$ for $0 \leq i \leq k$,
+where $H_0$ is the isotropy of a (chosen) root edge.
+Pictorially, such a $G$-corolla has the orbital representation given on the left below,
+but in this section we will find it more convenient to label edge orbits using coset notation as on the right below,
+so that $[e_i] = G e_i$ denotes the $G$-orbit of $e_i$.
+\[
+\begin{tikzpicture}
+[grow=up,auto,level distance=2.3em,every node/.style = {font=\footnotesize},dummy/.style={circle,draw,inner sep=0pt,minimum size=1.75mm}]
+	\node at (0,0) [font=\normalsize]{$C$}
+		child{node [dummy] {}
+			child{
+			edge from parent node [swap,near end] {$G/H_k$} node [name=Kn] {}}
+			child{
+			edge from parent node [near end] {$G/H_1$}
+node [name=Kone,swap] {}}
+		edge from parent node [swap] {$G/H_0$}
+		};
+		\draw [dotted,thick] (Kone) -- (Kn) ;
+	\node at (5,0) [font=\normalsize]{$C$}
+		child{node [dummy] {}
+			child{
+			edge from parent node [swap,near end] {$[e_k]$} node [name=Kn] {}}
+			child{
+			edge from parent node [near end] {$[e_1]$}
+node [name=Kone,swap] {}}
+		edge from parent node [swap] {$[e_0]$}
+		};
+		\draw [dotted,thick] (Kone) -- (Kn) ;
+\end{tikzpicture}
+\]
+We will then abbreviate $\sigma^i C = \sigma^{[e_i]} C$, and write $e_i$, $e_i'$ for the two edges of $\sigma^i C $ that degenerate the edge $e_i$ of $C$,
+with $e_i$ denoting the inner edge and $e'_i$ the outer
+edge.
+\[
+\begin{tikzpicture}
+[grow=up,auto,level distance=3em,
+every node/.style = {font=\footnotesize},
+dummy/.style={circle,draw,inner sep=0pt,minimum size=1.75mm}]
+	\node at (0,0) [font=\normalsize]{$\sigma^0 C$}
+		child{node [dummy] {}
+			child{node [dummy] {}
+				child{
+				edge from parent node [swap,near end] {$[e_k]$} node [name=Kn] {}}
+				child{
+				edge from parent node [near end] {$[e_1]$}
+node [name=Kone,swap] {}}
+			edge from parent node [swap] {$[e_0]$}}
+		edge from parent node [swap] {$[e'_0]$}
+		};
+		\draw [dotted,thick] (Kone) -- (Kn) ;
+	\node at (5,0) [font=\normalsize]{$\sigma^i C$}
+		child{node [dummy] {}
+			child{
+			edge from parent node [swap,near end] {$[e_k]$} node [near start,inner sep=1pt,name=Kn] {}}
+			child[level distance=3.4em]{node [dummy] {}
+				child[level distance=2.7em]{
+				edge from parent node [swap] {$[e'_i]$}
+}
+			edge from parent node [near end,swap] {$[e_i]$}
+node [near start,inner sep=1pt,name=Kone,swap] {}
+node [near start,inner sep=1pt,name=Kone1] {}}
+			child{
+			edge from parent node [near end] {$[e_1]$}
+node [swap] {}
+node [near start,inner sep=1pt,name=Kn1,swap]{}}
+		edge from parent node [swap] {$[e_0]$}
+		};
+		\draw [dotted,thick] (Kone) -- (Kn) ;
+		\draw [dotted,thick] (Kone1) -- (Kn1) ;
+\end{tikzpicture}
+\]
+$\sigma^i C$ then has an orbital inner face
+$\sigma^i C - [e_i]$ obtained by removing $[e_i]$
+as well as an orbital outer face obtained by removing $e'_i$,
+which we denote $\sigma^i C - [e'_i]$.
+Moreover, note that we have natural identifications
+$C = \sigma^i C - [e_i]$,
+$C = \sigma^i C - [e'_i]$.
+
+In what follows, we will find it convenient to simplify notation by denoting maps $\Omega[T] \to X$,
+where $T \in \Omega_G$ and $X \in \mathsf{dSet}^G$,
+simply as $T \to X$.
+
+
+\begin{definition}
+	Let $X \in \mathsf{dSet}^G$ be a $G$-$\infty$-operad and $C$ a $G$-corolla with edge orbits
+	$[e_0],\cdots,[e_k]$.
+	
+	Given two operations 
+	$f,g\colon C \rightrightarrows X$,
+	we write $f \sim_i g$ if there exists a map
+	$H \colon \sigma^i C \to X$ such that
+\begin{itemize}
+\item $f$ equals the restriction $H|_{\sigma^i C-[e'_i]}$;
+\item $g$ equals the restriction $H|_{\sigma^i C-[e_i]}$;
+\item the restriction $H|_{\sigma^i [e_i]}$
+is the degeneracy $\sigma^i [e_i] \to [e_i] \to C \to X$.
+\end{itemize}
+\end{definition}
+
+
+\begin{remark}\label{HOMOTBOUND REM}
+	Note that if $f \sim_i g$ then it must be
+	$f|_{\partial C} = g|_{\partial C}$.
+\end{remark}
+
+
+\begin{example}\label{EQUIVSIM EX}
+	Let $G = \mathbb{Z}_{/2} = \{\pm 1\}$
+	and consider the $G$-corolla with orbital and expanded representations as given on the left below.
+\[
+\begin{tikzpicture}
+[grow=up,auto,level distance=2.3em,every node/.style = {font=\footnotesize},dummy/.style={circle,draw,inner sep=0pt,minimum size=1.75mm}]
+	\node at (0,0) [font=\normalsize]{$C$}
+		child{node [dummy] {}
+			child{
+			edge from parent node [swap] {$G \cdot e$}
+node [name=Kone,swap] {}}
+		edge from parent node [swap] {$G/G \cdot r$}
+		};
+	\node at (3,0) [font=\normalsize]{$C$}
+		child{node [dummy] {}
+			child{
+			edge from parent node [swap,near end] {$-e$} node [name=Kn] {}}
+			child{
+			edge from parent node [near end] {$e$}
+node [name=Kone,swap] {}}
+		edge from parent node [swap] {$r$}
+		};
+	\node at (7,0) [font=\normalsize]{$\sigma^{\{e,-e\}} C$}
+		child{node [dummy] {}
+			child{node [dummy] {}
+				child{
+				edge from parent node [swap] {$G \cdot e'$}
+node [swap] {}}
+			edge from parent node [swap] {$G \cdot e$}
+node [swap] {}}
+		edge from parent node [swap] {$G/G \cdot r$}
+		};
+	\node at (10,0) [font=\normalsize]{$\sigma^{\{e,-e\}} C$}
+		child{node [dummy] {}
+			child{node [dummy] {}
+				child{
+				edge from parent node [swap] {$-e'$} node {}}
+			edge from parent node [swap,near end] {$-e$} node {}}
+			child{node [dummy] {}
+				child{
+				edge from parent node {$e'$}
+node [swap] {}}
+			edge from parent node [near end] {$e$}
+node [swap] {}}
+		edge from parent node [swap] {$r$}
+		};
+\end{tikzpicture}
+\]
+$C$ then has a single leaf $G$-edge orbit $[e] = G \cdot e$, so that for
+$f,g \colon C \to X$ it is
+$f \sim_1 g$
+if there exists a 
+$H \colon \sigma^{\{e,-e\}}C \to X$
+such that 
+\begin{equation}\label{EQUIVHOMOT EQ}
+	f = H|_{\sigma^{\{e,-e\}}C - \{e',-e'\}}
+\qquad
+	g = H|_{\sigma^{\{e,-e\}}C - \{e,-e\}}
+\qquad
+	H_{\sigma^e e}, H|_{\sigma^{-e}-e} \text{ are degenerate}.
+\end{equation}
+It is worthwhile to compare this equivariant relation with the relations obtained if one forgets the $G$-actions. Indeed, while \eqref{EQUIVHOMOT EQ} implicitly assumes that all of $f,g,H$ are $G$-equivariant,
+by omitting that assumption one can reinterpret 
+\eqref{EQUIVHOMOT EQ}
+as defining a relation
+$f \sim_{[e]} g$ between not necessarily $G$-equivariant maps $f,g \colon C \to X$.
+
+A priori, $\sim_{[e]}$ relation differs from the 
+non-equivariant 
+$\sim_{e}$ and $\sim_{-e}$
+relations obtained by regarding $C$ as a non-equivariant corolla.
+However, for $f,g,H$ as in \eqref{EQUIVHOMOT EQ} one has
+\begin{equation}\label{EQUIVSIM EQ}
+f = H|_{\sigma^{\{e,-e\}}C - \{e',-e'\}}
+\sim_e H|_{\sigma^{\{e,-e\}}C - \{e,-e'\}}
+\sim_{-e} H|_{\sigma^{\{e,-e\}}C - \{e,-e\}} =g
+\end{equation}
+so that, by Lemma \ref{EQUIVI LEM}(b) below one has that
+$f \sim_{[e]} g$ in fact implies
+$f \sim_{e} g$. Moreover, the converse statement follows immediately by using degeneracies.
+
+More generally, similar considerations show that the $\sim$ relations are compatible with restricting the $G$-actions.
+\end{example}
+
+
+\begin{lemma}\label{EQUIVI LEM}
+	Let $X \in \mathsf{dSet}^G$ be a $G$-$\infty$-operad and $C$ a $G$-corolla with edge orbits
+	$[e_0],\cdots,[e_k]$. Then:
+\begin{itemize}
+	\item[(a)] each of the relations $\sim_i$ is an equivalence relation;
+	\item[(b)] all the equivalence relations $\sim_i$ coincide.
+\end{itemize}
+\end{lemma}
+
+\begin{proof}
+	We first address (a). 
+	
+	For the reflexive condition, one can take $H$ to be the degeneracy
+	$\sigma^i C \xrightarrow{\sigma^i} C \xrightarrow{f} X$.
+	
+	For the symmetry and transitive conditions, consider the tree
+	$\sigma^{ii} C$, which degenerates $[e_i]$ twice.
+\[
+\begin{tikzpicture}
+[grow=up,auto,level distance=3em,
+every node/.style = {font=\footnotesize},
+dummy/.style={circle,draw,inner sep=0pt,minimum size=1.75mm}]
+	\node at (0,0) [font=\normalsize]{$\sigma^{ii} C$}
+		child{node [dummy] {}
+			child{
+			edge from parent node [swap,near end] {$[e_k]$} node [near start,inner sep=1pt,name=Kn] {}}
+			child[level distance=3.4em]{node [dummy] {}
+				child[level distance=2.7em]{node [dummy] {}
+					child[level distance=2.7em]{
+					edge from parent node [swap] {$[e''_i]$}
+}
+				edge from parent node [swap] {$[e'_i]$}
+}
+			edge from parent node [near end,swap] {$[e_i]$}
+node [near start,inner sep=1pt,name=Kone,swap] {}
+node [near start,inner sep=1pt,name=Kone1] {}}
+			child{
+			edge from parent node [near end] {$[e_1]$}
+node [swap] {}
+node [near start,inner sep=1pt,name=Kn1,swap]{}}
+		edge from parent node [swap] {$[e_0]$}
+		};
+		\draw [dotted,thick] (Kone) -- (Kn) ;
+		\draw [dotted,thick] (Kone1) -- (Kn1) ;
+\end{tikzpicture}
+\]
+Suppose $f \sim_i g$, and let 
+$H \colon \sigma^{i} C \to X$ be the associated homotopy.
+Define a map 
+$\bar{H} \colon \Lambda^{[e_i]}_o[\sigma^{ii} C] \to X$ by
+\[
+	\bar{H}|_{\sigma^{ii}C - [e''_i]} = H,
+		\qquad
+	\bar{H}|_{\sigma^{ii}C - [e'_i]} = f \circ \sigma^i,
+		\qquad
+	\bar{H}|_{\sigma^{ii} [e_i]} = 
+	f|_{[e_i]} \circ \sigma^{ii} =
+	g|_{[e_i]} \circ \sigma^{ii}.
+\]
+Since the orbital inner horn inclusion
+$\bar{H} \colon \Lambda^{[e_i]}_o[\sigma^{ii} C] \to \Omega[C]$
+is $G$-inner anodyne,
+$\bar{H}$ admits an extension $\widetilde{H} \colon \sigma^{ii}C \to X$.
+The restriction $\bar{H}|_{\sigma^{ii}C - [e_i]}$ then provides the homotopy exhibiting $g \sim_i f$, and symmetry of $\sim_i$ follows.
+
+Next, suppose $f \sim_i g$ and $g \sim_i h$, and let 
+$H \colon \sigma^{i} C \to X$ and
+$K \colon \sigma^{i} C \to X$ be be the associated homotopies.
+Define a map 
+$\bar{H} \colon \Lambda^{[e'_i]}_o[\sigma^{ii} C] \to X$ by
+\[
+	\bar{H}|_{\sigma^{ii}C - [e''_i]} = H,
+		\qquad
+	\bar{H}|_{\sigma^{ii}C - [e_i]} = K,
+		\qquad
+	\bar{H}|_{\sigma^{ii} [e_i]} = 
+	f|_{[e_i]} \circ \sigma^{ii} =
+	g|_{[e_i]} \circ \sigma^{ii} =
+	h|_{[e_i]} \circ \sigma^{ii}.
+\]
+$\bar{H}$ again admits an extension $\widetilde{H} \colon \sigma^{ii}C \to X$, and the restriction $\bar{H}|_{\sigma^{ii}C - [e'_i]}$
+provides the homotopy exhibiting $f \sim_i g$, so that transitivity of $\sim_i$.
+
+We next turn to (b). Consider the tree $\sigma^{ij} C$ which degenerates $C$ once along each of $[e_i]$ and $[e_j]$.
+\[
+\begin{tikzpicture}
+[grow=up,auto,level distance=2.75em,
+every node/.style = {font=\footnotesize},
+dummy/.style={circle,draw,inner sep=0pt,minimum size=1.75mm}]
+	\node at (0,0) [font=\normalsize]{$\sigma^{ij} C$}
+		child{node [dummy] {}
+			child{
+			edge from parent node [swap,near end] {$[e_k]$} node [near start,inner sep=1pt,name=Kn] {}}
+			child[level distance=3.4em,sibling distance=2em]{node [dummy] {}
+				child[level distance=2.7em]{
+				edge from parent node [swap] {$[e'_j]$}
+}
+			edge from parent node [very near end,swap] {$[e_j]$}
+node [near start,inner sep=1pt,name=Kone,swap] {}
+node [inner sep=1pt,name=Kn2] {}}
+			child[level distance=3.4em,sibling distance=2em]{node [dummy] {}
+				child[level distance=2.7em]{
+				edge from parent node {$[e'_i]$}
+}
+			edge from parent node [very near end] {$[e_i]$}
+node [inner sep=1pt,name=Kone2,swap] {}
+node [near start,inner sep=1pt,name=Kone1] {}}
+			child{
+			edge from parent node [near end] {$[e_1]$}
+node [swap] {}
+node [near start,inner sep=1pt,name=Kn1,swap]{}}
+		edge from parent node [swap] {$[e_0]$}
+		};
+		\draw [dotted,thick] (Kn) -- (Kone) ;
+		\draw [dotted,thick] (Kone1) -- (Kn1) ;
+		\draw [dotted,thick] (Kone2) -- (Kn2) ;
+\end{tikzpicture}
+\]
+Suppose $f \sim_i g$ with $H \colon \sigma^{i} C \to X$ the associated homotopy.
+Define a map 
+$\bar{H} \colon \Lambda^{[e_i]}_o[\sigma^{ij} C] \to X$ by
+\[
+	\bar{H}|_{\sigma^{ij}C - [e'_j]} = H,
+		\qquad
+	\bar{H}|_{\sigma^{ij}C - [e_j]} = f \circ \sigma^i,
+		\qquad
+	\bar{H}|_{\sigma^{ij}C - [e'_i]} = f \circ \sigma^j.
+\]
+Yet again, $\bar{H}$ admits an extension $\widetilde{H} \colon \sigma^{ij}C \to X$, and the restriction $\bar{H}|_{\sigma^{ij}C - [e_i]}$
+provides a homotopy exhibiting $g \sim_j f$. (b) now follows.
+\end{proof}
+
+In light of Lemma \ref{EQUIVI LEM},
+given $f,g \rightrightarrows C \to X$ with 
+$C$ a $G$-corolla and $X$ a $G$-$\infty$-operad,
+we will henceforth write $f \sim g$ whenever $f \sim_i g$ for some (and thus all) $i$.
+We now extend the $\sim$ relation.
+
+\begin{definition}\label{XTENDSIM DEF}
+	Let $T \in \Omega_G$ be a $G$-tree
+	and $X \in \mathsf{dSet}^G$ be a 
+	$G$-$\infty$-operad.
+	
+	Given dendrices $x,y\colon T \to X$ we write
+	$x \sim y$ if there are equivalences of restrictions
+	$x|_{T_v} \sim y|_{T_v}$ for all $G$-vertices
+	$v \in \boldsymbol{V}_G(T)$.
+	
+	Further, we define $\mathsf{ho}(X)(T) = X(T)/\sim$.
+\end{definition}
+
+\begin{proposition}
+Let $X \in \mathsf{dSet}^G$ be a $G$-$\infty$-operad. Then the assignment 
+		$T \mapsto \mathsf{ho}(X)(T)$
+		is a contravariant functor in $T \in \Omega_G$, i.e.
+		$\mathsf{ho}(X)\in \mathsf{dSet}_G$.
+\end{proposition}
+
+
+\begin{proof}
+	It suffices to show that the $\sim$ equivalence relations are compatible with the generating classes of maps in $\Omega_G$, namely
+	degeneracies, inner faces, outer faces, and quotient maps.
+	
+	The cases of degeneracies and outer faces are obvious. In the case of quotients, 
+	since any quotient $\bar{T} \to T$ of $G$-trees induces quotients on $G$-vertices, it suffices to consider the case of a quotient
+	$\bar{C} \xrightarrow{\pi} C$ of $G$-corollas.
+	But it is then straightforward to check that if a homotopy exhibiting $f \sim_0 g$ also induces a homotopy exhibiting 
+	$f \circ \pi \sim_0 g \circ \pi$
+	(notably, the same needs not be true for the relations $f \sim_i g$ when $0<i$, 
+	in which case the exhibiting homotopy 
+	may instead exhibit a string of relations 
+	$f \circ \pi \sim \cdots \sim g \circ \pi$
+	as in \eqref{EQUIVSIM EQ}).
+
+It remains to address the most interesting case,
+that inner faces. Since inner faces can be factored as composites of inner faces that collapse a singe inner edge orbit,
+it suffices to consider the case of faces
+$D \to T$ where $T$ has a single edge edge orbit.
+I.e. we can assume that there are $G$-corollas
+$C_1$, $C_2$ such that 
+$T = C_1 \amalg_{[e_i]} C_2$ and
+$D = T - [e_i]$, as illustrated below.
+\[
+\begin{tikzpicture}
+[grow=up,auto,level distance=3em,
+every node/.style = {font=\footnotesize},
+dummy/.style={circle,draw,inner sep=0pt,minimum size=1.75mm}]
+	\node at (0,0) [font=\normalsize]{$C_1$}
+		child{node [dummy] {}
+			child{
+			edge from parent node [swap,near end] {} node [near start,inner sep=1pt,name=Kn] {}}
+			child[level distance=3.4em]{
+			edge from parent node [near end,swap] {$[e_i]$}
+node [near start,inner sep=1pt,name=Kone,swap] {}
+node [near start,inner sep=1pt,name=Kone1] {}}
+			child{
+			edge from parent node [near end] {}
+node [swap] {}
+node [near start,inner sep=1pt,name=Kn1,swap]{}}
+		edge from parent node [swap] {$[e_0]$}
+		};
+		\draw [dotted,thick] (Kone) -- (Kn) ;
+		\draw [dotted,thick] (Kone1) -- (Kn1) ;
+	\node at (4,0) [font=\normalsize]{$C_2$}
+		child{node [dummy] {}
+			child{
+			edge from parent node [swap,near end] {} node [name=Kn] {}}
+			child{
+			edge from parent node [near end] {}
+node [name=Kone,swap] {}}
+		edge from parent node [swap] {$[e_i]$}
+		};
+		\draw [dotted,thick] (Kone) -- (Kn) ;
+	\node at (9,0) [font=\normalsize]{$T$}
+		child{node [dummy] {}
+			child{
+			edge from parent node [swap,near end] {} node [near start,inner sep=1pt,name=Kn] {}}
+			child[level distance=3.4em]{node [dummy] {}
+				child{
+				edge from parent node [swap,near end] {} node [name=Kn2] {}}
+				child{
+				edge from parent node [near end] {}
+node [name=Kone2,swap] {}}
+			edge from parent node [near end,swap] {$[e_i]$}
+node [near start,inner sep=1pt,name=Kone,swap] {}
+node [near start,inner sep=1pt,name=Kone1] {}}
+			child{
+			edge from parent node [near end] {}
+node [swap] {}
+node [near start,inner sep=1pt,name=Kn1,swap]{}}
+		edge from parent node [swap] {$[e_0]$}
+		};
+		\draw [dotted,thick] (Kone) -- (Kn) ;
+		\draw [dotted,thick] (Kone1) -- (Kn1) ;
+		\draw [dotted,thick] (Kone2) -- (Kn2) ;
+\end{tikzpicture}
+\]
+The claim is now that if
+$x,y \colon T \to X$ are such that
+$x|_{C_1} \sim y|_{C_1}$ and
+$x|_{C_2} \sim y|_{C_2}$
+then it is also 
+$x|_{D} \sim y|_{D}$.
+This will follow from the next two claims:
+\begin{itemize}
+\item[(i)] if $x,y \colon T \to X$ are such that
+$x|_{C_1} = y|_{C_1}$ and
+$x|_{C_2} = y|_{C_2}$
+then $x|_{D} \sim y|_{D}$;
+\item[(ii)]
+given $x \colon T \to X$, $f\colon C_1 \to X$ and
+$g \colon C_2 \to X$ such that
+$f \sim x|_{C_1}$, $g \sim x|_{C_2}$,
+there exists
+$y \colon T \to X$ such that
+$y|_{C_1} = f$, $y|_{C_2} = g$ and
+$y|_D = x|_D$.
+\end{itemize}
+To show (i) and (ii), consider the degeneracies
+$\sigma^0 T$ and $\sigma^i T$ pictured below.
+\[
+\begin{tikzpicture}
+[grow=up,auto,level distance=3em,
+every node/.style = {font=\footnotesize},
+dummy/.style={circle,draw,inner sep=0pt,minimum size=1.75mm}]
+	\node at (0,0) [font=\normalsize]{$\sigma^0 T$}
+		child{node [dummy] {}
+		child{node [dummy] {}
+			child{
+			edge from parent node [swap,near end] {} node [near start,inner sep=1pt,name=Kn] {}}
+			child[level distance=3.4em]{node [dummy] {}
+				child{
+				edge from parent node [swap,near end] {} node [name=Kn2] {}}
+				child{
+				edge from parent node [near end] {}
+node [name=Kone2,swap] {}}
+			edge from parent node [near end,swap] {$[e_i]$}
+node [near start,inner sep=1pt,name=Kone,swap] {}
+node [near start,inner sep=1pt,name=Kone1] {}}
+			child{
+			edge from parent node [near end] {}
+node [swap] {}
+node [near start,inner sep=1pt,name=Kn1,swap]{}}
+		edge from parent node [swap] {$[e_0]$}}
+		edge from parent node [swap] {$[e'_0]$}
+		};
+		\draw [dotted,thick] (Kone) -- (Kn) ;
+		\draw [dotted,thick] (Kone1) -- (Kn1) ;
+		\draw [dotted,thick] (Kone2) -- (Kn2) ;
+	\node at (6,0) [font=\normalsize]{$\sigma^i T$}
+		child{node [dummy] {}
+			child{
+			edge from parent node [swap,near end] {} node [near start,inner sep=1pt,name=Kn] {}}
+			child[level distance=3.4em]{node [dummy] {}
+			child{node [dummy] {}
+				child{
+				edge from parent node [swap,near end] {} node [name=Kn2] {}}
+				child{
+				edge from parent node [near end] {}
+node [name=Kone2,swap] {}}
+			edge from parent node [swap] {$[e'_i]$}}
+			edge from parent node [near end,swap] {$[e_i]$}
+node [near start,inner sep=1pt,name=Kone,swap] {}
+node [near start,inner sep=1pt,name=Kone1] {}}
+			child{
+			edge from parent node [near end] {}
+node [swap] {}
+node [near start,inner sep=1pt,name=Kn1,swap]{}}
+		edge from parent node [swap] {$[e_0]$}
+		};
+		\draw [dotted,thick] (Kone) -- (Kn) ;
+		\draw [dotted,thick] (Kone1) -- (Kn1) ;
+		\draw [dotted,thick] (Kone2) -- (Kn2) ;
+\end{tikzpicture}
+\]
+Given $x,y$ as in (i), one can now build a map
+$H \colon \Lambda_o^{[e_i]}[\sigma^0 T] \to X$ by
+\[
+	H|_{\sigma^0 T - [e_0]} = x,
+\qquad
+	H|_{\sigma^0 T - [e'_0]} = y,
+\qquad
+	H|_{\sigma^0 C_1} = 
+	x|_{C_1} \circ \sigma^0 = 
+	y|_{C_1} \circ \sigma^0.
+\]
+Letting $\widetilde{H}\colon \sigma^0 T \to X$
+be an extension of $H$,
+the restriction $H|_{\sigma^0 T - [e_i]}$
+provides the desired homotopy 
+$x|_{D} \sim y|_{D}$, showing (i).
+
+
+Lastly, let $x,f,g$ be as in (ii), 
+and let
+$K \colon \sigma^i C_1 \to X$ exhibit the relation
+$f \sim_i x|_{C_1}$
+and 
+$ \bar{K} \colon \sigma^i C_2 \to X$
+exhibit the relation
+$x|_{C_2} \sim_i g$ (note the reversed order).
+Now build the map
+$H \colon \Lambda_o^{[e'_i]}[\sigma^i T] \to X$ by
+\[
+	H|_{\sigma^i T - [e_i]} = x,
+\qquad
+	H|_{\sigma^i C_1} = K,
+\qquad
+	H|_{\sigma^i C_2} = \bar{K}.
+\]
+Again letting 
+$\widetilde{H} \colon \sigma^i T \to X$,
+the restriction 
+$\widetilde{H}|_{\sigma^i T - [e'_i]}$
+provides the required $y \colon T \to X$,
+showing (ii) and finishing the proof.
+\end{proof}
+
+
+\begin{corollary}
+Let $X \in \mathsf{dSet}^G$ be a $G$-$\infty$-operad. Then
+	\begin{itemize}
+	\item[(a)] $\mathsf{ho}(X)\in \mathsf{dSet}_G$ is a genuine equivariant operad, i.e. it satisfies the strict right lifting condition against the Segal core inclusions
+	$Sc[T] \to \Omega[T]$ for $T \in \Omega_G$;
+	\item[(b)] the quotient map
+	$\gamma_{\**}X \to \mathsf{ho}(X)$ is the universal map from $\gamma_{\**}X$ to a genuine equivariant operad.
+	\end{itemize}
+\end{corollary}
+
+\begin{proof}
+	Note first that by Remark \ref{HOMOTBOUND REM}
+	any map 	$Sc[T] \to \mathsf{ho}(X)$ admits a factorization 
+	$Sc[T] \to \gamma_{\**}X \xrightarrow{q} \mathsf{ho}(X)$.
+	
+	The right lifting property for $\mathsf{ho}(X)$
+	against the maps $Sc[T] \to \Omega[T]$
+	is then automatic from the lifting property for $X$.
+
+	For strictness,	
+	note that Definition \ref{XTENDSIM DEF}
+	can be reinterpreted as saying that
+	$x,y \colon \Omega[T] \rightrightarrows X$
+	give rise to the same point of 
+	$\mathsf{ho}(X)$, i.e. 
+	the composites 
+	$\Omega[T] \rightrightarrows X \xrightarrow{q}
+	\mathsf{ho}(X)$ coincide, 
+	iff the composites 
+	$Sc[T] \to \Omega[T] \rightrightarrows X \xrightarrow{q}
+	\mathsf{ho}(X)$ coincide, showing strictness, and thus (a).
+		
+	For (b), since $\mathsf{ho}(X)$ is a quotient of
+	$\gamma_{\**} X$, it suffices to show that any map
+	from $F \colon \gamma_{\**}X \to Y$ with $Y$ a genuine equivariant operad must also enforce the $\sim$ relation.
+	For a $G$-corolla $C$ and
+	$f,g\colon C \to X$ such that 
+	$H \colon \sigma^i C \to X$ exhibits
+	$f \sim_i g$, 
+	the strict lifting condition for $Y$
+	shows that the maps
+	$F\circ H, f \circ \sigma^i \colon \sigma^i C \to Y$,
+	must coincide, and thus that
+	$F(f)=F(g)$.
+	The further claim that $F$ respects equivalences
+	of general dendrices $x,y\colon T \rightrightarrows X$
+	is immediate from Definition \ref{XTENDSIM DEF}.
+\end{proof}
+
+
+\newpage
+
+
 
 
 \section{Scratchwork}
@@ -5250,7 +5888,7 @@ $W_! \colon \mathsf{dSet}^G
 \]
 Similarly, the map
 	$G \cdot_H \left(W_! \Lambda^E[U] \to W_! \Omega[U] \right)$
-is a pushout are pushouts
+is a pushout 
 
 %\[
 %\begin{tikzcd}
