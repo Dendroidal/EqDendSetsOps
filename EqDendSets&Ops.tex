@@ -149,31 +149,51 @@ We will denote this by $\mathsf F^G \wr \underline{\mathfrak C}$.
 %{\color{OliveGreen}
 We recall the following about homotopies in general model categories.
 \begin{definition}
-      A \textit{cylinder} object in $\V$ is an object $\mathbb C$ equipped with a factorization of the fold map
+      For any $A \in \V$, a \textit{cylinder} object for $A$ is an object $\mathbb C(A)$ equipped with a factorization of the fold map
       \begin{equation}
             \begin{tikzcd}
-                  1_\V \amalg 1_\V \arrow[r, tail]
+                  A \amalg A \arrow[r, tail]
                   &
-                  \mathbb C \arrow[r, "\simeq"]
+                  \mathbb C(A) \arrow[r, "\simeq"]
                   &
-                  1_\V
+                  A
             \end{tikzcd}
       \end{equation}
       into a cofibration followed by a weak equivalence.
-      %
-      A \textit{homotopy} between maps $f,g: A \to B$ in $\V$ is a map $H_{fg}: \mathbb C \to \V(A,B)$ such that
+      
+      For the tensor unit $1_\V$, we write $\mathbb C = \mathbb C(1_\V)$, and call this simply a \textit{cylinder} in $\V$.
+      % A cylinder for $A$ is called \textit{good} if the second map is a trivial fibration.
+      
+      A (left) \textit{homotopy} between maps $f,g: A \to B$ in $\V$ is a map $H_{fg}: \mathbb C(A) \to \V(A,B)$ such that
       the diagram below commutes.
       \begin{equation}
             \begin{tikzcd}[row sep = tiny]
-                  1_\V \amalg 1_\V \arrow[rr, "{(f,g)}"] \arrow[dr]
+                  A \amalg A \arrow[rr, "{(f,g)}"] \arrow[dr]
                   &&
-                  \V(A,B)
+                  B
                   \\
                   &
-                  \mathbb C \arrow[ur, "H_{fg}"']
+                  \mathbb C(A) \arrow[ur, "H_{fg}"']
             \end{tikzcd}
       \end{equation}
 \end{definition}
+
+% \begin{remark}
+%       If $B$ is fibrant, we may lift any homotopy to a homotopy out of a good cylinder,
+%       using the functorial factorization
+%       $\mathbb C(A) \overset{\sim}{\rightarrowtail} \mathbb C'(A) \xrightarrow{\sim}{\twoheadrightarrow} A$.
+% \end{remark}
+
+\begin{remark}
+      \label{CYL_REM}
+      For $\mathbb C$ a cylinder in $\V$,
+      if $A \in \V$ is cofibrant, then $A \otimes \mathbb C$ is a cylinder object for $A$,
+      as the fold map can be written
+      \begin{equation}
+            A \amalg A \simeq A \otimes (1_\V \amalg 1_\V) \rightarrowtail A \otimes \mathbb C \xrightarrow{\sim} A
+      \end{equation}
+      as $A \otimes (-)$ preserves cofibrations, as well as weak equivalences between cofibrant objects (by Ken Brown's lemma).
+\end{remark}
 
 These cylinder objects provide another description of the mapping sets in the homotopy category of $\V$.
 
@@ -199,7 +219,8 @@ We can use these cylinder objects to extend the notion of homotopy to $\V$-categ
 \end{definition}
 
 \begin{lemma}
-      If $f,g: 1_\V \to \O(c;d)$ are homotopic, then for any $\mathfrak C(\O)$ profile $\ksi$ such that either
+      If $\O \in \Op^{G, \mathfrak C}(\V)$ is cofibrant,
+      and $f,g: 1_\V \to \O(c;d)$ are homotopic, then for any $\mathfrak C(\O)$ profile $\ksi$ such that either
       \begin{enumerate}[label = (\roman*)]
       \item the target of $\ksi$ is $c$, or
       \item $d$ is in the source of $\ksi$,
@@ -212,14 +233,14 @@ We can use these cylinder objects to extend the notion of homotopy to $\V$-categ
       where $\ksi_c^d$ is the profile created from $\ksi$ by replacing $c$ with $d$.
 \end{lemma}
 \begin{proof}
-      This follows from the commuting diagram below.
+      This follows from Remark \ref{CYL_REM} and the following commuting diagram.
       \begin{equation}
             \begin{tikzcd}
-                  1_\V \amalg 1_\V \arrow[r, "{(f_{\**}, g_{\**})}"] \arrow[d, tail]
+                  \O(\ksi) \otimes (1_\V \amalg 1_\V) \arrow[r, "{(f_{\**}, g_{\**})}"] \arrow[d, tail]
                   &
-                  \V(\O(\ksi), \O(\ksi_c^d))
+                  \O(\ksi_c^d)
                   \\
-                  \mathbb C \arrow[r, "H_{fg}"]
+                  \O(\ksi) \otimes \mathbb C \arrow[r, "H_{fg}"]
                   &
                   \O(c;d) \arrow[u, "{(-)_{\**}}"]
             \end{tikzcd}
@@ -229,7 +250,7 @@ We can use these cylinder objects to extend the notion of homotopy to $\V$-categ
 The following is immediate.
 \begin{corollary}
       \label{HTPIC_ISO_COR}
-      Let $\O$ be locally fibrant in $\Op(\V)$. 
+      Let $\O$ be locally bifibrant in $\Op(\V)$. 
       If $f$ is homotopic to the identity on a color $c$, then for any profile $\ksi$ containing $c$, the map
       $f_{\**}: \O(\ksi) \to \O(\ksi)$
      is an isomorphism in the homotopy category $\Ho(\V)$.
@@ -250,7 +271,7 @@ We may assemble homotopies in the following manner.
 \begin{lemma}
       \label{ASSEM_HOM_LEM}
       Suppose $\V$ has cofibrant symmetric pushout powers.
-      If $\mathbb C$ is a cylinder object, then so is each $\left(\mathbb C^{\otimes n}\right)^{K}$ for all $K \leq \Sigma_n$.
+      If $\mathbb C$ is a cylinder, then so is each $\left(\mathbb C^{\otimes n}\right)^{K}$ for all $K \leq \Sigma_n$.
 \end{lemma}
 \begin{proof}
       % It suffices to show there exist
@@ -2089,29 +2110,42 @@ We record that $\iota_{\**}$ again fully-faithful since $\epsilon$ is an iso.
 \renewcommand{\C}{\mathfrak C}
 
 \textbf{Fix a cofibrantly generated model category $\V$.}
-We generalize and sythesize \cite{BM13}, \cite{Cav14}, and \cite{CM13b} to assemble the collection of
+We generalize and synthesize \cite{BM13}, \cite{Cav14}, and \cite{CM13b} to assemble the collection of
 ``color-fixed'' ($\F$)-model structures into a single model structure on $\Op^G(\V)$.
 
 
+% \begin{definition}
+%       We say $\V$ \textit{admits (semi)-transfer for categories/operads} if for any set $\mathfrak C$,
+%       the categories $\Cat^{\mathfrak C}(\V)$, $\Op^{\mathfrak C}(\V)$
+%       may be equipped with the canonical (semi)-model structure.
+% \end{definition}
+
+% \begin{remark}
+%       If $\V$ satisfies the \textit{monoid axiom} of \cite{SS00}
+%       or has a monoidal fibrant replacement functor and a comonoidal Hopf interval object \cite{BM03},
+%       then $\V$ admits transfers for categories and operads by \cite{Mur11,Mur14} and \cite{BM03}, respectively.
+% \end{remark}
+
+As in the previous section, we fix an indexing system $\F = \set{\F_n}$ of families $\F_n$ of graph subgroups of $G \times \Sigma_n$,
+with the maximal family denoted $\mathrm{Gr} = \set{\mathrm{Gr}_n}$.
+We say an indexing family $\F$ \textit{has units} if
+$\F_1$ contains all graph subgroups of the form $H \leq G \times \Sigma_1$.
+In particular, \cite[Remark 4.50]{BP17}) implies that any \textit{weak indexing system} has units.
+
 \begin{definition}
-      We say $\V$ \textit{admits (semi)-transfer for categories/operads} if for any set $\mathfrak C$,
-      the categories $\Cat^{\mathfrak C}(\V)$, $\Op^{\mathfrak C}(\V)$
-      may be equipped with the canonical (semi)-model structure.
+      We say $\V$ has \textit{cellular fixed points} if
+      \todo[inline]{come back}
 \end{definition}
 
 \begin{remark}
-      If $\V$ satisfies the \textit{monoid axiom} of \cite{SS00}
-      or has a monoidal fibrant replacement functor and a comonoidal Hopf interval object \cite{BM03},
-      then $\V$ admits transfers for categories and operads by \cite{Mur11,Mur14} and \cite{BM03}, respectively.
+      \label{LEVEL_COF_REM}
+      An immediate consequence of cellularity is that for any genuine cofibration $f \in \V^G_{gen}$,
+      $f^H$ is a cofibration in $\V$ for all $H \leq G$.
 \end{remark}
 
-As in the previous section, we fix a \textit{weak indexing system} $\F = \set{\F_n}$ of families $\F_n$ of graph subgroups of $G \times \Sigma_n$,
-with the maximal family denoted $\mathrm{Gr} = \set{\mathrm{Gr}_n}.$
-\todo[inline]{come back: when do I need a full weak indexing system vs an indexing family?}
-
 \begin{definition}
-      We say $\V$ \textit{admits (semi)-transfers for $G$-categories/operads} if
-      $\V$ has \textit{cellular fixed points} and
+      Given $\V$ with cellular fixed points, we say
+      $\V$ \textit{admits (semi)-transfers for $G$-categories/operads} if
       for any $G$-set $\mathfrak C$ and indexing collection $\F$,
       the categories $\Cat^{G, \mathfrak C}(\V)$, $\Op^{G, \mathfrak C}(\V)$
       may be equipped with the canonical $\F$-(semi)-model structure.
@@ -2123,10 +2157,11 @@ with the maximal family denoted $\mathrm{Gr} = \set{\mathrm{Gr}_n}.$
 \end{example}
 
 \begin{example}
-      \cite[Theorem 3.1]{GW17} shows that $(\sSet, \times)$ admits transfers for $G$-operads when $\mathfrak C = \set{*}$.
+      \cite[Theorem 3.1]{GW17} shows that $(\Top, \times)$ admits transfers for $G$-operads when $\mathfrak C = \set{*}$.
 \end{example}
 
-\textbf{\color{OliveGreen} In this section, assume that $\V$ admits (semi)-transfer for $G$-categories and $G$-operads}.
+\textbf{\color{OliveGreen} In this section, further assume that $\V$
+  has cellular fixed points and admits (semi)-transfer for $G$-categories and $G$-operads}.
 
 \begin{remark}
       \label{JSTAR_REM}        
@@ -2240,8 +2275,7 @@ with the maximal family denoted $\mathrm{Gr} = \set{\mathrm{Gr}_n}.$
 
 \begin{theorem}
       \label{MODEL_THM}
-      Fix a weak indexing system $\F = \set{\F_n}$.
-      \todo[inline]{come back: where do I use the full closure condtions?}
+      Fix an indexing family $\F = \set{\F_n}$ with units.
       Let $(\V, \otimes)$, denote either $(\sSet, \times)$ or $(\sSet_{\**}, \wedge)$.
       Then there exists a cofibrantly generated model structure on the category $\Op^G(\V)$,
       denoted $\Op^G_\F(\V)$, with
@@ -2267,7 +2301,7 @@ with the maximal family denoted $\mathrm{Gr} = \set{\mathrm{Gr}_n}.$
 \end{theorem}
 \begin{proof}
       In the first case, we have that the model category $\Op^{G,\mathfrak C}_\F(\sSet)$ exists
-      for any $G$-set $\mathfrak C$ and weak indexing $\F$ by Theorem \ref{THM1_C},
+      for any $G$-set $\mathfrak C$ and indexing family $\F$ by Theorem \ref{THM1_C},
       while in the second case, conditions $(i)$ -- \ref{CSPP_LBL} are sufficient to construct the
       semi-model category $\Op^{G, \mathfrak C}_\F(\V)$ from said theorem.
       
@@ -2427,7 +2461,7 @@ The next two subsectiosn deal with these issues, in that order.
 \begin{lemma}
       \label{COF_TC_LEM}
       Suppose $\V$ admits (semi)-transfer for operads.
-      Then local cofibrations and trivial cofibrations (with cofibrant source) are closed under transfinite composition.
+      Then local $\mathrm{Gr}$-cofibrations and  trivial $\mathrm{Gr}$-cofibrations (with cofibrant source) are closed under transfinite composition.
 \end{lemma}
 \begin{proof}
       Explicitly, suppose we have a chain of maps
@@ -2437,10 +2471,10 @@ The next two subsectiosn deal with these issues, in that order.
       in $\Op^G(\V)$, and let $F_\alpha$ denote the compoite $\O_0 \to \O_\alpha$.
       Then we claim that
       if each map of the form on the left in \eqref{COF_TC_EQ}
-      is a (trivial) $\F$-cofibrations in $\V^{\Stab(\theta)}_{\F_\theta}$
+      is a (trivial) $\mathrm{Gr}$-cofibrations in $\V^{\Stab(\theta)}_{\F_\theta}$
       for all $\mathfrak C(\O_\alpha)$-signatures $\theta$, then
       the composite map on the right in \eqref{COF_TC_EQ}
-      is a (trivial) $\F$-cofibration in $\V^{\Stab(\ksi)}_{\F_\theta}$
+      is a (trivial) $\mathrm{Gr}$-cofibration in $\V^{\Stab(\ksi)}_{\F_\ksi}$
       for all $\mathfrak C(\O)$-signatures $\ksi$.     
        \begin{equation}
             \label{COF_TC_EQ}
@@ -2448,33 +2482,30 @@ The next two subsectiosn deal with these issues, in that order.
             \qquad  \qquad
             \O(\ksi) \to \O_\alpha(F_\alpha(\ksi))
       \end{equation}
-      % 
-      Indeed, suppose $\theta = f_{\alpha-1}(\ksi)$.
-      Since $\Stab(\ksi) \leq \Stab(\theta)$, and as $\F_n$ is a family of subgroups of $G \times \Sigma_n$,
-      we have that, for any $r \in \Gamma \backslash \Stab(\theta) / \Stab(\ksi)$,
-      $r \Gamma r^{-1} \cap \Stab(\ksi) \in \F_\ksi$.
-      Thus, 
-      if $f_\alpha(\theta): \O_\alpha(\theta) \to \O_{\alpha+1}(f_{\alpha}(\theta))$ is constructed out of $\F_\theta$-admissible cells,
-      % $\Stab(\theta)/\Gamma \dot i$ for $\Gamma \in \F_\n \cap \Stab(\theta)$ and $i$ a generating (trivial) cofibration in $\V$,
-      then when restricted to a map in $\V^{\Stab(\ksi)}$, it is built out of $\F_\ksi$-admissible cells.
-      That is, if $f_\alpha(\theta)$ is a (trivial) $\F_\theta$-cofibration, it is a (trivial) $\F_\ksi$-cofibration as well.
       %
-      Thus, we have a string of (trivial) $\F_\ksi$-cofibrations in $\V^{\Stab(\ksi)}_{\F_\ksi}$
+      Indeed, if $\theta = f_{\alpha-1}(\ksi)$,
+      $\Stab(\ksi) \leq \Stab(\theta)$,
+      and the restriction map $\V^{\Stab(\theta)}_{\mathrm{Gr}_\theta} \to \V^{\Stab(\ksi)}_{\mathrm{Gr}_\ksi}$
+      preserves (trivial) cofibrations (cf. \cite[Prop 6.6]{BP17},
+      and thus the $\Stab(\theta)$-genuine (trivial) cofibration $f_\alpha(\theta)$ 
+      restricts to a $\Stab(\ksi)$-genuine (trivial) cofibration $f_\alpha(f_{\alpha-1}(\ksi))$.
+      %
+      Thus, we have a string of (trivial) $\F_\ksi$-cofibrations in $\V^{\Stab(\ksi)}_{\mathrm{Gr}_\ksi}$
       \begin{equation}
             \O_0(\ksi) \rightarrowtail \O_1(F_1(\ksi)) \rightarrowtail \O_2(F_2(\ksi)) \rightarrowtail \dots
             \rightarrowtail \O_\alpha(F_\alpha(\ksi)) \rightarrowtail \dots
       \end{equation}
-      As cofibrations and trivial cofibrations in $\V^{\Stab(\ksi)}_{\F_\ksi}$ (with cofibrant source if semi-admissible)
+      As cofibrations and trivial cofibrations in $\V^{\Stab(\ksi)}_{\mathrm{Gr}_\ksi}$ (with cofibrant source if semi-admissible)
       are closed under transfinite composition, the result is proven.
 \end{proof}
 
 \begin{lemma}
       \label{LOCAL_COF_LEM}
-      If $f: \O \to \P$ in $\Op^{G, \mathfrak C}(\V)$ is a (trivial) $\F$-cofibration, it is a local (trivial) $\F$-cofibration.
+      If $f: \O \to \P$ in $\Op^{G, \mathfrak C}(\V)$ is a (trivial) $\mathrm{Gr}$-cofibration, it is a local (trivial) $\mathrm{Gr}$-cofibration.
 \end{lemma}
 \begin{proof}
-      This follows from the proof of Theorem \ref{THM1_C}, as \cite[Remark 6.64]{BP17} follows from \cite[Lemma 6.59]{BP17}.
-      \todo[inline]{come back: make sure this is clearly highlighted when reworking single-color section}
+      {\color{red} Need: version of 5.72}
+      \todo[inline]{come back: make sure this is clearly highlighted when reworking single-color section.}
 \end{proof}
 
 \begin{proposition}
@@ -2489,7 +2520,8 @@ The next two subsectiosn deal with these issues, in that order.
       We begin with the case that $\V$ admits transfer for operads.
            
       Now, as essentially surjective maps are closed under transfinite composition by Lemma \ref{TRANSCOMP_ES_LEM},
-      it suffices by Lemma \ref{COF_TC_LEM} to prove that the pushout of a map $j \in J_{\F}$ is a local trivial $\F$-cofibration.
+      it suffices by Lemma \ref{COF_TC_LEM} to prove that the pushout of a map $j \in J_{\F}$ is a local weak $\F$-equivalence
+      which is a $\mathrm{Gr}$-cofibration (which in particular follows from being a local trivial $\F$-cofibration).
 
       Firstly, if $j = \mathbb F_\Gamma[\Gamma/\Gamma \cdot i] \in J_{\F, loc}$, 
       we are considering the pushout of a trivial cofibration in $\mathsf{Op}^{G,\mathfrak C(\Q)}(\V)$ (cf. \eqref{COLOR_SQ_EQ}).
@@ -2677,11 +2709,11 @@ Equivariantly, we have the following:
       \begin{equation}
             \label{FIBFIX_LIFT_EQ}
             \begin{tikzcd}
-                  \mathcal C^H \arrow[d, tail, "\simeq"'] \arrow[r]
+                  \mathcal C^H \arrow[d, tail, "\sim"'] \arrow[r, "\sim"]
                   &
                   (\mathcal C_f)^H
                   \\
-                  (\mathcal C^H)_f \arrow[ur, dashed]
+                  (\mathcal C^H)_f \arrow[ur, dashed, "\sim"]
             \end{tikzcd}
       \end{equation}
       and thus any equivalence in $(\mathcal C^H)_f$ induces an equivalence in $(\mathcal C_f)^H$. 
@@ -2823,7 +2855,7 @@ We elaborate on the following two lemmas from \cite{BM13}.
             \end{tikzcd}
       \end{equation}
       
-      Now, if $\mathbb C$ is any cylinder object in $\V$, we have a lift in the following diagram, for $i \in \set{0,1}$.
+      Now, if $\mathbb C$ is any cylinder in $\V$, we have a lift in the following diagram, for $i \in \set{0,1}$.
       \begin{equation}
             \label{J11_CYL_EQ}
             \begin{tikzcd}
@@ -2838,7 +2870,7 @@ We elaborate on the following two lemmas from \cite{BM13}.
                   (1_\V)_f
               \end{tikzcd}
         \end{equation}
-        Thus $f_1$ (resp. $f_0$) factors through a cylinder object,
+        Thus $f_1$ (resp. $f_0$) factors through a cylinder,
         implying $\alpha\beta$ (resp. $\beta\alpha)$ is homotopic to $id_y$ (resp. $id_x$),
         and hence that the objects $x,y\in \mathcal C_f$ are homotopy equivalent.
   \end{proof}
@@ -2846,6 +2878,7 @@ We elaborate on the following two lemmas from \cite{BM13}.
 \begin{lemma}
       [{cf. \cite[4.11]{Cav14}, \cite[2.9]{BM13}}]
       \label{REF_VIRT_LEM}
+      Suppose the indexing family $\F$ has units.
       Local weak $\F$-equivalences reflect $H$-equivalences.
       Explicitly,
       fixing $H \leq G$, 
@@ -2856,7 +2889,7 @@ We elaborate on the following two lemmas from \cite{BM13}.
       % {\color{OliveGreen}
       %   Need: virtual $H$-equivalent (i).
       % }
-      Since every weak indexing system $\F$ has that $\F_1$ contains all $H \leq G \times \Sigma_1$ (cf. \cite[Remark 4.50]{BP17}),
+      Since $\F$ has units, $\F_1$ contains all $H \leq G \times \Sigma_1$ (cf. \cite[Remark 4.50]{BP17}), and thus
       $j^{\**}F^H: j^{\**}\O^H \to j^{\**}\P^H$ is a local weak equivalence in $\Cat(\V)$.
       %
       As in \cite{BM13}, we may build a fibrant replacement of $j^{\**}F^H$ which is a local trivial fibration in $\Cat(\V)$.
@@ -2925,51 +2958,63 @@ which show that in many cases, a homotopy equivalence of colors induces a homoto
       $\P(F(\ksi)) \to \P(\F(\ksi_c^d))$ in $\V^{\Stab(\ksi)}_{\mathrm{Gr}_\ksi}$. 
 \end{lemma}
 \begin{proof}
-      By assumption we have maps
-      $\alpha: 1_\V \to \O^H(c;d)_f$ and $\beta: 1_\V \to \O^H(d;c)_f$
-      representing the homotopy $H$-equivalence,
-      with $H_{\beta\alpha,1}$ and $H_{\alpha\beta,1}$ the associated homotopies. 
-
-      $\O_f(a;b) \in \V^{\Stab(\ksi)}$ has a $\Stab(\ksi)$-action 
-      for $(a;b) \in \set{(c;c), (c;d), (d;c), (d;d)}$
-      via the projection $\Stab(\ksi) \to H$,
+      For $\P = \O,\ \O_f$, or $\O_{f c} = (\O_f)_c$,
+      $\P(a;b) \in \V$ has a $\Stab(\ksi)$-action
+      via the projection $\Stab(\ksi) \to H$
+      for any $(a;b) \in \set{(c;c), (c;d), (d;c), (d;d)}$,
       and naturality of composition implies that the maps
       \begin{equation}
-            \alpha_{\**}: \O_f(\ksi) \to \O_f(\ksi_c^d),
+            \alpha_{\**}: \P(\ksi) \to \P(\ksi_c^d),
             \qquad
-            \beta_{\**}: \O_f(\ksi_c^d) \to \O_f(\ksi)
+            \beta_{\**}: \P(\ksi_c^d) \to \P(\ksi)
       \end{equation}
       and their composites are maps in $\V^{\Stab(\ksi)}$.
       Thus we have natural composition maps
       \begin{equation}
-            \O_f(\ksi)^\Gamma \otimes \O_f(c;d)^{H_\Gamma} \longrightarrow
-            (\O_f(\ksi) \otimes \O_f(c;d))^\Gamma \longrightarrow
-            \O_f(\ksi_c^d)^\Gamma
+            \P(\ksi)^\Gamma \otimes \P(c;d)^{H_\Gamma} \longrightarrow
+            (\P(\ksi) \otimes \P(c;d))^\Gamma \longrightarrow
+            \P(\ksi_c^d)^\Gamma
       \end{equation}
       for any graph subgroup $\Gamma \leq G \times \Sigma_n$,
       where $H_\Gamma$ is the projection of $\Gamma$ onto $G$,
       and similarly when replacing $(c;d)$ with $(d;c)$, $(c;c)$, $(d;d)$,
       and $\ksi$ by $\theta$ when required.
-      %  
-      By Remark \ref{HK_EQUIV_REM} and \eqref{FIBFIX_LIFT_EQ},
-      this yields an induced homotopy $\beta\alpha \sim id_{\O_f(\ksi)^{\Gamma}}$ in $\V$
+      
+      By assumption we have maps
+      $\alpha: 1_\V \to \O^H(c;d)_f$ and $\beta: 1_\V \to \O^H(d;c)_f$
+      representing the homotopy $H$-equivalence,
+      with associated homotopies $H_{\beta\alpha,1}$ and $H_{\alpha\beta,1}$.
+      But, for any graph subgroup $\Gamma$, we have lifts of both homotopies, e.g.
       \begin{equation}
+            \label{OFC_HOM_LIFT}
             \begin{tikzcd}
-                  1_\V \amalg 1_\V \arrow[d, tail] \arrow[rrr, "{((\beta\alpha)_{\**}, id)}"]
-                  &&&
-                  \V(\O_f(\ksi)^\Gamma, \O_f(\ksi)^\Gamma)
-                  % &
-                  % 1_\V \amalg 1_\V \arrow[d, tail] \arrow[rr, "{((\alpha\beta)_{\**}, id)}"]
-                  % &&
-                  % \V((\O(\ksi_c^d)_f)^\Gamma, (\O(\ksi_c^d)_f)^\Gamma)
-                  \\                  
-                  \mathbb C \arrow[r, "H_{\beta\alpha,1}"]
+                  &&& \O_{f c}(c;c)^{H_\Gamma} \arrow[d, two heads, "\sim"]
+                  \\
+                  \mathbb C \arrow[r, "H_{\beta\alpha,1}"'] \arrow[urrr, dashed, shift left, "H_{\beta\alpha,1}"]
                   &
                   \O^H(c;c)_f \arrow[r]
                   &
                   \O^{H_\Gamma}(c;c)_f \arrow[r]
                   &
-                  \O_f(c;c)^{H_\Gamma} \arrow[u, "{(-)_{\**}}"]
+                  \O_f(c;c)^{H_\Gamma}
+            \end{tikzcd}
+      \end{equation}
+      (using Remark \ref{HK_EQUIV_REM} and \eqref{FIBFIX_LIFT_EQ}), compatible with similar lifts of $\alpha$ and $\beta$.
+      %
+      Thus we have an induced homotopy $\beta\alpha \sim id_{\O_{f c}(\ksi)^{\Gamma}}$ in $\V$
+      \begin{equation}
+            \begin{tikzcd}
+                  \O_{f c}(\ksi)^{\Gamma} \otimes (1_\V \amalg 1_\V) \arrow[d, tail] \arrow[r, "{((\beta\alpha)_{\**}, id)}"]
+                  &
+                  \O_{f c}(\ksi)^\Gamma
+                  % &
+                  % 1_\V \amalg 1_\V \arrow[d, tail] \arrow[rr, "{((\alpha\beta)_{\**}, id)}"]
+                  % &&
+                  % \V((\O(\ksi_c^d)_f)^\Gamma, (\O(\ksi_c^d)_f)^\Gamma)
+                  \\                  
+                  \O_{f c}(\ksi)^\Gamma \otimes \mathbb C \arrow[r, "H_{\beta\alpha,1}"]
+                  &
+                  \O_{f c}(\ksi)^\Gamma \otimes \O_{f c}(c;c)^{H_\Gamma} \arrow[u, "\circ"]
                   % &
                   % \mathbb C \arrow[r, "H_{\alpha\beta,1}"']
                   % &
@@ -2978,19 +3023,21 @@ which show that in many cases, a homotopy equivalence of colors induces a homoto
                   % (\O(d;d)_f)^{H_\Gamma} \arrow[u, "{(-)_{\**}}"],
             \end{tikzcd}
       \end{equation}
-      and similarly $\alpha\beta \sim id_{\O_f(\ksi_c^d)^\Gamma}$.
-      Hence, as $\O_f(\ksi)^\Gamma$ and $\O_f(\ksi_c^d)^\Gamma$ are fibrant,
-      $\alpha_{\**}: \O_f(\ksi)^\Gamma \leftrightarrow \O_f(\ksi_c^d)^\Gamma : \beta_{\**}$ are inverse isomorphisms in $\Ho(\V)$ for all $\Gamma$.
+      and similarly $\alpha\beta \sim id_{\O_{f c}(\ksi_c^d)^\Gamma}$.
+      Hence, as $\O_{f c}(\ksi)^\Gamma$ and $\O_{f c}(\ksi_c^d)^\Gamma$ are bifibrant by Remark \ref{LEVEL_COF_REM},
+      $\alpha_{\**}: \O_{f c}(\ksi)^\Gamma \leftrightarrow \O_{f c}(\ksi_c^d)^\Gamma : \beta_{\**}$ are inverse isomorphisms in $\Ho(\V)$ for all $\Gamma$.
       %
-      Thus, in particular, $\alpha_{\**}: \O_f(\ksi) \to \O_f(\ksi_c^d)$ is a weak equivalence in $\V^{\Stab(\ksi)}_{\mathrm{Gr}_\ksi}$.
-      Composing with the functorial fibrant replacement weak equivalences yields our zig-zag
+      Thus, in particular, $\alpha_{\**}: \O_{f c}(\ksi) \to \O_{f c}(\ksi_c^d)$ is a weak equivalence in $\V^{\Stab(\ksi)}_{\mathrm{Gr}_\ksi}$.
+      Composing with the functorial fibrant and cofibrant replacement weak equivalences yields our zig-zag of $\mathrm{Gr}_\ksi$-equivalences
       \begin{equation}
-            \O(\ksi) \xrightarrow{\simeq} \O_f(\ksi) \xrightarrow{\simeq} \O_f(\ksi_c^d) \xleftarrow{\simeq} \O(\ksi_c^d).
+            \O(\ksi) \xrightarrow{\simeq} \O_f(\ksi) \xleftarrow{\sim} \O_{f c}(\ksi)
+            \xrightarrow{\simeq}
+            \O_{f c}(\ksi_c^d) \xrightarrow{\sim} \O_f(\ksi_c^d) \xleftarrow{\simeq} \O(\ksi_c^d).
       \end{equation}
       
-      Finally, any $F: \O \to \P$ induces a map $F_f: \O_f \to \P_f$, and
+      Finally, any $F: \O \to \P$ induces a map $F_{f c}: \O_{f c} \to \P_{f c}$, and
       the images of $\alpha_{\**}$ and $\beta_{\**}$ yield
-      homotopy equivalences $\P_f(F(\ksi))^\Gamma \to \P_f(F(\ksi_c^d))^\Gamma$ for any graph subgroup $\Gamma \leq \Stab(\ksi)$,
+      homotopy equivalences $\P_{f c}(F(\ksi))^\Gamma \to \P_{f c}(F(\ksi_c^d))^\Gamma$ for any graph subgroup $\Gamma \leq \Stab(\ksi)$,
       as desired.
 \end{proof}
 
@@ -3028,38 +3075,6 @@ which show that in many cases, a homotopy equivalence of colors induces a homoto
       $\P(F(\ksi)) \to \P(F(\theta))$ in $\V^{\Stab(\ksi)}_{\mathrm{Gr}_\ksi}$.
 \end{lemma}
 \begin{proof}
-      By assumption we have maps
-      $\alpha: 1_\V \to \O^H(c_1;d_1)_f$ and $\beta: 1_\V \to \O^H(d_1;c_1)_f$
-      representing the homotopy $H$-equivalence,
-      with $H_{\beta\alpha,1}$ and $H_{\alpha\beta,1}$ the associated homotopies.
-      
-      For each $i \in \underline{n}$, define
-      \begin{equation}
-            \label{WEAKEQCOLORS_EQ}
-            H_i =
-            \begin{cases}
-                  k_i H k_i^{-1} \qquad & i \in \lambda
-                  \\
-                  H & \mbox{else,}
-            \end{cases}
-            \qquad
-            \qquad 
-            \alpha_i =
-            \begin{cases}
-                  1_\V \xrightarrow{\alpha} O^H(c_1;d_1)_f \xrightarrow{k_i} \O^{H_i}(c_i;d_i)_f \qquad & i \in \lambda
-                  \\
-                  1_\V \xrightarrow{id} \O^H(c_i;d_i)_f & \mbox{else},
-            \end{cases}
-      \end{equation}
-      and $\beta_i$ similarly
-      (using functoriality of $(-)_f$).
-      Note that all of these --- $d_i$, $H_i$, $\alpha_i$, and $\beta_i$ --- are independent of the choice of $k_i\in k_i H$
-      (as, in particular, $\Stab(d_1) \geq H$).
-      Further, 
-      the pair $(\alpha_i,\beta_i)$ realizes a homotopy $H_i$-equivalence between $c_i$ and $d_i$,
-      as naturality of composition implies
-      $k_i (\beta\alpha) = \beta_i\alpha_i$. 
-
       Firstly, we claim that $\Stab_{G \times \Sigma_n}(\ksi) \subseteq \Stab_{G \times \Sigma_n}(\theta)$.
       To that end, suppose $(k,\pi)\in \Stab_{G\times \Sigma_n}(\ksi)$, so that $k \cdot c_{\pi^{-1}(i)} = c_i$ for all $i$.
       Thus $\pi$ must act on $\lambda$ and $\underline{n} \setminus \lambda$ independently,
@@ -3073,107 +3088,151 @@ which show that in many cases, a homotopy equivalence of colors induces a homoto
       On the other hand, if $i \not \in \lambda$, then
       $k \cdot d_{\pi^{-1}(i)} = k \cdot c_{\pi^{-1}(i)} = c_i = d_i$.
       
-      Now, let $(\alpha_i)_{\**}$ and $(\beta_i)_{\**}$ be the composites
+      Now, by assumption, we have maps
+      $\alpha: 1_\V \to \O^H(c_1;d_1)_f$ and $\beta: 1_\V \to \O^H(d_1;c_1)_f$
+      representing the homotopy $H$-equivalence,
+      with associated homotopies $H_{\beta\alpha,1}$ and $H_{\alpha\beta,1}$.
+      %
+      Chose a set of maps (cf. \eqref{FIBFIX_LIFT_EQ})
+      \begin{equation}
+            \O^H(a_1;b_1)_f \to \O_f(a_1;b_1)^H,
+            \qquad \qquad
+            (a_1;b_1) \in  \set{(d_1;c_1), (c_1;d_1), (c_1;c_1), (d_1;d_1)},
+      \end{equation}
+      and use these as in \eqref{OFC_HOM_LIFT} to compatibly lift
+      the $\alpha_i$, $\beta_i$, their composites, and their associated homotopies to $\O_{f c}(-)^H$.
+      % These provide compatable maps for all $i \in \lambda$
+      % \begin{equation}
+      %       \begin{tikzcd}
+      %             \O^{H_i}(a_i;b_i)_f
+      %             &
+      %             \O^H(a_1;b_1)_f \arrow[l, "\simeq", "k_i"'] \arrow[r]
+      %             &
+      %             \O_f(a_1;b_1)^H \arrow[r, "\simeq"', "k_i"]
+      %             &
+      %             \O_f(a_i;b_i)^{H_i}.
+      %       \end{tikzcd}
+      % \end{equation}   
+      % 
+      For each $i \in \underline{n}$, define
+      \begin{equation}
+            \label{WEAKEQCOLORS_EQ}
+            H_i =
+            \begin{cases}
+                  k_i H k_i^{-1} \qquad & i \in \lambda
+                  \\
+                  H & \mbox{else,}
+            \end{cases}
+            \qquad
+            \qquad 
+            \alpha_i =
+            \begin{cases}
+                  1_\V \xrightarrow{\alpha} O_{f c}(c_1;d_1)^H \xrightarrow{k_i} \O_{f c}(c_i;d_i)^{H_i} \qquad & i \in \lambda
+                  \\
+                  1_\V \xrightarrow{id} \O_{f c}(c_i;d_i)^H & \mbox{else},
+            \end{cases}
+      \end{equation}
+      and $\beta_i$ similarly.
+      Note that all of these --- $d_i$, $H_i$, $\alpha_i$, and $\beta_i$ --- are independent of the choice of $k_i\in k_i H$
+      (as, in particular, $\Stab(d_1) \geq H$).
+      Further, 
+      the pair $(\alpha_i,\beta_i)$ realizes a homotopy $H_i$-equivalence between $c_i$ and $d_i$,
+      as naturality of composition implies
+      $k_i (\beta\alpha) = \beta_i\alpha_i$.
+      
+      We may assemble the above data.
+      We see that the $\lambda$-indexed diagrams $i \mapsto \O_{f c}(a_i;b_i)^{H_i}$,
+      and hence their tensor products $\otimes_\lambda \O_{f c}(a_i;b_i)^{H_i}$,
+      have an action by $\Stab(\ksi)$,
+      for all $(a_i;b_i) \in  \set{(d_i;c_i), (c_i;d_i), (c_i;c_i), (d_i;d_i)}$.
+      Thus, for any graph subgroup $\Gamma \leq G \times \Sigma_n$,
+      \begin{equation}
+            \O_{f c}(\ksi)^{\Gamma} \otimes \left(
+                  \bigotimes\limits_\lambda \O_{f c}(c_i;c_i)
+            \right)^{\Gamma}
+            \longrightarrow
+            \left(
+                  \O_{f c}(\ksi) \otimes \bigotimes\limits_\lambda \O_{f c}(c_i;c_i)
+            \right)^\Gamma
+            \longrightarrow
+            \O_{f c}(\ksi)^\Gamma
+      \end{equation}
+      and similarly for any $(c_i;d_i)$, $(d_i;c_i)$, $(d_i;d_i)$,
+      replacing $\ksi$ with $\theta$ when required.
+ 
+      Moreover, the tensor product
+      \begin{equation}
+            \bigotimes_\lambda \alpha_i: 1_\V \simeq 1_\V^{\otimes n} \longrightarrow \bigotimes_\lambda \O_{f c}(c_i;d_i)
+      \end{equation}
+      is $\Stab(\ksi)$-equivariant:
+      for any $(k,\pi) \in \Stab(\ksi)$,
+      \begin{equation}
+            \label{AB_STAR_EQ}
+            (k, \pi) . \otimes_i(\alpha_i)
+            =
+            \otimes_i (k \alpha_{\pi^{-1}(i)})
+            =
+            \otimes_i (k k_{\pi^{-1}i} \alpha_1)
+            =
+            \otimes_i (k k_i h_i \alpha_1)
+            =
+            \otimes_i (k_i \alpha_1)
+            =
+            \otimes_i (\alpha_i).
+      \end{equation}
+      Analogous results hold for the $\beta_i$.
+      This (calculation) implies that additionally
+      the homotopies equivalences, e.g
+      \begin{equation}
+            H: \bigotimes\limits_\lambda \mathbb C \xrightarrow{k_iH_{\beta\alpha,1}}
+            \bigotimes\limits_\lambda \O_{f c}(c_i;c_i)^{H_i} \longrightarrow
+            \bigotimes\limits_\lambda \O_{f c}(c_i;c_i)
+            % \begin{tikzcd}
+            %       H: \bigotimes\limits_\lambda \mathbb C \arrow[rr, "k_iH_{\beta\alpha,1}"]                  
+            %       &&
+            %       \bigotimes\limits_\lambda \O^{H_i}(c_i;c_i)_f \arrow[r]
+            %       &
+            %       \bigotimes\limits_\lambda\O_f(c_i;c_i)^{H_i} \arrow[r]
+            %       &
+            %       \bigotimes\limits_\lambda\O_f(c_i;c_i)
+            % \end{tikzcd}
+      \end{equation}
+      (with $\Stab(\ksi)$ acting on $\otimes_\lambda \mathbb C$ via the projection $\Stab(\ksi) \to \Sigma_{|\ksi|}$),
+      the composites
+      $(\alpha_i)_{\**}$ and $(\beta_i)_{\**}$ defined by
       \begin{equation}
             \begin{tikzcd}[row sep = tiny]
                   (\alpha_i)_{\**} : 
                   % \O(d_1,\dots,d_n;c)
                   % =
-                  \O_f(\theta)
+                  \O_{f c}(\theta)
                   \cong
-                  \O_f(\theta) \otimes 1_\V^{\otimes n} \arrow[rr, "1 \otimes\ \bigotimes_i \alpha_i"]
+                  \O_{f c}(\theta) \otimes 1_\V^{\otimes n} \arrow[rr, "1 \otimes\ \bigotimes_i \alpha_i"]
                   &&
-                  \O_f(\theta) \otimes \bigotimes_i \O_f(c_i;d_i) \arrow[r,"\circ"]
+                  \O_{f c}(\theta) \otimes \bigotimes_i \O_{f c}(c_i;d_i) \arrow[r,"\circ"]
                   &
                   % \O(c_1,\dots,c_n;c)
                   % =
-                  \O_f(\ksi)
+                  \O_{f c}(\ksi)
                   \\
                   (\beta_i)_{\**} :
                   % \O(c_1,\dots,c_n;c)
                   % =
-                  \O_f(\ksi)
+                  \O_{f c}(\ksi)
                   \cong
-                  \O_f(\ksi) \otimes 1_\V^{\otimes n} \arrow[rr, "1 \otimes\ \bigotimes_i \beta_i"]
+                  \O_{f c}(\ksi) \otimes 1_\V^{\otimes n} \arrow[rr, "1 \otimes\ \bigotimes_i \beta_i"]
                   &&
-                  \O_f(\ksi) \otimes \bigotimes_i \O_f(d_i;c_i) \arrow[r,"\circ"]
+                  \O_{f c}(\ksi) \otimes \bigotimes_i \O_f(d_i;c_i) \arrow[r,"\circ"]
                   &
                   % \O(d_1,\dots,d_n;c)
                   % =
-                  \O_f(\theta)
+                  \O_{f c}(\theta),
             \end{tikzcd}
       \end{equation}
+      and their compositions $(\beta_i)_{\**}(\alpha_i)_{\**}$, $(\alpha_i)_{\**}(\beta_i)_{\**}$,
+      are similarly $\Stab(\ksi)$-equivariant.
 
-      Secondly, we claim that the maps $(\alpha_i)_{\**}$ and $(\beta_i)_{\**}$ are $\Stab(\ksi)$-equivariant.
-      % descend to $\Lambda$ fixed points for any subgroup $\Lambda \leq \Stab(\ksi)$.
-      % Indeed, since the composition structure maps of $\O$ are natural in $G$ and $\Sigma$,
-      % it suffices to show that $(\beta_i)_{\**}$ is preserved by $(k,\pi)\in Stab(\ksi)$.
-      This follows from the naturality of composition: for any $(k,\pi) \in \Stab(\ksi)$,
-      \begin{equation}
-            \label{AB_STAR_EQ}
-            (k, \pi) . ((\beta_i)_{\**})
-            =
-            (k \beta_{\pi^{-1}(i)})_{\**}
-            =
-            (k k_{\pi^{-1}i} \beta_1)_{\**}
-            =
-            (k k_i h_i \beta_1)_{\**}
-            =
-            (k_i \beta_1)_{\**}
-            =
-            (\beta_i)_{\**}.
-      \end{equation}
-      The result for $(\alpha_i)_{\**}$ is analogous.      
-      Thus we have natural compositions
-      \begin{equation}
-            \O_f(\ksi)^{\Gamma} \otimes \left(
-                  \bigotimes\limits_\lambda \O_f(c_i;d_i)
-            \right)^{\Gamma}
-            \longrightarrow
-            \left(
-                  \O_f(\ksi) \otimes \bigotimes\limits_\lambda \O_f(c_i;d_i)
-            \right)^\Gamma
-            \longrightarrow
-            \O_f(\theta)^\Gamma
-      \end{equation}
-      for any graph subgroup $\Gamma \leq G \times \Sigma_n$,
-      and similarly for any $(d_i;c_i)$, $(c_i;c_i)$, $(d_i;d_i)$,
-      replacing $\ksi$ with $\theta$ when required.
 
-      Choose a set of lifts (cf. \eqref{FIBFIX_LIFT_EQ})
-      \begin{equation}
-            \O^H(a_1;b_1)_f \to \O_f(a_1;b_1)^H,
-            \qquad \qquad
-            (a_1;b_1) \in  \set{(d_1;c_1), (c_1;d_1), (c_1;c_1), (d_1;d_1)}.
-      \end{equation}
-      These provide compatable lifts for all $i \in \lambda$
-      \begin{equation}
-            \begin{tikzcd}
-                  \O^{H_i}(a_i;b_i)_f
-                  &
-                  \O^H(a_1;b_1)_f \arrow[l, "\simeq", "k_i"'] \arrow[r]
-                  &
-                  \O_f(a_1;b_1)^H \arrow[r, "\simeq"', "k_i"]
-                  &
-                  \O_f(a_i;b_i)^{H_i}.
-            \end{tikzcd}
-      \end{equation}
-      
-      By precomposing these lifts with the $\alpha_i$ and $\beta_i$ (and their compositions),
-      % the calculation in \eqref{AB_STAR_EQ} further shows
-      one sees that the tensor product of homotopy equivalences
-      \begin{equation}
-            \begin{tikzcd}
-                  H: \bigotimes\limits_\lambda \mathbb C \arrow[rr, "k_iH_{\beta\alpha,1}"]
-                  &&
-                  \bigotimes\limits_\lambda \O^{H_i}(c_i;c_i)_f \arrow[r]
-                  &
-                  \bigotimes\limits_\lambda\O_f(c_i;c_i)^{H_i} \arrow[r]
-                  &
-                  \bigotimes\limits_\lambda\O_f(c_i;c_i)
-            \end{tikzcd}
-      \end{equation}
-      is in fact $\Stab(\ksi)$-equivariant.
       % Thirdly, since $\V% $ has Cartesian fixed-points, we see that for any graph subgroup $\Gamma \leq \Stab(\ksi)$
       % we have a string of isomorphisms
       % \begin{equation}
@@ -3200,10 +3259,10 @@ which show that in many cases, a homotopy equivalence of colors induces a homoto
       %       \O(a_1;b_1) \xrightarrow{\Delta} \bigotimes_\lambda \O(a_1;b_1) \xrightarrow{\otimes k_i} \bigotimes_\lambda \O(a_i;b_i).
       % \end{equation}
       %  Hence these maps descend to $\Gamma$ fixed points for any graph subgroup $\Gamma \leq \Stab(\ksi)$.
-      This observation plus
-      Remarks \ref{HK_EQUIV_REM} and \ref{ASSEM_HOM_REM} plus Lemma \ref{ASSEM_HOM_LEM}
+      Thus, 
+      Remarks \ref{HK_EQUIV_REM}, \ref{CYL_REM}, and \ref{ASSEM_HOM_REM} with Lemma \ref{ASSEM_HOM_LEM}
       yield an induced homotopy
-      $(\beta_i)_{\**}(\alpha_i)_{\**} \sim id_{\O_f(\ksi)^\Gamma}$ in $\V$
+      $(\beta_i)_{\**}(\alpha_i)_{\**} \sim id_{\O_{f c}(\ksi)^\Gamma}$ in $\V$ for all graph subgroups $\Gamma \leq \Stab(\ksi)$:
       \begin{equation}
             % \begin{tikzcd}
             %       1_\V \amalg 1_\V \arrow[rr, "{((\beta_i)_{\**}(\alpha_i)_{\**}, id)}"] \arrow[d]
@@ -3219,20 +3278,20 @@ which show that in many cases, a homotopy equivalence of colors induces a homoto
             %       \right)^\Gamma
             %       \arrow[u, "{(-)_{\**}}"]
             % \end{tikzcd}
-            \begin{tikzcd}
-                  1_\V \amalg 1_\V \arrow[d, tail] \arrow[rr, "{((\beta_i)_{\**}(\alpha_i)_{\**}, id)}"]
+            \begin{tikzcd}[column sep = small]
+                  \O_{f c}(\ksi)^\Gamma \otimes (1_\V \amalg 1_\V) \arrow[d, tail] \arrow[rr, "{((\beta_i)_{\**}(\alpha_i)_{\**}, id)}"]
                   &&
                   % &
-                  \V(\O_f(\ksi)^\Gamma, \O_f(\ksi)^\Gamma)
+                  \O_{f c}(\ksi)^\Gamma
                   \\                  
                   % \mathbb C \arrow[r, "\Delta"]
                   % &
-                  \left(\bigotimes\limits_\lambda \mathbb C\right)^{\Stab(\ksi)}
+                  \O_{f c}(\ksi)^\Gamma \otimes \left(\bigotimes\limits_\lambda \mathbb C\right)^{\Stab(\ksi)}
                   \arrow[r, "H"]
                   &
-                  \left(\bigotimes\limits_\lambda \O_f(c_i;c_i)\right)^{\Stab(\ksi)} \arrow[r]
+                  \O_{f c}(\ksi)^\Gamma \otimes \left(\bigotimes\limits_\lambda \O_{f c}(c_i;c_i)\right)^{\Stab(\ksi)} \arrow[r]
                   &
-                  \left(\bigotimes\limits_\lambda \O_f(c_i;c_i)\right)^{\Gamma} \arrow[u, "{(-)_{\**}}"]                  
+                  \O_{f c}(\ksi)^\Gamma \otimes \left(\bigotimes\limits_\lambda \O_{f c}(c_i;c_i)\right)^{\Gamma} \arrow[u, "\circ"']                  
                   % &
                   % \mathbb C \arrow[r, "H_{\alpha\beta,1}"']
                   % &
@@ -3241,10 +3300,9 @@ which show that in many cases, a homotopy equivalence of colors induces a homoto
                   % (\O(d;d)_f)^{H_\Gamma} \arrow[u, "{(-)_{\**}}"],
             \end{tikzcd}
       \end{equation}
-      (with $\Stab(\ksi)$ acting on $\otimes_\lambda \mathbb C$ via the projection $\Stab(\ksi) \to \Sigma_{|\ksi|}$)
-      and similarly $(\alpha_i)_{\**}(\beta_i)_{\**} \sim id_{\O_f(\theta)^\Gamma}$.
+      and similarly $(\alpha_i)_{\**}(\beta_i)_{\**} \sim id_{\O_{f c}(\theta)^\Gamma}$.
       Hence
-      $(\alpha_i)_{\**}: \O_f(\ksi)^\Gamma \leftrightarrow \O_f(\theta)^\Gamma: (\beta_i)_{\**}$
+      $(\alpha_i)_{\**}: \O_{f c}(\ksi)^\Gamma \leftrightarrow \O_{f c}(\theta)^\Gamma: (\beta_i)_{\**}$
       are inverse isomorphisms in $\Ho(V)$ for all $\Gamma$.
 
       The rest of the proof follows as for Proposition \ref{CAV_4.14_PROP1}.
