@@ -1509,6 +1509,7 @@ Generalizing \cite[Remark 3.78]{BP17}
 Similarly, \cite[Prop 3.47, 3.90, 4.12, 4.15, 4.26, 4.28, 4.30]{BP17} naturally generalized to the colored-setting,
 replacing all instances of $\Omega_G^n$ or $\Sigma_G$ with $\UC\Omega_G^n$ and $\UC\Sigma_G$.
 In particular, this yields the following definitions and proposition.
+
 \begin{definition}[{cf. \cite[Defn 4.3]{BP17}}]
       Let $\mathsf{WSpan}^l(\mathcal C, \mathcal D)$ (resp. $\mathsf{WSpan}^r(\mathcal C, \mathcal D)$)
       denote the category of \textit{left (resp. right) weak spans}, with objects
@@ -4101,7 +4102,7 @@ dummy/.style={circle,draw,inner sep=0pt,minimum size=1.75mm}]
 		child{node [dummy] {}
 			child{
 			edge from parent node [swap,near end] {} node [near start,inner sep=1pt,name=Kn] {}}
-			child[level distance=3.4em]{
+			child[level distance=3.4em]{node {}
 			edge from parent node [near end,swap] {$[e_i]$}
 node [near start,inner sep=1pt,name=Kone,swap] {}
 node [near start,inner sep=1pt,name=Kone1] {}}
@@ -4310,7 +4311,8 @@ Let $X \in \mathsf{dSet}^G$ be a $G$-$\infty$-operad. Then
 	$f \sim_i g$, 
 	the strict lifting condition for $Y$
 	shows that the maps
-	$F\circ H, f \circ \sigma^i \colon \sigma^i C \to Y$,
+	$F\circ H \colon \sigma^i C \to Y$,
+	$f \circ \sigma^i \colon \sigma^i C \to Y$
 	must coincide, and thus that
 	$F(f)=F(g)$.
 	The further claim that $F$ respects equivalences
@@ -5962,8 +5964,497 @@ is a pushout
 %	G \cdot_H W_! \Omega[U]
 %\end{tikzcd}
 %\]
+
+{\color{red} HERE}
 	
 \end{proof}
+
+
+
+
+\section{Coloring via spans}
+
+
+\subsection{Preliminaries}
+
+
+Recall \cite[Prop. 2.7]{BP17}
+that if
+$\pi \colon \mathcal{E} \to \mathcal{B}$ is 
+a split Grothendieck fibration, 
+then so is the map of functor categories
+$\mathcal{E}^{\mathcal{C}} \to \mathcal{B}^{\mathcal{C}}$
+for any category $\mathcal{C}$.
+Explicitly, given functors $E \colon \mathcal{C} \to \mathcal{E}$,
+$B',B \colon \mathcal{C} \to \mathcal{B}$
+such that $B=\pi \circ E$
+and a natural transformation
+$\varphi \colon B' \Rightarrow B$,
+the pullback functor
+$\varphi^{\**} E \colon \mathcal{C} \to \mathcal{E}$
+is described on objects by
+$\left(\varphi^{\**} E\right) (c) =
+\left(\varphi(c)\right)^{\**} (E(c))$
+and on arrows $f\colon c \to \bar{c}$
+as the unique dashed arrow in the leftmost diagram below which makes that diagram commute and lifts $B'(f)$. 
+\[
+\begin{tikzcd}
+	\varphi^{\**}E(c) \ar{r} 
+	\ar[dashed]{d}[swap]{\varphi^{\**}E (f)} &
+	E(c) \ar{d}{E(f)}
+&&
+	B'(c) \ar{d}[swap]{B'(f)} \ar{r} &
+	B(c) \ar{d}{B(f)}
+\\
+	\varphi^{\**}E(\bar{c}) \ar{r} &
+	E(\bar{c}) 
+&&
+	B'(\bar{c}) \ar{r} &
+	B(\bar{c})
+\end{tikzcd}
+\]
+Given a split Grothendieck fibration 
+$\pi^{\**} \colon \mathcal{E} \to \mathcal{B}$,
+we now define a pullback functor on weak right spans
+\begin{equation}\label{WSPANPULL EQ}
+\pi^{\**} \colon
+\mathsf{WSpan}^r(\**,\mathcal{B})
+	\to
+\mathsf{WSpan}^r(\**,\mathcal{E})
+\end{equation}
+as follows.
+
+On objects, i.e. functors $B\colon \mathcal{C} \to \mathcal{B}$, one simply sets 
+$\pi^{\**}(\colon \mathcal{C} \to \mathcal{B})=
+(\mathcal{C} \times_{\mathcal{B}} \mathcal{E}
+\to \mathcal{E})
+$.
+On arrows, which are pairs 
+$(i,\varphi \colon B_2 \circ i \Rightarrow B_1)$
+as in the diagram below
+\begin{equation}
+\begin{tikzcd}[row sep = tiny, column sep = 35pt]
+	\mathcal{C}_1 \arrow{dr}[name=U]{B_1} \arrow{dd}[swap]{i}
+\\
+	& \mathcal{B}
+\\
+	|[alias=V]| \mathcal{C}_2 \arrow{ur}[swap]{B_2}
+\arrow[Rightarrow, from=V, to=U,shorten >=0.25cm,shorten <=0.25cm
+,swap,"\varphi"
+]
+\end{tikzcd}
+\end{equation}
+and writing 
+$\pi \colon \mathcal{C}_i \times_{\mathcal{B}} \mathcal{E}
+\to \mathcal{C}_i$
+and
+$E_i \colon \mathcal{C}_i \times_{\mathcal{B}} \mathcal{E}
+\to \mathcal{E}$
+for the projections, one sets
+\[
+\pi^{\**} (i,\varphi)=
+\left(
+	\left( i \pi,
+	\left( \varphi \pi \right)^{\**} E_1 \right),
+	\left( \varphi \pi \right)^{\**} E_1 \Rightarrow E_1
+\right)
+\]
+or, put another way, 
+$\pi^{\**}(i,\phi)$
+is characterized as the unique choice of dashed data in the following diagram
+\[
+\begin{tikzcd}[column sep = small, row sep = small]
+	\mathcal{C}_1 \times_{\mathcal{B}} \mathcal{E} 
+	\ar{rrrrr}[name=toE]{E_1} \ar[dashed]{rd} \ar{dd}
+	&&&
+	&&
+	\mathcal{E}  \ar{dd}
+\\
+	&
+	|[alias=DBE]|
+	\mathcal{C}_2 \times_{\mathcal{B}} \mathcal{E} \ar{rrrru}[swap]{E_2}
+\\
+	\mathcal{C}_1 \ar{rrrrr}[name=toB]{B_1} \ar{rd} 
+	&&&
+	&&
+	\mathcal{B} 
+\\
+	&
+	|[alias=D]| \mathcal{C}_2 \ar{rrrru}[swap]{B_2}
+\arrow[Rightarrow, from=DBE, to=toE, shorten <=0.15cm,shorten >=0.15cm,dashed
+%,swap,"\pi_i"
+]
+	\arrow[Rightarrow, from=D, to=toB, shorten <=0.15cm,shorten >=0.15cm,swap,"\varphi"]
+	\arrow[from=DBE, to=D, crossing over]
+\end{tikzcd}
+\]
+such that the side faces commute, the top natural transformation consists of pushout arrows for $\pi \colon \mathcal{E} \to \mathcal{B}$, and the total diagram commutes, in the sense that the two composite natural transformations $B_2 i \pi \Rightarrow \pi E_1$ coincide.
+Associativity and unitality of $\pi^{\**}$ are straightforward.
+
+
+
+\begin{remark}\label{SPANLIM REM}
+Given a diagram 
+$J \xrightarrow{j \mapsto (B_j \colon \mathcal{C}_j \to \mathcal{B})}
+\mathsf{WSpan}^r(\**,\mathcal{B})$
+and a cone over it, 
+i.e. an object
+$(B \colon \mathcal{C} \to \mathcal{B}) \in \mathsf{WSpan}^r(\**,\mathcal{B})$
+together with compatible maps 
+$(i_j,\varphi_j) \colon B \to B_j$,
+this will be a limit in 
+$\mathsf{WSpan}^r(\**,\mathcal{B})$
+provided that
+\[
+	\mathcal{C} = \lim_{j \in J} \mathcal{C}_j
+\qquad
+	B = colim_{j \in J} B_j i_j
+\]
+where the limit takes place in 
+$\mathsf{Cat}$
+and the colimit in 
+$\mathsf{Fun}(\mathcal{C}, \mathcal{B})$.
+\end{remark}
+
+
+\subsection{Edge functors}
+
+\begin{notation}
+An edge $(i,\varphi)\colon B_1 \to B_2$ in $\mathsf{WSpan}^r(\**,\mathcal{B})$
+will be called a 
+\textit{$1$-arrow}
+if $\varphi = id_{B_1}$,
+i.e. if the arrow exhibits the commutative diagram
+$B_1 = B_2 i$.
+\end{notation}
+
+
+Recall the identification
+\[
+\Omega^t \simeq |\Omega^{\bullet}|
+\]
+of the category $\Omega^t$ of trees and tall maps with the realization of the simplicial object in categories with $n$-th level the planar $n$-strings $\Omega^{n}$.
+It then follows that the target functors
+$\Omega^n \to \Omega^t$
+given by 
+$(T_0 \to T_1 \to \cdots \to T_n)
+\mapsto T_n$
+define a simplicial object in 
+$\mathsf{WSpan}^r(\**,\Omega^t)$
+where all simplicial operators other than the top faces $d_n$ are $1$-arrows in
+$\mathsf{WSpan}^r(\**,\Omega^t)$.
+
+Furthermore, letting 
+$\boldsymbol{E} \colon \Omega^{t} \to \mathsf{F}$
+be the edge functor, sending each tree to the underlying set of edges, 
+one obtains a simplicial object in
+$\mathsf{WSpan}^r(\**,\mathsf{F})$,
+whose levels we will denote by
+$\boldsymbol{E}\colon \Omega^n \to \mathsf{F}$.
+Note that by definition
+$\boldsymbol{E}(T_0 \to T_1 \to \cdots \to T_n)=
+\boldsymbol{E}(T_n)$.
+Next, define a functor
+\begin{equation}\label{SIGMAFUN EQ}
+\begin{tikzcd}[row sep = 0]
+	\mathsf{WSpan}^r(\**,\mathsf{F}) \ar{r}{\Sigma \wr (-)} &
+	\mathsf{WSpan}^r(\**,\mathsf{F})
+\\
+	\mathcal{C} \to \mathsf{Fin}
+	\ar[mapsto]{r} &
+	\Sigma \wr \mathcal{C} \to
+	\Sigma \wr \mathsf{Fin} \xrightarrow{\amalg}
+	\mathsf{Fin}
+\end{tikzcd}
+\end{equation}
+We have now extended the categories
+$\Omega^n$ and $\Sigma \wr \Omega^n$
+and the simplicial arrows $d_i$, $s_i$
+to objects and arrows in 
+$\mathsf{WSpan}^r(\**,\mathsf{F})$.
+We next discuss how to likewise extend the vertex functors
+$V \colon \Omega^n \to \Sigma \wr \Omega^{n-1}$.
+The key case is that of $n=1$, in which case we have a natural transformation
+\[
+\begin{tikzcd}
+	\Omega^1 \ar{rr}{\boldsymbol{E}} \ar{d}[swap]{\boldsymbol{V}}&&
+	|[alias=Ft]|
+	\mathsf{F} \ar[equal]{d}
+\\
+	|[alias=SOm]|
+	\Sigma \wr \Omega^0 \ar{r}[swap]{\boldsymbol{E}} &
+	\Sigma \wr \mathsf{F} \ar{r}[swap]{\amalg} &
+	\mathsf{F}
+\arrow[Rightarrow, from=SOm, to=Ft,shorten >=0.25cm,shorten <=0.25cm
+%,swap,"\varphi"
+]
+\end{tikzcd}
+\]
+which, for each $T_0 \to T_1$ is the obvious map
+$\coprod_{v \in \boldsymbol{V}(T_0)}
+\boldsymbol{E}(T_{1,v}) \to
+\boldsymbol{E}(T_1)$
+induced by the maps
+$T_{1,v} \to T_1$. 
+For $n \neq 1$, one can either mimic this formula or, alternatively,
+note that if the diagrams 
+\[
+\begin{tikzcd}
+	\Omega^n \ar{r}{\boldsymbol{V}} 
+	\ar{d}[swap]{d^{1,\cdots,n-1}} &
+	\Sigma \wr \Omega^{n-1}
+	\ar{d}{d^{0,\cdots,n-2}}
+&&
+	\Omega^0 \ar{r}{\boldsymbol{V}} 
+	\ar{d}[swap]{s^0} &
+	\Sigma \wr \Sigma
+	\ar{d}{s^{-1}}
+\\
+	\Omega^1 \ar{r}{\boldsymbol{V}} &
+	\Sigma \wr \Omega^0
+&&
+	\Omega^1 \ar{r}{\boldsymbol{V}} &
+	\Sigma \wr \Omega^0
+\end{tikzcd}
+\]
+are to remain commutative when regarded as diagrams in $\mathsf{WSpan}^r(\**,\mathsf{F})$, 
+the fact that the vertical arrows are $1$-arrows
+implies that the natural transformation component of the bottom $\boldsymbol{V}$ functors immediately determines the natural transformation compoment of the top $\boldsymbol{V}$ functors.
+
+To simply notation, in what follows we will represent diagrams in
+$\mathsf{WSpan}^r(\**,\mathsf{F})$ simply by their category component.
+
+\begin{proposition}
+Let $1 \leq i \leq n$. Then the squares 
+\[
+\begin{tikzcd}
+	\Omega^n \ar{r}{\boldsymbol{V}} 
+	\ar{d}[swap]{d^{i}} &
+	\Sigma \wr \Omega^{n-1}
+	\ar{d}{d^{i-1}}
+\\
+	\Omega^{n-1} \ar{r}{\boldsymbol{V}} &
+	\Sigma \wr \Omega^{n-2}
+\end{tikzcd}
+\]
+are pullback squares when regarded as squares in 
+$\mathsf{WSpan}^r(\**,\mathsf{F})$.
+\end{proposition}
+
+\begin{proof}
+We need to check the conditions in 
+Remark \label{SPANLIM REM}.
+The fact that the underlying diagrams of categories are pullback diagrams is already known.
+Furthermore, when $i<n$ the vertical arrows are $1$-arrows and it is hence obvious that square of functors $\Omega^n \to \mathsf{F}$ is a pullback square (it is a square where two opposite sides are identities).
+For the case $i=n$, by using combining the simplicial identities and the $i<n$ case, one reduces to checking the case $i=n=1$.
+The required claim is then that for each $1$-string
+$T_0 \to T_1$ there is a natural isomorphism
+\[
+	\boldsymbol{E}(T_1) \simeq
+	colim\left(
+	\boldsymbol{E}(T_0) \leftarrow 
+	\coprod_{v \in \boldsymbol{V}(T_0)} \boldsymbol{E}(T_{0,v}) \to 
+	\coprod_{v \in \boldsymbol{V}(T_0)} \boldsymbol{E}(T_{1,v})
+	\right)
+\]
+and this is clear from the discussion of substitution data.
+\end{proof}
+
+
+\subsection{Vertex functors}
+
+In the previous section we discussed how to equip the categories $\Omega^n$,
+and the functors 
+$d^i \colon \Omega^n \to \Omega^{n-1}$,
+$s^j \colon \Omega^n \to \Omega^{n+1}$,
+$V \colon \Omega^n \to \Sigma \wr \Omega^{n-1}$
+with ``edge data'' by extending them to 
+spans over $\mathsf{Fin}$.
+In this section we discuss a variant which extends these categories and functors (except for the top face maps $d^n$) to spans encoding ``vertex data''.
+
+Firstly, we discuss some preliminaries.
+Given a split Grothendieck fibration
+$\mathcal{E} \to \mathcal{B}$ we write
+$\mathsf{WSpan}^r(\**,\mathcal{E} \to \mathcal{B})
+\subseteq
+\mathsf{WSpan}^r(\**,\mathcal{E})$
+for the subcategory with the same objects but with arrows only those natural transformations whose constituent arrows are pullbacks for $\mathcal{E} \to \mathcal{B}$.
+
+We will now extend the categories $\Omega^n$,
+and arrows 
+$d^i$ (for $i<n$),
+$s^j$ and $V$
+to objects and arrows in
+$\mathsf{WSpan}^r(\**,\Sigma \wr \Sigma \to \Sigma)$,
+where $\Sigma\wr \Sigma \to \Sigma$
+is the natural split Grothendieck construction.
+
+Adapting \eqref{SIGMAFUN EQ} we now have a functor
+\begin{equation}\label{SIGMAFUN2 EQ}
+\begin{tikzcd}[row sep = 0]
+	\mathsf{WSpan}^r(\**,\Sigma\wr \Sigma \to \Sigma) \ar{r}{\Sigma \wr (-)} &
+	\mathsf{WSpan}^r(\**,\Sigma\wr \Sigma \to \Sigma)
+\\
+	\mathcal{C} \to \Sigma\wr \Sigma
+	\ar[mapsto]{r} &
+	\Sigma \wr \mathcal{C} \to
+	\Sigma \wr \Sigma \wr \Sigma \xrightarrow{\amalg}
+	\Sigma \wr \Sigma
+\end{tikzcd}
+\end{equation}
+Combining this $\Sigma \wr (-)$ functor with the vertex functors
+$V \colon \Omega^n \to \Sigma \wr \Omega^{n-1}$
+one obtains, by induction on $n$,
+functors
+$V^n \colon \Omega^n \to \Sigma \wr \Sigma$.
+In other words, one has extensions of the categories 
+$\Omega^n$, $\Sigma \wr \Omega^n$ to objects in 
+$\mathsf{WSpan}^r(\**,\Sigma \wr \Sigma \to \Sigma)$
+in such a way that the vertex functors
+$V \colon \Omega^n \to \Sigma \wr \Omega^{n-1}$
+become $1$-arrows of $\mathsf{WSpan}^r(\**,\Sigma \wr \Sigma \to \Sigma)$.
+
+Next, we discuss how to extend the simplicial operators. Firstly, for $d^0 \colon \Omega^1 \to \Omega^0$, this is given by the permutation isomorphism below.
+\begin{equation}\label{1STPI EQ}
+\begin{tikzcd}
+	\Omega^1 \ar{rr}{d^0} \ar{d}[swap]{\boldsymbol{V}}&&
+	|[alias=Ft]|
+	\Omega^0 \ar{d}{\boldsymbol{V}}
+\\
+	|[alias=SOm]|
+	\Sigma \wr \Omega^0 \ar{r}[swap]{\boldsymbol{V}} &
+	\Sigma \wr \Sigma \wr \Sigma \ar{r}[swap]{\amalg} &
+	\Sigma \wr \Sigma
+\arrow[Leftrightarrow, from=SOm, to=Ft,shorten >=0.25cm,shorten <=0.25cm
+,swap,"\pi"
+]
+\end{tikzcd}
+\end{equation}
+Next, to define 
+$d^0 \colon \Omega^n \to \Omega^{n-1}$ for a general $n\geq 1$,
+note that since
+$\Sigma \wr d^{0,\cdots,n}
+\colon \Sigma \wr \Omega^{n} \to \Sigma \wr \Sigma$
+is a map of split Grothendieck fibrations over $\Sigma$,
+\eqref{WSPANPULL EQ}
+generalizes to give a pullback functor
+\begin{equation}
+\left( \Sigma \wr d^{0,\cdots,n} \right)^{\**} \colon
+\mathsf{WSpan}^r(\**,\Sigma \wr \Sigma \to \Sigma)
+	\to
+\mathsf{WSpan}^r(\**,\Sigma \wr \Omega^{n} \to \Sigma)
+\end{equation}
+so that the desired natural transformation for
+$d^0 \colon \Omega^n \to \Omega^{n-1}$
+is given by the diagram
+\begin{equation}
+\begin{tikzcd}
+	\Omega^n \ar{rr}{d^0} \ar{d}[swap]{\boldsymbol{V}}&&
+	|[alias=Ft]|
+	\Omega^{n-1} \ar{d}{\boldsymbol{V}}
+\\
+	|[alias=SOm]|
+	\Sigma \wr \Omega^{n-1} \ar{r}[swap]{\boldsymbol{V}} &
+	\Sigma \wr \Sigma \wr \Omega^{n-2} \ar{r}[swap]{\amalg} &
+	\Sigma \wr \Omega^{n-2} \ar{r}[swap]{\Sigma \wr V^{n-2}} &
+	\Sigma \wr \Sigma \wr \Sigma \ar{r}[swap]{\amalg} &
+	\Sigma \wr \Sigma
+\arrow[Leftrightarrow, from=SOm, to=Ft,shorten >=0.25cm,shorten <=0.25cm
+,swap,"\pi"
+]
+\end{tikzcd}
+\end{equation}
+where the leftmost section is obtained by applying
+$\left(\Sigma \wr d^{0,\cdots,n} \right)^{\**}$
+to \eqref{1STPI EQ}.
+Lastly,
+since the vertex functors $\boldsymbol{V}$ are $1$-arrows,
+the operators 
+$d^i \colon \Omega^n \to \Omega^{n-1}$
+for $0<i<n$
+(and similarly the degeneracies $s^j$)
+are determined by demanding that the squares
+\begin{equation}\label{RMCOM EQ}
+\begin{tikzcd}
+	\Omega^n \ar{r}{\boldsymbol{V}} 
+	\ar{d}[swap]{d^{i}} &
+	\Sigma \wr \Omega^{n-1}
+	\ar{d}{d^{i-1}}
+\\
+	\Omega^{n-1} \ar{r}{\boldsymbol{V}} &
+	\Sigma \wr \Omega^{n-2}
+\end{tikzcd}
+\end{equation}
+remain commutative when regarded as diagrams in
+$\mathsf{WSpan}^r(\**,\Sigma \wr \Sigma \to \Sigma)$.
+To check the simplicial identities,
+the identity $d^0 d^1 = d^0 d^0$ for $n=2$ is the equality of the usual diagrams
+\begin{equation}
+\begin{tikzcd}
+	\Omega^2 \ar{d}[swap]{d^0} \ar{r}{\boldsymbol{V}}&
+	\Sigma \wr \Omega^1 \ar{r}{\boldsymbol{V}} &
+	|[alias=Ft1]|
+	\Sigma \wr \Sigma \wr \Omega^0 \ar{d}{\amalg} \ar{r}{\boldsymbol{V}} &
+	\Sigma \wr \Sigma \wr \Sigma \wr \Sigma
+	\ar{d}{\amalg}
+\\
+	|[alias=SOm1]|
+	\Omega^1 \ar{rr}{\boldsymbol{V}} \ar{d}[swap]{d^0} &&
+	\Sigma \wr \Omega^0 \ar{r}{\boldsymbol{V}} &
+	|[alias=Ft]|
+	\Sigma \wr \Sigma \wr \Sigma
+	\ar{d}{\amalg}
+\\
+	|[alias=SOm]|
+	\Omega^0 \ar{rrr}[swap]{\boldsymbol{V}} &&&
+	\Sigma \wr \Sigma
+\arrow[Leftrightarrow, from=SOm, to=Ft,shorten >=0.25cm,shorten <=0.25cm
+,swap,"\pi"
+]
+\arrow[Leftrightarrow, from=SOm1, to=Ft1,shorten >=0.25cm,shorten <=0.25cm
+,swap,"\pi"
+]
+\end{tikzcd}
+\end{equation}
+and
+\begin{equation}
+\begin{tikzcd}
+	\Omega^2 \ar{d}[swap]{d^1} \ar{r}{\boldsymbol{V}} &
+	\Sigma \wr \Omega^1 \ar{r}{\boldsymbol{V}} \ar{d}[swap]{d^0} &
+	\Sigma \wr \Sigma \wr \Omega^0 \ar{r}{\boldsymbol{V}} &
+	|[alias=Ft1]|
+	\Sigma \wr \Sigma \wr \Sigma \wr \Sigma
+	\ar{d}{\amalg}
+\\
+	\Omega^1 \ar{r}{\boldsymbol{V}} \ar{d}[swap]{d^0} &
+	|[alias=SOm1]|
+	\Sigma \wr \Omega^0 \ar{rr}{\boldsymbol{V}} &&
+	|[alias=Ft]|
+	\Sigma \wr \Sigma \wr \Sigma
+	\ar{d}{\amalg}
+\\
+	|[alias=SOm]|
+	\Omega^0 \ar{rrr}[swap]{\boldsymbol{V}} &&&
+	\Sigma \wr \Sigma
+\arrow[Leftrightarrow, from=SOm, to=Ft,shorten >=0.25cm,shorten <=0.25cm
+,swap,"\pi"
+]
+\arrow[Leftrightarrow, from=SOm1, to=Ft1,shorten >=0.25cm,shorten <=0.25cm
+,swap,"\pi"
+]
+\end{tikzcd}
+\end{equation}
+while $d^0 d^1 = d^0 d^0$ equalities for other $n$
+then follow by using the 
+$\left(\Sigma \wr d^{0,\cdots,n}\right)^{\**}$
+functors.
+Other simplicial identities involving $d^0$ then follow inductively from these identities ({\color{red} flesh this out}) 
+and, lastly, the simplicial identities not involving $d^0$ follow directly by induction and the squares \eqref{RMCOM EQ}.
+
+{\color{red} HERE}
+
+
+
 
 
 \bibliography{biblio}{}
