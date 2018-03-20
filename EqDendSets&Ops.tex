@@ -122,206 +122,23 @@ cf.  }
 
 \section{Preliminaries}
 
-\subsection{Wreath products and Grothendieck fibrations}
+Recall the notation $\mathsf F \wr \mathcal C$ for a category $\mathcal C$.
 
-First, we record a basic result.
-
-\begin{lemma}
-      \label{PB_GR_EQ}
-      If $\mathcal C \to \mathcal D$ is a Grothendieck fibration, then the pullback
-      \begin{equation}
-            \begin{tikzcd}
-                  \mathcal A \arrow[d] \arrow[r]
-                  &
-                  \mathcal C \arrow[d]
-                  \\
-                  \mathcal B \arrow[r]
-                  &
-                  \mathcal D
-            \end{tikzcd}
-      \end{equation}
-      is isomorphic to the Grothendieck construction on
-      \begin{equation}
-            \label{PB_GR_EQ}
-            % \begin{tikzcd}[row sep = tiny]
-            %       \mathcal B^{op} \arrow[r]
-            %       &
-            %       \mathsf{Cat}
-            %       \\
-            %       b \arrow[r, mapsto]
-            %       &
-            %       \mathcal C_{F(b)},
-            % \end{tikzcd}
-            \mathcal B^{op} \longto \Cat,
-            \qquad \qquad
-            b \longmapsto \mathcal C_{F(b)},
-      \end{equation}
-      where $\mathcal C_{d}$ is the fiber over $d \in \mathcal D$.
-\end{lemma}
-\begin{proof}
-      The fact that the map \eqref{PB_GR_EQ} is a functor follows from $\mathcal C \to \mathcal D$ being a fibration;
-      the rest follows by unpacking definitions.
-\end{proof}
-
-% -------------------- Wreath Products --------------------
-
-Now, recall the notation $\mathsf F \wr \mathcal C$ for a category $\mathcal C$.
-
-\begin{remark}
-      \label{WR_DIAG_REM}
-      We observe that we have a natural diagonal map
-      % \begin{equation}
-      $
-      F \times \mathcal C \into \mathsf F \wr \mathcal C,
-      $
-      % \end{equation}
-      for any category $\mathcal C$,
-      and thus for any functor $F: \mathcal D \to \mathsf F$, we have an induced functor
-      $F: \mathcal D \times \mathcal C \to \mathsf F \wr \mathcal C$. 
-\end{remark}
-
-\begin{definition}[{cf. \cite[Defn 4.3]{BP17}}]
-      Let $\mathsf{WSpan}^l(\mathcal C, \mathcal D)$ (resp. $\mathsf{WSpan}^r(\mathcal C, \mathcal D)$)
-      denote the category of \textit{left (resp. right) weak spans}, with objects
-      \begin{equation}
-            \mathcal C \xleftarrow{k} \mathcal A \xrightarrow{X} \mathcal D
-      \end{equation}
-      and arrows those diagrams as on the left (resp. right) below
-      \begin{equation}
-            \begin{tikzcd}[row sep = tiny]
-                  & \mathcal A_1 \arrow[dr, "X_1", ""'{name=U}] \arrow[dl, "k_1"'] \arrow[dd, "i"']
-                  &
-                  &&
-                  &
-                  \mathcal A_1 \arrow[dr, "X_1", ""'{name=A}] \arrow[dl, "k_1"'] \arrow[dd, "i"']
-                  \\
-                  \mathcal C
-                  &&
-                  \mathcal D
-                  &&
-                  \mathcal C
-                  &&
-                  \mathcal D
-                  \\
-                  & |[alias=V]| \mathcal A_2 \arrow[ur, "X_2"'] \arrow[ul, "k_2"]
-                  &
-                  &&
-                  &
-                  |[alias=B]| \mathcal A_2 \arrow[ur, "X_2"'] \arrow[ul, "k_2"]
-                  \arrow[Rightarrow, from = U, to = V]
-                  \arrow[Rightarrow, from = B, to = A]
-            \end{tikzcd}
-      \end{equation}
-      denoted by $(i,\phi): (k_1,X_1) \to (k_2,X_2)$, with composition defined in the natural way.      
-\end{definition}
-
-
-\begin{remark}      
-      We observe that there is a functor $\mathsf F \wr \mathcal C \longto \mathsf{WSpan}^l(\**, \mathcal C)$,
-      sending $(A, (c_a))$ to the obvious map $A \to \mathcal C$ (thinking of $A$ as a discrete category).
-
-      Furthermore, we have a pair of maps
-      \begin{equation}
-            \mathsf{fgt}: \mathsf{Fib}(\mathcal C) \leftrightarrows \mathsf{WSpan}^l(\**, \mathcal C) : \widehat{(-)}
-      \end{equation}
-      which form an adjunction when restricted to $\mathsf{Span}(\**, \mathcal C) = \mathsf{Cat} \downarrow \mathcal C$.
-      Given $p: \mathcal D \to \mathcal C$, define $\hat{\mathcal D}$ to be the Grothendieck construction on the functor
-      \begin{equation}
-            % \begin{tikzcd}[row sep = tiny]
-            %       \mathcal D \arrow[r]
-            %       &
-            %       \mathsf{Cat}
-            %       \\
-            %       d \arrow[r, mapsto]
-            %       &
-            %       \mathcal C \downarrow p(a).
-            % \end{tikzcd}
-            \mathcal D \longto \Cat,
-            \qquad \qquad
-            d \longmapsto \mathcal C \downarrow p(a).
-      \end{equation}
-      Explicitly, objects are pairs $(d, c \xrightarrow{\alpha} p(d))$,
-      and maps are pairs $(d \xrightarrow{f} d', c \xrightarrow{g} c')$ such that the diagram below commutes.
-      \begin{equation}
-            \begin{tikzcd}[row sep = small]
-                  c \arrow[r, "g"] \arrow[d, "\alpha"']
-                  &
-                  c' \arrow[dd, "{\alpha'}"]
-                  \\
-                  p(d) \arrow[d, "{p(f)}"]
-                  \\
-                  p(d') \arrow[r, equal]
-                  &
-                  p(d')
-            \end{tikzcd}
-      \end{equation}
-      This has the natural structure of a fibration over $\mathcal C$,
-      sending $(a, c \to p(a))$ to $c$, with
-      Cartesian arrows defined by precomposition.
-      % 
-      Moreover, for any fibration $E$ over $\mathcal C$ and map of weak spans
-      \begin{equation}
-            \begin{tikzcd}[row sep = tiny]
-                  \mathcal D \arrow[dr, "p"] \arrow[dd, "F"']
-                  \\
-                  & \mathcal C
-                  \\
-                  \mathcal E \arrow[ur, "q"']
-            \end{tikzcd}
-      \end{equation}
-      there is a natural map $\hat{\mathcal D} \to E$ in $\mathsf{Fib}(\mathcal C)$, defined by
-      \begin{equation}
-            (d, c \xrightarrow{\alpha} p(d)) \mapsto \alpha^{\**} \Phi_d^{\**} F(d).
-      \end{equation}
-\end{remark}
-
-
-
-
-{\color{blue}
-  Alternatively, consider the Grothendieck construction on the functor
-  \begin{equation}
-        \label{FG_GR_EQ}
-        % \begin{tikzcd}[row sep = tiny]
-        %       \mathsf F^{G,op} \arrow[r]
-        %       &
-        %       \mathsf{Set}
-        %       \\
-        %       A \arrow[r, mapsto]
-        %       &
-        %       \Set^{O_G^{op}}(\Phi(A), \underline{\mathfrak C}),
-        % \end{tikzcd}      
-        \mathsf F^{G,op} \longto \Set,
-        \qquad \qquad
-        A \longmapsto \Set^{O_G^{op}}(\Phi(A), \underline{\mathfrak C}),
-  \end{equation}
-  where $\Phi: \Set^G \to \Set^{O_G^{op}}$ sends a $G$-set $X$ to its fixed-point system $G/H \mapsto X^H$.
-  We will denote this by $\mathsf F^G \wr \underline{\mathfrak C}$.
-} % ---------- COLOR BLUE ----------
-
-{\color{red}
-  Another option:
-  given any category $\mathcal C$, define $\mathsf F^G \wr \mathcal C$
-  as the Grothendieck construction
-  \begin{equation}
-        % \begin{tikzcd}[row sep = tiny]
-        %       \mathsf F^{G,op} \arrow[r]
-        %       &
-        %       \mathsf{Set}
-        %       \\
-        %       A \arrow[r, mapsto]
-        %       &
-        %       \mathcal C^{G \ltimes A}.
-        % \end{tikzcd}
-        \mathsf F^{G,op} \longto \Set,
-        \qquad \qquad
-        A \longmapsto \mathcal C^{G \ltimes A}.
-  \end{equation}
-} % ---------- COLOR RED ----------
-
- 
-
-
+Similarly, consider the Grothendieck construction on the functor
+\begin{equation}
+      \label{FG_GR_EQ}
+      \begin{tikzcd}[row sep = tiny]
+            \mathsf F^{G,op} \arrow[r]
+            &
+            \mathsf{Set}
+            \\
+            A \arrow[r, mapsto]
+            &
+            \Set^{O_G^{op}}(\Phi(A), \underline{\mathfrak C}),
+      \end{tikzcd}
+\end{equation}
+where $\Phi: \Set^G \to \Set^{O_G^{op}}$ sends a $G$-set $X$ to its fixed-point system $G/H \mapsto X^H$.
+We will denote this by $\mathsf F^G \wr \underline{\mathfrak C}$.
 
 
 
@@ -639,7 +456,7 @@ We may assemble homotopies in the following manner.
 
 \subsection{Non-Equivariant Colored Operads}
 
-Fix a closed symmetric monoidal category $(\V, \otimes)$.
+Fix a closed symmetric monoidal category $\V$.
 
 \begin{definition}
       Fix a set $\mathfrak C$ of \textit{colors}.
@@ -649,7 +466,7 @@ Fix a closed symmetric monoidal category $(\V, \otimes)$.
       A \textit{$\mathfrak C$-colored operad} $\mathcal{O}$ in $\V$ consists of the following data:
       \begin{enumerate}[label = (\arabic*)]
       \item An object $\O(\ksi) \in \V$ for each signature $\ksi$.
-      \item For each $c \in \mathfrak C$, a \textit{unit} $1_c \in \O(c;c)$.                        
+      \item For each $c \in \mathfrak C$, a \textit{unit} $1_c \in \O(c;c)$.
       \item For any signature $\ksi \in \mathfrak C^{\times n+1}$ and $\sigma \in \Sigma_n$, a map $\O(\xi) \to \O(\sigma \cdot \xi)$,
             where $\Sigma_n$ acts on the left of $\mathfrak C^{\times n+1}$ by acting on the first $n$ coordinates.
             Explicitly, this is a map
@@ -658,7 +475,7 @@ Fix a closed symmetric monoidal category $(\V, \otimes)$.
             \end{equation}
       \item For any compatible signatures $\xi = (c_1, \ldots, c_n; c_0)$, $\xi_i = (c_{1}^i, \ldots, c_{m_i}^i; c_i)$, a \textit{composition} map
             \begin{equation}
-                  \O(\xi) \otimes \O(\xi_1) \otimes \ldots \otimes \O(\xi_n) \to \O(\xi \circ (\xi_i))
+                  \O(\xi) \times \O(\xi_1) \times \ldots \times \O(\xi_n) \to \O(\xi \circ (\xi_i))
             \end{equation}
       \end{enumerate}
       where $\xi \circ (\xi_i) = (c_1^1,c_2^1,\dots,c_{m_n}^{n}; c_0)$,
@@ -689,16 +506,13 @@ Fix a closed symmetric monoidal category $(\V, \otimes)$.
 \end{remark}
 
 \begin{remark}
-      The category $\Op(\V)$ is equal to the Grothendieck construction on the functor
+      The category $\Op(\V)$ is isomorphic to the Grothendieck construction on the functor
       \begin{equation}
-            % \begin{tikzcd}[row sep = tiny]
-            %       \mathsf F^{op} \arrow[r] & \mathsf{Cat}
-            %       \\
-            %       \mathfrak C \arrow[r, mapsto] & \Op^{\mathfrak C}(\V).
-            % \end{tikzcd}
-            \mathsf F^{op} \longto \mathsf{Cat},
-            \qquad \qquad
-            \mathfrak C \longmapsto \Op^{\mathfrak C}(\V).
+            \begin{tikzcd}[row sep = tiny]
+                  \mathsf F^{op} \arrow[r] & \mathsf{Cat}
+                  \\
+                  \mathfrak C \arrow[r, mapsto] & \Op^{\mathfrak C}(\V).
+            \end{tikzcd}
       \end{equation}
 \end{remark}
 
@@ -722,152 +536,27 @@ Let $G$ be a finite group, with a fixed (random) total ordering.
       For any $G$-set $A$ and $a \in A$, let $G_a$ denote the stabilizer $\Stab_G(a)$ of $a$ in $G$.
 \end{notation}
 
-We will now move into the world of $G$-equivarinat colored operads.
-
 \begin{definition}
       The category $\Op^G(\V)$ of  \textit{$G$-colored operads} in $\V$ is the category of
       $G$-objects in $\Op(\V)$.
 \end{definition}
 
-% Unpacking this definition, we see $\O \in \Op^G(\V)$ consists of the following data:
-% \begin{enumerate}[label = (\arabic*)]
-%       \setcounter{enumi}{-1}
-% \item A $G$-set $\mathfrak C$ of colors.
-% \item For each signature $\xi$ of $\mathfrak C$, an object $\O(\xi) \in \V$.
-% \item where $G$ acts on $\mathfrak C^{\times n+1}$ diagonally (across all $n+1$ coordinates), and $\Sigma_n$ acts on the first $n$.
-% \item For each $c \in \mathfrak C$, a \textit{unit} $1_c \in \O(c;c)^{G_c}$.
-% \item For compatible signatures $\xi$, $\xi_1$, $\ldots$, $\xi_n$, \textit{composition maps}
-%       \begin{equation}
-%             \O(\xi) \otimes \O(\xi_1) \otimes \ldots \otimes \O(\xi_n) \to \O(\xi \circ (\xi_i)),
-%       \end{equation}
-% \end{enumerate}
-% such that composition is
-% compatible with the $G$-action on each component as well as the appropriate actions of $\Sigma$,
-% and is unital and associative. 
-
-We would like to unpack this definition, and first do so in general.
-
-% -------------------- Equivariant Grothendieck Constructions --------------------
-
-Suppose $E = \mathcal D \ltimes \mathcal C_{(-)}$ is the Grothendieck construction on the functor
-\begin{equation}
-      % \begin{tikzcd}[row sep = tiny]
-      %       \mathcal D^{op} \arrow[r]
-      %       &
-      %       \mathsf{Cat}
-      %       \\
-      %       d \arrow[r, mapsto]
-      %       &
-      %       \mathcal C_{d}.
-      % \end{tikzcd}
-      \mathcal D^{op} \longto \Cat,
-      \qquad \qquad
-      d \longmapsto \mathcal C_d.
-\end{equation}
-
-A $G$-action on an element $(d,c_d)$ is given by compatible maps
-$d \xrightarrow{g} d$ and
-$c_d \xrightarrow{g_c} g^{\**}c_d$,
-and $G$-maps between such objects
-are pairs of maps $(d \xrightarrow{f} d, c_d \xrightarrow{f_c} f^{\**}c_{d'})$ which commute with the action.
-Equivalently, and more concretely,
-an object in $E^G$ is given by a pair $(d, \underline{c}_d)$ where
-$d \in \mathcal D^G$ and
-$\underline{c}_d$ is a $G$-indexed diagram $E G^{op} \to \mathcal C_d$,
-such that $\underline{c}_d(g) = g_{d}^{\**}\underline{c}_d(e)$.
-A $G$-map in this context is given by a pair $(f, \Phi_c)$ where
-$f: d \to d'$ in $\mathcal D^G$ and
-$\Phi: \underline{c}_d \Rightarrow f^{\**}\underline{c}_{d'}: E G^{op} \to \mathcal C_d$
-(where we note that $f^{\**}\underline{c}_{d'}$ is a functor since $f$ is a $G$-map).
-
-Put another way, we have the following.
-\begin{lemma}
-      \label{G_GR_LEM}
-      The category of $G$-objects
-      $\left(\mathcal D \ltimes \mathcal C_{(-)}\right)^G$
-      is given by the Grothendieck construction on the functor
+Unpacking this definition, we see $\O \in \Op^G(\V)$ consists of the following data:
+\begin{enumerate}[label = (\arabic*)]
+\item A $G$-set $\mathfrak C$ of colors.
+\item For each signature $\xi$ of $\mathfrak C$, an object $\O(\xi) \in \V$.
+\item For each signature $\xi \in \mathfrak C^{\times n+1}$ and $(g,\sigma) \in G\times \Sigma_n$, a map
+      $\O(\xi) \to \O((g,\sigma)\cdot \xi)$,
+      where $G$ acts on $\mathfrak C^{\times n+1}$ diagonally (across all $n+1$ coordinates), and $\Sigma_n$ acts on the first $n$.
+\item For each $c \in \mathfrak C$, a \textit{unit} $1_c \in \O(c;c)^{G_c}$.
+\item For compatible signatures $\xi$, $\xi_1$, $\ldots$, $\xi_n$, \textit{composition maps}
       \begin{equation}
-            % \begin{tikzcd}[row sep = tiny]
-            %       \mathcal D^{G,op} \arrow[r]
-            %       &
-            %       \Cat
-            %       \\
-            %       d \arrow[r, mapsto]
-            %       &
-            %       \Fun^{G^{op}}(E G^{op}, \mathcal C_d)
-            % \end{tikzcd}
-            \mathcal D^{G,op} \longrightarrow \Cat,
-            \qquad \qquad
-            d \longmapsto \Fun^{G^{op}}(E G^{op}, \mathcal C_d)
+            \O(\xi) \otimes \O(\xi_1) \otimes \ldots \otimes \O(\xi_n) \to \O(\xi \circ (\xi_i)),
       \end{equation}
-      where $\Fun^{G^{op}}$ denotes the category of $G^{op}$-functors and $G^{op}$-natural transformations,
-      and $\mathcal C_d$ has a $G^{op}$ action induced by the $G$-action on $d$.
-\end{lemma}
-% ----------------------------------------------------------------------
-
-
-Thus, for $E = \Op(\V)$, we see that an object $\O \in \Op^G(\V)$ consists of
-a $G$-set $\mathfrak C$ of colors, and a compatible $G$-indexed diagram of $\mathfrak C$-colored operads.
-Explicitly, $\O$ is the following data:
-\begin{enumerate}[label = (\arabic*), start = 0]
-\item A $G$-set $\mathfrak C = \mathfrak C(\O)$ of colors.
-\item For each signature $\ksi$, an object $\O(\ksi) \in \V$.
-\item \label{GUNIT_LBL} 
-      For each $c \in \ksi$, a \textit{unit} $1_c \in \O(c;c)$.
-\item \label{SACTION_LBL}
-      For all signatures $\ksi \in \mathfrak C^{\times n + 1}$ and $\sigma \in \Sigma_n$, maps $\O(\ksi) \to \O(\sigma \cdot \ksi)$,
-      which are unital and associative.
-\item \label{COMP_LBL}
-      For all compatible signatures $\ksi \in \mathfrak C^{\times n+1}$, $\ksi_i$,
-      \textit{composition maps} $\O(\ksi) \otimes \O(\ksi_1) \otimes \dots \otimes \O(\ksi_n) \to \O(\ksi \circ (\ksi_i))$,
-      which are unital, associative, and appropriately $\Sigma$-equivariant.
-\item \label{GACTION_LBL}
-      For all $g \in G$, maps $\O(\ksi) \to g^{\**}\O(\ksi) = \O(g \cdot \ksi)$
-      (with $G$ acting on $\mathfrak C^{\times n+1}$ diagonally)
-      which are unital and associative, and which commute with the composition maps
-      (if $\ksi, (\ksi_i)$ are compatible, then so are $g \ksi, (g \ksi_i)$).
 \end{enumerate}
-Synthesizing, we may combine \ref{SACTION_LBL} and \ref{GACTION_LBL} into
-\begin{enumerate}
-\item[($3'$)] For all signatures $\xi \in \mathfrak C^{\times n+1}$ and $(g,\sigma) \in G\times \Sigma_n$, maps
-      $\O(\xi) \to \O((g,\sigma)\cdot \xi)$
-      which are unital and associative.
-\end{enumerate}
-
-and replace \ref{GUNIT_LBL} and \ref{COMP_LBL} with
-\begin{enumerate}
-\item[($2'$)] For each $c \in \mathfrak C$, a $G_c$-fixed unit $1_c \in \O(c;c)^{G_c}$.
-\item[($4'$)] For all compatible signatures $\ksi, (\ksi_i)$,
-      composition maps $\O(\ksi) \otimes \bigotimes_i \O(\ksi_i) \to \O(\ksi \circ (\ksi_i))$
-      which are unital, assocative, $G$-equivariant, and approriately $\Sigma$-equivariant.
-\end{enumerate}
-
-From Lemma \ref{G_GR_LEM}, we can see that
-maps of $G$-operads $\O \to \P$ are given by a pair $(f, F)$ where
-$f: \mathfrak C(\O) \to \mathfrak C(\P)$ is a map of $G$-sets, and
-$F: \O \to f^{\**}\P$ is a map in $\Op^{\mathfrak C(\O)}(\V)$ that commutes with the $G$-action
-(or, equivalently, so that the $g^{\**}F$ assemble into a map of $G$-indexed diagrams).
-
-Moreover, for any $G$-set $\mathfrak C$ let $\Op^{G, \mathfrak C}(\V) \subseteq \Op^G(\V)$
-denote the subcategory of $\mathfrak C$-colored operads and maps which are the identity on colors.
-Then 
-\begin{equation}
-      \Fun^{G^{op}}(E G^{op}, \Op^{\mathfrak C}(\V)) \simeq \Op^{G, \mathfrak C}(\V),
-\end{equation}
-and thus Lemma \ref{G_GR_LEM} implies the following.
-\begin{lemma}
-      $\Op^G(\V)$ is isomorphic to the Grothendieck construction on the functor
-      \begin{equation}
-            % \begin{tikzcd}[row sep = tiny]
-            %       \mathsf (F^G)^{op} \arrow[r] & \mathsf{Cat}
-            %       \\
-            %       \mathfrak C \arrow[r, mapsto] & \Op^{G,\mathfrak C}(\V).
-            % \end{tikzcd}
-            \mathsf F^{G,op} \longto \Cat,
-            \qquad \qquad
-            \mathfrak C \longmapsto \Op^{G, \mathfrak C}(\V).
-      \end{equation}
-\end{lemma}
+such that composition is
+compatible with the $G$-action on each component as well as the appropriate actions of $\Sigma$,
+and is unital and associative. 
 
 
 \begin{remark}
@@ -877,67 +566,80 @@ and thus Lemma \ref{G_GR_LEM} implies the following.
 	(though only a partial action by $\Sigma_{|\xi|}$).
 \end{remark}
 
+\begin{definition}
+      Given a $G$-set $\mathfrak C$, let $\Op^{G,\mathfrak C}(\V)$ denote the category of \textit{$\mathfrak C$-colored operads} and maps which are the identity on colors.
+      
+      Parallel to the non-equivariant case, $\Op^G(\V)$ is isomorphic to the Grothendieck construction on the functor
+      \begin{equation}
+            \begin{tikzcd}[row sep = tiny]
+                  \mathsf (F^G)^{op} \arrow[r] & \mathsf{Cat}
+                  \\
+                  \mathfrak C \arrow[r, mapsto] & \Op^{G,\mathfrak C}(\V).
+            \end{tikzcd}
+      \end{equation}
+\end{definition}
+
 
 \subsubsection{Categorical description: colored trees}
 \label{COMEGA_SEC}
 
-Given a $G$-set $A$, let $G \ltimes A$ denote the Grothendieck construction on the functor $G^{op} \to \Set$
-defining the action on $A$,
-with object set $A$ and morphisms $g: a \to g\cdot a$ for all pairs $(g,a) \in G \times A$
-\footnote{In the literature, $G \ltimes A$ is often called the \textit{translation category} of $A$, and denoted $B_A G$.}.
-Further, if $A$ is a $G \times \Sigma$-set, then $G \ltimes (\Sigma \ltimes A) \simeq \Sigma \ltimes (G \ltimes A)$.
-
-We now categorify the set of $\mathfrak C$-signatures.
 \begin{definition}
-      Let $\Sigma_{\mathfrak C}$ denote the \textit{$\mathfrak C$-symmetric category}
-      and $G \ltimes \Sigma_{\mathfrak C}$ the \textit{$(G,\mathfrak C)$-symmetric category}, given as below.      
+      Given a $G$-set $X$, let $B_XG$ denote the \textit{translation category} of $X$,
+      with object set $X$ and morphisms $g: x \to g\cdot x$ for all pairs $(g,x) \in G \times X$.
+\end{definition}
+
+\begin{remark}
+      We observe that we have a natural diagonal map
+%      \begin{equation}
+      $
+      F \times G \into \mathsf F \wr G,
+      $
+      % \end{equation}
+      and so for any functor $F: \mathcal C \to \mathsf F$, we have an induced functor
+      $F: \mathcal C \times G \to \mathsf F \wr G$. 
+\end{remark}
+
+\begin{definition}
+      Let $\mathfrak C \Sigma$ denote the \textit{$(G,\mathfrak C)$-symmetric category}, given by
       \begin{equation}
-            \Sigma_{\mathfrak C} = \coprod_{n \geq 0} \Sigma_n \ltimes \mathfrak C^{\times n} = \Sigma^{+1} \wr \mathfrak C
-            \qquad \qquad
-            G \ltimes \Sigma_{\mathfrak C} = \coprod\limits_{n\geq 0} (G \times \Sigma_n) \ltimes \mathfrak C^{\times n}.
+            \mathfrak C \Sigma = \coprod\limits_{n\geq 0} B_{\mathfrak C^{\times n} \times \mathfrak C}(G \times \Sigma_n).
       \end{equation}
       
-      We observe that this is equivalent to the pullback on the left below,
-      where $E: \Sigma \to \mathsf F$ sends $\underline{n}$ to $\underline{n+1}$.
+      We note that $\mathrm{Ob}(\mathfrak C \Sigma)$ is precisely the set of \textit{signatures} in $\mathfrak C$.
+      We observe that this is equivalent to the pullback on the left below.
       \begin{equation}
             \label{COMEGA_B_EQ}
             \begin{tikzcd}
-                  G \ltimes \Sigma_{\mathfrak C} \arrow[d] \arrow[r, "E"]
+                  \mathfrak C \Sigma \arrow[d] \arrow[r, "E"]
                   &
-                  \mathsf F \wr (G \ltimes {\mathfrak C}) \arrow[d]
-                  & %
-                  \Omega_{\mathfrak C} \arrow[d] \arrow[r, "E"]
+                  \mathsf F \wr B_{\mathfrak C}G \arrow[d]
+                  &&
+                  \mathfrak C \Omega \arrow[d] \arrow[r, "E"]
                   &
-                  \mathsf F \wr \mathfrak C \arrow[d]
-                  & %
-                  G \ltimes \Omega_{\mathfrak C} \arrow[d] \arrow[r, "E"]
-                  &
-                  \mathsf F \wr (G \ltimes {\mathfrak C}) \arrow[d]
+                  \mathsf F \wr B_{\mathfrak C}G \arrow[d]
                   \\
                   \Sigma \times G \arrow[r, "E"]
                   &
                   \mathsf F \wr G
-                  & %
-                  \Omega \arrow[r, "E"]
-                  &
-                  F
-                  & %
+                  &&
                   \Omega \times G \arrow[r, "E"]
                   &
                   \mathsf F \wr G
             \end{tikzcd}
       \end{equation}
-      More generally, let $\Omega_{\mathfrak C}$ and $G \ltimes \Omega_{\mathfrak C}$ be the middle and right pullbacks above,
+      where $E: \Sigma \to \mathsf F$ sends $\underline{n}$ to $\underline{n+1}$.
+      \todo[inline]{$B_{\mathfrak C}G = G \ltimes \mathfrak C$}
+      More generally, let $\mathfrak C \Omega$ be the pullback on the right above,
       where $E: \Omega \to \mathsf F$ sends a tree $U$ to its set $E(U)$ of edges.
 
-      We have a natural inclusion of categories $G \ltimes \Sigma_{\mathfrak C} \into G \ltimes \Omega_{\mathfrak C}$,
+      We have a natural inclusion of categories $\mathfrak C \Sigma \into \mathfrak C \Omega$,
       and as such we will called elements of these categories
       \textit{colored trees} (or \textit{colored corollas}),
       and denote them by $(U,\mathfrak c)$, where $\mathfrak c: E(U) \to \mathfrak C$ is a map of sets.
 \end{definition}
 
 \begin{remark}
-      When $G = \set{e}$ and $\mathfrak C = \set{*}$, $G \ltimes \Sigma_{\mathfrak C} = \Sigma$.
+      When $G = \set{e}$ and $\mathfrak C = \set{*}$, $\mathfrak C \Sigma = \Sigma$.
 \end{remark}
 
 Unpacking definitions, we see that a map $(U, \mathfrak c) \to (V, \mathfrak d)$ is given by
@@ -961,8 +663,7 @@ In particular, we have maps of the form
 \end{equation}
 
 \begin{remark}
-      Following Lemma \ref{PB_GR_EQ}, it is straightforward that
-      $G \ltimes \Omega_{\mathfrak C}$ is equal to the
+      $\mathfrak C \Omega$ is equal to the
       Grothendieck construction on the functor
       \begin{equation}
             \label{COMEGA_B_GR_EQ}
@@ -973,7 +674,7 @@ In particular, we have maps of the form
                   \\
                   U \arrow[r, mapsto]
                   &
-                  \Hom_{\mathsf{Cat}}(E(U), G \ltimes \mathfrak C)
+                  \Hom_{\mathsf{Cat}}(E(U), B_{\mathfrak C}G)
                   \\
                   (\phi: U \to V, g) \arrow[r, mapsto]
                   &
@@ -984,19 +685,17 @@ In particular, we have maps of the form
       %   $\Hom(\Phi(E(U)), \Phi(\mathfrak C))$
       %   equals
       %   $\Hom(\Phi(E(G \cdot U)), \mathfrak C_{fr}))$}
-      and a similar result holds for $G \ltimes \Sigma_{\mathfrak C}$. 
+      and a similar result holds for $\mathfrak C \Sigma$. 
 \end{remark}
 
-
-% -------------------- Replace $\mathfrak C$ with a coefficient system --------------------
 \begin{remark}
       Note that we can replace the $G$-set $\mathfrak C$ with a
       \textit{coefficient system} $\underline{\mathfrak C}$ in multiple ways,
-      defining categories $\Omega_{\UC}$.
-      In each case, the $G$-set definitions are recovered by replacing $\UC$ with $O_G \ltimes \Phi(\mathfrak C)$,
-      and the resulting categories are always equal to $G \ltimes \Omega_{\mathfrak C(G/e)}$.
+      defining categories $\UC\Omega$.
+      In each case, the $G$-set definitions are recovered by replacing $\UC$ with $\Phi(\mathfrak C)$,
+      and the resulting categories are always equal to $\mathfrak C(G/e)\Omega$.
 
-      % --------------------------
+      % ------------------------------------------------------------
       
       First, we can substitute \eqref{COMEGA_B_EQ} for the rectangle of pullbacks below
       \begin{equation}
@@ -1004,9 +703,9 @@ In particular, we have maps of the form
             \begin{tikzcd}
                   \underline{\mathfrak C}\Omega \arrow[d] \arrow[r, "E"]
                   &
-                  \mathsf F \wr (G \ltimes \mathfrak C(G/e)) \arrow[r] \arrow[d]
+                  \mathsf F \wr B_{\mathfrak C(G/e)}G \arrow[r] \arrow[d]
                   &
-                  \mathsf F \wr (O_G \ltimes \UC) \arrow[d]
+                  \mathsf F \wr \underline{\mathfrak C} \arrow[d]
                   \\
                   \Omega \times G \arrow[r, "E"]
                   &
@@ -1015,9 +714,8 @@ In particular, we have maps of the form
                   \mathsf F \wr O_G
             \end{tikzcd}
       \end{equation}
-      (that the right square sans $\mathsf F \wr (-)$ is a pullback is straightforward).
-      % with $\mathfrak C(G/e) \into \underline{\mathfrak C}$, $G \ltimes \mathfrak C(G/e) \to O_G \ltimes \mathfrak C(G/e)$, and $G \into O_G$ the natural inclusions.
-
+      with $\mathfrak C(G/e) \into \underline{\mathfrak C}$ and $G \into O_G$ the natural inclusions.
+      \todo[inline]{compare $B_{\mathfrak C(G/e)}G = G \ltimes \mathfrak C(G/e)$ and $\underline{\mathfrak C} = O_G \ltimes \underline{\mathfrak C}$.}
       Analogously to \eqref{COMEGA_B_GR_EQ}, this is equal to the Grothendieck construction on the functor
       \begin{equation}
             \label{COMEGA_OG_GR_EQ}
@@ -1028,9 +726,7 @@ In particular, we have maps of the form
                   \\
                   U \arrow[r, mapsto]
                   &
-                  \Hom_{\mathsf{Cat} \downarrow O_G}((G \cdot E(U))/G, O_G \ltimes \UC)
-                  =
-                  \Hom_{\mathsf{Cat}}(E(U), \mathfrak C(G/e)).
+                  \Hom_{\mathsf{Cat} \downarrow O_G}((G \cdot E(U))/G, \UC).
             \end{tikzcd}
       \end{equation}
 
@@ -1042,9 +738,9 @@ In particular, we have maps of the form
       \begin{equation}
             \label{COMEGA_FG_EQ}
             \begin{tikzcd}
-                  \Omega_{\UC} \arrow[d] \arrow[r]
+                  \UC \Omega \arrow[d] \arrow[r]
                   &
-                  \mathsf F \wr (G \ltimes {\mathfrak C(G/e)}) \arrow[r] \arrow[d]
+                  \mathsf F \wr B_{\mathfrak C(G/e)}G \arrow[r] \arrow[d]
                   &
                   \mathsf F^G \wr \UC \arrow[d]
                   \\
@@ -1101,13 +797,13 @@ In particular, we have maps of the form
 
 \begin{definition}
       The category of \textit{symmetric $(G,\mathfrak C)$-sequences} in $\V$, denoted $\Sym^{G,\mathfrak C}(\V)$, is
-      the category of functors $X: G \ltimes \Sigma_{\mathfrak C}^{op} \to \V$.
+      the category of functors $X: \mathfrak C \Sigma^{op} \to \V$.
 \end{definition}
 
 \begin{remark}
       \label{COLOR_CHANGE_REM}
-      As the set of objects in $G \ltimes \Sigma_{\mathfrak C}$ is precisely the set of $\mathfrak C$-signatures,
-      every $\mathfrak C$-colored operad has an underlying symmetric $(G,\mathfrak C)$-sequence.
+      We observe that the set of objects in $\mathfrak C\Sigma$ is precisely the set of $\mathfrak C$-signatures.
+      Hence every $\mathfrak C$-colored operad has an underlying symmetric $(G,\mathfrak C)$-sequence.
       
       Moreover, extending Defintion \ref{OP_MAP_DEFN}, we have that any map of $G$-sets
       $F: \mathfrak C \to \mathfrak C'$ induces a pair of adjoints
@@ -1180,11 +876,11 @@ which can be built through a straightforward use of the universal property of pu
 
 \begin{definition}
       We have a natural \textit{vertex} functor
-      $V: G \ltimes \Omega_{\mathfrak C} \to \Sigma \wr (G \ltimes \Sigma_{\mathfrak C})$,
+      $V: \mathfrak C \Omega \to \Sigma \wr \mathfrak C \Sigma$,
       as colorings of a tree restrict to colorings of each vertex corolla.
 
       Similarly, there is a \textit{leaf-root} functor
-      $\mathsf{lr}: G \ltimes \Omega_{\mathfrak C} \to G \ltimes \Sigma_{\mathfrak C}$,
+      $\mathsf{lr}: \mathfrak C \Omega \to \mathfrak C \Sigma$,
       where the coloring of $\mathsf{lr}(T)$ is a restrict of the coloring of $T$.
 \end{definition}
 
@@ -1197,18 +893,18 @@ Moreover, the algebraic structure on these operads is determined by a monad on s
       Given $X \in \Sym^{G, \mathfrak C}$, let $\mathbb F^{\mathfrak C} X$ denote the left Kan extension below.
       \begin{equation} 
            \begin{tikzcd}
-                  G \ltimes \Omega_{\mathfrak C}^{op}
+                  \mathfrak C \Omega^{op}
                   \arrow[d, "\mathsf{lr}"']
                   \arrow[r, "V"]
                   &
-                  (\Sigma \wr (G \ltimes \Sigma_{\mathfrak C}))^{op} \arrow[r, "X"]
+                  (\Sigma \wr \mathfrak C \Sigma)^{op} \arrow[r, "X"]
                   \arrow[dl, Rightarrow]
                   &
                   (\Sigma \wr \V^{op})^{op} \arrow[r, "\otimes"]
                   &
                   \V
                   \\
-                  (G \ltimes \Sigma_{\mathfrak C})^{op} \arrow[urrr, "\Lan = \mathbb F^{\mathfrak C} X"']
+                  \mathfrak C \Sigma^{op} \arrow[urrr, "\Lan = \mathbb F^{\mathfrak C} X"']
             \end{tikzcd}
       \end{equation}
 \end{definition}
@@ -1217,11 +913,11 @@ Moreover, the algebraic structure on these operads is determined by a monad on s
 We first show that this generalizes the free single-colored operad monad.
 
 Note that when $\mathfrak C = \set{\**}$, we have
-$G \ltimes \Omega_{\mathfrak C} = \Omega \times G$ and 
-$G \ltimes \Sigma_{\mathfrak C} = \Sigma \times G$.
+$\mathfrak C \Omega = \Omega \times G$ and 
+$\mathfrak C \Sigma = \Sigma \times G$.
 
 \begin{notation}
-      Given a functor $X : \C \to \mathsf{Fun}(\mathcal D, \V)$,
+      Given a functor $X : \C \to \mathsf{Fun}(\mathcal D, \V))$,
       let $\tilde X$ denote the adjoint functor $\tilde X: \C \times \mathcal D \to \V$.
 \end{notation}
 
@@ -1337,6 +1033,63 @@ Extending \S \ref{COMEGA_SEC}, we make the following definitions.
       the tuple $(E_G(T), (Gt))$.
 \end{definition}
 
+
+% One may be tempted to say that $E_G$ is in fact a functor.
+% with $E_G(T) \to \mathsf O_G$ given by $G t \mapsto G/G_t$ for $t \in G t$ minimal.
+We warn that $E_G$ is \textit{not} a functor
+$\Omega_G \to \Set \downarrow \mathsf O_G$,
+as it does not allow for the action of quotient maps.
+It is however a functor when restricted to the category $\Omega_G^{fr}$ of \textit{free} $G$-trees
+(cf. \eqref{COMEGA_FG_GR_EQ}).
+
+Instead, $E_G$ defines a functor to $\Cat \downarrow_w \mathsf O_G$ of functors and ``weakly-commuting'' triangles,
+as for all $\phi: T \to S$ there is a well-defined natural transformation as below.
+\begin{equation}
+      \begin{tikzcd}
+            E_G(T) \arrow[rr, "\phi"] \arrow[dr, "\mathfrak c"', ""{name = U}]
+            &&
+            |[alias = V]| E_G(S) \arrow[dl, "\mathfrak d"]
+            \\
+            &
+            \mathsf O_G
+            % \arrow[Rightarrow, from = U, to = V, "{(g_{(\minus)})_{\**}}"]
+            \arrow[Rightarrow, from = U, to = V, "\phi_{(-)}^{\**}"'{near start}]
+      \end{tikzcd}
+\end{equation}
+
+We may however augment $E_G$ to a functor
+$\hat E_G: \Omega_G \to \mathsf{Fib}(\mathsf \mathsf O_G)$
+to the category of fibrations over $\mathsf \mathsf O_G$.
+
+More generally, for any category $\mathcal C$, the forgetful functor
+sending a fibration $p: \mathcal D \to \mathcal C$ to the map $p: \mathsf{Ob}(\mathcal D) \to \mathcal C$
+has a left adjoint.
+\begin{equation}
+      \label{FIB_HAT_EQ}
+      \begin{tikzcd}
+            \mathsf{Fib}(\mathcal C) \arrow[r, shift right, "\mathsf{fgt}"']
+            &
+            \mathsf{Set} \downarrow \mathcal C \arrow[l, shift right, dashed, "\hat{(-)}"']
+      \end{tikzcd}
+\end{equation}
+For a set $A$ and map $p: A \to \mathcal C$, define
+$\hat A$ to be the Grothendieck construction on the functor
+\begin{equation}
+      \begin{tikzcd}[row sep = tiny]
+            A \arrow[r]
+            &
+            \mathsf{Set}
+            \\
+            a \arrow[r, mapsto]
+            &
+            \mathcal C \downarrow p(a).
+      \end{tikzcd}
+\end{equation}
+This has the natural structure of a fibration over $\mathcal C$,
+sending $(a, c \to p(a))$ to $c$, with
+Cartesian arrows defined by precomposition.
+
+
 \begin{definition}[{cf. \eqref{COMEGA_OG_EQ}}]
       Let $\underline{\mathfrak C}$ be a $G$-coefficient system of sets.
       Then the category $\underline{\mathfrak C}\Omega_G$ (resp. its subcategory $\UC \Sigma_G$)
@@ -1382,7 +1135,6 @@ with $\phi_{G t}: G t \to G \phi(t)$.
 % where $\phi_{e}: G / G_{e} \to G / G_{\phi(e)}$ is the map in $\mathsf O_G$ induced by $\phi$,
 % and $\phi(e) = g_e f$ for $f \in Gf \in E_G(S)$ minimal; as $g_e$ is unique modulo $G_f$, $g_e^{\**}$ is well-defined.
 
-
 \begin{remark}
       In analogue to \eqref{COMEGA_OG_GR_EQ}, we note that $\UC \Omega_G$ is equivalent to the Grothendieck construction
       \begin{equation}
@@ -1394,17 +1146,10 @@ with $\phi_{G t}: G t \to G \phi(t)$.
                   \\
                   T \arrow[r, mapsto]
                   &
-                  \Hom_{\Cat \downarrow O_G}(E_G(T), \UC)
+                  \Hom_{\mathsf{Fib} (\mathsf O_G)}(\hat E_G(T), \UC)
             \end{tikzcd}
       \end{equation}
-      with the functor defined on arrows $\phi: T \to S$ by sending $\mathfrak c: E_G(S) \to \UC$ to the map
-      $E_G(T) \to \UC$, $Gt \to \phi_{Gt}^{\**}\mathfrak c(G\phi(t))$. 
-\end{remark}
-
-\begin{remark}      
-      Equivalently, we have $\Hom_{\Cat \downarrow O_G}(E_G(T), \UC) = \Hom_{\mathsf{Fib} (\mathsf O_G)}(\hat E_G(T), \UC)$,
-      where $\hat E_G(T) \xrightarrow{p} \mathsf O_G$ is the Grothendieck fibration
-      $(d, c \xrightarrow{\alpha} p(d)) \mapsto c$.
+      with $\hat E_G(T)$ defined as in \eqref{FIB_HAT_EQ}.
       The (standard) coloring of $G t$ is recovered by $\mathfrak c(G t, id_{G t})$, and
       a triangle of fibrations on the left below over $\mathsf O_G$
       implies that the right triangle commutes.
@@ -1765,6 +1510,40 @@ Similarly, \cite[Prop 3.47, 3.90, 4.12, 4.15, 4.26, 4.28, 4.30]{BP17} naturally 
 replacing all instances of $\Omega_G^n$ or $\Sigma_G$ with $\UC\Omega_G^n$ and $\UC\Sigma_G$.
 In particular, this yields the following definitions and proposition.
 
+\begin{definition}[{cf. \cite[Defn 4.3]{BP17}}]
+      Let $\mathsf{WSpan}^l(\mathcal C, \mathcal D)$ (resp. $\mathsf{WSpan}^r(\mathcal C, \mathcal D)$)
+      denote the category of \textit{left (resp. right) weak spans}, with objects
+      \begin{equation}
+            \mathcal C \xleftarrow{k} \mathcal A \xrightarrow{X} \mathcal D
+      \end{equation}
+      and arrows those diagrams as on the left (resp. right) below
+      \begin{equation}
+            \begin{tikzcd}[row sep = tiny]
+                  & \mathcal A_1 \arrow[dr, "X_1", ""'{name=U}] \arrow[dl, "k_1"'] \arrow[dd, "i"']
+                  &
+                  &&
+                  &
+                  \mathcal A_1 \arrow[dr, "X_1", ""'{name=A}] \arrow[dl, "k_1"'] \arrow[dd, "i"']
+                  \\
+                  \mathcal C
+                  &&
+                  \mathcal D
+                  &&
+                  \mathcal C
+                  &&
+                  \mathcal D
+                  \\
+                  & |[alias=V]| \mathcal A_2 \arrow[ur, "X_2"'] \arrow[ul, "k_2"]
+                  &
+                  &&
+                  &
+                  |[alias=B]| \mathcal A_2 \arrow[ur, "X_2"'] \arrow[ul, "k_2"]
+                  \arrow[Rightarrow, from = U, to = V]
+                  \arrow[Rightarrow, from = A, to = B]
+            \end{tikzcd}
+      \end{equation}
+      denoted by $(i,\phi): (k_1,X_1) \to (k_2,X_2)$, with composition defined in the natural way.      
+\end{definition}
 
 % recall adjunctions with $\mathsf{Lan}$ and $\mathsf{Ran}$, canonical op-isos, etc}
 
@@ -2194,17 +1973,7 @@ The following is immediate.
 \end{remark}
 
 
-\subsection{Assembly}
 
-Goal: $\Op^{G,\mathfrak C}(\V)$ assemble into $\Op(\V)^G$.
-
-
-
-
-
-
-
-%%%%%%% ------------------------------------------------------------
 \newpage
 
 \subsection{Aside: Comparisons and cofibrancy}
@@ -2332,8 +2101,6 @@ We record that $\iota_{\**}$ again fully-faithful since $\epsilon$ is an iso.
       let alone whether they satisfy this particular condition.
       \todo[inline]{this is not a complete/full/reasonable argument for the ``if'' direction}.
 \end{proof}
-
-
 
 
 
@@ -2733,15 +2500,14 @@ The next two subsectiosn deal with these issues, in that order.
       are closed under transfinite composition, the result is proven.
 \end{proof}
 
-The following follows from the cellular description of cofibrations in $\Op^{G, \mathfrak C}(\V)$.
 \begin{lemma}
       \label{LOCAL_COF_LEM}
-      Suppose $\V$ admits transfer for operads, and suppose
-      $f: \O \to \P$ in $\Op^{G, \mathfrak C}(\V)$ is a (trivial) $\mathrm{Gr}$-cofibration.
-      Then it is a local (trivial) $\mathrm{Gr}$-cofibration.
-
-      If $\V$ only admits semi-transfer, the result holds when $\O$ is level $\mathrm{Gr}$-cofibrant itself.
+      If $f: \O \to \P$ in $\Op^{G, \mathfrak C}(\V)$ is a (trivial) $\mathrm{Gr}$-cofibration, it is a local (trivial) $\mathrm{Gr}$-cofibration.
 \end{lemma}
+\begin{proof}
+      {\color{red} Need: version of 5.72}
+      \todo[inline]{come back: make sure this is clearly highlighted when reworking single-color section.}
+\end{proof}
 
 \begin{proposition}
       [{c.f. \cite[4.20]{Cav14}}]
@@ -2751,6 +2517,7 @@ The following follows from the cellular description of cofibrations in $\Op^{G, 
       If $\V$ admits (semi)-transfer for operads, then relative $J_{\F}$-cells (with cofibrant source) are weak equivalences.
 \end{proposition}
 \begin{proof}
+      \todo[inline]{come back: fix notation}
       We begin with the case that $\V$ admits transfer for operads.
            
       Now, as essentially surjective maps are closed under transfinite composition by Lemma \ref{TRANSCOMP_ES_LEM},
@@ -3183,32 +2950,33 @@ which show that in many cases, a homotopy equivalence of colors induces a homoto
       $H = \Stab(c)$, and suppose $c$ and $d$ are homotopy $H$-equivalent.
       %
       Then, for any $\mathfrak C(\O)$-profile $\ksi = (c_1,\dots, c_n;c)$,
-      there exists a zig-zag of weak equivalences in $\V^{\Stab(\ksi)}_{\mathrm{Gr}_\ksi}$
-      between $\O(\ksi)$ and $\O(\ksi_c^d)$,
+      there exists a zig-zag of weak equivalences between
+      $\O(\ksi)$ and $\O(\ksi_c^d)$
+      in $\V^{\Stab(\ksi)}_{\mathrm{Gr}_\ksi}$,
       where $\ksi_c^d = (c_1,\dots, c_n;d)$.
 
-      Finally, any functor $F: \O \to \P$ induces a functorial zig-zag of weak equivalences in $\V^{\Stab(\ksi)}_{\mathrm{Gr}_\ksi}$
-      between $\P(F(\ksi))$ and $\P(\F(\ksi_c^d))$.
+      Finally, any functor $F: \O \to \P$ induces a functorial zig-zag of weak equivalences
+      $\P(F(\ksi)) \to \P(\F(\ksi_c^d))$ in $\V^{\Stab(\ksi)}_{\mathrm{Gr}_\ksi}$. 
 \end{lemma}
 \begin{proof}
-      For $\P = \O$, $\O_f$, or $\O_{f c} = (\O_f)_c$,
-      and $(a;b) = (c;c)$, $(c;d)$, $(d;c)$, or $(d;d)$,
-      we see that $\P(a;b) \in \V$ has a $\Stab(\ksi)$-action
-      via the projection $\Stab(\ksi) \to H$.
-      Further, naturality of composition implies that the maps
+      For $\P = \O,\ \O_f$, or $\O_{f c} = (\O_f)_c$,
+      $\P(a;b) \in \V$ has a $\Stab(\ksi)$-action
+      via the projection $\Stab(\ksi) \to H$
+      for any $(a;b) \in \set{(c;c), (c;d), (d;c), (d;d)}$,
+      and naturality of composition implies that the maps
       \begin{equation}
             \alpha_{\**}: \P(\ksi) \to \P(\ksi_c^d),
             \qquad
             \beta_{\**}: \P(\ksi_c^d) \to \P(\ksi)
       \end{equation}
-      and their composites are $\Stab(\ksi)$-equivariant.
+      and their composites are maps in $\V^{\Stab(\ksi)}$.
       Thus we have natural composition maps
       \begin{equation}
             \P(\ksi)^\Gamma \otimes \P(c;d)^{H_\Gamma} \longrightarrow
             (\P(\ksi) \otimes \P(c;d))^\Gamma \longrightarrow
             \P(\ksi_c^d)^\Gamma
       \end{equation}
-      for any graph subgroup $\Gamma \leq \Stab(\ksi) \leq G \times \Sigma_n$,
+      for any graph subgroup $\Gamma \leq G \times \Sigma_n$,
       where $H_\Gamma$ is the projection of $\Gamma$ onto $G$,
       and similarly when replacing $(c;d)$ with $(d;c)$, $(c;c)$, $(d;d)$,
       and $\ksi$ by $\theta$ when required.
@@ -3217,7 +2985,7 @@ which show that in many cases, a homotopy equivalence of colors induces a homoto
       $\alpha: 1_\V \to \O^H(c;d)_f$ and $\beta: 1_\V \to \O^H(d;c)_f$
       representing the homotopy $H$-equivalence,
       with associated homotopies $H_{\beta\alpha,1}$ and $H_{\alpha\beta,1}$.
-      Additionally, for any graph subgroup $\Gamma$, we have lifts of these homotopies, e.g.
+      But, for any graph subgroup $\Gamma$, we have lifts of both homotopies, e.g.
       \begin{equation}
             \label{OFC_HOM_LIFT}
             \begin{tikzcd}
@@ -3257,11 +3025,11 @@ which show that in many cases, a homotopy equivalence of colors induces a homoto
             \end{tikzcd}
       \end{equation}
       and similarly $\alpha\beta \sim id_{\O_{f c}(\ksi_c^d)^\Gamma}$.
-      Hence, as both $\O_{f c}(\ksi)^\Gamma$ and $\O_{f c}(\ksi_c^d)^\Gamma$ are bifibrant by Remark \ref{LEVEL_COF_REM},
+      Hence, as $\O_{f c}(\ksi)^\Gamma$ and $\O_{f c}(\ksi_c^d)^\Gamma$ are bifibrant by Remark \ref{LEVEL_COF_REM},
       $\alpha_{\**}: \O_{f c}(\ksi)^\Gamma \leftrightarrow \O_{f c}(\ksi_c^d)^\Gamma : \beta_{\**}$ are inverse isomorphisms in $\Ho(\V)$ for all $\Gamma$.
       %
       Thus, in particular, $\alpha_{\**}: \O_{f c}(\ksi) \to \O_{f c}(\ksi_c^d)$ is a weak equivalence in $\V^{\Stab(\ksi)}_{\mathrm{Gr}_\ksi}$.
-      Composing with the functorial (co)fibrant replacement weak equivalences yields our zig-zag of $\mathrm{Gr}_\ksi$-equivalences
+      Composing with the functorial fibrant and cofibrant replacement weak equivalences yields our zig-zag of $\mathrm{Gr}_\ksi$-equivalences
       \begin{equation}
             \O(\ksi) \xrightarrow{\simeq} \O_f(\ksi) \xleftarrow{\sim} \O_{f c}(\ksi)
             \xrightarrow{\simeq}
@@ -3281,8 +3049,7 @@ which show that in many cases, a homotopy equivalence of colors induces a homoto
       \label{CAV_4.14_PROP2}
       Suppose $\V$ has cofibrant symmetric pushout powers.
       Let $\O \in \Op^G(\V)$, and suppose
-      $c_i$ and $d_j$ are homotopy $H$-equivalent with $H \leq \Stab(c_i) \leq \Stab(d_j)$;
-      without loss of generality we may assume $i = j = 1$.
+      $c_1$ and $d_1$ are homotopy $H$-equivalent with $H = \Stab(c_1)$.
 
       Then, for any $\mathfrak C(\O)$-profile $\ksi = (c_1,\dots,c_n;c)$,
       there exists a zig-zag of weak equivalences between
@@ -3291,12 +3058,10 @@ which show that in many cases, a homotopy equivalence of colors induces a homoto
       where
       $\theta = (d_1,\ldots, d_n; c)$, with the colors $d_i$ defined as follows:
             
-      Let $\lambda \subseteq \underline{n} = \set{1,2,\ldots, n}$ denote
-      the set of all $i$ such that $c_i = k_i \cdot c_1$ for some $k_i\in G$,
-      and fix choices of such $k_i$.
-      If $i \notin \lambda$, let $k_i$ denote the identity element of $G$.
-      % \todo[inline]{if $H = \Stab{c_1}$, then $k_i$ are well-defined in $k_i H$.}
-      Then, for all $i \in \underline{n}$, we define
+      Write $K = \Stab_G(c)$, and let $\lambda \subseteq \underline{n} = \set{1,2,\ldots, n}$ denote
+      the set of all $i$ such that $c_i = k_i \cdot c_1$ for some $k_i\in K/H$;
+      if $i \notin \lambda$, let $k_i$ denote the identity element of $G$.
+      For all $i \in \underline{n}$, we define
       \begin{equation}
             \label{DCOLORS_EQ}
             d_i =
@@ -3307,18 +3072,17 @@ which show that in many cases, a homotopy equivalence of colors induces a homoto
             \end{cases}
       \end{equation}
       
-      Finally, any functor $F: \O \to \P$ induces a functorial zig-zag of weak equivalences in $\V^{\Stab(\ksi)}_{\mathrm{Gr}_\ksi}$
-      between $\P(F(\ksi))$ and $\P(F(\theta))$.
+      Finally, any functor $F: \O \to \P$ induces a functorial zig-zag of weak equivalences
+      $\P(F(\ksi)) \to \P(F(\theta))$ in $\V^{\Stab(\ksi)}_{\mathrm{Gr}_\ksi}$.
 \end{lemma}
 \begin{proof}
       Firstly, we claim that $\Stab_{G \times \Sigma_n}(\ksi) \subseteq \Stab_{G \times \Sigma_n}(\theta)$.
       To that end, suppose $(k,\pi)\in \Stab_{G\times \Sigma_n}(\ksi)$, so that $k \cdot c_{\pi^{-1}(i)} = c_i$ for all $i$.
       Thus $\pi$ must act on $\lambda$ and $\underline{n} \setminus \lambda$ independently,
-      so for $i \in \lambda$ we have % $k \cdot c_{\pi^{-1}(i)} = c_i$, or
+      so for $i \in \lambda$ we have $k \cdot c_{\pi^{-1}(i)} = c_i$, or
       $k k_{\pi^{-1}(i)} \cdot c_1 = k_i \cdot c_1$, and so
-      $k_i^{-1} k k_{\pi^{-1}(i)} =:h_i \in \Stab(c_1) \leq \Stab(d_1)$. Hence 
+      $k_i^{-1} k k_{\pi^{-1}(i)} =:h_i \in H$. Hence 
       \begin{equation}
-            \label{STAB_KT_EQ}
             k \cdot d_{\pi^{-1}(i)} = k k_{\pi^{-1}(i)} \cdot d_1 = k_i h_r \cdot d_1 = k_i \cdot d_1 = d_i,
       \end{equation}
       as desired.
@@ -3337,7 +3101,7 @@ which show that in many cases, a homotopy equivalence of colors induces a homoto
             (a_1;b_1) \in  \set{(d_1;c_1), (c_1;d_1), (c_1;c_1), (d_1;d_1)},
       \end{equation}
       and use these as in \eqref{OFC_HOM_LIFT} to compatibly lift
-      $\alpha_1$, $\beta_1$, their composites, and their associated homotopies to $\O_{f c}(-)^H$.
+      the $\alpha_i$, $\beta_i$, their composites, and their associated homotopies to $\O_{f c}(-)^H$.
       % These provide compatable maps for all $i \in \lambda$
       % \begin{equation}
       %       \begin{tikzcd}
@@ -3370,19 +3134,19 @@ which show that in many cases, a homotopy equivalence of colors induces a homoto
             \end{cases}
       \end{equation}
       and $\beta_i$ similarly.
-      Note that all the $H_i$, $\alpha_i$, and $\beta_i$ are independent of the choice of $k_i\in k_i H$.
+      Note that all of these --- $d_i$, $H_i$, $\alpha_i$, and $\beta_i$ --- are independent of the choice of $k_i\in k_i H$
+      (as, in particular, $\Stab(d_1) \geq H$).
       Further, 
       the pair $(\alpha_i,\beta_i)$ realizes a homotopy $H_i$-equivalence between $c_i$ and $d_i$,
       as naturality of composition implies
       $k_i (\beta\alpha) = \beta_i\alpha_i$.
       
-      Assembling the above data, 
-      we see that for $(a_i;b_i) = (d_i;c_i)$, $(c_i;d_i)$, $(c_i;c_i)$, or $(d_i;d_i)$,
-      the $\lambda$-indexed diagrams $i \mapsto \O_{f c}(a_i;b_i)^{H_i}$
+      We may assemble the above data.
+      We see that the $\lambda$-indexed diagrams $i \mapsto \O_{f c}(a_i;b_i)^{H_i}$,
+      and hence their tensor products $\otimes_\lambda \O_{f c}(a_i;b_i)^{H_i}$,
       have an action by $\Stab(\ksi)$,
-      and hence so do their tensor products $\otimes_\lambda \O_{f c}(a_i;b_i)^{H_i}$.
-      Thus, for any graph subgroup $\Gamma \leq \Stab(\ksi) \leq G \times \Sigma_n$,
-      we have composition maps
+      for all $(a_i;b_i) \in  \set{(d_i;c_i), (c_i;d_i), (c_i;c_i), (d_i;d_i)}$.
+      Thus, for any graph subgroup $\Gamma \leq G \times \Sigma_n$,
       \begin{equation}
             \O_{f c}(\ksi)^{\Gamma} \otimes \left(
                   \bigotimes\limits_\lambda \O_{f c}(c_i;c_i)
@@ -3396,44 +3160,12 @@ which show that in many cases, a homotopy equivalence of colors induces a homoto
       \end{equation}
       and similarly for any $(c_i;d_i)$, $(d_i;c_i)$, $(d_i;d_i)$,
       replacing $\ksi$ with $\theta$ when required.
-      
-      Now, consider the following maps:
+ 
+      Moreover, the tensor product
       \begin{equation}
-            \begin{tikzcd}[row sep = tiny]
-                  \bigotimes_\lambda \alpha_i: 1_\V \simeq 1_\V^{\otimes n} \longrightarrow \bigotimes_\lambda \O_{f c}(c_i;d_i)
-                  \\ % --------------------------------------------------
-                  \bigotimes_\lambda \beta_i: 1_\V \simeq 1_\V^{\otimes n} \longrightarrow \bigotimes_\lambda \O_{f c}(d_i;c_i)
-                  \\ % --------------------------------------------------
-                  H_c: \bigotimes\limits_\lambda \mathbb C \xrightarrow{k_i H_{\beta\alpha,1}}
-                  \bigotimes\limits_\lambda \O_{f c}(c_i;c_i)^{H_i} \longrightarrow
-                  \bigotimes\limits_\lambda \O_{f c}(c_i;c_i)
-                  \\ % --------------------------------------------------
-                  H_d: \bigotimes\limits_\lambda \mathbb C \xrightarrow{k_i H_{\alpha\beta,1}}
-                  \bigotimes\limits_\lambda \O_{f c}(d_i;d_i)^{H_i} \longrightarrow
-                  \bigotimes\limits_\lambda \O_{f c}(d_i;d_i)
-                  \\ % --------------------------------------------------
-                  (\alpha_i)_{\**} : 
-                  \O_{f c}(\theta)
-                  \cong
-                  \O_{f c}(\theta) \otimes 1_\V^{\otimes n} \xrightarrow{1 \otimes\ \bigotimes_i \alpha_i}
-                  \O_{f c}(\theta) \otimes \bigotimes_i \O_{f c}(c_i;d_i) \xrightarrow{\circ}
-                  \O_{f c}(\ksi)
-                  \\ % --------------------------------------------------
-                  (\beta_i)_{\**} :
-                  \O_{f c}(\ksi)
-                  \cong
-                  \O_{f c}(\ksi) \otimes 1_\V^{\otimes n} \xrightarrow{1 \otimes\ \bigotimes_i \beta_i}
-                  \O_{f c}(\ksi) \otimes \bigotimes_i \O_{f c}(d_i;c_i) \xrightarrow{\circ}
-                  \O_{f c}(\theta)
-                  \\ % --------------------------------------------------
-                  (\beta_i)_{\**}(\alpha_i)_{\**}
-                  \\ % --------------------------------------------------
-                  (\alpha_i)_{\**}(\beta_i)_{\**}.
-            \end{tikzcd}
+            \bigotimes_\lambda \alpha_i: 1_\V \simeq 1_\V^{\otimes n} \longrightarrow \bigotimes_\lambda \O_{f c}(c_i;d_i)
       \end{equation}
-      We claim these are all $\Stab(\ksi)$-equivariant
-      (via the natural actions, and acting on $\otimes_\lambda \mathbb C$ via the projection $\Stab(\ksi) \to \Sigma_{|\ksi|}$).
-      We show this holds for just the first map, as the rest are analogous or consequences:
+      is $\Stab(\ksi)$-equivariant:
       for any $(k,\pi) \in \Stab(\ksi)$,
       \begin{equation}
             \label{AB_STAR_EQ}
@@ -3447,8 +3179,61 @@ which show that in many cases, a homotopy equivalence of colors induces a homoto
             =
             \otimes_i (k_i \alpha_1)
             =
-            \otimes_i (\alpha_i);
+            \otimes_i (\alpha_i).
       \end{equation}
+      Analogous results hold for the $\beta_i$.
+      This (calculation) implies that additionally
+      the homotopies equivalences, e.g
+      \begin{equation}
+            H: \bigotimes\limits_\lambda \mathbb C \xrightarrow{k_iH_{\beta\alpha,1}}
+            \bigotimes\limits_\lambda \O_{f c}(c_i;c_i)^{H_i} \longrightarrow
+            \bigotimes\limits_\lambda \O_{f c}(c_i;c_i)
+            % \begin{tikzcd}
+            %       H: \bigotimes\limits_\lambda \mathbb C \arrow[rr, "k_iH_{\beta\alpha,1}"]                  
+            %       &&
+            %       \bigotimes\limits_\lambda \O^{H_i}(c_i;c_i)_f \arrow[r]
+            %       &
+            %       \bigotimes\limits_\lambda\O_f(c_i;c_i)^{H_i} \arrow[r]
+            %       &
+            %       \bigotimes\limits_\lambda\O_f(c_i;c_i)
+            % \end{tikzcd}
+      \end{equation}
+      (with $\Stab(\ksi)$ acting on $\otimes_\lambda \mathbb C$ via the projection $\Stab(\ksi) \to \Sigma_{|\ksi|}$),
+      the composites
+      $(\alpha_i)_{\**}$ and $(\beta_i)_{\**}$ defined by
+      \begin{equation}
+            \begin{tikzcd}[row sep = tiny]
+                  (\alpha_i)_{\**} : 
+                  % \O(d_1,\dots,d_n;c)
+                  % =
+                  \O_{f c}(\theta)
+                  \cong
+                  \O_{f c}(\theta) \otimes 1_\V^{\otimes n} \arrow[rr, "1 \otimes\ \bigotimes_i \alpha_i"]
+                  &&
+                  \O_{f c}(\theta) \otimes \bigotimes_i \O_{f c}(c_i;d_i) \arrow[r,"\circ"]
+                  &
+                  % \O(c_1,\dots,c_n;c)
+                  % =
+                  \O_{f c}(\ksi)
+                  \\
+                  (\beta_i)_{\**} :
+                  % \O(c_1,\dots,c_n;c)
+                  % =
+                  \O_{f c}(\ksi)
+                  \cong
+                  \O_{f c}(\ksi) \otimes 1_\V^{\otimes n} \arrow[rr, "1 \otimes\ \bigotimes_i \beta_i"]
+                  &&
+                  \O_{f c}(\ksi) \otimes \bigotimes_i \O_f(d_i;c_i) \arrow[r,"\circ"]
+                  &
+                  % \O(d_1,\dots,d_n;c)
+                  % =
+                  \O_{f c}(\theta),
+            \end{tikzcd}
+      \end{equation}
+      and their compositions $(\beta_i)_{\**}(\alpha_i)_{\**}$, $(\alpha_i)_{\**}(\beta_i)_{\**}$,
+      are similarly $\Stab(\ksi)$-equivariant.
+
+
       % Thirdly, since $\V% $ has Cartesian fixed-points, we see that for any graph subgroup $\Gamma \leq \Stab(\ksi)$
       % we have a string of isomorphisms
       % \begin{equation}
@@ -3478,10 +3263,7 @@ which show that in many cases, a homotopy equivalence of colors induces a homoto
       Thus, 
       Remarks \ref{HK_EQUIV_REM}, \ref{CYL_REM}, and \ref{ASSEM_HOM_REM} with Lemma \ref{ASSEM_HOM_LEM}
       yield an induced homotopy
-      \begin{equation}
-            (\beta_i)_{\**}(\alpha_i)_{\**} \sim id_{\O_{f c}(\ksi)^\Gamma}
-      \end{equation}
-      in $\V$ for all graph subgroups $\Gamma \leq \Stab(\ksi)$:
+      $(\beta_i)_{\**}(\alpha_i)_{\**} \sim id_{\O_{f c}(\ksi)^\Gamma}$ in $\V$ for all graph subgroups $\Gamma \leq \Stab(\ksi)$:
       \begin{equation}
             % \begin{tikzcd}
             %       1_\V \amalg 1_\V \arrow[rr, "{((\beta_i)_{\**}(\alpha_i)_{\**}, id)}"] \arrow[d]
@@ -3536,6 +3318,14 @@ which show that in many cases, a homotopy equivalence of colors induces a homoto
       % homotopy equivalences $\P(\F(\ksi))^\Gamma \to \P(\F(\theta))^\Gamma$ for any graph subgroup $\Gamma \leq \Stab(\ksi)$,
       % as desired.
 \end{proof}
+
+\begin{remark}
+      \label{CAV_4.14_REM}
+      The above proof also works to show an analogous result when given colors $c_j$ and $d_j$ that are homotopy equivalent
+      for any $j \in \underline{n}$. 
+      % Furthermore, if we are given $c$ and $d$ homotopy equivalent, we may just take $\theta = (c_1,\dots, c_n;d)$,
+      % and the same result holds (as $K\times\Sigma_n$ acts trivially on $\O^K(d;c)$).
+\end{remark}
 
 We can now prove the main result of this subsection.
  
@@ -3593,20 +3383,19 @@ We can now prove the main result of this subsection.
 
       Lastly, suppose $F$ and $LF$ are weak $\F$-equivalences.
       It is immediate that $L$ is essentially surjective.
-      Now, given a signature $\theta = (d_1,\ldots,d_n;d_0$) in $\C(\P)$,
-      let $\Lambda = \lambda_1 \amalg \dots \amalg \lambda_r$ denote the partition of $\underline{n}$
-      where $i < j$ are in the same class iff there exists $k_{i,j} \in G$ such that $d_j = k_{i,j} \cdot d_i$.
+      Now, given a signature $\theta = (d_1,\ldots,d_n;d_0$) in $\C(\P)$, write $K = \Stab(d)$,
+      and let $\Lambda = \lambda_1 \amalg \dots \amalg \lambda_r$ denote the partition of $\underline{n}$
+      where $i < j$ are in the same class iff there exists $k_{i,j} \in K$ such that $d_j = k_{i,j} \cdot d_i$.
       Define $R' \subseteq \underline{n}$ to be the subset of minimal representatives in each class,
       $R = R' \amalg \set{0}$,
       and $H_r$ the stabilizer in $G$ of $c_r$ for each $r \in R$.
-      Moreover, fix choices of $k_{r,j}$. 
       
-      By the essential surjectivity of $F$, for all $r \in R$ there exist $c_r \in \C(\O)^{H_r}$ such that
-      $F(c_r)$ is (homotopy) $H_r$-equivalent to $d_r$.
+      By the essential surjectivity of $F$, for all $r \in R$ there exist $c_r \in \C(\O)$ such that
+      $F(c_r)$ is homotopy $H_r$-equivalent to $d_r$.
       %
-      We extend the set $\set{c_r}_{r\in R}$ to a signature $(c_1,\ldots, c_n;c_0)$
-      by defining $c_j = k_{r,j} \cdot c_r$.
-      % THESE ARE NOT INDEPENDENT of choice, but good enough
+      We can extend the set $\set{c_r}_{r\in R}$ to a signature $(c_1,\ldots, c_n;c_0)$,
+      by defining $c_j = k_{r,j} \cdot c_r$;
+      again, these are independent of the choice of $k_{r,j} \in k_{r,j}H_r$.
       % Consequently, $F(c_i)$ is homotopy equivalent to $d_i$ via $k_{r,i}\gamma_r$,
       % where $\gamma_r$ realizes the homotopy equivalence between $F(c_r)$ and $d_r$ for $i \in \lambda_r$.
       This yields a diagram of the form
@@ -3625,15 +3414,13 @@ We can now prove the main result of this subsection.
                   \Q(L(d_1),\ldots, L(d_n); L(d_0)).
             \end{tikzcd}
       \end{equation}
-      $(1)$ is a weak equivalence in $\V^{\Stab(\ksi)}_{\F_\ksi}$ by assumption, and
-      $(2)$ is a weak-equivalence in $\V^{\Stab(\ksi)}_{\F_\ksi}$ by 2-out-of-3 here.
-      $(3)$ and $(4)$ are zig-zags of weak equivalences in $\V^{\Stab(\theta)}_{\mathrm{Gr}_\theta}$ by iterating applications of
-      Propositions \ref{CAV_4.14_PROP1} and \ref{CAV_4.14_PROP2},
-      as each application only changes the colors in a single partition class.
+      $(1)$ is a weak equivalence in $\V^{\Stab(\ksi)}_{\F_\ksi}$ by assumption,
+      $(2)$ is a weak-equivalence by 2-out-of-3 in $\V^{\Stab(\ksi)}_{\F_\ksi}$, and
+      $(3)$ and $(4)$ are zig-zags of weak equivalences by iterating applications of
+      Propositions \ref{CAV_4.14_PROP1} and \ref{CAV_4.14_PROP2}, %and Remark \ref{CAV_4.14_REM},
+      as each application only changes the colors in a particular partition class.
       As these zig-zags are functorial, the above diagram commutes.
-      %
-      Finally, $\Stab(\ksi) \geq \Stab(\theta)$ by the same calculation as in \eqref{STAB_KT_EQ}.
-      Thus $(5)$ is a weak equivalence in $\V^{\Stab(\theta)}_{\F_\theta}$ by 2-out-of-3, and hence
+      Thus $(5)$ is a weak equivalence again by 2-out-of-3 in $\V^{\Stab(\ksi)}_{\F_\ksi}$, and hence
       $L$ is a local weak $\F$-equivalence, as desired.
 \end{proof}
 
@@ -3672,11 +3459,11 @@ We would like to recognize our weak $\F$-equivalences slightly differently.
 
 For the reverse direction (cf. \cite[\S 2]{BM13}), we need to show that
 homotopy equivalences are all virtual equivalences.
-This requires another condition on $\V$, namely that the homotopy equivalences all satisfy a coherence condition.
+This requires another condition on $\V$, namely that the homotopy equivalences must satisfy a coherence condition.
 
 \begin{definition}
       Recall the category $\mathbb A \in \Cat^{\set{0,1}}(\V)$ which detects arrows.
-      A cofibration $\mathbb A \to \J$ in $\Cat^{\set{0,1}}(\V)$ into a $\V$-interval is called \textit{natural} if
+      A cofibration $\mathbb A \to \J$ in $\Cat^{\set{0,1}}(\V)$ into a $\V$-interval is \textit{natural} if
       it fits into a commuting diagram
       \begin{equation}
             \begin{tikzcd}
@@ -3819,7 +3606,88 @@ This has been known for a while for $\sSet$ (implied by Dwyer-Kan, Begner).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
 
-\section{The homotopy genuine equivariant operad}
+\section{In $\mathsf{dSet}_G$}
+
+\begin{definition}
+      Define the \textit{genuine operadic nerve} $N: \Op_G \to \dSet_G$ by
+      \begin{equation}
+            N\P(T) = \Hom_{\Op_G}(T, \P)
+      \end{equation}
+      where we think of $T$ as the operad $T \in \Op^G \into \Op_G$. 
+\end{definition}
+
+\begin{remark}
+      We note that $N\P \in (SCI)^{\boxslash !}$,
+      as $T \in \Op_G$ is a free $\mathbb F_G$-algebra on its vertices.
+\end{remark}
+
+\begin{remark}
+      We can rephrase the definition of being an $\mathbb F_G$-algebra in terms of $N\P$.
+      For $\P \in \Sym_G$ a $G$-symmetric sequence,
+      a genuine $G$-operad structure on $\P$ is given by:
+      \begin{itemize}
+      \item Composition Maps: $ $\\
+            maps 
+            $N\P(T) \to \P(\mathsf{lr}(T))$
+            for all $T \in \Omega_G$.
+      \item Naturality under restriction and conjugation: $ $\\
+            maps $N\P(T_1) \to N\P(T_0)$
+            for all quotient maps $T_0 \to T_1$ in $\Omega_{G,0}$,
+            such that the following commutes:
+            \begin{equation}
+                  \begin{tikzcd}
+                        N\P(T_1) \arrow[r] \arrow[d]
+                        &
+                        \P(\mathsf{lr}(T_1)) \arrow[d]
+                        \\
+                        N\P(T_0) \arrow[r]
+                        &
+                        \P(\mathsf{lr}(T_0)).
+                  \end{tikzcd}
+            \end{equation}
+      \item Associativity under $\mathbb F_G$: $ $\\
+            maps $N\P(T_1) \to N\P(T_0)$
+            for all planar tall maps $T_0 \to T_1$ in $\Omega_G^t$,
+            such that the analogus diagram (with the right vertical map the identity) commutes.\footnote{
+              As in \cite{BP17}, we note that ``associativity'' under $\mathbb F_G$ includes both
+              the usual notion of associativity of our composition maps,
+              but also unitality;
+              this is recorded here by the fact that degeneracies are always planar tall.}
+      \end{itemize}
+\end{remark}
+
+The above reflects the following result.
+
+\begin{proposition}
+      $\Op_G$ is equivalent to the subcategory of $\mathsf{dSet_G}$ spanned by those $X$ such that
+      \begin{enumerate}
+      \item $X(H/H) = \set{\**}$ for all $H \leq G$.
+      \item $X(T) \cong \otimes_{T_v \in V(T)}X(T_v)$. 
+      \end{enumerate}
+\end{proposition}
+\begin{proof}
+      The fact that $N\P \in (SCI_{\F})^{\boxslash !}$ is immediate, as remarked above.
+
+      For the reverse direction, we will follow the construction of the homotopy operad as in \cite[\S 6]{MW09},
+      replacing their use of inner horn inclusions with \textit{orbital} inner $G$-horn inclusions,
+      to show that any $X \in (OHI)^{\boxslash !}$ is in the image of $N$; 
+      the result will then follow from \cite[HYPER PROP]{BP18}.
+
+      In fact, interpreting all of their pictures are as \textit{orbital} representations of $G$-trees yields that,
+      for all $C \in \Sigma_G$
+      \begin{itemize}
+      \item $\sim_{G e}$ is an equivalence relation on $X(C)$ for all $Ge \in E_G(C)$.
+      \item The relations $\sim_{G e}$ and $\sim_{G e'}$ are equal for all $e,e'\in E(C)$.
+      \item $[h] \circ [f] = [h \circ f]$ yields a well-defined composition map.
+      \end{itemize}
+      \todo[inline]{naturality, associativity of composition}
+\end{proof}
+
+
+
+\newpage
+
+\subsection{The homotopy genuine equivariant operad}
 
 
 Our goal in this section is to build,
