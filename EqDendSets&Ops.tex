@@ -122,7 +122,50 @@ cf.  }
 
 \section{Preliminaries}
 
-Recall the notation $\mathsf F \wr \mathcal C$ for a category $\mathcal C$.
+\subsection{Wreath products and Grothendieck fibrations}
+
+First, we record a basic result.
+
+\begin{lemma}
+      \label{PB_GR_EQ}
+      If $\mathcal C \to \mathcal D$ is a Grothendieck fibration, then the pullback
+      \begin{equation}
+            \begin{tikzcd}
+                  \mathcal A \arrow[d] \arrow[r]
+                  &
+                  \mathcal C \arrow[d]
+                  \\
+                  \mathcal B \arrow[r]
+                  &
+                  \mathcal D
+            \end{tikzcd}
+      \end{equation}
+      is isomorphic to the Grothendieck construction on
+      \begin{equation}
+            \label{PB_GR_EQ}
+            % \begin{tikzcd}[row sep = tiny]
+            %       \mathcal B^{op} \arrow[r]
+            %       &
+            %       \mathsf{Cat}
+            %       \\
+            %       b \arrow[r, mapsto]
+            %       &
+            %       \mathcal C_{F(b)},
+            % \end{tikzcd}
+            \mathcal B^{op} \longto \Cat,
+            \qquad \qquad
+            b \longmapsto \mathcal C_{F(b)},
+      \end{equation}
+      where $\mathcal C_{d}$ is the fiber over $d \in \mathcal D$.
+\end{lemma}
+\begin{proof}
+      The fact that the map \eqref{PB_GR_EQ} is a functor follows from $\mathcal C \to \mathcal D$ being a fibration;
+      the rest follows by unpacking definitions.
+\end{proof}
+
+% -------------------- Wreath Products --------------------
+
+Now, recall the notation $\mathsf F \wr \mathcal C$ for a category $\mathcal C$.
 
 \begin{remark}
       \label{WR_DIAG_REM}
@@ -184,20 +227,23 @@ Recall the notation $\mathsf F \wr \mathcal C$ for a category $\mathcal C$.
       which form an adjunction when restricted to $\mathsf{Span}(\**, \mathcal C) = \mathsf{Cat} \downarrow \mathcal C$.
       Given $p: \mathcal D \to \mathcal C$, define $\hat{\mathcal D}$ to be the Grothendieck construction on the functor
       \begin{equation}
-            \begin{tikzcd}[row sep = tiny]
-                  \mathcal D \arrow[r]
-                  &
-                  \mathsf{Cat}
-                  \\
-                  d \arrow[r, mapsto]
-                  &
-                  \mathcal C \downarrow p(a).
-            \end{tikzcd}
+            % \begin{tikzcd}[row sep = tiny]
+            %       \mathcal D \arrow[r]
+            %       &
+            %       \mathsf{Cat}
+            %       \\
+            %       d \arrow[r, mapsto]
+            %       &
+            %       \mathcal C \downarrow p(a).
+            % \end{tikzcd}
+            \mathcal D \longto \Cat,
+            \qquad \qquad
+            d \longmapsto \mathcal C \downarrow p(a).
       \end{equation}
       Explicitly, objects are pairs $(d, c \xrightarrow{\alpha} p(d))$,
       and maps are pairs $(d \xrightarrow{f} d', c \xrightarrow{g} c')$ such that the diagram below commutes.
       \begin{equation}
-            \begin{tikzcd}[row sep = tiny]
+            \begin{tikzcd}[row sep = small]
                   c \arrow[r, "g"] \arrow[d, "\alpha"']
                   &
                   c' \arrow[dd, "{\alpha'}"]
@@ -215,7 +261,7 @@ Recall the notation $\mathsf F \wr \mathcal C$ for a category $\mathcal C$.
       % 
       Moreover, for any fibration $E$ over $\mathcal C$ and map of weak spans
       \begin{equation}
-            \begin{tikzcd}[row sep = tiny, column sep = tiny]
+            \begin{tikzcd}[row sep = tiny]
                   \mathcal D \arrow[dr, "p"] \arrow[dd, "F"']
                   \\
                   & \mathcal C
@@ -236,71 +282,45 @@ Recall the notation $\mathsf F \wr \mathcal C$ for a category $\mathcal C$.
   Alternatively, consider the Grothendieck construction on the functor
   \begin{equation}
         \label{FG_GR_EQ}
-        \begin{tikzcd}[row sep = tiny]
-              \mathsf F^{G,op} \arrow[r]
-              &
-              \mathsf{Set}
-              \\
-              A \arrow[r, mapsto]
-              &
-              \Set^{O_G^{op}}(\Phi(A), \underline{\mathfrak C}),
-        \end{tikzcd}
+        % \begin{tikzcd}[row sep = tiny]
+        %       \mathsf F^{G,op} \arrow[r]
+        %       &
+        %       \mathsf{Set}
+        %       \\
+        %       A \arrow[r, mapsto]
+        %       &
+        %       \Set^{O_G^{op}}(\Phi(A), \underline{\mathfrak C}),
+        % \end{tikzcd}      
+        \mathsf F^{G,op} \longto \Set,
+        \qquad \qquad
+        A \longmapsto \Set^{O_G^{op}}(\Phi(A), \underline{\mathfrak C}),
   \end{equation}
   where $\Phi: \Set^G \to \Set^{O_G^{op}}$ sends a $G$-set $X$ to its fixed-point system $G/H \mapsto X^H$.
   We will denote this by $\mathsf F^G \wr \underline{\mathfrak C}$.
 } % ---------- COLOR BLUE ----------
 
-Another option:
-given any category $\mathcal C$, define $\mathsf F^G \wr \mathcal C$
-as the Grothendieck construction
-\begin{equation}
-      \begin{tikzcd}[row sep = tiny]
-            \mathsf F^{G,op} \arrow[r]
-            &
-            \mathsf{Set}
-            \\
-            A \arrow[r, mapsto]
-            &
-            \mathcal C^{B_A G}.
-      \end{tikzcd}
-\end{equation}
+{\color{red}
+  Another option:
+  given any category $\mathcal C$, define $\mathsf F^G \wr \mathcal C$
+  as the Grothendieck construction
+  \begin{equation}
+        % \begin{tikzcd}[row sep = tiny]
+        %       \mathsf F^{G,op} \arrow[r]
+        %       &
+        %       \mathsf{Set}
+        %       \\
+        %       A \arrow[r, mapsto]
+        %       &
+        %       \mathcal C^{G \ltimes A}.
+        % \end{tikzcd}
+        \mathsf F^{G,op} \longto \Set,
+        \qquad \qquad
+        A \longmapsto \mathcal C^{G \ltimes A}.
+  \end{equation}
+} % ---------- COLOR RED ----------
 
+ 
 
-% ------------------------------------------------------------
-
-\begin{lemma}
-      \label{PB_GR_EQ}
-      If $\mathcal C \to \mathcal D$ is a Grothendieck fibration, then the pullback
-      \begin{equation}
-            \begin{tikzcd}
-                  \mathcal A \arrow[d] \arrow[r]
-                  &
-                  \mathcal C \arrow[d]
-                  \\
-                  \mathcal B \arrow[r]
-                  &
-                  \mathcal D
-            \end{tikzcd}
-      \end{equation}
-      is isomorphic to the Grothendieck construction on
-      \begin{equation}
-            \label{PB_GR_EQ}
-            \begin{tikzcd}[row sep = tiny]
-                  \mathcal B^{op} \arrow[r]
-                  &
-                  \mathsf{Cat}
-                  \\
-                  b \arrow[r, mapsto]
-                  &
-                  \mathcal C_{F(b)},
-            \end{tikzcd}
-      \end{equation}
-      where $\mathcal C_{d}$ is the fiber over $d \in \mathcal D$.
-\end{lemma}
-\begin{proof}
-      The fact that the map \eqref{PB_GR_EQ} is a functor follows from $\mathcal C \to \mathcal D$ being a fibration;
-      the rest follows by unpacking definitions.
-\end{proof}
 
 
 
@@ -619,7 +639,7 @@ We may assemble homotopies in the following manner.
 
 \subsection{Non-Equivariant Colored Operads}
 
-Fix a closed symmetric monoidal category $\V$.
+Fix a closed symmetric monoidal category $(\V, \otimes)$.
 
 \begin{definition}
       Fix a set $\mathfrak C$ of \textit{colors}.
@@ -629,7 +649,7 @@ Fix a closed symmetric monoidal category $\V$.
       A \textit{$\mathfrak C$-colored operad} $\mathcal{O}$ in $\V$ consists of the following data:
       \begin{enumerate}[label = (\arabic*)]
       \item An object $\O(\ksi) \in \V$ for each signature $\ksi$.
-      \item For each $c \in \mathfrak C$, a \textit{unit} $1_c \in \O(c;c)$.
+      \item For each $c \in \mathfrak C$, a \textit{unit} $1_c \in \O(c;c)$.                        
       \item For any signature $\ksi \in \mathfrak C^{\times n+1}$ and $\sigma \in \Sigma_n$, a map $\O(\xi) \to \O(\sigma \cdot \xi)$,
             where $\Sigma_n$ acts on the left of $\mathfrak C^{\times n+1}$ by acting on the first $n$ coordinates.
             Explicitly, this is a map
@@ -638,7 +658,7 @@ Fix a closed symmetric monoidal category $\V$.
             \end{equation}
       \item For any compatible signatures $\xi = (c_1, \ldots, c_n; c_0)$, $\xi_i = (c_{1}^i, \ldots, c_{m_i}^i; c_i)$, a \textit{composition} map
             \begin{equation}
-                  \O(\xi) \times \O(\xi_1) \times \ldots \times \O(\xi_n) \to \O(\xi \circ (\xi_i))
+                  \O(\xi) \otimes \O(\xi_1) \otimes \ldots \otimes \O(\xi_n) \to \O(\xi \circ (\xi_i))
             \end{equation}
       \end{enumerate}
       where $\xi \circ (\xi_i) = (c_1^1,c_2^1,\dots,c_{m_n}^{n}; c_0)$,
@@ -669,13 +689,16 @@ Fix a closed symmetric monoidal category $\V$.
 \end{remark}
 
 \begin{remark}
-      The category $\Op(\V)$ is isomorphic to the Grothendieck construction on the functor
+      The category $\Op(\V)$ is equal to the Grothendieck construction on the functor
       \begin{equation}
-            \begin{tikzcd}[row sep = tiny]
-                  \mathsf F^{op} \arrow[r] & \mathsf{Cat}
-                  \\
-                  \mathfrak C \arrow[r, mapsto] & \Op^{\mathfrak C}(\V).
-            \end{tikzcd}
+            % \begin{tikzcd}[row sep = tiny]
+            %       \mathsf F^{op} \arrow[r] & \mathsf{Cat}
+            %       \\
+            %       \mathfrak C \arrow[r, mapsto] & \Op^{\mathfrak C}(\V).
+            % \end{tikzcd}
+            \mathsf F^{op} \longto \mathsf{Cat},
+            \qquad \qquad
+            \mathfrak C \longmapsto \Op^{\mathfrak C}(\V).
       \end{equation}
 \end{remark}
 
@@ -699,27 +722,152 @@ Let $G$ be a finite group, with a fixed (random) total ordering.
       For any $G$-set $A$ and $a \in A$, let $G_a$ denote the stabilizer $\Stab_G(a)$ of $a$ in $G$.
 \end{notation}
 
+We will now move into the world of $G$-equivarinat colored operads.
+
 \begin{definition}
       The category $\Op^G(\V)$ of  \textit{$G$-colored operads} in $\V$ is the category of
       $G$-objects in $\Op(\V)$.
 \end{definition}
 
-Unpacking this definition, we see $\O \in \Op^G(\V)$ consists of the following data:
-\begin{enumerate}[label = (\arabic*)]
-\item A $G$-set $\mathfrak C$ of colors.
-\item For each signature $\xi$ of $\mathfrak C$, an object $\O(\xi) \in \V$.
-\item For each signature $\xi \in \mathfrak C^{\times n+1}$ and $(g,\sigma) \in G\times \Sigma_n$, a map
-      $\O(\xi) \to \O((g,\sigma)\cdot \xi)$,
-      where $G$ acts on $\mathfrak C^{\times n+1}$ diagonally (across all $n+1$ coordinates), and $\Sigma_n$ acts on the first $n$.
-\item For each $c \in \mathfrak C$, a \textit{unit} $1_c \in \O(c;c)^{G_c}$.
-\item For compatible signatures $\xi$, $\xi_1$, $\ldots$, $\xi_n$, \textit{composition maps}
+% Unpacking this definition, we see $\O \in \Op^G(\V)$ consists of the following data:
+% \begin{enumerate}[label = (\arabic*)]
+%       \setcounter{enumi}{-1}
+% \item A $G$-set $\mathfrak C$ of colors.
+% \item For each signature $\xi$ of $\mathfrak C$, an object $\O(\xi) \in \V$.
+% \item where $G$ acts on $\mathfrak C^{\times n+1}$ diagonally (across all $n+1$ coordinates), and $\Sigma_n$ acts on the first $n$.
+% \item For each $c \in \mathfrak C$, a \textit{unit} $1_c \in \O(c;c)^{G_c}$.
+% \item For compatible signatures $\xi$, $\xi_1$, $\ldots$, $\xi_n$, \textit{composition maps}
+%       \begin{equation}
+%             \O(\xi) \otimes \O(\xi_1) \otimes \ldots \otimes \O(\xi_n) \to \O(\xi \circ (\xi_i)),
+%       \end{equation}
+% \end{enumerate}
+% such that composition is
+% compatible with the $G$-action on each component as well as the appropriate actions of $\Sigma$,
+% and is unital and associative. 
+
+We would like to unpack this definition, and first do so in general.
+
+% -------------------- Equivariant Grothendieck Constructions --------------------
+
+Suppose $E = \mathcal D \ltimes \mathcal C_{(-)}$ is the Grothendieck construction on the functor
+\begin{equation}
+      % \begin{tikzcd}[row sep = tiny]
+      %       \mathcal D^{op} \arrow[r]
+      %       &
+      %       \mathsf{Cat}
+      %       \\
+      %       d \arrow[r, mapsto]
+      %       &
+      %       \mathcal C_{d}.
+      % \end{tikzcd}
+      \mathcal D^{op} \longto \Cat,
+      \qquad \qquad
+      d \longmapsto \mathcal C_d.
+\end{equation}
+
+A $G$-action on an element $(d,c_d)$ is given by compatible maps
+$d \xrightarrow{g} d$ and
+$c_d \xrightarrow{g_c} g^{\**}c_d$,
+and $G$-maps between such objects
+are pairs of maps $(d \xrightarrow{f} d, c_d \xrightarrow{f_c} f^{\**}c_{d'})$ which commute with the action.
+Equivalently, and more concretely,
+an object in $E^G$ is given by a pair $(d, \underline{c}_d)$ where
+$d \in \mathcal D^G$ and
+$\underline{c}_d$ is a $G$-indexed diagram $E G^{op} \to \mathcal C_d$,
+such that $\underline{c}_d(g) = g_{d}^{\**}\underline{c}_d(e)$.
+A $G$-map in this context is given by a pair $(f, \Phi_c)$ where
+$f: d \to d'$ in $\mathcal D^G$ and
+$\Phi: \underline{c}_d \Rightarrow f^{\**}\underline{c}_{d'}: E G^{op} \to \mathcal C_d$
+(where we note that $f^{\**}\underline{c}_{d'}$ is a functor since $f$ is a $G$-map).
+
+Put another way, we have the following.
+\begin{lemma}
+      \label{G_GR_LEM}
+      The category of $G$-objects
+      $\left(\mathcal D \ltimes \mathcal C_{(-)}\right)^G$
+      is given by the Grothendieck construction on the functor
       \begin{equation}
-            \O(\xi) \otimes \O(\xi_1) \otimes \ldots \otimes \O(\xi_n) \to \O(\xi \circ (\xi_i)),
+            % \begin{tikzcd}[row sep = tiny]
+            %       \mathcal D^{G,op} \arrow[r]
+            %       &
+            %       \Cat
+            %       \\
+            %       d \arrow[r, mapsto]
+            %       &
+            %       \Fun^{G^{op}}(E G^{op}, \mathcal C_d)
+            % \end{tikzcd}
+            \mathcal D^{G,op} \longrightarrow \Cat,
+            \qquad \qquad
+            d \longmapsto \Fun^{G^{op}}(E G^{op}, \mathcal C_d)
       \end{equation}
+      where $\Fun^{G^{op}}$ denotes the category of $G^{op}$-functors and $G^{op}$-natural transformations,
+      and $\mathcal C_d$ has a $G^{op}$ action induced by the $G$-action on $d$.
+\end{lemma}
+% ----------------------------------------------------------------------
+
+
+Thus, for $E = \Op(\V)$, we see that an object $\O \in \Op^G(\V)$ consists of
+a $G$-set $\mathfrak C$ of colors, and a compatible $G$-indexed diagram of $\mathfrak C$-colored operads.
+Explicitly, $\O$ is the following data:
+\begin{enumerate}[label = (\arabic*), start = 0]
+\item A $G$-set $\mathfrak C = \mathfrak C(\O)$ of colors.
+\item For each signature $\ksi$, an object $\O(\ksi) \in \V$.
+\item \label{GUNIT_LBL} 
+      For each $c \in \ksi$, a \textit{unit} $1_c \in \O(c;c)$.
+\item \label{SACTION_LBL}
+      For all signatures $\ksi \in \mathfrak C^{\times n + 1}$ and $\sigma \in \Sigma_n$, maps $\O(\ksi) \to \O(\sigma \cdot \ksi)$,
+      which are unital and associative.
+\item \label{COMP_LBL}
+      For all compatible signatures $\ksi \in \mathfrak C^{\times n+1}$, $\ksi_i$,
+      \textit{composition maps} $\O(\ksi) \otimes \O(\ksi_1) \otimes \dots \otimes \O(\ksi_n) \to \O(\ksi \circ (\ksi_i))$,
+      which are unital, associative, and appropriately $\Sigma$-equivariant.
+\item \label{GACTION_LBL}
+      For all $g \in G$, maps $\O(\ksi) \to g^{\**}\O(\ksi) = \O(g \cdot \ksi)$
+      (with $G$ acting on $\mathfrak C^{\times n+1}$ diagonally)
+      which are unital and associative, and which commute with the composition maps
+      (if $\ksi, (\ksi_i)$ are compatible, then so are $g \ksi, (g \ksi_i)$).
 \end{enumerate}
-such that composition is
-compatible with the $G$-action on each component as well as the appropriate actions of $\Sigma$,
-and is unital and associative. 
+Synthesizing, we may combine \ref{SACTION_LBL} and \ref{GACTION_LBL} into
+\begin{enumerate}
+\item[($3'$)] For all signatures $\xi \in \mathfrak C^{\times n+1}$ and $(g,\sigma) \in G\times \Sigma_n$, maps
+      $\O(\xi) \to \O((g,\sigma)\cdot \xi)$
+      which are unital and associative.
+\end{enumerate}
+
+and replace \ref{GUNIT_LBL} and \ref{COMP_LBL} with
+\begin{enumerate}
+\item[($2'$)] For each $c \in \mathfrak C$, a $G_c$-fixed unit $1_c \in \O(c;c)^{G_c}$.
+\item[($4'$)] For all compatible signatures $\ksi, (\ksi_i)$,
+      composition maps $\O(\ksi) \otimes \bigotimes_i \O(\ksi_i) \to \O(\ksi \circ (\ksi_i))$
+      which are unital, assocative, $G$-equivariant, and approriately $\Sigma$-equivariant.
+\end{enumerate}
+
+From Lemma \ref{G_GR_LEM}, we can see that
+maps of $G$-operads $\O \to \P$ are given by a pair $(f, F)$ where
+$f: \mathfrak C(\O) \to \mathfrak C(\P)$ is a map of $G$-sets, and
+$F: \O \to f^{\**}\P$ is a map in $\Op^{\mathfrak C(\O)}(\V)$ that commutes with the $G$-action
+(or, equivalently, so that the $g^{\**}F$ assemble into a map of $G$-indexed diagrams).
+
+Moreover, for any $G$-set $\mathfrak C$ let $\Op^{G, \mathfrak C}(\V) \subseteq \Op^G(\V)$
+denote the subcategory of $\mathfrak C$-colored operads and maps which are the identity on colors.
+Then 
+\begin{equation}
+      \Fun^{G^{op}}(E G^{op}, \Op^{\mathfrak C}(\V)) \simeq \Op^{G, \mathfrak C}(\V),
+\end{equation}
+and thus Lemma \ref{G_GR_LEM} implies the following.
+\begin{lemma}
+      $\Op^G(\V)$ is isomorphic to the Grothendieck construction on the functor
+      \begin{equation}
+            % \begin{tikzcd}[row sep = tiny]
+            %       \mathsf (F^G)^{op} \arrow[r] & \mathsf{Cat}
+            %       \\
+            %       \mathfrak C \arrow[r, mapsto] & \Op^{G,\mathfrak C}(\V).
+            % \end{tikzcd}
+            \mathsf F^{G,op} \longto \Cat,
+            \qquad \qquad
+            \mathfrak C \longmapsto \Op^{G, \mathfrak C}(\V).
+      \end{equation}
+\end{lemma}
 
 
 \begin{remark}
@@ -728,19 +876,6 @@ and is unital and associative.
         and each level $\O(\xi)$ has an action by the full group $G$
 	(though only a partial action by $\Sigma_{|\xi|}$).
 \end{remark}
-
-\begin{definition}
-      Given a $G$-set $\mathfrak C$, let $\Op^{G,\mathfrak C}(\V)$ denote the category of \textit{$\mathfrak C$-colored operads} and maps which are the identity on colors.
-      
-      Parallel to the non-equivariant case, $\Op^G(\V)$ is isomorphic to the Grothendieck construction on the functor
-      \begin{equation}
-            \begin{tikzcd}[row sep = tiny]
-                  \mathsf (F^G)^{op} \arrow[r] & \mathsf{Cat}
-                  \\
-                  \mathfrak C \arrow[r, mapsto] & \Op^{G,\mathfrak C}(\V).
-            \end{tikzcd}
-      \end{equation}
-\end{definition}
 
 
 \subsubsection{Categorical description: colored trees}
