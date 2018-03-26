@@ -645,27 +645,33 @@ Fix a closed symmetric monoidal category $(\V, \otimes)$.
       Fix a set $\mathfrak C$ of \textit{colors}.
       A tuple
       $\ksi = (c_1, \ldots, c_n; c_0) \in \mathfrak C^{\times n} \times \mathfrak C$
-      is called a \textit{signature} of $\mathfrak C$.
+      is called a \textit{$\mathfrak C$-signature}.
+      A collection $\ksi, \ksi_1,\dots, \ksi_n$ of $\mathfrak C$-signatures is called \textit{compatible} if
+      $\ksi \in \mathfrak C^{\times n+1}$, and the target of $\ksi_i$ is the $i$-th source of $\ksi$.
+      
       A \textit{$\mathfrak C$-colored operad} $\mathcal{O}$ in $\V$ consists of the following data:
       \begin{enumerate}[label = (\arabic*)]
       \item An object $\O(\ksi) \in \V$ for each signature $\ksi$.
       \item For each $c \in \mathfrak C$, a \textit{unit} $1_c \in \O(c;c)$.                        
-      \item For any signature $\ksi \in \mathfrak C^{\times n+1}$ and $\sigma \in \Sigma_n$, a map $\O(\xi) \to \O(\sigma \cdot \xi)$,
-            where $\Sigma_n$ acts on the left of $\mathfrak C^{\times n+1}$ by acting on the first $n$ coordinates.
-            Explicitly, this is a map
+      \item For all signatures $\ksi \in \mathfrak C^{\times n+1}$ and $\sigma \in \Sigma_n$,
+            unital and associative times maps $\O(\xi) \to \O(\sigma \cdot \xi)$,
+            where $\Sigma_n$ acts on the first $n$ coordinates of $\mathfrak C^{\times n+1}$;
+            i.e., maps
             \begin{equation}
                   \O(c_1, \ldots, c_n; c_0) \xrightarrow{\sigma} \O(c_{\sigma^{-1}1}, \ldots, c_{\sigma^{-1}n}; c_0).
             \end{equation}
-      \item For any compatible signatures $\xi = (c_1, \ldots, c_n; c_0)$, $\xi_i = (c_{1}^i, \ldots, c_{m_i}^i; c_i)$, a \textit{composition} map
+      \item For all compatible signatures $\xi = (c_1, \ldots, c_n; c_0)$, $\xi_i = (c_{1}^i, \ldots, c_{m_i}^i; c_i)$,
+            \textit{composition} maps
             \begin{equation}
-                  \O(\xi) \otimes \O(\xi_1) \otimes \ldots \otimes \O(\xi_n) \to \O(\xi \circ (\xi_i))
+                  \O(\xi) \otimes \O(\xi_1) \otimes \ldots \otimes \O(\xi_n) \to \O(\xi \circ (\xi_i)),
             \end{equation}
+            where $\xi \circ (\xi_i) = (c_1^1,c_2^1,\dots,c_{m_n}^{n}; c_0)$,
+            which are unital, associative, and appropriately $\Sigma$-equivariant.
       \end{enumerate}
-      where $\xi \circ (\xi_i) = (c_1^1,c_2^1,\dots,c_{m_n}^{n}; c_0)$,
-      subject to the associativity, unitality, and $\Sigma$-equivariant compatibilities one would expect.      
-      
-      A map of $\mathfrak C$-colored operads is a compatible collection of maps
-      $\set{\O(\xi) \to \O'(\xi)}_{\xi}$.
+
+      A map of $\mathfrak C$-colored operads is a collection of maps
+      $\set{\O(\xi) \to \O'(\xi)}_{\xi}$
+      which commutes with the above structure maps.
       
       Let $\Op^{\mathfrak C}(\V)$ denote the category of $\mathfrak C$-colored operads in $\V$.
 \end{definition}
@@ -806,26 +812,28 @@ Put another way, we have the following.
 % ----------------------------------------------------------------------
 
 
-Thus, for $E = \Op(\V)$, we see that an object $\O \in \Op^G(\V)$ consists of
+Thus, for $E = \Op(\V) = \mathsf F \ltimes \Op^{(-)}(\V)$,
+we see that an object $\O \in \Op^G(\V)$ consists of
 a $G$-set $\mathfrak C$ of colors, and a compatible $G$-indexed diagram of $\mathfrak C$-colored operads.
-Explicitly, $\O$ is the following data:
+Explicitly, $\O$ is given by the following data:
 \begin{enumerate}[label = (\arabic*), start = 0]
 \item A $G$-set $\mathfrak C = \mathfrak C(\O)$ of colors.
-\item For each signature $\ksi$, an object $\O(\ksi) \in \V$.
+\item For each $\mathfrak C$-signature $\ksi$, an object $\O(\ksi) \in \V$.
 \item \label{GUNIT_LBL} 
       For each $c \in \ksi$, a \textit{unit} $1_c \in \O(c;c)$.
 \item \label{SACTION_LBL}
-      For all signatures $\ksi \in \mathfrak C^{\times n + 1}$ and $\sigma \in \Sigma_n$, maps $\O(\ksi) \to \O(\sigma \cdot \ksi)$,
+      For all signatures $\ksi \in \mathfrak C^{\times n + 1}$ and $\sigma \in \Sigma_n$,
+      maps $\O(\ksi) \to \O(\sigma \cdot \ksi)$
       which are unital and associative.
 \item \label{COMP_LBL}
-      For all compatible signatures $\ksi \in \mathfrak C^{\times n+1}$, $\ksi_i$,
-      \textit{composition maps} $\O(\ksi) \otimes \O(\ksi_1) \otimes \dots \otimes \O(\ksi_n) \to \O(\ksi \circ (\ksi_i))$,
-      which are unital, associative, and appropriately $\Sigma$-equivariant.
+      For all compatible signatures $\ksi, \ksi_1,\dots, \ksi_n$,
+      \textit{composition maps} $\O(\ksi) \otimes \O(\ksi_1) \otimes \dots \otimes \O(\ksi_n) \to \O(\ksi \circ (\ksi_i))$
+      which are unital, associative, and appropriately $\Sigma$-equivariant
 \item \label{GACTION_LBL}
       For all $g \in G$, maps $\O(\ksi) \to g^{\**}\O(\ksi) = \O(g \cdot \ksi)$
       (with $G$ acting on $\mathfrak C^{\times n+1}$ diagonally)
       which are unital and associative, and which commute with the composition maps
-      (if $\ksi, (\ksi_i)$ are compatible, then so are $g \ksi, (g \ksi_i)$).
+      (note that if $\ksi, (\ksi_i)$ are compatible, then so are $g \ksi, (g \ksi_i)$).
 \end{enumerate}
 Synthesizing, we may combine \ref{SACTION_LBL} and \ref{GACTION_LBL} into
 \begin{enumerate}
