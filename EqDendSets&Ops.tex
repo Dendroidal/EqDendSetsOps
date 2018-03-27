@@ -886,23 +886,24 @@ and thus Lemma \ref{G_GR_LEM} implies the following.
 \end{remark}
 
 
-\subsubsection{Categorical description: colored trees}
+\subsubsection{Colored trees and a monadic description of equivariant operads}
 \label{COMEGA_SEC}
 
 Given a $G$-set $A$, let $G \ltimes A$ denote the Grothendieck construction on the functor $G^{op} \to \Set$
 defining the action on $A$,
 with object set $A$ and morphisms $g: a \to g\cdot a$ for all pairs $(g,a) \in G \times A$
 \footnote{In the literature, $G \ltimes A$ is often called the \textit{translation category} of $A$, and denoted $B_A G$.}.
-Further, if $A$ is a $G \times \Sigma$-set, then $G \ltimes (\Sigma \ltimes A) \simeq \Sigma \ltimes (G \ltimes A)$.
+Further, if $A$ is a $G \times \Sigma$-set, then
+$G \ltimes (\Sigma \ltimes A) \simeq \Sigma \ltimes (G \ltimes A) \simeq (G \times \Sigma) \ltimes A$.
 
 We now categorify the set of $\mathfrak C$-signatures.
 \begin{definition}
       Let $\Sigma_{\mathfrak C}$ denote the \textit{$\mathfrak C$-symmetric category}
       and $G \ltimes \Sigma_{\mathfrak C}$ the \textit{$(G,\mathfrak C)$-symmetric category}, given as below.      
       \begin{equation}
-            \Sigma_{\mathfrak C} = \coprod_{n \geq 0} \Sigma_n \ltimes \mathfrak C^{\times n} = \Sigma^{+1} \wr \mathfrak C
+            \Sigma_{\mathfrak C} = \coprod_{n \geq 0} \Sigma_n \ltimes \mathfrak C^{\times n+1} = \Sigma^{+1} \wr \mathfrak C
             \qquad \qquad
-            G \ltimes \Sigma_{\mathfrak C} = \coprod\limits_{n\geq 0} (G \times \Sigma_n) \ltimes \mathfrak C^{\times n}.
+            G \ltimes \Sigma_{\mathfrak C} = \coprod\limits_{n\geq 0} (G \times \Sigma_n) \ltimes \mathfrak C^{\times n+1}.
       \end{equation}
       
       We observe that this is equivalent to the pullback on the left below,
@@ -1114,8 +1115,8 @@ In particular, we have maps of the form
 
 \begin{remark}
       \label{COLOR_CHANGE_REM}
-      As the set of objects in $G \ltimes \Sigma_{\mathfrak C}$ is precisely the set of $\mathfrak C$-signatures,
-      every $\mathfrak C$-colored operad has an underlying symmetric $(G,\mathfrak C)$-sequence.
+      We note that the set of objects in $G \ltimes \Sigma_{\mathfrak C}$ is precisely the set of $\mathfrak C$-signatures,
+      and every $\mathfrak C$-colored operad has an underlying symmetric $(G,\mathfrak C)$-sequence.
       
       Moreover, extending Defintion \ref{OP_MAP_DEFN}, we have that any map of $G$-sets
       $F: \mathfrak C \to \mathfrak C'$ induces a pair of adjoints
@@ -2531,7 +2532,7 @@ In particular, \cite[Remark 4.50]{BP17}) implies that any \textit{weak indexing 
             \footnote{Cofibrant unit also needed for \ref{J-CELL_PROP}.},
       \item has cellular fixed-point functors,
       \item \label{CSPP_LBL} has cofibrant symmetric pushout powers,
-            \footnote{Also needed for Lemma \ref{CAV_4.14_PROP2}.},            
+            \footnote{Also needed for Lemmas \ref{CAV_4.14_PROP2, LOCAL_COF_LEM}.},            
             % --------------------
       \item \label{RP_LBL} is right proper
             \footnote{Needed for \ref{RIGHTPROPER_LEM}, \ref{CAV_4.15_PROP}.},
@@ -2710,29 +2711,23 @@ The next two subsectiosn deal with these issues, in that order.
       \begin{equation}
             \O_0 \xrightarrow{f_0} \O_1 \xrightarrow{f_1} \dots \xrightarrow{f_\alpha} \O_{\alpha+1} \xrightarrow{f_{\alpha+1}} \dots
       \end{equation}
-      in $\Op^G(\V)$, and let $F_\alpha$ denote the compoite $\O_0 \to \O_\alpha$.
-      Then we claim that
-      if each map of the form on the left in \eqref{COF_TC_EQ}
-      is a (trivial) $\mathrm{Gr}$-cofibrations in $\V^{\Stab(\theta)}_{\F_\theta}$
-      for all $\mathfrak C(\O_\alpha)$-signatures $\theta$, then
-      the composite map on the right in \eqref{COF_TC_EQ}
-      is a (trivial) $\mathrm{Gr}$-cofibration in $\V^{\Stab(\ksi)}_{\F_\ksi}$
-      for all $\mathfrak C(\O)$-signatures $\ksi$.     
-       \begin{equation}
-            \label{COF_TC_EQ}
-            \O_\alpha(\theta) \to \O_{\alpha+1}(F_\alpha(\theta)),
-            \qquad  \qquad
-            \O(\ksi) \to \O_\alpha(F_\alpha(\ksi))
+      in $\Op^G(\V)$, letting $\bar f_\alpha$ denote the compoite $\O_0 \to \O_\alpha$,
+      such that the maps
+      \begin{equation}
+            \O_\alpha(\theta) \xrightarrow{f_\alpha(\theta)} \O_{\alpha+1}(f_\alpha(\theta))
       \end{equation}
+      are (trivial) cofibrations in $\V^{\Stab(\theta)}_{\mathrm{Gr}_\theta}$
+      for all $\mathfrak C(\O_\alpha)$-signatures $\theta$.
+
+      Now, suppose $\theta = f_{\alpha-1}(\ksi)$, so
+      $\Stab(\ksi) \leq \Stab(\theta)$.
+      Then the restriction map $\V^{\Stab(\theta)}_{\mathrm{Gr}_\theta} \to \V^{\Stab(\ksi)}_{\mathrm{Gr}_\ksi}$
+      preserves (trivial) cofibrations (cf. \cite[Prop 6.6]{BP17}),
+      and thus $f_\alpha(\theta)$ 
+      restricts to the (trivial) cofibration $f_\alpha(f_{\alpha-1}(\ksi))$ in $\V^{\Stab(\ksi)}_{\mathrm{Gr}_\ksi}$.
       %
-      Indeed, if $\theta = f_{\alpha-1}(\ksi)$,
-      $\Stab(\ksi) \leq \Stab(\theta)$,
-      and the restriction map $\V^{\Stab(\theta)}_{\mathrm{Gr}_\theta} \to \V^{\Stab(\ksi)}_{\mathrm{Gr}_\ksi}$
-      preserves (trivial) cofibrations (cf. \cite[Prop 6.6]{BP17},
-      and thus the $\Stab(\theta)$-genuine (trivial) cofibration $f_\alpha(\theta)$ 
-      restricts to a $\Stab(\ksi)$-genuine (trivial) cofibration $f_\alpha(f_{\alpha-1}(\ksi))$.
-      %
-      Thus, we have a string of (trivial) $\F_\ksi$-cofibrations in $\V^{\Stab(\ksi)}_{\mathrm{Gr}_\ksi}$
+      Thus, when evaluated at any $\mathfrak C(\O_0)$-signature $\ksi$,
+      the above string of maps yields a string of (trivial) cofibrations in $\V^{\Stab(\ksi)}_{\mathrm{Gr}_\ksi}$
       \begin{equation}
             \O_0(\ksi) \rightarrowtail \O_1(F_1(\ksi)) \rightarrowtail \O_2(F_2(\ksi)) \rightarrowtail \dots
             \rightarrowtail \O_\alpha(F_\alpha(\ksi)) \rightarrowtail \dots
@@ -2741,15 +2736,83 @@ The next two subsectiosn deal with these issues, in that order.
       are closed under transfinite composition, the result is proven.
 \end{proof}
 
-The following follows from the cellular description of cofibrations in $\Op^{G, \mathfrak C}(\V)$.
+
+\todo[inline]{Using a big hammer,
+  the following would be a consequence of a full discussion of $\mathfrak C$-operads, in particular
+  the version of \cite[Lemma 6.59]{BP17} for $\mathfrak C$-colored (non-genuine) operads.
+  Though the following might also work:}
 \begin{lemma}
       \label{LOCAL_COF_LEM}
-      Suppose $\V$ admits transfer for operads, and suppose
-      $f: \O \to \P$ in $\Op^{G, \mathfrak C}(\V)$ is a (trivial) $\mathrm{Gr}$-cofibration.
+      Suppose $\V$ % is a cofibrantly generated closed monoidal model category with cellular fixed points
+      additionally has cofibrant symmetric pushout powers,  
+      % Suppose $\V$ admits transfer for operads, and suppose
+      and let
+      $f: \O \to \P$ in $\Op^{G, \mathfrak C}(\V)$ be any (trivial) $\mathrm{Gr}$-cofibration.
       Then it is a local (trivial) $\mathrm{Gr}$-cofibration.
 
       If $\V$ only admits semi-transfer, the result holds when $\O$ is level $\mathrm{Gr}$-cofibrant itself.
 \end{lemma}
+\begin{proof}
+      By cellularity of cofibrations, it suffices to show that, for
+      any (trivial) cofibration $i: A \to B$ in $\V$,
+      $\mathfrak$-signature $\theta$, and $H \in \F_\theta$,
+      the map
+      \begin{equation}
+            \mathbb F^{G, \mathfrak C}
+            \left(
+                  \Hom_{G \ltimes \Sigma_{\mathfrak C}}(-, \theta)/H \cdot 
+                  \left( A \xrightarrow{i} B \right)
+            \right)
+            % \mathbb F^{G, \mathfrak C}\left(\Hom_{G \ltimes \Sigma_{\mathfrak C}}(-, \theta)/H \cdot B \right)
+      \end{equation}
+      is a level (trivial) $\mathrm{Gr}$-cofibration.
+      As $\Stab(\ksi) \cdot_{\Aut(U, \mathfrak d)}(-): \V^{\Aut(U,\mathfrak d}_{\mathrm{Gr}} \to \V^{\Stab(\ksi)}_{\mathrm{Gr}_\ksi}$
+      is left-Quillen, it suffices by the filtration \eqref{FILTRATION_LAN_LEMMA} to show that
+      \begin{equation}
+            \bigotimes_{v \in V(U)}\left( \Hom_{G \ltimes \Sigma_{\mathfrak C}}(\ksi_v, \theta) \cdot i) \right)
+      \end{equation}
+      is a (trivial) cofibration in $\V^{\Aut(U,\mathfrak d}_{\mathrm{Gr}}$
+      for all $(U, \mathfrak d) \in \Omega^{G, \mathfrak C}$ with $\mathsf{lr}(U, \mathfrak d) = C_\ksi$.
+
+      Stated generally, it thus suffices to show that each arrow in the composite
+      \begin{equation}
+            \prod_{|lambda|}\V_{\mathrm{Gr}_{\ksi_{v_i}}}^{\Sigma_{|\lambda_i|} \wr \Stab(\ksi_{v_i})}
+            \longto
+            \V^{\Aut((\ksi_{v_i}))}_{\sqcap \mathrm{Gr}_{\ksi_{v_i}}^{\ltimes |\lambda_i|}}
+            \xrightarrow{\ q^{\**} \ }
+            \V_{\mathrm{Gr}_{U}}^{\Stab(U,\mathfrak d)}
+      \end{equation}
+      is left Quillen,
+      where $\lambda = \amalg_i \lambda_i$ is a partition of $V(U,\mathfrak d)$
+      where vertices are in the same class iff they are isomorphic in $G \ltimes \Sigma_{\mathfrak C}$,
+      and $\mathrm{Gr}_{(U,\mathfrak d)}$ is the family of all graph subgroups of $G \times \Sigma_U$ contained in $\Aut(U, \mathfrak d)$.
+      
+      The left map is left Quillen by \cite[(6.15)]{BP17}.
+      %%%%%% DOING THIS WRONG - CONSIDERED WRONG SHIT DAMMIT ------------------------------
+      % For the right map, for any $\Gamma \in \mathrm{Gr}_{(U,\mathfrak d)}$, let $\Gamma_k = \pi_k^{\**}(\Gamma)$, where
+      % \begin{equation}
+      %       \pi_i: \Aut(U,\mathfrak d)
+      %       \longto
+      %       \Aut((\ksi_{v}))
+      %       \simeq
+      %       \prod_{|\lambda|}\Sigma_{|\lambda_i|} \wr \Aut(\ksi_{v_i})
+      %       \longto
+      %       \Sigma_{|\lambda_k|} \wr \Aut(\ksi_{v_k}).
+      % \end{equation}
+      % Now, given $v_{kj} \in \lambda_k$, the group
+      % \begin{equation}
+      %       \pi_{v_{kj}}
+      %       \left(
+      %             \Gamma_k \cap \Sigma_{{\lambda_k}_{v_{kj}}} \wr \Aut(\ksi_{v_{kj}})
+      %       \right)
+      % \end{equation}
+      % is given by those $(g,\sigma)$ such that there exists $(g, \phi(g)) \in \Gamma$ such that
+      % $g.v_{ki} = v_{ki}$, $\phi(g)$ and $\phi(g)$ acts by $\sigma$ on $v_{ki}$.
+      % Letting $G_{ki} \leq G$ denote the subgroup which fixes $v_{kj}$, this is the graph subgroup on the natural map
+      % $G_{jk} \to \Aut(\ksi_{kj})$.
+
+      % THIS FOLLOWS FROM THE EQUIVALENT VERSION OF 6.59 FOR $\mathfrak C$-COLORED (NON-GENUINE) OPERADS. WHICH IS HARD.
+\end{proof}
 
 \begin{proposition}
       [{c.f. \cite[4.20]{Cav14}}]
@@ -2766,7 +2829,7 @@ The following follows from the cellular description of cofibrations in $\Op^{G, 
       which is a $\mathrm{Gr}$-cofibration (which in particular follows from being a local trivial $\F$-cofibration).
 
       Firstly, if $j = \mathbb F_\Gamma[\Gamma/\Gamma \cdot i] \in J_{\F, loc}$, 
-      we are considering the pushout of a trivial cofibration in $\mathsf{Op}^{G,\mathfrak C(\Q)}(\V)$ (cf. \eqref{COLOR_SQ_EQ}).
+      we are considering the pushout of a trivial cofibration in $\mathsf{Op}^{G,\mathfrak C(\P)}(\V)$ (cf. \eqref{COLOR_SQ_EQ}).
       By the existance of the transferred model structure, this is again a trivial cofibration.
       Moreover, it is a local weak $\F$-equivalence which is the identity on colors,
       hence a trivial $\F$-cofibration,
