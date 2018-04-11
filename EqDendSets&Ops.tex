@@ -6726,7 +6726,7 @@ induced by the maps
 $T_{1,v} \to T_1$. 
 For $n \neq 1$, one can either mimic this formula or, alternatively,
 note that if the diagrams 
-\[
+\begin{equation}\label{VASEDGE EQ}
 \begin{tikzcd}
 	\Omega^n \ar{r}{\boldsymbol{V}} 
 	\ar{d}[swap]{d^{1,\cdots,n-1}} &
@@ -6744,7 +6744,7 @@ note that if the diagrams
 	\Omega^1 \ar{r}{\boldsymbol{V}} &
 	\Sigma \wr \Omega^0
 \end{tikzcd}
-\]
+\end{equation}
 are to remain commutative when regarded as diagrams in $\mathsf{WSpan}^r(\**,\mathsf{F})$, 
 the fact that the vertical arrows are $1$-arrows
 implies that the natural transformation component of the bottom $\boldsymbol{V}$ functors immediately determines the natural transformation compoment of the top $\boldsymbol{V}$ functors.
@@ -6771,7 +6771,7 @@ $\mathsf{WSpan}^r(\**,\mathsf{F})$.
 
 \begin{proof}
 We need to check the conditions in 
-Remark \label{SPANLIM REM}.
+Remark \ref{SPANLIM REM}.
 The fact that the underlying diagrams of categories are pullback diagrams is already known.
 Furthermore, when $i<n$ the vertical arrows are $1$-arrows and it is hence obvious that square of functors $\Omega^n \to \mathsf{F}$ is a pullback square (it is a square where two opposite sides are identities).
 For the case $i=n$, by using combining the simplicial identities and the $i<n$ case, one reduces to checking the case $i=n=1$.
@@ -7026,7 +7026,6 @@ and
 \end{tikzcd}
 \end{equation}
 
-{\color{red} HERE}
 
 For the other simplicial identities,
 stating that for $0\leq i < j < n$, then
@@ -7066,8 +7065,188 @@ d^0 d^{n-2} d^1 = d^{n-3} d^0 d^1 = d^{n-3} d^0 d^0
 \]
 which all hold due to the induction hypothesis.
 
-{\color{red} HERE}
 
+
+\subsection{Edge and vertex compatibilities}
+
+In this section we discuss the compatibilities between the edge and vertex functors of the previous sections.
+
+Firstly, we note that the functors
+$\boldsymbol{V}^n \colon \Omega^n \to \Sigma \wr \Sigma$
+can be extended to spans in 
+$\mathsf{WSpan}^r(\**,\mathsf{F})$
+via the following diagram.
+\begin{equation}\label{EVCOMP EQ}
+\begin{tikzcd}
+	\Omega^{n+1} \ar{r}{\boldsymbol{V}} 
+	\ar{rrdd}[name=arr1t]{} &
+	\Sigma \wr \Omega^{n} \ar{r}{\boldsymbol{V}^{n}}[name=Vi1]{} 
+	\ar{rd}[name=arrt]{}[swap,name=arrb]{} &
+	|[alias=Sigma3]|
+	\Sigma \wr \Sigma \wr \Sigma \ar{r}{\amalg} \ar{d} &
+	\Sigma \wr \Sigma \ar{ldd}
+\\
+	&&
+	|[alias=SOm]|
+	\Sigma \wr \mathsf{F} \ar{d}
+\\
+	&&
+	\mathsf{F}
+\arrow[Rightarrow, from=Sigma3, to=arrt, shorten >=0.1cm, shorten <=0.1cm
+%,swap,"\pi"
+]
+\arrow[Rightarrow, from=arrb, to=arr1t, shorten >=0.1cm, shorten <=0.1cm
+%,swap,"\pi"
+]
+\end{tikzcd}
+\end{equation}
+
+
+
+\begin{proposition}
+For $0 \leq i \leq n$ the composite 
+\begin{equation}\label{DIVN1 EQ}
+\begin{tikzcd}
+	|[alias=Sigma3]|
+	\Omega^{n+1} \ar{rr}{\boldsymbol{V}^{n+1}}[swap,name=Vn1]{} \ar{d}[swap]{d^i} &&
+	\Sigma \wr \Sigma \ar{lld}[name=arrb]{} \ar{lldd}
+\\
+	|[alias=Omegan]|
+	\Omega^n \ar{d}
+\\
+	|[alias=F]|
+	\mathsf{F}
+\arrow[Rightarrow, from=Vn1, to=Omegan, shorten >=0.1cm, shorten <=0.1cm
+%,swap,"\pi"
+]
+\arrow[Rightarrow, from=arrb, to=F, shorten >=0.1cm, shorten <=0.1cm
+%,swap,"\pi"
+]
+\end{tikzcd}
+\end{equation}
+matches the arrow
+$\boldsymbol{V}^{n+1} \colon \Omega^{n+1} \to \Sigma \wr \Sigma$
+in $\mathsf{WSpan}^r(\**,\mathsf{F})$.
+\end{proposition}
+
+
+\begin{proof}
+The base case is that of $n=1$, $i=0$, which states that the composite natural transformations in the following two diagrams coincide,
+and this is readily verified explicitly.
+\begin{equation}
+\begin{tikzcd}
+	\Omega^{1} \ar{r}{\boldsymbol{V}} \ar{d}[swap]{d^0}
+	&
+	\Sigma \wr \Omega^{0} \ar{r}{\boldsymbol{V}}{} 
+	\ar{rd}[name=arrt]{}[swap,name=arrb]{} &
+	|[alias=Sigma3]|
+	\Sigma \wr \Sigma \wr \Sigma \ar{r}{\amalg} \ar{d} &
+	\Sigma \wr \Sigma \ar{ldd}
+&
+	\Omega^{1} \ar{r}{\boldsymbol{V}} \ar{d}[swap]{d^0}
+	&
+	\Sigma \wr \Omega^{0} \ar{r}{\boldsymbol{V}}[name=Vi1]{} 
+	&
+	\Sigma \wr \Sigma \wr \Sigma \ar{r}{\amalg} &
+	\Sigma \wr \Sigma \ar{ldd}
+\\
+	\Omega^0 \ar{rrd}[name=arr1t]{} &&
+	|[alias=SOm]|
+	\Sigma \wr \mathsf{F} \ar{d} &
+&
+	\Omega^0 \ar{rrru}[name=diagu]{}[swap,name=diagb]{} \ar{rrd}[name=OF]{} &&
+	 &
+\\
+	&&
+	\mathsf{F} &
+&
+	&&
+	\mathsf{F} &
+\arrow[Rightarrow, from=Sigma3, to=arrt, shorten >=0.1cm, shorten <=0.1cm
+%,swap,"\pi"
+]
+\arrow[Rightarrow, from=arrb, to=arr1t, shorten >=0.1cm, shorten <=0.1cm
+%,swap,"\pi"
+]
+\arrow[Rightarrow, from=Vi1, to=diagu, shorten >=0.1cm, shorten <=0.1cm
+%,swap,"\pi"
+]
+\arrow[Rightarrow, from=diagb, to=OF, shorten >=0.1cm, shorten <=0.1cm
+%,swap,"\pi"
+]
+\end{tikzcd}
+\end{equation}
+The other cases are verified inductively.
+Thanks to the simplicial identities 
+$d^i d^j = d^{j-1} d^i$ for $i<j$, 
+one reduces to the case of
+$d^n \colon \Omega^{n+1} \to \Omega^n$.
+
+Recall now that $\boldsymbol{V}^{n+1}$ is defined by \eqref{EVCOMP EQ}, and that by the commutativity of \eqref{VASEDGE EQ}, we can rewrite \eqref{EVCOMP EQ} as given by the left diagram below.
+\begin{equation}
+\begin{tikzcd}
+	\Omega^{n+1} \ar{r}{\boldsymbol{V}} 
+	\ar{d}[swap]{d^n} &
+	\Sigma \wr \Omega^{n} \ar{r}{\boldsymbol{V}^{n}}[name=Vi1]{} 
+	\ar{d}[swap]{d^{n-1}} &
+	|[alias=Sigma3]|
+	\Sigma \wr \Sigma \wr \Sigma \ar{r}{\amalg} \ar{dd} &
+	\Sigma \wr \Sigma \ar{ldd}
+&
+	\Omega^{n+1} \ar{r}{\boldsymbol{V}} 
+	\ar{d}[swap]{d^n} &
+	\Sigma \wr \Omega^{n} \ar{r}{\boldsymbol{V}^{n}}[swap,name=Vi12]{} 
+	\ar{d}[swap]{d^{n-1}} &
+	|[alias=Sigma32]|
+	\Sigma \wr \Sigma \wr \Sigma \ar{r}{\amalg} \ar{dd} &
+	\Sigma \wr \Sigma \ar{ldd}
+\\
+	\Omega^n \ar{rrdd}[name=arr1t]{} 
+	\ar{r}{\boldsymbol{V}} &
+	\Sigma \wr \Omega^{n-1} \ar{rd}[name=arrt]{}[swap,name=arrb]{} &&
+&
+	\Omega^n \ar{rrdd}[name=arr1t2]{} 
+	\ar{r}{\boldsymbol{V}} &
+	|[alias=SOn1]|
+	\Sigma \wr \Omega^{n-1} \ar{rd}[name=arrt2]{}[swap,name=arrb2]{}
+	\ar{ru}
+\\
+	&&
+	|[alias=SOm]|
+	\Sigma \wr \mathsf{F} \ar{d} &
+&
+	&&
+	|[alias=SOm]|
+	\Sigma \wr \mathsf{F} \ar{d} &
+\\
+	&&
+	\mathsf{F} &
+&
+	&&
+	\mathsf{F} &
+\arrow[Rightarrow, from=Sigma3, to=arrt, shorten >=0.1cm, shorten <=0.1cm
+%,swap,"\pi"
+]
+\arrow[Rightarrow, from=arrb, to=arr1t, shorten >=0.1cm, shorten <=0.1cm
+%,swap,"\pi"
+]
+\arrow[Rightarrow, from=Sigma32, to=arrt2, shorten >=0.1cm, shorten <=0.1cm
+%,swap,"\pi"
+]
+\arrow[Rightarrow, from=arrb2, to=arr1t2, shorten >=0.1cm, shorten <=0.1cm
+%,swap,"\pi"
+]
+\arrow[Leftrightarrow, from=Vi12, to=SOn1, shorten >=0.1cm, shorten <=0.1cm
+%,swap,"\pi"
+]
+\end{tikzcd}
+\end{equation}
+The left diagram above then matches the right diagram due to the induction hypothesis.
+Lastly, the right diagram matches \eqref{DIVN1 EQ}
+by combining 
+\eqref{EVCOMP EQ}
+with the commutative squares \eqref{RMCOM EQ}.
+\end{proof}
 
 
 
