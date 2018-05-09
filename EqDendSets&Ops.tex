@@ -1,5 +1,5 @@
 \documentclass[a4paper,10pt
- ,draft
+% ,draft
 ]{article}%
 
 \usepackage[hidelinks]{hyperref}
@@ -74,7 +74,7 @@ cf.  }
 }
 \newcommand{\owr}{\mycircled{\wr}}
 \newcommand{\UV}{\underline{\mathcal V}}
-\renewcommand{\phi}{\varphi}
+
 \newcommand{\UC}{\underline{\mathfrak C}}
 
 \renewcommand{\F}{\mathcal F}
@@ -7267,7 +7267,159 @@ with the commutative squares \eqref{RMCOM EQ}.
 
 
 
+\section{2-categories of spans}
 
+{\color{red} HERE}
+
+\subsection{$2$-overcategories}
+
+
+\begin{definition}
+Let $\mathcal{C}$ be a $2$-category and $c \in \mathcal{C}$ an object.
+We write $\mathcal{C} \downarrow^r c$ for the $2$-category such that:
+\begin{itemize}
+	\item objects are the arrows $\beta \colon b \to c$;
+	\item a $1$-arrow from 
+	$\beta \colon b \to c$
+	to
+	$\beta' \colon b' \to c$ 
+	is a pair $(f,\phi)$
+	formed by a $1$-arrow $f\colon b \to b'$ and a $2$-arrow
+	$\phi \colon \beta' f \Rightarrow \beta$
+		\begin{equation}
+		\begin{tikzcd}[row sep = tiny, column sep = 35pt]
+			b \arrow{dr}[name=U]{\beta} \arrow{dd}[swap]{f}
+		\\
+			& c
+		\\
+			|[alias=V]| b' \arrow{ur}[swap]{\beta'}
+		\arrow[Rightarrow, from=V, to=U,shorten >=0.25cm,shorten <=0.25cm
+		,swap,"\phi"
+		]
+		\end{tikzcd}
+		\end{equation}
+	\item a $2$-arrow from $(f,\phi)$ to $(f',\phi')$ is a $2$-arrow $\varphi \colon f \to f'$ such that
+	$\phi' \circ \varphi \beta' = \phi$.
+		\begin{equation}
+		\begin{tikzcd}[column sep = 50pt]
+			b \arrow{dr}[name=U]{\beta} 
+			\arrow[bend right]{dd}[swap]{f}[name=F]{}
+			\arrow[bend left]{dd}{f'}[swap,name=FF]{}
+			&
+		&
+			b \arrow{dr}[name=U2]{\beta} 
+			\arrow[bend right]{dd}[swap]{f}
+			&
+		\\
+			& c
+		&
+			& c
+		\\
+			b' \arrow{ur}[swap]{\beta'}[near start, name=V]{}
+			&
+		&
+			|[alias=V2]| b' \arrow{ur}[swap]{\beta'}
+			&
+		\arrow[Rightarrow, from=V, to=U,shorten >=0.25cm,shorten <=0.25cm
+		,swap,"\phi'"
+		]
+		\arrow[Rightarrow, from=F, to=FF,shorten >=0.0cm,shorten <=0.0cm
+		,swap,"\varphi"
+		]
+		\arrow[Rightarrow, from=V2, to=U2,shorten >=0.25cm,shorten <=0.25cm
+		,swap,"\phi"
+		]
+		\end{tikzcd}
+		\end{equation}
+\end{itemize}
+\end{definition}
+
+\begin{example}
+When $\mathcal{C}$ is a $1$-category, then 
+$\mathcal{C} \downarrow^r c$ is the usual overcategory.
+\end{example}
+
+\begin{example}
+When $\mathcal{C} = \mathsf{Cat}$ is the $2$-category of categories, 
+then the underlying $1$-category of
+the $2$-category
+$\mathsf{Cat} \downarrow^r \mathcal{B}$
+coincides with the category of weak right spans
+$\mathsf{WSpan}^r(\**,\mathcal{B})$.
+\end{example}
+
+
+We will find it useful to discuss iterations of the 
+$2$-overcategory construction described above.
+Given a $1$-arrow in $\mathsf{Cat}$ (i.e. a functor) $\mathcal{B} \to \mathsf{F}$, we write
+$\mathsf{Cat} \downarrow^r (\mathcal{B} \to \mathsf{F})$
+as an abbreviation for the iterate $2$-overcategory
+$\left(\mathsf{Cat} \downarrow^r \mathsf{F} \right) \downarrow^r (\mathcal{B} \to \mathsf{F}) $.
+Unpacking definitions, the objects of 
+$\mathsf{Cat} \downarrow^r (\mathcal{B} \to \mathsf{F})$
+are quadruples $(\mathcal{C}, B, F, \gamma)$ as below,
+\begin{equation}
+	\begin{tikzcd}[row sep = tiny, column sep = 35pt]
+		&
+		|[alias=V]|
+		\mathcal{B} \arrow{dd} 
+	\\
+		\mathcal{C} \arrow{ur}{B} 
+		\arrow{dr}[swap,name=U]{F} & 
+	\\
+		&
+		\mathsf{F}
+	\arrow[Rightarrow, from=V, to=U,shorten >=0.25cm,shorten <=0.25cm
+	,"\gamma"
+	]
+	\end{tikzcd}
+\end{equation}
+a $1$-arrow from 
+$(\mathcal{C}, B, F, \gamma)$ to 
+$(\mathcal{C}', B', F', \gamma')$
+is a triple $(f,\varphi, \epsilon)$ as below such that then composite natural transformations in the two diagrams coincide,
+\begin{equation}
+\begin{tikzcd}[column sep = 50pt,row sep = 50pt]
+	|[alias=VV]|
+	\mathcal{C}' \ar{r}{B'} &
+	|[alias=V]|
+	\mathcal{B} \ar{d} &
+&
+	|[alias=VVVV]|
+	\mathcal{C}' \ar{r}{B'} \ar{rd}[swap,near end]{F'}[name=UUU]{} &
+	|[alias=VVV]|
+	\mathcal{B} \ar{d} &
+\\
+	\mathcal{C} \ar{r}[swap]{F}[swap,name=U]{} \ar{u}{f} \ar{ru}[near start,swap]{B}[name=UU]{}&
+	\mathsf{F} &
+&
+	\mathcal{C} \ar{r}[swap]{F}[name=UUUU]{} \ar{u}{f} &
+	\mathsf{F} &
+	\arrow[Rightarrow, from=V, to=U, shorten >=0.25cm,shorten <=0.25cm
+	,"\gamma"
+	]
+	\arrow[Rightarrow, from=VV, to=UU, shorten >=0.15cm,shorten <=0.15cm,
+	swap,"\varphi"
+	]
+	\arrow[Rightarrow, from=VVV, to=UUU, shorten >=0.15cm,shorten <=0.15cm
+	,"\gamma'"
+	]
+	\arrow[Rightarrow, from=VVVV, to=UUUU, shorten >=0.25cm,shorten <=0.25cm,
+	swap
+	,"\epsilon"
+	]
+\end{tikzcd}
+\end{equation}
+and a natural transformation from  
+$(f,\varphi, \epsilon)$ to
+$(f',\varphi', \epsilon)'$
+is a natural transformation 
+$\rho \colon f \to f'$ such that
+$\varphi' \circ \rho B' = \varphi$ and
+$\epsilon' \circ \rho F' = \epsilon$
+
+
+{\color{red} HERE} 
 
 \bibliography{biblio}{}
 
