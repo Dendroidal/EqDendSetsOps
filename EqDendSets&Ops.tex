@@ -167,8 +167,16 @@ cf.  }
       \end{enumerate*}
 \end{theorem}
 
+\begin{remark}
+      As $\Cat^{G, \mathfrak C}(\V) = \Op^{G, \mathfrak C}(\V) \downarrow \**$,
+      this produces $G$-model structures on $\V$-enriched categories with a single set of objects.
+\end{remark}
 
-Dwyer-Kan weak equiavlences were introduced in the context of simplicial categories by Dwyer-Kan and Bergner \cite{DK80, Ber07}.
+
+
+\todo[inline]{come back}
+
+Dwyer-Kan weak equiavlences were introduced in the context of simplicial categories by Dwyer-Kan and Bergner \cite{DK80, Ber07b}.
 A simplicial functor $F: \mathcal C \to \mathcal D$ between simplicial categories is called a Dwyer-Kan equivalence if
 it is ``homotopically'' fully-faithful and essentially surjective:
 each morphism of mapping spaces $\mathcal C(x, y) \to \mathcal D(F(x), F(y))$ is a Kan-equivalence of simplicial sets, and
@@ -192,7 +200,7 @@ Here, homotopical essential surjectivity is defined on the underlying simplicial
       \label{INTRO_MODEL_THM}
       Let $(\V, \otimes)$, denote either $(\sSet, \times)$ or $(\sSet_{\**}, \wedge)$.
       Then there exists a cofibrantly generated model structure on the category $\Op^G(\V)$,
-      where weak equivalences are ``graph Dwyer-Kan'' equivalences. 
+      where weak equivalences are ``graph Dwyer-Kan'' equivalences (see Definition \ref{DK_MODEL_DEF}). 
 
       More generally, for any indexing family $\F = \set{\F_n}$ with units,
       there exists an ``$\F$-Dwyer-Kan'' model structure on $\Op^G(\V)$.
@@ -221,6 +229,18 @@ we say that a map $F: \O \to \P$ is essentially surjective if any object in $\P$
 where equivalence is defined used a cofibrant replacement of the $\V$-category detecting isomorphisms (see Definition \ref{PL_ES_DEFN} and Remark \ref{ESS_SUR_REM}).
 In the case where $\V$ does not satisfy the coherence axiom, then this notion is potentially \textit{stronger} than the notion used above.
 This case is covered in Theorem \ref{MODEL_THM}.
+
+
+\todo[inline]{come back}
+
+\begin{theorem}
+      Tame model structure exists, and we have Quillen equivalences
+      $\mathsf{PreOp}^G \leftrightarrows \mathsf{PreOp}^G_{tame} \rightleftarrows \sOp^G$.
+\end{theorem}
+
+\begin{theorem}
+      The Quillen adjunction $\dSet^G \rightleftarrows \sOp^G$ is a Quillen equivalence.
+\end{theorem}
 
 \section{Preliminaries}
 
@@ -3044,7 +3064,16 @@ We recall and extend the following definitions from \cite{BM13}.
 
 \begin{definition}
       A {\em $\V$-interval} is a cofibrant object $\J$ in $\Cat^{\set{0,1}}(\V)$ (with the transfered model structure)
-      equipped with a weak equivalence $\J \to \I_f$.
+      for which there exists a weak equivalence $\J \to \I_f$
+      \footnote{
+        In \cite{BM13}, $\J$ just needs to be weakly equivalent to $\I$.
+        However, any zig-zag of weak-equivalences between any $A$ and $X$ with $A$ cofibrant
+        can be lifted to a single map $A \to X_f$.
+        We illustrate with a single example:
+        given $A \to Y \leftarrow X$, $A$ maps to $Y_c$, and then using the functoriality of $(-)_c$ on $Y \leftarrow X$, we get
+        $Y_c \twoheadleftarrow X_c' \leftarrowtail X_c$.
+        But then we have a lift $Y_c \to X_c'$, and a lift $X_c' \to X_f$, yielding our weak equivalence $A \to X_f$.      
+      }.
       A set $\mathcal{G}$ of $\V$-intervals is {\em generating} if all $\V$-intervals $\J$ can be obtained
       as a retract of a trivial extension of an element in $\mathcal{G}$ in $\Cat^{\set{0,1}}(\V)$:
       \begin{equation}
@@ -3136,7 +3165,7 @@ We may now extend the categorical model theoretic notions to the equivariant con
 %       $f_!\O \to \P$ is an $\F$-cofibration in $\Op^{G, \mathfrak C(\P)}(\V)$.
 % \end{remark}
 
-We may now state and prove the main result of this section (cf. Theorem \ref{INTRO_MODEL_THM}).
+We may now state and prove the main result of this section (see the disucssion after Theorem \ref{INTRO_MODEL_THM}).
 
 \begin{theorem}
       \label{MODEL_THM}
@@ -3171,6 +3200,7 @@ We may now state and prove the main result of this section (cf. Theorem \ref{INT
       Moreover,
       % After this difference, the proofs of the two cases are identical, as
       every object in $\sSet^G$ is genuine cofibrant by e.g. \cite[Remark 5.71]{BP17},
+      $(iii)$ $\sSet$ has cofibrant symmetric pushout powers by \cite[Remark 6.18]{BP17},
       \ref{RP_LBL} $\sSet$ is right proper
       by Lemma \ref{INTER_LEM} and e.g. \cite[Prop 2.1.5]{Cis06} or \cite[Lemma 1.12]{BM13}, and
       \ref{GENSET_LBL} $\sSet$ has a generating set of intervals
@@ -4280,6 +4310,7 @@ We would like to recognize our weak $\F$-equivalences slightly differently.
 \end{remark}
 
 \begin{definition}
+      \label{DK_MODEL_DEF}
       We say $\Op^G(\V)$ has the \textit{Dwyer-Kan (semi)-model structure} if the (semi)-model structure from
       Theorem \ref{MODEL_THM} exists, and the weak $\F$-equivalences agree with the DK-$\F$-equivalences.
 \end{definition}
@@ -4329,6 +4360,7 @@ originally due to Boardman-Vogt \cite{BV73}, and extended by Berger-Moerdijk \ci
 \end{definition}
 
 \begin{proposition}
+      \label{COH_DK_ARE_WE_PROP}
       If $\V$ is right proper with cofibrant unit satisfying the coherence axiom, then
       DK-$\F$-equivalences are weak $\F$-equivalences in $\Op^G(\V)$.
 \end{proposition}
@@ -4345,7 +4377,8 @@ originally due to Boardman-Vogt \cite{BV73}, and extended by Berger-Moerdijk \ci
 \begin{example}
       There are several examples in the literature of categories which satisfy the coherence axiom:
       \begin{itemize}
-      \item $(\sSet, \times)$ and $(\sSet_{\**}, \wedge)$ both satisfy this by an argument of Joyal (see Proposition \ref{SSET_COH_PROP} below).
+      \item $(\sSet, \times)$ satisfues this by an argument of Joyal (see Proposition \ref{SSET_COH_PROP} below),
+            as does $(\sSet_{\**}, \wedge)$ (see Corollary \ref{PTSSET_COR} below). 
       \item The cartesian closed model category of compactly-generated weak Hausdorff spaces $(\Top, \times)$ is coherent by \cite[Lem. 4.16]{BV73}.
       \item In \cite[Prop. 2.24]{BM13}, Berger-Moerdijk show that if $\V$ satisfies transfer for operads, is right proper, and has cofibrant unit,
             then $\V$ satisfies the coherence axiom,
@@ -4370,25 +4403,262 @@ originally due to Boardman-Vogt \cite{BV73}, and extended by Berger-Moerdijk \ci
 \begin{proposition}
       [{cf. \cite[\S 1]{Joy02}}]
       \label{SSET_COH_PROP}
-      $(\sSet, \times)$       % or $(\sSet_{\**}, \wedge)$ then
+      $(\sSet, \times)$
       satisfies the coherence axiom.
 \end{proposition}
 \begin{proof}
       Let $\mathcal C_f \in \Cat(\sSet)$ be locally fibrant, and
       suppose $\alpha: \mathbb A \to \mathcal C_f$ realizes a homotopy equivalence.
-      Then $h c N \alpha: \Delta[1] \to h c N \mathcal C$ realizes a quasi-isomorphism (as $\Ho(h c N (-)) \simeq \pi_0(-)$).
-      Since $W_!N \I$ is a $\V$-interval,
-      it suffices to show that $\Delta[1] \to N \I$ is a trivial cofibration.
-      This is obvious a weak equivalence as both are contractible,
-      and (by e.g. \cite[Lemma 0.15]{Rie}) is cellular on outer horn inclusions.
+      Then, as $W_!\Delta[1] = \mathbb A$, we have an adjoint map $\tilde \alpha: \Delta[1] \to h c N \mathcal C$,
+      which realizes a quasi-isomorphism since $\Ho(h c N (-)) \simeq \pi_0(-)$ on fibrant objects.
+      Since $W_!N \I$ is a $\V$-interval and $\I$ is terminal,
+      it suffices to show that $\Delta[1] \to N \I$ is a trivial cofibration, which follows by Joyal \cite[Lemma 0.15]{Rie}.
+      % This is obvious a weak equivalence as both are contractible,
+      % and (by e.g. \cite[Lemma 0.15]{Rie}) is cellular on outer horn inclusions.
 \end{proof}
 
 \begin{proof}
       [Proof of Theorem \ref{INTRO_MODEL_THM}]
-      This follows immediately from Theorem \ref{MODEL_THM} and Propositions \ref{WE_ARE_DK_PROP}, \ref{COH_DK_ARE_WE_PROP}, and \ref{SSET_COH_PROP}.
+      This follows immediately from Theorem \ref{MODEL_THM}, Propositions \ref{WE_ARE_DK_PROP}, \ref{COH_DK_ARE_WE_PROP}, and \ref{SSET_COH_PROP},
+      and Corollary \ref{PTSSET_COR} below.
 \end{proof}
 
-\todo[inline]{come back: what about pointed simplicial sets? do they have an interval? are they coherent? etc etc.}
+\subsubsection{Pointed simplicial sets}
+
+Given $(\V, \otimes)$, the category of pointed objects $\V_{\**} = \** \downarrow \V$ is also monoidal via the smash product.
+
+\begin{definition}
+      [{\cite[Construction 4.19]{EM09}}]
+      Given $X, Y \in \V_{\**}$, define $X \wedge Y$ to be the pushout
+      \begin{equation}
+            \begin{tikzcd}
+                  X \otimes \** \amalg \** \otimes Y \arrow[d] \arrow[r]
+                  &
+                  X \otimes Y \amalg X \otimes Y \arrow[r]
+                  &
+                  X \otimes Y \arrow[d]
+                  \\
+                  \** \arrow[rr]
+                  &&
+                  X \wedge Y.
+            \end{tikzcd}
+      \end{equation}
+      This recovers the smash product of pointed spaces and simplicial sets.
+\end{definition}
+
+The following lemmas are straightforward.
+
+\begin{lemma}
+      If $\V \rightleftarrows \mathcal W$ is a strong symmetric monoidal adjunction, then
+      the induced pair $\Cat^{\mathfrak C}(\V) \rightleftarrows \Cat^{\mathfrak C}(\mathcal W)$ is an adjunction.
+\end{lemma}
+
+\begin{lemma}
+      \label{PT_PROP_LEM}
+      $(\V,\otimes) \rightleftarrows (\V_{\**}, \wedge)$ is strong symmetric monoidal.
+
+      Furhter, If $\V$ is a model category, then so is $\V_{\**}$, where $f \in \V_{\**}$ is a weak equivalence (resp. fibration, cofibration) iff
+      $U(f)$ is so in $\V$ \cite[Lemma 1.1.8]{Hov99}. 
+
+      Moreover, if $\V$ is/has any of the following, then so too is/does $\V_{\**}$:
+      \begin{enumerate*}[label = (\roman*)]
+      \item cofibrantly generated \cite[Lemma 2.1.21]{Hov99},
+      \item a monoidal model category,
+      \item a cofibrant unit,
+      \item cofibrant symmetric pushout powers,
+      \item left or right proper,
+      \end{enumerate*}
+\end{lemma}
+
+\begin{lemma}
+      Suppose $\V$ is a cofibrantly generated monoidal model category with cofibrant unit and cofibrant symmetric pushout powers.
+      Then
+      $\Cat^{\mathfrak C}(\V) \rightleftarrows \Cat^{\mathfrak C}(\V_{\**})$ is a Quillen pair of (semi)-model categories.
+\end{lemma}
+
+\begin{lemma}
+      \label{PT_CELL_LEM}
+      Suppose $\V$ cofibrantly generated monoidal model category with cellular fixed points,
+      and further that every object in $\V$ is cofibrant.
+      Then $\V_{\**}$ also has cellular fixed points.
+\end{lemma}
+\begin{proof}
+      We note that $(-)^H \circ U = U \circ (-)^H$,
+      and that colimits in $\V_{\**}$ can be computed in $\V$ as long as we add an initial object to the indexing diagram (and send it to the zero object in $\V_{\**}$.
+      Thus, for any directed poset $\mathcal D$, we have the following diagram, where all but the left side of the square are known to commute.
+      \begin{equation}
+            \begin{tikzcd}[row sep = tiny, column sep = tiny]
+                  \Fun(\mathcal D, V^G_{\**}) \arrow[r]
+                  &
+                  \Fun_{\**}(\mathcal D^\triangleleft, \V^G_{\**}) \arrow[rr] \arrow[dd] \arrow[dr]
+                  &&
+                  \Fun_{\**}(\mathcal D^\triangleleft, \V^G) \arrow[dd] \arrow[dr]
+                  \\
+                  &&
+                  \Fun_{\**}(\mathcal D^\triangleleft, \V_{\**}) \arrow[rr, crossing over]
+                  &&
+                  \Fun_{\**}(\mathcal D^\triangleleft, \V) \arrow[dd]
+                  \\
+                  &
+                  \V^G_{\**} \arrow[rr] \arrow[dr]
+                  &&
+                  \V^G \arrow[dr]
+                  \\
+                  &&
+                  \V_{\**} \arrow[rr] \arrow[uu, leftarrow, crossing over]
+                  &&
+                  \V
+            \end{tikzcd}
+      \end{equation}
+      Hence $(i)$ follows.
+      
+      Moreover, since pushouts and cofibrations are computed in $\V$, $(ii)$ follows immediately.
+
+      Finally, we note that for $A \in \Set$ and $X \in \V_{\**}$, the canonical copowering $A \cdot_{\**} X$ in $\V_{\**}$ is given by the diagram on the left.
+      Thus, using $(ii)$ for $\V$ and our assumption that $\** \to X$ is a cofibration, $(iii)$ follows by the diagram on the right,
+      where both the front and back panels are pushouts.
+      \begin{equation}
+            \begin{tikzcd}[row sep = tiny]
+                  A \cdot \** \arrow[d] \arrow[r]
+                  &
+                  A \cdot X \arrow[d]
+                  & % ----------
+                  (G/K)^H \cdot \** \arrow[dd] \arrow[rr] \arrow[dr, "\cong"']
+                  &[-15pt]&[-15pt]
+                  (G/K)^H \cdot X \arrow[dd] \arrow[dr, "\cong"]
+                  \\
+                  \** \arrow[r]
+                  &
+                  A \cdot_{\**} X
+                  & % ----------
+                  &
+                  (G/K \cdot \**)^H \arrow[rr, crossing over]
+                  &&[-15pt]
+                  (G/K \cdot X)^H \arrow[dd]
+                  \\
+                  && % ----------
+                  \** \arrow[rr] \arrow[dr, equal]
+                  &&
+                  (G/K)^H \cdot_{\**} X \arrow[dr, dashed, "\cong"]
+                  \\
+                  && % ----------
+                  & \**^H \arrow[rr] \arrow[uu, leftarrow, crossing over]
+                  &&
+                  (G/K \cdot_{\**} X)^H
+            \end{tikzcd}
+      \end{equation}
+\end{proof}
+
+\begin{remark}
+      We record that the additional assumption, that all objects in $\V$ are cofibrant, was only used to prove condition $(iii)$.
+\end{remark}
+
+
+\begin{proposition}
+      \label{VPT_INT_PROP}
+      Suppose $\V$ is a cofibrantly generated monoidal model category with cofibrant unit and cofibrant symmetric pushout powers,
+      and moreover $\V$ is left proper and $\**$ is cofibrant in $\V$.
+      Then $\J_+$ is a $\V_{\**}$-interval for any $\V$-interval $\J$.
+\end{proposition}
+\begin{proof}
+      Given the composite on the left below, we produce the composite on the right
+      \begin{equation}
+            \begin{tikzcd}
+                  \varnothing \arrow[r, rightarrowtail]
+                  &
+                  \J \arrow[r, "\simeq"]
+                  &
+                  \I_f
+                  & % ----------
+                  \** \arrow[r, rightarrowtail]
+                  &
+                  \J_+ \arrow[r]
+                  &
+                  (\I_f)_+ \arrow[r, dashed, "\simeq"]
+                  &
+                  (\I_+)_f
+            \end{tikzcd}
+      \end{equation}
+      by applying $(-)_+$ and using the lifting from the square
+      \begin{equation}
+            \begin{tikzcd}
+                  \I_+ \arrow[d, rightarrowtail, "\simeq"'] \arrow[r, rightarrowtail, "\simeq"]
+                  &
+                  (\I_+)_f \arrow[d, twoheadrightarrow]
+                  \\
+                  (\I_f)_+ \arrow[ur, dashed, "\simeq"] \arrow[r]
+                  &
+                  \**.
+            \end{tikzcd}
+      \end{equation}
+      Since $\V$ is left proper and $\**$ is cofibrant, $(-)_+: \V \to \V_{\**}$ (and hence $\Cat^{\mathfrak C}(\V) \to \Cat^{\mathfrak C}(\V_{\**})$)
+      preserves \textit{all} weak equivalences, as indicated by the following pushout square.
+      \begin{equation}
+            \begin{tikzcd}
+                  A \arrow[r, rightarrowtail] \arrow[d, "\simeq"']
+                  &
+                  A \amalg \** \arrow[d, "\simeq"]
+                  \\
+                  B \arrow[r, rightarrowtail]
+                  &
+                  B \amalg \**
+            \end{tikzcd}
+      \end{equation}
+      Thus $\J_+$ is a $\V_{\**}$-interval, as desired.
+\end{proof}
+
+\begin{proposition}
+      \label{PT_COH_PROP}
+      Suppose $\V$ is a cofibrantly generated monoidal model category with cofibrant unit and cofibrant symmetric pushout powers,
+      and moreover $\V$ is left proper and $\**$ is cofibrant in $\V$.
+      If $\V$ satisfies the coherence axiom, then so does $\V_{\**}$.
+\end{proposition}
+\begin{proof}
+      Fix a map $\alpha:\mathbb A_+ \to \C_f$ detecting a homotopy equivalence in $\Cat(\V_{\**})$.
+      This is adjoint to $U\alpha$, which thus factors through a natural cofibration $\mathbb A \rightarrowtail \J$.
+      Applying $(-)_+$ yields the diagram below, for which the top arrow is again $\alpha$ by adjointness.
+      \begin{equation}
+            \begin{tikzcd}
+                  \mathbb A_+ \arrow[d, rightarrowtail] \arrow[r, "\alpha_+"]
+                  &
+                  (U \C_f)_+ \arrow[r]
+                  &
+                  \C_f
+                  \\
+                  \J_+ \arrow[ur, dashed]
+            \end{tikzcd}
+      \end{equation}
+      By Proposition \ref{VPT_INT_PROP}, it now suffices to show that $(-)_+$ preserves natural cofibration.
+      This too holds by the following diagram.
+      \begin{equation}
+            \begin{tikzcd}
+                  \mathbb A_+ \arrow[d, rightarrowtail] \arrow[r]
+                  &
+                  \I_+ \arrow[d, rightarrowtail, "\simeq"] \arrow[r, equal]
+                  &
+                  \I_+ \arrow[d, rightarrowtail, "\simeq"]
+                  \\
+                  \J_+ \arrow[r, "\simeq"]
+                  &
+                  (\I_f)_+ \arrow[r, "\simeq"]
+                  &
+                  (\I_+)_f
+            \end{tikzcd}
+      \end{equation}
+\end{proof}
+
+\begin{corollary}
+      \label{PTSSET_COR}
+      $\Op^G(\sSet_{\**})$ has the Dwyer-Kan model structure.
+\end{corollary}
+\begin{proof}
+      Combine Lemmas \ref{PT_PROP_LEM} and \ref{PT_CELL_LEM} with Proposition \ref{PT_COH_PROP}.
+\end{proof}
+
+
+
+
+
 
 \subsection{Examples}
 
@@ -4397,21 +4667,29 @@ originally due to Boardman-Vogt \cite{BV73}, and extended by Berger-Moerdijk \ci
 
 % ---------------------------------------- EXAMPLES ------------------------------
 
+
+
+
 \begin{example}
       $(\Top,\times)$:
-      \begin{enumerate}
+      \begin{enumerate}[label = (\roman*)]
       \item is cofibrantly generated (e.g. \cite{Pia91});
       \item is a closed monoidal model category with cofibrant unit (e.g. \cite[Prop. 4.2.11]{Hov99});
       \item has cellular fixed points by \cite{Pia91};
-      \item has cofibrant symmetric pushout powers in {\color{red} SOURCE};
+      \item has cofibrant symmetric pushout powers since geometric realization is left Quillen and strong monoidal;
       \item is right proper and
-      \item has a generating set of intervals, as all objects are fibrant (see \cite[Lemma 2.1]{BM13}).
+      \item has a generating set of intervals, as all objects are fibrant (see \cite[Lemma 2.1]{BM13});
+      \item is coherent by \cite[Lem. 4.16]{BV73}.
       \end{enumerate}
-      Finally, $\Top$ is coherent by \cite[Lem. 4.16]{BV73}.
-
       Thus, combining Theorem \ref{MODEL_THM} with Remarks \ref{TOP_FULL_REM} and \ref{OPGCV_FULL_REM},
       $\Op^G(\Top)$ has the Dwyer-Kan model structure.
+
+      Moreover, we can manually check that $\Top_{\**}$ satisfies condition $(iii)$ of cellularity,
+      and thus Lemma \ref{PT_PROP_LEM} and Proposition \ref{PT_COH_PROP}
+      imply that $\Op^G(\Top_{\**})$ has the Dwyer-Kan model structure.
 \end{example}
+
+
 
 % \begin{example}
 %       $(\sSet_{J}, \times)$, simplicial sets with the Joyal model structure:
@@ -4426,13 +4704,14 @@ originally due to Boardman-Vogt \cite{BV73}, and extended by Berger-Moerdijk \ci
 \begin{example}
       what about:
       \sout{$\V = \Set$? $\V = \Cat$? $\V = \mathsf{Ch}_R$?} [none of these are cellular!]
+      $\V = $ dg-modules with projective model structure?
       (list from \cite{BM13})
           
       $\V = \Gamma$-spaces?
 
       \sout{ $\V$ a model for $(\infty, 1)$-cats?} none of these are right proper! Depends on the homotopy theory, not the model category, so these are all out \cite{CisOF}.
  
-      $\V$ the category of simplicial modules over a ring? (from \cite[Example 4.23]{Cav14}).
+      $\V$ the category of simplicial modules over a ring? \cite[\S 3.1.15]{Rez96}  (from \cite[Example 4.23]{Cav14}).
 \end{example}
 
 
