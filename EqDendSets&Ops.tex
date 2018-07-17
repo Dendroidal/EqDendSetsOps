@@ -92,7 +92,7 @@ cf.  }
 
 \newcommand{\I}{\mathbb I}
 \newcommand{\J}{\mathbb J}
-\renewcommand{\1}{\ensuremath{\mathbb{id}}}
+\renewcommand{\1}{\eta}%{\ensuremath{\mathbb{id}}}
 
 % lazy shortcuts
 
@@ -3056,7 +3056,9 @@ into a single model structure on $\Op^G(\V)$.
             with $\I(0,0) = \I(0,1) = \I(1,0) = \I(1,1) = 1_\V$.
       \item Let $\mathbb A$ be the $\V$-category that detects arrows: it has objects $\set{0,1}$,
             with $\mathbb A(0,0) = \mathbb A(0,1) = \mathbb A(1,1) = 1_\V$, and $\mathbb A(1,0) = \varnothing$.
-      \item Let $\1$ be the $\V$-category that detects objects: it has a single object $\set{\**}$, with $\1(\**, \**) = 1_\V$.
+      \item Let $\1$ be the $\V$-category that detects objects: it has a single object $\set{\**}$, with $\1(\**, \**) = 1_\V$
+            \footnote{
+              This notation matches the fact that this category is equal to the image of the ``stick'' tree $\eta \in \Omega$.}.
       \end{itemize}
 \end{definition}
 
@@ -4423,6 +4425,22 @@ originally due to Boardman-Vogt \cite{BV73}, and extended by Berger-Moerdijk \ci
       and Corollary \ref{PTSSET_COR} below.
 \end{proof}
 
+\begin{remark}
+      While many model structures on $\sOp^G$ exist from the above theorem, unless otherwise stated
+      we will always be using the graph-subgroup model structure of the first statement in the theorem.
+\end{remark}
+
+\begin{remark}
+      \label{FIB_ISOFIB_REM}
+      From Example \ref{WJ EX}, we know that the nerve of the walking isomorphism $J = N \tilde{[1]}$ is a $\sSet$-interval.
+      Thus a map $f \in \sOp$ being ``path-lifting'' implies in particular that $h c N(f)$ has the right lifting property against $\** \to N \tilde{[1]}$,
+      and since $\tau \circ h c N(-) \simeq \pi_0$ by \cite[Prop. 4.8]{CM11},
+      this implies that $\pi_0(f^H)$ has the right lifting property against $\** \to \tilde{[1]}$;
+      that is, $f$ being path-lifting implies $\pi_0(f)$ is an isofibration of categories.
+
+      Consequently, for any fibration $f \in \sOp^G$, $\pi_0(f^H)$ is an isofibration.
+\end{remark}
+
 \subsubsection{Pointed simplicial sets}
 
 Given $(\V, \otimes)$, the category of pointed objects $\V_{\**} = \** \downarrow \V$ is also monoidal via the smash product.
@@ -4778,6 +4796,150 @@ Doesn't actually matter, but just to compare with the sorts of assumptions other
 
 
 
+
+\newpage
+\subsection{Quillen adjunction}
+
+\begin{definition}
+      For $T \in \Omega_G$,
+      define $W(T)$ to have the same objects as $\Omega(T)$, and
+      \begin{equation}
+            W(T)(C) =
+            \begin{cases}
+                  \Delta[1]^{\times E^i(C)}, \qquad & C \into T \text{ is a (non-equivariant) outer face}
+                  \\
+                  \varnothing & \text{else.}
+            \end{cases}
+      \end{equation}
+      Equivalently, given decompositions $T \simeq G \cdot_H U$ and $T \simeq G \cdot U / N$, we have
+      $W(T) \simeq G \cdot_H W(U)$ and $W(T) \simeq G \cdot W(U)/N$.
+\end{definition}
+
+\begin{proposition}[{cf. \cite[Prop. 4.5]{CM11}}]
+      \label{W!_COF_PROP}
+      $W_!: \dSet^G \to \sOp^G$ sends normal monomorphisms to cofibrations and inner anodyne extensions to trivial cofibrations.
+\end{proposition}
+\begin{proof}
+      It suffices to check this on the generating maps.
+
+      Pick a decomposition $T \simeq G \cdot_H U$ and consider $G/H \cdot i: G \cdot_H \left( W_! \partial \Omega[U] \to W(U) \right)$.      
+      If $T = G/H \cdot \eta$, then $i = W_! \partial \Omega[\eta] = \varnothing \to W(\eta) = \eta$,
+      and so $G/H \cdot i$ is a generating cofibration in $\sOp^G$.
+
+      Thus we may assume that $|V(T)| \geq 1$.
+      In this case, $i$ is bijective on objects, and,
+      unless $C = h \cdot \mathsf{lr} (U)$ for some $h \in H$, $i(C)$ is the identity.
+      For $C = \mathsf{lr}(U)$, we have $i(C) = (\partial \Delta[1] \to \Delta[1])^{\square E^i(U)}$ from \cite[Prop. 4.5]{CM11},
+      and hence $G/H \cdot i(C)$ is a cofibration in $\sSet^G$.
+      Thus, $i$ has the left lifting property against all local trivial fibrations in $\sOp^G$.
+      {\color{OliveGreen}
+        Indeed, we clearly have a lifts on the level of sequences.
+        To check that the resulting map is operadic, it suffices to check when $C \circ (C_1, \dots, C_n) = \mathsf{lr}(U)$:
+        if nothing is $\mathsf{lr}(U)$, this is just the map out of $W_!\partial \Omega[U]$;
+        if $C = U$, the $C_i$ must all be identities and hence there is no content to check;
+        similarly if one of the $C_i$ is $U$.
+        But in this case, we have the following commuting diagram, as needed.
+        \begin{equation}
+              \begin{tikzcd}
+                    W(T)(C) \times \prod W(T)(C_i) \arrow[r] \arrow[d, equal]
+                    &
+                    W(T)(U) \arrow[shift left = 4, dd, bend left = 45, dashed]
+                    \\
+                    \partial W(T)(C) \times \prod \partial W(T)(C_i) \arrow[r] \arrow[d]
+                    &
+                    \partial W(T)(U) \arrow[u] \arrow[d]
+                    \\
+                    \O(C) \times \prod \O(C_i) \arrow[r]
+                    &
+                    \O(U)
+              \end{tikzcd}
+        \end{equation}
+      } % COLOR OLIVEGREEN
+      Thus $i$ must be a cofibration in $\sOp^G$, as desired.
+
+      Similarly, for $T \simeq G \cdot_H U$ with (non-empty) inner edge orbit $G \cdot_H E$, consider the map
+      $G \cdot_H j = G \cdot_H \left( W_!\Lambda^E[U] \to W(U) \right)$.
+      Again, $j$ is bijective on objects and $j_C$ is the identity unless $C = h \cdot \mathsf{lr}(U)$.
+      When $C = \mathsf{lr}(U)$, $j_C$ is the pushout product
+      \begin{equation}
+            j_C =
+            \left(
+                  \begin{tikzcd}
+                        \partial \left(
+                              \Delta[1]^{\times E^i(T) \setminus E}
+                        \right) \arrow[d]
+                        \\
+                        \Delta[1]^{\times E^i(T) \setminus E}
+                  \end{tikzcd}
+            \right) \square
+            \left(
+                  \begin{tikzcd}
+                        \set{1} \arrow[d]
+                        \\
+                        \Delta[1]
+                  \end{tikzcd}
+            \right)
+            =
+            \left(
+                  \begin{tikzcd}
+                        \partial \Delta[1] \arrow[d]
+                        \\
+                        \Delta[1]
+                  \end{tikzcd}
+            \right)^{\square E^i(T) \setminus E}
+            \square
+            \left(
+                  \begin{tikzcd}
+                        \set{1} \arrow[d]
+                        \\
+                        \Delta[1]
+                  \end{tikzcd}
+            \right).                              
+      \end{equation}
+      The same argument as before shows that $G \cdot_H j$ has the left lifting property against all local fibrations,
+      hence is a trivial cofibration in $\sOp^G$.
+\end{proof}
+
+\begin{corollary}
+      [{\cite[Prop. 6.15]{Per17}, cf. \cite[Cor. 4.6]{CM11}}]
+      For any fibrant $\O \in \sOp^G$, $h c N \O$ is a $G$-$\infty$-operad.
+\end{corollary}
+
+\begin{proposition}[{cf. \cite[Prop/ 4.9]{CM11}}]
+      $W_!: \dSet^G \to \sOp^G$ is left Quillen.
+\end{proposition}
+\begin{proof}
+      As we already know by Proposition \ref{W!_COF_PROP} that $W_!$ preserves cofibrations,
+      it suffices by Corollary \ref{SIMPLQUILL COR} to show that $h c N$ preserves fibrations between fibrant objects.
+      Suppose $f: \O \to \P$ is a (graph) fibration between (graph) fibrant operads in $\sOp^G$.
+      Then Proposition \ref{W!_COF_PROP} also implies that $f$ is a $G$-inner-fibration between $G$-$\infty$-operads.
+      By \cite[Cor. 8.21]{Per17}, this is a fibration in $\dSet^G$ iff $\tau(h c N(f^H))$ is a categorical fibration for all $H \leq G$.
+      But by Remark \ref{FIB_ISOFIB_REM}, being a fibration in $\sOp^G$ implies that $\pi_0(f^H)$ is a categorical fibration for all $H \leq G$, 
+      and since $\pi_0 = \tau \circ h c N$ by \cite[Prop. 4.8]{CM11}, the result follows.
+\end{proof}
+
+\begin{remark}
+      One can also show a more powerful equivariant version of \cite[Prop. 4.8]{CM11},
+      namely that the following diagram commutes.
+      \begin{equation}
+            \begin{tikzcd}
+                  \sOp^G \arrow[r, "i_{\**}"] \arrow[d, "h c N"']
+                  &
+                  \sOp_G \arrow[d, "h c N"] \arrow[r, "\pi_0"]
+                  &
+                  \Op_G \arrow[d, equal]
+                  \\
+                  \dSet^G \arrow[r, "i_{\**}"]
+                  &
+                  \dSet_G \arrow[r, "\tau_G"]
+                  &
+                  \Op_G
+            \end{tikzcd}
+      \end{equation}
+      In particular, this recovers that $\pi_0 \circ (-)^H = \tau \circ h c N \circ (-)^H$ for all $H$,
+      but also more subtle information about the interaction of $\pi_0$ and $h c N$ with the graph subgroup fixed points.
+      This story, along with colored genuine equivariant operads, will be further explored in a sequel. 
+\end{remark}
 
 
 
