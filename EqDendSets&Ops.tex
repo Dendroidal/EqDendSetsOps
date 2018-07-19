@@ -1877,10 +1877,10 @@ To start, we observe ---  as in $(5.3)$ through $(5.7)$ of \cite{BP17} --- that
     % =: \colim_{n,l} \Lan \hat N_{n,l}^{(\O,X,Y)},
 \end{align*}
 where $B$ denotes the \textit{double bar construction},
-and the left Kan extension is over
+and the left Kan extension is over the leaf-root functor
 \mbox{$G \ltimes \Omega_{\mathfrak C}^{0,op} \xrightarrow{\mathsf{lr}} G \ltimes \Sigma_{\mathfrak C}^{op}$}.
 Through a series of reductions (Propositions \ref{OU_RED1_PROP}, \ref{OU_RED2_PROP}, and \ref{OU_RED3_PROP}),
-we will identify this as a left Kan extension over an approachable category $\hat\Omega_{\mathfrak C}^e$, 
+we will identify this as a left Kan extension over an approachable category, 
 and build our filtration by filtering this category.
 
 \subsubsection{Labeled planar strings}
@@ -1928,7 +1928,7 @@ and build our filtration by filtering this category.
       to be the pullbacks of the solid rectangles below.
       \begin{equation}
             \label{LSTRINGS_EQ}
-            \begin{tikzcd}
+            \begin{tikzcd}[column sep = small]
                   \bullet \arrow[d] \arrow[r]
                   &
                   G^{op} \ltimes (\Sigma \wr \A) \arrow[d] \arrow[r]
@@ -2114,19 +2114,13 @@ Applying Proposition \ref{NNSL_PROP} to \eqref{OU_EQ1} yields the following.
 
 Recall that, for any tree $T \in \Omega$ and edge $e \in T$, the \textit{input path} of $e$ is the set $I(e) = \sets{f \in T}{e \leq_d f}$.
 
-\begin{definition}[{cf. \cite[Defns 5.38,5.44,5.48]{BP17}}]
-      Let $\Omega^a$ denote the category of \textit{alternating trees}, where for any leaf $l \in T$, $|I(l)|$ is even.
-      Those vertices $e^{\uparrow} \leq e$ where $|I(e)|$ is odd are called \textit{active}, and \textit{inert} otherwise.
-
+\begin{definition}[{cf. \cite[Defn. 5.38]{BP17}}] 
       Let $\Omega^e$ denote the \textit{extension tree category}, with objects $\set{\O, X,Y}$-labeled trees, and arrows tall maps $\phi: T \to S$ such that for all $v \in V(T)$,
       \begin{itemize}
       \item If $T_v$ has an $X$-label, then $S_v \in \Sigma$ and has an $X$-label.
       \item If $T_v$ has a $Y$-label, then $S_v \in \Sigma$ and has either an $X$- or $Y$-label.
       \item If $T_v$ has an $\O$-label, then $S_v$ has only $X$ and $\O$ labels.
       \end{itemize}
-
-      Finally, let $\hat\Omega^e \into \Omega^e$ denote the subcategory of $(\O,X,Y)$-labeled trees whose
-      underlying tree is alternating, has active nodes labeled by $\O$ and inert nodes labeled by $X$ or $Y$.
 \end{definition}
 
 We will now realize (twice) the bisimplicial category $\OC^{\bullet, \lambda_\bullet}$.
@@ -2153,6 +2147,14 @@ We will now realize (twice) the bisimplicial category $\OC^{\bullet, \lambda_\bu
 \end{notation}
 
 We have a final reduction in this presentation.
+\begin{definition}[{\cite[Defn. 5.44,5.48]{BP17}}]
+      Let $\Omega^a \subset \Omega$ denote the full subcategory of \textit{alternating trees}, where for any leaf $l \in T$, $|I(l)|$ is even.
+      Those vertices $e^{\uparrow} \leq e$ where $|I(e)|$ is odd are called \textit{active}, and \textit{inert} otherwise.
+
+      Define $\hat\Omega^e \subset \Omega^e$ to be the full subcategory of $(\O,X,Y)$-labeled trees whose
+      underlying tree is alternating, has active nodes labeled by $\O$ and inert nodes labeled by $X$ or $Y$.      
+\end{definition}
+
 
  % \begin{lemma}
  %       If $\mathcal C \to \mathcal D$ is $\Ran$-initial over $\mathcal E$ in $\Cat^G$, then
@@ -2180,7 +2182,7 @@ We have a final reduction in this presentation.
       $\O[u] \simeq \Lan_{(G \ltimes \hat\Omega_{\mathfrak C}^{e} \to G \ltimes \SC)^{op}} \tilde N^{(\O,X,Y)}$. 
 \end{proposition}
 
-We will now filter the category $\hat\Omega_{\mathfrak C}^e$ by full subcategories (and hence also $G \ltimes \hat \OC^e$)
+We will now filter the category $\hat\Omega_{\mathfrak C}^e$ by full subcategories (and hence also $G \ltimes \hat \Omega_{\mathfrak C}^e$)
 to produce a levelwise filtration of $\O \to \O[u]$.
 
 \begin{definition}
@@ -2206,7 +2208,8 @@ to produce a levelwise filtration of $\O \to \O[u]$.
       \item $\hat\Omega_{\mathfrak C}^e[\leq k \setminus Y]$ (resp. $\hat\Omega_{\mathfrak C}^e[k \setminus Y]$) is the further subcategory of $\hat\Omega_{\mathfrak C}^e[\leq k]$ (resp. $\hat\Omega_{\mathfrak C}^e[k]$) with $|T|_Y \neq k$.
       \end{itemize}
 
-      Finally, define the full subcategories $G^{op} \ltimes \hat \Omega_{\mathfrak C}^e[\bullet] \subseteq G \ltimes \hat \Omega_{\mathfrak C}^e$
+      Finally, define the full subcategories
+      $G^{op} \ltimes \hat \Omega_{\mathfrak C}^e[-] \subseteq G \ltimes \hat \Omega_{\mathfrak C}^e$
       to be spanned by the same objects.
 \end{definition}
 
@@ -2400,6 +2403,7 @@ We can finally prove our formula for the levelwise filtration.
 
 Recall the following from \cite{Ste16, BP17}.
 \begin{definition}
+      \label{CELLFP_DEF}
       We say $\V$ has \textit{cellular fixed points} if
       for all finite groups $G$ and subgroups $H, K \leq G$ one has that:
       \begin{enumerate}[label = (\roman*)]
@@ -2411,7 +2415,8 @@ Recall the following from \cite{Ste16, BP17}.
 
 \begin{remark}
       \label{LEVEL_COF_REM}
-      An immediate consequence of cellularity is that for any genuine cofibration $f \in \V^G_{gen}$,
+      An immediate consequence of cellularity (see \cite[Prop. 6.3(i)]{BP17})
+      is that for any genuine cofibration $f \in \V^G_{gen}$,
       $f^H$ is a cofibration in $\V$ for all $H \leq G$.
 \end{remark}
 
@@ -4437,6 +4442,7 @@ originally due to Boardman-Vogt \cite{BV73}, and extended by Berger-Moerdijk \ci
       and since $\tau \circ h c N(-) \simeq \pi_0$ by \cite[Prop. 4.8]{CM11},
       this implies that $\pi_0(f^H)$ has the right lifting property against $\** \to \tilde{[1]}$;
       that is, $f$ being path-lifting implies $\pi_0(f)$ is an isofibration of categories.
+      The converse is also true, as $\pi_0$ sends weak equivalences in $\sOp$ to isomorphisms in $\Op$.
 
       Consequently, for any fibration $f \in \sOp^G$, $\pi_0(f^H)$ is an isofibration.
 \end{remark}
@@ -4494,88 +4500,126 @@ The following lemmas are straightforward.
       $\Cat^{\mathfrak C}(\V) \rightleftarrows \Cat^{\mathfrak C}(\V_{\**})$ is a Quillen pair of (semi)-model categories.
 \end{lemma}
 
+We would like $\V_{\**}$ to additionally inherit cellular fixed points from $\V$.
+While this will \textit{not} be the case, we do get some information.
+\begin{definition}
+      A model category $\mathcal M$ has \textit{weakly cellular fixed points} if
+      $\mathcal M$ satisfies conditions $(i)$ and $(ii)$ of cellularity (Defn. \ref{CELLFP_DEF},
+      and additionally the composite functor $(G/K \cdot (-))^H$ sends generating (trivial) cofibrations to (trivial) cofibrations.
+
+      It is clear that all model categories will cellular fixed points have weakly cellular fixed points.
+\end{definition}
+
+\begin{remark}
+      By \cite[Rem. 2.8]{Ste16}, $\mathcal M$ having weakly cellular fixed points is sufficient for the 
+      $\F$-model structure on $\mathcal M^G$ to exist for any family $\F$ of subgroups of $G$.
+\end{remark}
+
 \begin{lemma}
-      \label{PT_CELL_LEM}
-      Suppose $\V$ cofibrantly generated monoidal model category with cellular fixed points,
-      and further that every object in $\V$ is cofibrant.
-      Then $\V_{\**}$ also has cellular fixed points.
+      If $\V$ has weakly cellular fixed points, then so does $\V_{\**}$.
 \end{lemma}
 \begin{proof}
-      We note that $(-)^H \circ U = U \circ (-)^H$,
-      and that colimits in $\V_{\**}$ can be computed in $\V$ as long as we add an initial object to the indexing diagram (and send it to the zero object in $\V_{\**}$.
-      Thus, for any directed poset $\mathcal D$, we have the following diagram, where all but the left side of the square are known to commute.
+      Since the generating (trivial) cofibrations of $\V_{\**}$ are just $f_+$ for $f$ a generating (trivial) cofibration in $\V$,
+      this result follows from the equation below.
       \begin{equation}
-            \begin{tikzcd}[row sep = tiny, column sep = tiny]
-                  \Fun(\mathcal D, V^G_{\**}) \arrow[r]
-                  &
-                  \Fun_{\**}(\mathcal D^\triangleleft, \V^G_{\**}) \arrow[rr] \arrow[dd] \arrow[dr]
-                  &&
-                  \Fun_{\**}(\mathcal D^\triangleleft, \V^G) \arrow[dd] \arrow[dr]
-                  \\
-                  &&
-                  \Fun_{\**}(\mathcal D^\triangleleft, \V_{\**}) \arrow[rr, crossing over]
-                  &&
-                  \Fun_{\**}(\mathcal D^\triangleleft, \V) \arrow[dd]
-                  \\
-                  &
-                  \V^G_{\**} \arrow[rr] \arrow[dr]
-                  &&
-                  \V^G \arrow[dr]
-                  \\
-                  &&
-                  \V_{\**} \arrow[rr] \arrow[uu, leftarrow, crossing over]
-                  &&
-                  \V
-            \end{tikzcd}
-      \end{equation}
-      Hence $(i)$ follows.
-      
-      Moreover, since pushouts and cofibrations are computed in $\V$, $(ii)$ follows immediately.
-
-      Finally, we note that for $A \in \Set$ and $X \in \V_{\**}$, the canonical copowering $A \cdot_{\**} X$ in $\V_{\**}$ is given by the diagram on the left.
-      Thus, using $(ii)$ for $\V$ and our assumption that $\** \to X$ is a cofibration, $(iii)$ follows by the diagram on the right,
-      where both the front and back panels are pushouts.
-      \begin{equation}
-            \begin{tikzcd}[row sep = tiny]
-                  A \cdot \** \arrow[d] \arrow[r]
-                  &
-                  A \cdot X \arrow[d]
-                  & % ----------
-                  (G/K)^H \cdot \** \arrow[dd] \arrow[rr] \arrow[dr, "\cong"']
-                  &[-15pt]&[-15pt]
-                  (G/K)^H \cdot X \arrow[dd] \arrow[dr, "\cong"]
-                  \\
-                  \** \arrow[r]
-                  &
-                  A \cdot_{\**} X
-                  & % ----------
-                  &
-                  (G/K \cdot \**)^H \arrow[rr, crossing over]
-                  &&[-15pt]
-                  (G/K \cdot X)^H \arrow[dd]
-                  \\
-                  && % ----------
-                  \** \arrow[rr] \arrow[dr, equal]
-                  &&
-                  (G/K)^H \cdot_{\**} X \arrow[dr, dashed, "\cong"]
-                  \\
-                  && % ----------
-                  & \**^H \arrow[rr] \arrow[uu, leftarrow, crossing over]
-                  &&
-                  (G/K \cdot_{\**} X)^H
-            \end{tikzcd}
+            (G/K \cdot_{\**} (-)_+)^H \cong \left( (G/K \cdot (-))_+ \right)^H \cong (G/K \cdot (-))^H_+
       \end{equation}
 \end{proof}
 
 \begin{remark}
-      We record that the additional assumption, that all objects in $\V$ are cofibrant, was only used to prove condition $(iii)$.
+      \label{WEAKCELL_REM}
+      Conveniently, at no place in our proof of Theorem \ref{MODEL_THM} (including importantly Theorem I and II from \cite{BP17})
+      did we ever use the full strength of cellular fixed points,
+      and instead we only ever required the existance of the $\F$-model structures.
+      The reason we (and \cite{Ste16}) use cellular fixed points is that the full condition (iii) is what really allows us to say anything meaningful about the \textit{cofibrant} objects in our category (see, e.g. \cite[Prop. 6.56 and Lemma 6.59]{BP17}).
 \end{remark}
 
+
+{\color{OliveGreen} % ---------- OLIVE GREEN ----------
+  If we want $\V_{\**}$ to actually have cellular fixed points, we need to make another assumption.
+  \begin{lemma}
+        \label{PT_CELL_LEM}
+        Suppose $\V$ is a  cofibrantly generated monoidal model category with cellular fixed points,
+        and further that all monomorphisms are cofibrations
+        \footnote{
+          In fact, we only need that all possible maps $\** \to X$ are cofibrations.
+        }.
+        Then $\V_{\**}$ also has cellular fixed points.
+  \end{lemma}
+  \begin{proof}
+        We note that $(-)^H \circ U = U \circ (-)^H$,
+        and that colimits in $\V_{\**}$ can be computed in $\V$ as long as we add an initial object to the indexing diagram (and send it to the zero object in $\V_{\**}$.
+        Thus, for any directed poset $\mathcal D$, we have the following diagram, where all but the left side of the square are known to commute.
+        \begin{equation}
+              \begin{tikzcd}[row sep = tiny, column sep = tiny]
+                    \Fun(\mathcal D, V^G_{\**}) \arrow[r]
+                    &
+                    \Fun_{\**}(\mathcal D^\triangleleft, \V^G_{\**}) \arrow[rr] \arrow[dd] \arrow[dr]
+                    &&
+                    \Fun_{\**}(\mathcal D^\triangleleft, \V^G) \arrow[dd] \arrow[dr]
+                    \\
+                    &&
+                    \Fun_{\**}(\mathcal D^\triangleleft, \V_{\**}) \arrow[rr, crossing over]
+                    &&
+                    \Fun_{\**}(\mathcal D^\triangleleft, \V) \arrow[dd]
+                    \\
+                    &
+                    \V^G_{\**} \arrow[rr] \arrow[dr]
+                    &&
+                    \V^G \arrow[dr]
+                    \\
+                    &&
+                    \V_{\**} \arrow[rr] \arrow[uu, leftarrow, crossing over]
+                    &&
+                    \V
+              \end{tikzcd}
+        \end{equation}
+        Hence $(i)$ follows.
+        
+        Moreover, since pushouts and cofibrations are computed in $\V$, $(ii)$ follows immediately.
+
+        Finally, we note that for $A \in \Set$ and $X \in \V_{\**}$, the canonical copowering $A \cdot_{\**} X$ in $\V_{\**}$ is given by the diagram on the left.
+        Thus, using $(ii)$ for $\V$ and our assumption that $\** \to X$ is a cofibration, $(iii)$ follows by the diagram on the right,
+        where both the front and back panels are pushouts, the back by definition, and the front by our assumption that every $\** \to X$ is a cofibration (as these are always categorical monomorphisms) and cellularity condition $(ii)$ for $\V$.      
+        \begin{equation}
+              \begin{tikzcd}[row sep = tiny]
+                    A \cdot \** \arrow[d] \arrow[r]
+                    &
+                    A \cdot X \arrow[d]
+                    & % ----------
+                    (G/K)^H \cdot \** \arrow[dd] \arrow[rr] \arrow[dr, "\cong"']
+                    &[-15pt]&[-15pt]
+                    (G/K)^H \cdot X \arrow[dd] \arrow[dr, "\cong"]
+                    \\
+                    \** \arrow[r]
+                    &
+                    A \cdot_{\**} X
+                    & % ----------
+                    &
+                    (G/K \cdot \**)^H \arrow[rr, crossing over]
+                    &&[-15pt]
+                    (G/K \cdot X)^H \arrow[dd]
+                    \\
+                    && % ----------
+                    \** \arrow[rr] \arrow[dr, equal]
+                    &&
+                    (G/K)^H \cdot_{\**} X \arrow[dr, dashed, "\cong"]
+                    \\
+                    && % ----------
+                    & \**^H \arrow[rr] \arrow[uu, leftarrow, crossing over]
+                    &&
+                    (G/K \cdot_{\**} X)^H
+              \end{tikzcd}
+        \end{equation}
+  \end{proof}
+} % ---------- OLIVE GREEN ----------
+
+To complete Theorems \ref{MODEL_THM} and \ref{INTRO_MODEL_THM} for $\V_{\**}$, we need to check the existance of $\V_{\**}$-intervals and the inheritance of the coherence axiom.
 
 \begin{proposition}
       \label{VPT_INT_PROP}
       Suppose $\V$ is a cofibrantly generated monoidal model category with cofibrant unit and cofibrant symmetric pushout powers,
-      and moreover $\V$ is left proper and $\**$ is cofibrant in $\V$.
+      and moreover suppose $(-)_+$ preserves all weak equivalences.
       Then $\J_+$ is a $\V_{\**}$-interval for any $\V$-interval $\J$.
 \end{proposition}
 \begin{proof}
@@ -4599,6 +4643,7 @@ The following lemmas are straightforward.
       \end{equation}
       by applying $(-)_+$ and using the lifting from the square
       \begin{equation}
+            \label{IFP_IPF_EQ}
             \begin{tikzcd}
                   \I_+ \arrow[d, rightarrowtail, "\simeq"'] \arrow[r, rightarrowtail, "\simeq"]
                   &
@@ -4609,35 +4654,23 @@ The following lemmas are straightforward.
                   \**.
             \end{tikzcd}
       \end{equation}
-      Since $\V$ is left proper and $\**$ is cofibrant, $(-)_+: \V \to \V_{\**}$ (and hence $\Cat^{\mathfrak C}(\V) \to \Cat^{\mathfrak C}(\V_{\**})$)
-      preserves \textit{all} weak equivalences, as indicated by the following pushout square.
-      \begin{equation}
-            \begin{tikzcd}
-                  A \arrow[r, rightarrowtail] \arrow[d, "\simeq"']
-                  &
-                  A \amalg \** \arrow[d, "\simeq"]
-                  \\
-                  B \arrow[r, rightarrowtail]
-                  &
-                  B \amalg \**
-            \end{tikzcd}
-      \end{equation}
-      Thus $\J_+$ is a $\V_{\**}$-interval, as desired.
+      Since $(-)_+$ also preserves all weak equivalences, $\J_+$ is a $\V_{\**}$-interval, as desired.
 \end{proof}
 
 \begin{proposition}
       \label{PT_COH_PROP}
       Suppose $\V$ is a cofibrantly generated monoidal model category with cofibrant unit and cofibrant symmetric pushout powers,
-      and moreover $\V$ is left proper and $\**$ is cofibrant in $\V$.
+      and moreover suppose $(-)_+$ preserves all weak equivalences.
       If $\V$ satisfies the coherence axiom, then so does $\V_{\**}$.
 \end{proposition}
 \begin{proof}
       Fix a map $\alpha:\mathbb A_+ \to \C_f$ detecting a homotopy equivalence in $\Cat(\V_{\**})$.
-      This is adjoint to $U\alpha$, which thus factors through a natural cofibration $\mathbb A \rightarrowtail \J$.
+      By coherence of $\V$, it's adjoint map $\tilde \alpha$
+      factors through a natural cofibration $\mathbb A \rightarrowtail \J$.
       Applying $(-)_+$ yields the diagram below, for which the top arrow is again $\alpha$ by adjointness.
       \begin{equation}
             \begin{tikzcd}
-                  \mathbb A_+ \arrow[d, rightarrowtail] \arrow[r, "\alpha_+"]
+                  \mathbb A_+ \arrow[d, rightarrowtail] \arrow[r, "\tilde{\alpha}_+"]
                   &
                   (U \C_f)_+ \arrow[r]
                   &
@@ -4647,7 +4680,7 @@ The following lemmas are straightforward.
             \end{tikzcd}
       \end{equation}
       By Proposition \ref{VPT_INT_PROP}, it now suffices to show that $(-)_+$ preserves natural cofibration.
-      This too holds by the following diagram.
+      This too holds by the following diagram, where the bottom right horizontal map is from \eqref{IFP_IPF_EQ}.
       \begin{equation}
             \begin{tikzcd}
                   \mathbb A_+ \arrow[d, rightarrowtail] \arrow[r]
@@ -4665,13 +4698,48 @@ The following lemmas are straightforward.
       \end{equation}
 \end{proof}
 
+\begin{lemma}
+      \label{P_P_WE_LEM}
+      Suppose $\V$ is a cofibrantly generated monoidal model category with cofibrant unit and cofibrant symmetric pushout powers,
+      and moreover suppose $\V$ is left proper and $\**$ is cofibrant in $\V$.
+      Then $(-)_+: \V \to \V_{\**}$, and hence $\Cat^{\mathfrak C}(\V) \to \Cat^{\mathfrak C}(\V_{\**})$, preserves all weak equivalences.
+\end{lemma}
+\begin{proof}
+      This follows by considering the pushout square below.
+      \begin{equation}
+            \begin{tikzcd}
+                  A \arrow[r, rightarrowtail] \arrow[d, "\simeq"']
+                  &
+                  A \amalg \** \arrow[d, "\simeq"]
+                  \\
+                  B \arrow[r, rightarrowtail]
+                  &
+                  B \amalg \**
+            \end{tikzcd}
+      \end{equation}
+\end{proof}
+
 \begin{corollary}
-      \label{PTSSET_COR}
-      $\Op^G(\sSet_{\**})$ has the Dwyer-Kan model structure.
+      \label{PT_MODEL_COR}
+      Suppose $\V$ satisfies the hypotheses of Theorem \ref{INTRO_MODEL_THM}
+      (possibly replacing ``cellular'' with ``weakly cellular''),
+      and moreover that $\V$ is left proper and $\**$ is cofibrant in $\V$.
+
+      Then $\Op^G(\V_{\**})$ has the Dwyer-Kan (semi)-model structure.
 \end{corollary}
 \begin{proof}
-      Combine Lemmas \ref{PT_PROP_LEM} and \ref{PT_CELL_LEM} with Proposition \ref{PT_COH_PROP}.
+      Combine Lemmas \ref{PT_PROP_LEM} and \ref{P_P_WE_LEM}, Remark \ref{WEAKCELL_REM}, and Proposition \ref{PT_COH_PROP}.
 \end{proof}
+
+
+\begin{corollary}
+      \label{PTSSET_COR}
+      $\sSet_{\**}$ has cellular fixed points, and moreover
+      $\Op^G(\sSet_{\**})$ has the Dwyer-Kan model structure.
+\end{corollary}
+% \begin{proof}
+%       Combine Lemmas \ref{PT_PROP_LEM}, \ref{PT_CELL_LEM}, and \ref{P_P_WE_LEM} with Proposition \ref{PT_COH_PROP}.
+% \end{proof}
 
 
 
@@ -4693,7 +4761,7 @@ The following lemmas are straightforward.
       \begin{enumerate}[label = (\roman*)]
       \item is cofibrantly generated (e.g. \cite{Pia91});
       \item is a closed monoidal model category with cofibrant unit (e.g. \cite[Prop. 4.2.11]{Hov99});
-      \item has cellular fixed points by \cite{Pia91};
+      \item has cellular fixed points by \cite{Pia91} (see also e.g. \cite[Lemma 3.18]{Ste16});
       \item has cofibrant symmetric pushout powers since geometric realization is left Quillen and strong monoidal;
       \item is right proper and
       \item has a generating set of intervals, as all objects are fibrant (see \cite[Lemma 2.1]{BM13});
@@ -4702,9 +4770,10 @@ The following lemmas are straightforward.
       Thus, combining Theorem \ref{MODEL_THM} with Remarks \ref{TOP_FULL_REM} and \ref{OPGCV_FULL_REM},
       $\Op^G(\Top)$ has the Dwyer-Kan model structure.
 
-      Moreover, we can manually check that $\Top_{\**}$ satisfies condition $(iii)$ of cellularity,
-      and thus Lemma \ref{PT_PROP_LEM} and Proposition \ref{PT_COH_PROP}
-      imply that $\Op^G(\Top_{\**})$ has the Dwyer-Kan model structure.
+      Moreover, Corollary \ref{PT_MODEL_COR} implies that $\Op^G(\Top_{\**})$ has the Dwyer-Kan model structure.
+
+      \todo[inline]{Warning: I don't know that $\Top_{\**}$ satisfies condtion $(iii)$ of cellularity.
+        The two spaces clearly agree as \textit{sets}, but do they agree as \textit{spaces} if the basepoint isn't closed?}
 \end{example}
 
 
