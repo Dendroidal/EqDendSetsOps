@@ -10066,21 +10066,40 @@ In this short section, we will prove that the pullback 2-functor $\pi^{\**}$ and
 \subsection{Grothendieck monads}
 
 \begin{definition}
-Given a Grothendieck fibration $\mathcal{C} \to \mathcal{D}$,
-a \textit{Grothendieck monad} is given by the data of
+Given a split Grothendieck fibration $\mathcal{C} \to \mathcal{D}$,
+a \textit{Grothendieck monad} is a monad $T\colon \mathcal{C} \to \mathcal{C}$ such that the diagram below commutes.
+\[
+\begin{tikzcd}
+\mathcal{C} \ar{rr}{T} \ar{rd} && \mathcal{C} \ar{dl}
+\\
+& \mathcal{D}
+\end{tikzcd}
+\]
+\end{definition}
+
+Our first goal is to show Corollary \ref{ALGAREGROTH COR}, stating that 
+if $T$ is a Grothendieck monad then 
+$\mathsf{Alg}_T(\mathcal{C})$
+is again a Grothendieck construction over the base $\mathcal{D}$.
+We start by unpacking the data of a Grothendieck monad.
+
+
+\begin{proposition}
+A Grothendieck monad $T$ on $\mathcal{C} \to \mathcal{D}$
+is equivalent to the data of
 \begin{itemize}
-\item for each $d \in \mathcal{D}$, a monad $T_d$ on the fiber $\mathcal{C}_d$
+\item for each $d \in \mathcal{D}$, a monad $T_d\colon \mathcal{C}_d \to \mathcal{C}_d$
 \item for each arrow $d \to d'$ in $\mathcal{D}$, a natural transformation 
 $T_d f^{\**} \Rightarrow f^{\**} T_{d'}$
 \end{itemize}
-subject to the following conditions
+subject to the following conditions:
 \begin{itemize}
-\item the composite 
+\item[(a)] the composite 
 $T_d f^{\**} g^{\**} \Rightarrow f^{\**} T_{d'} g^{\**} \Rightarrow f^{\**} g^{\**} T_{d''}$
 coincides with the natural transformation 
 $T_d (gf)^{\**} \Rightarrow (gf)^{\**} T_{d''}$
 induced by $gf$.
-\item the squares
+\item[(b)] the squares
 \begin{equation}\label{GROTHCART EQ}
 \begin{tikzcd}
 	T_d T_d f^{\**} \ar{r} \ar{d}[swap]{} &
@@ -10097,38 +10116,21 @@ induced by $gf$.
 \end{equation}
 commute.
 \end{itemize}
-
-\end{definition}
-
-A Grothendieck monad then defines a monad $T$ on $\mathcal{D}$
-by acting via the fiberwise monads on objects and fiber arrows, 
-and on pullback arrows by setting 
-$T(f^{\**}c' \to c')$ to be the natural composite
-\[
-T_df^{\**}c' \to f^{\**}T_{d'}c' \to T_{d'}c'
-\]
-The monad structure maps $TT \Rightarrow T$, $I \Rightarrow T$ are then given fiberwise, with their naturality with respect to pullback arrows corresponding to the commutativity of the diagrams in 
-\eqref{GROTHCART EQ}.
-
-
-\begin{proposition}
-Given a Grothendieck monad $\{T_d\}$ on $\mathcal{C} \to \mathcal{D}$, the pullback functors $f^{\**}$
-lift to the algebra categories to give functors
-\[
-f^{\**} \colon
-\mathsf{Alg}_{T_d}(\mathcal{C}_d)
-\to 
-\mathsf{Alg}_{T_d'}(\mathcal{C}_d')
-\]
 \end{proposition}
 
-\begin{proof}
-Given a $T_{d'}$-algebra $c'$, 
-the composite
-$T_d f^{\**} c' \to f^{\**}T_{d'} c' \to f^{\**} c'$
-provides the required $T_d$-action on $f^{\**}c'$.
 
-The claim that this is indeed a $T_d$-algebra structure is a  consequence of \eqref{GROTHCART EQ}.
+\begin{proof}
+The monads $\mathcal{C}_d$ are the restrictions to $T$ to $\mathcal{C}_d$ while the natural transformations 
+$T_d f^{\**} \Rightarrow f^{\**} T_{d'}$
+follow by applying
+$T$ to the pullback arrows to obtain arrows 
+$T f^{\**}c \to Tc$,
+which are canonically factored to obtain 
+$T f^{\**}c \to f^{\**}Tc \to Tc$ (one can readily check that naturality is then equivalent to $T$ being compatible with the composition of a pullback arrow followed by a fiber arrows).
+(a) is then equivalent to $T$ being compatible with the composition of pullback arrows while
+(b) is equivalent to the naturality of the natural transformations
+$TT\Rightarrow T$, $I \Rightarrow T$
+with respect to pullback arrows.
 \end{proof}
 
 \begin{remark}
@@ -10140,8 +10142,30 @@ are maps of monads.
 \end{remark}
 
 
-\begin{corollary}
-Given a Grothendieck monad $\{T_d\}$ on $\mathcal{C} \to \mathcal{D}$, the algebra category 
+
+\begin{lemma}
+Given a Grothendieck monad $T$ on $\mathcal{C} \to \mathcal{D}$, the pullback functors $f^{\**}$
+lift to the algebra categories to give functors
+\[
+f^{\**} \colon
+\mathsf{Alg}_{T_d}(\mathcal{C}_d)
+\to 
+\mathsf{Alg}_{T_d'}(\mathcal{C}_d')
+\]
+\end{lemma}
+
+\begin{proof}
+Given a $T_{d'}$-algebra $c'$, 
+the composite
+$T_d f^{\**} c' \to f^{\**}T_{d'} c' \to f^{\**} c'$
+provides the required $T_d$-action on $f^{\**}c'$.
+The claim that this is a $T_d$-algebra structure is a consequence of \eqref{GROTHCART EQ}.
+\end{proof}
+
+
+
+\begin{corollary}\label{ALGAREGROTH COR}
+Given a Grothendieck monad $T$ on $\mathcal{C} \to \mathcal{D}$, the algebra category 
 $\mathsf{Alg}_T(\mathcal{C})$
 is naturally identified with the Grothendieck construction of
 \begin{equation}
@@ -10156,7 +10180,23 @@ is naturally identified with the Grothendieck construction of
 \end{corollary}
 
 
+Suppose now that $I$ is a fixed diagram category.
+Given a split Grothendieck fibration
+$\mathcal{C} \to \mathcal{D}$,
+one has that $\mathcal{C}^I \to \mathcal{D}^I$
+is again a split Grothendieck fibration, with pullbacks defined levelwise.
+Similarly, given a monad $T$ on $\mathcal{C}$, one has a levelwise monad
+$T^I$ on $\mathcal{C}^I$, and a natural identification
+$\mathsf{Alg}_{T^I}(\mathcal{C}^I)\simeq
+\left(\mathsf{Alg}_T(\mathcal{C})\right)^I$.
+Combining these two observations, it is moreover clear that if
+$T$ is a Grothendieck monad on $\mathcal{C} \to \mathcal{D}$
+then $T^I$ is again a Grothendieck monad on 
+$\mathcal{C}^I \to \mathcal{D}^I$.
+
 {\color{red} HERE}
+
+
 
 \begin{lemma}
 Suppose $\{T_d\}$ is a Grothendieck monad for 
@@ -10169,10 +10209,75 @@ is a natural isomorphism.
 \end{lemma}
 
 \begin{proof}
-k
+It is sufficient to argue for the existence of both a left and a right inverse. Moreover, it suffices to show that those inverses exist after precomposition and postcomposition with $(f^{-1})^{\**}$. This now follows by noting that the composites below are both identities.
+\[T_d f^{\**}(f^{-1})^{\**} \to 
+f^{\**} T_{d'} (f^{-1})^{\**} \to
+f^{\**}(f^{-1})^{\**} T_d
+\qquad 
+T_{d'} (f^{-1})^{\**}f^{\**} \to 
+(f^{-1})^{\**} T_{d} f^{\**} \to
+(f^{-1})^{\**} f^{\**}T_{d'}
+\]
 \end{proof}
 
 
+Let $G$ be a chosen fixed group. 
+Our next goal is to show that, given a sequence
+$\mathsf{Alg}_T(\mathcal{C}) \to \mathcal{C} \to \mathcal{D}$
+where $\mathcal{C} \to \mathcal{D}$
+is a split Grothendieck fibration and
+$T$ is a Grothendick monad, the $G$-object sequence
+\[\mathsf{Alg}_T(\mathcal{C})^G \to \mathcal{C}^G \to \mathcal{D}^G\]
+has the same properties, i.e. that 
+$\mathcal{C}^G \to \mathcal{D}^G$ is again a split Grothendieck fibration and that 
+$\mathsf{Alg}_T(\mathcal{C})^G \simeq \mathsf{Alg}_{T^G}(\mathcal{C}^G)$
+is the category of algebras on $\mathcal{C}^G$ for some Grothendieck monad $T^G$. 
+
+To do so, we first introduce some notation.
+Given $d \in \mathcal{D}^G$, we write 
+$\left(\mathcal{C}^G\right)_d$
+for the fiber of $\mathcal{C}^G$ over $d$
+and, slightly abusing notation, we write $\mathcal{C}_d$ for the fiber of $\mathcal{C}$ over the underlying object $d \in \mathcal{D}$.
+Crucially, we note that 
+$\left(\mathcal{C}^G\right)_d$
+is in general rather different from the $G$-object category
+$\left(\mathcal{C}_d\right)^G$.
+Instead, one has that pullbacks equip $\mathcal{C}_d$ with a $G^{op}$ action and one has the following.
+
+
+\begin{proposition}
+Let $\mathcal{C} \to \mathcal{D}$ be a split Grothendieck fibration and $G$ a chosen group.
+
+Then $\mathcal{C}^G \to \mathcal{D}^G$ is  
+ naturally identified with the Grothendieck construction of
+\begin{equation}
+\begin{tikzcd}[row sep = tiny]
+    \left(\mathcal{D}^G\right)^{op} \arrow[r] &
+\mathsf{Cat}
+\\
+	d \arrow[r, mapsto] &
+	\left(\mathcal{C}^G \right)_d
+\end{tikzcd}
+\end{equation}
+
+Moreover, there are natural identifications
+\[
+\left(\mathcal{C}^G\right)_d \simeq
+\mathsf{Fun}^{G^{op}}(EG,\mathcal{C}_d)
+\]
+where $EG$ is the category with objects the elements of $G$ and arrows
+$g \xrightarrow{h} hg$, together with the obvious $G^{op}$-action.
+\end{proposition}
+
+
+{\color{red} HERE}
+
+
+\begin{proof}
+The first claim is a straightforward consequence of the observation that, if $f$ is an arrow in $\mathcal{D}^{G}$, then $f^{\**}$ commutes with the action pullbacks, i.e. that 
+$f^{\**} g^{\**} = g^{\**} f^{\**}$ for all $g \in G$.
+
+\end{proof}
 
 
 
