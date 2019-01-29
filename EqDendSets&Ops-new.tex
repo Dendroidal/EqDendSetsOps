@@ -10142,6 +10142,28 @@ are maps of monads.
 \end{remark}
 
 
+\begin{lemma}
+Suppose $T$ is a Grothendieck monad for 
+$\mathcal{C} \to \mathcal{D}$.
+Then if $f\colon d \to d'$ is an isomorphism in $\mathcal{D}$,
+the associated map
+$T_d f^{\**} \to f^{\**}T_{d'}$
+is a natural isomorphism.
+\end{lemma}
+
+\begin{proof}
+It is sufficient to argue for the existence of both a left and a right inverse. Moreover, it suffices to show that those inverses exist after precomposition and postcomposition with $(f^{-1})^{\**}$. This now follows by noting that the composites below are both identities.
+\[T_d f^{\**}(f^{-1})^{\**} \to 
+f^{\**} T_{d'} (f^{-1})^{\**} \to
+f^{\**}(f^{-1})^{\**} T_d
+\qquad 
+T_{d'} (f^{-1})^{\**}f^{\**} \to 
+(f^{-1})^{\**} T_{d} f^{\**} \to
+(f^{-1})^{\**} f^{\**}T_{d'}
+\]
+\end{proof}
+
+
 
 \begin{lemma}
 Given a Grothendieck monad $T$ on $\mathcal{C} \to \mathcal{D}$, the pullback functors $f^{\**}$
@@ -10194,90 +10216,74 @@ $T$ is a Grothendieck monad on $\mathcal{C} \to \mathcal{D}$
 then $T^I$ is again a Grothendieck monad on 
 $\mathcal{C}^I \to \mathcal{D}^I$.
 
-{\color{red} HERE}
+Our next goal is to make this discussion more explicit in the case where
+$I=G$ is a group.
+Namely, given a $G$-object $d \in \mathcal{D}^G$,
+we wish for a more explicit description of the fiber
+$\left(\mathcal{C}^G\right)_d$ of $\mathcal{C}^G$ over $d$,
+as well as of the fiber monad $(T^G)_d$.
+To do so, we will find it helpful to slightly abuse notation by writing $\mathcal{C}_d$ for the fiber of $\mathcal{C}$ over the underlying object $d \in \mathcal{D}$ and $T_d$ for the fiber monad.
 
+Writing $d\xrightarrow{g} d$ for the $G$-action on $d$, one obtains a  $G^{op}$-action on $T_d$ via the pullback functors $g^{\**}$.
+Additionally, we write $EG$ for the contractible groupoid with objects the elements of $G$, and note that $EG$ has an obvious 
+$G^{op}$-action given by right multiplication of the objects.
 
+It is then straightforward to check that the objects of the equivariant functor category
+\begin{equation}\label{TWISTEDFIX EQ}
+\mathsf{Fun}^{G^{op}}(EG,\mathcal{C}_d)
+\end{equation}
+are determined by ``twisted $G$-objects'' in $\mathcal{C}_d$, i.e. objects 
+$c\in \mathcal{C}_d$
+together with action maps 
+$b_g \colon c \to g^{\**}c$
+which are associative in the sense that the composite
+$c \xrightarrow{b_g} g^{\**}c \xrightarrow{g^{\**}b_h} g^{\**} h^{\**} c = (hg)^{\**}c$ equals $b_{hg}$
+and unital in the sense that
+$b_e \colon c \xrightarrow{=} e^{\**}c = c$
+is the identity
+(indeed, the only difference is that the
+objects of \ref{TWISTEDFIX EQ} explicitly include the data
+of the conjugate maps $g^{\**}b_h$).
 
-\begin{lemma}
-Suppose $\{T_d\}$ is a Grothendieck monad for 
-$\mathcal{C} \to \mathcal{D}$.
+One now has the following.
 
-Then if $f\colon d \to d'$ is an isomorphism in $\mathcal{D}$,
-the associated map
-$T_d f^{\**} \to f^{\**}T_{d'}$
-is a natural isomorphism.
-\end{lemma}
-
-\begin{proof}
-It is sufficient to argue for the existence of both a left and a right inverse. Moreover, it suffices to show that those inverses exist after precomposition and postcomposition with $(f^{-1})^{\**}$. This now follows by noting that the composites below are both identities.
-\[T_d f^{\**}(f^{-1})^{\**} \to 
-f^{\**} T_{d'} (f^{-1})^{\**} \to
-f^{\**}(f^{-1})^{\**} T_d
-\qquad 
-T_{d'} (f^{-1})^{\**}f^{\**} \to 
-(f^{-1})^{\**} T_{d} f^{\**} \to
-(f^{-1})^{\**} f^{\**}T_{d'}
-\]
-\end{proof}
-
-
-Let $G$ be a chosen fixed group. 
-Our next goal is to show that, given a sequence
-$\mathsf{Alg}_T(\mathcal{C}) \to \mathcal{C} \to \mathcal{D}$
-where $\mathcal{C} \to \mathcal{D}$
-is a split Grothendieck fibration and
-$T$ is a Grothendick monad, the $G$-object sequence
-\[\mathsf{Alg}_T(\mathcal{C})^G \to \mathcal{C}^G \to \mathcal{D}^G\]
-has the same properties, i.e. that 
-$\mathcal{C}^G \to \mathcal{D}^G$ is again a split Grothendieck fibration and that 
-$\mathsf{Alg}_T(\mathcal{C})^G \simeq \mathsf{Alg}_{T^G}(\mathcal{C}^G)$
-is the category of algebras on $\mathcal{C}^G$ for some Grothendieck monad $T^G$. 
-
-To do so, we first introduce some notation.
-Given $d \in \mathcal{D}^G$, we write 
-$\left(\mathcal{C}^G\right)_d$
-for the fiber of $\mathcal{C}^G$ over $d$
-and, slightly abusing notation, we write $\mathcal{C}_d$ for the fiber of $\mathcal{C}$ over the underlying object $d \in \mathcal{D}$.
-Crucially, we note that 
-$\left(\mathcal{C}^G\right)_d$
-is in general rather different from the $G$-object category
-$\left(\mathcal{C}_d\right)^G$.
-Instead, one has that pullbacks equip $\mathcal{C}_d$ with a $G^{op}$ action and one has the following.
 
 
 \begin{proposition}
-Let $\mathcal{C} \to \mathcal{D}$ be a split Grothendieck fibration and $G$ a chosen group.
-
-Then $\mathcal{C}^G \to \mathcal{D}^G$ is  
- naturally identified with the Grothendieck construction of
-\begin{equation}
-\begin{tikzcd}[row sep = tiny]
-    \left(\mathcal{D}^G\right)^{op} \arrow[r] &
-\mathsf{Cat}
-\\
-	d \arrow[r, mapsto] &
-	\left(\mathcal{C}^G \right)_d
-\end{tikzcd}
-\end{equation}
-
-Moreover, there are natural identifications
+There are natural identifications
 \[
 \left(\mathcal{C}^G\right)_d \simeq
 \mathsf{Fun}^{G^{op}}(EG,\mathcal{C}_d)
 \]
-where $EG$ is the category with objects the elements of $G$ and arrows
-$g \xrightarrow{h} hg$, together with the obvious $G^{op}$-action.
+Further, the monad $\left(T^G\right)_d$
+is identified with the assignment
+$(c \to g^{\**}c) \mapsto 
+(T_d c \to T_dg^{\**}c \xrightarrow{\simeq} g^{\**}T_d c)$.
 \end{proposition}
 
 
-{\color{red} HERE}
-
 
 \begin{proof}
-The first claim is a straightforward consequence of the observation that, if $f$ is an arrow in $\mathcal{D}^{G}$, then $f^{\**}$ commutes with the action pullbacks, i.e. that 
-$f^{\**} g^{\**} = g^{\**} f^{\**}$ for all $g \in G$.
+An object of $\left(\mathcal{C}^G\right)_d$
+consists of an object $c \in \mathcal{C}_d$ together with action maps
+$a_g\colon c \to c$ which lift the action maps $d \xrightarrow{g} d$.
+Factoring these maps
+as $c \xrightarrow{b_g} g^{\**}c \to c$
+yields the corresponding map of $\mathsf{Fun}^{G^{op}}(EG,\mathcal{C}_d)$,
+and one can readily check that the associativity and unit conditions on $a_g$ correspond to those on $b_g$.
 
+Lastly, the claim concerning $\left(T^G\right)_d$ simply unpacks definitions, by noting that
+$T_d(a_g)$ is the composite
+\[
+T_d c \xrightarrow{T_d b_g}
+T_d g^{\**} c \xrightarrow{\simeq} 
+g^{\**} T_d c  \to T_d c 
+\]
 \end{proof}
+
+
+
+
 
 
 
