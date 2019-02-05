@@ -1,5 +1,5 @@
 \documentclass[a4paper,10pt
-%,draft
+,draft
 %, final
 ]{article}%
 
@@ -125,18 +125,35 @@ cf.  }
 
 \tableofcontents
 
+\vskip 10pt
 
-\section{Introduction}
-
-
+All functors below are right adjoints.
 \[
 	\begin{tikzcd}
-		\mathsf{PreOp}^G
+		\mathsf{PreOp}^G & 
+		\mathsf{sOper}^G \ar[dashed]{l}[swap]{N_d}
+		\ar[dashed]{d}{hcN_d}
 \\
 		\mathsf{sdSet}^G \ar{r}[swap]{(-)_0} \ar{u}{\gamma_{\**}} &
 		\mathsf{dSet}^G
 	\end{tikzcd}
 \]
+
+What we need:
+
+\begin{itemize}
+\item set up Grothendieck description of $\mathsf{sOper}^G$, and build fiberwise model structures
+\item combine into overall model structure on $\mathsf{sOper}^G$
+\item prove that $(W_!,hcN_d)$ is a Quillen adjunction (Proposition \ref{W!_COF_PROP})
+\item establish tame model structure and prove that $(W,N_d)$ is a Quillen equivalence (Proposition \ref{PREQUIEQUIV PROP})
+\item combine everything by showing that the square commutes up to homotopy (Proposition \ref{COMUOTOHOM PROP})
+\end{itemize}
+
+
+
+\section{Introduction}
+
+
 
 \subsection{Main Results}
 
@@ -947,6 +964,11 @@ We apply this result to both $\Sym(\V) = (\mathsf F^{op} \ltimes \Sym^{(-)}(\V))
       \begin{equation}
             (E G \times \Sigma_{\mathfrak C}^{op})/G \simeq G \ltimes \Sigma_{\mathfrak C}^{op},
       \end{equation}
+{\color{red} Note(Luis): Since the chirality of the actions don't match, one should probably replace 
+$(E G \times \Sigma_{\mathfrak C}^{op})/G$ with
+$E G \times_G \Sigma_{\mathfrak C}^{op}$ 
+}
+
       where $\Sigma_{\mathfrak C}$ inherits a $G$-action from the action on $\mathfrak C$;
       we refer to this later category
       \begin{equation}
@@ -1587,7 +1609,7 @@ Recall the following from \cite{Ste16, BP_geo}.
 %       This follows from \cite[Prop 6.24]{BP_geo} analogously as \cite[Lemma 5.72]{BP_geo} did.
 % \end{proof}
 
-We need a colored (but non-$G$-tree) generlization of a result from \cite{BP_geo}.
+We need a colored (but non-$G$-tree) generalization of a result from \cite{BP_geo}.
 Let $X \to Y \in \Sym^{G, \mathfrak C}(\V)$ be called a \textit{level genuine cofibration} if for each $C \in \G \ltimes \SC^{op}$,
 $X(C) \to Y(C)$ is a genuine cofibration in $\V^{\Aut(C)}$.
 Similarly call $X$ \textit{level genuine cofibrant} if $\varnothing \to X$ is a level genuine cofibration.
@@ -4694,7 +4716,7 @@ But since $B'$ is $J$-fibrant, this follows from (a), which shows that the compo
 The following is a reformalized proof of \cite[Thm. 8.14]{CM13b}.
 
 
-\begin{proposition}
+\begin{proposition}\label{COMUOTOHOM PROP}
 The (right) derived composite functors in the following diagram commute up to a zigzag of weak equivalences. 
 \[
 \begin{tikzcd}
@@ -6058,7 +6080,7 @@ Setting $A = \emptyset $, $\mathcal{O}= \emptyset$ in the previous result yields
 	$B \to N \tau B$ is a weak equivalence.
 \end{corollary}
 
-\begin{proposition}
+\begin{proposition}\label{PREQUIEQUIV PROP}
 The adjunction
 \[
 	\tau \colon \mathsf{PreOp}^G_{\text{tame}}
@@ -10065,6 +10087,8 @@ In this short section, we will prove that the pullback 2-functor $\pi^{\**}$ and
 
 \subsection{Grothendieck monads}
 
+{\color{red} Need to add demand that $TT \Rightarrow T$ and $I \to T$ are fiber natural transformations}.
+
 \begin{definition}
 Given a split Grothendieck fibration $\mathcal{C} \to \mathcal{D}$,
 a \textit{Grothendieck monad} is a monad $T\colon \mathcal{C} \to \mathcal{C}$ such that the diagram below commutes.
@@ -10175,6 +10199,9 @@ f^{\**} \colon
 \mathsf{Alg}_{T_d'}(\mathcal{C}_d')
 \]
 \end{lemma}
+
+{\color{red} Note(Luis): assuming split here is unnecessary. one can easily provide a direct universal property proof}
+
 
 \begin{proof}
 Given a $T_{d'}$-algebra $c'$, 
