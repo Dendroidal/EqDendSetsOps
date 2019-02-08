@@ -746,7 +746,131 @@ on a suitable category $\mathsf{Sym}^{G,\mathfrak{C}}(\mathcal{V})$
 of symmetric sequences.
 
 
+
+
+
+\subsection{Fibered monads}
+
+
+\begin{definition}
+Given a Grothendieck fibration $p\colon \mathcal{C} \to \mathcal{D}$,
+a \textit{fibered monad} is a monad $T\colon \mathcal{C} \to \mathcal{C}$ such that the diagram below commutes
+\[
+\begin{tikzcd}
+\mathcal{C} \ar{rr}{T} \ar{rd}[swap]{p} && \mathcal{C} \ar{dl}{p}
+\\
+& \mathcal{D}
+\end{tikzcd}
+\]
+and the multiplication 
+$\mu \colon TT \Rightarrow T$
+and unit $\eta \colon I \Rightarrow T$
+satisfy
+$p\mu=p\eta=id_{p}$.
+
+Moreover, a \textit{fiber algebra} is a $T$-algebra $c \in \mathcal{C}$
+such that the multiplication map
+$Tc \xrightarrow{m} c$ satisfies 
+$p(m)=id_{\pi(c)}$.
+
+Lastly, we write $\mathsf{Alg}^{p}_T(\mathcal{C}) \subseteq \mathsf{Alg}_T(\mathcal{C})$ for the full subcategory of fiber algebras.
+\end{definition}
+
+\begin{remark}
+For each $d\in \mathcal{D}$, a fibered monad $T$ restricts to a monad on each fiber $\mathcal{C}_d$, and we write $T_d$ to denote that restricted monad.
+\end{remark}
+
+
+\begin{proposition}
+Given a fibered monad on $p\colon \mathcal{C} \to \mathcal{D}$ the projection $\mathsf{Alg}^{p}_T(\mathcal{C}) \to \mathcal{D}$
+is again a Grothendieck fibration.
+\end{proposition}
+
+\begin{proof}
+Given a cartesian arrow $f\colon \bar{c} \to c$ on $\mathcal{C}$ and a fiber algebra structure on $c$, we claim there is a unique fiber algebra structure on $\bar{c}$ making $f$ into an algebra map. Indeed, the properties of cartesian arrows imply that the is a unique way to choose a dashed fiber arrow in the diagram
+\[
+\begin{tikzcd}
+	T \bar{c} \ar{r}{Tf} \ar[dashed]{d} & T c \ar{d}
+\\
+	\bar{c} \ar{r}[swap]{f} & c.
+\end{tikzcd}
+\]
+The claims that $T\bar{c} \to \bar{c}$ is then an algebra map and that 
+$f$ is also cartesian as an algebra map again follow from 
+$f$ being cartesian in $\mathcal{C}$.
+\end{proof}
+
+
+
+\begin{remark}
+Suppose $p\colon \mathcal{C} \to \mathcal{D}$ happens to be a split Grothendieck fibration, so that for each arrow $f \colon \bar{d} \to d$ in $\mathcal{D}$ there are chosen functorial pullback functors
+$f^{\**} \colon \mathcal{C}_{d} \to \mathcal{C}_{\bar{d}}$.
+
+A fibered monad $T$ is is then equivalent to the data of the fiber monads
+$T_d$ on the fibers $\mathcal{C}_d$
+together with, for each arrow $f \colon \bar{d} \to d$ in $\mathcal{D}$, natural transformations
+$\varphi_f \colon T_{\bar{d}} f^{\**} \Rightarrow f^{\**} T_{d}$
+such that
+\begin{itemize}
+\item[(a)] the composite 
+$T_d f^{\**} g^{\**} 
+\overset{\varphi_f g^{\**}}{ \Rightarrow} 
+f^{\**} T_{d'} g^{\**} 
+\overset{f^{\**}\varphi_g }{ \Rightarrow} 
+ f^{\**} g^{\**} T_{d''}$
+coincides with 
+$T_d (gf)^{\**} \overset{\varphi_{gf} }{ \Rightarrow}  (gf)^{\**} T_{d''}$
+and $T_d id_d^{\**} \overset{\varphi_{id_d}}{\Rightarrow} id_d^{\**}  T_d$ is the identity;
+\item[(b)] the squares
+\begin{equation}\label{GROTHCART EQ}
+\begin{tikzcd}
+	T_d T_d f^{\**} \ar{r} \ar{d}[swap]{} &
+	T_d f^{\**} T_{d'} \ar{r} &
+	f^{\**} T_{d'} T_{d'} \ar{d}{} &
+	f^{\**} \ar[equal]{r} \ar{d}&
+	f^{\**} \ar{d}
+\\
+	T_d f^{\**} \ar{rr}{} &&
+	f^{\**} T_{d'} &
+	T_d f^{\**} \ar{r}{} &
+	f^{\**} T_{d'}
+\end{tikzcd}
+\end{equation}
+commute.
+\end{itemize}
+% $\varphi_f$ is induced by applying $T$ to the chosen pullback arrows, 
+% (a) is then functoriality of $T$ with respect to pullback arrows
+% \eqref{GROTHCART EQ} is the naturality of $\mu \colon TT \Rightarrow T$ and $\eta I \Rightarrow T$ with regard to pullback arrows.
+\end{remark}
+
+\begin{remark}
+Should the pullback functors $f^{\**}$ in the previous remark admit left adjoints $f_{!}$,
+the commutativity of the diagrams in $\eqref{GROTHCART EQ}$
+is equivalent to the claim that the induced natural transformations
+$T_{d} \Rightarrow f^{\**}T_{d'}f_{!}$
+are maps of monads.
+\end{remark}
+
+
+\begin{proposition}
+Let $I$ be a fixed diagram category, and $T$ a fibered monad with respect to a Grothendieck fibration with respect to
+$p\colon \mathcal{C} \to \mathcal{D}$. Then:
+\begin{itemize}
+\item[(i)] $p^I\colon \mathcal{C}^I \to \mathcal{D}^I$ is again a Grothendieck fibration;
+\item[(ii)] $T^I$ is a fibered monad with respect to $p^I\colon \mathcal{C}^I \to \mathcal{D}^I$;
+\item[(iii)] there is a natural identification 
+$\mathsf{Alg}_{T^I}^{p^I}(\mathcal{C}^I)\simeq
+\left(\mathsf{Alg}_T^p(\mathcal{C})\right)^I$.
+\end{itemize}
+\end{proposition}
+
+\begin{proof}
+(i) is well known (one can simply create cartesian arrows pointwise), and both (ii) and (iii) follow readily from the definitions.
+\end{proof}
+
+
 {\color{red} HERE}
+
 
 
 
@@ -10155,96 +10279,11 @@ In this short section, we will prove that the pullback 2-functor $\pi^{\**}$ and
 
 
 
-\subsection{Fiber monads}
+\subsection{Fiber monads (leftovers)}
 
 
-\begin{definition}
-Given a split Grothendieck fibration $p\colon \mathcal{C} \to \mathcal{D}$,
-a \textit{fiber monad} is a monad $T\colon \mathcal{C} \to \mathcal{C}$ such that the diagram below commutes
-\[
-\begin{tikzcd}
-\mathcal{C} \ar{rr}{T} \ar{rd}[swap]{p} && \mathcal{C} \ar{dl}{p}
-\\
-& \mathcal{D}
-\end{tikzcd}
-\]
-and the multiplication 
-$\mu \colon TT \Rightarrow T$
-and unit $\eta \colon I \Rightarrow T$
-satisfy
-$p\mu=p\eta=id_{p}$.
-
-Moreover, a \textit{fiber algebra} is a $T$-algebra $c \in \mathcal{C}$
-such that the multiplication map
-$Tc \xrightarrow{m} c$ satisfies 
-$p(m)=id_{\pi(c)}$.
-
-Lastly, we write $\mathsf{Alg}^{p}_T(\mathcal{C}) \subseteq \mathsf{Alg}_T(\mathcal{C})$ for the full subcategory of fiber algebras.
-\end{definition}
-
-Our first goal is to show Corollary \ref{ALGAREGROTH COR}, stating that 
-if $T$ is a Grothendieck monad then 
-$\mathsf{Alg}_T(\mathcal{C})$
-is again a Grothendieck construction over the base $\mathcal{D}$.
-We start by unpacking the data of a fiber monad.
 
 
-\begin{proposition}
-A fiber monad $T$ on $\mathcal{C} \to \mathcal{D}$
-is equivalent to the data of
-\begin{itemize}
-\item for each $d \in \mathcal{D}$, a monad $T_d\colon \mathcal{C}_d \to \mathcal{C}_d$
-\item for each arrow $d \to d'$ in $\mathcal{D}$, a natural transformation 
-$T_d f^{\**} \Rightarrow f^{\**} T_{d'}$
-\end{itemize}
-subject to the following conditions:
-\begin{itemize}
-\item[(a)] the composite 
-$T_d f^{\**} g^{\**} \Rightarrow f^{\**} T_{d'} g^{\**} \Rightarrow f^{\**} g^{\**} T_{d''}$
-coincides with the natural transformation 
-$T_d (gf)^{\**} \Rightarrow (gf)^{\**} T_{d''}$
-induced by $gf$.
-\item[(b)] the squares
-\begin{equation}\label{GROTHCART EQ}
-\begin{tikzcd}
-	T_d T_d f^{\**} \ar{r} \ar{d}[swap]{} &
-	T_d f^{\**} T_{d'} \ar{r} &
-	f^{\**} T_{d'} T_{d'} \ar{d}{} &
-	f^{\**} \ar[equal]{r} \ar{d}&
-	f^{\**} \ar{d}
-\\
-	T_d f^{\**} \ar{rr}{} &&
-	f^{\**} T_{d'} &
-	T_d f^{\**} \ar{r}{} &
-	f^{\**} T_{d'}
-\end{tikzcd}
-\end{equation}
-commute.
-\end{itemize}
-\end{proposition}
-
-
-\begin{proof}
-The monads $\mathcal{C}_d$ are the restrictions to $T$ to $\mathcal{C}_d$ while the natural transformations 
-$T_d f^{\**} \Rightarrow f^{\**} T_{d'}$
-follow by applying
-$T$ to the pullback arrows to obtain arrows 
-$T f^{\**}c \to Tc$,
-which are canonically factored to obtain 
-$T f^{\**}c \to f^{\**}Tc \to Tc$ (one can readily check that naturality is then equivalent to $T$ being compatible with the composition of a pullback arrow followed by a fiber arrows).
-(a) is then equivalent to $T$ being compatible with the composition of pullback arrows while
-(b) is equivalent to the naturality of the natural transformations
-$TT\Rightarrow T$, $I \Rightarrow T$
-with respect to pullback arrows.
-\end{proof}
-
-\begin{remark}
-Should the pullback functors $f^{\**}$ admit left adjoints $f_{!}$,
-the commutativity of the diagrams in $\eqref{GROTHCART EQ}$
-is equivalent to the claim that the induced natural transformations
-$T_{d} \Rightarrow f^{\**}T_{d'}f_{!}$
-are maps of monads.
-\end{remark}
 
 
 \begin{lemma}
@@ -10270,59 +10309,8 @@ T_{d'} (f^{-1})^{\**}f^{\**} \to
 
 
 
-\begin{lemma}
-Given a fiber monad $T$ on $\mathcal{C} \to \mathcal{D}$, the pullback functors $f^{\**}$
-lift to the algebra categories to give functors
-\[
-f^{\**} \colon
-\mathsf{Alg}_{T_d}(\mathcal{C}_d)
-\to 
-\mathsf{Alg}_{T_d'}(\mathcal{C}_d')
-\]
-\end{lemma}
-
-{\color{red} Note(Luis): assuming split here is unnecessary. one can easily provide a direct universal property proof}
 
 
-\begin{proof}
-Given a $T_{d'}$-algebra $c'$, 
-the composite
-$T_d f^{\**} c' \to f^{\**}T_{d'} c' \to f^{\**} c'$
-provides the required $T_d$-action on $f^{\**}c'$.
-The claim that this is a $T_d$-algebra structure is a consequence of \eqref{GROTHCART EQ}.
-\end{proof}
-
-
-
-\begin{corollary}\label{ALGAREGROTH COR}
-Given a fiber monad $T$ on $\mathcal{C} \to \mathcal{D}$, the algebra category 
-$\mathsf{Alg}_T(\mathcal{C})$
-is naturally identified with the Grothendieck construction of
-\begin{equation}
-\begin{tikzcd}[row sep = tiny]
-    \mathcal{D}^{op} \arrow[r] &
-\mathsf{Cat}
-\\
-	d \arrow[r, mapsto] &
-	\mathsf{Alg}_{T_d}(\mathcal{C}_d)
-\end{tikzcd}
-\end{equation}
-\end{corollary}
-
-
-Suppose now that $I$ is a fixed diagram category.
-Given a split Grothendieck fibration
-$\mathcal{C} \to \mathcal{D}$,
-one has that $\mathcal{C}^I \to \mathcal{D}^I$
-is again a split Grothendieck fibration, with pullbacks defined levelwise.
-Similarly, given a monad $T$ on $\mathcal{C}$, one has a levelwise monad
-$T^I$ on $\mathcal{C}^I$, and a natural identification
-$\mathsf{Alg}_{T^I}(\mathcal{C}^I)\simeq
-\left(\mathsf{Alg}_T(\mathcal{C})\right)^I$.
-Combining these two observations, it is moreover clear that if
-$T$ is a Grothendieck monad on $\mathcal{C} \to \mathcal{D}$
-then $T^I$ is again a Grothendieck monad on 
-$\mathcal{C}^I \to \mathcal{D}^I$.
 
 Our next goal is to make this discussion more explicit in the case where
 $I=G$ is a group.
