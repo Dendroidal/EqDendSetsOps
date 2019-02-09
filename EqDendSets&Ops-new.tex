@@ -869,7 +869,111 @@ $\mathsf{Alg}_{T^I}^{p^I}(\mathcal{C}^I)\simeq
 \end{proof}
 
 
+
+\subsection{Symmetric sequences and colored operads (Luis' version)}
+
+\begin{definition}\label{CSYM DEF}
+	Let $\mathfrak {C} \in \mathsf{F}$ be a set of \textit{colors}.
+	A tuple
+	$\ksi = (c_1, \ldots, c_n; c_0) \in \mathfrak C^{\times n} \times \mathfrak C$
+	is called a \textit{$\mathfrak {C}$-signature}.
+	The \textit{$\mathfrak C$-symmetric category} $\Sigma_{\mathfrak C}$ is then the category whose objects are the $\mathfrak{C}$-signatures and with action maps
+\[
+(c_1, \ldots, c_n; c_0) \xrightarrow{\sigma} (c_{\sigma^{-1}(1)}, \ldots, c_{\sigma^{-1}(n)}; c_0)
+\]
+	for each permutation $\sigma \in \Sigma_n$, with the natural notion of composition.
+
+Alternatively, we will find it useful to visualize signatures as \textit{corollas with edges decorated by colors in $\mathfrak{C}$}, as depicted below, so that the maps labeled $\sigma$ interchange the edges of the leftmost tree in such a way that one obtains the colored corolla on the left.
+\[
+\begin{tikzpicture}
+[grow=up,auto,level distance=2.3em,every node/.style = {font=\footnotesize},dummy/.style={circle,draw,inner sep=0pt,minimum size=1.75mm}]
+	\node at (0,0) [font=\normalsize]{}
+		child{node [dummy] {}
+			child{
+			edge from parent node [swap,near end] {$c_n$} node [name=Kn] {}}
+			child{
+			edge from parent node [near end] {$c_1$}
+node [name=Kone,swap] {}}
+		edge from parent node [swap] {$c_0$}
+		};
+		\draw [dotted,thick] (Kone) -- (Kn) ;
+	\node at (5,0) [font=\normalsize]{}
+		child{node [dummy] {}
+			child{
+			edge from parent node [swap,near end] {$c_{\sigma^{-1}(n)}$} node [name=Kn] {}}
+			child{
+			edge from parent node [near end] {$c_{\sigma^{-1}(1)}$}
+node [name=Kone,swap] {}}
+		edge from parent node [swap] {$c_0$}
+		};
+		\draw [dotted,thick] (Kone) -- (Kn) ;
+
+\draw[->] (1.5,1) -- node{$\sigma$} (3,1);
+\end{tikzpicture}
+\]
+Given any map $f \colon \mathfrak{C} \to \mathfrak{D}$ on the sets of colors, there is then a functor
+$f_{\**} \colon \Sigma_{\mathfrak{C}} \to \Sigma_{\mathfrak{D}}$
+given by $f_{\**} (c_1,\cdots,c_n;c_0) = (f(c_1),\cdots,f(c_n);f(c_0))$. 
+\end{definition}
+
+
+\begin{definition}
+Let $\mathcal{V}$ be a category.
+The category $\mathsf{Sym}(\mathcal{V})$ of
+\textit{symmetric sequences on $\mathcal{V}$} is the category with:
+\begin{itemize}
+\item objects given by a set of colors $\mathfrak{C} \in \mathsf{F}$
+and a functor $\Sigma_{\mathfrak{C}}^{op} \to \mathcal{V}$;
+\item arrows given by a map 
+$f \colon \mathfrak{C} \to \mathfrak{D}$ of colors and a natural transformation
+
+		\begin{equation}
+		\begin{tikzcd}[row sep = tiny, column sep = 35pt]
+			\Sigma_{\mathfrak{C}}^{op} \arrow{dr}[name=U]{} \arrow{dd}[swap]{f_{\**}}
+		\\
+			& \mathcal{V}
+		\\
+			|[alias=V]| \Sigma_{\mathfrak{D}}^{op} \arrow{ur}[swap]{}
+		\arrow[Leftarrow, from=V, to=U,shorten >=0.25cm,shorten <=0.25cm
+		,swap
+		]
+		\end{tikzcd}
+		\end{equation}
+
+\end{itemize}
+\end{definition}
+
+
+\begin{remark} The natural projection map
+$\mathsf{Sym}(\mathcal{V}) \to \mathsf{F}$
+is a (split) Grothendieck fibration with fibers the categories
+$\mathsf{Fun}(\Sigma_{C}^{op},\mathcal{V})$.
+\end{remark}
+
+\begin{remark}
+$\mathsf{Sym}(\mathcal{V})$ is naturally a subcategory of the $2$-overcategory
+$\mathsf{Cat}\downarrow^l \mathcal{V}$.
+\end{remark}
+
+
 {\color{red} HERE}
+
+Our next goal is to describe the fibered monad on $\mathsf{Sym}(\mathcal{V})$ such that the fiber algebras are
+$\mathsf{Op}(\mathcal{V})$.
+
+First, much as in Definition \ref{CSYM DEF}, we need colored versions of the tree categories $\Omega$ and $\Omega^0$.
+Informally, and given a set of colors $\mathcal{C}$, 
+one simply lets $\Omega_{\mathfrak{C}}$
+be the category of trees whose edges are decorated by colors in $\mathfrak{C}$, together with color respecting maps. More formally, $\Omega_{\mathfrak{C}}$ is given by the following pullback.
+\begin{equation}
+	\begin{tikzcd}
+		\OC \arrow[d] \arrow[r, "E"] &
+		\mathsf F \wr \mathfrak C \arrow[d]
+\\
+		\Omega \arrow[r, "E"] &
+		\mathsf F
+	\end{tikzcd}
+\end{equation}
 
 
 
