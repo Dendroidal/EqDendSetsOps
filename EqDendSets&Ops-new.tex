@@ -1518,15 +1518,23 @@ First, one lemma.
 
 
  
-\subsection{The homotopy theory of $\Op^{G, \mathfrak C}(\V$)}
+\subsection{The homotopy theory of operads with a fixed color $G$-set}
 
 We begin our analysis of the homotopy theory of equivariant color operads by
 considering the subcategories $\Op^{G, \mathfrak C}(\V) \subseteq \Op^G(\V)$
 where the $G$-set of colors is fixed, and all maps are the identity on $\mathfrak C$.
+The main result of this section is Theorem \ref{THM1_C}, which states that
+the model structure on $\Op^{G, \mathfrak C}(\V)$ is transferred from $\Sym^{G, \mathfrak C}(\V)$.
 
-This will be done by transfering the model structure from $\Sym^{G, \mathfrak C}(\V)$, so we begin with this category.
+\begin{definition}
+      Given an adjunction $U: \mathcal C \leftrightarrows \mathcal M :F$ where $\mathcal M$ is a model category,
+      the \textit{transferred model structure} on $\mathcal C$, if it exists, is such that
+      an arrow $f \in \mathcal C$ is a weak equivalence or fibration iff $U(f)$ is so in $\mathcal M$.
+\end{definition}
 
-Recall the following from \cite{Ste16, BP_geo}.
+
+Following \cite{Ste16, BP_geo}, in order to produce appropriate equivariant theories,
+we require that the fixed point functors interact properly with the underlying model structures.
 \begin{definition}
       \label{CELLFP_DEF}
       We say $\V$ has \textit{cellular fixed points} if
@@ -1546,6 +1554,18 @@ Recall the following from \cite{Ste16, BP_geo}.
 \end{remark}
 
 
+For completeness, we recall a main result of \cite{Ste16}, which transfers model structures along several adjuctions.
+\begin{theorem}[{\cite[Thm. 2.10]{Ste16}}]
+      Let $\V$ be cofibrantly generated model category, and $\F$ any family of subgroups of $G$ containing the trivial subgroup.
+      Then
+      \begin{itemize}
+      \item the projective model structure on $\V^{\mathsf O_G^{op}}$;
+      \item the $\F$-model structure on $\V^G$ exists, where an arrow $f \in \V$ is a weak equivalence or fibration iff each $f^H$ is in $\V$; and
+      \item the inclusion $\V^G \xrightarrow{i_{\**}} \V^{\mathsf O_G^{op}}$, $i_{\**}X(G/H) = X^H$ is a right Quillen equivalence.
+      \end{itemize}
+\end{theorem}      
+
+We can combine this transfer result with those by Hirschorn to prove the following.
 \begin{proposition}
       \label{TRANS_MODEL_PROP}
       Let $\V$ be a cocomplete model category will cellular fixed points.
@@ -1572,6 +1592,21 @@ Recall the following from \cite{Ste16, BP_geo}.
       \end{equation}
       where $I$ is the set of generating (trivial) cofibrations in $\V$.
 \end{proof}
+
+We note that for any $G$-operad with $\mathfrak C = \set{\**}$, each level $\O(n)$ has a left action by $G \times \Sigma_n$.
+In the homotopy theory of $G$-operads, as indicated in the main result of \cite{Bon_geo}, it is
+necessary to consider the homotopy type of the fixed point spaces for particular subgroups of $G \times \Sigma_n$:
+not all of them, not just the subgroups of $G$, but instead the graph subgroups.
+
+\begin{definition}
+      \label{GGRAPHFAM_DEF}
+      A subgroup $\Gamma \leq G \times \Sigma_n$ is called a \textit{graph subgroup} if $\Gamma \cap \Sigma_n = \**$,
+      or equivalently if $\Gamma$ is the graph $\Gamma(\phi)$ of a homomorphism $G \leq H \xrightarrow{\phi} \Sigma_n$.
+
+      A \textit{$G$-graph family} is a collection $\F = \set{\F_n}_{n \geq 0}$ of families $\F_n$ of graph subgroups of $G \times \Sigma_n$, one family for each $n$.
+\end{definition}
+
+We can now define our model structures on equivariant symmetric sequences.
 
 \begin{example}
       Let $\V$ be a cocomplete model category with cellular fixed points,
@@ -1609,14 +1644,22 @@ Recall the following from \cite{Ste16, BP_geo}.
 %       This follows from \cite[Prop 6.24]{BP_geo} analogously as \cite[Lemma 5.72]{BP_geo} did.
 % \end{proof}
 
-We need a colored (but non-$G$-tree) generalization of a result from \cite{BP_geo}.
-Let $X \to Y \in \Sym^{G, \mathfrak C}(\V)$ be called a \textit{level genuine cofibration} if for each $C \in \G \ltimes \SC^{op}$,
-$X(C) \to Y(C)$ is a genuine cofibration in $\V^{\Aut(C)}$.
-Similarly call $X$ \textit{level genuine cofibrant} if $\varnothing \to X$ is a level genuine cofibration.
+As in \cite{BP_geo}, we will transfer this model structure along the free-forgetful adjunction
+\[
+      \Op^{G, \mathfrak C}_\F(\V) \leftrightarrows \Sym^{G, \mathfrak C}_\F: \mathbb F^{\mathfrak C}.
+\]
+To do so, we will need to understand this monad $\mathbb F^{\mathfrak C}$.
+Much of this discussion takes place in Appendix \ref{MONAD_APDX}.
+Here, we will just record the necessary homotopy theoretic result.
+
+We say $X \to Y \in \Sym^{G, \mathfrak C}(\V)$ is a \textit{level genuine cofibration} if for each $C \in \G \ltimes \SC^{op}$,
+$X(C) \to Y(C)$ is a genuine cofibration in $\V^{\Aut(C)}$;
+we say $X$ is \textit{level genuine cofibrant} if $\varnothing \to X$ is a level genuine cofibration.
 
 \begin{lemma}[{cf. \cite[5.73]{BP_geo}}] % EXMAINLEM LEM
       \label{EXMAINLEM LEM}
       Suppose $\mathcal{V}$ is a cofibrantly generated closed monoidal model category
+      \todo{do we need to introduce monoidal model categories again? I wouldn't think so}
       with cellular fixed points and
       with cofibrant symmetric pushout powers.
       
@@ -1643,20 +1686,17 @@ Similarly call $X$ \textit{level genuine cofibrant} if $\varnothing \to X$ is a 
       This follows as in \cite{BP_geo}, as we may take the automorphism groups to live in the category $F \wr (G^{op} \ltimes \Sigma_{\mathfrak C}).$ 
 \end{proof}
 
-
-
-
 \begin{proof}[Proof of Theorem \ref{THM1_C}]
-      This is the model structure lifted from $\Sym^{G, \mathfrak C}_\F(\V)$,
-      and its existance and properties follow from
-      Proposition \ref{FILT_PUSH_PROP} and Lemma \ref{EXMAINLEM LEM} above,
+      As this model structure is precisely the one transfered from $\Sym^{G, \mathfrak C}_\F(\V)$,
+      its existance and properties follow from
+      Proposition \ref{FILT_PUSH_PROP} and Lemma \ref{EXMAINLEM LEM},
       completely analogously to the proof of Theorem I from \cite{BP_geo}.
 \end{proof}
 
 \begin{remark}
       \label{TOP_FULL_REM}
       The category $\Op^{G,\mathfrak C}(\Top)$ actually has full model structures lifted from $\Sym^{G, \mathfrak C}_\F(\Top)$
-      for any indexing family $\F$,
+      for any $G$-graph family $\F$,
       using an argument analogous to \cite[Thm. 3.1]{GW}.
 \end{remark}
 
@@ -1756,6 +1796,20 @@ The following is immediate.
       In particular, this implies that $j^{\**}$ commutes with fibrant replacement.
 \end{remark}
 
+\todo[inline]{the above are not in context}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1769,9 +1823,9 @@ The following is immediate.
 \label{MS_SEC}
 \renewcommand{\C}{\mathfrak C}
 
-We will now generalize and synthesize \cite{BM13}, \cite{Cav}, and \cite{CM13b} to assemble the collection of
-``color-fixed'' model structures on each $\Op^{G, \mathfrak C}(\V)$ from the previous section
-into a single model structure on $\Op^G(\V)$.
+In the previous section, we built model structures on the category operads with a single fixed color $G$-set $\mathfrak C$.
+We will now generalize and synthesize \cite{BM13}, \cite{Cav}, and \cite{CM13b} to assemble these
+into a single model structure on the category of $G$-operads $\Op^G(\V)$ with varying colors.
 
 
 % \begin{definition}
@@ -1815,37 +1869,21 @@ into a single model structure on $\Op^G(\V)$.
 % \textbf{\color{OliveGreen} In this section, further assume that $\V$
 %   has cellular fixed points and admits (semi)-transfer for $G$-categories and $G$-operads}.
 
-\begin{remark}
-      \label{JSTAR_REM}        
-      Extending \eqref{JSTAR_CAT_EQ}, we have another inclusion-forgetful adjunction,      
-      \begin{equation}
-            \begin{tikzcd}
-                  \mathsf{Op}^G(\V) \arrow[d, "(-)^H"']
-                  \arrow[r, shift right, "j^*"']
-                  &
-                  \mathsf{Cat}^G(\V) \arrow[l, shift right, swap, "j_!"] \arrow[d, "(-)^H"]
-                  \\
-                  \Op(\V) \arrow[r, shift right, "j^*"']
-                  &
-                  \Cat(\V) \arrow[l, shift right, swap, "j_!"]
-            \end{tikzcd}
-      \end{equation}
-      and again $j^{\**}$ commutes with $H$-fixed points and fibrant replacement.
-\end{remark}
+We begin with some mild enriched category theory.
 
-\begin{definition}
-      We highlight three particular $\V$-categories.
-      We let $1_\V$ and $\varnothing$ denote the unit object and initial object of $\V$, respectively.
-      \begin{itemize} %{enumerate}[label = (\roman*)]
-      \item Let $\I$ be the $\V$-category that detects isomorphisms: it has objects $\set{0,1}$,
-            with $\I(0,0) = \I(0,1) = \I(1,0) = \I(1,1) = 1_\V$.
-      \item Let $\mathbb A$ be the $\V$-category that detects arrows: it has objects $\set{0,1}$,
-            with $\mathbb A(0,0) = \mathbb A(0,1) = \mathbb A(1,1) = 1_\V$, and $\mathbb A(1,0) = \varnothing$.
-      \item Let $\1$ be the $\V$-category that detects objects: it has a single object $\set{\**}$, with $\1(\**, \**) = 1_\V$
-            \footnote{
-              This notation matches the fact that this category is equal to the image of the ``stick'' tree $\eta \in \Omega$.}.
-      \end{itemize}
-\end{definition}
+% \begin{definition}
+We highlight three particular $\V$-categories.
+As usual, we let $1_\V$ and $\varnothing$ denote the unit object and initial object of $\V$, respectively.
+\begin{itemize} %{enumerate}[label = (\roman*)]
+\item Let $\I$ be the $\V$-category that detects isomorphisms: it has objects $\set{0,1}$,
+      with $\I(0,0) = \I(0,1) = \I(1,0) = \I(1,1) = 1_\V$.
+\item Let $\mathbb A$ be the $\V$-category that detects arrows: it has objects $\set{0,1}$,
+      with $\mathbb A(0,0) = \mathbb A(0,1) = \mathbb A(1,1) = 1_\V$, and $\mathbb A(1,0) = \varnothing$.
+\item Let $\1$ be the $\V$-category that detects objects: it has a single object $\set{\**}$, with $\1(\**, \**) = 1_\V$
+      \footnote{
+        This notation matches the fact that this category is equal to the image of the ``stick'' tree $\eta \in \Omega$.}.
+\end{itemize}
+%\end{definition}
 
 We recall and extend the following definitions from \cite{BM13}. 
 
@@ -1875,6 +1913,10 @@ We recall and extend the following definitions from \cite{BM13}.
       But then we have a lift $Y_c \to X_c'$, and a lift $X_c' \to X_f$, yielding our weak equivalence $A \to X_f$.      
 \end{remark}
 
+Heuristically, we think of an interval as detecting some notion of equivalence, using the model structure on $\V$;
+this will be made rigorous in Definition \ref{EQUIV_DEF} below.
+Additionally, we use these $\V$-intervals to define homotopical analogues of isofibrations and surjective maps of $\V$-categories.
+
 \begin{definition}
       \label{PL_ES_DEFN}
       We say a functor $F: \mathcal C \to \mathcal D$ in $\Cat(\V)$ is
@@ -1888,6 +1930,7 @@ We recall and extend the following definitions from \cite{BM13}.
             there is an object $c: \1 \to \mathcal C$
             and a map $\J \to \mathcal D$ out of a $\V$-interval fitting in to the commuting diagram below.
             \begin{equation}
+                  \label{ESSURJ_EQ}
                   \begin{tikzcd}
                         \1 \arrow[rr, dashed, "c"] \arrow[dr, "i_0"]
                         &&
@@ -1905,33 +1948,38 @@ We recall and extend the following definitions from \cite{BM13}.
 \end{definition}
 
 
-\begin{remark}
-      \label{FIB_ISOFIB_REM}
-      From Example \ref{WJ EX}, we know that the nerve of the walking isomorphism $J = N \tilde{[1]}$ is a $\sSet$-interval.
-      Thus a map $f \in \sOp$ being ``path-lifting'' implies in particular that $h c N(f)$ has the right lifting property against $\** \to N \tilde{[1]}$,
-      and since $\tau \circ h c N(-) \simeq \pi_0$ by \cite[Prop. 4.8]{CM11},
-      this implies that $\pi_0(f^H)$ has the right lifting property against $\** \to \tilde{[1]}$;
-      that is, $f$ being path-lifting implies $\pi_0(f)$ is an isofibration of categories.
-      The converse is also true, as $\pi_0$ sends weak equivalences in $\sOp$ to isomorphisms in $\Op$.
-      Consequently, $f \in \sOp^G$ is a fibration in the above sense iff it is a local fibration and $\pi_0(f^H)$ is an isofibration for all $H \leq G$.
-
-      We will reconcile the above notion of ``essentially surjective'' with the more common notion in Section \ref{DK_SEC}. 
-\end{remark}
-
-
-Now, recall that an \textit{indexing family} is a collection $\F = \set{\F_n}_{n \geq 0}$ of families $\F_n$ of graph subgroups of $G \times \Sigma_n$.
-Especially well-behaved indexing families are the \textit{(weak) indexing systems} of \cite{BP_geo},
-of which the maximal indexing family $\mathrm{Gr} = \set{\mathrm{Gr}_n}$ is one.
-
-Further recall that, given $C \in G \ltimes \SC^{op}$ of length $n$, we define $\F_C$ to be all those $\Gamma \in \F_n$ such that $\Gamma \leq \Aut(C)$.
-
-\begin{definition}
-      We say an indexing family $\F$ \textit{has units} if
-      $\F_1$ contains all graph subgroups of the form $H \leq G \times \Sigma_1$.
-      In particular, \cite[Remark 4.50]{BP_geo} implies that any \textit{weak indexing system} has units.
-\end{definition}
 
 We may now extend the categorical model theoretic notions to the equivariant context.
+
+First, extending \eqref{JSTAR_CAT_EQ}, we have another inclusion-forgetful adjunction,      
+\begin{equation}
+      \label{JSTAR_EQ}
+      \begin{tikzcd}
+            \mathsf{Op}^G(\V) \arrow[d, "(-)^H"']
+            \arrow[r, shift right, "j^*"']
+            &
+            \mathsf{Cat}^G(\V) \arrow[l, shift right, swap, "j_!"] \arrow[d, "(-)^H"]
+            \\
+            \Op(\V) \arrow[r, shift right, "j^*"']
+            &
+            \Cat(\V) \arrow[l, shift right, swap, "j_!"]
+      \end{tikzcd}
+\end{equation}
+where again $j^{\**}$ commutes with $H$-fixed points and fibrant replacement.
+
+Now, recall the notion of a $G$-graph family from Definition \ref{GGRAPHFAM_DEF}.
+% Especially well-behaved indexing families are the \textit{(weak) indexing systems} of \cite{BP_geo},
+% of which the maximal indexing family $\mathrm{Gr} = \set{\mathrm{Gr}_n}$ is one.
+In the many-colored setting, the levels of our operad do not have a full action of $G \times \Sigma_n$, and the $G$-graph family needs to reflect this.
+To that end, for any $G$-graph family $\F = \set{\F_n}$ and for all sequences $C \in G \ltimes \SC^{op}$ of length $n$, we define
+$\F_C$ to be
+\[
+      \F_C = \sets{\Gamma \in \F_n}{\Gamma \leq \Aut(C)}
+\]
+the set of those graph subgroups which do act on $\O(C)$.
+% all those $\Gamma \in \F_n$ such that $\Gamma \leq \Aut(C)$.
+
+
 \begin{definition}
       \label{MODEL_DEFN}
       Fix an indexing family $\F$.
@@ -1968,7 +2016,16 @@ We may now extend the categorical model theoretic notions to the equivariant con
 %       $f_!\O \to \P$ is an $\F$-cofibration in $\Op^{G, \mathfrak C(\P)}(\V)$.
 % \end{remark}
 
-We may now state and prove the main result of this section (see the disucssion after Theorem \ref{INTRO_MODEL_THM}).
+The main result of this section applies to a large class of $G$-graph families. We only require the following.
+but not all of the.Before
+
+]\begin{definition}
+      We say a $G$-graph family $\F$ \textit{has units} if
+      $\F_1$ contains all graph subgroups of the form $H \leq G \times \Sigma_1$.
+      % In particular, \cite[Remark 4.50]{BP_geo} implies that any \textit{weak indexing system} has units.
+\end{definition}
+
+We can now state and prove the main result of this section (see the disucssion after Theorem \ref{INTRO_MODEL_THM}).
 
 \begin{theorem}
       \label{MODEL_THM}
@@ -2334,6 +2391,7 @@ For the proof of 2-out-of-3 in Proposition \ref{2OUTOF3_PROP}, we will need to c
 ``essential surjectivity'' and ``local equivalence'' information. 
 To begin, we recall some equivalence relations on objects in a $\V$-category \cite{Cav, BM13}:
 \begin{definition}
+      \label{EQUIV_DEF}
       Given $\mathcal{C}$ in  $\Cat(\V)$ and $a,b\in\mathrm{Ob}(\mathcal C)$, we say $a$ and $b$ are
       \begin{itemize}
       \item {\em equivalent} if there exists a map $\gamma: \J \to \mathcal C$ such that
@@ -3226,6 +3284,28 @@ originally due to Boardman-Vogt \cite{BV73}, and extended by Berger-Moerdijk \ci
       This follows immediately from Theorem \ref{MODEL_THM}, Propositions \ref{WE_ARE_DK_PROP}, \ref{COH_DK_ARE_WE_PROP}, and \ref{SSET_COH_PROP},
       and Corollary \ref{PTSSET_COR} below.
 \end{proof}
+
+here!
+\begin{example}
+      \label{FIB_ISOFIB_REM}
+      Let $(\V, \otimes) = (\sSet, \times)$.
+      Then  by Propositions \ref{SSET_COH_PROP} and \ref{COH_DK_ARE_WE_PROP}, we have that weak equivalences in $\sOp^G_\F$ are
+      Dwyer-Kan $\F$-equivalences.
+      For fibrations, if $W_!$ denotes the left adjoint to the homotopy coherent nerve
+      $N_{hc}: \sCat \to \sSet$,
+      we note that $W_! J$ is a $\sSet$-interval, where $J$ is the nerve of the walking isomorphism $J = N \tilde{[1]}$, by Example \ref{WJ EX}.
+      Thus a map $f \in \sOp$ being path-lifting implies in particular that $h c N(f)$ has the right lifting property against $\** \to N \tilde{[1]}$,
+      and since $\tau \circ h c N(-) \simeq \pi_0$ by \cite[Prop. 4.8]{CM11},
+      this implies that $\pi_0(f)$ has the right lifting property against $\** \to \tilde{[1]}$;
+      that is, $f$ being path-lifting implies $j^{\**}\pi_0(f)$ is an isofibration of categories.
+      The converse is also true, as $\pi_0$ sends weak equivalences in $\sOp$ to isomorphisms in $\Op$.
+      Consequently, $f \in \sOp^G$ is a fibration in the above sense iff it is a local fibration and $\pi_0(f^H)$ is an isofibration for all $H \leq G$.
+
+      We will reconcile the above notion of ``essentially surjective'' with the more common notion in Section \ref{DK_SEC}. 
+\end{remark}
+
+\end{example}
+
 
 \begin{remark}
       While many model structures on $\sOp^G$ exist from the above theorem, unless otherwise stated
@@ -4868,7 +4948,7 @@ $\mathsf{sSet}$ is right proper.
 
 
 
-
+\todo{where does this go?}
 \begin{example}\label{WJ EX}
 	Let $J = N \widetilde{[1]}$ be the nerve of the contractible groupoid on two objects.
 	
