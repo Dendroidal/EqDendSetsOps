@@ -2957,15 +2957,18 @@ A main ingredient comes down to finding appropriate notions of ``homotopically e
 Definition \ref{EQUIV_DEF} provides three different possibilities: equivalent, virtually equivalent, and homotopy equivalent.
 These are of nested strength by construction and Lemma \ref{VIR_HTPY_LEM}.
 
-We split the proof of 2-out-of-3 into the three possible cases. For the first, preservation of local weak equivalences is non-trival, while for the second and third, we must control preservation of essential surjectivity.
+The proof of 2-out-of-3 splits into the three cases. For the first, only preservation of local weak equivalences is non-trival, while for the second and third, the proofs relies on a deep understanding of essential surjectivity.
 We describe the important steps in each case.
-\begin{itemize}
-\item[$F$ and $LF$ implies $L$] This step requires Lemmas \ref{CAV_4.14_PROP1} and \ref{CAV_4.14_PROP2}, which show that a homotopy equivalence of colors induces a weak equivalence between the associated mapping objects.
-\item[$L$ and $LF$ implies $F$] We would like that local equivalences reflect all equivalences, but Lemma \ref{REF_VIRT_LEM} says they only preserve \textit{virtual} equivalences, and thus we need Lemma \ref{RIGHTPROPER_LEM} which says that these notions agree when $\V$ is right proper.
-\item[$F$ and $L$ implies $LF$] This will follow from the fact that equivalences are transitive (Lemma \ref{CAV_4.10_LEM}) and are preserved by functors.
-\end{itemize}
+\begin{description}
+\item [$F$ and $LF$ implies $L$:] This step requires Lemmas \ref{CAV_4.14_PROP1} and \ref{CAV_4.14_PROP2}, which show that a homotopy equivalence of colors induces a weak equivalence between the associated mapping objects.
+\item [$L$ and $LF$ implies $F$:] We would like that local equivalences reflect all equivalences, but Lemma \ref{REF_VIRT_LEM} says they only preserve \textit{virtual} equivalences, and thus we need Lemma \ref{RIGHTPROPER_LEM} which says that these notions agree when $\V$ is right proper.
+\item [$F$ and $L$ implies $LF$:] This will follow from the fact that equivalences are transitive (Lemma \ref{CAV_4.10_LEM}) and are preserved by functors.
+\end{description}
 
-We now introduce these three variations \cite{Cav, BM13}.
+Many of the results will follow immediately from (the proof of) their non-equivariant counterparts once the definitions have been established; 
+only Lemmas \ref{CAV_4.14_PROP1} and \ref{CAV_4.14_PROP2} will require a more complex analysis.
+
+We now introduce these three variations of homotopical equivalences from \cite{Cav, BM13}.
 \begin{definition}
       \label{EQUIV_DEF}
       Given $\mathcal{C}$ in  $\Cat(\V)$ and $a,b\in\mathrm{Ob}(\mathcal C)$, we say $a$ and $b$ are
@@ -3046,35 +3049,6 @@ We unpack this with several remarks.
       for any $b \in \P^H$ there exists $a \in \O^H$ such that $F(a)$ and $b$ are $H$-equivalent.
 \end{remark}
 
-\begin{remark}
-      \label{AJC_REM}
-      here!
-%      Now, if $\mathbb C$ is any cylinder in $\V$, we have a lift in the following diagram, for $i \in \set{0,1}$.
-      We note that any arrow in a fibrant $\V$-category $\mathcal C_f$ which factors through an interval $\mathbb J$
-      \[
-            \mathbb A \longto \mathbb J \longto \mathcal C_f
-      \]
-      encodes a homotopy equivalence:
-      Since $\mathcal C_f$ is fibrant, we may assume $\mathbb J = \mathbb J_f \xrightarrow{\simeq} (1_\V)_f$,
-      and then we have teh following factorization through a cylinder object $\mathbb C$ of $\V$.
-      \begin{equation}
-            \label{J11_CYL_EQ}
-            \begin{tikzcd}
-                  1_\V \amalg 1_\V \arrow[r, "{(id, f)}"] \arrow[d, tail]
-                  &
-                  \J(0,1) \arrow[r, tail, "\simeq"]]
-                  &
-                  \J_f(0,1) \arrow[d, "\sim", two heads]
-                  \\
-                  \mathbb C \arrow[r] \arrow[urr, dashed]
-                  &
-                  1_\V \arrow[r]
-                  &
-                  (1_\V)_f
-            \end{tikzcd}
-      \end{equation}
-\end{remark}
-
 \begin{notation}
       As fixed points $(-)^\Gamma$ and fibrant replacement $(-)_f$ need not commute, we will write
       \begin{equation}
@@ -3085,7 +3059,7 @@ We unpack this with several remarks.
 \end{notation}
 
 
-We can now prove the results given in the introduction to this subsection.
+We can now prove the results given in the introduction to this subsection. \todo{reword. everything his follows from the non-equivariant proof}
 The following facts about these definitions follow from the proofs of their non-equivariant counterparts:
 
 \begin{lemma}
@@ -3129,14 +3103,17 @@ The following facts about these definitions follow from the proofs of their non-
 %       }
 % \end{proof}
 
-Adding Remark \ref{AJC_REM}, the proof of the following result is completed, and again works in the equivariant setting.
+For completeness (and clarity in \S \ref{DK_SEC}), we highlight and expand on the following proof from \cite{BM13}
+\todo[inline]{the only different really is the inclusion of the paragraph containing the diagram \eqref{J11_CYL_EQ} and the diagram itself,
+which make it clear why natural homotopy equivalences are useful. The rest of the proof is identical, if further unpacked here than in \textit{loc cite}.}
+
 \begin{lemma}
-      [{cf. \cite[4.13]{Cav}, \cite[2.11]{BM13}}]
+      [{cf. \cite[4.13]{Cav}, \cite[2.10]{BM13}}]
       \label{VIR_HTPY_LEM}
       Virtually $H$-equivalent colors are homotopy $H$-equivalent. 
 \end{lemma}
 \begin{proof}
-      {\color{OliveGreen} We reframe and complete \cite[2.10]{BM13} (they were missing \eqref{J11_CYL_EQ}).
+      {\color{OliveGreen} % ------------------------------ OLIVE GREEN ------------------------------
         Let $\mathcal C_f$ denote $j^{\**}(\O^H)_f$.
         Suppose $H: \J \to \mathcal C_f(x,y)$ realizes a virtual equivalence between $x$ and $y$.
         Let's factor the equipped map $\J \xrightarrow{\sim} \I_f$ (a weak equivalence in $\Cat^{\set{0,1}}(\V)$)
@@ -3215,9 +3192,8 @@ Adding Remark \ref{AJC_REM}, the proof of the following result is completed, and
         Thus $f_1$ (resp. $f_0$) factors through a cylinder,
         implying $\alpha\beta$ (resp. $\beta\alpha)$ is homotopic to $id_y$ (resp. $id_x$),
         and hence that the objects $x,y\in \mathcal C_f$ are homotopy equivalent.
-      } % ------------------------------ OLIVE GREEN ------------------------------
+      }
 \end{proof}
-
 
 
 \begin{lemma}
@@ -3885,8 +3861,11 @@ originally due to Boardman-Vogt \cite{BV73}, and extended by Berger-Moerdijk \ci
 \begin{proof}
       It suffices to show that any homotopy $H$-equivalence between objects in some $\O \in \Op^G(\V)$
       is in fact an $H$-equivalence.
-      The coherence axiom implies that all homotopy $H$-equivalences are virtual $H$-equivalences, and then
-      right properness and Lemma \ref{RIGHTPROPER_LEM} imply these are actual $H$-equivalences.
+      Now, the proof of Lemma \ref{REF_VIRT_LEM} actually shows that
+      any arrow in a $\V$-category $\mathcal C$ which factors through a natural cofibration $\mathbb A \to \mathbb J$ encodes a homotopy equivalence,
+      and thus the coherence axiom implies that all homotopy $H$-equivalences are virtual $H$-equivalences;
+      right properness and Lemma \ref{RIGHTPROPER_LEM} imply these are actual $H$-equivalences,
+      finishing the proof.
 \end{proof}
 
 \begin{remark}
