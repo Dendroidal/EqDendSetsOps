@@ -869,8 +869,254 @@ $\mathsf{Alg}_{T^I}^{p^I}(\mathcal{C}^I)\simeq
 \end{proof}
 
 
-{\color{red} HERE}
 
+\subsection{Symmetric sequences and colored operads (Luis' version)}
+
+\begin{definition}\label{CSYM DEF}
+	Let $\mathfrak {C} \in \mathsf{F}$ be a set of \textit{colors}.
+	A tuple
+	$\ksi = (c_1, \ldots, c_n; c_0) \in \mathfrak C^{\times n} \times \mathfrak C$
+	is called a \textit{$\mathfrak {C}$-signature}.
+	The \textit{$\mathfrak C$-symmetric category} $\Sigma_{\mathfrak C}$ is then the category whose objects are the $\mathfrak{C}$-signatures and with action maps
+\[
+(c_1, \ldots, c_n; c_0) \xrightarrow{\sigma} (c_{\sigma^{-1}(1)}, \ldots, c_{\sigma^{-1}(n)}; c_0)
+\]
+	for each permutation $\sigma \in \Sigma_n$, with the natural notion of composition.
+
+Alternatively, we will find it useful to visualize signatures as \textit{corollas with edges decorated by colors in $\mathfrak{C}$}, as depicted below, so that the maps labeled $\sigma$ interchange the edges of the leftmost tree in such a way that one obtains the colored corolla on the left.
+\[
+\begin{tikzpicture}
+[grow=up,auto,level distance=2.3em,every node/.style = {font=\footnotesize},dummy/.style={circle,draw,inner sep=0pt,minimum size=1.75mm}]
+	\node at (0,0) [font=\normalsize]{}
+		child{node [dummy] {}
+			child{
+			edge from parent node [swap,near end] {$c_n$} node [name=Kn] {}}
+			child{
+			edge from parent node [near end] {$c_1$}
+node [name=Kone,swap] {}}
+		edge from parent node [swap] {$c_0$}
+		};
+		\draw [dotted,thick] (Kone) -- (Kn) ;
+	\node at (5,0) [font=\normalsize]{}
+		child{node [dummy] {}
+			child{
+			edge from parent node [swap,near end] {$c_{\sigma^{-1}(n)}$} node [name=Kn] {}}
+			child{
+			edge from parent node [near end] {$c_{\sigma^{-1}(1)}$}
+node [name=Kone,swap] {}}
+		edge from parent node [swap] {$c_0$}
+		};
+		\draw [dotted,thick] (Kone) -- (Kn) ;
+
+\draw[->] (1.5,1) -- node{$\sigma$} (3,1);
+\end{tikzpicture}
+\]
+Given any map $f \colon \mathfrak{C} \to \mathfrak{D}$ on the sets of colors, there is then a functor
+$f_{\**} \colon \Sigma_{\mathfrak{C}} \to \Sigma_{\mathfrak{D}}$
+given by $f_{\**} (c_1,\cdots,c_n;c_0) = (f(c_1),\cdots,f(c_n);f(c_0))$. 
+\end{definition}
+
+
+\begin{definition}
+Let $\mathcal{V}$ be a category.
+The category $\mathsf{Sym}(\mathcal{V})$ of
+\textit{symmetric sequences on $\mathcal{V}$} is the category with:
+\begin{itemize}
+\item objects given by a set of colors $\mathfrak{C} \in \mathsf{F}$
+and a functor $\Sigma_{\mathfrak{C}}^{op} \to \mathcal{V}$;
+\item arrows given by a map 
+$f \colon \mathfrak{C} \to \mathfrak{D}$ of colors and a natural transformation
+
+		\begin{equation}
+		\begin{tikzcd}[row sep = tiny, column sep = 35pt]
+			\Sigma_{\mathfrak{C}}^{op} \arrow{dr}[name=U]{} \arrow{dd}[swap]{f_{\**}}
+		\\
+			& \mathcal{V}
+		\\
+			|[alias=V]| \Sigma_{\mathfrak{D}}^{op} \arrow{ur}[swap]{}
+		\arrow[Leftarrow, from=V, to=U,shorten >=0.25cm,shorten <=0.25cm
+		,swap
+		]
+		\end{tikzcd}
+		\end{equation}
+\end{itemize}
+\end{definition}
+
+
+\begin{remark} The natural projection map
+$\mathsf{Sym}(\mathcal{V}) \to \mathsf{F}$
+is a (split) Grothendieck fibration with fibers the categories
+$\mathsf{Fun}(\Sigma_{\mathfrak{C}}^{op},\mathcal{V})$.
+\end{remark}
+
+
+\begin{remark}
+$\mathsf{Sym}(\mathcal{V})$ is naturally a subcategory of the $2$-overcategory
+$\mathsf{Cat}\downarrow^l \mathcal{V}$.
+\end{remark}
+
+
+
+Our next goal is to describe the fibered monad on $\mathsf{Sym}(\mathcal{V})$ such that the fiber algebras are
+$\mathsf{Op}(\mathcal{V})$.
+
+First, much as in Definition \ref{CSYM DEF}, we need colored versions of the tree categories $\Omega$ and $\Omega^0$.
+Informally, and given a set of colors $\mathcal{C}$, 
+one simply lets $\Omega_{\mathfrak{C}}$
+be the category of trees whose edges are decorated by colors in $\mathfrak{C}$, together with color respecting maps. More formally, $\Omega_{\mathfrak{C}}$ is given by the following pullback.
+\begin{equation}
+	\begin{tikzcd}
+		\OC \arrow[d] \arrow[r, "E"] &
+		\mathsf F \wr \mathfrak C \arrow[d]
+\\
+		\Omega \arrow[r, "E"] &
+		\mathsf F
+	\end{tikzcd}
+\end{equation}
+
+Keeping track of the colors on each edge then allows us to generalize the leaf-root and vertex functors of 
+\cite{BP_geo} to get analogous functors
+\[
+\Omega_{\mathfrak{C}} \xrightarrow{\mathsf{lr}} \Sigma_{\mathfrak{C}}
+\qquad
+\Omega_{\mathfrak{C}} \xrightarrow{V} \Sigma \wr \Sigma_{\mathfrak{C}}
+\]
+which are readily seen to be natural with respect to maps 
+$f \colon \mathfrak{C} \to \mathfrak{D}$.
+
+If $\mathcal{V}$ is a closed symmetric monoidal category, the free operad monad $\mathbb{F}$ on $\mathsf{Sym}(\mathcal{V})$ 
+assigns to a functor
+$\Sigma_{\mathfrak{C}}^{op} \xrightarrow{X} \mathcal{V}$
+the left Kan extension
+\begin{equation}
+\begin{tikzcd}
+	\Omega^{op}_{\mathfrak{C}}
+	\arrow[d, "\mathsf{lr}"']
+	\arrow[r, "V"]
+&
+	(\Sigma \wr \Sigma_{\mathfrak{C}})^{op} \arrow[r, "X"]
+	\arrow[dl, Rightarrow]
+&
+	(\Sigma \wr \V^{op})^{op} \arrow[r, "\otimes"]
+&
+	\V
+\\
+	\Sigma^{op}_{\mathfrak{C}} \arrow[urrr, "\Lan = \mathbb F_{\mathfrak{C}} X"']
+\end{tikzcd}
+\end{equation}
+
+
+Our next goal is to provide a convenient explicit description of the fibers of $\mathsf{Sym}(\mathcal{V})^G \to \mathsf{F}^G$
+for each $\mathfrak{C} \in \mathsf{F}^G$
+and of the restriction of the monad $\mathbb{F}^G$ to those fibers.
+
+We start with the following, which is a slight strengthening of
+\cite[Lemma A.6]{BP_geo}.
+
+\begin{lemma}
+Let $G$ be a group and $\mathfrak{C} \colon G \to \mathsf{F}$ be a $G$-set (or, more generally, $\mathcal{D}$ a category and 
+$\mathcal{C}_{\bullet}\colon \mathcal{D} \to \mathsf{Cat}$ a functor). Then category of sections as on the left below (or, more generally, as on the left)
+\begin{equation}
+	\begin{tikzcd}
+		&
+		\mathsf{Sym}(\mathcal{V}) \arrow{d}{\mathsf{fgt}}
+&
+		&
+		\mathsf{Cat}\downarrow^l \mathcal{V} \arrow{d}{\mathsf{fgt}}
+\\
+		G \arrow{r}[swap]{\mathfrak{C}} \arrow[dashed]{ru} &
+		\mathsf{F}
+&
+		\mathcal{D} \arrow{r}[swap]{\mathcal{C}_{\bullet}} \arrow[dashed]{ru} &
+		\mathsf{Cat}
+	\end{tikzcd}
+\end{equation}
+is isomorphic to the functor category
+$\mathsf{Fun}(G\ltimes \Sigma_{\mathfrak{C}}^{op},\mathcal{V})$
+(or, more generally, $\mathsf{Fun}(\mathcal{D} \ltimes \mathcal{C}_{\bullet},\mathcal{V})$).
+\end{lemma}
+
+
+\begin{proof}
+Since there is a natural inclusion
+$\mathsf{Sym}(\mathcal{V}) 
+\subseteq 
+\mathsf{Cat} \downarrow^l \mathcal{V}$
+and the assignment $\mathsf{F} \to \mathsf{Cat}$ 
+given by $\mathfrak{C} \mapsto \Sigma_{\mathfrak{C}}$ 
+is faithful, it suffices to check the more general claim concerning
+$\mathsf{Cat} \downarrow^l \mathcal{V}$.
+
+The remainder of the proof is simply a matter of unpacking definitions. For example, in both cases objects consist of collections of functors $\mathcal{C}_d \to \mathcal{V}$ for $d \in \mathcal{D}$ together with natural transformations
+	\begin{equation}
+	\begin{tikzcd}[row sep = tiny, column sep = 35pt]
+		\mathcal{C}_{d} \arrow{dr}[name=U]{} \arrow{dd}[swap]{\mathcal{C}_{f}}
+	\\
+		& \mathcal{V}
+	\\
+		|[alias=V]| \mathcal{C}_{\bar{d}} \arrow{ur}[swap]{}
+	\arrow[Leftarrow, from=V, to=U,shorten >=0.25cm,shorten <=0.25cm
+	,swap
+	]
+	\end{tikzcd}
+	\end{equation}
+for each arrow $f \colon d \to \bar{d}$ in $\mathcal{D}$, subject to natural unitality and associativity requirements.
+\end{proof}
+
+
+
+In accordance with the previous lemma, we will represent elements of $\mathsf{Sym}^G(\mathcal{V})$
+by functors
+$G \ltimes \Sigma_{\mathfrak{C}}^{op} \to \mathcal{V}$ for some $\mathfrak{C} \in \mathsf{F}^G$.
+Our next step is describe the monad $\mathbb{F}^G$ on $\mathsf{Sym}^G(\mathcal{V})$.
+
+We first note that for any 
+$A \in \mathsf{Cat}^G$ there is a natural transformation
+$G \ltimes \Sigma \wr A \to \Sigma \wr G \ltimes A$
+characterized by sending a $G$-action arrow 
+$(a_i) \xrightarrow{g} (g a_i)$
+to the diagonal tuple of $G$-action arrows
+$(a_i \xrightarrow{g} g a_i)$.
+This natural transformation can then be used to describe the $G$-equivariant $\Sigma \wr$ functor, via
+\[
+\begin{tikzcd}[column sep =40,row sep =0]
+	\left( \mathsf{Cat} \downarrow^{l} \mathcal{V} \right)^G
+	\ar{r}{\left(\Sigma \wr (-) \right)^G} &
+	\left( \mathsf{Cat} \downarrow^{l} \Sigma \wr \mathcal{V} \right)^G
+\\
+	G \ltimes A \to \mathcal{V} \ar[mapsto]{r} &
+	(G \ltimes \Sigma \wr A \to 
+	\Sigma \wr G \ltimes  A \to \Sigma \wr \mathcal{V})
+\end{tikzcd}
+\]
+and combining this with the observation that Kan extensions along
+$G \ltimes \Omega_{\mathfrak{C}} \to G \ltimes \Sigma_{\mathfrak{C}}$
+are simply the underlying Kan extension along 
+$\Omega_{\mathfrak{C}} \to \Sigma_{\mathfrak{C}}$
+together with equivariance data,
+one obtains that the monad $\mathbb{F}^G$ applied to 
+$X\colon G \ltimes \Sigma_{\mathfrak{C}}^{op} \to \mathcal{V}$
+is the left Kan extension
+\begin{equation}
+\begin{tikzcd}
+	G \ltimes \Omega^{op}_{\mathfrak{C}}
+	\arrow[d, "\mathsf{lr}"']
+	\arrow[r, "V"]
+&
+	(G\ltimes \Sigma \wr \Sigma_{\mathfrak{C}})^{op} \arrow{r}
+	\arrow[dl, Rightarrow]
+&
+	(\Sigma \wr G\ltimes \Sigma_{\mathfrak{C}})^{op} \arrow[r, "X"]
+&
+	(\Sigma \wr \V^{op})^{op} \arrow[r, "\otimes"]
+&
+	\V
+\\
+	G\ltimes\Sigma^{op}_{\mathfrak{C}} \arrow[urrrr, "\Lan = \mathbb F_{\mathfrak{C}}^G X"']
+\end{tikzcd}
+\end{equation}
+
+{\color{red} HERE}
 
 
 
@@ -1706,7 +1952,7 @@ First, one lemma.
  
 \subsection{The homotopy theory of operads with a fixed color $G$-set}
 
-We begin our analysis of the homotopy theory of equivariant color operads by
+We begin our analysis of the homotopy theory of equivariant colored operads by
 considering the subcategories $\Op^{G, \mathfrak C}(\V) \subseteq \Op^G(\V)$
 where the $G$-set of colors is fixed, and all maps are the identity on $\mathfrak C$.
 The main result of this section is Theorem \ref{THM1_C}, which states that
@@ -1745,7 +1991,7 @@ For completeness, we recall a main result of \cite{Ste16}, which transfers model
       Let $\V$ be cofibrantly generated model category, $\F$ any family of subgroups of $G$ containing the trivial subgroup, and $\mathsf O_\F$ the full subcategory of $\mathsf O_G$ spanned by the $G/H$ with $H \in \F$.
       Then
       \begin{itemize}
-      \item the projective model structure on $\V^{\mathsf O_\F^{op}}$;
+      \item the projective model structure on $\V^{\mathsf O_\F^{op}}$ exists;
       \item the $\F$-model structure on $\V^G$ exists, where an arrow $f \in \V$ is a weak equivalence or fibration iff each $f^H$ is in $\V$ for each $H \in \F$; and
       \item the inclusion $\V^G \xrightarrow{i_{\**}} \V^{\mathsf O_F^{op}}$, $i_{\**}X(G/H) = X^H$ is a right Quillen equivalence.
       \end{itemize}
