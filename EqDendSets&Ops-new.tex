@@ -208,9 +208,10 @@ each $\O(n)$ is a $G \times \Sigma_n$-object, and we can ask that the maps $\O(n
 with perhaps the most useful being the ``graph subgroup equivalences'' (see, e.g. \cite{BP_geo}, \cite{BH15}),
 while the notion of essential surjectivity is vacuous.
 Further generalizing to multi-colored operads (or multicategories),
-we have a mapping space for each ``profile'' $C = (c_1, \dots, c_n; c_0)$,
-and each $\O(C)$ has an action by the subgroup $\Aut(C) \leq G \times \Sigma_n$,
-and we can ask that the maps $\O(C) \to \P(F(C))$ be some sort of $\Aut(C)$-equivalence,
+we have a set $\mathfrak C$ of ``colors'' (or objects),
+and a mapping space $\O(C)$ for each ``signature'' $C = (c_1, \dots, c_n; c_0) \in \mathfrak C^{\times n} \times \mathfrak C$,
+such that each $\O(C)$ has an action by the subgroup $\Aut(C) \leq G \times \Sigma_n$.
+We can ask that the maps $\O(C) \to \P(F(C))$ be some sort of $\Aut(C)$-equivalence,
 again with perhaps the most useful being the graph equivalences.
 Here, homotopical essential surjectivity is defined on the underlying categories of path components.
 
@@ -1988,7 +1989,7 @@ we require that the fixed point functors interact properly with the underlying m
 
 For completeness, we recall a main result of \cite{Ste16}, which transfers model structures along several adjuctions.
 \begin{theorem}[{\cite[Thm. 2.10]{Ste16}}]
-      Let $\V$ be cofibrantly generated model category, $\F$ any family of subgroups of $G$ containing the trivial subgroup, and $\mathsf O_\F$ the full subcategory of $\mathsf O_G$ spanned by the $G/H$ with $H \in \F$.
+      Let $\V$ be cofibrantly generated model category with cellular fixed points, $\F$ any family of subgroups of $G$ containing the trivial subgroup, and $\mathsf O_\F$ the full subcategory of $\mathsf O_G$ spanned by the $G/H$ with $H \in \F$.
       Then
       \begin{itemize}
       \item the projective model structure on $\V^{\mathsf O_\F^{op}}$ exists;
@@ -1997,63 +1998,75 @@ For completeness, we recall a main result of \cite{Ste16}, which transfers model
       \end{itemize}
 \end{theorem}      
 
-We can combine this transfer result with those by Hirschorn to prove the following.
+This result formally extends to diagrams $\V^{\mathcal G}$ where $\mathcal G$ is a groupoid.
+\begin{definition}
+      For any groupoid $\mathcal G$, a \textit{family} of subgroups of $\mathcal G$ is
+      a collection $\F = \set{\F_d}$ of families of subgroups $\F_d$ of $\Aut(d)$ for all $d \in \mathcal G$,
+      such that for any map $\alpha: d \to d'$, $\alpha^{\**}\F_{d'} \subseteq \F_d$ (or equivalently, equality).
+\end{definition}
+
 \begin{proposition}
       \label{TRANS_MODEL_PROP}
-      Let $\V$ be a cocomplete model category will cellular fixed points.
-      Now suppose $\mathcal D$ is a groupoid, and let $\F_d$ be a family of subgroups of $\mathsf{Aut}(d)$ for each $d \in \mathcal D$.
-      Then the category of diagrams $\V^{\mathcal D}$ has an \textit{$\F$-model structure} $\V^\D_\F$, where
+      Let $\V$ be a cofibrantly generated model category with cellular fixed points, $\mathcal G$ a groupoid, and $\F$ a family of subgroups of $\mathcal G$.
+      Then the category of diagrams $\V^{\mathcal G}$ has an \textit{$\F$-model structure} $\V^\G_\F$, where
       a map $f: X \to Y$ is a
-      weak equivalence (resp. fibration) iff $f(d): X(d) \to Y(d)$ is so in $\V^{\mathsf{Aut}(d)}_{\F_d}$ for each $d \in \mathcal D$.
+      weak equivalence (resp. fibration) iff $f(d): X(d) \to Y(d)$ is so in $\V^{\mathsf{Aut}(d)}_{\F_d}$ for each $d \in \mathcal G$.
 
-      Moreover, if $X \in \V^{\mathcal D}$ is cofibrant, it is also levelwise cofibrant.
+      Moreover, if $X \in \V^{\mathcal G}$ is cofibrant, it is also levelwise cofibrant.
 \end{proposition}
 \begin{proof}
       This is the model structure transferred along the adjunction
       \begin{equation}
             \begin{tikzcd}
-                  \V^\D \leftrightarrows
-                  \mathop{\prod}\limits_{d \in \D}\V^{\mathsf{Aut}(d)}_{\F_d}
+                  \V^{\mathcal G} \leftrightarrows
+                  \mathop{\prod}\limits_{d \in \mathcal G}\V^{\mathsf{Aut}(d)}_{\F_d}
             \end{tikzcd}
       \end{equation}
       which exists by a straightforward exercise adapting and combining the proofs of
       \cite[Thm 11.6.1]{Hir03} and \cite[Prop 2.6]{Ste16};
       the generating (trivial) cofibrations are given by
       \begin{equation}
-            I^{\mathcal D}_\F = \sets{\mathcal D(d,-) \cdot_{\mathcal D(d,d)} \mathcal D(d,d)/H \cdot i}{d \in \mathcal D, i \in I, H \in \F_d}
+            I^{\mathcal G}_\F = \sets{\mathcal G(d,-) \cdot_{\mathcal G(d,d)} \mathcal G(d,d)/H \cdot i}{d \in \mathcal G, i \in I, H \in \F_d}
       \end{equation}
       where $I$ is the set of generating (trivial) cofibrations in $\V$.
 \end{proof}
 
 We note that for any $G$-operad with $\mathfrak C = \set{\**}$, each level $\O(n)$ has a left action by $G \times \Sigma_n$.
-In the homotopy theory of $G$-operads, as indicated in the main result of \cite{BP_geo}, it is
+In the homotopy theory of $G$-operads, as indicated in \cite{BH15} and the main result of \cite{BP_geo}, it is
 necessary to consider the homotopy type of the fixed point spaces for particular subgroups of $G \times \Sigma_n$:
-not all of them, not just the subgroups of $G$, but instead the graph subgroups.
+not all of them, and not just the subgroups of $G$, but instead the graph subgroups.
 
 \begin{definition}
       \label{GGRAPHFAM_DEF}
-      A subgroup $\Gamma \leq G \times \Sigma_n$ is called a \textit{graph subgroup} if $\Gamma \cap \Sigma_n = \**$,
-      or equivalently if $\Gamma$ is the graph $\Gamma(\phi)$ of a homomorphism $G \leq H \xrightarrow{\phi} \Sigma_n$.
+      A subgroup $\Gamma \leq G \times \Sigma_n$ is called a \textit{graph subgroup} if $\Gamma \cap \Sigma_n = \**$;
+      equivalently, if $\Gamma$ is the graph $\Gamma(\phi)$ of a homomorphism $G \leq H \xrightarrow{\phi} \Sigma_n$.
 
       A \textit{$G$-graph system} is a collection $\F = \set{\F_n}_{n \geq 0}$ of families $\F_n$ of graph subgroups of $G \times \Sigma_n$, one family for each $n$.
       The maximum example will be denoted $\mathrm{Gr} = \set{\mathrm{Gr}_n}$, with $\mathrm{Gr}_n$ the entire collection of graph subgroups of $G \times \Sigma_n$.
 \end{definition}
 
-We can now define our model structures on equivariant symmetric sequences.
+Extending this discussion to the many-colored setting, we note that
+any $G$-graph system automatically extends to a family for the groupoid $\mathcal G = G \ltimes \Sigma_{\mathfrak C}^{op}$,
+by defining for any $\mathfrak C$-signature $\ksi = (c_1,\dots,c_n;c_0)$ of length $n+1$,
+\[
+      \F_\ksi = \F_n \cap \Aut_{G \times \Sigma_n}(\ksi)
+\]
+the graph subgroups $\Gamma \in \F_n$ such that $\Lambda \leq \Aut_{G \times \Sigma_n}(\ksi)$.
+Applying Proposition \ref{TRANS_MODEL_PROP} induces an $\F$-model structure on the category of $\mathfrak C$-symmetric sequences in $\V$.
 
-\begin{example}
-      Let $\V$ be a cocomplete model category with cellular fixed points,
-      $\mathfrak C$ a $G$-set, and $\F = \set{\F_n}$ a collection of families $\F_n$ of graph subgroups of $G \times \Sigma_n$.
-      Then $\Sym^{G,\mathfrak C}(\V) = \V^{G \ltimes \Sigma_{\mathfrak C}^{op}}$ has an $\F$-model structure
+\begin{definition}
+      Let $\V$ be a cofibrantly generated model category with cellular fixed points,
+      $\mathfrak C$ a $G$-set, and $\F$ a $G$-graph system.
+      Then the \textit{$\F$-model structure} on the fiber $\Sym^{G,\mathfrak C}(\V)$ of $\Sym(\V)$ over $\mathfrak C$
+      is the $\F$-model structure
       \begin{equation}
-            \Sym^{G,\mathfrak C}_\F(\V) = \prod_n \V^{(G \times \Sigma_n^{op}) \ltimes \mathfrak C^{\times n+1}}_{\F_n},
+            \Sym^{G,\mathfrak C}_\F(\V) = \V^{G \ltimes \Sigma_{\mathfrak C}^{op}}_{\F}
       \end{equation}
-      where
-      $(\F_n)_{\xi}$ is all $\Gamma \in \F_n$ such that $\Gamma \leq \mathsf{Aut}(\xi)$.
+      where $\F$ on the right-hand-side is the associated family of subgroups of $G \ltimes \Sigma_{\mathfrak C}^{op}$.
       % $\V^{B_{\mathfrak C^{\times n+1}}(G \times \Sigma_n)}_{\F_n}$ has the model structure lifted from the adjunction to
       % $\prod_{(c_i)}\V^{\mathsf{Aut}(c_1,\dots,c_n; c_0)}_{\F_{(c_i)}}$ where
       % $\F_{(c_i)}$ is the set of all $\Gamma \in \F_n$ such that $\Gamma \leq \mathsf{Aut}(c_1,\dots, c_n;c_0)$.
-\end{example}
+\end{definition}
 
 % On the other hand, let $\Sym_{\F, \mathfrak C}(\V)$ denote the category $\V^{\UC\Sigma_\F}$ with the projective model structure.
 
@@ -2079,45 +2092,49 @@ We can now define our model structures on equivariant symmetric sequences.
 
 As in \cite{BP_geo}, we will transfer this model structure along the free-forgetful adjunction
 \[
-      \Op^{G, \mathfrak C}_\F(\V) \leftrightarrows \Sym^{G, \mathfrak C}_\F: \mathbb F^{\mathfrak C}.
+      \Op^{G, \mathfrak C}_\F(\V) \leftrightarrows \Sym^{G, \mathfrak C}_\F: \mathbb F^G_{\mathfrak C}
 \]
-To do so, we will need to understand this monad $\mathbb F^{\mathfrak C}$.
-Much of this discussion takes place in Appendix \ref{MONAD_APDX}.
-Here, we will just record the necessary homotopy theoretic result.
+where $\mathbb F^G_{\mathfrak C}$ is the fiber of the cartesian monad $\mathbb F^G$ over $\mathfrak C$,
+described explicitly in {\color{red} diagram in \S 3.2}.
 
-We say $X \to Y \in \Sym^{G, \mathfrak C}(\V)$ is a \textit{level genuine cofibration} if for each $C \in \G \ltimes \SC^{op}$,
-$X(C) \to Y(C)$ is a genuine cofibration in $\V^{\Aut(C)}$;
-we say $X$ is \textit{level genuine cofibrant} if $\varnothing \to X$ is a level genuine cofibration.
+This transfer will follow much in the same was as in \cite{BP_geo},
+by constructing an appropriate filtration (Proposition \ref{FILT_PUSH_PROP}) and
+showing that the levels are appropriately well-behaved (Lemma \ref{EXMAINLEM LEM}).
+We relegate this discussion to Appendix \ref{MONAD_APDX}.
 
-\begin{lemma}[{cf. \cite[5.73]{BP_geo}}] % EXMAINLEM LEM
-      \label{EXMAINLEM LEM}
-      Suppose $\mathcal{V}$ is a cofibrantly generated closed monoidal model category
-      \todo{do we need to introduce monoidal model categories again? I wouldn't think so}
-      with cellular fixed points and
-      with cofibrant symmetric pushout powers (Defn \ref{CSPP_DEF}).
+% We say $X \to Y \in \Sym^{G, \mathfrak C}(\V)$ is a \textit{level genuine cofibration} if for each $C \in \G \ltimes \SC^{op}$,
+% $X(C) \to Y(C)$ is a genuine cofibration in $\V^{\Aut(C)}$;
+% we say $X$ is \textit{level genuine cofibrant} if $\varnothing \to X$ is a level genuine cofibration.
+
+% \begin{lemma}[{cf. \cite[5.73]{BP_geo}}] % EXMAINLEM LEM
+%       \label{EXMAINLEM LEM}
+%       Suppose $\mathcal{V}$ is a cofibrantly generated closed monoidal model category
+%       \todo{do we need to introduce monoidal model categories again? I wouldn't think so}
+%       with cellular fixed points and
+%       with cofibrant symmetric pushout powers (Defn \ref{CSPP_DEF}).
       
-      Let $\O \in \mathsf{Sym}^{G,\mathfrak C}(\mathcal{V})$
-      be level genuine cofibrant
-      and  
-      $u: X \to Y$ in $\Sym^{G, \mathfrak C}(\V)$ a level genuine cofibration. 
-      Then for each $T \in G \ltimes \Omega^a[k]^{op}$ and writing
-      $C = \mathsf{lr}(T)$, the map	
-      \begin{equation}\label{EXMAINLEM EQ}
-            \left(
-                  \bigotimes\limits_{v \in V^{ac}(T)}\P(T_v) \otimes
-                  \underset{v \in V^{in}(T)}
-                  {\mathlarger{\mathlarger{\mathlarger{\square}}}}
-                  u(T_v)
-            \right) 
-            \mathop{\otimes}\limits_{\mathsf{Aut}(T)} \mathsf{Aut}(C).
-      \end{equation}
-      is a genuine cofibration in 
-      $\mathcal{V}^{\mathsf{Aut}(C)}_{\text{gen}}$,
-      which is trivial if $k \geq 1$ and $u$ is trivial.	
-\end{lemma}
-\begin{proof}
-      This follows as in \cite{BP_geo}, as we may take the automorphism groups to live in the category $F \wr (G^{op} \ltimes \Sigma_{\mathfrak C}).$ 
-\end{proof}
+%       Let $\O \in \mathsf{Sym}^{G,\mathfrak C}(\mathcal{V})$
+%       be level genuine cofibrant
+%       and  
+%       $u: X \to Y$ in $\Sym^{G, \mathfrak C}(\V)$ a level genuine cofibration. 
+%       Then for each $T \in G \ltimes \Omega^a[k]^{op}$ and writing
+%       $C = \mathsf{lr}(T)$, the map	
+%       \begin{equation}\label{EXMAINLEM EQ}
+%             \left(
+%                   \bigotimes\limits_{v \in V^{ac}(T)}\P(T_v) \otimes
+%                   \underset{v \in V^{in}(T)}
+%                   {\mathlarger{\mathlarger{\mathlarger{\square}}}}
+%                   u(T_v)
+%             \right) 
+%             \mathop{\otimes}\limits_{\mathsf{Aut}(T)} \mathsf{Aut}(C).
+%       \end{equation}
+%       is a genuine cofibration in 
+%       $\mathcal{V}^{\mathsf{Aut}(C)}_{\text{gen}}$,
+%       which is trivial if $k \geq 1$ and $u$ is trivial.	
+% \end{lemma}
+% \begin{proof}
+%       This follows as in \cite{BP_geo}, as we may take the automorphism groups to live in the category $F \wr (G^{op} \ltimes \Sigma_{\mathfrak C}).$ 
+% \end{proof}
 
 \begin{proof}[Proof of Theorem \ref{THM1_C}]
       As this model structure is precisely the one transfered from $\Sym^{G, \mathfrak C}_\F(\V)$,
@@ -2572,7 +2589,7 @@ Fix a graph subgroup $\Gamma \in \F_n$ of $G \times \Sigma_n$, and $X \in \V^\Ga
 We now construct the ``free operad with stabilizer $\Gamma$ generated by $X$''.
 Consider the $G$-set of colors $\mathfrak C_\Gamma := G \cdot_\Gamma \langle n \rangle$,
 and let $C_0$ denote the signature $([e,1],[e,2],\dots,[e,n];[e,0])$.
-Let $C_\Gamma[X]$ denote the $(G,\mathfrak C_\Gamma)$-symmetric sequence defined on the profile $C$ to be
+Let $C_\Gamma[X]$ denote the $(G,\mathfrak C_\Gamma)$-symmetric sequence, defined on any signature $C \in G \ltimes \Sigma_{\mathfrak C_\Gamma}^{op}$ to be
 \begin{equation}
       C_\Gamma[X](C) =
       \left(\coprod_{(g,\sigma).C_0 = C} (g,\sigma)^{\**}A \right)_{/ H},
@@ -3176,7 +3193,7 @@ Using the above yields the following useful results.
 \begin{lemma}
       \label{HTPIC_COMP_LEM}
       If $\O \in \Op^{G, \mathfrak C}(\V)$ is cofibrant,
-      and $f,g: 1_\V \to \O(c;d)$ are homotopic, then for any $\mathfrak C(\O)$ profile $\ksi$ such that either
+      and $f,g: 1_\V \to \O(c;d)$ are homotopic, then for any $\mathfrak C(\O)$-signature $\ksi$ such that either
       \begin{itemize} %{enumerate}[label = (\arabic*)]
       \item the target of $\ksi$ is $c$, or
       \item $d$ is in the source of $\ksi$,
@@ -3186,7 +3203,7 @@ Using the above yields the following useful results.
             f_{\**}, g_{\**}: \O(\ksi) \simeq \O(\ksi) \otimes 1_\V \to \O(\ksi) \otimes \O(c;d) \xrightarrow{\circ} \O(\ksi_c^d)
       \end{equation}
       are homotopic,
-      where $\ksi_c^d$ is the profile created from $\ksi$ by replacing $c$ with $d$.
+      where $\ksi_c^d$ is the signature created from $\ksi$ by replacing $c$ with $d$.
 \end{lemma}
 \begin{proof}
       This follows from Remark \ref{CYL_REM} and the following commuting diagram.
@@ -3207,7 +3224,7 @@ The following Corollary of Lemma \ref{HTPIC_COMP_LEM} is immediate.
 \begin{corollary}[{cf. \cite[Lemma 1.23]{GM17}}]
       \label{HTPIC_ISO_COR}
       Let $\O$ be level bifibrant in $\Op(\V)$. 
-      If $f \in \O(c;c)$ is homotopic to the identity on $c$, then for any profile $\ksi$ containing $c$, the map
+      If $f \in \O(c;c)$ is homotopic to the identity on $c$, then for any signature $\ksi$ containing $c$, the map
       $f_{\**}: \O(\ksi) \to \O(\ksi)$
      is an isomorphism in the homotopy category $\Ho(\V)$.
 \end{corollary}
@@ -3546,7 +3563,7 @@ which show that a homotopy equivalence of colors induces a certain homotopy equi
       $c,d \in \mathfrak C_\O$, 
       $H = \Stab(c)$, and suppose $c$ and $d$ are homotopy $H$-equivalent (so in particular $H \subseteq \Stab(d)$).
       
-      Then, for any $\mathfrak C_\O$-profile $C = (c_1,\dots, c_n;c) \in G \ltimes \Sigma_{\mathfrak C_\O}$,
+      Then, for any $\mathfrak C_\O$-signature $C = (c_1,\dots, c_n;c) \in G \ltimes \Sigma_{\mathfrak C_\O}$,
       there exists a zig-zag of weak equivalences in $\V^{\Aut(C)}_{\mathrm{Gr}_C}$
       \footnote{Recall the notation $\mathrm{Gr}_C$ from Definition \ref{GGRAPHFAM_DEF}.}
       between $\O(C)$ and $\O(D)$,
@@ -3678,7 +3695,7 @@ which show that a homotopy equivalence of colors induces a certain homotopy equi
       Let $\O \in \Op^G(\V)$, and suppose
       $c_i$ and $d_j$ are homotopy $H$-equivalent with $H \leq \Stab(c_i) \leq \Stab(d_j)$.
 
-      Then, for any $\mathfrak C_\O$-profile $C = (c_1,\dots,c_n;c) \in G \ltimes \Sigma_{\mathfrak C_\O}^{op}$,
+      Then, for any $\mathfrak C_\O$-signature $C = (c_1,\dots,c_n;c) \in G \ltimes \Sigma_{\mathfrak C_\O}^{op}$,
       there exists a zig-zag of weak equivalences between
       $\O(C)$ and $\O(D)$
       in $\V^{\Aut(C)}_{\mathrm{Gr}_C}$,
@@ -6470,11 +6487,11 @@ $\mathfrak{D}$)
 \begin{notation}
 Given a $G$-Segal operad $X$ and $G$-corolla $C$, 
 $X(\partial \Omega[C])$ is a discrete simplicial set whose elements
-are the $C$-profiles $(c_1,\cdots,c_n;c_0)$ of $X$.
+are the $C$-signatures $(c_1,\cdots,c_n;c_0)$ of $X$.
 The map $X(\Omega[C]) \to X(\partial \Omega[C])$ hence yields
 a coproduct decomposition 
 \[
-X(\Omega[C]) \simeq \coprod_{C\text{-profiles }(c_1,\cdots,c_n;c_0)}
+X(\Omega[C]) \simeq \coprod_{C\text{-signatures }(c_1,\cdots,c_n;c_0)}
 X(c_1,\cdots,c_n;c_0)
 \]
 \end{notation}
@@ -9517,6 +9534,7 @@ $\epsilon' \circ \rho F' = \epsilon$
 \section{Whatever}
 
 \begin{proposition}
+      \label{GWRREAL_PROP}
 For $\mathcal{C}_{\bullet} \in \mathsf{Cat}^{G\times \Delta^{op}}$
 one has a natural identification
 \[|G \ltimes \mathcal{C}_{\bullet}| \simeq G \ltimes |\mathcal{C}_{\bullet}|.\]
@@ -9568,9 +9586,9 @@ and in $G \ltimes |\mathcal{C}_{\bullet}|$ follow from an action relation.
 
 \subsection{Filtrations of free extensions} % Previously: Homotpy thy of ops with fixed g-set of colors, section 2
 
-We mimic the discussion and construction in \cite[\S 5.1 - 5.3]{BP_geo}
-in order to build free extensions of this monad.
-For this section, let $\mathbb F$ denote $\mathbb F^{G, \mathfrak C}$.
+We mimic the discussions and constructions in \cite[\S 5.1 - 5.3]{BP_geo}
+in order to understand free extensions of the fibers $\mathbb F^G_{\mathfrak C}$ of the fibered monad $\mathbb F^G$.
+For this section, we fix a $G$-set $\mathfrak C$, and let $\mathbb F$ denote $\mathbb F^G_{\mathfrak C}$.
 
 \begin{definition}
       Given $\O \in \Op^{G, \mathfrak C}(\V)$ and $u: X \to Y$ in $\Sym^{G,\mathfrak C}\V$,
@@ -9588,45 +9606,16 @@ For this section, let $\mathbb F$ denote $\mathbb F^{G, \mathfrak C}$.
       \end{equation}
 \end{definition}
 
-Our goal in this section is to produce the following filtration.
-
-\begin{proposition}
-      \label{FILT_PUSH_PROP}
-      There exists a filtration in $\Sym^{G, \mathfrak C}(\V)$
-      \begin{equation}
-            \O = \O_0 \into \O_1 \into \O_2 \into \dots \into \O_\infty = \O[u]
-      \end{equation}
-      of the pushout map
-      such that, for each $\mathfrak C$-profile $C \in G \ltimes \Sigma_{\mathfrak C}$,
-      the diagram below is a pushout in $\V^{\Aut(C, \mathfrak c)}$.
-      \begin{equation}
-            \label{FILT_PUSHG_EQ}
-            \begin{tikzcd}
-                  \mathop{\coprod}\limits_{[T] \in \Iso(C \downarrow_r G \ltimes \Omega_{\mathfrak C}^a[k])}
-                  \left(
-                        \mathop{\bigotimes}\limits_{v \in V^{ac}(T)} \O(T_v) \otimes
-                        Q^{in}_T[u]
-                  \right) \cdot_{\Aut_{G \ltimes OC}(T)} \Aut_{G \ltimes \SC}(C)
-                  \arrow[r]
-                  \arrow[d]
-                  &
-                  \O_{n-1}(C) \arrow[d]
-                  \\                  
-                  \mathop{\coprod}\limits_{[T] \in \Iso(C \downarrow_r G \ltimes \Omega_{\mathfrak C}^a[k])}
-                  \left(
-                        \mathop{\bigotimes}\limits_{v \in V^{ac}(T)} \O(T_v) \otimes
-                        \mathop{\bigotimes}\limits_{v \in V^{in}(T)} Y(T_v)
-                  \right) \cdot_{\Aut_{G \ltimes \OC}(T)} \Aut_{G \ltimes \SC}(C)
-                  \arrow[r]
-                  &
-                  \O_n(C)
-            \end{tikzcd}
-      \end{equation}
-      where we define
-      \begin{equation}
-            \mathop{\mathlarger{\mathlarger{\mathlarger{\square}}}}_{v \in V^{in}(T)} u(T_v): Q^{in}_T[u] \to \bigotimes_{v \in V^{in}(T)} Y(T_v).
-      \end{equation}
-\end{proposition}
+Our goal in this section is to produce a filtration
+\[
+      \O = \O_0 \into \O_1 \into \O_2 \into \dots \into \O_\infty = \O[u]
+\]
+between the operads $\O$ and $\O[u]$
+which is homotopically well-behaved.
+The cost, as is often the case, is that we cannot find such a filtration of operads, and instead
+only produce a filtration in $\Sym^{G, \mathfrak C}(\V)$,
+which ends up being sufficent.
+These key technical results are recorded in Propsition \label{FILT_PUSH_PROP} and Lemma \ref{EXMAINLEM LEM}
 
 To start, we observe ---  as in $(5.3)$ through $(5.7)$ of \cite{BP_geo} --- that
 \begin{align*}
@@ -9651,9 +9640,19 @@ Through a series of reductions (Propositions \ref{OU_RED1_PROP}, \ref{OU_RED2_PR
 we will identify this as a left Kan extension over an approachable category, 
 and build our filtration by filtering this category.
 
+The following are the key locations where the many-colors require additional care:
+\begin{itemize}
+\item In Definition \ref{CLPS_DEF}, we only need to color the last tree in the string; this induces a unique choice of coloring such that all maps are colored.
+\item Lemma \ref{GWRA_LEM} allows us to recognize wreath products of $G$-action groupoids as a $G$-action groupoid.
+\item Need: $\pi^{\**}$ and $|-|$ commutes (Proposition \ref{PIREAL_PROP})
+\item Need: $|-|$ commutes with $G \ltimes (-)$ (Proposition \ref{GWRREAL_PROP})
+\end{itemize}
+
+
 \subsubsection{Labeled planar strings}
 
 \begin{definition}
+      \label{CLPS_DEF}
       Given $n\geq -1$, $-1 \leq s \leq n$, $l \geq 0$, and a partition $\lambda = \lambda_a \amalg \lambda_i$ of $\set{1,2,\dots,l}$, 
       define $\Omega_{\mathfrak C}^{n,s,\lambda}$ to be the pullback
       \begin{equation}
@@ -9769,7 +9768,7 @@ and build our filtration by filtering this category.
 \end{lemma}
 \begin{proof}
       The $\mathfrak C$-colored version of \cite[Prop 5.30]{BP_geo} (with $G = e$)
-      follows from Proposition 9.2 and Corollary \ref{COLORCOR COR}
+      follows from Proposition \ref{ASSOCIDS PROP} and Corollary \ref{COLORCOR COR}
       by the same argument as in \textit{loc cite}.
       The $\mathfrak C$-colored version of \cite[Cor. 5.32]{BP_geo} then follows by drawing the analogous diagrams used in its proof,
       and finally the above equation combines two special cases of this result.
@@ -9903,7 +9902,7 @@ We will now realize (twice) the bisimplicial category $\OC^{\bullet, \lambda_\bu
       $|\OC^{\bullet, \lambda_l}| \simeq \pi^{\**} |\Omega^{\bullet, \lambda_l}| = \pi^{\**} \Omega^{t, \lambda_l} = \OC^{t, \lambda_l}$,
       % $\simeq \OC^{t,\lambda_l}$ and $|\OC^{t,\lambda_\bullet}| \simeq \OC^e$
       by Remark 5.36 and Proposition 5.41 of \cite{BP_geo}.
-      Thus, Proposition \ref{PRESSTLIM PROP} tells us that
+      Thus, Propositions \ref{PRESSTLIM PROP} and \ref{GWRREAL_PROP} tell us that
       $|G^{op} \ltimes \OC^{\bullet, \lambda_\bullet}| \simeq G^{op} \ltimes \OC^e$.
       Finally, the realization tool \cite[Prop. 5.37]{BP_geo} has no dependence whatsoever on $\Sigma_G$,
       and the natural transformation component of both sets of the simplicial maps in $N_{\bullet, \bullet}^{(\O,X,Y)}$ are natural isomorphisms by the same analysis as in \cite{BP_geo},
@@ -10082,48 +10081,87 @@ yields the pushout diagram
 \end{equation}
 
 
-We can finally prove our formula for the levelwise filtration.
+We can now finally produce formula for the levelwise filtration.
+We in fact will have two different descriptions.
+
+\begin{proposition}
+      \label{FILT_PUSH_PROP}
+      Suppose $\V$ is a closed monoidal category.
+      Then there exists a filtration in $\Sym^{G, \mathfrak C}(\V)$
+      \begin{equation}
+            \O = \O_0 \into \O_1 \into \O_2 \into \dots \into \O_\infty = \O[u]
+      \end{equation}
+      of the pushout map
+      such that, for each $\mathfrak C$-signature $C \in G \ltimes \Sigma_{\mathfrak C}$,
+      both diagrams below are pushouts in $\V$,
+      \vspace{-15pt}
+      \begin{align}
+        \label{FILT_PUSHG_EQ}
+        \begin{tikzcd}[ampersand replacement=\&]
+              \mathop{\coprod}\limits_{[T] \in \Iso(C \downarrow_r G \ltimes \Omega_{\mathfrak C}^a[k])}
+              \left(
+                    \mathop{\bigotimes}\limits_{v \in V^{ac}(T)} \O(T_v) \otimes
+                    Q^{in}_T[u]
+              \right) \cdot_{\Aut_{G \ltimes O\C}(T)} \Aut_{G \ltimes \SC}(C)
+              \arrow[r]
+              \arrow[d]
+              \&
+              \O_{n-1}(C) \arrow[d]
+              \\                  
+              \mathop{\coprod}\limits_{[T] \in \Iso(C \downarrow_r G \ltimes \Omega_{\mathfrak C}^a[k])}
+              \left(
+                    \mathop{\bigotimes}\limits_{v \in V^{ac}(T)} \O(T_v) \otimes
+                    \mathop{\bigotimes}\limits_{v \in V^{in}(T)} Y(T_v)
+              \right) \cdot_{\Aut_{G \ltimes \OC}(T)} \Aut_{G \ltimes \SC}(C)
+              \arrow[r]
+              \&
+              \O_n(C)
+        \end{tikzcd}
+        \\
+        \label{FILT_PUSH_EQ}
+        \begin{tikzcd}[ampersand replacement=\&]
+              \mathop{\coprod}\limits_{[T] \in \Iso(C \downarrow_r \Omega_{\mathfrak C}^a[k])}
+              \left(
+                    \mathop{\bigotimes}\limits_{v \in V^{ac}(T)} \O(T_v) \otimes
+                    Q^{in}_T[u]
+              \right) \cdot_{\Aut_{\OC} (T)} \Aut_{\SC}(C)
+              \arrow[r]
+              \arrow[d]
+              \&[15pt]
+              \O_{n-1}(C) \arrow[d]
+              \\                  
+              \mathop{\coprod}\limits_{[T] \in \Iso(C \downarrow_r \Omega_{\mathfrak C}^a[k])}
+              \left(
+                    \mathop{\bigotimes}\limits_{v \in V^{ac}(T)} \O(T_v) \otimes
+                    \mathop{\bigotimes}\limits_{v \in V^{in}(T)} Y(T_v)
+              \right) \cdot_{\Aut_{\OC}(T)} \Aut_{\SC}(C)
+              \arrow[r]
+              \&
+              \O_n(C)
+        \end{tikzcd}
+      \end{align}
+      where we define $Q^{in}_T[u]$ to be the source of the pushout-product map
+      \begin{equation}
+            \mathop{\mathlarger{\mathlarger{\mathlarger{\square}}}}_{v \in V^{in}(T)} u(T_v): Q^{in}_T[u] \to \bigotimes_{v \in V^{in}(T)} Y(T_v).
+      \end{equation}
+\end{proposition}
 \begin{proof}
-      [Proof of Proposition \ref{FILT_PUSH_PROP}]
       By first left Kan extending to $G \ltimes \OC^a[k]^{op}$, we can rewrite the leftmost map in \eqref{FILT_LAN_EQ} as
       \begin{equation}
+            \label{FILT_LANFIN_EQ}
             \Lan_{G \ltimes (\OC^a[k] \to \SC)^{op}}\left(
                   \bigotimes_{v \in V^{ac}(T)}\O(T_v) \otimes
                   \mathop{\mathlarger{\mathlarger{\mathlarger{\square}}}}\limits_{v \in V^{in}(T)} u(T_v)
             \right).
       \end{equation}
       using Remark \ref{OEFIB_REM}.
-      Finally, the description of the leftmost map in \eqref{FILT_PUSHG_EQ} follows by noting that
-      the undercategories $C \downarrow G \ltimes \OC^a[k]^{op}$ are groupoids.
+      The description of the leftmost maps in \eqref{FILT_PUSHG_EQ} and \eqref{FILT_PUSH_EQ} follow by
+      applying Lemma \ref{REDUCELAN LEM} to \eqref{FILT_LANFIN_EQ} in the latter case,
+      and in both cases using the fact that the undercategories
+      $C \downarrow G \ltimes \OC^a[k]^{op}$ and
+      $C \downarrow \OC^a[k]^{op}$ are groupoids.
 \end{proof}
 
-\begin{remark}
-      We also have a description of $\O_{k-1}(C) \to \O_k(C)$ as the pushout below,
-      as the analysis after Proposition \ref{OU_RED2_PROP} basically follows just as well without applying $G \ltimes (-)$.
-      \begin{equation}
-            \label{FILT_PUSH_EQ}
-            \begin{tikzcd}
-                  \mathop{\coprod}\limits_{[T] \in \Iso(C \downarrow_r \Omega_{\mathfrak C}^a[k])}
-                  \left(
-                        \mathop{\bigotimes}\limits_{v \in V^{ac}(T)} \O(T_v) \otimes
-                        Q^{in}_T[u]
-                  \right) \cdot_{\Aut_{\OC} (T)} \Aut_{\SC}(C)
-                  \arrow[r]
-                  \arrow[d]
-                  &
-                  \O_{n-1}(C) \arrow[d]
-                  \\                  
-                  \mathop{\coprod}\limits_{[T] \in \Iso(C \downarrow_r \Omega_{\mathfrak C}^a[k])}
-                  \left(
-                        \mathop{\bigotimes}\limits_{v \in V^{ac}(T)} \O(T_v) \otimes
-                        \mathop{\bigotimes}\limits_{v \in V^{in}(T)} Y(T_v)
-                  \right) \cdot_{\Aut_{\OC}(T)} \Aut_{\SC}(C)
-                  \arrow[r]
-                  &
-                  \O_n(C)
-            \end{tikzcd}
-      \end{equation}
-\end{remark}
 
 
 
@@ -10165,6 +10203,43 @@ We can finally prove our formula for the levelwise filtration.
 % (since $G \ltimes (-)$ is functorial and preserves pullbacks)
 % so that $\O[u] \simeq \Lan_{\left( \widehat\Omega_{\mathfrak C}^e \to \Sigma_{\mathfrak C} \right)^{op}} \tilde N^{\O,X,Y}$.
 %  The rest of \cite[\S 5.3]{BP_geo} follows without a hitch.
+
+
+We end this section by discussing the homotopical nature of this filtration.
+Again, the results from \cite{BP_geo} are sufficiently robust.
+
+We say $X \to Y \in \Sym^{G, \mathfrak C}(\V)$ is a \textit{level genuine cofibration} if for each $C \in \G \ltimes \SC^{op}$,
+$X(C) \to Y(C)$ is a genuine cofibration in $\V^{\Aut(C)}$;
+we say $X$ is \textit{level genuine cofibrant} if $\varnothing \to X$ is a level genuine cofibration.
+
+\begin{lemma}[{cf. \cite[5.73]{BP_geo}}] % EXMAINLEM LEM
+      \label{EXMAINLEM LEM}
+      Suppose $\mathcal{V}$ is a cofibrantly generated closed monoidal model category
+      with cellular fixed points and
+      with cofibrant symmetric pushout powers (Defn \ref{CSPP_DEF}).
+      
+      Let $\O \in \mathsf{Sym}^{G,\mathfrak C}(\mathcal{V})$
+      be level genuine cofibrant
+      and  
+      $u: X \to Y$ in $\Sym^{G, \mathfrak C}(\V)$ a level genuine cofibration. 
+      Then for each $T \in G \ltimes \Omega_{\mathfrak C}^a[k]^{op}$ and writing
+      $C = \mathsf{lr}(T)$, the map	
+      \begin{equation}\label{EXMAINLEM EQ}
+            \left(
+                  \bigotimes\limits_{v \in V^{ac}(T)}\P(T_v) \otimes
+                  \underset{v \in V^{in}(T)}
+                  {\mathlarger{\mathlarger{\mathlarger{\square}}}}
+                  u(T_v)
+            \right) 
+            \mathop{\otimes}\limits_{\mathsf{Aut}(T)} \mathsf{Aut}(C).
+      \end{equation}
+      is a genuine cofibration in 
+      $\mathcal{V}^{\mathsf{Aut}(C)}_{\text{gen}}$,
+      which is trivial if $k \geq 1$ and $u$ is trivial.	
+\end{lemma}
+\begin{proof}
+      This follows exactly as in \cite{BP_geo}, as we may take the automorphism groups to live in the category $F \wr (G^{op} \ltimes \Sigma_{\mathfrak C}).$ 
+\end{proof}
 
 
 \subsection{Change of color}
