@@ -9594,6 +9594,7 @@ For this section, we fix a $G$-set $\mathfrak C$, and let $\mathbb F$ denote $\m
       Given $\O \in \Op^{G, \mathfrak C}(\V)$ and $u: X \to Y$ in $\Sym^{G,\mathfrak C}\V$,
       let $\mathcal \O[u]$ denote the pushout
       \begin{equation}
+            \label{OU_EQ}
             \begin{tikzcd}
                   \mathbb F X \arrow[d, "u"'] \arrow[r]
                   &
@@ -9615,7 +9616,25 @@ which is homotopically well-behaved.
 The cost, as is often the case, is that we cannot find such a filtration of operads, and instead
 only produce a filtration in $\Sym^{G, \mathfrak C}(\V)$,
 which ends up being sufficent.
-These key technical results are recorded in Propsition \label{FILT_PUSH_PROP} and Lemma \ref{EXMAINLEM LEM}
+These key technical results are recorded in Propsition \label{FILT_PUSH_PROP} and Lemma \ref{EXMAINLEM LEM}.
+
+\begin{remark}
+      The generalization from the single-colored to the many-colored is mostly formal.
+
+      The results needed to bridge the gap are fairly straightforward, and come in three batches.
+      Those in the first are of the form ``$G \ltimes (-)$ is well-behaved''
+      (Proposition \ref{GWRREAL_PROP}, Lemmas \ref{GL_RANINIT_LEM}, \ref{GL_GR_LEM}, \ref{REDUCELAN LEM}),
+      all of which are mostly formal themselves.
+      Those in the second are of the form ``the pullback functors $\pi^{\**}$ are well-behaved''
+      (Lemma \ref{RANINIT_PULL_LEM}, Corollary \ref{PI_GFIB_COR}),
+      which are almost immediate once we know that these $\pi^{\**}$ are well-defined.
+      Lastly we have the technical result that
+      $\pi^{\**}$ and $|-|$ commute (Proposition \ref{PIREAL_PROP}).
+
+      With these tools in hand, $\S 5.1 -- 5.3$ of \cite{BP_geo} can be directly adapted to build the filtration in question.
+      We include the details for completeness.
+\end{remark}
+\todo[inline]{\ref{GL_RANINIT_LEM} and \ref{RANINIT_PULL_LEM} both are only used in proofs where we could also have just redone the proof in \cite{BP_geo} word-for-word... is it better to keep them in?}
 
 To start, we observe ---  as in $(5.3)$ through $(5.7)$ of \cite{BP_geo} --- that
 \begin{align*}
@@ -9640,18 +9659,10 @@ Through a series of reductions (Propositions \ref{OU_RED1_PROP}, \ref{OU_RED2_PR
 we will identify this as a left Kan extension over an approachable category, 
 and build our filtration by filtering this category.
 
-The following are the key locations where the many-colors require additional care:
-\begin{itemize}
-\item In Definition \ref{CLPS_DEF}, we only need to color the last tree in the string; this induces a unique choice of coloring such that all maps are colored.
-\item Lemma \ref{GWRA_LEM} allows us to recognize wreath products of $G$-action groupoids as a $G$-action groupoid.
-\item Need: $\pi^{\**}$ and $|-|$ commutes (Proposition \ref{PIREAL_PROP})
-\item Need: $|-|$ commutes with $G \ltimes (-)$ (Proposition \ref{GWRREAL_PROP})
-\end{itemize}
+\subsubsection*{Labeled planar strings}
+We begin by producing a category of labeled planar strings of $\mathfrak C$-colored trees.
 
-
-\subsubsection{Labeled planar strings}
-
-\begin{definition}
+\begin{definition}[{cf. \cite[Defn. 5.10]{BP_geo}}]
       \label{CLPS_DEF}
       Given $n\geq -1$, $-1 \leq s \leq n$, $l \geq 0$, and a partition $\lambda = \lambda_a \amalg \lambda_i$ of $\set{1,2,\dots,l}$, 
       define $\Omega_{\mathfrak C}^{n,s,\lambda}$ to be the pullback
@@ -9684,7 +9695,7 @@ The following are the key locations where the many-colors require additional car
       and thus we may form the categories $G \ltimes \OC^n$ and $G^{op} \ltimes \OC^n$ as in Example \ref{G_GR_REM} and Remark \ref{GOP_REM}.
 \end{remark}
 
-\begin{definition}
+\begin{definition}[{cf. \cite[Notation 5.24]{BP_geo}}]
       \label{NA_DEF}
       Given functors of $G$-categories $\A, \A_j \to \Sigma_{\mathfrak C}$, define the categories
       \begin{equation}
@@ -9763,7 +9774,7 @@ The following are the key locations where the many-colors require additional car
 \end{proof}
 
 
-\begin{lemma}
+\begin{lemma}[{cf. \cite[Remark 5.33]{BP_geo}}]
       $\OC^{n,s,\lambda} \simeq \OC^s \wr \OC^{-1,-1,\lambda} \wr (\OC^{n-s-1})^{\times \lambda}$.
 \end{lemma}
 \begin{proof}
@@ -9798,7 +9809,7 @@ Applying Lemma \ref{GWRA_LEM} to the above equation yields the following.
 
 
 
-\begin{definition}
+\begin{definition}[{cf. \cite[(5.6) and the discussion after Prop 5.37]{BP_geo}}]
       Define the bisimplicial object
       \begin{equation}
             N_{n,l}^{(\O,X,Y)}
@@ -9877,7 +9888,7 @@ Applying Proposition \ref{NNSL_PROP} to \eqref{OU_EQ1} yields the following.
 \end{proposition}
 
 
-\subsubsection{Alternating trees and the filtration}
+\subsubsection*{Alternating trees and the filtration}
 
 Recall that, for any tree $T \in \Omega$ and edge $e \in T$, the \textit{input path} of $e$ is the set $I(e) = \sets{f \in T}{e \leq_d f}$.
 
@@ -9929,11 +9940,11 @@ We have a final reduction in this presentation.
  % \end{lemma}
 
 
-\begin{lemma}
+\begin{lemma}[{cf. \cite[Cor. 5.52]{BP_geo}}]
       $G \ltimes \hat\Omega_{\mathfrak C}^e \into G \ltimes \OC^e$ is $\Ran$-initial.
 \end{lemma}
 \begin{proof}
-      As $\hat\Omega^e \into \OC^e$ is $\Ran$-initial over $\Sigma$, this follows from Lemmas \ref{RANINIT_PULL_LEM} and \ref{GL_RANINIT_LEM}
+      As $\hat\Omega^e \into \OC^e$ is $\Ran$-initial over $\Sigma$ by \cite[Cor. 5.52]{BP_geo}, this follows from Lemmas \ref{RANINIT_PULL_LEM} and \ref{GL_RANINIT_LEM}.
 \end{proof}
 \begin{proof}
       We have a right retraction $\hat \Omega^e \into \Omega^e \to \hat \Omega^e$
@@ -9952,20 +9963,18 @@ We have a final reduction in this presentation.
 We will now filter the category $\hat\Omega_{\mathfrak C}^e$ by full subcategories (and hence also $G \ltimes \hat \Omega_{\mathfrak C}^e$)
 to produce a levelwise filtration of $\O \to \O[u]$.
 
-\begin{definition}
-      Given $T \in \OC^e$, define
-      $V^X(T)$ (resp. $V^Y(T)$) to be the set of $X$-labeled (resp. $Y$-labeled) vertices of $T$.
-      Further, define the \textit{degrees} of $T$ by
-      \begin{equation}
-            |T|_X = |V^X(T)|,
-            \qquad
-            |T|_Y = |V^Y(T)|,
-            \qquad
-            |T| = |T|_X + |T|_Y.
-      \end{equation}
-      Lastly, for $T \in \OC^a$, let $V^{in}(T)$ and $V^{ac}(T)$ denote the inert and active vertices of $T$,
-      where we observe that $|T| = |V^{in}(T)|$.
-\end{definition}
+Given $T \in \OC^e$, define
+$V^X(T)$ (resp. $V^Y(T)$) to be the set of $X$-labeled (resp. $Y$-labeled) vertices of $T$.
+Further, define the \textit{degrees} of $T$ by
+\begin{equation}
+      |T|_X = |V^X(T)|,
+      \qquad
+      |T|_Y = |V^Y(T)|,
+      \qquad
+      |T| = |T|_X + |T|_Y.
+\end{equation}
+Lastly, for $T \in \OC^a$, let $V^{in}(T)$ and $V^{ac}(T)$ denote the inert and active vertices of $T$,
+where we observe that $|T| = |V^{in}(T)|$.
 
 \begin{definition}[{cf. \cite[Defn. 5.56]{BP_geo}}]
       Define the following full subcategories of $\hat\Omega_{\mathfrak C}^e$.
@@ -9980,7 +9989,7 @@ to produce a levelwise filtration of $\O \to \O[u]$.
       to be spanned by the same objects.
 \end{definition}
 
-\begin{remark}
+\begin{remark}[{cf. \cite[Remark 5.56]{BP_geo}}]
       \label{OEFIB_REM}
       We have $\hat\Omega^e[\leq k]_{\mathfrak C} = \hat\Omega_{\mathfrak C}^e[\leq k]$, and similarly for the other constructions.
       In particular, applying Corollary \ref{PI_GFIB_COR} and Lemma \ref{GL_GR_LEM} to \cite[Remark 5.57]{BP_geo}, we have a map of Grothendieck fibrations
@@ -10002,7 +10011,7 @@ to produce a levelwise filtration of $\O \to \O[u]$.
       \end{equation}
 \end{remark}
 
-\begin{lemma}
+\begin{lemma}[{cf. \cite[Lemma 5.57]{BP_geo}}]
       \label{LANINT_LEM}
       $G^{op} \ltimes \hat\Omega_{\mathfrak C}^e[\leq k-1] \into G^{op} \ltimes \hat\Omega_{\mathfrak C}^e[\leq k \setminus Y]$
       is $\Ran$-initial over $G^{op} \ltimes \SC$.
@@ -10084,17 +10093,17 @@ yields the pushout diagram
 We can now finally produce formula for the levelwise filtration.
 We in fact will have two different descriptions.
 
-\begin{proposition}
+\begin{proposition}[{cf. \cite[Prop. 5.66]{BP_geo}}]
       \label{FILT_PUSH_PROP}
       Suppose $\V$ is a closed monoidal category.
       Then there exists a filtration in $\Sym^{G, \mathfrak C}(\V)$
       \begin{equation}
             \O = \O_0 \into \O_1 \into \O_2 \into \dots \into \O_\infty = \O[u]
       \end{equation}
-      of the pushout map
+      of the pushout map from \eqref{OU_EQ}
       such that, for each $\mathfrak C$-signature $C \in G \ltimes \Sigma_{\mathfrak C}$,
       both diagrams below are pushouts in $\V$,
-      \vspace{-15pt}
+      \vspace{-10pt}
       \begin{align}
         \label{FILT_PUSHG_EQ}
         \begin{tikzcd}[ampersand replacement=\&]
@@ -10155,7 +10164,7 @@ We in fact will have two different descriptions.
             \right).
       \end{equation}
       using Remark \ref{OEFIB_REM}.
-      The description of the leftmost maps in \eqref{FILT_PUSHG_EQ} and \eqref{FILT_PUSH_EQ} follow by
+      The description of the leftmost maps in then \eqref{FILT_PUSHG_EQ} and \eqref{FILT_PUSH_EQ} follow by
       applying Lemma \ref{REDUCELAN LEM} to \eqref{FILT_LANFIN_EQ} in the latter case,
       and in both cases using the fact that the undercategories
       $C \downarrow G \ltimes \OC^a[k]^{op}$ and
@@ -10240,6 +10249,7 @@ we say $X$ is \textit{level genuine cofibrant} if $\varnothing \to X$ is a level
 \begin{proof}
       This follows exactly as in \cite{BP_geo}, as we may take the automorphism groups to live in the category $F \wr (G^{op} \ltimes \Sigma_{\mathfrak C}).$ 
 \end{proof}
+\todo[inline]{check automorphism groups; do we need both considerations?}
 
 
 \subsection{Change of color}
