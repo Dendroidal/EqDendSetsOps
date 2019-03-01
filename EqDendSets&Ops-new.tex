@@ -260,7 +260,8 @@ This case is covered in Theorem \ref{MODEL_THM}.
 \end{theorem}
 
 \begin{theorem}
-      The Quillen adjunction $\dSet^G \rightleftarrows \sOp^G$ is a Quillen equivalence.
+      \label{QE_THM}
+      The adjunction $\dSet^G \rightleftarrows \sOp^G$ is a Quillen equivalence.
 \end{theorem}
 
 \section{Preliminaries}
@@ -2243,6 +2244,7 @@ the cofibrancy of the unit is necessary so that the initial operad $\mathbb F(\v
 
 
 The following is immediate.
+\todo[inline]{the above are not in context, as they have no mention of the change-of-color monad work of Luis}
 \begin{corollary}
       \label{COLOR_CHANGE_Q_COR}
       The change of color adjunctions from \eqref{GC_CHANGE_EQ},
@@ -2257,7 +2259,7 @@ The following is immediate.
       In particular, this implies that $j^{\**}$ commutes with fibrant replacement.
 \end{remark}
 
-\todo[inline]{the above are not in context}
+
 
 
 
@@ -2284,7 +2286,7 @@ The following is immediate.
 \label{MS_SEC}
 \renewcommand{\C}{\mathfrak C}
 
-\todo[inline]{check use of color-sq stuff}
+% \todo[inline]{check use of color-sq stuff}
 
 In the previous section, we built model structures on each category operads with a single fixed color $G$-set $\mathfrak C$,
 i.e. on each fiber of $\Op^G(\V) \to \Fin^G$. 
@@ -2312,7 +2314,8 @@ into a single model structure on the full category of $G$-operads $\Op^G(\V)$ wi
 \begin{convention}
       For this section, we assume $\V$ is always a cofibrantly generated closed monoidal model category with cellular fixed points
       and cofibrant symmetric pushout powers.
-      In particular, Theorem \ref{THM1_C} and Remark \ref{CATV_MC_REM} imply that $\Cat^{\mathfrak C}(\V)$ is a (semi)-model category for each set $\mathfrak C$.      
+      In particular, Theorem \ref{THM1_C} and Remark \ref{CATV_MC_REM} imply that $\Cat^{\mathfrak C}(\V)$ is a (semi)-model category for each set $\mathfrak C$,
+      and thus has cofibrant replacements.
 \end{convention}
 
 
@@ -4129,12 +4132,12 @@ We always have containment in one direction:
       By Lemma \ref{VIR_HTPY_LEM}, essential surjectivity implies $\pi_0$-essential surjectivity. 
 \end{proof}
 
-come back here
+This leads to the following expected result.
 \begin{corollary}
       Suppose the $G$-graph system $\F$ has units,
       and let $F: \O \to \P$ be a weak $\F$-equivalence.
       Then we have an equivalence of underlying fixed-point categories
-      $\pi_0^{F^H}$ for all $H \leq G$.
+      $\pi_0(F^H)$ for all $H \leq G$.
       If additional $\F$ contains all trivial subgroups $H \leq G \times \Sigma_m$, then
       $\pi_0(F^H)$ is an equivalence of operads in $\Set$ for all $H \leq G$.
 \end{corollary}
@@ -4293,7 +4296,8 @@ We now have collected all the remaining pieces to prove Theorem \ref{INTRO_MODEL
       $F$ is a local $\F$-fibration such that
       $j^{\**}\pi_0(F^H)$ is an isofibration of 1-categories.
       Indeed, the arguments in \cite[Propositions 2.3 and 2.5]{Ber07b} extend almost as written to the general case,
-      notationally replacing $\mathcal H$ with an arbitrary $\V$-interval $\mathbb J$ and $\mathscr F$ with $\mathbb A$.
+      notationally replacing $\mathcal H$ with an arbitrary $\V$-interval $\mathbb J$ and
+      $\mathscr F$ with $\mathbb A$.
 \end{remark}
 
 
@@ -4406,15 +4410,22 @@ We now have collected all the remaining pieces to prove Theorem \ref{INTRO_MODEL
 
 \newpage
 
-\section{Quillen adjunction}
+\section{Quillen equivalence}
+
+In this section, we sythensize the above results as well as the results of the related papers \cite{BP_geo,BP_edss,Per_eds},
+to prove the main theorem of this project, Theorem \ref{QE_THM}.
+
+We recall the adjunction in question.
+\todo[inline]{how much do we need to say here?}
 
 \begin{definition}
       For $T \in \Omega_G$,
-      define $W(T)$ to have the same objects as $\Omega(T)$, and
+      define $W(T)$ to have the same objects as $\Omega(T)$, and for all signatures $(e_1,\dots,e_n;e_0) = (\underline e; e_0)$, we have
       \begin{equation}
-            W(T)(C) =
+            W(T)(\underline e; e_0) =
             \begin{cases}
-                  \Delta[1]^{\times E^i(C)}, \qquad & C \into T \text{ is a (non-equivariant) outer face}
+                  \Delta[1]^{\times E^i(T_{\underline e \leq e})}, \qquad & \underline e \leq e \text{ is a broad relation \footnote{That is, generates a non-equivariant outer face of T
+                    }}
                   \\
                   \varnothing & \text{else.}
             \end{cases}
@@ -4423,6 +4434,13 @@ We now have collected all the remaining pieces to prove Theorem \ref{INTRO_MODEL
       $W(T) \simeq G \cdot_H W(U)$ and $W(T) \simeq G \cdot W(U)/N$.
 \end{definition}
 
+\begin{definition}
+      Define $W_!\colon: \dSet^G \rightleftarrows \sOp^G\ :\! hcN_d$ to be the adjunction
+      given by post-composition with the adjunction $\dSet \rightleftarrows \sOp$.
+\end{definition}
+\todo[inline]{the above definition is garbage}
+
+\todo[inline]{go over again how the non-equivariant $W_!$ intersects with the equivariant one}
 \begin{proposition}[{cf. \cite[Prop. 4.5]{CM11}}]
       \label{W!_COF_PROP}
       $W_!: \dSet^G \to \sOp^G$ sends normal monomorphisms to cofibrations and inner anodyne extensions to trivial cofibrations.
@@ -4554,12 +4572,23 @@ We now have collected all the remaining pieces to prove Theorem \ref{INTRO_MODEL
       will be further explored in a sequel. 
 \end{remark}
 
+\todo[inline]{how much do we need to recall here? I guess most of it is to be recalled in ``tame time''...}
+
+{\color{red} include Proposition \ref{COMUOTOHOM PROP}.}
+
+
+
+
+
+
+
+
 
 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% -------------------- UP: ME, DOWN: LUIS  --------------------
+% -------------------- UP: PETER, DOWN: LUIS  --------------------
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newpage
@@ -9594,6 +9623,7 @@ For this section, we fix a $G$-set $\mathfrak C$, and let $\mathbb F$ denote $\m
       Given $\O \in \Op^{G, \mathfrak C}(\V)$ and $u: X \to Y$ in $\Sym^{G,\mathfrak C}\V$,
       let $\mathcal \O[u]$ denote the pushout
       \begin{equation}
+            \label{OU_EQ}
             \begin{tikzcd}
                   \mathbb F X \arrow[d, "u"'] \arrow[r]
                   &
@@ -9607,15 +9637,36 @@ For this section, we fix a $G$-set $\mathfrak C$, and let $\mathbb F$ denote $\m
 \end{definition}
 
 Our goal in this section is to produce a filtration
-\[
-      \O = \O_0 \into \O_1 \into \O_2 \into \dots \into \O_\infty = \O[u]
-\]
+\begin{equation}
+      \label{FILT_EQ}
+      \O = \O_0 \into \O_1 \into \O_2 \into \dots \into \colim_k \O_k = \O[u]
+\end{equation}
 between the operads $\O$ and $\O[u]$
 which is homotopically well-behaved.
-The cost, as is often the case, is that we cannot find such a filtration of operads, and instead
-only produce a filtration in $\Sym^{G, \mathfrak C}(\V)$,
+The cost, as is often the case, is that we cannot find such a filtration of operads,
+but only of symmetric sequences $\O_i \in \Sym^{G, \mathfrak C}(\V)$
 which ends up being sufficent.
-These key technical results are recorded in Propsition \label{FILT_PUSH_PROP} and Lemma \ref{EXMAINLEM LEM}
+These key technical results are recorded in Propsition \label{FILT_PUSH_PROP} and Lemma \ref{EXMAINLEM LEM}.
+
+\begin{remark}
+      The generalization from the single-colored to the many-colored is mostly formal.
+      %
+      The results needed to bridge the gap are fairly straightforward, and come in three batches.
+      Those in the first are of the form ``$G \ltimes (-)$ is well-behaved''
+      (Proposition \ref{GWRREAL_PROP}, Lemmas \ref{GL_RANINIT_LEM}, \ref{GL_GR_LEM}, \ref{REDUCELAN LEM}),
+      all of which are mostly formal themselves.
+      Those in the second are of the form ``the pullback functors $\pi^{\**}$ are well-behaved''
+      (Lemma \ref{RANINIT_PULL_LEM}, Corollary \ref{PI_GFIB_COR}),
+      which are almost immediate once we know that these $\pi^{\**}$ are well-defined.
+      Lastly we have the technical result that
+      $\pi^{\**}$ and $|-|$ commute (Proposition \ref{PIREAL_PROP}).
+
+      With these tools in hand, $\S 5.1$ -- $\S 5.3$ of \cite{BP_geo} can be directly adapted to build the filtration in question.
+      To that end, we will only give an outline of the argument;
+      in particular, certain technical categories will only be defined by a reference to \cite{BP_geo}.
+\end{remark}
+
+\todo[inline]{Filtration v1 starts now below}
 
 To start, we observe ---  as in $(5.3)$ through $(5.7)$ of \cite{BP_geo} --- that
 \begin{align*}
@@ -9633,49 +9684,40 @@ To start, we observe ---  as in $(5.3)$ through $(5.7)$ of \cite{BP_geo} --- tha
     \stepcounter{equation}\tag{\theequation}\label{OU_EQ1}
     % =: \colim_{n,l} \Lan \hat N_{n,l}^{(\O,X,Y)},
 \end{align*}
-where $B$ denotes the \textit{double bar construction},
+where $N$ is the equivariant monad from \eqref{NMONMULTG EQ},
+$B$ denotes the \textit{double bar construction},
 and the left Kan extension is over the leaf-root functor
 \mbox{$G \ltimes \Omega_{\mathfrak C}^{0,op} \xrightarrow{\mathsf{lr}} G \ltimes \Sigma_{\mathfrak C}^{op}$}.
 Through a series of reductions (Propositions \ref{OU_RED1_PROP}, \ref{OU_RED2_PROP}, and \ref{OU_RED3_PROP}),
 we will identify this as a left Kan extension over an approachable category, 
 and build our filtration by filtering this category.
 
-The following are the key locations where the many-colors require additional care:
-\begin{itemize}
-\item In Definition \ref{CLPS_DEF}, we only need to color the last tree in the string; this induces a unique choice of coloring such that all maps are colored.
-\item Lemma \ref{GWRA_LEM} allows us to recognize wreath products of $G$-action groupoids as a $G$-action groupoid.
-\item Need: $\pi^{\**}$ and $|-|$ commutes (Proposition \ref{PIREAL_PROP})
-\item Need: $|-|$ commutes with $G \ltimes (-)$ (Proposition \ref{GWRREAL_PROP})
-\end{itemize}
 
 
-\subsubsection{Labeled planar strings}
-
-\begin{definition}
+We begin with a category of labeled planar strings of $\mathfrak C$-colored trees.
+\begin{definition}[{cf. \cite[Defn. 5.10]{BP_geo}}]
       \label{CLPS_DEF}
-      Given $n\geq -1$, $-1 \leq s \leq n$, $l \geq 0$, and a partition $\lambda = \lambda_a \amalg \lambda_i$ of $\set{1,2,\dots,l}$, 
+      Given $n\geq -1$, $-1 \leq s \leq n$, $l \geq 0$, and a partition $\lambda = \lambda_a \amalg \lambda_i$ of $\set{1,2,\dots,l}$,
       define $\Omega_{\mathfrak C}^{n,s,\lambda}$ to be the pullback
       \begin{equation}
             \begin{tikzcd}
-                  \OC^{n,s,\lambda} \arrow[d] \arrow[r, "E"]
+                  \OC^{n,s,\lambda} \arrow[d] \arrow[r, "\mathbf E"]
                   &
                   \Sigma \wr \mathfrak C \arrow[d]
                   \\
-                  \Omega^{n,s,\lambda} \arrow[r, "E"]
+                  \Omega^{n,s,\lambda} \arrow[r, "\mathbf E"]
                   &
                   \Sigma
             \end{tikzcd}
       \end{equation}
-      for $\Omega^{n,s,\lambda}$ as in \cite[Defn. 5.10]{BP_geo}.
-
-      Explicitly, objects are strings
+      where $\Omega^{n,s,\lambda}$ is defined as in \cite[Defn. 5.10]{BP_geo}.
+      %
+      Explicitly, objects of $\Omega_{\mathfrak C}^{n,s,\lambda}$ are strings in $\Omega^{n,s,\lambda}$
       \begin{equation}
             T_{-1} \xrightarrow{\phi_0} T_0 \xrightarrow{\phi_1} T_1 \xrightarrow{\phi_2} \dots \xrightarrow{\phi_n} T_n
       \end{equation}
-      of planar tall maps of trees, such that
-      the $T_r$ are $l$-labeled and the $\phi_r$ are $\lambda_i$-inert label maps for $r > s$,
-      and such that $T_n$ is $\mathfrak C$-colored.
-      This last fact induces a \textit{unique} choice of coloring on all trees $T_i$ so that the maps $f_i$ are maps of colored trees.      
+      such that $T_n$ is given a $\mathfrak C$-coloring;
+      this in fact induces a \textit{unique} choice of coloring on all trees $T_i$ so that the maps $f_i$ are maps of colored trees.
 \end{definition}
 
 \begin{remark}
@@ -9684,7 +9726,7 @@ The following are the key locations where the many-colors require additional car
       and thus we may form the categories $G \ltimes \OC^n$ and $G^{op} \ltimes \OC^n$ as in Example \ref{G_GR_REM} and Remark \ref{GOP_REM}.
 \end{remark}
 
-\begin{definition}
+\begin{definition}[{cf. \cite[Notation 5.24]{BP_geo}}]
       \label{NA_DEF}
       Given functors of $G$-categories $\A, \A_j \to \Sigma_{\mathfrak C}$, define the categories
       \begin{equation}
@@ -9762,12 +9804,17 @@ The following are the key locations where the many-colors require additional car
       All of the squares in \eqref{LSTRINGS_EQ} are pullbacks by Lemmas \ref{GL_PULL_LEM} and \ref{GD_PULL_LEM}.
 \end{proof}
 
+When $G = \**$ and $\mathfrak C = \**$, this recovers the construction of \cite[Notation 5.24]{BP_geo}.
 
-\begin{lemma}
+More generally, we have analogously defined categories (and spans)
+$\Omega_{\mathfrak C}^n \wr \mathcal A$ and $\Omega_{\mathfrak C}^{n,s,\lambda} \wr (\mathcal A_j)$
+constructed by removing the $G^{op} \ltimes (-)$ from the diagrams \eqref{LSTRINGS_EQ}.
+
+\begin{lemma}[{cf. \cite[Remark 5.33]{BP_geo}}]
       $\OC^{n,s,\lambda} \simeq \OC^s \wr \OC^{-1,-1,\lambda} \wr (\OC^{n-s-1})^{\times \lambda}$.
 \end{lemma}
 \begin{proof}
-      The $\mathfrak C$-colored version of \cite[Prop 5.30]{BP_geo} (with $G = e$)
+      The $\mathfrak C$-colored version of \cite[Prop. 5.30]{BP_geo} (with $G = e$)
       follows from Proposition \ref{ASSOCIDS PROP} and Corollary \ref{COLORCOR COR}
       by the same argument as in \textit{loc cite}.
       The $\mathfrak C$-colored version of \cite[Cor. 5.32]{BP_geo} then follows by drawing the analogous diagrams used in its proof,
@@ -9778,7 +9825,7 @@ The following are the key locations where the many-colors require additional car
 Applying Lemma \ref{GWRA_LEM} to the above equation yields the following.
 \begin{proposition}
       \label{NNSL_PROP}
-      We have
+      We have an isomorphism
       \begin{equation}
             G^{op} \ltimes \OC^{n,s,\lambda} \simeq
             (G^{op} \ltimes \OC^{s}) \wr ((G^{op} \ltimes \OC^{-1,-1,\lambda}) \wr (G^{op} \ltimes \OC^{n-s-1})^{\times \lambda}),
@@ -9798,7 +9845,7 @@ Applying Lemma \ref{GWRA_LEM} to the above equation yields the following.
 
 
 
-\begin{definition}
+\begin{definition}[{cf. \cite[(5.6) and the discussion after Prop 5.37]{BP_geo}}]
       Define the bisimplicial object
       \begin{equation}
             N_{n,l}^{(\O,X,Y)}
@@ -9877,36 +9924,44 @@ Applying Proposition \ref{NNSL_PROP} to \eqref{OU_EQ1} yields the following.
 \end{proposition}
 
 
-\subsubsection{Alternating trees and the filtration}
+Next, we would like to use the realization tool \cite[Prop. 5.37]{BP_geo} to recognize this colimit as
+a single left Kan extension over the (double) realization of the bisimplicial category $\OC^{\bullet, \lambda_\bullet}$.
+Again, the single-colored narrative generalizes.
 
-Recall that, for any tree $T \in \Omega$ and edge $e \in T$, the \textit{input path} of $e$ is the set $I(e) = \sets{f \in T}{e \leq_d f}$.
-
-\begin{definition}[{cf. \cite[Defn. 5.38]{BP_geo}}] 
-      Let $\Omega^e$ denote the \textit{extension tree category}, with objects $\set{\O, X,Y}$-labeled trees, and arrows tall maps $\phi: T \to S$ such that for all $v \in V(T)$,
-      \begin{itemize}
-      \item If $T_v$ has an $X$-label, then $S_v \in \Sigma$ and has an $X$-label.
-      \item If $T_v$ has a $Y$-label, then $S_v \in \Sigma$ and has either an $X$- or $Y$-label.
-      \item If $T_v$ has an $\O$-label, then $S_v$ has only $X$ and $\O$ labels.
-      \end{itemize}
+\begin{definition}
+      Let $\Omega_{\mathfrak C}^e$ denote the pullback
+      \[
+            \begin{tikzcd}
+                  \Omega_{\mathfrak C}^e \arrow[r] \arrow[d]
+                  &
+                  \Fin \wr \mathfrak C \arrow[d]
+                  \\
+                  \Omega^e \arrow[r, "\mathbf E"]
+                  &
+                  \Fin
+            \end{tikzcd}
+      \]
+      where $\Omega^e$ is the \textit{extension tree category} from \cite[Defn. 5.38]{BP_geo}.
 \end{definition}
-
-We will now realize (twice) the bisimplicial category $\OC^{\bullet, \lambda_\bullet}$.
 
 \begin{proposition}
       \label{OU_RED2_PROP}
       $\O[u] \simeq \Lan_{G \ltimes (\OC^{e} \to \SC)^{op}} \tilde N^{(\O,X,Y)}$.
 \end{proposition}
 \begin{proof}
-      Since $\pi^{\**}$ and $|-|$ commute by Proposition \ref{PIREAL_PROP} from the Appendix,
+      Since $\pi^{\**}$ and $|-|$ commute by Proposition \ref{PIREAL_PROP},
       we have
-      $|\OC^{\bullet, \lambda_l}| \simeq \pi^{\**} |\Omega^{\bullet, \lambda_l}| = \pi^{\**} \Omega^{t, \lambda_l} = \OC^{t, \lambda_l}$,
+      \[
+            |\OC^{\bullet, \lambda_l}| \simeq \pi^{\**} |\Omega^{\bullet, \lambda_l}| = \pi^{\**} \Omega^{t, \lambda_l} = \OC^{t, \lambda_l}
+      \]
       % $\simeq \OC^{t,\lambda_l}$ and $|\OC^{t,\lambda_\bullet}| \simeq \OC^e$
       by Remark 5.36 and Proposition 5.41 of \cite{BP_geo}.
       Thus, Propositions \ref{PRESSTLIM PROP} and \ref{GWRREAL_PROP} tell us that
       $|G^{op} \ltimes \OC^{\bullet, \lambda_\bullet}| \simeq G^{op} \ltimes \OC^e$.
-      Finally, the realization tool \cite[Prop. 5.37]{BP_geo} has no dependence whatsoever on $\Sigma_G$,
-      and the natural transformation component of both sets of the simplicial maps in $N_{\bullet, \bullet}^{(\O,X,Y)}$ are natural isomorphisms by the same analysis as in \cite{BP_geo},
-      and thus a double application on the output of Corollary \ref{OU_RED1_PROP} yields the result.
+      Moreover, the natural transformation component of both sets of the simplicial maps in $N_{\bullet, \bullet}^{(\O,X,Y)}$ are natural isomorphisms by the same analysis as in \cite{BP_geo},
+      Finally, the proof of realization tool \cite[Prop. 5.37]{BP_geo} has no dependence on the base of the left Kan extension
+      (in the original setting, the base is $\Sigma_G$; in our current one, it is $G \ltimes \Sigma_{\mathfrak C}$),
+      and hence we may apply it twice to the output of Corollary \ref{OU_RED1_PROP} to yield the desired result.
 \end{proof}
 
 \begin{notation}
@@ -9914,34 +9969,27 @@ We will now realize (twice) the bisimplicial category $\OC^{\bullet, \lambda_\bu
 \end{notation}
 
 We have a final reduction in this presentation.
-\begin{definition}[{\cite[Defn. 5.44,5.48]{BP_geo}}]
-      Let $\Omega^a \subset \Omega$ denote the full subcategory of \textit{alternating trees}, where for any leaf $l \in T$, $|I(l)|$ is even.
-      Those vertices $e^{\uparrow} \leq e$ where $|I(e)|$ is odd are called \textit{active}, and \textit{inert} otherwise.
-
-      Define $\hat\Omega^e \subset \Omega^e$ to be the full subcategory of $(\O,X,Y)$-labeled trees whose
-      underlying tree is alternating, has active nodes labeled by $\O$ and inert nodes labeled by $X$ or $Y$.      
+\begin{definition}
+      Let $\hat\Omega_{\mathfrak C}^e$ denote the pullback
+      \[
+            \begin{tikzcd}
+                  \hat\Omega_{\mathfrak C}^e \arrow[r] \arrow[d]
+                  &
+                  \Fin \wr \mathfrak C \arrow[d]
+                  \\
+                  \hat\Omega^e \arrow[r, "\mathbf E"]
+                  &
+                  \Fin
+            \end{tikzcd}
+      \]
+      where $\hat\Omega^e \subseteq \Omega^e$ is the full subcategory of \textit{alternating trees} from \cite[Defn. 5.48]{BP_geo}.    
 \end{definition}
 
-
- % \begin{lemma}
- %       If $\mathcal C \to \mathcal D$ is $\Ran$-initial over $\mathcal E$ in $\Cat^G$, then
- %       $G \ltimes \mathcal C \to G \ltimes \mathcal D$ is $\Ran$-initial over $G \ltimes \mathcal E$ in $\mathsf{Fib}(G)$. 
- % \end{lemma}
-
-
-\begin{lemma}
+\begin{lemma}[{cf. \cite[Cor. 5.52]{BP_geo}}]
       $G \ltimes \hat\Omega_{\mathfrak C}^e \into G \ltimes \OC^e$ is $\Ran$-initial.
 \end{lemma}
 \begin{proof}
-      As $\hat\Omega^e \into \OC^e$ is $\Ran$-initial over $\Sigma$, this follows from Lemmas \ref{RANINIT_PULL_LEM} and \ref{GL_RANINIT_LEM}
-\end{proof}
-\begin{proof}
-      We have a right retraction $\hat \Omega^e \into \Omega^e \to \hat \Omega^e$
-      by \cite[Prop. 5.49]{BP_geo},
-      and functoriality of $G \ltimes (-)$ and $\pi_{\mathfrak C}^{\**}$ implies
-      we have a right retraction
-      $G \ltimes \hat \Omega_{\mathfrak C}^e \into G \ltimes \OC^e \to G \ltimes \hat \Omega_{\mathfrak C}^e$.
-      As before, this implies we have right retractions on all undercategories, showing $\Ran$-initiality.
+      As $\hat\Omega^e \into \OC^e$ is $\Ran$-initial over $\Sigma$ by \cite[Cor. 5.52]{BP_geo}, this follows from Lemmas \ref{RANINIT_PULL_LEM} and \ref{GL_RANINIT_LEM}.
 \end{proof}
 
 \begin{proposition}
@@ -9953,37 +10001,28 @@ We will now filter the category $\hat\Omega_{\mathfrak C}^e$ by full subcategori
 to produce a levelwise filtration of $\O \to \O[u]$.
 
 \begin{definition}
-      Given $T \in \OC^e$, define
-      $V^X(T)$ (resp. $V^Y(T)$) to be the set of $X$-labeled (resp. $Y$-labeled) vertices of $T$.
-      Further, define the \textit{degrees} of $T$ by
-      \begin{equation}
-            |T|_X = |V^X(T)|,
-            \qquad
-            |T|_Y = |V^Y(T)|,
-            \qquad
-            |T| = |T|_X + |T|_Y.
-      \end{equation}
-      Lastly, for $T \in \OC^a$, let $V^{in}(T)$ and $V^{ac}(T)$ denote the inert and active vertices of $T$,
-      where we observe that $|T| = |V^{in}(T)|$.
+      For $\bullet$ representing any of the strings
+      \[
+            \leq k, \qquad k, \qquad \leq k \setminus Y, \quad \mbox{or} \quad k \setminus Y,
+      \]
+      let $\hat\Omega_{\mathfrak C}^e[\bullet]$ denote the pullback
+      \[
+            \begin{tikzcd}
+                  \hat\Omega_{\mathfrak C}^e[\bullet] \arrow[r] \arrow[d]
+                  &
+                  \Fin \wr \mathfrak C \arrow[d]
+                  \\
+                  \hat\Omega^e[\bullet] \arrow[r, "\mathbf E"]
+                  &
+                  \Fin
+            \end{tikzcd}
+      \]
+      where $\hat\Omega^e[\bullet] \subseteq \hat\Omega^e$ are the full subcategories of degree-restricted trees from \cite[Defn. 5.55]{BP_geo}.
 \end{definition}
 
-\begin{definition}[{cf. \cite[Defn. 5.56]{BP_geo}}]
-      Define the following full subcategories of $\hat\Omega_{\mathfrak C}^e$.
-      \begin{itemize}
-      \item $\hat\Omega_{\mathfrak C}^e[\leq k]$ (resp. $\hat\Omega_{\mathfrak C}^e[k]$) is the subcategory spanned by
-            those $T$ with $|T| \leq k$ (resp. $|T| = k$).
-      \item $\hat\Omega_{\mathfrak C}^e[\leq k \setminus Y]$ (resp. $\hat\Omega_{\mathfrak C}^e[k \setminus Y]$) is the further subcategory of $\hat\Omega_{\mathfrak C}^e[\leq k]$ (resp. $\hat\Omega_{\mathfrak C}^e[k]$) with $|T|_Y \neq k$.
-      \end{itemize}
-
-      Finally, define the full subcategories
-      $G^{op} \ltimes \hat \Omega_{\mathfrak C}^e[-] \subseteq G \ltimes \hat \Omega_{\mathfrak C}^e$
-      to be spanned by the same objects.
-\end{definition}
-
-\begin{remark}
+\begin{remark}[{cf. \cite[Remark 5.56]{BP_geo}}]
       \label{OEFIB_REM}
-      We have $\hat\Omega^e[\leq k]_{\mathfrak C} = \hat\Omega_{\mathfrak C}^e[\leq k]$, and similarly for the other constructions.
-      In particular, applying Corollary \ref{PI_GFIB_COR} and Lemma \ref{GL_GR_LEM} to \cite[Remark 5.57]{BP_geo}, we have a map of Grothendieck fibrations
+      Applying Corollary \ref{PI_GFIB_COR} and Lemma \ref{GL_GR_LEM} to \cite[Remark 5.57]{BP_geo}, we have a map of Grothendieck fibrations
       \begin{equation}
             \begin{tikzcd}
                   G^{op} \ltimes \hat\Omega_{\mathfrak C}^e[k \setminus Y] \arrow[rr, hookrightarrow] \arrow[dr]
@@ -10002,17 +10041,14 @@ to produce a levelwise filtration of $\O \to \O[u]$.
       \end{equation}
 \end{remark}
 
-\begin{lemma}
+\begin{lemma}[{cf. \cite[Lemma 5.58]{BP_geo}}]
       \label{LANINT_LEM}
       $G^{op} \ltimes \hat\Omega_{\mathfrak C}^e[\leq k-1] \into G^{op} \ltimes \hat\Omega_{\mathfrak C}^e[\leq k \setminus Y]$
       is $\Ran$-initial over $G^{op} \ltimes \SC$.
 \end{lemma}
 \begin{proof}
-      This follows from combining Lemmas \ref{GL_RANINIT_LEM} and \ref{RANINIT_PULL_LEM} with the non-colored case \cite[Lemma 5.58]{BP_geo}.
+      This follows from combining Lemmas \ref{GL_RANINIT_LEM} and \ref{RANINIT_PULL_LEM} with the non-colored case.
 \end{proof}
-\begin{remark}
-      This can also be done directly, completely analogously to the proof of \cite[Lemma 5.58]{BP_geo}.
-\end{remark}
 
 We can now construct our filtration.
 \begin{definition}
@@ -10029,14 +10065,13 @@ We can now construct our filtration.
       \end{equation}
 \end{definition}
 
-Since $G^{op} \ltimes \hat\Omega_{\mathfrak C}^e[\leq 0] \simeq G^{op} \ltimes \SC$, and
-$G^{op} \ltimes \hat\Omega_{\mathfrak C}^e$ is the union of (the nerves of) the $G^{op} \ltimes \hat\Omega_{\mathfrak C}^e[\leq k]$,
-we obtain our desired filtration
-\begin{equation}
-      \O = \O_0 \to \O_1 \to \O_2 \to \dots \to \colim_k\O_k = \O[u].
-\end{equation}
+We have that $G^{op} \ltimes \hat\Omega_{\mathfrak C}^e[\leq 0] \simeq G^{op} \ltimes \SC$,
+and $G^{op} \ltimes \hat\Omega_{\mathfrak C}^e$ is the union of (the nerves of) the $G^{op} \ltimes \hat\Omega_{\mathfrak C}^e[\leq k]$
+by the single-colored
+we obtain our desired filtration \eqref{FILT_EQ}.
 
-To further analyze the connecting maps, consider the diagram of inclusions
+To prove Theorem \ref{THM1_C}, we will to homotopically understand a levelwise description of this filtration.
+To that end, consider the diagram of inclusions
 \begin{equation}
       \label{FILT_PRELAN_EQ}
       \begin{tikzcd}
@@ -10049,22 +10084,7 @@ To further analyze the connecting maps, consider the diagram of inclusions
             G^{op} \ltimes \hat\Omega_{\mathfrak C}^e[\leq k].
       \end{tikzcd}
 \end{equation}
-In fact, this is a pushout at the level of nerves, since
-\begin{equation}
-      G^{op} \ltimes \hat\Omega_{\mathfrak C}^e[k]
-      \cap
-      G^{op} \ltimes \hat\Omega_{\mathfrak C}^e[\leq k \setminus Y]
-      =
-      G^{op} \ltimes \hat\Omega_{\mathfrak C}^e[k \setminus Y],
-      \qquad
-      G^{op} \ltimes \hat\Omega_{\mathfrak C}^e[k]
-      \cup
-      G^{op} \ltimes \hat\Omega_{\mathfrak C}^e[\leq k \setminus Y]
-      =
-      G^{op} \ltimes \hat\Omega_{\mathfrak C}^e[\leq k],
-\end{equation}
-and a map $T \to S$ in $G^{op} \ltimes \hat\Omega_{\mathfrak C}^e[\leq k]$ is in one of the subcategories named in \eqref{FILT_PRELAN_EQ} iff $T$ is.
-
+In fact, this is a pushout at the level of nerves, as in \cite[(5.65)]{BP_geo}.
 Applying left Kan extension over $G \ltimes \SC^{op}$ to \eqref{FILT_PRELAN_EQ} and reducing via Lemma \ref{LANINT_LEM}
 yields the pushout diagram
 \begin{equation}
@@ -10084,17 +10104,14 @@ yields the pushout diagram
 We can now finally produce formula for the levelwise filtration.
 We in fact will have two different descriptions.
 
-\begin{proposition}
+\begin{proposition}[{cf. \cite[Prop. 5.66]{BP_geo}}]
       \label{FILT_PUSH_PROP}
-      Suppose $\V$ is a closed monoidal category.
-      Then there exists a filtration in $\Sym^{G, \mathfrak C}(\V)$
-      \begin{equation}
-            \O = \O_0 \into \O_1 \into \O_2 \into \dots \into \O_\infty = \O[u]
-      \end{equation}
-      of the pushout map
-      such that, for each $\mathfrak C$-signature $C \in G \ltimes \Sigma_{\mathfrak C}$,
+      Suppose $\V$ is a closed monoidal category, and fix a $G$-set $\mathfrak C$.
+      For $n \geq 0$, let $\O_n$ denote the $n$-stage of the filtration \eqref{FILT_EQ} in $\Sym^{G, \mathfrak C}(\V)$
+      of the pushout map from \eqref{OU_EQ}.
+      Then for each $\mathfrak C$-signature $C \in G \ltimes \Sigma_{\mathfrak C}$,
       both diagrams below are pushouts in $\V$,
-      \vspace{-15pt}
+      \vspace{-10pt}
       \begin{align}
         \label{FILT_PUSHG_EQ}
         \begin{tikzcd}[ampersand replacement=\&]
@@ -10102,7 +10119,7 @@ We in fact will have two different descriptions.
               \left(
                     \mathop{\bigotimes}\limits_{v \in V^{ac}(T)} \O(T_v) \otimes
                     Q^{in}_T[u]
-              \right) \cdot_{\Aut_{G \ltimes O\C}(T)} \Aut_{G \ltimes \SC}(C)
+              \right) \cdot_{\Aut_{G \ltimes \OC}(T)} \Aut_{G \ltimes \SC}(C)
               \arrow[r]
               \arrow[d]
               \&
@@ -10155,7 +10172,7 @@ We in fact will have two different descriptions.
             \right).
       \end{equation}
       using Remark \ref{OEFIB_REM}.
-      The description of the leftmost maps in \eqref{FILT_PUSHG_EQ} and \eqref{FILT_PUSH_EQ} follow by
+      The description of the leftmost maps in then \eqref{FILT_PUSHG_EQ} and \eqref{FILT_PUSH_EQ} follow by
       applying Lemma \ref{REDUCELAN LEM} to \eqref{FILT_LANFIN_EQ} in the latter case,
       and in both cases using the fact that the undercategories
       $C \downarrow G \ltimes \OC^a[k]^{op}$ and
@@ -10166,49 +10183,12 @@ We in fact will have two different descriptions.
 
 
 
-
-
-% -------------------- ORIGINAL "PLAN OF ATTACK" ------------------------------
-
-% \begin{proof}
-%       {\color{red} Apply $\pi^{\**}$ to \cite[{\S 5.1-5.3}]{BP_geo}.      }
-% \end{proof}
-
-% Expanding on the above proof:
-
-% First, suppose $G = \**$.
-% Using 2-naturality of $\pi_{\mathfrak C}^{\**}$ and Proposition \ref{PRESSTLIM PROP} % preservation of standard limits
-% it is immediate that $\Omega^e_{\mathfrak C} \simeq | \Omega_{\mathfrak C}^{t, \lambda_\bullet} |$,
-% and as the proof of \cite[Prop. 5.37]{BP_geo} uses literally nothing about $\Sigma_G$, we may conclude
-% \begin{equation}
-%       \O[u] \simeq \Lan_{(\Omega_{\mathfrak C}^e \to \Sigma_{\mathfrak C})^{op}} \tilde N ^{\O, X, Y}.
-% \end{equation}
-
-% As a choice of coloring descends to subtrees, \cite[Prop. 5.49]{BP_geo} also follows, and thus
-% \begin{equation}
-%       \O[u] \simeq \Lan_{(\widehat\Omega_{\mathfrak C}^e \to \Sigma_{\mathfrak C})^{op}} \tilde N ^{\O, X, Y},
-% \end{equation}
-% where $\widehat\Omega_{\mathfrak C}^e \into \Omega_{\mathfrak C}^e$ is the full subcategory of $(\O, X,Y)$-labeled trees
-% whose underlying tree is alternating, with active nodes labeled by $\O$ and inert nodes labeled by $X$ or $Y$.
-% All of \cite[\S 5.3]{BP_geo} also follows immediately, and so we have the above filtration when $G = \**$.
-
-% Now, for general $G$,  $|G \ltimes \C_\bullet | \simeq G \ltimes |\C_\bullet|$ by Proposition \ref{GT_REAL_PROP},
-% and hence we're done:
-
-% \begin{itemize}
-% \item $G \ltimes \Omega_{\mathfrak C}^{t, \lambda} \simeq | G \ltimes \Omega_{\mathfrak C}^{\bullet, \lambda} |$.
-% \item $G \ltimes \Omega_{\mathfrak C}^e \simeq | G \ltimes \Omega_{\mathfrak C}^{t, \lambda_\bullet} |$.
-% \end{itemize}
-% Hence $G \ltimes \Omega_{\mathfrak C}^{\bullet, \lambda_\bullet}$ is a bisimplicial category with all the properties that we need
-% (since $G \ltimes (-)$ is functorial and preserves pullbacks)
-% so that $\O[u] \simeq \Lan_{\left( \widehat\Omega_{\mathfrak C}^e \to \Sigma_{\mathfrak C} \right)^{op}} \tilde N^{\O,X,Y}$.
-%  The rest of \cite[\S 5.3]{BP_geo} follows without a hitch.
-
+% ------------------------------ homotopy stuff ------------------------------
 
 We end this section by discussing the homotopical nature of this filtration.
 Again, the results from \cite{BP_geo} are sufficiently robust.
 
-We say $X \to Y \in \Sym^{G, \mathfrak C}(\V)$ is a \textit{level genuine cofibration} if for each $C \in \G \ltimes \SC^{op}$,
+We say $X \to Y \in \Sym^{G, \mathfrak C}(\V)$ is a \textit{level genuine cofibration} if for each $C \in G \ltimes \SC^{op}$,
 $X(C) \to Y(C)$ is a genuine cofibration in $\V^{\Aut(C)}$;
 we say $X$ is \textit{level genuine cofibrant} if $\varnothing \to X$ is a level genuine cofibration.
 
@@ -10222,8 +10202,8 @@ we say $X$ is \textit{level genuine cofibrant} if $\varnothing \to X$ is a level
       be level genuine cofibrant
       and  
       $u: X \to Y$ in $\Sym^{G, \mathfrak C}(\V)$ a level genuine cofibration. 
-      Then for each $T \in G \ltimes \Omega_{\mathfrak C}^a[k]^{op}$ and writing
-      $C = \mathsf{lr}(T)$, the map	
+      Let $T \in G \ltimes \Omega_{\mathfrak C}^a[k]^{op}$ and write $C = \mathsf{lr}(T)$.
+      Then
       \begin{equation}\label{EXMAINLEM EQ}
             \left(
                   \bigotimes\limits_{v \in V^{ac}(T)}\P(T_v) \otimes
@@ -10235,11 +10215,665 @@ we say $X$ is \textit{level genuine cofibrant} if $\varnothing \to X$ is a level
       \end{equation}
       is a genuine cofibration in 
       $\mathcal{V}^{\mathsf{Aut}(C)}_{\text{gen}}$,
-      which is trivial if $k \geq 1$ and $u$ is trivial.	
+      where the automorphism groups are either all taken in $G \ltimes \OC$ or all taken in $\Omega_{\mathfrak C}$,
+      and which is trivial if $k \geq 1$ and $u$ is trivial.	
 \end{lemma}
 \begin{proof}
-      This follows exactly as in \cite{BP_geo}, as we may take the automorphism groups to live in the category $F \wr (G^{op} \ltimes \Sigma_{\mathfrak C}).$ 
+      This follows exactly as in \cite{BP_geo}, as we may take the automorphism groups to live in either
+      $\Fin \wr (G^{op} \ltimes \Sigma_{\mathfrak C})$ or $\Fin \wr \Sigma_{\mathfrak C}$.
 \end{proof}
+
+
+
+% % ------------------------------ "ALL" THE DETAISL ------------------------------
+% \subsection{Filtration v1: ``all'' the details}
+
+
+% \todo[inline]{\ref{GL_RANINIT_LEM} and \ref{RANINIT_PULL_LEM} both are only used in proofs where we could also have just redone the proof in \cite{BP_geo} word-for-word... is it better to keep them in?}
+
+% To start, we observe ---  as in $(5.3)$ through $(5.7)$ of \cite{BP_geo} --- that
+% \begin{align*}
+%   \O[u]
+%   &
+%     \simeq \mathrm{coeq}\left(
+%           \O \mathbin{\hat\amalg} \mathbb F X \mathbin{\hat\amalg} \mathbb F Y \rightrightarrows \O \mathbin{\hat\amalg} \mathbb F Y
+%           \right)
+%   \\
+%   &
+%     \simeq \colim_{n,l} B_l \left( \mathbb F^{n+1} \O, \mathbb F X, \mathbb F X, \mathbb F X, \mathbb FY \right)
+%   \\
+%   &
+%     \simeq \colim_{n,l} \Lan N \circ \left( N^{\circ n} \iota \O \amalg \iota X^{\amalg 2l +1} \amalg \iota Y \right),
+%     \stepcounter{equation}\tag{\theequation}\label{OU_EQ1}
+%     % =: \colim_{n,l} \Lan \hat N_{n,l}^{(\O,X,Y)},
+% \end{align*}
+% where $N$ is the equivariant monad {\color{red} CITE THE EQUATION},
+% $B$ denotes the \textit{double bar construction},
+% and the left Kan extension is over the leaf-root functor
+% \mbox{$G \ltimes \Omega_{\mathfrak C}^{0,op} \xrightarrow{\mathsf{lr}} G \ltimes \Sigma_{\mathfrak C}^{op}$}.
+% Through a series of reductions (Propositions \ref{OU_RED1_PROP}, \ref{OU_RED2_PROP}, and \ref{OU_RED3_PROP}),
+% we will identify this as a left Kan extension over an approachable category, 
+% and build our filtration by filtering this category.
+
+% \subsubsection*{Labeled planar strings}
+% We begin by producing a category of labeled planar strings of $\mathfrak C$-colored trees.
+
+% \begin{definition}
+%       We remind ourselves of some equipment and nomenclature for trees from \cite{BP_geo}.
+%       \begin{enumerate}
+%       \item We recall that every object in our model of $\Omega$ comes equipped with a (well-behaved) total ordering on its set of edges,
+%             referred to as its \textit{planar} structure.
+%             A map $\phi: T \to S$ of trees is called \textit{planar} is it is order-preserving.
+%       \item A map $\phi: T \to S$ of trees is called \textit{tall} if $\phi(L(T)) = \phi(L(S))$ and $\phi(R(T)) = \phi(R(S))$,
+%             where $L(-)$ and $R(-)$ denote the set of leaves and the root.
+%       \item For any map $\phi: T \to S$ and vertex $v = (e^{\uparrow} \leq e)$ of $T$,
+%             there is an associated subtree $T_v$ of $T$ and ``image'' subtree $S_v$ of $S$
+%             (see \cite[Defn 3.25]{BP_geo}; $S_v = S_{\phi(e^\uparrow) \leq \phi(e)}$).
+%       \item Given $l \geq 0$, a \textit{$l$-labeled tree} is a pair $(T, V(T) \to \set{1,\dots,l})$.
+%             A map $\phi: T \to S$ between $l$-labeled trees is a \textit{label map} if
+%             for every vertex $v \in V(T)$ labeled by $j$, all vertices of the subtree $S_v$ are also labeled by $j$.
+%       \item Let $\lambda = \lambda_a \amalg \lambda_i$ be a partition of $\set{1,\dots,l}$.
+%             A planar tall map of $l$-labeled trees $\phi: S \to T$ is called \textit{$\lambda_i$ inert} if
+%             for all $j \in \lambda_i$ and vertex $v \in V(T)$ labeled by $v$, $S_v = T_v$.
+%       \end{enumerate}
+% \end{definition}
+
+% \begin{definition}[{cf. \cite[Defn. 5.10]{BP_geo}}]
+%       \label{CLPS_DEF}
+%       Given $n\geq -1$, $-1 \leq s \leq n$, $l \geq 0$, and a partition $\lambda = \lambda_a \amalg \lambda_i$ of $\set{1,2,\dots,l}$,
+%       define $\Omega_{\mathfrak C}^{n,s,\lambda}$ to be the pullback
+%       \begin{equation}
+%             \begin{tikzcd}
+%                   \OC^{n,s,\lambda} \arrow[d] \arrow[r, "E"]
+%                   &
+%                   \Sigma \wr \mathfrak C \arrow[d]
+%                   \\
+%                   \Omega^{n,s,\lambda} \arrow[r, "E"]
+%                   &
+%                   \Sigma
+%             \end{tikzcd}
+%       \end{equation}
+%       where $\Omega^{n,s,\lambda}$ is defined as in \cite[Defn. 5.10]{BP_geo}.
+%       %
+%       Explicitly, objects of $\Omega_{\mathfrak C}^{n,s,\lambda}$ are strings
+%       \begin{equation}
+%             T_{-1} \xrightarrow{\phi_0} T_0 \xrightarrow{\phi_1} T_1 \xrightarrow{\phi_2} \dots \xrightarrow{\phi_n} T_n
+%       \end{equation}
+%       of planar tall 
+%       maps of trees, such that
+%       the $T_r$ are $l$-labeled 
+%       and the $\phi_r$ are $\lambda_i$-inert 
+%       label maps for $r > s$,
+%       and such that $T_n$ is $\mathfrak C$-colored.
+      
+%       We observe that this last fact induces a \textit{unique} choice of coloring on all trees $T_i$ so that the maps $f_i$ are maps of colored trees.
+% \end{definition}
+
+% \begin{remark}
+%       We note that if $\mathfrak C$ is a $G$-set, then
+%       $\OC^{n,s,\lambda}$ is a left $G$-category, with action induced by the action on $\mathfrak C$,
+%       and thus we may form the categories $G \ltimes \OC^n$ and $G^{op} \ltimes \OC^n$ as in Example \ref{G_GR_REM} and Remark \ref{GOP_REM}.
+% \end{remark}
+
+% \begin{definition}[{cf. \cite[Notation 5.24]{BP_geo}}]
+%       \label{NA_DEF}
+%       Given functors of $G$-categories $\A, \A_j \to \Sigma_{\mathfrak C}$, define the categories
+%       \begin{equation}
+%             (G^{op} \ltimes \Omega_{\mathfrak C}^{n}) \wr (G^{op} \ltimes \A)
+%             \qquad \mbox{ and } \qquad
+%             (G^{op} \ltimes \Omega_{\mathfrak C}^{n,s,\lambda}) \wr ((G^{op} \ltimes A_j))
+%       \end{equation}
+%       to be the pullbacks of the solid rectangles below.
+%       \begin{equation}
+%             \label{LSTRINGS_EQ}
+%             \begin{tikzcd}[column sep = small]
+%                   \bullet \arrow[d] \arrow[r]
+%                   &
+%                   G^{op} \ltimes (\Sigma \wr \A) \arrow[d] \arrow[r]
+%                   &
+%                   \Sigma \wr (G^{op} \ltimes \A) \arrow[d] \arrow[r, dashed]
+%                   &
+%                   \Sigma \wr \V^{op} \arrow[r, dashed, "\otimes"]
+%                   &
+%                   \V^{op}
+%                   \\
+%                   G^{op} \ltimes \Omega_{\mathfrak C}^{n} \arrow[r] \arrow[d, dashed]
+%                   &
+%                   G^{op} \ltimes (\Sigma \wr \Sigma_{\mathfrak C}) \arrow[r]
+%                   &
+%                   \Sigma \wr (G^{op} \ltimes \Sigma_{\mathfrak C})
+%                   \\
+%                   \SC
+%                   \\ % NEW DIAGRAM ------------------------------
+%                   \bullet \arrow[dd] \arrow[r]
+%                   &
+%                   G^{op} \ltimes (\Sigma \wr \amalg \A_j) \arrow[d] \arrow[r]
+%                   &
+%                   \Sigma \wr (G^{op} \ltimes \amalg A_j) \arrow[d] \arrow[r, dashed]
+%                   &
+%                   \Sigma \wr \V^{op} \arrow[r, dashed, "\otimes"]
+%                   &
+%                   \V^{op}
+%                   \\
+%                   &
+%                   G^{op} \ltimes (\Sigma \wr \amalg \SC) \arrow[d] \arrow[r]
+%                   &
+%                   \Sigma \wr (G^{op} \ltimes \amalg \SC) \arrow[d]
+%                   \\
+%                   G^{op} \ltimes \OC^{n,s,\lambda} \arrow[r] \arrow[d, dashed]
+%                   &
+%                   G^{op} \ltimes (\Sigma \wr \OC^{-1,s-n-1,\lambda}) \arrow[r]
+%                   &
+%                   \Sigma \wr (G^{op} \ltimes \OC^{-1,s-n-1,\lambda})
+%                   \\
+%                   G^{op} \ltimes \SC
+%             \end{tikzcd}
+%       \end{equation}
+
+%       More generally, if we in fact started with spans
+%       \begin{equation}
+%             G^{op} \ltimes \SC \leftarrow \A \to \V^{op},
+%             \qquad
+%             G^{op} \ltimes \SC \leftarrow \A_j \to \V^{op},
+%       \end{equation}
+%       define $N(A) = N^{G^{op},\mathfrak C}(A)$ and $N_{n,s,\lambda}^{(A_j)}$ to be the dashed spans.
+% \end{definition}
+
+
+% \begin{lemma}
+%       \label{GWRA_LEM}
+%       For any such $\A$ and $\A_j$, we have
+%       \begin{gather*}
+%             (G^{op} \ltimes \OC^{n}) \wr (G^{op} \ltimes \A) \simeq G^{op} \ltimes (\OC^{n} \wr \A),
+%             \\
+%             (G^{op} \ltimes \OC^{n,s,\lambda}) \wr ((G^{op} \ltimes A_j)) \simeq G^{op} \ltimes (\OC^{n,s,\lambda} \wr (\A_j)).
+%       \end{gather*}
+% \end{lemma}
+% \begin{proof}
+%       All of the squares in \eqref{LSTRINGS_EQ} are pullbacks by Lemmas \ref{GL_PULL_LEM} and \ref{GD_PULL_LEM}.
+% \end{proof}
+
+% When $G = \**$ and $\mathfrak C = \**$, this recovers the construction of \cite[Notation 5.24]{BP_geo}.
+% More generally, we have analogously defined categories (and spans)
+% $\Omega_{\mathfrak C}^n \wr \mathcal A$ and $\Omega_{\mathfrak C}^{n,s,\lambda} \wr (\mathcal A_j)$
+% constructed by removing the $G^{op} \ltimes (-)$ from the diagrams \eqref{LSTRINGS_EQ}.
+
+% \begin{lemma}[{cf. \cite[Remark 5.33]{BP_geo}}]
+%       $\OC^{n,s,\lambda} \simeq \OC^s \wr \OC^{-1,-1,\lambda} \wr (\OC^{n-s-1})^{\times \lambda}$.
+% \end{lemma}
+% \begin{proof}
+%       The $\mathfrak C$-colored version of \cite[Prop. 5.30]{BP_geo} (with $G = e$)
+%       follows from Proposition \ref{ASSOCIDS PROP} and Corollary \ref{COLORCOR COR}
+%       by the same argument as in \textit{loc cite}.
+%       The $\mathfrak C$-colored version of \cite[Cor. 5.32]{BP_geo} then follows by drawing the analogous diagrams used in its proof,
+%       and finally the above equation combines two special cases of this result.
+% \end{proof}
+
+
+% Applying Lemma \ref{GWRA_LEM} to the above equation yields the following.
+% \begin{proposition}
+%       \label{NNSL_PROP}
+%       We have an isomorphism
+%       \begin{equation}
+%             G^{op} \ltimes \OC^{n,s,\lambda} \simeq
+%             (G^{op} \ltimes \OC^{s}) \wr ((G^{op} \ltimes \OC^{-1,-1,\lambda}) \wr (G^{op} \ltimes \OC^{n-s-1})^{\times \lambda}),
+%       \end{equation}
+%       and hence
+%       \begin{equation}
+%             N_{n,s,\lambda}^{(A_j)}
+%             \simeq
+%             \left(
+%                   N^{\circ s + 1} \circ \amalg \circ (N^{\times \lambda})^{\circ n-s}
+%             \right)
+%             ((A_j))
+%             % \simeq
+%             % \Lan_{G \ltimes \OC^{n,s,\lambda,op} \to G \ltimes \SC^{op}}(A_j)
+%       \end{equation}
+% \end{proposition}
+
+
+
+% \begin{definition}[{cf. \cite[(5.6) and the discussion after Prop 5.37]{BP_geo}}]
+%       Define the bisimplicial object
+%       \begin{equation}
+%             N_{n,l}^{(\O,X,Y)}
+%             := N_{n,0,\lambda_l}^{(\O, X^{\amalg 2l+1}, Y)}
+%             = N \circ (N^{\circ n} \iota \O \amalg X^{\amalg 2l + 1} \amalg \iota Y).
+%             % \Lan_{G \ltimes \OC^{n,\lambda_l,op} \to G \ltimes \SC^{op}}(\O, X^{\amalg 2l+1}, Y).
+%       \end{equation}
+      
+%       In the $n$-direction, the face maps $d_i$ for $0 < i < n$ and $i=0$ are induced by the maps
+%       \begin{equation}
+%             N \circ N \xrightarrow{\mu} N,
+%             \qquad
+%             N \circ \amalg \circ N \to N \circ N \circ \amalg \xrightarrow{\mu} N \circ \amalg            
+%       \end{equation}
+%       respectively, 
+%       where $\mu$ is the monad multiplication,
+%       and the first map for $d_0$ is the natural map $\amalg \circ N \to N \circ \amalg$
+%       produced from Lemma \ref{GWRA_LEM} by applying (the pullback-preserving functor) $G \ltimes (-)$
+%       to the $\mathfrak C$-colored adaption of the diagrams in \cite[(5.34)]{BP_geo}.
+%       % All horizontal lines in the first diagram are the maps $V_{\mathfrak C}^0$,
+%       % and again the diagram on the right unpacks notation.
+%       % \begin{equation}
+%       %       \begin{tikzcd}[row sep = small]
+%       %             G \ltimes \OC^{0,-1,\lambda} \arrow[r, "{\amalg (V^0_G)^{\times \lambda}}"] \arrow[d]
+%       %             &
+%       %             G \ltimes \left( \amalg \Sigma \wr (\OC^{-1})^{\times \lambda} \right) \arrow[r]
+%       %             &
+%       %             G \ltimes \left( \Sigma \wr \OC^{-1,-2,\lambda} \right) \arrow[d, equal]
+%       %             && %
+%       %             G \ltimes \left( \amalg (\OC^0)^{\times \lambda} \right) \arrow[d] \arrow[r]
+%       %             &[-15pt]
+%       %             G \ltimes \left( \amalg \Sigma \wr \SC \right) \arrow[r]
+%       %             &[-15pt]
+%       %             G \ltimes \left( \Sigma \wr \amalg \SC \right) \arrow[d, equal]
+%       %             \\
+%       %             G \ltimes \OC^{0,0,\lambda} \arrow[d] \arrow[rr, "V_{\mathfrak C}^0"]
+%       %             &&
+%       %             G \ltimes \left( \Sigma \wr \OC^{-1,-1,\lambda} \right) \arrow[d]
+%       %             && %
+%       %             G \ltimes \OC^{0,0,\lambda} \arrow[d] \arrow[rr]
+%       %             &&
+%       %             G \ltimes \left( \Sigma \wr \amalg \SC \right) \arrow[d]
+%       %             \\
+%       %             G \ltimes \OC^{0,-1,\lambda} \arrow[rr, "V_{\mathfrak C}^0"]
+%       %             &&
+%       %             G \ltimes \left( \Sigma \wr \OC^{-1,0,\lambda} \right)
+%       %             && %
+%       %             G \ltimes \OC^0 \arrow[rr]
+%       %             &&
+%       %             G \ltimes (\Sigma \wr \SC)
+%       %       \end{tikzcd}
+%       % \end{equation}
+%       The degeneracies are similar.
+%       Lastly, the operations in the $l$-direction are the standard operations for the double bar construction.
+% \end{definition}
+
+% \begin{remark}
+%       Generalizing Remark \ref{GOP_REM},
+%       we have
+%       \begin{gather*}
+%             \left((G^{op} \ltimes \OC^n) \wr (G^{op} \ltimes \A)\right)^{op} \simeq
+%             (G \ltimes \OC^{n,op}) \wr (G \ltimes \A^{op}),
+%       \end{gather*}
+%       and similarly for the other three constructions in Definition \ref{NA_DEF}.
+% \end{remark}
+
+% Applying Proposition \ref{NNSL_PROP} to \eqref{OU_EQ1} yields the following.
+
+% \begin{proposition}
+%       \label{OU_RED1_PROP}
+%       $\O[u]
+%       \simeq
+%       \mathop{\colim}\limits_{(\Delta \times \Delta)^{op}} \left(
+%             \Lan_{G \ltimes (\Omega_{\mathfrak C}^{n,\lambda_l} \to \Sigma_{\mathfrak C})^{op}} N_{n,l}^{(\O,X,Y)}
+%       \right)$.
+% \end{proposition}
+
+
+% \subsubsection*{Alternating trees and the filtration}
+
+% Recall that, for any tree $T \in \Omega$ and edge $e \in T$, the \textit{input path} of $e$ is the set $I(e) = \sets{f \in T}{e \leq_d f}$.
+
+% \begin{definition}[{cf. \cite[Defn. 5.38]{BP_geo}}] 
+%       Let $\Omega^e$ denote the \textit{extension tree category}, with objects $\set{\O, X,Y}$-labeled trees, and arrows tall maps $\phi: T \to S$ such that for all $v \in V(T)$,
+%       \begin{itemize}
+%       \item If $T_v$ has an $X$-label, then $S_v \in \Sigma$ and has an $X$-label.
+%       \item If $T_v$ has a $Y$-label, then $S_v \in \Sigma$ and has either an $X$- or $Y$-label.
+%       \item If $T_v$ has an $\O$-label, then $S_v$ has only $X$ and $\O$ labels.
+%       \end{itemize}
+% \end{definition}
+
+% We will now realize (twice) the bisimplicial category $\OC^{\bullet, \lambda_\bullet}$.
+
+% \begin{proposition}
+%       \label{OU_RED2_PROP}
+%       $\O[u] \simeq \Lan_{G \ltimes (\OC^{e} \to \SC)^{op}} \tilde N^{(\O,X,Y)}$.
+% \end{proposition}
+% \begin{proof}
+%       Since $\pi^{\**}$ and $|-|$ commute by Proposition \ref{PIREAL_PROP} from the Appendix,
+%       we have
+%       $|\OC^{\bullet, \lambda_l}| \simeq \pi^{\**} |\Omega^{\bullet, \lambda_l}| = \pi^{\**} \Omega^{t, \lambda_l} = \OC^{t, \lambda_l}$,
+%       % $\simeq \OC^{t,\lambda_l}$ and $|\OC^{t,\lambda_\bullet}| \simeq \OC^e$
+%       by Remark 5.36 and Proposition 5.41 of \cite{BP_geo}.
+%       Thus, Propositions \ref{PRESSTLIM PROP} and \ref{GWRREAL_PROP} tell us that
+%       $|G^{op} \ltimes \OC^{\bullet, \lambda_\bullet}| \simeq G^{op} \ltimes \OC^e$.
+%       Finally, the realization tool \cite[Prop. 5.37]{BP_geo} has no dependence whatsoever on $\Sigma_G$,
+%       and the natural transformation component of both sets of the simplicial maps in $N_{\bullet, \bullet}^{(\O,X,Y)}$ are natural isomorphisms by the same analysis as in \cite{BP_geo},
+%       and thus a double application on the output of Corollary \ref{OU_RED1_PROP} yields the result.
+% \end{proof}
+
+% \begin{notation}
+%       Let $\tilde N$ denote $\tilde N^{(\O,X,Y)}$ and the restriction of this functor to any faithful subcategory of $G \ltimes \OC^e$.
+% \end{notation}
+
+% We have a final reduction in this presentation.
+% \begin{definition}[{\cite[Defn. 5.44,5.48]{BP_geo}}]
+%       Let $\Omega^a \subset \Omega$ denote the full subcategory of \textit{alternating trees}, where for any leaf $l \in T$, $|I(l)|$ is even.
+%       Those vertices $e^{\uparrow} \leq e$ where $|I(e)|$ is odd are called \textit{active}, and \textit{inert} otherwise.
+
+%       Define $\hat\Omega^e \subset \Omega^e$ to be the full subcategory of $(\O,X,Y)$-labeled trees whose
+%       underlying tree is alternating, has active nodes labeled by $\O$ and inert nodes labeled by $X$ or $Y$.      
+% \end{definition}
+
+
+%  % \begin{lemma}
+%  %       If $\mathcal C \to \mathcal D$ is $\Ran$-initial over $\mathcal E$ in $\Cat^G$, then
+%  %       $G \ltimes \mathcal C \to G \ltimes \mathcal D$ is $\Ran$-initial over $G \ltimes \mathcal E$ in $\mathsf{Fib}(G)$. 
+%  % \end{lemma}
+
+
+% \begin{lemma}[{cf. \cite[Cor. 5.52]{BP_geo}}]
+%       $G \ltimes \hat\Omega_{\mathfrak C}^e \into G \ltimes \OC^e$ is $\Ran$-initial.
+% \end{lemma}
+% \begin{proof}
+%       As $\hat\Omega^e \into \OC^e$ is $\Ran$-initial over $\Sigma$ by \cite[Cor. 5.52]{BP_geo}, this follows from Lemmas \ref{RANINIT_PULL_LEM} and \ref{GL_RANINIT_LEM}.
+% \end{proof}
+% \begin{proof}
+%       We have a right retraction $\hat \Omega^e \into \Omega^e \to \hat \Omega^e$
+%       by \cite[Prop. 5.48]{BP_geo},
+%       and functoriality of $G \ltimes (-)$ and $\pi_{\mathfrak C}^{\**}$ implies
+%       we have a right retraction
+%       $G \ltimes \hat \Omega_{\mathfrak C}^e \into G \ltimes \OC^e \to G \ltimes \hat \Omega_{\mathfrak C}^e$.
+%       As before, this implies we have right retractions on all undercategories, showing $\Ran$-initiality.
+% \end{proof}
+
+% \begin{proposition}
+%       \label{OU_RED3_PROP}
+%       $\O[u] \simeq \Lan_{(G \ltimes \hat\Omega_{\mathfrak C}^{e} \to G \ltimes \SC)^{op}} \tilde N^{(\O,X,Y)}$. 
+% \end{proposition}
+
+% We will now filter the category $\hat\Omega_{\mathfrak C}^e$ by full subcategories (and hence also $G \ltimes \hat \Omega_{\mathfrak C}^e$)
+% to produce a levelwise filtration of $\O \to \O[u]$.
+
+% Given $T \in \OC^e$, define
+% $V^X(T)$ (resp. $V^Y(T)$) to be the set of $X$-labeled (resp. $Y$-labeled) vertices of $T$.
+% Further, define the \textit{degrees} of $T$ by
+% \begin{equation}
+%       |T|_X = |V^X(T)|,
+%       \qquad
+%       |T|_Y = |V^Y(T)|,
+%       \qquad
+%       |T| = |T|_X + |T|_Y.
+% \end{equation}
+% Lastly, for $T \in \OC^a$, let $V^{in}(T)$ and $V^{ac}(T)$ denote the inert and active vertices of $T$,
+% where we observe that $|T| = |V^{in}(T)|$.
+
+% \begin{definition}[{cf. \cite[Defn. 5.56]{BP_geo}}]
+%       Define the following full subcategories of $\hat\Omega_{\mathfrak C}^e$.
+%       \begin{itemize}
+%       \item $\hat\Omega_{\mathfrak C}^e[\leq k]$ (resp. $\hat\Omega_{\mathfrak C}^e[k]$) is the subcategory spanned by
+%             those $T$ with $|T| \leq k$ (resp. $|T| = k$).
+%       \item $\hat\Omega_{\mathfrak C}^e[\leq k \setminus Y]$ (resp. $\hat\Omega_{\mathfrak C}^e[k \setminus Y]$) is the further subcategory of $\hat\Omega_{\mathfrak C}^e[\leq k]$ (resp. $\hat\Omega_{\mathfrak C}^e[k]$) with $|T|_Y \neq k$.
+%       \end{itemize}
+
+%       Finally, define the full subcategories
+%       $G^{op} \ltimes \hat \Omega_{\mathfrak C}^e[-] \subseteq G \ltimes \hat \Omega_{\mathfrak C}^e$
+%       to be spanned by the same objects.
+% \end{definition}
+
+% \begin{remark}[{cf. \cite[Remark 5.56]{BP_geo}}]
+%       \label{OEFIB_REM}
+%       We have $\hat\Omega^e[\leq k]_{\mathfrak C} = \hat\Omega_{\mathfrak C}^e[\leq k]$, and similarly for the other constructions.
+%       In particular, applying Corollary \ref{PI_GFIB_COR} and Lemma \ref{GL_GR_LEM} to \cite[Remark 5.57]{BP_geo}, we have a map of Grothendieck fibrations
+%       \begin{equation}
+%             \begin{tikzcd}
+%                   G^{op} \ltimes \hat\Omega_{\mathfrak C}^e[k \setminus Y] \arrow[rr, hookrightarrow] \arrow[dr]
+%                   &&
+%                   G^{op} \ltimes \hat\Omega_{\mathfrak C}^e[k] \arrow[dl]
+%                   \\
+%                   &
+%                   G^{op} \ltimes \Omega_{\mathfrak C}^a[k]
+%             \end{tikzcd}
+%       \end{equation}
+%       such that fibers over $T \in \Omega_{\mathfrak C}^a[k]$ are the punctured cube and cube categories
+%       \begin{equation}
+%             (Y \to X)^{\times V^{in}(T)} - Y^{\times V^{in}(T)},
+%             \qquad
+%             (Y \to X)^{\times V^{in}(T)}.
+%       \end{equation}
+% \end{remark}
+
+% \begin{lemma}[{cf. \cite[Lemma 5.57]{BP_geo}}]
+%       \label{LANINT_LEM}
+%       $G^{op} \ltimes \hat\Omega_{\mathfrak C}^e[\leq k-1] \into G^{op} \ltimes \hat\Omega_{\mathfrak C}^e[\leq k \setminus Y]$
+%       is $\Ran$-initial over $G^{op} \ltimes \SC$.
+% \end{lemma}
+% \begin{proof}
+%       This follows from combining Lemmas \ref{GL_RANINIT_LEM} and \ref{RANINIT_PULL_LEM} with the non-colored case \cite[Lemma 5.58]{BP_geo}.
+% \end{proof}
+% \begin{remark}
+%       This can also be done directly, completely analogously to the proof of \cite[Lemma 5.58]{BP_geo}.
+% \end{remark}
+
+% We can now construct our filtration.
+% \begin{definition}
+%       Let $\O_k$ denote the left Kan extnesion
+%       \begin{equation}
+%             \begin{tikzcd}
+%                   |[alias = A]| G \ltimes \hat\Omega_{\mathfrak C}^e[\leq k]^{op} \arrow[r, "\tilde N"] \arrow[d, "\mathsf{lr}"']
+%                   &
+%                   \V
+%                   \\
+%                   G \ltimes \SC^{op} \arrow[ur, "\O_k"', ""{name = B}]
+%                   \arrow[Rightarrow, from = A, to = B]
+%             \end{tikzcd}
+%       \end{equation}
+% \end{definition}
+
+% Since $G^{op} \ltimes \hat\Omega_{\mathfrak C}^e[\leq 0] \simeq G^{op} \ltimes \SC$, and
+% $G^{op} \ltimes \hat\Omega_{\mathfrak C}^e$ is the union of (the nerves of) the $G^{op} \ltimes \hat\Omega_{\mathfrak C}^e[\leq k]$,
+% we obtain our desired filtration
+% \begin{equation}
+%       \O = \O_0 \to \O_1 \to \O_2 \to \dots \to \colim_k\O_k = \O[u].
+% \end{equation}
+
+% To further analyze the connecting maps, consider the diagram of inclusions
+% \begin{equation}
+%       \label{FILT_PRELAN_EQ}
+%       \begin{tikzcd}
+%             G^{op} \ltimes \hat\Omega_{\mathfrak C}^e[k \setminus Y] \arrow[r] \arrow[d]
+%             &
+%             G^{op} \ltimes \hat\Omega_{\mathfrak C}^e[\leq k \setminus Y] \arrow[d]
+%             \\
+%             G^{op} \ltimes \hat\Omega_{\mathfrak C}^e[k] \arrow[r]
+%             &
+%             G^{op} \ltimes \hat\Omega_{\mathfrak C}^e[\leq k].
+%       \end{tikzcd}
+% \end{equation}
+% In fact, this is a pushout at the level of nerves, since
+% \begin{equation}
+%       G^{op} \ltimes \hat\Omega_{\mathfrak C}^e[k]
+%       \cap
+%       G^{op} \ltimes \hat\Omega_{\mathfrak C}^e[\leq k \setminus Y]
+%       =
+%       G^{op} \ltimes \hat\Omega_{\mathfrak C}^e[k \setminus Y],
+%       \qquad
+%       G^{op} \ltimes \hat\Omega_{\mathfrak C}^e[k]
+%       \cup
+%       G^{op} \ltimes \hat\Omega_{\mathfrak C}^e[\leq k \setminus Y]
+%       =
+%       G^{op} \ltimes \hat\Omega_{\mathfrak C}^e[\leq k],
+% \end{equation}
+% and a map $T \to S$ in $G^{op} \ltimes \hat\Omega_{\mathfrak C}^e[\leq k]$ is in one of the subcategories named in \eqref{FILT_PRELAN_EQ} iff $T$ is.
+
+% Applying left Kan extension over $G \ltimes \SC^{op}$ to \eqref{FILT_PRELAN_EQ} and reducing via Lemma \ref{LANINT_LEM}
+% yields the pushout diagram
+% \begin{equation}
+%       \begin{tikzcd}
+%             \label{FILT_LAN_EQ}
+%             \Lan_{G \ltimes \hat\Omega_{\mathfrak C}^e[k \setminus Y]^{op}} \tilde N \arrow[r] \arrow[d]
+%             &
+%             \O_{k-1} \arrow[d]
+%             \\
+%             \Lan_{G \ltimes \hat\Omega_{\mathfrak C}^e[k]^{op}} \tilde N \arrow[r]
+%             &
+%             \O_k
+%       \end{tikzcd}
+% \end{equation}
+
+
+% We can now finally produce formula for the levelwise filtration.
+% We in fact will have two different descriptions.
+
+% \begin{proposition}[{cf. \cite[Prop. 5.66]{BP_geo}}]
+%       \label{FILT_PUSH_PROP}
+%       Suppose $\V$ is a closed monoidal category.
+%       Then there exists a filtration in $\Sym^{G, \mathfrak C}(\V)$
+%       \begin{equation}
+%             \O = \O_0 \into \O_1 \into \O_2 \into \dots \into \O_\infty = \O[u]
+%       \end{equation}
+%       of the pushout map from \eqref{OU_EQ}
+%       such that, for each $\mathfrak C$-signature $C \in G \ltimes \Sigma_{\mathfrak C}$,
+%       both diagrams below are pushouts in $\V$,
+%       \vspace{-10pt}
+%       \begin{align}
+%         \label{FILT_PUSHG_EQ}
+%         \begin{tikzcd}[ampersand replacement=\&]
+%               \mathop{\coprod}\limits_{[T] \in \Iso(C \downarrow_r G \ltimes \Omega_{\mathfrak C}^a[k])}
+%               \left(
+%                     \mathop{\bigotimes}\limits_{v \in V^{ac}(T)} \O(T_v) \otimes
+%                     Q^{in}_T[u]
+%               \right) \cdot_{\Aut_{G \ltimes O\C}(T)} \Aut_{G \ltimes \SC}(C)
+%               \arrow[r]
+%               \arrow[d]
+%               \&
+%               \O_{n-1}(C) \arrow[d]
+%               \\                  
+%               \mathop{\coprod}\limits_{[T] \in \Iso(C \downarrow_r G \ltimes \Omega_{\mathfrak C}^a[k])}
+%               \left(
+%                     \mathop{\bigotimes}\limits_{v \in V^{ac}(T)} \O(T_v) \otimes
+%                     \mathop{\bigotimes}\limits_{v \in V^{in}(T)} Y(T_v)
+%               \right) \cdot_{\Aut_{G \ltimes \OC}(T)} \Aut_{G \ltimes \SC}(C)
+%               \arrow[r]
+%               \&
+%               \O_n(C)
+%         \end{tikzcd}
+%         \\
+%         \label{FILT_PUSH_EQ}
+%         \begin{tikzcd}[ampersand replacement=\&]
+%               \mathop{\coprod}\limits_{[T] \in \Iso(C \downarrow_r \Omega_{\mathfrak C}^a[k])}
+%               \left(
+%                     \mathop{\bigotimes}\limits_{v \in V^{ac}(T)} \O(T_v) \otimes
+%                     Q^{in}_T[u]
+%               \right) \cdot_{\Aut_{\OC} (T)} \Aut_{\SC}(C)
+%               \arrow[r]
+%               \arrow[d]
+%               \&[15pt]
+%               \O_{n-1}(C) \arrow[d]
+%               \\                  
+%               \mathop{\coprod}\limits_{[T] \in \Iso(C \downarrow_r \Omega_{\mathfrak C}^a[k])}
+%               \left(
+%                     \mathop{\bigotimes}\limits_{v \in V^{ac}(T)} \O(T_v) \otimes
+%                     \mathop{\bigotimes}\limits_{v \in V^{in}(T)} Y(T_v)
+%               \right) \cdot_{\Aut_{\OC}(T)} \Aut_{\SC}(C)
+%               \arrow[r]
+%               \&
+%               \O_n(C)
+%         \end{tikzcd}
+%       \end{align}
+%       where we define $Q^{in}_T[u]$ to be the source of the pushout-product map
+%       \begin{equation}
+%             \mathop{\mathlarger{\mathlarger{\mathlarger{\square}}}}_{v \in V^{in}(T)} u(T_v): Q^{in}_T[u] \to \bigotimes_{v \in V^{in}(T)} Y(T_v).
+%       \end{equation}
+% \end{proposition}
+% \begin{proof}
+%       By first left Kan extending to $G \ltimes \OC^a[k]^{op}$, we can rewrite the leftmost map in \eqref{FILT_LAN_EQ} as
+%       \begin{equation}
+%             \label{FILT_LANFIN_EQ}
+%             \Lan_{G \ltimes (\OC^a[k] \to \SC)^{op}}\left(
+%                   \bigotimes_{v \in V^{ac}(T)}\O(T_v) \otimes
+%                   \mathop{\mathlarger{\mathlarger{\mathlarger{\square}}}}\limits_{v \in V^{in}(T)} u(T_v)
+%             \right).
+%       \end{equation}
+%       using Remark \ref{OEFIB_REM}.
+%       The description of the leftmost maps in then \eqref{FILT_PUSHG_EQ} and \eqref{FILT_PUSH_EQ} follow by
+%       applying Lemma \ref{REDUCELAN LEM} to \eqref{FILT_LANFIN_EQ} in the latter case,
+%       and in both cases using the fact that the undercategories
+%       $C \downarrow G \ltimes \OC^a[k]^{op}$ and
+%       $C \downarrow \OC^a[k]^{op}$ are groupoids.
+% \end{proof}
+
+
+
+
+
+
+
+% % -------------------- ORIGINAL "PLAN OF ATTACK" ------------------------------
+
+% % \begin{proof}
+% %       {\color{red} Apply $\pi^{\**}$ to \cite[{\S 5.1-5.3}]{BP_geo}.      }
+% % \end{proof}
+
+% % Expanding on the above proof:
+
+% % First, suppose $G = \**$.
+% % Using 2-naturality of $\pi_{\mathfrak C}^{\**}$ and Proposition \ref{PRESSTLIM PROP} % preservation of standard limits
+% % it is immediate that $\Omega^e_{\mathfrak C} \simeq | \Omega_{\mathfrak C}^{t, \lambda_\bullet} |$,
+% % and as the proof of \cite[Prop. 5.37]{BP_geo} uses literally nothing about $\Sigma_G$, we may conclude
+% % \begin{equation}
+% %       \O[u] \simeq \Lan_{(\Omega_{\mathfrak C}^e \to \Sigma_{\mathfrak C})^{op}} \tilde N ^{\O, X, Y}.
+% % \end{equation}
+
+% % As a choice of coloring descends to subtrees, \cite[Prop. 5.49]{BP_geo} also follows, and thus
+% % \begin{equation}
+% %       \O[u] \simeq \Lan_{(\widehat\Omega_{\mathfrak C}^e \to \Sigma_{\mathfrak C})^{op}} \tilde N ^{\O, X, Y},
+% % \end{equation}
+% % where $\widehat\Omega_{\mathfrak C}^e \into \Omega_{\mathfrak C}^e$ is the full subcategory of $(\O, X,Y)$-labeled trees
+% % whose underlying tree is alternating, with active nodes labeled by $\O$ and inert nodes labeled by $X$ or $Y$.
+% % All of \cite[\S 5.3]{BP_geo} also follows immediately, and so we have the above filtration when $G = \**$.
+
+% % Now, for general $G$,  $|G \ltimes \C_\bullet | \simeq G \ltimes |\C_\bullet|$ by Proposition \ref{GT_REAL_PROP},
+% % and hence we're done:
+
+% % \begin{itemize}
+% % \item $G \ltimes \Omega_{\mathfrak C}^{t, \lambda} \simeq | G \ltimes \Omega_{\mathfrak C}^{\bullet, \lambda} |$.
+% % \item $G \ltimes \Omega_{\mathfrak C}^e \simeq | G \ltimes \Omega_{\mathfrak C}^{t, \lambda_\bullet} |$.
+% % \end{itemize}
+% % Hence $G \ltimes \Omega_{\mathfrak C}^{\bullet, \lambda_\bullet}$ is a bisimplicial category with all the properties that we need
+% % (since $G \ltimes (-)$ is functorial and preserves pullbacks)
+% % so that $\O[u] \simeq \Lan_{\left( \widehat\Omega_{\mathfrak C}^e \to \Sigma_{\mathfrak C} \right)^{op}} \tilde N^{\O,X,Y}$.
+% %  The rest of \cite[\S 5.3]{BP_geo} follows without a hitch.
+
+
+% We end this section by discussing the homotopical nature of this filtration.
+% Again, the results from \cite{BP_geo} are sufficiently robust.
+
+% We say $X \to Y \in \Sym^{G, \mathfrak C}(\V)$ is a \textit{level genuine cofibration} if for each $C \in \G \ltimes \SC^{op}$,
+% $X(C) \to Y(C)$ is a genuine cofibration in $\V^{\Aut(C)}$;
+% we say $X$ is \textit{level genuine cofibrant} if $\varnothing \to X$ is a level genuine cofibration.
+
+% \begin{lemma}[{cf. \cite[5.73]{BP_geo}}] % EXMAINLEM LEM
+%       \label{EXMAINLEM LEM}
+%       Suppose $\mathcal{V}$ is a cofibrantly generated closed monoidal model category
+%       with cellular fixed points and
+%       with cofibrant symmetric pushout powers (Defn \ref{CSPP_DEF}).
+      
+%       Let $\O \in \mathsf{Sym}^{G,\mathfrak C}(\mathcal{V})$
+%       be level genuine cofibrant
+%       and  
+%       $u: X \to Y$ in $\Sym^{G, \mathfrak C}(\V)$ a level genuine cofibration. 
+%       Then for each $T \in G \ltimes \Omega_{\mathfrak C}^a[k]^{op}$ and writing
+%       $C = \mathsf{lr}(T)$, the map	
+%       \begin{equation}\label{EXMAINLEM EQ}
+%             \left(
+%                   \bigotimes\limits_{v \in V^{ac}(T)}\P(T_v) \otimes
+%                   \underset{v \in V^{in}(T)}
+%                   {\mathlarger{\mathlarger{\mathlarger{\square}}}}
+%                   u(T_v)
+%             \right) 
+%             \mathop{\otimes}\limits_{\mathsf{Aut}(T)} \mathsf{Aut}(C).
+%       \end{equation}
+%       is a genuine cofibration in 
+%       $\mathcal{V}^{\mathsf{Aut}(C)}_{\text{gen}}$,
+%       which is trivial if $k \geq 1$ and $u$ is trivial.	
+% \end{lemma}
+% \begin{proof}
+%       This follows exactly as in \cite{BP_geo}, as we may take the automorphism groups to live in the category $F \wr (G^{op} \ltimes \Sigma_{\mathfrak C}).$ 
+% \end{proof}
+% \todo[inline]{check automorphism groups; do we need both considerations?}
 
 
 \subsection{Change of color}
@@ -10696,7 +11330,7 @@ In this short section, we will prove that the pullback 2-functor $\pi^{\**}$ and
       We have a natural map $F: |\pi^{\**} \mathcal C_\bullet| \to \pi^{\**} |\mathcal C_\bullet|$, which is the identity on objects,
       and acts as follows on the generating arrows:
       $(f_0, \alpha)$ gets mapped to $([f_0], \alpha)$, while
-      $a_1 \wedge $ gets mapped to $([a_1], \phi_1^{\**} e \to e \to \phi_0^{\**} e)$
+      $a_1 \wedge e$ gets mapped to $([a_1], \phi_1^{\**} e \to e \to \phi_0^{\**} e)$
       (where here we are again using the $\phi_0$ is invertible).
       It is straightforward to verify that this map is well-defined.      
 
@@ -10705,8 +11339,8 @@ In this short section, we will prove that the pullback 2-functor $\pi^{\**}$ and
       any map $\alpha: \bar e \to e$ lifting $E([W])$ has an induced factorization into
       a map $W^{\**}\alpha$ over $E_0(a_0)$, followed by a composite of cartesian arrows $\alpha_i$, one for each letter $w$ in $W$.
 
-      Now, we send $([W],\alpha)$ to the composite of $|W|+1$ arrows.
-      If $w_i = (a_0 \xrightarrow{c_0})$ and the target of $\alpha_i$ is $e$, then the $(i+1)$-st arrow is $(f_0, f_0^{\**}<e>)$.
+      Now, we send $([W],\alpha)$ to the composite of $|W|+1$ arrows defined as follows.
+      If $w_i = (a_0 \xrightarrow{c_0} b_0)$ and the target of $\alpha_i$ is $e$, then the $(i+1)$-st arrow is $(f_0, f_0^{\**}<e>)$.
       If $w_i = a_1$, then the $(i+1)$-st arrow is $a_1 \wedge (\phi_0^{\-1})^{\**} e$.
       Finally, we precompose with $(id_{a_0}, W^{\**}\alpha)$.
 
