@@ -1,7 +1,10 @@
 \documentclass[a4paper,10pt
-,draft
+%,draft
 %, final
 ]{article}%
+
+\pdfcompresslevel=0
+\pdfobjcompresslevel=0
 
 \usepackage[hidelinks]{hyperref}
 \hypersetup{
@@ -1095,7 +1098,7 @@ and combining this with the observation that Kan extensions along
 $G \ltimes \Omega_{\mathfrak{C}} \to G \ltimes \Sigma_{\mathfrak{C}}$
 are simply the underlying Kan extension along 
 $\Omega_{\mathfrak{C}} \to \Sigma_{\mathfrak{C}}$
-together with equivariance data,
+together with equivariance data (this strengthens Lemma \ref{REDUCELAN LEM} a little),
 one obtains that the monad $\mathbb{F}^G$ applied to 
 $X\colon G \ltimes \Sigma_{\mathfrak{C}}^{op} \to \mathcal{V}$
 is the left Kan extension
@@ -1120,6 +1123,7 @@ is the left Kan extension
 
 {\color{red} HERE}
 
+%\iffalse
 
 
 \subsection{Symmetric sequences and colored operads}
@@ -2095,47 +2099,44 @@ As in \cite{BP_geo}, we will transfer this model structure along the free-forget
 \[
       \Op^{G, \mathfrak C}_\F(\V) \leftrightarrows \Sym^{G, \mathfrak C}_\F: \mathbb F^G_{\mathfrak C}
 \]
-where $\mathbb F^G_{\mathfrak C}$ is the fiber of the cartesian monad $\mathbb F^G$ over $\mathfrak C$,
-described explicitly in {\color{red} diagram in \S 3.2}.
 
-This transfer will follow much in the same was as in \cite{BP_geo},
-by constructing an appropriate filtration (Proposition \ref{FILT_PUSH_PROP}) and
-showing that the levels are appropriately well-behaved (Lemma \ref{EXMAINLEM LEM}).
-We relegate this discussion to Appendix \ref{MONAD_APDX}.
+To do so, we will need to understand this monad $\mathbb F^{\mathfrak C}$.
+Much of this discussion takes place in Appendix \ref{MONAD_APDX}.
+Here, we will just record the necessary homotopy theoretic result.
 
-% We say $X \to Y \in \Sym^{G, \mathfrak C}(\V)$ is a \textit{level genuine cofibration} if for each $C \in \G \ltimes \SC^{op}$,
-% $X(C) \to Y(C)$ is a genuine cofibration in $\V^{\Aut(C)}$;
-% we say $X$ is \textit{level genuine cofibrant} if $\varnothing \to X$ is a level genuine cofibration.
+We say a map $X \to Y$ in  $\in \Sym^{G, \mathfrak C}(\V)$ is a \textit{level genuine cofibration} if for each $C \in G \ltimes \SC^{op}$,
+$X(C) \to Y(C)$ is a genuine cofibration in $\V^{\Aut(C)}$;
+we say $X$ is \textit{level genuine cofibrant} if $\varnothing \to X$ is a level genuine cofibration.
 
-% \begin{lemma}[{cf. \cite[5.73]{BP_geo}}] % EXMAINLEM LEM
-%       \label{EXMAINLEM LEM}
-%       Suppose $\mathcal{V}$ is a cofibrantly generated closed monoidal model category
-%       \todo{do we need to introduce monoidal model categories again? I wouldn't think so}
-%       with cellular fixed points and
-%       with cofibrant symmetric pushout powers (Defn \ref{CSPP_DEF}).
-      
-%       Let $\O \in \mathsf{Sym}^{G,\mathfrak C}(\mathcal{V})$
-%       be level genuine cofibrant
-%       and  
-%       $u: X \to Y$ in $\Sym^{G, \mathfrak C}(\V)$ a level genuine cofibration. 
-%       Then for each $T \in G \ltimes \Omega^a[k]^{op}$ and writing
-%       $C = \mathsf{lr}(T)$, the map	
-%       \begin{equation}\label{EXMAINLEM EQ}
-%             \left(
-%                   \bigotimes\limits_{v \in V^{ac}(T)}\P(T_v) \otimes
-%                   \underset{v \in V^{in}(T)}
-%                   {\mathlarger{\mathlarger{\mathlarger{\square}}}}
-%                   u(T_v)
-%             \right) 
-%             \mathop{\otimes}\limits_{\mathsf{Aut}(T)} \mathsf{Aut}(C).
-%       \end{equation}
-%       is a genuine cofibration in 
-%       $\mathcal{V}^{\mathsf{Aut}(C)}_{\text{gen}}$,
-%       which is trivial if $k \geq 1$ and $u$ is trivial.	
-% \end{lemma}
-% \begin{proof}
-%       This follows as in \cite{BP_geo}, as we may take the automorphism groups to live in the category $F \wr (G^{op} \ltimes \Sigma_{\mathfrak C}).$ 
-% \end{proof}
+ \begin{lemma}[{cf. \cite[5.73]{BP_geo}}] % EXMAINLEM LEM
+       \label{EXMAINLEM LEM}
+       Suppose $\mathcal{V}$ is a cofibrantly generated closed monoidal model category
+       \todo{do we need to introduce monoidal model categories again? I wouldn't think so}
+       with cellular fixed points and
+       with cofibrant symmetric pushout powers (Defn \ref{CSPP_DEF}).
+
+
+Let $\O \in \mathsf{Sym}^{G,\mathfrak C}(\mathcal{V})$
+be level genuine cofibrant
+       $u: X \to Y$ in $\Sym^{G, \mathfrak C}(\V)$ a level genuine cofibration. 
+       Then for each $T \in G \ltimes \Omega^a[k]^{op}$ and writing
+       $C = \mathsf{lr}(T)$, the map	
+       \begin{equation}\label{EXMAINLEM EQ}
+             \left(
+                   \bigotimes\limits_{v \in V^{ac}(T)}\P(T_v) \otimes
+                   \underset{v \in V^{in}(T)}
+                   {\mathlarger{\mathlarger{\mathlarger{\square}}}}
+                   u(T_v)
+             \right) 
+             \mathop{\otimes}\limits_{\mathsf{Aut}(T)} \mathsf{Aut}(C).
+       \end{equation}
+       is a genuine cofibration in 
+       $\mathcal{V}^{\mathsf{Aut}(C)}_{\text{gen}}$,
+       which is trivial if $k \geq 1$ and $u$ is trivial.	
+ \end{lemma}
+ \begin{proof}
+       This follows as in \cite{BP_geo}, as we may take the automorphism groups to live in the category $F \wr (G^{op} \ltimes \Sigma_{\mathfrak C}).$ 
+ \end{proof}
 
 \begin{proof}[Proof of Theorem \ref{THM1_C}]
       As this model structure is precisely the one transfered from $\Sym^{G, \mathfrak C}_\F(\V)$,
@@ -11706,6 +11707,7 @@ g^{\**} T_d c  \to T_d c
 \]
 \end{proof}
 
+%\fi
 
 
 \bibliography{biblio-new}{}
