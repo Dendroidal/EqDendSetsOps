@@ -174,7 +174,7 @@ What we need:
       $\mathfrak C$-signatures $\xi$ and
       graph subgroups $\Gamma \leq \Stab(\xi)$.
 
-      More generally, for $\F = \set{\F_n}_{n \geq 0}$ an indexing family with $\F_n$ an \textit{arbitrary} collection of subgroups of $G \times \Sigma_n$,
+      More generally, for $\F = \set{\F_n}_{n \geq 0}$ a $(G, \Sigma)$-family with $\F_n$ an \textit{arbitrary} collection of subgroups of $G \times \Sigma_n$,
       there exists a model category structure on $\Op^{G, \mathfrak C}(\V)$, which we denote $\Op^{G, \mathfrak C}_\F(\V)$,
       with weak equivalences (resp. fibrations) determined by \eqref{THM1_C_EQ} for $\Gamma \leq (\F_n)_\ksi = \F_n \cap \Stab(\ksi)$.
 
@@ -1131,13 +1131,13 @@ Fix a closed symmetric monoidal category $(\V, \otimes)$.
 
 \begin{definition}
       Fix a set $\mathfrak C$ of \textit{colors}.
-      A tuple
+      A list
       $\ksi = (c_1, \ldots, c_n; c_0) \in \mathfrak C^{\times n} \times \mathfrak C$
       is called a \textit{$\mathfrak C$-signature}.
       A collection $\ksi, \ksi_1,\dots, \ksi_n$ of $\mathfrak C$-signatures is called \textit{compatible} if
       $\ksi \in \mathfrak C^{\times n+1}$, and the target of $\ksi_i$ is the $i$-th source of $\ksi$;
       e.g.  $\xi = (c_1, \ldots, c_n; c_0)$, $\xi_i = (c_{1}^i, \ldots, c_{m_i}^i; c_i)$.
-      In this case, define $\ksi \circ (\ksi_i) = (c_1^1,c_2^1,\dots,c_{m_n}^{n}; c_0)$.
+      In this case, define the \textit{composite} to be $\ksi \circ (\ksi_i) = (c_1^1,c_2^1,\dots,c_{m_n}^{n}; c_0)$.
 \end{definition}
 
 \begin{definition}
@@ -1985,9 +1985,9 @@ we require that the fixed point functors interact properly with the underlying m
 
 \begin{remark}
       \label{LEVEL_COF_REM}
-      An immediate consequence of cellularity (see \cite[Prop. 6.3(i)]{BP_geo})
-      is that for any genuine cofibration $f \in \V^G_{gen}$,
-      $f^H$ is a cofibration in $\V$ for all $H \leq G$.
+      An immediate consequence of cellularity (cf. the proof of \cite[Prop. 6.3(i)]{BP_geo})
+      is that for any genuine (trivial) cofibration $f \in \V^G_{gen}$,
+      the map $f^H$ is a (trivial) cofibration in $\V$ for all $H \leq G$.
 \end{remark}
 
 
@@ -2002,65 +2002,77 @@ For completeness, we recall a main result of \cite{Ste16}, which transfers model
       \end{itemize}
 \end{theorem}      
 
-This result formally extends to diagrams $\V^{\mathcal G}$ where $\mathcal G$ is a groupoid.
+This result formally extends to diagrams $\V^{\mathcal D}$ where $\mathcal D$ is a groupoid.
 \begin{definition}
-      For any groupoid $\mathcal G$, a \textit{family} of subgroups of $\mathcal G$ is
-      a collection $\F = \set{\F_d}$ of families of subgroups $\F_d$ of $\Aut(d)$ for all $d \in \mathcal G$,
+      For any groupoid $\mathcal D$, a \textit{family} of subgroups of $\mathcal D$ is
+      a collection $\F = \set{\F_d}$ of families of subgroups $\F_d$ of $\Aut(d)$ for all $d \in \mathcal D$,
       such that for any map $\alpha: d \to d'$, $\alpha^{\**}\F_{d'} \subseteq \F_d$ (or equivalently, equality).
 \end{definition}
 
 \begin{proposition}
       \label{TRANS_MODEL_PROP}
-      Let $\V$ be a cofibrantly generated model category with cellular fixed points, $\mathcal G$ a groupoid, and $\F$ a family of subgroups of $\mathcal G$.
-      Then the category of diagrams $\V^{\mathcal G}$ has an \textit{$\F$-model structure} $\V^\G_\F$, where
+      Let $\V$ be a cofibrantly generated model category with cellular fixed points, $\mathcal D$ a groupoid, and $\F$ a family of subgroups of $\mathcal D$.
+      Then the category of diagrams $\V^{\mathcal D}$ has an \textit{$\F$-model structure} $\V^\G_\F$, where
       a map $f: X \to Y$ is a
-      weak equivalence (resp. fibration) iff $f(d): X(d) \to Y(d)$ is so in $\V^{\mathsf{Aut}(d)}_{\F_d}$ for each $d \in \mathcal G$.
+      weak equivalence (resp. fibration) iff $f(d): X(d) \to Y(d)$ is so in $\V^{\mathsf{Aut}(d)}_{\F_d}$ for each $d \in \mathcal D$.
 
-      Moreover, if $X \in \V^{\mathcal G}$ is cofibrant, it is also levelwise cofibrant.
+      Moreover, if $X \in \V^{\mathcal D}$ is cofibrant, it is also levelwise cofibrant.
 \end{proposition}
 \begin{proof}
       This is the model structure transferred along the adjunction
       \begin{equation}
             \begin{tikzcd}
-                  \V^{\mathcal G} \leftrightarrows
-                  \mathop{\prod}\limits_{d \in \mathcal G}\V^{\mathsf{Aut}(d)}_{\F_d}
+                  \V^{\mathcal D} \leftrightarrows
+                  \mathop{\prod}\limits_{d \in \mathcal D}\V^{\mathsf{Aut}(d)}_{\F_d}
             \end{tikzcd}
       \end{equation}
       which exists by a straightforward exercise adapting and combining the proofs of
       \cite[Thm 11.6.1]{Hir03} and \cite[Prop 2.6]{Ste16};
       the generating (trivial) cofibrations are given by
       \begin{equation}
-            I^{\mathcal G}_\F = \sets{\mathcal G(d,-) \cdot_{\mathcal G(d,d)} \mathcal G(d,d)/H \cdot i}{d \in \mathcal G, i \in I, H \in \F_d}
+            I^{\mathcal D}_\F = \sets{\mathcal D(d,-) \cdot_{\mathcal D(d,d)} \mathcal D(d,d)/H \cdot i}{d \in \mathcal D, i \in I, H \in \F_d}
       \end{equation}
       where $I$ is the set of generating (trivial) cofibrations in $\V$.
 \end{proof}
 
 We note that for any $G$-operad with $\mathfrak C = \set{\**}$, each level $\O(n)$ has a left action by $G \times \Sigma_n$.
 In the homotopy theory of $G$-operads, as indicated in \cite{BH15} and the main result of \cite{BP_geo}, it is
-necessary to consider the homotopy type of the fixed point spaces for particular subgroups of $G \times \Sigma_n$:
-not all of them, and not just the subgroups of $G$, but instead the graph subgroups.
+necessary to consider the homotopy type of various fixed point spaces.
+% for particular subgroups of $G \times \Sigma_n$.
+% not all of them, and not just the subgroups of $G$, but instead the graph subgroups.
+For full generality, we introduce the following terminology.
 
 \begin{definition}
-      \label{GGRAPHFAM_DEF}
-      A subgroup $\Gamma \leq G \times \Sigma_n$ is called a \textit{graph subgroup} if $\Gamma \cap \Sigma_n = \**$;
-      equivalently, if $\Gamma$ is the graph $\Gamma(\phi)$ of a homomorphism $G \leq H \xrightarrow{\phi} \Sigma_n$.
-
-      A \textit{$G$-graph system} is a collection $\F = \set{\F_n}_{n \geq 0}$ of families $\F_n$ of graph subgroups of $G \times \Sigma_n$, one family for each $n$.
-      The maximum example will be denoted $\mathrm{Gr} = \set{\mathrm{Gr}_n}$, with $\mathrm{Gr}_n$ the entire collection of graph subgroups of $G \times \Sigma_n$.
+      \label{GSFAM_DEF}
+      A \textit{$(G,\Sigma)$-family} is a collection $\F = \set{\F_n}_{n \geq 0}$ of families $\F_n$ of subgroups of $G \times \Sigma_n$ \footnote{
+        As in \cite{BP_geo} and \cite{BH15}, one often restricts to \textit{$G$-graph families}; see Definition \ref{COR_GGRAPH_DEF}.}.
 \end{definition}
 
+% % ------------------------------ we don't need $G$-graph systems here... everything in this part works for any $(G,\Sigma)$-family ------------------------------
+% {\color{OliveGreen} % ------------------------------ OLIVE GREEN ------------------------------
+  
+%   \begin{definition}
+%         \label{GGRAPHFAM_DEF}
+%         A subgroup $\Gamma \leq G \times \Sigma_n$ is called a \textit{graph subgroup} if $\Gamma \cap \Sigma_n = \**$;
+%         equivalently, if $\Gamma$ is the graph $\Gamma(\phi)$ of a homomorphism $G \leq H \xrightarrow{\phi} \Sigma_n$.
+        
+%         A \textit{$G$-graph system} is a collection $\F = \set{\F_n}_{n \geq 0}$ of families $\F_n$ of graph subgroups of $G \times \Sigma_n$, one family for each $n$.
+%         The maximum example will be denoted $\mathrm{Gr} = \set{\mathrm{Gr}_n}$, with $\mathrm{Gr}_n$ the entire collection of graph subgroups of $G \times \Sigma_n$.
+%   \end{definition}
+% } % ------------------------------------------------------------------------------------------------
+
 Extending this discussion to the many-colored setting, we note that
-any $G$-graph system automatically extends to a family for the groupoid $\mathcal G = G \ltimes \Sigma_{\mathfrak C}^{op}$,
+any $(G,\Sigma)$-family automatically extends to a family for the groupoid $\mathcal D = G \ltimes \Sigma_{\mathfrak C}^{op}$,
 by defining for any $\mathfrak C$-signature $\ksi = (c_1,\dots,c_n;c_0)$ of length $n+1$,
 \[
       \F_\ksi = \F_n \cap \Aut_{G \times \Sigma_n}(\ksi)
 \]
-the graph subgroups $\Gamma \in \F_n$ such that $\Lambda \leq \Aut_{G \times \Sigma_n}(\ksi)$.
+the subgroups $\Gamma \in \F_n$ such that $\Gamma \leq \Aut_{G \times \Sigma_n}(\ksi)$.
 Applying Proposition \ref{TRANS_MODEL_PROP} induces an $\F$-model structure on the category of $\mathfrak C$-symmetric sequences in $\V$.
 
 \begin{definition}
       Let $\V$ be a cofibrantly generated model category with cellular fixed points,
-      $\mathfrak C$ a $G$-set, and $\F$ a $G$-graph system.
+      $\mathfrak C$ a $G$-set, and $\F$ a $(G, \Sigma)$-family.
       Then the \textit{$\F$-model structure} on the fiber $\Sym^{G,\mathfrak C}(\V)$ of $\Sym(\V)$ over $\mathfrak C$
       is the $\F$-model structure
       \begin{equation}
@@ -2101,10 +2113,8 @@ As in \cite{BP_geo}, we will transfer this model structure along the free-forget
 where $\mathbb F^G_{\mathfrak C}$ is the fiber of the cartesian monad $\mathbb F^G$ over $\mathfrak C$,
 described explicitly in {\color{red} diagram in \S 3.2}.
 
-This transfer will follow much in the same was as in \cite{BP_geo},
-by constructing an appropriate filtration (Proposition \ref{FILT_PUSH_PROP}) and
-showing that the levels are appropriately well-behaved (Lemma \ref{EXMAINLEM LEM}).
-We relegate this discussion to Appendix \ref{MONAD_APDX}.
+This transfer will follow much in the same was as in \cite{BP_geo};
+we relegate the technical discussion to Appendix \ref{MONAD_APDX}.
 
 % We say $X \to Y \in \Sym^{G, \mathfrak C}(\V)$ is a \textit{level genuine cofibration} if for each $C \in \G \ltimes \SC^{op}$,
 % $X(C) \to Y(C)$ is a genuine cofibration in $\V^{\Aut(C)}$;
@@ -2141,10 +2151,9 @@ We relegate this discussion to Appendix \ref{MONAD_APDX}.
 % \end{proof}
 
 \begin{proof}[Proof of Theorem \ref{THM1_C}]
-      As this model structure is precisely the one transfered from $\Sym^{G, \mathfrak C}_\F(\V)$,
-      its existance and properties follow from
-      Proposition \ref{FILT_PUSH_PROP} and Lemma \ref{EXMAINLEM LEM},
-      completely analogously to the proof of Theorem I from \cite{BP_geo}.
+      Proposition \ref{FILT_PUSH_PROP} shows that we have an appropriate filtration of free extensions of colored operads,
+      while Lemma \ref{EXMAINLEM LEM} says that this filtration is levelwise homotopically well-behaved.
+      Thus Theorem \ref{THM1_C} follows completely analogously to the proof of Theorem I from \cite{BP_geo}.
 \end{proof}
 
 
@@ -2152,7 +2161,7 @@ We relegate this discussion to Appendix \ref{MONAD_APDX}.
 \begin{remark}
       \label{TOP_FULL_REM}
       The category $\Op^{G,\mathfrak C}(\Top)$ actually has full model structures lifted from $\Sym^{G, \mathfrak C}_\F(\Top)$
-      for any $G$-graph system $\F$,
+      for any $(G, \Sigma)$-family $\F$,
       using an argument analogous to \cite[Thm. 3.1]{GW}.
 \end{remark}
 
@@ -2318,7 +2327,7 @@ into a single model structure on the full category of $G$-operads $\Op^G(\V)$ wi
       For this section, we assume $\V$ is always a cofibrantly generated closed monoidal model category with cellular fixed points
       and cofibrant symmetric pushout powers.
       In particular, Theorem \ref{THM1_C} and Remark \ref{CATV_MC_REM} imply that $\Cat^{\mathfrak C}(\V)$ is a (semi)-model category for each set $\mathfrak C$,
-      and thus has cofibrant replacements.
+      and thus in particular has cofibrant replacements.
 \end{convention}
 
 
@@ -2382,10 +2391,10 @@ We recall and extend the following definitions from \cite{BM13}.
       In \cite{BM13}, $\J$ just needs to be weakly equivalent to $\I$.
       However, any zig-zag of weak-equivalences between any $A$ and $X$ with $A$ cofibrant
       can be lifted to a single map $A \to X_f$.
-      We illustrate with a single example:
-      given $A \to Y \leftarrow X$, $A$ maps to $Y_c$, and then using the functoriality of $(-)_c$ on $Y \leftarrow X$, we get
-      $Y_c \twoheadleftarrow X_c' \leftarrowtail X_c$.
-      But then we have a lift $Y_c \to X_c'$, and a lift $X_c' \to X_f$, yielding our weak equivalence $A \to X_f$.      
+      % We illustrate with a single example:
+      % given $A \to Y \leftarrow X$, $A$ maps to $Y_c$, and then using the functoriality of $(-)_c$ on $Y \leftarrow X$, we get
+      % $Y_c \twoheadleftarrow X_c' \leftarrowtail X_c$.
+      % But then we have a lift $Y_c \to X_c'$, and a lift $X_c' \to X_f$, yielding our weak equivalence $A \to X_f$.      
 \end{remark}
 
 Example \ref{WJ EX} below says in particular that $W_!J$,
@@ -2395,8 +2404,7 @@ is a (prototypical) $\sSet$-interval.
 
 \todo[inline]{integrate this example better}
 
-Morally, $\V$-intervals detect ``homotopical isomorphisms'' in any $\V$-cat $\mathcal C$.
-this will be made rigorous in Definition \ref{EQUIV_DEF} below.
+Morally, $\V$-intervals detect ``homotopical isomorphisms'' in any $\V$-cat $\mathcal C$; see Definition \ref{EQUIV_DEF} below.
 Additionally, we use these $\V$-intervals to define homotopical analogues of isofibrations and surjective maps of $\V$-categories.
 
 \begin{definition}
@@ -2447,22 +2455,22 @@ First, extending \eqref{JSTAR_CAT_EQ}, we have another inclusion-forgetful adjun
 \end{equation}
 where again $j^{\**}$ commutes with $H$-fixed points and fibrant replacement.
 
-Now, recall the notion of a $G$-graph system from Definition \ref{GGRAPHFAM_DEF}.
+Now, recall the notion of a $(G, \Sigma)$-family from Definition \ref{GGRAPHFAM_DEF}.
 % Especially well-behaved indexing families are the \textit{(weak) indexing systems} of \cite{BP_geo},
 % of which the maximal indexing family $\mathrm{Gr} = \set{\mathrm{Gr}_n}$ is one.
-In the many-colored setting, the levels of our operad do not have a full action of $G \times \Sigma_n$, and the $G$-graph system needs to reflect this.
-To that end, for any $G$-graph system $\F = \set{\F_n}$ and for all sequences $C \in G \ltimes \SC^{op}$ of length $n$, we define
+In the many-colored setting, the levels of our operad do not have a full action of $G \times \Sigma_n$, and the $(G, \Sigma)$-family needs to reflect this.
+To that end, for any $(G, \Sigma)$-family $\F = \set{\F_n}$ and for all sequences $C \in G \ltimes \SC^{op}$ of length $n$, we define
 $\F_C$ to be
 \[
       \F_C = \sets{\Gamma \in \F_n}{\Gamma \leq \Aut(C)}
 \]
-the set of those graph subgroups which do act on $\O(C)$.
+the set of those subgroups which do act on $\O(C)$.
 % all those $\Gamma \in \F_n$ such that $\Gamma \leq \Aut(C)$.
 
 
 \begin{definition}
       \label{MODEL_DEFN}
-      Fix a $G$-graph system $\F$.
+      Fix a $(G, \Sigma)$-family $\F$.
       We call a map $F: \O \to \P$ in $\mathsf{Op}^G(\V)$
       \begin{itemize}
       \item a {\em local $\F$-fibration} (resp. {\em local weak $\F$-equivalence}) if
@@ -2511,7 +2519,7 @@ which constitutes most of the work towards Theorem \ref{INTRO_MODEL_THM}. % (see
 
 \begin{theorem}
       \label{MODEL_THM}
-      Fix an $G$-graph system $\F = \set{\F_n}$. % with units
+      Fix an $(G, \Sigma)$-family $\F = \set{\F_n}$. % with units
       Let $(\V, \otimes)$ denote either $(\sSet, \times)$ or $(\sSet_{\**}, \wedge)$.
       Then there exists a cofibrantly generated model structure on the category $\Op^G(\V)$,
       denoted $\Op^G_\F(\V)$, with
@@ -2598,9 +2606,9 @@ The rest of this section is devoted to proving the results utilized in the proof
 We begin with a description of the sets of generating (trivial) cofibrations.
 As expected, these will be freely generated by the generating (trivial) cofibrations of $\V$.
 
-Fix a graph subgroup $\Gamma \in \F_n$ of $G \times \Sigma_n$,
-and consider the $G$-set of colors $\mathfrak C_\Gamma := G \cdot_\Gamma \langle n \rangle$;
-let $C_0$ denote the signature $([e,1],[e,2],\dots,[e,n];[e,0])$.
+Fix a subgroup $\Gamma \in \F_n$ of $G \times \Sigma_n$,
+and consider the $G$-set of colors $\mathfrak C_\Gamma := \Gamma \backslash (G \times \Sigma_n) \cdot_\Gamma \langle n \rangle$;
+let $C_0$ denote the signature $([[e,e],1],[[e,e],2],\dots,[[e,e],n];[[e,e],0])$.
 
 We have a pair of composable free-forgetful adjunctions
 \[
@@ -2650,7 +2658,7 @@ Define $I_{\F,loc}$ and $J_{\F, loc}$ to be the sets
   \qquad \mbox{ and } \qquad
   \set{\mathbb F_\Gamma[\Gamma/\Gamma \cdot (A \xrightarrow{j} B)]}_{\Gamma,j}
 \end{align*}
-where $\Gamma$ runs over all graph subgroups of $G \times \Sigma_n$ in $\F_n$,
+where $\Gamma$ runs over all subgroups of $G \times \Sigma_n$ in $\F_n$,
 and $i$ (resp. $j$) runs over all generating (trivial) cofibrations in $\V$.
 
 The universal property makes the following immediate.
@@ -2681,7 +2689,7 @@ where $\1$ defined as in Definition \ref{PL_ES_DEFN}, and $\mathbb{G}$ is a gene
       For $H \leq G$, $\Gamma = H \leq G \times \Sigma_1$, $\mathbb F_{\Gamma}[1_\V] = G \cdot_H \mathbb A_H$.
       %
       Extending to higher arity operations, we see that,
-      morally, cofibrations are built by freely adding an orbit of operations.
+      morally, cofibrations are built by freely adding an orbit's worth of operations.
 \end{example}
 
 \begin{lemma}
@@ -2944,7 +2952,7 @@ First, we recall the following about homotopies in general model categories.
       For any $A \in \V$, a \textit{cylinder object for $A$} is an object $\mathbb C(A)$ equipped with a factorization of the fold map
       \begin{equation}
             \begin{tikzcd}
-                  A \amalg A \arrow[r, tail]
+                  A \amalg A \arrow[r, tail, "{(i_1,i_2)}"]
                   &
                   \mathbb C(A) \arrow[r, "\simeq"]
                   &
@@ -2979,8 +2987,10 @@ First, we recall the following about homotopies in general model categories.
 
 \begin{remark}
       \label{CYL_REM}
-      For $\mathbb C$ a cylinder in $\V$,
-      if $A \in \V$ is cofibrant, then $A \otimes \mathbb C$ is a cylinder object for $A$,
+      The maps $i_\epsilon: A \to \mathbb C(A)$ are always weak equivalences by 2-out-of-3 for $\epsilon \in \set{0,1}$.
+      Moreover, if $A \in \V$ is cofibrant, then it is additionally a cofibration.
+      Furthermore, if $\mathbb C$ a cylinder in $\V$,
+      then $A \otimes \mathbb C$ is a cylinder object for $A$,
       as the fold map can be written
       \begin{equation}
             A \amalg A \simeq A \otimes (1_\V \amalg 1_\V) \rightarrowtail A \otimes \mathbb C \xrightarrow{\sim} A
@@ -3021,91 +3031,163 @@ We can use these cylinder objects to extend the notion of homotopy to $\V$-categ
 
 
 We may assemble homotopies in the following manner.
-\todo[inline]{can use \cite[5.37]{BP_geo} to show that $1_\V^{\otimes n} \to \mathbb C^{\otimes n}$ is a genuine $\Sigma_n$-cofibration;
-  then it is clear that $\mathbb C^{\otimes n}$ is genuine cofibrant,
-  then 2-out-of-3 makes it so $\mathbb C^{\otimes n} \to 1_\V$ is a genuine equivalence.
-  Hence $(\mathbb C^{\otimes n})^\Gamma$ for any $\Gamma \leq \Sigma_n$ is a cylinder object}
+
 \begin{lemma}
-      \label{ASSEM_HOM_LEM}
-      Suppose $\V$ has cofibrant symmetric pushout powers.
-      If $\mathbb C$ is a cylinder, then so is each $\left(\mathbb C^{\otimes n}\right)^{K}$ for all $K \leq \Sigma_n$.
+      Suppose $\V$ has cofibrant symmetric pushout powers and cellular fixed points.
+      Let $h: Z_1 \to Z_2$ in $\V$ be a (trivial) cofibration between cofibrant objects.
+      Then $h^{\otimes n}: Z_1^{\otimes n} \to Z_2^{\otimes n}$ is a genuine (trivial) cofibration in $\V^{\Sigma_n}_{gen}$.
 \end{lemma}
 \begin{proof}
-      % It suffices to show there exist
-      % $1_\V \amalg 1_\V \rightarrowtail (\mathbb C^{\otimes n})^K$
-      % and
-      % $(\mathbb C^{\otimes n})^K \xrightarrow{\sim} (1_\V^{\otimes n})^K \simeq 1_\V$
-      % (where the coherence axioms imply that $1_\V^{\otimes n}$ always has a trivial $\Sigma_n$-action).
-      % 
-      We consider each structure map separately.
-      
-      We note that, as $\otimes$ commutes with colimits in each variable,
-      $(1_\V \amalg 1_\V)^{\otimes n} \simeq \coprod_{\chi} 1_{\V,\chi}$
-      with $\chi$ running over all set maps $\underline{n} \to \set{0,1}$,
-      and $\Sigma_n$ acting by pre-composition on $\chi$.
-      Now, we have the composite
+      We apply arguments from \cite[Prop. 6.24]{BP_geo} and \cite[Lemma 4.8]{Per16}).
+      Given composable arrows $Z_0 \xrightarrow{g} Z_1 \xrightarrow{Z_2}$ in $\V$,
+      we denote by $Q^n(g), Q^n(h)$ the domains of $g^{\square n}, h^{\square n}$.
+      There is a filtration of the box product of the composite $(hg)^{\square n}$ by a series of pushouts as on the left below
       \begin{equation}
-%            \begin{tikzcd}
-            1_\V \amalg 1_\V = 1_{\V, 0} \amalg 1_{\V, 1}
-            \simeq
-            \left((1_\V \amalg 1_\V)^{\otimes n}\right)^{\Sigma_n}
-            \longrightarrow
-            (1_\V \amalg 1_\V)^{\otimes n}
-            \longrightarrow
-            \mathbb C^{\otimes n}
-%            \end{tikzcd}
-      \end{equation}
-      where $i: \underline{n} \to \set{i} \into \set{0,1}$ is the constant map,
-      the first arrow is a genuine $\Sigma_n$-cofibration
-      as we may attach each $\Sigma_n$-orbit $\Sigma_n \chi$ individually via maps $\varnothing \to \amalg_{\V,\sigma\chi}$,
-      % (and we've already attached the stable orbits).
-      and the second arrow is a genuine $\Sigma_n$-cofibration since $\V$ has cofibrant symmetric pushout powers.
-
-      Now,
-      we note that $(\mathbb C \to 1_\V)^{\otimes n}$ is a weak equivalence by induction using Ken Brown's lemma,
-      as $\mathbb C^{\otimes n}$ is cofibrant,
-      $\mathbb C^{\otimes n} \to 1_\V^{\otimes n}$ is a map between cofibrant objects,
-      and $\mathbb C \otimes (-)$ preserves all trivial cofibrations.
-      % 
-      Let $Q(n) \to \mathbb C^{\otimes n}$ denote $(1_\V \to \mathbb C)^{\square n}$,
-      which is a genuine trivial cofibration in $\V^{\Sigma_n}$ by the assumption on $\V$.
-      Consider the pushout $P$ and induced maps in $\V^{\Sigma_n}$ below
-      \begin{equation}
+            \label{HGBOX_EQ}
             \begin{tikzcd}
-                  Q(n) \arrow[r, tail, "\sim"] \arrow[d, tail, "\sim"']
+                  \bullet \arrow[d, "\Sigma_n \cdot_{\Sigma_{n-r} \times \Sigma_r} (g^{\square n-r} \square h^{\square r})"'] \arrow[r]
                   &
-                  \mathbb C^{\otimes n} \arrow[d, tail, "\sim"] \arrow[drr, bend left, "\sim"]
+                  \bullet \arrow[d, "k_r"]
+                  & &% ----------
+                  Q^n(g) \arrow[r] \arrow[d, "g^{\square n}"']
+                  &
+                  Q^n(hg) \arrow[d, "k_0"]
                   \\
-                  \mathbb C^{\otimes n} \arrow[r, tail, "\sim"] \arrow[rrr, bend right, "\sim"]
+                  \bullet \arrow[r]
                   &
-                  P \arrow[r, tail, dashed, "\sim"]
+                  \bullet
+                  & &% ----------
+                  Z_1^{\otimes n} \arrow[r]
                   &
-                  P' \arrow[r, two heads, "\sim", dashed]
-                  &
-                  1_\V^{\otimes n}
+                  \bullet
             \end{tikzcd}
       \end{equation}
-      where we have factored the unique map $P \to 1_\V^{\otimes n}$ into a cofibration and fibration.
+      for $0 \leq r \leq n$,
+      built out of a filtration $P_0 \subseteq P_1 \subseteq \dots \subseteq P_n$ of the poset $P_n = (0 \to 1 \to 2)^{\times n}$,
+      where $P_0$ is all tuples containing at least one 0, and
+      $P_{r+1}$ is built from $P_r$ by adding all tuples with exactly $(n-r)$ 1-coordinates and $r$ 2-coordinates.
+      In the zeroth stage \footnote{
+        In the language of \cite[Lemma 4.8]{Per16}, this is the map associated to the subsets
+        $T = P_0$ and $\bar T = \sets{e}{e \leq (1,1,\dots,1)}$.}
+      we have the pushout on the left in \eqref{HGBOX_EQ}.
+      But when $Z_0 = \varnothing$, $Q^n(g) = Q^n(hg) = \varnothing$, and so
+      $k_0: \varnothing \to Z_1^{\otimes n}$ and
+      \[
+            k_n k_{n-1} \dots k_0 = h^{\otimes n}: Z_1^{\otimes n} \to Z_2^{\otimes n}.
+      \]
 
-      Thus, as (the proof of) \cite[Prop 6.3]{BP_geo} shows that $(-)^H$ preserves pushouts over genuine cofibrations
-      as well as genuine \textit{trivial} cofibrations,
-      and since $(-)^H$ preserves trivial fibrations by construction,
-      we have the string of maps in $\V$ below for any $K \leq \Sigma_n$
-      \begin{equation}
+      Now, since the functor $G \cdot_H (-): \V^H \to \V^G$ sends genuine $H$-cofibrations to genuine $G$-cofibrations,
+      the fact that $\V$ has cofibrant symmetric pushout powers implies that
+      if $g$ is a cofibration and $h$ a (trivial) cofibration in $\V$,
+      $k_r$ is a genuine cofibration in $\V^{\Sigma_n}$ for $r \geq 0$ (which is trivial if $r \geq 1$).
+
+      Thus when $Z_0 = \varnothing$, we have that $h^{\otimes n}$ is a genuine (trivial) $\Sigma_n$-cofibration.
+\end{proof}
+
+\begin{lemma}
+      \label{ASSEM_HOM_LEM}
+      Suppose $\V$ has cofibrant symmetric pushout powers and cellular fixed points, and cofibrant unit.
+      If $\mathbb C$ is a cylinder, then so is each $\left(\mathbb C^{\otimes n}\right)^{\Lambda}$ for all $\Lambda \leq \Sigma_n$.
+\end{lemma}
+\begin{proof}
+      By the above lemma,
+      $1_\V = (1_\V)^{\otimes n} \xrightarrow{i_\epsilon} \mathbb C^{\otimes n}$
+      is a genuine trivial $\Sigma_n$-cofibrations,
+      and hence the result follows by Remark \ref{LEVEL_COF_REM} and the following composite,
+      \[
             \begin{tikzcd}
-                  1_\V \amalg 1_\V \simeq \left((1_\V \amalg 1_\V)^{\otimes n}\right)^{\Sigma_n} \arrow[r, hookrightarrow]
+                  1_\V \amalg 1_\V = \left((1_V \amalg 1_\V)^{\otimes n}\right)^{\Sigma_n}
+                  \arrow[r, tail]
                   &
-                  \left((1_\V \amalg 1_\V)^{\otimes n}\right)^K \arrow[r, hookrightarrow]
+                  \left((1_V \amalg 1_\V)^{\otimes n}\right)^\Lambda
+                  \arrow[r, tail]
                   &
-                  (\mathbb C^{\otimes n})^K \arrow[r, tail, "\sim"]
+                  \left(\mathbb C^{\otimes n}\right)^\Lambda
+                  \arrow[r, "\simeq"]
                   &
-                  P^K \arrow[r, tail, "\sim"]
-                  &
-                  P'^K \arrow[r, two heads, "\sim"]
-                  &
-                  (1_\V^{\otimes n})^K \simeq 1_\V.
+                  \left(1_V^{\otimes n}\right)^\Lambda = 1_\V.
             \end{tikzcd}
-      \end{equation}
+      \]
+      where the last map is a genuine $\Sigma_n$-weak equivalence by 2-out-of-3 $1_\V \xrightarrow{\simeq} \mathbb C^{\otimes n} \to 1_\V$.
+
+
+      % ----------------------------------------------------------------------------------------------------
+      % ---------- PROBLEM: In what I've written, $\mathbb C^{\otimes} \to \1_\V^{\otimes}$ is only a projective equivalence, not a genuine $\Sigma_n$-equivalence ----------
+      %       % It suffices to show there exist
+      %       % $1_\V \amalg 1_\V \rightarrowtail (\mathbb C^{\otimes n})^K$
+      %       % and
+      %       % $(\mathbb C^{\otimes n})^K \xrightarrow{\sim} (1_\V^{\otimes n})^K \simeq 1_\V$
+      %       % (where the coherence axioms imply that $1_\V^{\otimes n}$ always has a trivial $\Sigma_n$-action).
+      %       % 
+      % We consider each structure map separately.
+      
+      % We note that, as $\otimes$ commutes with colimits in each variable,
+      % $(1_\V \amalg 1_\V)^{\otimes n} \simeq \coprod_{\chi} 1_{\V,\chi}$
+      % with $\chi$ running over all set maps $\underline{n} \to \set{0,1}$,
+      % and $\Sigma_n$ acting by pre-composition on $\chi$.
+      % Now, we have the composite
+      % \begin{equation}
+      % %       \begin{tikzcd}
+      %             1_\V \amalg 1_\V = 1_{\V, 0} \amalg 1_{\V, 1}
+      %             \simeq
+      %             \left((1_\V \amalg 1_\V)^{\otimes n}\right)^{\Sigma_n}
+      %             \longrightarrow
+      %             (1_\V \amalg 1_\V)^{\otimes n}
+      %             \longrightarrow
+      %             \mathbb C^{\otimes n}
+      % %       \end{tikzcd}
+      % \end{equation}
+      % where $i: \underline{n} \to \set{i} \into \set{0,1}$ is the constant map,
+      % the first arrow is a genuine $\Sigma_n$-cofibration
+      % as we may attach each $\Sigma_n$-orbit $\Sigma_n \chi$ individually via maps $\varnothing \to \amalg_{\V,\sigma\chi}$,
+      %       % (and we've already attached the stable orbits).
+      % and the second arrow is a genuine $\Sigma_n$-cofibration since $\V$ has cofibrant symmetric pushout powers.
+      
+      % Now,
+      % we note that $(\mathbb C \to 1_\V)^{\otimes n}$ is a weak equivalence by induction using Ken Brown's lemma,
+      % as $\mathbb C^{\otimes n}$ is cofibrant,
+      % $\mathbb C^{\otimes n} \to 1_\V^{\otimes n}$ is a map between cofibrant objects,
+      % and $\mathbb C \otimes (-)$ preserves all trivial cofibrations.
+      %       % 
+      % Let $Q(n) \to \mathbb C^{\otimes n}$ denote $(1_\V \to \mathbb C)^{\square n}$,
+      % which is a genuine trivial cofibration in $\V^{\Sigma_n}$ by the assumption on $\V$.
+      % % Consider the pushout $P$ and induced maps in $\V^{\Sigma_n}$ below
+      % \begin{equation}
+      %       \begin{tikzcd}
+      %             Q(n) \arrow[r, tail, "\sim"] \arrow[d, tail, "\sim"']
+      %             &
+      %             \mathbb C^{\otimes n} \arrow[d, tail, "\sim"] \arrow[drr, bend left, "\sim"]
+      %             \\
+      %             \mathbb C^{\otimes n} \arrow[r, tail, "\sim"] \arrow[rrr, bend right, "\sim"]
+      %             &
+      %             P \arrow[r, tail, dashed, "\sim"]
+      %             &
+      %             P' \arrow[r, two heads, "\sim", dashed]
+      %             &
+      %             1_\V^{\otimes n}
+      %       \end{tikzcd}
+      % \end{equation}
+      % where we have factored the unique map $P \to 1_\V^{\otimes n}$ into a cofibration and fibration.
+      
+      % Thus, as (the proof of) \cite[Prop 6.3]{BP_geo} shows that $(-)^H$ preserves pushouts over genuine cofibrations
+      % as well as genuine \textit{trivial} cofibrations,
+      % and since $(-)^H$ preserves trivial fibrations by construction,
+      % we have the string of maps in $\V$ below for any $K \leq \Sigma_n$
+      % \begin{equation}
+      %       \begin{tikzcd}
+      %             1_\V \amalg 1_\V \simeq \left((1_\V \amalg 1_\V)^{\otimes n}\right)^{\Sigma_n} \arrow[r, hookrightarrow]
+      %             &
+      %             \left((1_\V \amalg 1_\V)^{\otimes n}\right)^K \arrow[r, hookrightarrow]
+      %             &
+      %             (\mathbb C^{\otimes n})^K \arrow[r, tail, "\sim"]
+      %             &
+      %             P^K \arrow[r, tail, "\sim"]
+      %             &
+      %             P'^K \arrow[r, two heads, "\sim"]
+      %             &
+      %             (1_\V^{\otimes n})^K \simeq 1_\V.
+      %       \end{tikzcd}
+      % \end{equation}
 \end{proof}
 
 \todo[inline]{what does this mean? And if this htpy isn't genuine equivariant, this is not relevant to our story}
@@ -3344,8 +3426,7 @@ by restricting to the categories $j^{\**}\O^H$ and using \eqref{FIBFIX_LIFT_EQ}.
       \label{CAV_4.10_LEM}
       $H$-equivalence and virtual $H$-equivalence define equivalence relations on $\mathcal C_\O^H$.
 \end{lemma}
-The key feature used here is that a stacking of intervals again forms an interval.
-\textit{pushout trick and Cav4.14}
+
 % \begin{proof}
 %       {\color{OliveGreen}
 %         Follows exactly as in \textit{loc cite}; either version of virtual $H$-equivalence works.
@@ -3376,7 +3457,6 @@ The key feature used here is that a stacking of intervals again forms an interva
       \label{RIGHTPROPER_LEM}
       If $\V$ is right proper, then two colors are virtually $H$-equivalent iff they are $H$-equivalent. 
 \end{lemma}
-\todo[inline]{key step?}
 % \begin{proof}
 %       {\color{OliveGreen}
 %         Need: virtual $H$-equivalent (i). Then it is an immediate consequence of \textit{loc cite}.
@@ -3392,7 +3472,12 @@ The key feature used here is that a stacking of intervals again forms an interva
       \label{VIR_HTPY_LEM}
       Virtually $H$-equivalent colors are homotopy $H$-equivalent. 
 \end{lemma}
-The key idea here is that for any $\V$-interval $\mathbb J$, the two objects are isomorphic in $\pi_0(\mathbb J)$.
+
+The key ideas in the proofs are:
+the stacking of $\V$-intervals forms another $\V$-interval \todo{pushout trick and Cav4.14?},
+nice pullbacks in $\Cat(\V)$ preserve local equivalences which are bijective on objects, and
+the objects in any $\V$-interval $\mathbb J$ are isomorphic in $\pi_0(\mathbb J)$.
+
 % \begin{proof}
 %       {\color{OliveGreen} % ------------------------------ OLIVE GREEN ------------------------------
 %         Let $\mathcal C_f$ denote $j^{\**}(\O^H)_f$.
@@ -3476,14 +3561,14 @@ The key idea here is that for any $\V$-interval $\mathbb J$, the two objects are
 %       }
 % \end{proof}
 
-Combined, these three lemmas show that equivalences are virtual equivalences are homotopy equivalences.
+Combined, these three lemmas show that with our assumptions, equivalences are virtual equivalences are homotopy equivalences.
 %
 To finish off Case II, we will need that (local) weak equivalences preserve some notions of equivalence.
 
 \begin{lemma}
       [{cf. \cite[4.11]{Cav}, \cite[2.9]{BM13}}]
       \label{REF_VIRT_LEM}
-      Let $\F$ be a $G$-graph system. %Suppose the $G$-graph system $\F$ has units.
+      Let $\F$ be a $(G, \Sigma)$-family. %Suppose the $G$-graph system $\F$ has units.
       Then local weak $\F$-equivalences reflect virtual $H$-equivalences.
       Explicitly,
       fixing $H \leq G$, 
@@ -3555,12 +3640,16 @@ which show that a homotopy equivalence of colors induces a certain homotopy equi
       % a fibrant replacement functor that commutes with taking fixed points for all subgroups of $G$.
       Let $\O \in \Op^G(\V)$ with color $G$-set $\mathfrak C$,
       and $C = (c_1, \dots, c_n; c)$ a $\mathfrak C$-signature.
-      Let $H$ denote the projection of$\Stab(C) \leq G \times \Sigma_n$ onto $G$.
+      Let $H$ denote the projection of $\Stab(C) \leq G \times \Sigma_n$ onto $G$, so in particular $H \leq \Stab(c)$.
 
-      Then, for any $d \in \mathfrak C^H$ and $H$-homotopy equivalence $\alpha: 1_\V \to \O^H(c,d)_f$ between $c$ and $d$,
-      there exists a natural zig-zag of weak equivalences in $\V^{\Aut(C)}_{\mathrm{Gr}_C}$ %
-      \footnote{Recall the notation $\mathrm{Gr}_C$ from Definition \ref{GGRAPHFAM_DEF}.}
-      between $\O(C)$ and $\O(D)$, where $D = (c_1, \dots, c_n; d)$,
+      Then, for any $d \in \mathfrak C^H$ $H$-homotopy equivalent to $c$
+      % to and $H$-homotopy equivalence $\alpha: 1_\V \to \O^H(c,d)_f$ between $c$ and $d$,
+      there exists a zig-zag, natural in functors out of $\O$, of genuine $\Aut(C)$-weak equivalences
+      % \footnote{
+      %   Recall the notation $\mathrm{Gr}_C$ from Definition \ref{GGRAPHFAM_DEF}.
+      % }
+      in $\V^{\Aut(C)}_{gen}$ %
+      between $\O(C)$ and $\O(D)$, where $D = (c_1, \dots, c_n; d)$.
       %
       % $c,d \in \mathfrak C_\O$, 
       % $H = \Stab(c)$, and suppose $c$ and $d$ are homotopy $H$-equivalent (so in particular $H \subseteq \Stab(d)$).
@@ -3574,10 +3663,11 @@ which show that a homotopy equivalence of colors induces a certain homotopy equi
       % between $\P(F(C))$ and $\P(\F(D))$.
 \end{lemma}
 \begin{proof}
-      Using lifting, we can show that if $c$ and $d$ and homotopy $H$-equivalent in $\O$, they are
-      certainly homotopy $H$-equivalent in the functorial bifibrant replacement $\O_{fc}$. 
+      Using appropriate lifts (and \eqref{FIBFIX_LIFT_EQ}), one can show that if $c$ and $d$ are $H$-homotopy equivalent in $\O$, they are
+      homotopy $H$-equivalent in the functorial bifibrant replacement $\O_{fc}$ of $\O$ in $\Op^{G, \mathfrak C(\O)}_{gen}(\V)$,
+      the $\F$-(semi)-model structure from Theorem \ref{THM1_C} for $\F = \set{\F_n}$ with $\F_n$ all subgroups of $G \times \Sigma_n$.
       Thus we may assume we have representing maps
-      $\alpha: 1_\V \to \O^H(c;d)_{fc}$ and $1_\V \to \O^H(d;c)_{fc}$.
+      $\alpha: 1_\V \to \O_{fc}(c;d)^H$ and $1_\V \to \O_{fc}(d;c)^H$.
       Now, for any functor $F$, we have the following commuting diagram of zig-zags
       \begin{equation}
             \begin{tikzcd}
@@ -3606,24 +3696,25 @@ which show that a homotopy equivalence of colors induces a certain homotopy equi
                   \P(D) \arrow[l, "\simeq"']
             \end{tikzcd}
       \end{equation}
-      where the $\simeq$ denote weak equivalences in $\V^{\Aut(C)}_{\mathrm{Gr}_C}$, and $\alpha_{\**}$ is the composite
+      where the $\simeq$ denote weak equivalences in $\V^{\Aut(C)}_{gen}$, and $\alpha_{\**}$ is the composite
       \[
-            \O(C) \xrightarrow{\alpha} \O(C) \otimes \O(c,d) \longto \O(D).
+            \O_{fc}(C) \xrightarrow{\alpha} \O_{fc}(C) \otimes \O_{fc}(c,d) \longto \O_{fc}(D).
       \]
-      Thus, it suffices to check that $\alpha_{|**}$ is an $\mathrm{Gr}_C$-weak equivalence when $\O$ is bifibrant.
+      Thus, it suffices to check that $\alpha_{\**}$ is a genuine $\Aut(C)$-weak equivalence when $\O$ is bifibrant.
 
-      Let $\beta: 1_V \to \O^H(d,c)$ denote the $H$-homotopy inverse of $\alpha$,
+      Let $\beta: 1_V \to \O(d,c)^H$ denote the $H$-homotopy inverse of $\alpha$,
       and $H_{\beta\alpha,1}$, $H_{\alpha\beta,1}$ the associated homotopies.
       Naturality implies that we have composition maps of the form
       \[
-            \O(C)^\Gamma \otimes \O(c,d)^H \longto \left( \O(C) \otimes \O(c,d) \right)^\Gamma \xrightarrow{\circ} \O(D)^\Gamma
+            \O(C)^\Gamma \otimes \O(c,d)^{H_\Gamma} \longto \left( \O(C) \otimes \O(c,d) \right)^\Gamma \xrightarrow{\circ} \O(D)^\Gamma
       \]
-      and so in particular the maps $\alpha_{\**}$ and $\beta_{|**}$ are $\Aut(C)$-equivariant.
-      Thus, for all $\Gamma \leq \Aut(C)$,  we have homotopies
+      for all $\Gamma \leq \Stab(C)$, with $H_\Gamma \leq G$ the $G$-projection,
+      and so in particular the maps $\alpha_{\**}$ and $\beta_{\**}$ are $\Aut(C)$-equivariant.
+      Thus $H_{\beta\alpha,1}$ and $H_{\alpha\beta,1}$ restrict and induce homotopies
       \[
-            (\beta\alpha)_{\**} \sim id_{\O_{f c}(C)^{\Gamma}}
+            (\beta\alpha)_{\**} \sim id_{\O(C)^{\Gamma}}
             \qquad \textrm{and} \qquad
-            (\alpha\beta)_{\**} \sim id_{\O_{f c}(D)^\Gamma}
+            (\alpha\beta)_{\**} \sim id_{\O(D)^\Gamma}
       \]
       in $\V$ via diagrams of the form, e.g.,
       \begin{equation}
@@ -3652,8 +3743,7 @@ which show that a homotopy equivalence of colors induces a certain homotopy equi
             \alpha_{\**}: \O(C)^\Gamma \leftrightarrows \O(D)^\Gamma : \beta_{\**}
       \]
       are inverse isomorphisms in $\Ho(\V)$ for all $\Gamma \leq \Aut(C)$,
-      and thus $\alpha_{\**}$ is a weak equivalence in $\V^{\Aut(C)}_{\mathrm{Gr}_C}$, as desired.
-      \todo[inline]{why graph subgroups?}
+      and thus $\alpha_{\**}$ is a weak equivalence in $\V^{\Aut(C)}_{gen}$, as desired.
 
       % ----------------------------------------------------------------------------------------------------
       % ------------------------------ OLD PROOF ------------------------------
@@ -3771,36 +3861,56 @@ which show that a homotopy equivalence of colors induces a certain homotopy equi
 \begin{lemma}
       % [{c.f. \cite[4.14]{Cav}}]
       \label{CAV_4.14_PROP2}
-      Suppose $\V$ has cofibrant symmetric pushout powers.
-      Let $\O \in \Op^G(\V)$, and suppose
-      $c_i$ and $d_j$ are homotopy $H$-equivalent with $H \leq \Stab(c_i) \leq \Stab(d_j)$.
+      Suppose $\V$ has cofibrant symmetric pushout powers and cofibrant unit.
+      Let $\O \in \Op^G(\V)$ with color coefficient system $\mathfrak C$.
+      Fix a $\mathfrak C$-signature $C = (c_1,\dots, c_n;c_0)$.
+      For each $0 \leq i \leq n$, let $\Stab_i(C) \leq \Stab(C)$ denote the subgroup of elements $(g, \sigma)$ such that $\sigma(i) = i$ (including $\Stab_0(C) = \Stab(C)$),
+      and let $H_i \leq G$ denote the $G$-projection of $\Stab_i(C)$.
 
-      Then, for any $\mathfrak C_\O$-signature $C = (c_1,\dots,c_n;c) \in G \ltimes \Sigma_{\mathfrak C_\O}^{op}$,
-      there exists a zig-zag of weak equivalences between
-      $\O(C)$ and $\O(D)$
-      in $\V^{\Aut(C)}_{\mathrm{Gr}_C}$,
-      where
-      $D = (d_1,\ldots, d_n; c)$, with the colors $d_i$ defined as follows:
-            
-      Without loss of generality we may assume $i = j = 1$.
-      Let $\lambda \subseteq \underline{n} = \set{1,2,\ldots, n}$ denote
-      the set of all $i$ such that $c_i = k_i \cdot c_1$ for some $k_i\in G$,
-      and fix choices of such $k_i$;
-      if $i \notin \lambda$, let $k_i$ denote the identity element of $G$.
-      % \todo[inline]{if $H = \Stab{c_1}$, then $k_i$ are well-defined in $k_i H$.}
-      Then, for all $i \in \underline{n}$, we define
-      \begin{equation}
-            \label{DCOLORS_EQ}
-            d_i =
+      Now, suppose $d_i$ and $c_i$ are $H_i$-homotopy equivalent.
+      Then there is a zig-zag, natural in functors out of $\O$,
+      of genuine $\Aut(C)$-weak equivalences between $\O(C)$ and $\O(D)$, where $D = (d_1,\dots, d_n;c_0)$ is defined as follows:
+      Let $\lambda \leq \underline{n} = \set{1,2,\dots,n}$ denote the set of all $1 \leq j \leq n$ such that
+      there exists some $(k_j, \sigma_j) \in \Stab(C)$ such that $\sigma_j(i) = j$ and $c_j = k_j c_i$;
+      for each $j \in \lambda$, fix choices of such $(k_j, \sigma_j)$.
+      Then for all $1 \leq j \leq n$, we define
+      \[
+            d_j =
             \begin{cases}
-                  k_i \cdot d_1 \qquad \qquad & i \in \lambda
+                  k_j \cdot d_i \qquad & j \in \lambda
                   \\
-                  c_i & \mbox{otherwise.}
+                  c_j & \mbox{otherwise.}
             \end{cases}
-      \end{equation}
+      \]
+      here!
+      % $c_i$ and $d_j$ are homotopy $H$-equivalent with $H \leq \Stab(c_i) \leq \Stab(d_j)$.
+
+      % Then, for any $\mathfrak C_\O$-signature $C = (c_1,\dots,c_n;c) \in G \ltimes \Sigma_{\mathfrak C_\O}^{op}$,
+      % there exists a zig-zag of weak equivalences between
+      % $\O(C)$ and $\O(D)$
+      % in $\V^{\Aut(C)}_{\mathrm{Gr}_C}$,
+      % where
+      % $D = (d_1,\ldots, d_n; c)$, with the colors $d_i$ defined as follows:
+            
+      % Without loss of generality we may assume $i = j = 1$.
+      % Let $\lambda \subseteq \underline{n} = \set{1,2,\ldots, n}$ denote
+      % the set of all $i$ such that $c_i = k_i \cdot c_1$ for some $k_i\in G$,
+      % and fix choices of such $k_i$;
+      % if $i \notin \lambda$, let $k_i$ denote the identity element of $G$.
+      % % \todo[inline]{if $H = \Stab{c_1}$, then $k_i$ are well-defined in $k_i H$.}
+      % Then, for all $i \in \underline{n}$, we define
+      % \begin{equation}
+      %       \label{DCOLORS_EQ}
+      %       d_i =
+      %       \begin{cases}
+      %             k_i \cdot d_1 \qquad \qquad & i \in \lambda
+      %             \\
+      %             c_i & \mbox{otherwise.}
+      %       \end{cases}
+      % \end{equation}
       
-      Finally, any functor $F: \O \to \P$ induces a functorial zig-zag of weak equivalences in $\V^{\Aut(C)}_{\mathrm{Gr}_C}$
-      between $\P(F(C))$ and $\P(F(D))$.
+      % Finally, any functor $F: \O \to \P$ induces a functorial zig-zag of weak equivalences in $\V^{\Aut(C)}_{\mathrm{Gr}_C}$
+      % between $\P(F(C))$ and $\P(F(D))$.
 \end{lemma}
 \begin{proof}
       As above, it is sufficient to show a weak equivalence in $\V^{\Aut(C)}_{\mathrm{Gr}_C}$.
@@ -4059,7 +4169,7 @@ We can now prove the main result of this subsection.
       \label{CAV_4.15_PROP}
       \label{2OUTOF3_PROP}
       Suppose $\V$ is right proper and has cofibrant symmetric pushout powers.
-      Then for any $G$-graph system $\F$ with units,
+      Then for any $(G, \Sigma)$-family $\F$. %with units,
       the class of weak $\F$-equivalences in $\mathsf{Op}^G(\V)$ satisfies the 2-out-of-3 condition.
 \end{proposition}
 \begin{proof}
@@ -4211,7 +4321,7 @@ We always have containment in one direction:
 
 This leads to the following expected result.
 \begin{corollary}
-      Suppose the $G$-graph system $\F$ has units,
+      Suppose the $(G, \Sigma)$-family $\F$. % has units,
       and let $F: \O \to \P$ be a weak $\F$-equivalence.
       Then we have an equivalence of underlying fixed-point categories
       $\pi_0(F^H)$ for all $H \leq G$.
@@ -4405,7 +4515,7 @@ We now have collected all the remaining pieces to prove Theorem \ref{INTRO_MODEL
       \item is coherent by \cite[Lem. 4.16]{BV73}.
       \end{enumerate}
       Thus, combining Theorem \ref{MODEL_THM} with Remarks \ref{TOP_FULL_REM} and \ref{OPGCV_FULL_REM},
-      $\Op^G(\Top)$ has the $\F$-Dwyer-Kan model structure for any $G$-graph system $\F$ with units.
+      $\Op^G(\Top)$ has the $\F$-Dwyer-Kan model structure for any $(G, \Sigma)$-family $\F$. % with units.
 
       As is often the case, pointed spaces can be poorly behaved unless we restrict to the category of well-pointed or closedly pointed spaces \todo{though these may still be weakly cellular, which could be enough}
 \end{example}
@@ -6008,6 +6118,7 @@ $\mathsf{Lan}_{\Sigma_{\partial C} \to \Sigma_{\mathfrak{C}}}$
 
 
 \begin{definition}
+      \label{COR_GGRAPH_DEF}
 	Given a $\mathfrak{C}$-corolla $C$, 
 	a subgroup 
 	$\Gamma \leq \mathsf{Aut}_{G \ltimes \Sigma_{\mathfrak{C}}^{op}}(C)$
@@ -11254,7 +11365,7 @@ To complete Theorems \ref{MODEL_THM} and \ref{INTRO_MODEL_THM} for $\V_{\**}$, w
       Suppose $\V$ satisfies the hypotheses of Theorem \ref{MODEL_THM} (resp. Theorem \ref{INTRO_MODEL_THM}),
       possibly replacing ``cellular'' with ``weakly cellular'',
       and moreover that $\V$ is left proper and $1_\V = \**$.
-      Let $\F$ be any $G$-graph system with units.
+      Let $\F$ be any $(G, \Sigma)$-family.
       Then $\Op^G(\V_{\**})$ has the $\F$-(semi)-model structure (resp. $\F$-Dwyer-Kan (semi)-model structure).
 \end{corollary}
 \begin{proof}
@@ -11840,7 +11951,7 @@ g^{\**} T_d c  \to T_d c
 
 
 
-% \fi
+ \fi
 
 
 \bibliography{biblio-new}{}
