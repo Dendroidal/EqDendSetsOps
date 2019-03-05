@@ -11611,12 +11611,141 @@ In this short section, we will prove that the pullback 2-functor $\pi^{\**}$ and
 
 
 
+\subsection{Lemmas for pushouts of operads}
+
+
+\begin{lemma}\label{BASICPUSH LEMMA}
+Let $f \colon \mathfrak{C} \hookrightarrow \mathfrak{D}$ be an injective map of colors, $A \to B$ a map in $\mathsf{Op}^{\mathfrak{C}}$
+and $\mathcal{O} \in \mathsf{Op}^{\mathfrak{D}}$.
+
+Then if the leftmost diagram in $\mathsf{Op}^{\mathfrak{D}}$ is a pushout, so is the adjoint rightmost diagram in $\mathsf{Op}^{\mathfrak{C}}$.
+\[
+\begin{tikzcd}
+	f_! A \ar{r} \ar{d} & \mathcal{O} \ar{d}
+&
+	A \ar{r} \ar{d} & f^{\**} \mathcal{O} \ar{d}
+\\
+	f_! B \ar{r} & \mathcal{P}
+&
+	B \ar{r} & f^{\**} \mathcal{P}
+\end{tikzcd}
+\]
+\end{lemma}
+
+We first note that, by a variation of the arguments in \cite[\S 5]{BP_geo}, any pushout 
+\[
+\begin{tikzcd}
+	A \ar{r} \ar{d} & \mathcal{O} \ar{d}
+\\
+	B \ar{r} & \mathcal{P}
+\end{tikzcd}
+\]
+in $\mathsf{Op}^{\mathfrak{C}}$ can be described as a left Kan extension
+\[
+\begin{tikzcd}
+	\Omega_{\mathfrak{C}}^{p,op} \ar{rr}{N^{(B,A,\mathcal{O})}} \ar{d}[swap]{\mathsf{lr}} &&
+	\mathcal{V}
+\\
+	\Sigma_{\mathfrak{C}}^{op} \ar[dashed]{rru}[swap]{\mathcal{P}}
+\end{tikzcd}
+\]
+Where $\Omega^p_{\mathfrak{C}}$ is the category whose objects are trees
+$T \in \Omega_{\mathfrak{C}}$ together with a map
+$V(T) \to \{B,A,\mathcal{O}\}$ (i.e. a labeling of the vertices of $T$ by $\{B,A,\mathcal{O}\}$)
+and whose arrows are maps $T \to S$ such that
+\begin{itemize}
+\item if $v \in V(T)$ is $A$-labeled, then all vertices in $S_{v}$ are $A$-labeled
+\item if $v \in V(T)$ is $B$-labeled, then all vertices in $S_{v}$ are either $A$-labeled or $B$-labeled
+\item if $v \in V(T)$ is $\mathcal{O}$-labeled, then all vertices in $S_{v}$ are either $A$-labeled or $\mathcal{O}$-labeled
+\end{itemize}
+Moreover, one has the formula
+\begin{equation}\label{NBAO EQ}
+N^{(B,A,\mathcal{O})}(T) = 
+\left(\bigotimes_{v \in V_B(T)} B(T_v) \right) \otimes
+\left(\bigotimes_{v \in V_A(T)} A(T_v) \right) \otimes
+\left(\bigotimes_{v \in V_{\mathcal{O}}(T)} \mathcal{O}(T_v) \right)
+\end{equation}
+
+
+\begin{proof}[Proof of Lemma \ref{BASICPUSH LEMMA}]
+
+We start by noting that the top composite in the diagram
+\[
+\begin{tikzcd}
+	\Omega_{\mathfrak{C}}^{p,op} \ar{r}{f_{\**}} \ar{d}[swap]{\mathsf{lr}} &
+	\Omega_{\mathfrak{D}}^{p,op} \ar{rr}{N^{(f_!B,f_!A,\mathcal{O})}} \ar{d}[swap]{\mathsf{lr}} &&
+	\mathcal{V}
+\\
+	\Sigma_{\mathfrak{C}}^{op} \ar{r}{f_{\**}} &
+	\Sigma_{\mathfrak{D}}^{op} %\ar[dashed]{rru}[swap]{\mathcal{P}}
+\end{tikzcd}
+\]
+is $N^{(B,A,f^{\**}\mathcal{O})}$, so that our intended result is that the induced map
+\begin{equation}\label{LANISO EQ}
+	\mathsf{Lan}_{\Omega_{\mathfrak{C}}^{p,op} \to \Sigma_{\mathfrak{C}}^{op}}
+	N^{(B,A,f^{\**}\mathcal{O})}
+\xrightarrow{\simeq}
+\left(
+	\mathsf{Lan}_{\Omega_{\mathfrak{D}}^{p,op} \to \Sigma_{\mathfrak{D}}^{op}}
+	N^{(f_!B,f_!A,\mathcal{O})}
+\right) \circ f_{\**}
+\end{equation}
+is an isomorphism. To see this, first let $\widehat{\Omega}^p_{\mathfrak{D}}$
+be the full subcategory of $\Omega^p_{\mathfrak{D}}$
+such that if 
+$v \in V(T)$ is $A$ or $B$-labeled then $T_v \in \Sigma_{C}$.
+If follows from \eqref{NBAO EQ} that $N^{(f_! B, f_! A, \mathcal{O})}(T) = \emptyset$ whenever $T \not \in \widehat{\Omega}^p_{\mathfrak{D}}$,
+and it is straightforward to check that 
+$\widehat{\Omega}^p_{\mathfrak{D}}$
+is a sieve of $\Omega^p_{\mathfrak{D}}$, i.e. for any map $T \to S$ in $\Omega^p_{\mathfrak{D}}$ such that $S \in \widehat{\Omega}^p_{\mathfrak{D}}$ then $T \in \widehat{\Omega}^p_{\mathfrak{D}}$.
+From this is follows that 
+$N^{(f_!B,f_!A,\mathcal{O})}$
+is the left Kan extension of its restriction to 
+$\widehat{\Omega}^p_{\mathfrak{D}}$, 
+so we are free to replace
+$\Omega^p_{\mathfrak{D}}$
+with
+$\widehat{\Omega}^p_{\mathfrak{D}}$
+in \eqref{LANISO EQ}.
+
+The result now follows by noting that,
+for each $C \in \Sigma_{\mathfrak{C}}$
+the inclusion
+$(C \downarrow \Omega^p_{\mathfrak{C}})
+\to
+(C \downarrow \widehat{\Omega}^p_{\mathfrak{D}})
+$
+has a right adjoint given by the assignment $T \mapsto T - E_{\mathfrak{D} \setminus \mathfrak{C}}(T)$,
+where 
+$E_{\mathfrak{D} \setminus \mathfrak{C}}(T)$ is the set of edges not in $\mathfrak{C}$ (the fact that this has a natural labeling follows since all the edges being collapsed must connect $\mathcal{O}$-vertices, so that there is no ambiguity as to how to label the vertices of $T - E_{\mathfrak{D} \setminus \mathfrak{C}}(T)$).
+\end{proof}
+
+
+\begin{corollary}
+Suppose that $f,g$ on the left pushout diagram below are both injective on colors.
+\[
+\begin{tikzcd}
+	A \ar{r}{f} \ar{d}[swap]{g} & \mathcal{O} \ar{d}
+&
+	A \ar{r} \ar{d}[swap]{g} & f^{\**} \mathcal{O} \ar{d}
+\\
+	B \ar{r}{\tilde{f}} & \mathcal{P}
+&
+	B \ar{r} & \tilde{f}^{\**} \mathcal{P}
+\end{tikzcd}
+\]
+Then the rightmost diagram is also a pushout diagram.
+\end{corollary}
+
+\begin{proof}
+This follows by adding to both $A$ and $\mathcal{O}$ a disjoint trivial operad with object set $\mathfrak{C}(B) \setminus \mathfrak{C}(A)$. In doing so one does not alter the pushout, but the map $g$ now becomes a fixed color map, so that the previous result can be applied to the left pushout.
+\end{proof}
+
+
+
+\iffalse
+
 \subsection{Fiber monads (leftovers)}
-
-
-
-
-
 
 \begin{lemma}
 Suppose $T$ is a fiber monad for 
@@ -11710,7 +11839,9 @@ g^{\**} T_d c  \to T_d c
 \end{proof}
 
 
+
 % \fi
+
 
 \bibliography{biblio-new}{}
 \bibliographystyle{amsalpha2}
