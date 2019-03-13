@@ -2853,11 +2853,11 @@ that has shown up in the main theorems of both this paper and \cite{BP_geo}.
       We know that $\psi$ is injective on colors and a local isomorphism in $\Op(\V)$,
       and hence so is $G/H \cdot \psi$ in $\Op^G(\V)$.
       Since colimits are created non-equivariantly, and equivariant isomorphisms are detected by invertible equivariant maps,
-      \cite[Prop B.22]{Cav} \footnote{
-        In the case $(\V, \otimes) = (\sSet, \times)$, this also follows from \cite[Prop. 1.28]{CM13b}.}
-      implies that $\psi'$ is also a local isomorphism in $\Op^G(\V)$.
+      Lemma \ref{LOCALISO_LEM} below implies that $\psi'$ is also a local isomorphism in $\Op^G(\V)$ \footnote{
+        This also follows from the more general result \cite[Prop. B.22]{Cav},
+        and from \cite[Prop. 1.28]{CM13b} in the case $(\V, \otimes) = (\sSet, \times)$.
+      }.
       % so in particular a local trivial $\F$-cofibration.
-      \todo[inline]{There may be a way to modify the machinery from GenEqOp to describe a generic pushout as a colimit (which is basically what Caviglia does in his Appendix B)... though it probably isn't worth it}
       
       Moreover, we observe that $\C_{\P} = \C_{\O'} \amalg (G/H \times \set{1})$.
       Thus, if $x \in \C_{\P}^K$ is in $\C_{\O'}$ for some $K \leq G$, we have essential surjectivity trivially,
@@ -2951,6 +2951,105 @@ that has shown up in the main theorems of both this paper and \cite{BP_geo}.
       If for an independent reason we know that each $\mathsf{Op}^{G, \mathfrak C}(\V)$ had a full Quillen model structure,
       then the above proof would show that \textit{all} relative $J_\F$-cells are weak equivalences.
 \end{remark}
+
+
+
+
+
+
+
+We end by proving a technical step in the above proof.
+\todo[inline]{connect with Luis's work}
+\begin{lemma}
+      \label{LOCALISO_LEM}
+      Suppose that we have a pushout in $\Op(\V)$ such that $f,g$ are both injective on colors.
+      \[
+            \begin{tikzcd}
+                  A \arrow[d, "g"'] \arrow[r, "f"]
+                  &
+                  \O \arrow[d]
+                  \\
+                  B \arrow[r]
+                  &
+                  \P
+            \end{tikzcd}
+      \]
+      Suppose $A \to B$ is a local isomorphism.
+      Then so is $\O \to \P$.
+\end{lemma}
+\begin{proof}
+      We denote the sets of colors by
+      \[
+            \mathfrak C = \mathfrak C(A),
+            \qquad
+            \mathfrak C' = \mathfrak C(B),
+            \qquad
+            \mathfrak D = \mathfrak C(\O),
+            \qquad
+            \mathfrak D' = \mathfrak C(\P),
+      \]
+      and fix a $\mathfrak D$-signature $C$ for the duration of the proof.
+      We will show that $\O(C) \to \P(C)$ is an isomorphism
+      by following the string of natural isomorphisms below:
+      \begin{equation}
+            \label{LOCALISO_EQ}
+            \P(C) =
+            \lim_{\Omega_{\mathfrak D'}^p \downarrow C} N =
+            \lim_{\hat\Omega_{\mathfrak D'}^p \downarrow C} N =
+            \lim_{\hat \Omega_{\mathfrak D}^p \downarrow C} N =
+            \lim_{\hat\Omega_{\mathfrak D}^{B, \O} \downarrow C} N = 
+            \lim_{\hat\Omega_{\mathfrak D}^{A,\O} \downarrow C} N =
+            \lim_{\Omega_{\mathfrak D} \downarrow C} N =
+            \O(C),
+      \end{equation}
+      where $N = N^{(B,A,\O)}$ and it's restrictions.
+      
+      Let us define the sequence of full subcategories of $\Omega_{\mathfrak D}^p$, following Lemma \ref{BASICPUSH LEMMA}, written in \eqref{LOCALISO_EQ}.
+      \begin{itemize}
+      \item Let $\hat \Omega_{\mathfrak D'}^p$
+            be spanned by those trees $\set{B,A,\O}$-labeled trees $T$ in $\Omega_{\mathfrak D'}$ such that
+            if $v \in V(T)$ is $A$-labeled (resp. $B$-labeled, $\O$-labeled), then
+            $T_v \in \Sigma_{\mathfrak C}$ (resp. $\Sigma_{\mathfrak C'}$, $\Sigma_{\mathfrak D}$).
+      \item Let $\hat \Omega_{\mathfrak D}^p \subseteq \hat \Omega_{\mathfrak D'}^p$ be spanned by those objects whose udnerlying colored tree lives in $\Omega_{\mathfrak D} \subseteq \Omega_{\mathfrak D'}$.
+      \item Let $\hat \Omega_{\mathfrak D}^{B,\O} \subseteq \hat \Omega_{\mathfrak D}^p$ be spanned by those objects with no $A$-labeled vertices.
+      \item Let $\hat \Omega_{\mathfrak D}^{A,\O} \subseteq \hat \Omega_{\mathfrak D}^p$ be spanned by those objects with no $B$-labeled vertices.
+      \end{itemize}
+
+      The first two isomorphisms follow by \eqref{NBAO EQ} and the associated discussion in the proof of Lemma \ref{BASICPUSH LEMMA}.
+      
+      Next, given $(T \to C) \in \Omega_{\mathfrak D'}^p \downarrow C$, we note that the roots and leaves of $T$ must in fact be $\mathfrak D$-colored,
+      and thus for all maximal outer faces $U \subseteq T$ whose vertices are all $B$-labeled,
+      the roots and leaves of $U$ must be $\mathfrak C$-colored.
+      Thus if we ``collapse'' all of these subtrees, the resulting tree will not have any colors in $\mathfrak C'$.
+      That is, following a variation on the arguments from \cite[Prop. 5.48, Cor. 5.52]{BP_geo},
+      there exist right retractions
+      \[
+            \hat \Omega_{\mathfrak D'}^{p} \downarrow C \xrightarrow{\mathsf{lr}_B}
+            \hat \Omega_{\mathfrak D'}^{p,a} \downarrow C 
+            =
+            \hat \Omega_{\mathfrak D}^{p,a} \downarrow C \xleftarrow{\mathsf{lr}_B}
+            \hat \Omega_{\mathfrak D}^{p} \downarrow C 
+      \]
+      where $\hat \Omega_{\mathfrak D'}^{p,a} \subseteq \hat \Omega_{\mathfrak D'}^{p}$
+      and $\hat \Omega_{\mathfrak D}^{p,a} \subseteq \hat \Omega_{\mathfrak D}^{p}$
+      are full subcategories spanned by those objects whose underlying tree is alternating with active nodes labeled by $B$ \footnote{
+        More information on this terminology can be found in \cite{BP_geo} near
+        Definitions 5.43, 5.47 and the cited results.}.
+      This gives the third isomorphism in \eqref{LOCALISO_EQ}.
+
+      Now, consider the construction $(-)_{A \mapsto B}$ which takes a tree $T \in \hat\Omega_{\mathfrak D}^{p}$
+      and changes all $A$-labels to $B$-labels, so $(T)_{A \mapsto B} \in \hat\Omega_{\mathfrak D}^{B,\O}$.
+      This is functorial on maps which preserve $\O$-labels,
+      those maps $T \to S$ such that if $v \in V(T)$ is $\O$-labeled, then so is every vertex in $S_v$.
+      Moreover, there is a map $(T)_{A \mapsto B} \to T$ for all $T$, natural in such maps.
+
+      We note that any map $T \to S$ with $S \in \hat \Omega_{\mathfrak D}^{B,\O}$ and $T \in \hat\Omega_{\mathfrak D}^p$ factors $T \to T' \to S$ where $T' \to S$ preserves $\O$-labels.
+      Thus, we may follow the proof of \cite[Lemma 5.57]{BP_geo} to show that
+      $\hat\Omega_{\mathfrak D}^{B,\O} \downarrow C$ is initial in $\hat\Omega_{\mathfrak D}^p \downarrow C$, given the fourth isomorphism.
+      
+      Finally, the fifth isomorphism follows as $A \to B$ is a local isomorphism,
+      and the last follows from applying \cite[Prop 5.37]{BP_geo} to the free resolution of $\O$.      
+\end{proof}
 
 
 \subsection{Homotopy in a general model category}
@@ -3280,22 +3379,12 @@ We may assemble homotopies in the following manner.
 \subsection{2-out-of-3}
 
 In this section, we prove Proposition \ref{2OUTOF3_PROP}, that weak equivalences satisfy 2-out-of-3.
-A main ingredient comes down to finding appropriate notions of ``homotopically equivalent'', as suggested in the introduction to this section and the work of \cite{Cav, BM13}.
-Definition \ref{EQUIV_DEF} provides three different possibilities: equivalent, virtually equivalent, and homotopy equivalent.
-These are of nested strength by construction and Lemma \ref{VIR_HTPY_LEM}.
+%
+The main ingredient comes from comparing and applying different notions of when two objects are ``homotopically equivalent'', as suggested in the introduction to this section.
 
-The proof of 2-out-of-3 splits into the three cases. For the first, only preservation of local weak equivalences is non-trival, while for the second and third, the proofs relies on a deep understanding of essential surjectivity.
-We describe the important steps in each case.
-\begin{description}
-\item [$F$ and $LF$ implies $L$:] This step requires Proposition \ref{CAV_4.14_PROP2}, which shows that a homotopy equivalence of colors induces a weak equivalence between certain associated mapping objects.
-\item [$L$ and $LF$ implies $F$:] We would like that local equivalences reflect all equivalences, but Lemma \ref{REF_VIRT_LEM} says they only preserve \textit{virtual} equivalences, and thus we need Lemma \ref{RIGHTPROPER_LEM} which says that these notions agree when $\V$ is right proper.
-\item [$F$ and $L$ implies $LF$:] This will follow from the fact that equivalences are transitive (Lemma \ref{CAV_4.10_LEM}) and are preserved by functors.
-\end{description}
+% These are of nested strength by construction and Lemma \ref{VIR_HTPY_LEM}.
+Following the work of \cite{Cav, BM13}, we make the following definitions.
 
-Many of the results will follow immediately from (the proof of) their non-equivariant counterparts once the definitions have been established; 
-only Proposition \ref{CAV_4.14_PROP2} will require a more complex analysis.
-
-We now introduce these three variations of homotopical equivalences from \cite{Cav, BM13}.
 \begin{definition}
       \label{EQUIV_DEF}
       Given $\mathcal{C}$ in  $\Cat(\V)$ and $a,b\in\mathrm{Ob}(\mathcal C)$, we say $a$ and $b$ are
@@ -3306,8 +3395,8 @@ We now introduce these three variations of homotopical equivalences from \cite{C
       \item {\em virtually equivalent} if $a$ and $b$ are equivalent in some fibrant replacement
             $\mathcal C_f$ of $\mathcal C$ in $\Cat^{\mathrm{Ob}(\mathcal C)}(\V)$;
       \item {\em homotopy equivalent} if $a$ and $b$ are isomorphic in the unenriched category $\pi_0 \mathcal C_f$ (see Definition \ref{HTPY_DEFN})
-            for some fibrant replacement $\mathcal C_f$ of $\mathcal C$.
-            If $\mathcal C$ is fibrant, this is equivalent to 
+            for some fibrant replacement $\mathcal C_f$ of $\mathcal C$;
+            equivalently,
             there existing maps
             $\alpha: 1_\V \to \mathcal C_f(a,b)$ and $\beta: 1_\V\to \mathcal C_f(b,a)$ such that
             $\beta\alpha$ and $\alpha\beta$ are homotopic (cf. Definition \ref{HTPY_DEFN})
@@ -3316,13 +3405,24 @@ We now introduce these three variations of homotopical equivalences from \cite{C
       \end{itemize}
 \end{definition}
 
-\begin{remark}
-      \label{VE_CHOICE_REM}
-      We note that by straightforward lifting and factoring arguments,
-      virtual equivalence does not depend on the choice of fibrant replacement nor the choice of $\V$-interval.
-\end{remark}
+\cite{Cav, BM13} proved the following comparison results,
+where $(1)$ holds if $\V$ is right proper, and $(2)$ holds if $\V$ satisfies ``coherence condition'' \footnote{To be discussed in \S \ref{DK_SEC}.}
+\[
+      \begin{tikzcd}[column sep = large]
+            \mbox{equivalent}
+            \arrow[r, Rightarrow, shift left=2, "\mathrm{always}"]
+            &
+            \mbox{ virtually equivalent}
+            \arrow[r, Rightarrow, shift left=2, "\mathrm{always}"]
+            \arrow[l, Rightarrow, shift left = 2, "{(1)}"]
+            &
+            \mbox{ homotopy equivalent}
+            \arrow[l, Rightarrow, shift left = 2, "{(2)}"]
+      \end{tikzcd}
+\]
 
-Equivariantly, we have the following:
+
+Similar results will hold equivariantly. For our group $G$, we define the following:
 \begin{definition}
       \label{EQUIVG_DEF}
       Fix $H \leq G$, $\mathcal{C}\in \Cat^G(\V)$, and $a,b\in \mathrm{Ob}(\mathcal{C})^H$.
@@ -3339,32 +3439,40 @@ Equivariantly, we have the following:
       if they are so in the underlying category $j^*\O$. 
 \end{definition}
 
-\todo[inline]{add a diagram HERE which describes the situation, a visual aid}
-\todo[inline]{also move discussion about the general path here}
-
-We unpack this with several remarks.
 
 \begin{remark}
-      \label{HK_EQUIV_REM}
-      We note that if $K \leq H \leq G$, then (virtually, homotopy) $H$-equivalent implies (virtually, homotopy) $K$-equivalent
-      as we have functors
-      $j^{\**}(\O^H) \to j^{\**}(\O^K)$
-      (resp. by functoriality of fibrant replacement,
-      $j^{\**}(\O^H)_f \to j^{\**}(\O^K)_f$,
-      $\pi_0(j^{\**}(\O^H)_f) \to \pi_0(j^{\**}(\O^K)_f)$).
-      % Further, if $\V$ has a fibrant replacement functor that commutes with taking fixed points for any subgroup of $G$,     
-      % % (in which case the two definitions of virtually $H$-equivalent coincide)
-      % then virtually (resp. homotopy) $H$-equivalent implies virtually (homotopy) $K$-equivalent,
-      % as we would have an inclusion of categories
-      % Moreover, this would imply that $a$ and $b$ are virtually $H$-equivalent iff
-      % they are $H$-equivalent in some fibrant replacement $\mathcal C_f$ of $\mathcal C$ in $\Op^{G, \mathrm{Ob}(\mathcal C)}(\V)$.
+      \label{ESS_SUR_REM}
+      Unraveling definitions, we see
+      $F: \O \to \P$ in $\Op^G(\V)$ is essentially $\F$-surjective iff
+      for all $H \in \F_1$ and any $b \in \P^H$ there exists $a \in \O^H$ such that $F(a)$ and $b$ are $H$-equivalent.
 \end{remark}
 
+We can now record the important steps of the proof of 2-out-of-3, broken into the three distinct cases.
+%splits into the three cases. For the first, only preservation of local weak equivalences is non-trival, while for the second and third, the proofs relies on a deep understanding of essential surjectivity.
+%We describe the important steps in each case.
+\begin{description}
+\item [$F$ and $LF$ implies $L$:] This relies on Proposition \ref{CAV_4.14_PROP2}, which shows that
+      homotopy equivalence colors induce weak equivalences between certain associated mapping objects,
+      and Lemma \ref{VIR_HTPY_LEM}, from which we conclude that equivalent colors are homotopy equivalent.
+\item [$L$ and $LF$ implies $F$:] We would like that local equivalences reflect all equivalences, but Lemma \ref{REF_VIRT_LEM} says they only preserve the potentially weaker notion of virtual equivalence;
+      however, Lemma \ref{RIGHTPROPER_LEM} says that these notions agree when $\V$ is right proper.
+\item [$F$ and $L$ implies $LF$:] This will follow from the fact that equivalences are transitive (Lemma \ref{CAV_4.10_LEM}) and are preserved by functors.
+\end{description}
+%
+Many of the results will follow immediately from (the proof of) their non-equivariant counterparts once the definitions have been established;
+only Proposition \ref{CAV_4.14_PROP2} will require a more complex analysis.
+
+We unpack these definitions with two quick remarks.
+
 \begin{remark}
-      \label{HVIRT_REM}
-      If $a,b\in \mathcal C$ are virtually $H$-equivalent (which could more accurately be called ``$H$-virtually equivalent''),
-      they are in fact virtually equivalent for $\mathcal C^H$:
-      there exists a lift
+      \label{VE_CHOICE_REM}
+      We note that by straightforward lifting and factoring arguments,
+      virtual equivalence does not depend on the choice of fibrant replacement nor the choice of $\V$-interval.
+      However, for naturality reasons we will almost exclusively use a functorial fibrant replacement.
+      This does not cause any added difficult:
+      If $a,b\in \mathcal C$ are virtually $H$-equivalent, %(which could more accurately be called ``$H$-virtually equivalent''),
+      they are in fact virtually equivalent for $\mathcal C^H$,
+      in that there exists a lift
       \begin{equation}
             \label{FIBFIX_LIFT_EQ}
             \begin{tikzcd}
@@ -3376,15 +3484,29 @@ We unpack this with several remarks.
             \end{tikzcd}
       \end{equation}
       and thus any equivalence in $(\mathcal C^H)_f$ induces an equivalence in $(\mathcal C_f)^H$.
-      This also follows from Remark \ref{VE_CHOICE_REM}, as both $(\mathcal C^H)_f$ and $(\mathcal C_f)^H$ are fibrant replacements for $\mathcal C^H$.
+      % This also follows from Remark \ref{VE_CHOICE_REM}, as both $(\mathcal C^H)_f$ and $(\mathcal C_f)^H$ are fibrant replacements for $\mathcal C^H$.
 \end{remark}
 
 \begin{remark}
-      \label{ESS_SUR_REM}
-      Unpacking definitions, we see
-      $F: \O \to \P$ in $\Op^G(\V)$ is essentially $\F$-surjective iff
-      for all $H \in \F_1$ and any $b \in \P^H$ there exists $a \in \O^H$ such that $F(a)$ and $b$ are $H$-equivalent.
+      \label{HK_EQUIV_REM}
+      We note that if $K \leq H \leq G$, then (virtually, homotopy) $H$-equivalent implies (virtually, homotopy) $K$-equivalent
+      as we have functors
+      \[
+            j^{\**}(\O^H) \to j^{\**}(\O^K),
+            \qquad
+            j^{\**}(\O^H)_f \to j^{\**}(\O^K)_f,
+            \qquad
+            \pi_0(j^{\**}(\O^H)_f) \to \pi_0(j^{\**}(\O^K)_f).
+      \]
+      where the last two use a functorial fibrant replacement.
+      % Further, if $\V$ has a fibrant replacement functor that commutes with taking fixed points for any subgroup of $G$,     
+      % % (in which case the two definitions of virtually $H$-equivalent coincide)
+      % then virtually (resp. homotopy) $H$-equivalent implies virtually (homotopy) $K$-equivalent,
+      % as we would have an inclusion of categories
+      % Moreover, this would imply that $a$ and $b$ are virtually $H$-equivalent iff
+      % they are $H$-equivalent in some fibrant replacement $\mathcal C_f$ of $\mathcal C$ in $\Op^{G, \mathrm{Ob}(\mathcal C)}(\V)$.
 \end{remark}
+
 
 \begin{notation}
       As fixed points $(-)^\Gamma$ and fibrant replacement $(-)_f$ need not commute, we will write
@@ -3396,9 +3518,7 @@ We unpack this with several remarks.
 \end{notation}
 
 
-We now prove some results concerning Cases II and III above.
-
-First, we show that these notions of equivalences are nested.
+Now, we begin by showing that these notions of equivalences are nested.
 The following three lemmas follow exactly as in the non-equivariant setting,
 by restricting to the categories $j^{\**}\O^H$ and using \eqref{FIBFIX_LIFT_EQ}.
 
@@ -3453,12 +3573,6 @@ by restricting to the categories $j^{\**}\O^H$ and using \eqref{FIBFIX_LIFT_EQ}.
       \label{VIR_HTPY_LEM}
       Virtually $H$-equivalent colors are homotopy $H$-equivalent. 
 \end{lemma}
-
-The key ideas in the proofs are:
-the stacking of $\V$-intervals forms another $\V$-interval \todo{pushout trick and Cav4.14?},
-nice pullbacks in $\Cat(\V)$ preserve local equivalences which are bijective on objects, and
-the objects in any $\V$-interval $\mathbb J$ are isomorphic in $\pi_0(\mathbb J)$.
-
 % \begin{proof}
 %       {\color{OliveGreen} % ------------------------------ OLIVE GREEN ------------------------------
 %         Let $\mathcal C_f$ denote $j^{\**}(\O^H)_f$.
@@ -3542,8 +3656,11 @@ the objects in any $\V$-interval $\mathbb J$ are isomorphic in $\pi_0(\mathbb J)
 %       }
 % \end{proof}
 
-Combined, these three lemmas show in particular that, with our assumtions, equivalences induce isomorphisms on $\pi_0$.
-%
+The key ideas in the proofs are:
+the stacking of $\V$-intervals forms another $\V$-interval \todo{pushout trick and Cav4.14?},
+``nice'' pullbacks in $\Cat(\V)$ preserve local equivalences which are bijective on objects, and
+the two objects of any $\V$-interval $\mathbb J$ are isomorphic in $\pi_0(\mathbb J)$.
+
 To finish off Case II, we will need that (local) weak equivalences preserve some notions of equivalence.
 
 \begin{lemma}
@@ -3614,7 +3731,7 @@ To finish off Case II, we will need that (local) weak equivalences preserve some
 Moving on to Case I, we now prove that a homotopy equivalence of colors induces a homotopy equivalence between certain hom-objects.
 % 
 We begin with some notation and a construction.
-Let $\mathfrak C$ be a $G$-set of colors, and fix a $\mathfrak C$-signature $C = (c_1, dots, c_n; c_0)$.
+Let $\mathfrak C$ be a $G$-set of colors, and fix a $\mathfrak C$-signature $C = (c_1, \dots, c_n; c_0)$.
 For each $0 \leq i \leq n$, let $\Aut_i(C) \leq \Aut(C) = \Aut_{G \ltimes \Sigma_{\mathfrak C}}(C)$ denote the subgroup of elements $(g, \sigma)$
 such that $\sigma(i) = i$ (including $\Aut_0(C) = \Aut(C)$),
 and let $H_i \leq G$ denote the $G$-projection of $\Aut_i(C)$.
@@ -11715,8 +11832,8 @@ is $N^{(B,A,f^{\**}\mathcal{O})}$, so that our intended result is that the induc
 is an isomorphism. To see this, first let $\widehat{\Omega}^p_{\mathfrak{D}}$
 be the full subcategory of $\Omega^p_{\mathfrak{D}}$
 such that if 
-$v \in V(T)$ is $A$ or $B$-labeled then $T_v \in \Sigma_{C}$.
-If follows from \eqref{NBAO EQ} that $N^{(f_! B, f_! A, \mathcal{O})}(T) = \emptyset$ whenever $T \not \in \widehat{\Omega}^p_{\mathfrak{D}}$,
+$v \in V(T)$ is $A$ or $B$-labeled then $T_v \in \Sigma_{\mathfrak C}$.
+It follows from \eqref{NBAO EQ} that $N^{(f_! B, f_! A, \mathcal{O})}(T) = \emptyset$ whenever $T \not \in \widehat{\Omega}^p_{\mathfrak{D}}$,
 and it is straightforward to check that 
 $\widehat{\Omega}^p_{\mathfrak{D}}$
 is a sieve of $\Omega^p_{\mathfrak{D}}$, i.e. for any map $T \to S$ in $\Omega^p_{\mathfrak{D}}$ such that $S \in \widehat{\Omega}^p_{\mathfrak{D}}$ then $T \in \widehat{\Omega}^p_{\mathfrak{D}}$.
