@@ -176,7 +176,7 @@ What we need:
       $\mathfrak C$-signatures $\xi$ and
       graph subgroups $\Gamma \leq \Stab(\xi)$.
 
-      More generally, for $\F = \set{\F_n}_{n \geq 0}$ a $(G, \Sigma)$-family with $\F_n$ an \textit{arbitrary} collection of subgroups of $G \times \Sigma_n$,
+      More generally, for $\F = \set{\F_n}_{n \geq 0}$ an \textit{arbitrary} $(G, \Sigma)$-family,
       there exists a model category structure on $\Op^{G, \mathfrak C}(\V)$, which we denote $\Op^{G, \mathfrak C}_\F(\V)$,
       with weak equivalences (resp. fibrations) determined by \eqref{THM1_C_EQ} for $\Gamma \leq (\F_n)_\ksi = \F_n \cap \Aut(\ksi)$.
 
@@ -230,7 +230,7 @@ Here, homotopical essential surjectivity is defined on the underlying categories
       Then there exists a cofibrantly generated model structure on the category $\Op^G(\V)$,
       where weak equivalences are ``graph Dwyer-Kan'' equivalences (see Definition \ref{DK_MODEL_DEF}). 
 
-      More generally, for any indexing family $\F = \set{\F_n}$ with units,
+      More generally, for any $(G, \Sigma)$-family $\F = \set{\F_n}$ with units,
       there exists an ``$\F$-Dwyer-Kan'' model structure on $\Op^G(\V)$.
       weak $\F$-equivalences, $\F$-fibrations, and $\F$-cofibrations defines as in Definition \ref{MODEL_DEFN}.
            
@@ -1109,27 +1109,27 @@ one obtains that the monad $\mathbb{F}^G$ applied to
 $X\colon G \ltimes \Sigma_{\mathfrak{C}}^{op} \to \mathcal{V}$
 is the left Kan extension
 \begin{equation}
-\begin{tikzcd}
-	G \ltimes \Omega^{op}_{\mathfrak{C}}
-	\arrow[d, "\mathsf{lr}"']
-	\arrow[r, "V"]
-&
-	(G\ltimes \Sigma \wr \Sigma_{\mathfrak{C}})^{op} \arrow{r}
-	\arrow[dl, Rightarrow]
-&
-	(\Sigma \wr G\ltimes \Sigma_{\mathfrak{C}})^{op} \arrow[r, "X"]
-&
-	(\Sigma \wr \V^{op})^{op} \arrow[r, "\otimes"]
-&
-	\V
-\\
-	G\ltimes\Sigma^{op}_{\mathfrak{C}} \arrow[urrrr, "\Lan = \mathbb F_{\mathfrak{C}}^G X"']
-\end{tikzcd}
+      \label{FGC_EQ}
+      \begin{tikzcd}
+            G \ltimes \Omega^{op}_{\mathfrak{C}}
+            \arrow[d, "\mathsf{lr}"']
+            \arrow[r, "V"]
+            &
+            (G\ltimes \Sigma \wr \Sigma_{\mathfrak{C}})^{op} \arrow{r}
+            \arrow[dl, Rightarrow]
+            &
+            (\Sigma \wr G\ltimes \Sigma_{\mathfrak{C}})^{op} \arrow[r, "X"]
+            &
+            (\Sigma \wr \V^{op})^{op} \arrow[r, "\otimes"]
+            &
+            \V
+            \\
+            G\ltimes\Sigma^{op}_{\mathfrak{C}} \arrow[urrrr, "\Lan = \mathbb F_{\mathfrak{C}}^G X"']
+      \end{tikzcd}
 \end{equation}
 
 {\color{red} HERE}
 
-% \iffalse
 
 \subsection{Symmetric sequences and colored operads}
 
@@ -2050,8 +2050,10 @@ For full generality, we introduce the following terminology.
 
 \begin{definition}
       \label{GSFAM_DEF}
-      A \textit{$(G, \Sigma)$-family} is a collection $\F = \set{\F_n}_{n \geq 0}$ of families $\F_n$ of subgroups of $G \times \Sigma_n$ \footnote{
+      A \textit{$(G, \Sigma)$-family} is a collection $\F = \set{\F_n}_{n \geq 0}$ of families $\F_n$ of subgroups of $G \times \Sigma_n$.
+      We say $\F$ \textit{has units} if $H \in \F_1$ for all $H \leq G$. \footnote{
         As in \cite{BP_geo} and \cite{BH15}, one often restricts to \textit{$G$-graph families}; see Definition \ref{COR_GGRAPH_DEF}.}.
+      
 \end{definition}
 
 % % ------------------------------ we don't need $G$-graph systems here... everything in this part works for any $(G,\Sigma)$-family ------------------------------
@@ -2117,10 +2119,20 @@ As in \cite{BP_geo}, we will transfer this model structure along the free-forget
       \Op^{G, \mathfrak C}_\F(\V) \leftrightarrows \Sym^{G, \mathfrak C}_\F: \mathbb F^G_{\mathfrak C}
 \]
 where $\mathbb F^G_{\mathfrak C}$ is the fiber of the cartesian monad $\mathbb F^G$ over $\mathfrak C$,
-described explicitly in {\color{red} diagram in \S 3.2}.
+described explicitly in \eqref{FGC_EQ}.
 
 This transfer will follow much in the same was as in \cite{BP_geo};
 we relegate the technical discussion to Appendix \ref{MONAD_APDX}.
+
+We do recall the necessary additional hypotheses required.
+
+\begin{definition}[{\cite[Defn 6.16]{BP_geo}}]
+      \label{CSPP_DEF}
+      We say a symmetric monoidal model category $\V$ has \textit{cofibrant symmetric pushout powers} if
+      for all (trivial) cofibrations $f$, the pushout product power $f^{\square n}$
+      is a $\Sigma_n$-genuine (trivial) cofibration in $\V^{\Sigma_n}$. 
+\end{definition}
+
 
 % We say $X \to Y \in \Sym^{G, \mathfrak C}(\V)$ is a \textit{level genuine cofibration} if for each $C \in \G \ltimes \SC^{op}$,
 % $X(C) \to Y(C)$ is a genuine cofibration in $\V^{\Aut(C)}$;
@@ -2174,8 +2186,8 @@ we relegate the technical discussion to Appendix \ref{MONAD_APDX}.
 We record a particular step in the proof of Theorem \ref{THM1_C}.
 \begin{corollary}
       \label{LGC_COR}
-      Suppose $\V$ has a cofibrant unit $1_\V$ and has cofibrant symmetric pushout powers.
-      Let $\mathfrak C$ be a $G$-set, and $f: \O \to \P$ a map in $\Op^{G,\mathfrak C}(\V)$.
+      Suppose $\V$ has the hypotheses of Theorem \ref{THM1_C},
+      let $\mathfrak C$ be a $G$-set, and $f: \O \to \P$ a map in $\Op^{G,\mathfrak C}(\V)$.
       If $f$ is a (trivial) cofibration in $\Op^{G, \mathfrak C}_\F(\V)$ for some indexing family $\F$,
       and $\O$ is level genuine cofibrant, then
       $f(C)$ is a genuine (trivial) cofibration in $\V^{\Aut(C)}_{gen}$ for all $\mathfrak C$-signatures $\ksi$.
@@ -2330,10 +2342,13 @@ into a single model structure on the full category of $G$-operads $\Op^G(\V)$ wi
 \end{remark}
 
 \begin{convention}
-      For this section, we assume $\V$ is always a cofibrantly generated closed monoidal model category with cellular fixed points
-      and cofibrant symmetric pushout powers.
+      \label{ALLCOLOR_CONV}
+      For this section, we assume $\V$ is always a cofibrantly generated closed monoidal model category with
+      cofibrant unit, cellular fixed points, and cofibrant symmetric pushout powers.
       In particular, Theorem \ref{THM1_C} and Remark \ref{CATV_MC_REM} imply that $\Cat^{\mathfrak C}(\V)$ is a (semi)-model category for each set $\mathfrak C$,
       and thus in particular has cofibrant replacements.
+
+      We will need to add a small set-theoretic condition below in Convention \ref{GENINT_CONV}.
 \end{convention}
 
 
@@ -2407,7 +2422,7 @@ We recall and extend the following definitions from \cite{BM13}.
       The prototypical example of a $\V$-interval is $J = N(0 \leftrightarrows 1) \in \sSet$ the nerve of the walking isomorphism; see the proof of Proposition \ref{SSET_COH_PROP}.
 \end{remark}
 
-Morally, $\V$-intervals detect ``homotopical isomorphisms'' in any $\V$-cat $\mathcal C$; see Definition \ref{EQUIV_DEF} below.
+Morally, $\V$-intervals detect ``homotopical isomorphisms'' in any $\V$-cat $\mathcal C$; cf. Definition \ref{EQUIV_DEF} below.
 Additionally, we use these $\V$-intervals to define homotopical analogues of isofibrations and surjective maps of $\V$-categories.
 
 \begin{definition}
@@ -2458,17 +2473,16 @@ First, extending \eqref{JSTAR_CAT_EQ}, we have another inclusion-forgetful adjun
 \end{equation}
 where again $j^{\**}$ commutes with $H$-fixed points and fibrant replacement.
 
-Now, recall the notion of a $(G, \Sigma)$-family from Definition \ref{GSFAM_DEF}.
+Now, recall the notion of a $(G, \Sigma)$-family (with units) from Definition \ref{GSFAM_DEF}.
 % Especially well-behaved indexing families are the \textit{(weak) indexing systems} of \cite{BP_geo},
 % of which the maximal indexing family $\mathrm{Gr} = \set{\mathrm{Gr}_n}$ is one.
 In the many-colored setting, the levels of our operad do not have a full action of $G \times \Sigma_n$, and the $(G, \Sigma)$-family needs to reflect this.
-To that end, for any $(G, \Sigma)$-family $\F = \set{\F_n}$ and all $\mathfrak C$-signatures $\ksi \in G \ltimes \SC^{op}$ of length $n+1$, we define
-$\F_\ksi$ to be
+To that end, for any $(G, \Sigma)$-family $\F = \set{\F_n}$ and all $\mathfrak C$-signatures $C \in G \ltimes \SC^{op}$ of length $n+1$, we define
+$\F_C$ to be
 \[
-      \F_\ksi = \sets{\Gamma \in \F_n}{\Gamma \leq \Aut(\ksi)}
+      \F_C = \sets{\Gamma \in \F_n}{\Gamma \leq \Aut_{G \ltimes \Sigma_{\mathfrak C}}(C) \leq G \times \Sigma_n}
 \]
-the set of those subgroups which do act on $\O(\ksi)$.
-\todo[inline]{change $C$ to $\ksi$}
+the set of those subgroups which do act on $\O(C)$.
 % all those $\Gamma \in \F_n$ such that $\Gamma \leq \Aut(C)$.
 
 
@@ -2523,8 +2537,8 @@ which constitutes most of the work towards Theorem \ref{INTRO_MODEL_THM}. % (see
 
 \begin{theorem}
       \label{MODEL_THM}
-      Fix an $(G, \Sigma)$-family $\F = \set{\F_n}$ such that $H \in \F_1$ for all $H \leq G$. % with units
-      Let $(\V, \otimes)$ denote either $(\sSet, \times)$ or $(\sSet_{\**}, \wedge)$.
+      Fix a $(G, \Sigma)$-family $\F = \set{\F_n}$ with units,
+      and let $(\V, \otimes)$ denote either $(\sSet, \times)$ or $(\sSet_{\**}, \wedge)$.
       Then there exists a cofibrantly generated model structure on the category $\Op^G(\V)$,
       denoted $\Op^G_\F(\V)$, with
       weak $\F$-equivalences, $\F$-fibrations, and $\F$-cofibrations defined as in Definition \ref{MODEL_DEFN}.
@@ -2578,7 +2592,7 @@ which constitutes most of the work towards Theorem \ref{INTRO_MODEL_THM}. % (see
       \item $I_{\F}$-inj $= W\cap J_{\F}$-inj; and
       \item $J_{\F}$-cell (with cofibrant source) $\subseteq W\cap I_{\F}$-cof,
       \end{enumerate}
-      where $I\_F$ and $J_\F$ are the sets \eqref{IFJF_EQ} of generating (trivial) cofibrations.
+      where $I_\F$ and $J_\F$ are the sets \eqref{IFJF_EQ} of generating (trivial) cofibrations.
       (1) follows from Proposition \ref{2OUTOF3_PROP} and the fact that if $L$ is a retract of $F$, $L^H$ is a retract of $F^H$.
       (2) follows since colimits in $\mathsf{Op}^G(\V)$ are created in $\Op(\V)$, and it holds non-equivariantly.
       (3) follows from Lemma \ref{CAV_4.8}.
@@ -2611,13 +2625,13 @@ We begin with a description of the sets of generating (trivial) cofibrations.
 As expected, these will be freely generated by the generating (trivial) cofibrations of $\V$.
 
 Fix a subgroup $\Gamma \in \F_n$ of $G \times \Sigma_n$,
-and define the $G$-set of colors $\mathfrak C_\Gamma$ and $\mathfrak C_\Gamma$-signature $C_0$
+and define the $G$-set of colors $\mathfrak C_\Gamma$ and $\mathfrak C_\Gamma$-signature $C_0$ by
 \[
       \mathfrak C_\Gamma := \Gamma \backslash (G \times \Sigma_n) \cdot_{\Sigma_n} \underline{n}_+,
       \qquad
       C_0 = ([[e,e],1],[[e,e],2],\dots,[[e,e],n];[[e,e],0]).
 \]
-Let $C_0$ denote the $\mathfrak C_\Gamma$-signature $([[e,e],1],[[e,e],2],\dots,[[e,e],n];[[e,e],0])$.
+% Let $C_0$ denote the $\mathfrak C_\Gamma$-signature $([[e,e],1],[[e,e],2],\dots,[[e,e],n];[[e,e],0])$.
 
 We have a pair of composable free-forgetful adjunctions
 \[
@@ -2629,7 +2643,7 @@ We have a pair of composable free-forgetful adjunctions
             \Op^{G, \mathfrak C}(\V) \arrow[l, shift left]
       \end{tikzcd}
 \]
-where we note that $\Aut_{G, \times \Sigma_n}(C_0)$ is precisely $\Gamma$.
+where we note that $\Aut_{G \ltimes \Sigma_{\mathfrak C_\Gamma}}(C_0)$ is precisely $\Gamma$.
 Let $\mathbb F_\Gamma$ denote the composite of left adjoints.
 % ----------------------------------------------------------------------------------------------------
 % ------------------------------ explicit description of first left adjoint ------------------------------
@@ -2760,18 +2774,23 @@ where $\1$ defined as in Definition \ref{PL_ES_DEFN}, and $\mathbb{G}$ is a gene
       Thus $J_\F \subseteq I_\F\mbox{-cof}$, implying the result.
 \end{proof}
 
+\begin{convention}
+      \label{GENINT_CONV}
+      Adding to Convention \ref{ALLCOLOR_CONV}, we will now additionally assume that $\V$ has a generating set of intervals.
+      This is a small condition; in particular, \cite[Lemma 1.12]{BM13} says that this holds for every combinatorial monoidal model category.
+\end{convention}
+
 \subsection{Trivial cofibrations}
 
 Similar to many cases in the literature, the two most difficult steps in the proof of Theorem \ref{MODEL_THM} are showing that
 $J_\F$-cells are weak equivalences, and that weak equivalences satisfy 2-out-of-3.
 We show these results in that order.
 
-The first of these two results, Proposition \ref{J-CELL_PROP}, uses the following lemmas.
+The first of these two results, Proposition \ref{J-CELL_PROP}, uses the following straightforward lemmas.
 
 \begin{lemma}
       \label{TRANSCOMP_ES_LEM}
-      Suppose $\V$ is a monoidal model category.
-      The transfinite composition of essentially surjective maps in $\Op^G(\V)$ is essentially surjective.
+      Transfinite composition of essentially surjective maps in $\Op^G(\V)$ is essentially surjective.
 \end{lemma}
 \begin{proof}
       Since taking fixed points commutes with filtered colimits, they commute with transfinite composition,
@@ -2797,22 +2816,12 @@ The first of these two results, Proposition \ref{J-CELL_PROP}, uses the followin
       the result follows.
 \end{proof}
 
-This result will require an additional hypothesis on the model category $\V$
-that has shown up in the main theorems of both this paper and \cite{BP_geo}.
-
 \todo[inline]{this defn doesn't belong in this spot}
-
-\begin{definition}[{cf. \cite[Defn 6.16]{BP_geo}}]
-      \label{CSPP_DEF}
-      We say a symmetric monoidal model category $\V$ has \textit{cofibrant symmetric pushout powers} if
-      for all (trivial) cofibrations $f$, the pushout product power $f^{\square n}$
-      is a $\Sigma_n$-genuine (trivial) cofibration in $\V^{\Sigma_n}$. 
-\end{definition}
 
 \begin{proposition}
       [{c.f. \cite[4.20]{Cav}}]
       \label{J-CELL_PROP}
-      Suppose $\V$ has a cofibrant unit $1_\V$ and has cofibrant symmetric pushout powers.
+      Suppose $\V$ is as in Convention \ref{ALLCOLOR_CONV}. %has a cofibrant unit $1_\V$ and has cofibrant symmetric pushout powers.
       Then relative $J_{\F}$-cells with locally genuine cofibrant source are weak equivalences.
 \end{proposition}
 \begin{proof}
@@ -2974,8 +2983,7 @@ We end by proving a technical step in the above proof.
                   \P
             \end{tikzcd}
       \]
-      Suppose $A \to B$ is a local isomorphism.
-      Then so is $\O \to \P$.
+      If $A \to B$ is a local isomorphism, then so is $\O \to \P$.
 \end{lemma}
 \begin{proof}
       We denote the sets of colors by
@@ -3141,13 +3149,15 @@ We can use these cylinder objects to extend the notion of homotopy to $\V$-categ
 We may assemble homotopies in the following manner.
 
 \begin{lemma}
-      Suppose $\V$ has cofibrant symmetric pushout powers and cellular fixed points.
+      Suppose $\V$ is as in Convention \ref{ALLCOLOR_CONV} \footnote{
+        We don't need that the unit is cofibrant.}.
+        % has cofibrant symmetric pushout powers and cellular fixed points.
       Let $h: Z_1 \to Z_2$ in $\V$ be a (trivial) cofibration between cofibrant objects.
       Then $h^{\otimes n}: Z_1^{\otimes n} \to Z_2^{\otimes n}$ is a genuine (trivial) cofibration in $\V^{\Sigma_n}_{gen}$.
 \end{lemma}
 \begin{proof}
       We apply arguments from \cite[Prop. 6.24]{BP_geo} and \cite[Lemma 4.8]{Pe16}).
-      Given composable arrows $Z_0 \xrightarrow{g} Z_1 \xrightarrow{Z_2}$ in $\V$,
+      Given composable arrows $Z_0 \xrightarrow{g} Z_1 \xrightarrow{h} Z_2$ in $\V$,
       we denote by $Q^n(g), Q^n(h)$ the domains of $g^{\square n}, h^{\square n}$.
       There is a filtration of the box product of the composite $(hg)^{\square n}$ by a series of pushouts as on the left below
       \begin{equation}
@@ -3177,7 +3187,7 @@ We may assemble homotopies in the following manner.
       In the zeroth stage \footnote{
         In the language of \cite[Lemma 4.8]{Pe16}, this is the map associated to the subsets
         $T = P_0$ and $\bar T = \sets{e}{e \leq (1,1,\dots,1)}$.}
-      we have the pushout on the left in \eqref{HGBOX_EQ}.
+      we have the pushout on the right in \eqref{HGBOX_EQ}.
       But when $Z_0 = \varnothing$, $Q^n(g) = Q^n(hg) = \varnothing$, and so
       $k_0: \varnothing \to Z_1^{\otimes n}$ and
       \[
@@ -3194,7 +3204,7 @@ We may assemble homotopies in the following manner.
 
 \begin{lemma}
       \label{ASSEM_HOM_LEM}
-      Suppose $\V$ has cofibrant symmetric pushout powers and cellular fixed points, and cofibrant unit.
+      Suppose $\V$ is as in Convention \ref{ALLCOLOR_CONV}. %has cofibrant symmetric pushout powers and cellular fixed points, and cofibrant unit.
       If $\mathbb C$ is a cylinder, then so is each $\left(\mathbb C^{\otimes n}\right)^{\Lambda}$ for all $\Lambda \leq \Sigma_n$.
 \end{lemma}
 \begin{proof}
@@ -3406,7 +3416,7 @@ Following the work of \cite{Cav, BM13}, we make the following definitions.
 \end{definition}
 
 \cite{Cav, BM13} proved the following comparison results,
-where $(1)$ holds if $\V$ is right proper, and $(2)$ holds if $\V$ satisfies ``coherence condition'' \footnote{To be discussed in \S \ref{DK_SEC}.}
+where $(1)$ holds if $\V$ is right proper, and $(2)$ holds if $\V$ satisfies a ``coherence condition'' \footnote{To be discussed in \S \ref{DK_SEC}.}.
 \[
       \begin{tikzcd}[column sep = large]
             \mbox{equivalent}
@@ -3421,8 +3431,7 @@ where $(1)$ holds if $\V$ is right proper, and $(2)$ holds if $\V$ satisfies ``c
       \end{tikzcd}
 \]
 
-
-Similar results will hold equivariantly. For our group $G$, we define the following:
+Analgous results hold equivariantly, as we will show below. For our group $G$, we define the following:
 \begin{definition}
       \label{EQUIVG_DEF}
       Fix $H \leq G$, $\mathcal{C}\in \Cat^G(\V)$, and $a,b\in \mathrm{Ob}(\mathcal{C})^H$.
@@ -3740,9 +3749,9 @@ Now, suppose $d_i$ and $c_i$ are $H_i$-homotopy equivalent.
 We define a new $\mathfrak C$-signature by replacing $c_i$ and all of its ``$\Aut_i(C)$-orbits'' in $C$ with
 the $\Aut_i(C)$-orbit of $d_i$.
 Specifically, let $\lambda \subseteq \langle n \rangle = \set{0,1,2,\dots,n}$ denote the subset of all $j$ such that
-there exists some $(k_j, \sigma_j) \in \Aut(C)$ such that $\sigma_j(i) = j$ (and hence $c_j = k_j c_i$);
+there exists some $(k_j, \sigma_j) \in \Aut(C)$ such that $\sigma_j(i) = j$ (and hence $c_j = k_j c_i$).
 % for each $j \in \lambda$, fix choices of such $(k_j, \sigma_j)$ (with $(k_i,\sigma_i) = (1,1)$).
-Then for all $0 \leq j \leq n$, we define
+Then for all $0 \leq j \leq n$, we define $d_j$ and $D$ by
 \begin{equation}
       \label{DDEF_EQ}
       d_j =
@@ -3759,7 +3768,7 @@ Then for all $0 \leq j \leq n$, we define
       We note that these $d_j$ --- and hence $D$ --- do not depend on the choice of $(k_j,\sigma_j) \in \Aut(C)$:
       If $(k'_j, \sigma'_j) \in \Aut(C)$ also has $\sigma'_j(i) = j$, then
       $(k'_j, \sigma'_j) \cdot (k_j^{-1}, \sigma_j^{-1}) \in \Aut_i(C)$,
-      so $k'_j k_j^{-1} \in \Aut_G(c_i), \Aut_G(d_i)$,
+      so $k'_j k_j^{-1} \in \Aut_G(c_i) \mathop{\cap} \Aut_G(d_i)$,
       and thus $k'_j \cdot d_i = k_j \cdot d_i$.
 \end{remark}
 
@@ -3778,8 +3787,8 @@ Then for all $0 \leq j \leq n$, we define
             in a $\mathfrak C$-colored $G$-operad $\O$,
             the maps
             \begin{equation}
-                  \alpha_j \colon 1_\V \xrightarrow{\alpha} \O(c_i; d_i)^{H_i} \xrightarrow{ k_j \cdot (-) } \O(c_j; d_j)^{H_j}
-                  \qquad
+                  \alpha_j \colon 1_\V \xrightarrow{\alpha} \O(c_i; d_i)^{H_i} \xrightarrow{ k_j \cdot (-) } \O(c_j; d_j)^{H_j},
+                  \qquad \qquad
                   H_j \colon \mathbb C \xrightarrow{H} \O(c_i;c_i)^{H_i} \xrightarrow{k_j \cdot (-)} \O(c_j;c_j)^{H_j}
             \end{equation}
             are well-defined and indepedent of the choice of $(k_j, \sigma_j)$.
@@ -3795,8 +3804,8 @@ Then for all $0 \leq j \leq n$, we define
       \end{enumerate}
 \end{lemma}
 \begin{proof}
-      These all follow more-or-less immediately from the same straightforward calculation:
-      fixing $(h,\pi) \in \Aut(C)$ and $j \in \lambda$, we have
+      These all follow more-or-less immediately from the same straightforward calculation.
+      Fixing $(h,\pi) \in \Aut(C)$ and $j \in \lambda$, we have
       \begin{equation}
             (k_{\pi(j)}^{-1} h k_j, \sigma_{\pi(j)}^{-1} \pi \sigma_j) \in \Aut_i(C),
             \qquad
@@ -3808,7 +3817,7 @@ Then for all $0 \leq j \leq n$, we define
 
 \begin{proposition}[{c.f. \cite[Prop. 4.14]{Cav}, \cite[Prop. 2.12]{BM13}}]
       \label{CAV_4.14_PROP2}
-      Suppose $\V$ has cofibrant symmetric pushout powers and cofibrant unit.
+      Suppose $\V$ is as in Convention \ref{ALLCOLOR_CONV}. %has cofibrant symmetric pushout powers and cofibrant unit.
       Let $\O \in \Op^G(\V)$ with color $G$-set $\mathfrak C$,
       fix a $\mathfrak C$-signature $C = (c_1,\dots, c_n;c_0)$,
       and let $H_i$ be defined as in \eqref{DDEF_EQ}.
@@ -3820,7 +3829,7 @@ Then for all $0 \leq j \leq n$, we define
 \end{proposition}
 \begin{proof}
       Without loss of generality, $i = 1$ or $i = 0$.
-      We start with $i=1$; the case $i = 0$, $D = (c_1, \dots, c_n; d_0)$ will follow by an analogous (and simpler) argument.
+      We only consider $i=1$; the case $i = 0$, $D = (c_1, \dots, c_n; d_0)$ will follow by an analogous (and simpler) argument.
 
       First, we note that using appropriate lifts (and \eqref{FIBFIX_LIFT_EQ}), one can show that if $c$ and $d$ are $H$-homotopy equivalent in $\O$, they are
       homotopy $H$-equivalent in the functorial bifibrant replacement $\O_{fc}$ of $\O$ in $\Op^{G, \mathfrak C(\O)}_{gen}(\V)$,
@@ -3868,7 +3877,7 @@ Then for all $0 \leq j \leq n$, we define
             \qquad
             (\alpha_j \beta_j)_{\**} = (\alpha_j)_{\**} (\beta_j)_{\**} \sim id_{\O(D)^\Gamma}
       \end{equation}
-      in $\V$ for all subgroups $\Gamma \leq \Aut(C)$, via the diagram
+      in $\V$ for all subgroups $\Gamma \leq \Aut(C)$ via the diagram
       \begin{equation}
             \begin{tikzcd}
                   \O(C)^\Gamma \otimes (1_\V \amalg 1_\V) \arrow[d, tail] \arrow[rr, "{((\beta_i)_{\**}(\alpha_i)_{\**}, id)}"]
@@ -4131,7 +4140,7 @@ We can now prove the main result of this subsection.
       [{c.f. \cite[4.15]{Cav}, \cite[2.13]{BM13}}]
       \label{CAV_4.15_PROP}
       \label{2OUTOF3_PROP}
-      Suppose $\V$ has cofibrant symmetric pushout powers, cofibrant unit, and is right proper.
+      Suppose $\V$ is as in Convention \ref{ALLCOLOR_CONV} and additionally is right proper.
       Then for any $(G, \Sigma)$-family $\F$ such that $H \in \F_1$ for all $H \leq G$, %with units,
       the class of weak $\F$-equivalences in $\mathsf{Op}^G(\V)$ satisfies the 2-out-of-3 condition.
 \end{proposition}
@@ -4384,11 +4393,8 @@ This requires another condition on $\V$, namely that the homotopy equivalences a
       while right properness and Lemma \ref{RIGHTPROPER_LEM} imply these are actual $H$-equivalences.
 \end{proof}
 
-\begin{remark}
-      We note that this is a \textit{non-equivariant} condition on $\V$.
-\end{remark}
-
-The coherence axiom has been proven in the literature for many categories:
+We note that this is a \textit{non-equivariant} condition on $\V$.
+It has been proven in the literature for many categories:
 \begin{itemize}      
 \item The notion originated with Boardman-Vogt, who showed it holds for compactly-generated weak Hausdorff spaces $(\Top, \times)$ \cite[Lem. 4.16]{BV73};
 \item Using a generalization of this argument, Berger-Moerdijk showed it holds for any category $\V$ which satisfies transfer for operads, is right proper, and has a cofibrant unit \cite[Prop. 2.24]{BM13}.
@@ -4407,15 +4413,16 @@ We prove it here for simplicial sets and pointed simplicial sets.
 \begin{proof}
       Let $\mathcal C_f \in \Cat(\sSet)$ be (locally) fibrant, and
       suppose $\alpha: \mathbb A \to \mathcal C_f$ realizes a homotopy equivalence.
+      Recall the Quillen equivalence $W_!\colon \sSet_{Kan} \rightleftarrows \Cat(\sSet) \, \colon \! h c N$.
       Then, as $W_!\Delta[1] = [1] = \mathbb A$, we have an adjoint map $\tilde \alpha: \Delta[1] \to h c N \mathcal C$,
       which realizes a quasi-isomorphism in the $\infty$-category $h c N \mathcal C$ since $\Ho(h c N (-)) \simeq \pi_0(-)$ on fibrant objects.
       Since $\Delta[1] \to J = N \I$ is anodyne by \cite[Corollary 1.6]{Joy02} or \cite[Lemma 0.15]{Rie}, 
       $\tilde \alpha$ factors through $J$,
       so the adjoint $\alpha$ factors through $W_!J$.
       The result then follows since $W_!J$ is a $\sSet$-interval:
-      $W_!J$ is cofibrant in $\sCat^{\set{0,1}}$ as we have a factorization $\set{0,1} \to \Delta[1] \to J$,
-      and the counit of the Quillen equivalence $W_!\colon \sSet \rightleftarrows \sCat \ \colon \! h c N$
-      yields a weak equivalence $W_!J \xrightarrow{\simeq} [\tilde 1] = \mathbb I = \mathbb I_f$ in $\sCat^{\set{0,1}}$.
+      $W_!J$ is cofibrant in $\sCat^{\set{0,1}}$ as we have a factorization $\set{0,1} \to \Delta[1] \to J$ and $W_!$ is left Quillen,
+      and the counit of the Quillen equivalence % $W_!\colon \sSet \rightleftarrows \sCat \ \colon \! h c N$
+      yields a weak equivalence $W_!J \xrightarrow{\simeq} [\tilde 1] = \mathbb I = \mathbb I_f$ in $\Cat^{\set{0,1}}(\sSet)$.
       % This weak equivalence also holds sinceSince $J$ is contractible (as it models $S^\infty$), we're done.
 \end{proof}
 
@@ -4494,7 +4501,7 @@ We now have collected all the remaining pieces to prove Theorem \ref{INTRO_MODEL
       \item is a closed monoidal model category with cofibrant unit (e.g. \cite[Prop. 4.2.11]{Hov99});
       \item has cellular fixed points by \cite{Pia91} (see also e.g. \cite[Lemma 3.18]{Ste16});
       \item has cofibrant symmetric pushout powers since geometric realization is left Quillen and strong monoidal;
-      \item is right proper and
+      \item is right proper;
       \item has a generating set of intervals, as all objects are fibrant (see \cite[Lemma 2.1]{BM13}); and
       \item is coherent by \cite[Lem. 4.16]{BV73}.
       \end{enumerate}
@@ -4594,7 +4601,7 @@ We recall the adjunction in question.
       \begin{equation}
             \Omega(T)(e_1, \dots e_n; e_0) =
             \begin{cases}
-                  \** \qquad & \mbox{$e_1e_2\dots e_n \leq e$ is a broad relation \footnote{That is, generates an outer face.} in $T$}T
+                  \** \qquad \qquad \qquad & \mbox{$e_1e_2\dots e_n \leq e$ is a broad relation \footnote{That is, generates an outer face.} in $T$}
                   \\
                   \varnothing & \text{else.}
             \end{cases}
@@ -4603,7 +4610,7 @@ We recall the adjunction in question.
       \[
             \Op(\Set) \leftrightarrows \dSet
       \]
-      and {\color{red} people} \todo{find this} show that this adjunction is Quillen.
+      and \cite[Prop. 2.5]{CM11} show that this adjunction is Quillen.
 
       To enrich this to a Quillen adjunction out of $\sOp$, we need a topological enrichment of this inclusion.     
       Given $T \in \Omega$, 
