@@ -1962,6 +1962,7 @@ First, one lemma.
 
  
 \subsection{The homotopy theory of operads with a fixed color $G$-set}
+\label{MSC_SEC}
 
 We begin our analysis of the homotopy theory of equivariant colored operads by
 considering the subcategories $\Op^{G, \mathfrak C}(\V) \subseteq \Op^G(\V)$
@@ -2071,11 +2072,12 @@ For full generality, we introduce the following terminology.
 
 Extending this discussion to the many-colored setting, we note that
 any $(G,\Sigma)$-family automatically extends to a family for the groupoid $\mathcal D = G \ltimes \Sigma_{\mathfrak C}^{op}$,
-by defining for any $\mathfrak C$-signature $\ksi = (c_1,\dots,c_n;c_0)$ of length $n+1$,
-\[
-      \F_\ksi = \F_n \cap \Aut_{G \times \Sigma_n}(\ksi)
-\]
-the subgroups $\Gamma \in \F_n$ such that $\Gamma \leq \Aut_{G \times \Sigma_n}(\ksi)$.
+by defining for any $\mathfrak C$-signature $C = (c_1,\dots,c_n;c_0)$ of length $n+1$,
+\begin{equation}
+      \label{FAMC_DEF_EQ}
+      \F_C = \F_n \cap \Aut_{G \ltimes \Sigma_{\mathfrak C}}(C)
+\end{equation}
+the subgroups $\Gamma \in \F_n$ such that $\Gamma \leq \Aut_{G \times \Sigma_n}(C)$.
 Applying Proposition \ref{TRANS_MODEL_PROP} induces an $\F$-model structure on the category of $\mathfrak C$-symmetric sequences in $\V$.
 
 \begin{definition}
@@ -2473,17 +2475,8 @@ First, extending \eqref{JSTAR_CAT_EQ}, we have another inclusion-forgetful adjun
 \end{equation}
 where again $j^{\**}$ commutes with $H$-fixed points and fibrant replacement.
 
-Now, recall the notion of a $(G, \Sigma)$-family (with units) from Definition \ref{GSFAM_DEF}.
-% Especially well-behaved indexing families are the \textit{(weak) indexing systems} of \cite{BP_geo},
-% of which the maximal indexing family $\mathrm{Gr} = \set{\mathrm{Gr}_n}$ is one.
-In the many-colored setting, the levels of our operad do not have a full action of $G \times \Sigma_n$, and the $(G, \Sigma)$-family needs to reflect this.
-To that end, for any $(G, \Sigma)$-family $\F = \set{\F_n}$ and all $\mathfrak C$-signatures $C \in G \ltimes \SC^{op}$ of length $n+1$, we define
-$\F_C$ to be
-\[
-      \F_C = \sets{\Gamma \in \F_n}{\Gamma \leq \Aut_{G \ltimes \Sigma_{\mathfrak C}}(C) \leq G \times \Sigma_n}
-\]
-the set of those subgroups which do act on $\O(C)$.
-% all those $\Gamma \in \F_n$ such that $\Gamma \leq \Aut(C)$.
+Now, recall the notion of a $(G, \Sigma)$-family (with units) from Definition \ref{GSFAM_DEF}
+and the extension to the groupoid $G \ltimes \Sigma_{\mathfrak C}^{op}$ in \eqref{FAMC_DEF_EQ}.
 
 
 \begin{definition}
@@ -2815,8 +2808,6 @@ The first of these two results, Proposition \ref{J-CELL_PROP}, uses the followin
       for $F_\alpha$ the (transfinite) composite $\O_0 \to \O_1 \to \dots \to \O_\alpha$,
       the result follows.
 \end{proof}
-
-\todo[inline]{this defn doesn't belong in this spot}
 
 \begin{proposition}
       [{c.f. \cite[4.20]{Cav}}]
@@ -4591,6 +4582,7 @@ We now have collected all the remaining pieces to prove Theorem \ref{INTRO_MODEL
 In this section, we sythensize the above results as well as the results of the related papers \cite{BP_geo,BP_edss,Per_eds},
 to prove the main theorem of this project, Theorem \ref{QE_THM}.
 
+\subsection{The adjunction}
 We recall the adjunction in question.
 \todo[inline]{say more. come back once the paper is organized}
 
@@ -4637,15 +4629,17 @@ We recall the adjunction in question.
       \end{equation}
       The culmination of work by Cisinski-Moerdijk-Weiss \cite{CM13a,CM13b,CM11,MW09,MW07} is that
       this is a Quillen equivalence.
+      
       % Equivalently, given decompositions $T \simeq G \cdot_H U$ and $T \simeq G \cdot U / N$, we have
       % $W(T) \simeq G \cdot_H W(U)$ and $W(T) \simeq G \cdot W(U)/N$.
 \end{definition}
 
-The main goal of this project \cite{BP_geo,BP_edss,Per_eds} is to understand the correct equivariant lifting of this result.
-
 \todo[inline]{the above is garbagio}
 
-To begin, we consider the simplest possible extension.
+\subsection{The equivariant adjunction}
+
+The main goal of this project \cite{BP_geo,BP_edss,Per_eds} is to understand the correct equivariant lifting of this result.
+The construction of the new adjunction is immediate.
 
 \begin{definition}
       Define
@@ -4654,11 +4648,14 @@ To begin, we consider the simplest possible extension.
       \]
       to be the
       extension of the adjunction \eqref{SOPDSET_EQ}
-      given by post-composition with the adjunction $\dSet \rightleftarrows \sOp$.
+      given by post-composition.
 \end{definition}
 \todo[inline]{the above definition is garbage}
 
-While this definition may seem uninspired, the associated homotopy theories are not quite as simplistic.
+While this definition may seem uninspired, the homotopy theories involved are not simplistic, as noted in \S \ref{MSC_SEC} and \S \ref{MS_SEC}.
+
+here!
+
 \todo[inline]{recall the model structures, only so far as are needed below}
 
 \todo[inline]{go over again how the non-equivariant $W_!$ intersects with the equivariant one}
@@ -4678,9 +4675,14 @@ While this definition may seem uninspired, the associated homotopy theories are 
       and so $G/H \cdot i$ is a generating cofibration in $\sOp^G$.
 
       Thus we may assume that $|V(T)| \geq 1$.
-      In this case, $i$ is bijective on objects, and,
-      unless $C = h \cdot \mathsf{lr} (U)$ for some $h \in H$, $i(C)$ is the identity.
-      For $C = \mathsf{lr}(U)$, we have $i(C) = (\partial \Delta[1] \to \Delta[1])^{\square E^i(U)}$ from \cite[Prop. 4.5]{CM11},
+      In this case, $i$ is an isomorphism of object $H$-sets $\mathbf E(U)$,
+      and for any $\mathbf E(U)$-signature $C$,
+      $i(C)$ is the identity unless $C = h \cdot \mathsf{lr} (U)$ for some $h \in H$.
+      For $C = \mathsf{lr}(U)$, we have
+      \[
+            i(C) = (\partial \Delta[1] \to \Delta[1])^{\square E^i(U)}
+      \]
+      from \cite[Prop. 4.5]{CM11},
       and hence $G/H \cdot i(C)$ is a cofibration in $\sSet^G$.
       Thus, $i$ has the left lifting property against all local trivial fibrations in $\sOp^G$.
       {\color{OliveGreen}
