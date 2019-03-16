@@ -2543,8 +2543,7 @@ which constitutes most of the work towards Theorem \ref{INTRO_MODEL_THM}. % (see
       \item is a closed monoidal model category with cofibrant unit
             \footnote{Cofibrant unit also needed for \ref{J-CELL_PROP}.},
       \item has cellular fixed-point functors,
-      \item \label{CSPP_LBL} has cofibrant symmetric pushout powers (Defn. \ref{CSPP_DEF}),
-            \todo{this definition should be moved into Section 3}
+      \item \label{CSPP_LBL} has cofibrant symmetric pushout powers % (Defn. \ref{CSPP_DEF}),
             \footnote{Also needed for Props \ref{CAV_4.14_PROP2}, \ref{J-CELL_PROP}}, % \ref{LOCAL_COF_LEM}            
             % --------------------
       \item \label{RP_LBL} is right proper
@@ -2589,7 +2588,7 @@ which constitutes most of the work towards Theorem \ref{INTRO_MODEL_THM}. % (see
       (1) follows from Proposition \ref{2OUTOF3_PROP} and the fact that if $L$ is a retract of $F$, $L^H$ is a retract of $F^H$.
       (2) follows since colimits in $\mathsf{Op}^G(\V)$ are created in $\Op(\V)$, and it holds non-equivariantly.
       (3) follows from Lemma \ref{CAV_4.8}.
-      (4) follows from Lemma \ref{POINT_4_LEMMA} and Proposition \ref{J-CELL_PROP}.
+      (4) follows from Proposition \ref{J-CELL_PROP}, along with Lemma \ref{POINT_4_LEMMA} and Corollary \ref{LGC_COR}.
 \end{proof}
 
 
@@ -2853,7 +2852,7 @@ The first of these two results, Proposition \ref{J-CELL_PROP}, uses the followin
       We know that $\psi$ is injective on colors and a local isomorphism in $\Op(\V)$,
       and hence so is $G/H \cdot \psi$ in $\Op^G(\V)$.
       Since colimits are created non-equivariantly, and equivariant isomorphisms are detected by invertible equivariant maps,
-      Lemma \ref{LOCALISO_LEM} below implies that $\psi'$ is also a local isomorphism in $\Op^G(\V)$ \footnote{
+      Corollary \ref{LOCALISO_COR} below implies that $\psi'$ is also a local isomorphism in $\Op^G(\V)$ \footnote{
         This also follows from the more general result \cite[Prop. B.22]{Cav},
         and from \cite[Prop. 1.28]{CM13b} in the case $(\V, \otimes) = (\sSet, \times)$.
       }.
@@ -2956,100 +2955,98 @@ The first of these two results, Proposition \ref{J-CELL_PROP}, uses the followin
 
 
 
+{\color{OliveGreen} % ---------------------------------------- OLIVE GREEN ----------------------------------------
+  We end by proving a technical step in the above proof, is greater... something than Corollary \ref{LOCALISO_COR}.
+  \begin{lemma}
+        \label{LOCALISO_LEM}
+        Suppose that we have a pushout in $\Op(\V)$ such that $f,g$ are both injective on colors.
+        \[
+              \begin{tikzcd}
+                    A \arrow[d, "g"'] \arrow[r, "f"]
+                    &
+                    \O \arrow[d]
+                    \\
+                    B \arrow[r]
+                    &
+                    \P
+              \end{tikzcd}
+        \]
+        If $A \to B$ is a local isomorphism, then so is $\O \to \P$.
+  \end{lemma}
+  \begin{proof}
+        We denote the sets of colors by
+        \[
+              \mathfrak C = \mathfrak C(A),
+              \qquad
+              \mathfrak C' = \mathfrak C(B),
+              \qquad
+              \mathfrak D = \mathfrak C(\O),
+              \qquad
+              \mathfrak D' = \mathfrak C(\P),
+        \]
+        and fix a $\mathfrak D$-signature $C$ for the duration of the proof.
+        We will show that $\O(C) \to \P(C)$ is an isomorphism
+        by following the string of natural isomorphisms below:
+        \begin{equation}
+              \label{LOCALISO_EQ}
+              \P(C) =
+              \lim_{\Omega_{\mathfrak D'}^p \downarrow C} N =
+              \lim_{\hat\Omega_{\mathfrak D'}^p \downarrow C} N =
+              \lim_{\hat \Omega_{\mathfrak D}^p \downarrow C} N =
+              \lim_{\hat\Omega_{\mathfrak D}^{B, \O} \downarrow C} N = 
+              \lim_{\hat\Omega_{\mathfrak D}^{A,\O} \downarrow C} N =
+              \lim_{\Omega_{\mathfrak D} \downarrow C} N =
+              \O(C),
+        \end{equation}
+        where $N = N^{(B,A,\O)}$ and it's restrictions.
+        
+        Let us define the sequence of full subcategories of $\Omega_{\mathfrak D}^p$, following Lemma \ref{BASICPUSH LEMMA}, written in \eqref{LOCALISO_EQ}.
+        \begin{itemize}
+        \item Let $\hat \Omega_{\mathfrak D'}^p$
+              be spanned by those trees $\set{B,A,\O}$-labeled trees $T$ in $\Omega_{\mathfrak D'}$ such that
+              if $v \in V(T)$ is $A$-labeled (resp. $B$-labeled, $\O$-labeled), then
+              $T_v \in \Sigma_{\mathfrak C}$ (resp. $\Sigma_{\mathfrak C'}$, $\Sigma_{\mathfrak D}$).
+        \item Let $\hat \Omega_{\mathfrak D}^p \subseteq \hat \Omega_{\mathfrak D'}^p$ be spanned by those objects whose udnerlying colored tree lives in $\Omega_{\mathfrak D} \subseteq \Omega_{\mathfrak D'}$.
+        \item Let $\hat \Omega_{\mathfrak D}^{B,\O} \subseteq \hat \Omega_{\mathfrak D}^p$ be spanned by those objects with no $A$-labeled vertices.
+        \item Let $\hat \Omega_{\mathfrak D}^{A,\O} \subseteq \hat \Omega_{\mathfrak D}^p$ be spanned by those objects with no $B$-labeled vertices.
+        \end{itemize}
 
+        The first two isomorphisms follow by \eqref{NBAO EQ} and the associated discussion in the proof of Lemma \ref{BASICPUSH LEMMA}.
+        
+        Next, given $(T \to C) \in \Omega_{\mathfrak D'}^p \downarrow C$, we note that the roots and leaves of $T$ must in fact be $\mathfrak D$-colored,
+        and thus for all maximal outer faces $U \subseteq T$ whose vertices are all $B$-labeled,
+        the roots and leaves of $U$ must be $\mathfrak C$-colored.
+        Thus if we ``collapse'' all of these subtrees, the resulting tree will not have any colors in $\mathfrak C'$.
+        That is, following a variation on the arguments from \cite[Prop. 5.48, Cor. 5.52]{BP_geo},
+        there exist right retractions
+        \[
+              \hat \Omega_{\mathfrak D'}^{p} \downarrow C \xrightarrow{\mathsf{lr}_B}
+              \hat \Omega_{\mathfrak D'}^{p,a} \downarrow C 
+              =
+              \hat \Omega_{\mathfrak D}^{p,a} \downarrow C \xleftarrow{\mathsf{lr}_B}
+              \hat \Omega_{\mathfrak D}^{p} \downarrow C 
+        \]
+        where $\hat \Omega_{\mathfrak D'}^{p,a} \subseteq \hat \Omega_{\mathfrak D'}^{p}$
+        and $\hat \Omega_{\mathfrak D}^{p,a} \subseteq \hat \Omega_{\mathfrak D}^{p}$
+        are full subcategories spanned by those objects whose underlying tree is alternating with active nodes labeled by $B$ \footnote{
+          More information on this terminology can be found in \cite{BP_geo} near
+          Definitions 5.43, 5.47 and the cited results.}.
+        This gives the third isomorphism in \eqref{LOCALISO_EQ}.
 
-We end by proving a technical step in the above proof.
-\todo[inline]{connect with Luis's work}
-\begin{lemma}
-      \label{LOCALISO_LEM}
-      Suppose that we have a pushout in $\Op(\V)$ such that $f,g$ are both injective on colors.
-      \[
-            \begin{tikzcd}
-                  A \arrow[d, "g"'] \arrow[r, "f"]
-                  &
-                  \O \arrow[d]
-                  \\
-                  B \arrow[r]
-                  &
-                  \P
-            \end{tikzcd}
-      \]
-      If $A \to B$ is a local isomorphism, then so is $\O \to \P$.
-\end{lemma}
-\begin{proof}
-      We denote the sets of colors by
-      \[
-            \mathfrak C = \mathfrak C(A),
-            \qquad
-            \mathfrak C' = \mathfrak C(B),
-            \qquad
-            \mathfrak D = \mathfrak C(\O),
-            \qquad
-            \mathfrak D' = \mathfrak C(\P),
-      \]
-      and fix a $\mathfrak D$-signature $C$ for the duration of the proof.
-      We will show that $\O(C) \to \P(C)$ is an isomorphism
-      by following the string of natural isomorphisms below:
-      \begin{equation}
-            \label{LOCALISO_EQ}
-            \P(C) =
-            \lim_{\Omega_{\mathfrak D'}^p \downarrow C} N =
-            \lim_{\hat\Omega_{\mathfrak D'}^p \downarrow C} N =
-            \lim_{\hat \Omega_{\mathfrak D}^p \downarrow C} N =
-            \lim_{\hat\Omega_{\mathfrak D}^{B, \O} \downarrow C} N = 
-            \lim_{\hat\Omega_{\mathfrak D}^{A,\O} \downarrow C} N =
-            \lim_{\Omega_{\mathfrak D} \downarrow C} N =
-            \O(C),
-      \end{equation}
-      where $N = N^{(B,A,\O)}$ and it's restrictions.
-      
-      Let us define the sequence of full subcategories of $\Omega_{\mathfrak D}^p$, following Lemma \ref{BASICPUSH LEMMA}, written in \eqref{LOCALISO_EQ}.
-      \begin{itemize}
-      \item Let $\hat \Omega_{\mathfrak D'}^p$
-            be spanned by those trees $\set{B,A,\O}$-labeled trees $T$ in $\Omega_{\mathfrak D'}$ such that
-            if $v \in V(T)$ is $A$-labeled (resp. $B$-labeled, $\O$-labeled), then
-            $T_v \in \Sigma_{\mathfrak C}$ (resp. $\Sigma_{\mathfrak C'}$, $\Sigma_{\mathfrak D}$).
-      \item Let $\hat \Omega_{\mathfrak D}^p \subseteq \hat \Omega_{\mathfrak D'}^p$ be spanned by those objects whose udnerlying colored tree lives in $\Omega_{\mathfrak D} \subseteq \Omega_{\mathfrak D'}$.
-      \item Let $\hat \Omega_{\mathfrak D}^{B,\O} \subseteq \hat \Omega_{\mathfrak D}^p$ be spanned by those objects with no $A$-labeled vertices.
-      \item Let $\hat \Omega_{\mathfrak D}^{A,\O} \subseteq \hat \Omega_{\mathfrak D}^p$ be spanned by those objects with no $B$-labeled vertices.
-      \end{itemize}
+        Now, consider the construction $(-)_{A \mapsto B}$ which takes a tree $T \in \hat\Omega_{\mathfrak D}^{p}$
+        and changes all $A$-labels to $B$-labels, so $(T)_{A \mapsto B} \in \hat\Omega_{\mathfrak D}^{B,\O}$.
+        This is functorial on maps which preserve $\O$-labels,
+        those maps $T \to S$ such that if $v \in V(T)$ is $\O$-labeled, then so is every vertex in $S_v$.
+        Moreover, there is a map $(T)_{A \mapsto B} \to T$ for all $T$, natural in such maps.
 
-      The first two isomorphisms follow by \eqref{NBAO EQ} and the associated discussion in the proof of Lemma \ref{BASICPUSH LEMMA}.
-      
-      Next, given $(T \to C) \in \Omega_{\mathfrak D'}^p \downarrow C$, we note that the roots and leaves of $T$ must in fact be $\mathfrak D$-colored,
-      and thus for all maximal outer faces $U \subseteq T$ whose vertices are all $B$-labeled,
-      the roots and leaves of $U$ must be $\mathfrak C$-colored.
-      Thus if we ``collapse'' all of these subtrees, the resulting tree will not have any colors in $\mathfrak C'$.
-      That is, following a variation on the arguments from \cite[Prop. 5.48, Cor. 5.52]{BP_geo},
-      there exist right retractions
-      \[
-            \hat \Omega_{\mathfrak D'}^{p} \downarrow C \xrightarrow{\mathsf{lr}_B}
-            \hat \Omega_{\mathfrak D'}^{p,a} \downarrow C 
-            =
-            \hat \Omega_{\mathfrak D}^{p,a} \downarrow C \xleftarrow{\mathsf{lr}_B}
-            \hat \Omega_{\mathfrak D}^{p} \downarrow C 
-      \]
-      where $\hat \Omega_{\mathfrak D'}^{p,a} \subseteq \hat \Omega_{\mathfrak D'}^{p}$
-      and $\hat \Omega_{\mathfrak D}^{p,a} \subseteq \hat \Omega_{\mathfrak D}^{p}$
-      are full subcategories spanned by those objects whose underlying tree is alternating with active nodes labeled by $B$ \footnote{
-        More information on this terminology can be found in \cite{BP_geo} near
-        Definitions 5.43, 5.47 and the cited results.}.
-      This gives the third isomorphism in \eqref{LOCALISO_EQ}.
-
-      Now, consider the construction $(-)_{A \mapsto B}$ which takes a tree $T \in \hat\Omega_{\mathfrak D}^{p}$
-      and changes all $A$-labels to $B$-labels, so $(T)_{A \mapsto B} \in \hat\Omega_{\mathfrak D}^{B,\O}$.
-      This is functorial on maps which preserve $\O$-labels,
-      those maps $T \to S$ such that if $v \in V(T)$ is $\O$-labeled, then so is every vertex in $S_v$.
-      Moreover, there is a map $(T)_{A \mapsto B} \to T$ for all $T$, natural in such maps.
-
-      We note that any map $T \to S$ with $S \in \hat \Omega_{\mathfrak D}^{B,\O}$ and $T \in \hat\Omega_{\mathfrak D}^p$ factors $T \to T' \to S$ where $T' \to S$ preserves $\O$-labels.
-      Thus, we may follow the proof of \cite[Lemma 5.57]{BP_geo} to show that
-      $\hat\Omega_{\mathfrak D}^{B,\O} \downarrow C$ is initial in $\hat\Omega_{\mathfrak D}^p \downarrow C$, given the fourth isomorphism.
-      
-      Finally, the fifth isomorphism follows as $A \to B$ is a local isomorphism,
-      and the last follows from applying \cite[Prop 5.37]{BP_geo} to the free resolution of $\O$.      
-\end{proof}
-
+        We note that any map $T \to S$ with $S \in \hat \Omega_{\mathfrak D}^{B,\O}$ and $T \in \hat\Omega_{\mathfrak D}^p$ factors $T \to T' \to S$ where $T' \to S$ preserves $\O$-labels.
+        Thus, we may follow the proof of \cite[Lemma 5.57]{BP_geo} to show that
+        $\hat\Omega_{\mathfrak D}^{B,\O} \downarrow C$ is initial in $\hat\Omega_{\mathfrak D}^p \downarrow C$, given the fourth isomorphism.
+        
+        Finally, the fifth isomorphism follows as $A \to B$ is a local isomorphism,
+        and the last follows from applying \cite[Prop 5.37]{BP_geo} to the free resolution of $\O$.      
+  \end{proof}
+} % ---------------------------------------- OLIVE GREEN ----------------------------------------
 
 \subsection{Homotopy in a general model category}
 
@@ -3407,7 +3404,7 @@ Following the work of \cite{Cav, BM13}, we make the following definitions.
 \end{definition}
 
 \cite{Cav, BM13} proved the following comparison results,
-where $(1)$ holds if $\V$ is right proper, and $(2)$ holds if $\V$ satisfies a ``coherence condition'' \footnote{To be discussed in \S \ref{DK_SEC}.}.
+where the bottom arrows hold if $\V$ satisfies the written condition \footnote{The coherence condition will be discussed in \S \ref{DK_SEC}.}.
 \[
       \begin{tikzcd}[column sep = large]
             \mbox{equivalent}
@@ -3415,10 +3412,10 @@ where $(1)$ holds if $\V$ is right proper, and $(2)$ holds if $\V$ satisfies a `
             &
             \mbox{ virtually equivalent}
             \arrow[r, Rightarrow, shift left=2, "\mathrm{always}"]
-            \arrow[l, Rightarrow, shift left = 2, "{(1)}"]
+            \arrow[l, Rightarrow, shift left = 2, "\substack{\mathrm{right} \\ \mathrm{proper}}"]
             &
             \mbox{ homotopy equivalent}
-            \arrow[l, Rightarrow, shift left = 2, "{(2)}"]
+            \arrow[l, Rightarrow, shift left = 2, "\substack{\mathrm{coherence} \\ \mathrm{condition}}"]
       \end{tikzcd}
 \]
 
@@ -3657,7 +3654,7 @@ by restricting to the categories $j^{\**}\O^H$ and using \eqref{FIBFIX_LIFT_EQ}.
 % \end{proof}
 
 The key ideas in the proofs are:
-the stacking of $\V$-intervals forms another $\V$-interval \todo{pushout trick and Cav4.14?},
+the stacking of $\V$-intervals forms another $\V$-interval \todo{pushout trick and Cav4.14 - still need that $\mathbb J_0$ is a cofibrant \textit{monoid}!},
 ``nice'' pullbacks in $\Cat(\V)$ preserve local equivalences which are bijective on objects, and
 the two objects of any $\V$-interval $\mathbb J$ are isomorphic in $\pi_0(\mathbb J)$.
 
@@ -3784,13 +3781,13 @@ Then for all $0 \leq j \leq n$, we define $d_j$ and $D$ by
             \end{equation}
             are well-defined and indepedent of the choice of $(k_j, \sigma_j)$.
       \item For any $\alpha$ and $H$, the maps
-            \begin{gather*}
-                  \otimes_\lambda \alpha_j \colon 1_\V \simeq \otimes_\lambda 1_\V \longto \otimes_\lambda \O(c_j; d_j)^{H_j},
-                  \qquad
-                  \otimes_\lambda H_j \colon \otimes_\lambda \mathbb C \longto \otimes_\lambda \O(c_j;c_j)^{H_j},
-                  \\
-                  (\alpha_j)_{\**} \colon \O(C) \xrightarrow{\otimes_\lambda \alpha_j} \O(C) \otimes \bigotimes_\lambda \O(c_j; d_j)^{H_j} \longto \O(D),
-            \end{gather*}
+            \begin{align*}
+              \otimes_\lambda \alpha_j \colon & 1_\V \simeq \otimes_\lambda 1_\V \longto \otimes_\lambda \O(c_j; d_j)^{H_j},
+              \\
+              \otimes_\lambda H_j \colon & \otimes_\lambda \mathbb C \longto \otimes_\lambda \O(c_j;c_j)^{H_j},
+              \\
+              (\alpha_j)_{\**} \colon & \O(C) \xrightarrow{\otimes_\lambda \alpha_j} \O(C) \otimes \bigotimes_\lambda \O(c_j; d_j)^{H_j} \longto \O(D)
+            \end{align*}
             are $\Aut(C)$-equivariant.
       \end{enumerate}
 \end{lemma}
@@ -4590,10 +4587,11 @@ We recall the adjunction in question.
       Fix $T \in \Omega$.
       The operad $\Omega(T)$ is the free colored operad generated by its edges and vertices
       it has colors $\mathfrak C = \mathbf E(T)$ the set of edges, and
+      for any $\mathbf E(T)$-colored sequence $C$, 
       \begin{equation}
-            \Omega(T)(e_1, \dots e_n; e_0) =
+            \Omega(T)(C) =
             \begin{cases}
-                  \** \qquad \qquad \qquad & \mbox{$e_1e_2\dots e_n \leq e$ is a broad relation \footnote{That is, generates an outer face.} in $T$}
+                  \** \qquad \qquad \qquad & \mbox{There is an injective map of trees $C_n \xrightarrow{\phi} T$ such that $\partial \phi = C$}
                   \\
                   \varnothing & \text{else.}
             \end{cases}
@@ -4603,36 +4601,106 @@ We recall the adjunction in question.
             \Op(\Set) \leftrightarrows \dSet
       \]
       and \cite[Prop. 2.5]{CM11} show that this adjunction is Quillen.
-
-      To enrich this to a Quillen adjunction out of $\sOp$, we need a topological enrichment of this inclusion.     
-      Given $T \in \Omega$, 
-      define $W(T)$ to have the same objects $\mathbf E(T)$ as $\Omega(T)$, and 
-      \begin{equation}
-            W(T)(e_1, e_2, \dots, e_n; e_0) =
-            \begin{cases}
-                  \Delta[1]^{\times \mathbf E^i(T_{\underline e \leq e})}, \qquad & e_1e_2 \dots e_n \leq e \text{ a broad relation}
-                  \\
-                  \varnothing & \text{else,}
-            \end{cases}
-      \end{equation}
-      where $E^i$ is the set of \textit{interior} edges
-      and $T_{e_1\dots e_n \leq e_0}$ is the associated outer face of $T$.
-      This too is functorial $\Omega \into \sOp$, and the associated nerve-realization adjunction
-      defines the \textit{homotopy coherent dendroidal nerve} and the \textit{$W_!$-construction}.
-      \begin{equation}
-            \label{SOPDSET_EQ}
-            \begin{tikzcd}
-                  \sOp \arrow[r, shift right, "hcN"']
-                  &
-                  \dSet \arrow[l, shift right, "W_!"']
-            \end{tikzcd}
-      \end{equation}
-      The culmination of work by Cisinski-Moerdijk-Weiss \cite{CM13a,CM13b,CM11,MW09,MW07} is that
-      this is a Quillen equivalence.
-      
-      % Equivalently, given decompositions $T \simeq G \cdot_H U$ and $T \simeq G \cdot U / N$, we have
-      % $W(T) \simeq G \cdot_H W(U)$ and $W(T) \simeq G \cdot W(U)/N$.
 \end{definition}
+
+To enrich this to a Quillen adjunction out of $\sOp$, we need a topological enrichment of this inclusion.
+We do this by constructing the free simplicial resolution \footnote{
+  Also called the \textit{Godemont} resolution, c.f. \cite[\S 8.3]{BM06}.}
+of $\Omega(T)$ as an algebra in \textit{pointed} $\mathbf E(T)$-colored symmetric sequences $\Sym^{\mathbf E(T)}_{\**}(\Set)$.
+
+\begin{definition}
+      Given a set of colors $\mathfrak C$, let $\eta_{\mathfrak C} = \eta$ denote the initial $\mathfrak C$-colored operad in $\V$,
+      defined for all $\mathfrak C$-sequences $C$ by
+      \[
+            \eta(C) =
+            \begin{cases}
+                  1_\V \qquad \qquad & C = (x;x)
+                  \\
+                  \varnothing & \mbox{else.}
+            \end{cases}
+      \]
+      The category of \textit{pointed} $\mathfrak C$-colored symmetric sequences in $\V$ is the category
+      \[
+            \Sym^{\mathfrak C}_+(\V) := \eta_{\mathfrak C} \downarrow \Sym^{\mathfrak C}(\V).
+      \]
+\end{definition}
+We should think of pointed symmetric sequences as already having identified the "identity" operations in any potential operadic structure.
+Indeed, the monad $\mathbb F^{\mathfrak C}$ factors
+\begin{equation}
+      \label{FC_FAC_EQ}
+      \begin{tikzcd}
+            \Sym^{\mathfrak C}(\V) \arrow[r, shift left, "{(-) \amalg \eta}"]
+            &
+            \Sym^{\mathfrak C}_+(\V) \arrow[l, shift left] \arrow[r, shift left, "\mathbb F^{\mathfrak C}_+"]
+            &
+            \Op^{\mathfrak C}(\V) \arrow[l, shift left]
+      \end{tikzcd}
+\end{equation}
+where $\mathbb F^{\mathfrak C}_+$ is defined on $X \in \Sym^{\mathfrak C}_+(\V)$ to be the pushout in $\Op^{\mathfrak C}(\V)$
+\[
+      \begin{tikzcd}
+            \mathbb F^{\mathfrak C} \eta_{\mathfrak C} \arrow[d] \arrow[r]
+            &
+            \eta_{\mathfrak C} \arrow[d]
+            \\
+            \mathbb F^{\mathfrak C} X \arrow[r]
+            &
+            \mathbb F^{\mathfrak C}_+ X.
+      \end{tikzcd}
+\]
+
+The following observations are straightforward.
+\begin{lemma}
+      $\mathbb F^{\mathfrak C}_+$ is left adjoint to the forgetful functor $\Op^{\mathfrak C}(\V) \to \Sym^{\mathfrak C}_+(\V)$,
+      and \eqref{FC_FAC_EQ} is a factorization of the original free-forgetful adjunction for $\mathbb F^{\mathfrak C}$. 
+\end{lemma}
+
+We can now make the following definition.
+
+\begin{definition}
+      Given $T \in \Omega$, define $W(T)_\bullet \in (\Op^{\mathbf E(T)})^{\Delta^{op}}$ to be the bar construction
+      \[
+            W(T)_n = \left( \mathbb F^{\mathfrak C}_+ \right)^{n+1} \Omega(T),
+      \]
+      with the simplicial maps the monadic unit and monadic multiplication.
+\end{definition}
+
+To unpack this $\mathbf E(T)$-colored operad, we first consider $\mathbb F^{\mathfrak C} \Omega(T)$ and $\mathbb F^{\mathfrak C}_+ \Omega(T)$.
+We observe that $\mathbb F^{\mathfrak C} \Omega(T)(C) = \varnothing$ iff $\Omega(T)(C) = \varnothing$.
+Otherwise, if $C_n \xrightarrow{\phi} T$ is injective such that $\partial \phi = C$, then 
+
+
+
+
+
+here!
+
+Unpacking, we see that $W(T)$ has the same objects $\mathbf E(T)$ as $\Omega(T)$, and 
+\begin{equation}
+      W(T)(e_1, e_2, \dots, e_n; e_0) =
+      \begin{cases}
+            \Delta[1]^{\times \mathbf E^i(T_{\underline e \leq e})}, \qquad & e_1e_2 \dots e_n \leq e \text{ a broad relation}
+            \\
+            \varnothing & \text{else,}
+      \end{cases}
+\end{equation}
+where $E^i$ is the set of \textit{interior} edges
+and $T_{e_1\dots e_n \leq e_0}$ is the associated outer face of $T$.
+This too is functorial $\Omega \into \sOp$, and the associated nerve-realization adjunction
+defines the \textit{homotopy coherent dendroidal nerve} and the \textit{$W_!$-construction}.
+\begin{equation}
+      \label{SOPDSET_EQ}
+      \begin{tikzcd}
+            \sOp \arrow[r, shift right, "hcN"']
+            &
+            \dSet \arrow[l, shift right, "W_!"']
+      \end{tikzcd}
+\end{equation}
+The culmination of work by Cisinski-Moerdijk-Weiss \cite{CM13a,CM13b,CM11,MW09,MW07} is that
+this is a Quillen equivalence.
+
+% Equivalently, given decompositions $T \simeq G \cdot_H U$ and $T \simeq G \cdot U / N$, we have
+% $W(T) \simeq G \cdot_H W(U)$ and $W(T) \simeq G \cdot W(U)/N$.
 
 \todo[inline]{the above is garbagio}
 
@@ -11890,6 +11958,26 @@ This follows by adding to both $A$ and $\mathcal{O}$ a disjoint trivial operad w
 \end{proof}
 
 
+\begin{corollary}
+      \label{LOCALISO_COR}
+      Suppose that we have a pushout in $\Op(\V)$ such that $f,g$ are both injective on colors.
+      \[
+            \begin{tikzcd}
+                  A \arrow[d, "g"'] \arrow[r, "f"]
+                  &
+                  \O \arrow[d]
+                  \\
+                  B \arrow[r]
+                  &
+                  \P
+            \end{tikzcd}
+      \]
+      If $A \to B$ is a local isomorphism, then so is $\O \to \P$.
+\end{corollary}
+\begin{proof}
+      A map $g: A \to B$ is a local isomorphism iff $A \to g^{\**}B$ is an isomorphism in $\Op^{\mathfrak C(A)}(\V)$.
+      Thus the result follows by applying Corollary \ref{FGTPUSH COR} with the notations of $B$ and $\O$ switched.      
+\end{proof}
 
 
 
