@@ -156,6 +156,9 @@ What we need:
 
 
 
+
+
+
 \section{Introduction}
 
 
@@ -11892,7 +11895,7 @@ Our goal in this section is to show that the pullback of a free $\mathfrak{D}$-c
 
 More precisely, our goal is to identify a functor 
 $\widehat{f^{\**}}$ such that the diagram below commutes (up to natural isomorphism).
-\[
+\begin{equation}\label{HATFST EQ}
 \begin{tikzcd}
 	\mathsf{Sym}^{\mathfrak{D}} \ar{r}{\mathbb{F}_{\mathfrak{D}}} \ar[dashed]{d}[swap]{\widehat{f^{\**}}} &
 	\mathsf{Op}^{\mathfrak{D}} \ar{d}{f^{\**}}
@@ -11900,13 +11903,13 @@ $\widehat{f^{\**}}$ such that the diagram below commutes (up to natural isomorph
 	\mathsf{Sym}^{\mathfrak{C}} \ar{r}[swap]{\mathbb{F}_{\mathfrak{C}}} &
 	\mathsf{Op}^{\mathfrak{C}}
 \end{tikzcd}
-\]
+\end{equation}
 We now introduce some notation.
 We will write 
 $\Omega^0_{\mathfrak{C},\mathfrak{D}} \subseteq \Omega^0_{\mathfrak{D}}$
 for the full subcategory of those trees whose root and leaves are labeled by $\mathfrak{C}$.
 One then has that in the diagram below the square is a pullback square.
-\[
+\begin{equation}\label{PULLFREEFREE EQ}
 \begin{tikzcd}
 	\Omega^0_{\mathfrak{C},\mathfrak{D}} \ar{r}{} \ar{d}{} &
 	\Omega^0_{\mathfrak{D}} \ar{d}{} \ar{r} &
@@ -11917,13 +11920,11 @@ One then has that in the diagram below the square is a pullback square.
 	\Sigma_{\mathfrak{C}} \ar{r}[swap]{} &
 	\Sigma_{\mathfrak{D}}
 \end{tikzcd}
-\]
+\end{equation}
 Moreover, since $\Sigma_{\mathfrak{C}} \to \Sigma_{\mathfrak{D}}$ is an inclusion of components, it follows that performing a Kan extension to $\Sigma_{\mathfrak{D}}$ and then restricting to $\Sigma_{\mathfrak{C}}$
 is equivalent to performing the Kan extension of the top composite.
 
 
-
-{\color{red} HERE}
 
 
 We next note that there is a natural map 
@@ -11933,14 +11934,18 @@ $\Omega^{0,\partial}_{\mathfrak{C},\mathfrak{D}}
 \subseteq 
 \Omega^{0}_{\mathfrak{C},\mathfrak{D}}
 $ for the full subcategory mapping to $\Sigma_{\mathfrak{C}}$ under $\partial_{\mathfrak{D} \setminus \mathfrak{C}}$ (more explicitly, elements of $\Omega^{0,\partial}_{\mathfrak{C},\mathfrak{D}}$ are non-stick trees with root and leaves in $\mathfrak{C}$ and inner edges in $\mathfrak{D} \setminus \mathfrak{C}$).
-
-We next note that 
-
-
-\[
+Moreover, noting that for the canonical maps 
+$\partial_{\mathfrak{D} \setminus \mathfrak{C}}(T) \to T$
+the subtrees $T_v$ for $v \in V(\partial_{\mathfrak{D} \setminus \mathfrak{C}}(T))$
+must be in $\Omega^{0,\partial}_{\mathfrak{D}, \mathfrak{C}}$
+one obtains a vertex functor 
+$V \colon \Omega_{\mathfrak{C},\mathfrak{D}}^{0}
+\to \Sigma \wr \Omega_{\mathfrak{C},\mathfrak{D}}^{0,\partial}$.
+One then has a diagram
+\begin{equation}\label{PULLFREEFREE2 EQ}
 \begin{tikzcd}
 	\Omega^0_{\mathfrak{C},\mathfrak{D}} \ar{r}{} \ar{d}[swap]{\partial_{\mathfrak{D} \setminus \mathfrak{C}}} &
-	\Sigma \wr \Sigma_{\mathfrak{C},\mathfrak{D}} \ar{d} \ar{r} &
+	\Sigma \wr \Omega^{0,\partial}_{\mathfrak{C},\mathfrak{D}} \ar{d}[swap]{\partial_{\mathfrak{D} \setminus \mathfrak{C}}} \ar{r} &
 	\Sigma \wr \Sigma \wr \Sigma_{\mathfrak{D}} \ar{r} &
 	\Sigma \wr \Sigma_{\mathfrak{D}} \ar{r} &
 	\Sigma \wr \mathcal{V}^{op} \ar{r} &
@@ -11951,30 +11956,114 @@ We next note that
 \\
 	\Sigma_{\mathfrak{C}}
 \end{tikzcd}
+\end{equation}
+where the top composite is naturally isomorphic to the top composite in 
+\eqref{PULLFREEFREE EQ}, and whose Kan extension can alternatively be computed by first computing the Kan extension
+\begin{equation}\label{HATFST EQ}
+\begin{tikzcd}
+	\Omega_{\mathfrak{C},\mathfrak{D}}^{0,\partial} \ar{r} \ar{d} &
+	\Sigma \wr \Sigma_{\mathfrak{D}} \ar{r}{X} & 
+	\Sigma \wr \mathcal{V}^{op} \ar{r} & 
+	\mathcal{V}^{op}
+\\
+	\Sigma_{\mathfrak{C}} \ar[dashed]{rrru}[swap]{\widehat{f^{\**}}(X)}
+\end{tikzcd}
+\end{equation}
+and then performing the associated Kan extension along 
+$\Omega_{\mathfrak{C}} \to \Sigma_{\mathfrak{C}}$
+in \eqref{PULLFREEFREE2 EQ}.
+Put together, these observations show the desired claim that
+$
+f^{\**} \mathbb{F}_{\mathfrak{D}}(X) \simeq
+\mathbb{F}_{\mathfrak{C}} \widehat{f^{\**}}(X)
+$
+as symmetric sequences.
+
+Checking that this isomorphism agrees with the operad structures requires some extra work, which we now briefly sketch.
+Firstly, to simplify the discussion concerning Kan extensions,
+it is preferable to first prove the analogous result for spans, i.e. that there is 
+$\widehat{f^{\**}_s}$ as in the following analogue of 
+\eqref{HATFST EQ}.
+\begin{equation}\label{HATFSTSP EQ}
+\begin{tikzcd}
+	\mathsf{WSpan}(\Sigma_{\mathfrak{D}},\mathcal{V}^{op})
+	\ar{r}{T_{\mathfrak{D}}} \ar[dashed]{d}[swap]{\widehat{f^{\**}_s}} &
+	\mathsf{Alg}_{T_{\mathfrak{D}}}
+	\ar{d}{f^{\**}_s}
+\\
+	\mathsf{WSpan}(\Sigma_{\mathfrak{C}},\mathcal{V}^{op})
+	\ar{r}{T_{\mathfrak{C}}} &
+	\mathsf{Alg}_{T_{\mathfrak{C}}}
+\end{tikzcd}
+\end{equation}
+Firstly, as a natural adaptation of 
+\eqref{HATFST EQ}
+one defines $\widehat{f^{\**}_s}$
+on the span $\Sigma_{\mathfrak{D}} \rightarrow A \leftarrow \mathcal{V}^{op}$
+to be given by 
+\[
+\begin{tikzcd}
+	\Omega_{\mathfrak{C},\mathfrak{D}}^{0,\partial} \wr A
+	\ar{r} \ar{d} &
+	\Sigma \wr A \ar{r} \ar{d} &
+	\Sigma \wr \mathcal{V}^{op} \ar{r} &
+	\mathcal{V}^{op}
+\\
+	\Omega_{\mathfrak{C},\mathfrak{D}}^{0,\partial}
+	\ar{r} \ar{d} &
+	\Sigma \wr \Sigma_{\mathfrak{D}}
+\\
+	\Sigma_{\mathfrak{C}}
+\end{tikzcd}
 \]
+where the square defining 
+$\Omega^{0,\partial}_{\mathfrak{C},\mathfrak{D}} \wr A$ is a pullback. 
 
-Once given
-$f^{\**} \circ T_{\mathfrak{D}} \simeq 
-T_{\mathfrak{C}} \circ \widehat{f^{\**}}$
-one has
-
+Assuming for the moment that \eqref{HATFSTSP EQ} indeed commutes up to natural isomorphism (i.e. that compatibility with the monad structures as been verified), one then has the string of isomorphisms
 \[
 f^{\**} \circ \mathbb{F}_{\mathfrak{D}} = 
-f^{\**} \circ \mathsf{Lan} \circ T_{\mathfrak{D}} \circ \iota \simeq
-\mathsf{Lan} \circ f^{\**} \circ T_{\mathfrak{D}} \circ \iota \simeq
-\mathsf{Lan} \circ T_{\mathfrak{D}} \circ \widehat{f^{\**}} \circ \iota
+f^{\**} \circ \mathsf{Lan} \circ T_{\mathfrak{D}} \circ \iota \xleftarrow{\simeq}
+\mathsf{Lan} \circ f^{\**}_s \circ T_{\mathfrak{D}} \circ \iota \simeq
+\mathsf{Lan} \circ T_{\mathfrak{C}} \circ \widehat{f^{\**}_s} \circ \iota
 \xleftarrow{\simeq}
-\mathsf{Lan} \circ T_{\mathfrak{D}} \circ \iota \circ \mathsf{Lan}
+\mathsf{Lan} \circ T_{\mathfrak{C}} \circ \iota \circ \mathsf{Lan}
 \circ \widehat{f^{\**}} \circ \iota
 =
-\mathbb{F}_{\mathfrak{D}} \circ \mathsf{Lan}
-\circ \widehat{f^{\**}} \circ \iota
+\mathbb{F}_{\mathfrak{C}} \circ \mathsf{Lan}
+\circ \widehat{f^{\**}_s} \circ \iota
+=
+\mathbb{F}_{\mathfrak{C}}
+\circ \widehat{f^{\**}}
 \]
-
 where the second step follows since 
-$\Sigma_{\mathfrak{C}} \to \Sigma_{\mathfrak{D}}$ is an inclusion of components.
+$\Sigma_{\mathfrak{C}} \to \Sigma_{\mathfrak{D}}$ is an inclusion of components and the fourth step follows
+{\color{green} from the Lemma showing $\mathbb{F}$ is a monad}.
 
+We now tackle the remaining claim of showing that
+\eqref{HATFSTSP EQ} commutes up to isomorphism.
 
+We first need to discuss higher string generalizations of the tree categories 
+$\Omega^{0}_{\mathfrak{C},\mathfrak{D}}$
+and
+$\Omega^{0,\partial}_{\mathfrak{C},\mathfrak{D}}$.
+
+Namely, we define full subcategories 
+$\Omega^{n,\partial}_{\mathfrak{C},\mathfrak{D}}
+\subseteq
+\Omega^{0}_{\mathfrak{C},\mathfrak{D}}
+\subseteq
+\Omega^{n}_{\mathfrak{D}}
+$
+where the objects of 
+$\Omega^{0}_{\mathfrak{C},\mathfrak{D}}$
+are strings $T_0 \to T_1 \to \cdots \to T_n$
+such that $T_k \in \Omega_{\mathfrak{C}}$ for $k<n$
+and the objects of 
+$\Omega^{n,\partial}_{\mathfrak{C},\mathfrak{D}}$
+satisfy the further restriction that
+$T_{k-1}=\partial_{\mathfrak{D} \setminus \mathfrak{C}}(T_k)$.
+
+{\color{red} HERE}
 
 
 \iffalse
