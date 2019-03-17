@@ -766,7 +766,7 @@ of symmetric sequences.
 \subsection{Fibered monads}
 
 
-\begin{definition}
+\begin{definition}\label{FIBMON DEF}
 Given a Grothendieck fibration $p\colon \mathcal{C} \to \mathcal{D}$,
 a \textit{fibered monad} is a monad $T\colon \mathcal{C} \to \mathcal{C}$ such that the diagram below commutes
 \[
@@ -964,7 +964,7 @@ $\mathsf{Fun}(\Sigma_{\mathfrak{C}}^{op},\mathcal{V})$.
 \end{remark}
 
 
-\begin{remark}
+\begin{remark}\label{SUBCATDOWNL REM}
 $\mathsf{Sym}(\mathcal{V})$ is naturally a subcategory of the $2$-overcategory
 $\mathsf{Cat}\downarrow^l \mathcal{V}$.
 \end{remark}
@@ -9819,6 +9819,109 @@ and in $G \ltimes |\mathcal{C}_{\bullet}|$ follow from an action relation.
 
 \appendix
 
+
+\section{Monad for colored operads (Luis)}
+
+
+Our main goal in this appendix is to establish some necessary technical results concerning the category $\mathsf{Op}(\mathcal{V})$ of colored operads.
+
+\subsection{Colored spans}
+
+Our first task is to provide a suitable description of
+$\mathsf{Op}(\mathcal{V})$.
+We will mimic the approach used in \cite{BP_geo},
+by first building a monad on a suitable category of spans, which is then transferred to $\mathsf{Sym}(\mathcal{V})$ along the Kan extension adjunction.
+
+
+
+\begin{definition}
+The category $\mathsf{WSpan}^l(\Sigma_{\bullet}^{op},\mathcal{V})$ has
+\begin{itemize}
+\item objects given by a choice of set of colors $\mathfrak{C}$
+and a span $\Sigma^{op}_{\mathfrak{C}} \leftarrow A^{op} \rightarrow \mathcal{V}$
+\item morphisms given by a choice of a map of colors
+$f \colon \mathfrak{C} \to \mathfrak{D}$
+together with the data in the following diagram
+\begin{equation}\label{COLORSPANMAP EQ}
+\begin{tikzcd}[column sep = 20pt]
+	\Sigma_{\mathfrak{C}}^{op}
+		\ar{d}[swap]{f_{\**}} &
+	A^{op}
+		\ar{r}[name=U,swap]{} \ar{d} \ar{l} &
+	\mathcal{V}	
+\\
+	\Sigma_{\mathfrak{D}}^{op}
+		&
+	|[alias=V]|
+	B^{op} \ar{l}
+		\ar{ru}
+\arrow[Leftarrow, from=V, to=U,shorten >=0.05cm,shorten <=0.05cm]
+\end{tikzcd}
+\end{equation}
+\end{itemize}
+\end{definition}
+
+
+
+\begin{remark}
+By definition there is a forgetful functor
+$\mathsf{WSpan}^l(\Sigma_{\bullet}^{op},\mathcal{V}) \to \mathsf{F}$
+which remembers the set of colors.
+Moreover, one easily checks that this is a Grothendieck fibration, with the cartesian arrows being the diagrams \eqref{COLORSPANMAP EQ} where the square is a pullback square and the natural transformation is an identity.
+\end{remark}
+
+
+
+\begin{remark}
+Given a $\Sigma^{op}_{\mathfrak{C}} \leftarrow A^{op} \rightarrow \mathcal{V}$
+one can the form the left Kan extension
+\[
+\begin{tikzcd}[column sep = 30pt]
+	A^{op}
+		\ar{r}[name=U,swap]{}{F} \ar{d} &
+	\mathcal{V}	
+\\
+	|[alias=V]|
+	\Sigma_{\mathfrak{C}}^{op} 
+		\ar[dashed]{ru}[swap]{\mathsf{Lan} F}
+\arrow[Leftarrow, from=V, to=U,shorten >=0.05cm,shorten <=0.05cm]
+\end{tikzcd}
+\]
+and it is straightforward to check that this defines an adjunction
+\[
+	\mathsf{Lan} \colon
+	\mathsf{WSpan}^l(\Sigma_{\bullet}^{op},\mathcal{V}) 
+\rightleftarrows
+	\mathsf{Sym}(\mathcal{V})
+	\colon \iota
+\]
+where $\iota$ sends $\Sigma^{op}_{\mathfrak{C}} \to \mathcal{V}$ 
+to the span
+$\Sigma^{op}_{\mathfrak{C}} \xleftarrow{=} \Sigma^{op}_{\mathfrak{C}} \to \mathcal{V}$.
+Moreover, it is straightforward to check that this is a fibered adjunction over $\mathsf{F}$, meaning that both functors as well as the adjunction unit and counit are compatible with the projection to $\mathsf{F}$ in the obvious way (cf. Definition \ref{FIBMON DEF}).
+\end{remark}
+
+
+
+\begin{remark}
+One can also define a larger category 
+$\mathsf{WSpan}^l( - ,\mathcal{V})$
+where the categories $\Sigma_{\mathfrak{C}}^{op}$ in the spans (and functors between them) are allowed to be any category (any functor),
+in which case left Kan extension defines an adjunction (cf. Remark \ref{SUBCATDOWNL REM})
+\[
+	\mathsf{Lan} \colon
+	\mathsf{WSpan}^l( - ,\mathcal{V}) 
+\rightleftarrows
+	\mathsf{Cat} \downarrow ^l \mathcal{V}
+	\colon \iota
+\]
+\end{remark}
+
+
+{\color{red} HERE}
+
+
+\newpage
 
 
 \section{Monad for colored operads}
