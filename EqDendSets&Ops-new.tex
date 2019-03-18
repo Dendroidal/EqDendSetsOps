@@ -4574,14 +4574,40 @@ We now have collected all the remaining pieces to prove Theorem \ref{INTRO_MODEL
 
 \newpage
 
-\section{Quillen equivalence}
+\section{Equivariant dendroidal Segal spaces and Segal preoperads}
+
+In this expository section, we recall the features of the model structures discussed in \cite{BP_edss}
+needed in the later sections.
+
+\subsection{Equivariant dendroidal Segal spaces and the joint Bousfield model structure}
+
+
+
+
+\subsection{Segal preoperads}
+
+
+\section{The tame model structure}
+
+In this section, we build an auxiliary model structure on preoperads,
+as well as prove the technical heart of this paper in Proposition \ref{KEYPR PROP},
+the main tool which allows us to show that the nerve $\sOp^G \to \mathsf{PreOp}^G$ is an equivalence of homotopy theories.
+
+
+
+
+\newpage
+
+\section{The Quillen equivalence}
 
 In this section, we sythensize the above results as well as the results of the related papers \cite{BP_geo,BP_edss,Per_eds},
 to prove the main theorem of this project, Theorem \ref{QE_THM}.
 
-\subsection{The adjunction}
+\subsection{The non-equivariant adjunction}
 We recall the adjunction in question.
 \todo[inline]{say more. come back once the paper is organized}
+
+
 
 \begin{definition}
       Fix $T \in \Omega$.
@@ -4591,11 +4617,14 @@ We recall the adjunction in question.
       \begin{equation}
             \Omega(T)(C) =
             \begin{cases}
-                  \** \qquad \qquad \qquad & \mbox{There is an injective map of trees $C_n \xrightarrow{\phi} T$ such that $\partial \phi = C$}
+                  \** \qquad \qquad \qquad & \mbox{there exists $C_n \xrightarrow{\phi} T$ such that $\partial \phi = C$}
                   \\
-                  \varnothing & \text{else.}
+                  \varnothing & \text{else,}
             \end{cases}
       \end{equation}
+      where $\partial \phi$ is the $\mathbf E(T)$-signature $(\phi(1), \phi(2), \dots, \phi(n); \phi(0))$
+      given by the (ordered) image of the edges of $C_n$.
+      \todo[inline]{profile of a map? is this used in other places?}
       This extends to a functor $\Omega \into \Op(\Set)$, and has an associated nerve-realization adjunction
       \[
             \Op(\Set) \leftrightarrows \dSet
@@ -4655,59 +4684,136 @@ The following observations are straightforward.
       and \eqref{FC_FAC_EQ} is a factorization of the original free-forgetful adjunction for $\mathbb F^{\mathfrak C}$. 
 \end{lemma}
 
-We can now make the following definition.
+We can now make the following definition of the $W$-construction.
 
 \begin{definition}
-      Given $T \in \Omega$, define $W(T)_\bullet \in (\Op^{\mathbf E(T)})^{\Delta^{op}}$ to be the bar construction
+      Given $T \in \Omega$, define $W(T)_\bullet \in \Op(\sSet) \subseteq (\Op^{\mathbf E(T)})^{\Delta^{op}}$ to be the bar construction
       \[
-            W(T)_n = \left( \mathbb F^{\mathfrak C}_+ \right)^{n+1} \Omega(T),
+            W(T)_n = \left( \mathbb F^{\mathbf E(T)}_+ \right)^{n+1} \left(\Omega(T)\right),
       \]
       with the simplicial maps the monadic unit and monadic multiplication.
 \end{definition}
 
-To unpack this $\mathbf E(T)$-colored operad, we first consider $\mathbb F^{\mathfrak C} \Omega(T)$ and $\mathbb F^{\mathfrak C}_+ \Omega(T)$.
-We observe that $\mathbb F^{\mathfrak C} \Omega(T)(C) = \varnothing$ iff $\Omega(T)(C) = \varnothing$.
-Otherwise, if $C_n \xrightarrow{\phi} T$ is injective such that $\partial \phi = C$, then 
-
-
-
-
-
-here!
-
-Unpacking, we see that $W(T)$ has the same objects $\mathbf E(T)$ as $\Omega(T)$, and 
+We unpack this $\mathbf E(T)$-colored operad, culminating in \eqref{WT_EQ}.
+First, we consider $\mathbb F^{\mathbf E(T)} \Omega(T)$ and $\mathbb F^{\mathbf E(T)}_+ \Omega(T)$.
+We observe that $\mathbb F^{\mathbf E(T)} \Omega(T)(C) = \varnothing$ iff $\Omega(T)(C) = \varnothing$.
+Otherwise, if $C_n \xrightarrow{\phi} T$ is injective such that $\partial \phi = C$, then
 \begin{equation}
-      W(T)(e_1, e_2, \dots, e_n; e_0) =
+      \label{FET_EQ}
+      \mathbb F^{\mathbf E(T)}\Omega(T)(C)
+      = \set{\mbox{factorizations $C_n \xrightarrow{\psi_0} S_1 \xrightarrow{\psi_1} T$ of $\phi$ with $\psi_0$ tall}}.
+\end{equation}
+We note in particular that neither map in the factorization needs to be injective;
+specifically, for any $e \in \mathbf E(T)$,
+\begin{equation}
+      \label{FET_EE_EQ}
+      \mathbb F^{\mathbf E(T)}\Omega(T)(e;e) = \mathbb Z_{\geq 0}
+\end{equation}
+is in bijection with the set of non-negative integers.
+
+\begin{example}
+      
+\end{example}
+
+Now, $\mathbb F^{\mathbf E(T)}\eta_{\mathbf E(T)}(C) = \varnothing$ unless $C$ is a 1-corolla with both edges colored by the same edge $e \in \mathbf E(T)$;
+in this case, $\mathbb F^{\mathbf E(T)}\eta(C) = \mathbb Z_{\geq 0}$, as in \eqref{FET_EE_EQ}.
+% 
+If we also denote the unit map by $\eta$, we see that the image of
+\[
+      \mathbb F^{\mathbf E(T)}\eta \xrightarrow{\mathbb F^{\mathbf E(T)}\eta} \mathbb F^{\mathbf E(T)} \Omega(T)
+\]
+corresponds to all factorizations from \eqref{FET_EQ} with $S_1$ a linear tree and $\phi$ (and hence $\psi_1$) a degeneracy.
+
+Thus in the pushout $\mathbb F^{\mathbf E(T)}_+\Omega(T)$, all the non-injective operations are identified, and we have
+\begin{align*}
+  \mathbb F^{\mathbf E(T)}_+\Omega(T)(C)
+  & = \set{\mbox{factorizations $C_n \xrightarrow{\psi_0} S_1 \xrightarrow{\psi_1} T$ of $\phi$ with $\psi_1$ injective, $\psi_0$ tall}} \\
+  & = \set{\mbox{inner faces $S$ of $T_{\phi(1 2 \dots n) \leq \phi(0)}$}} \\
+  & = \set{\mbox{subsets $S \subseteq \mathbf E^i(T_{\phi(1 2 \dots n) \leq \phi(0)})$ of inner edges}}    
+\end{align*}
+where $1 2 \dots n \leq 0$ is the vertex of $C_n$ and $T_{\phi(1 2 \dots n) \leq \phi(0)}$ is the associated outer face of $T$.
+
+In a similar fashion,
+% ---------------------------------------- OLIVE GREEN ----------------------------------------
+{\color{OliveGreen} using concatinations of pushout squares of the form
+  \[
+        \begin{tikzcd}
+              \mathbb F^2 \eta \arrow[r] \arrow[d]
+              &
+              \mathbb F \eta \arrow[d] \arrow[r]\
+              &
+              \eta \arrow[d]
+              \\
+              \mathbb F X \arrow[r]
+              &
+              \mathbb F( \mathbb F_+ X) \arrow[r]
+              &
+              \mathbb F_+^2 X,
+        \end{tikzcd}
+  \]
+} % ---------------------------------------- OLIVE GREEN ----------------------------------------
+  we see that
+\begin{align*}
+  \left(\mathbb F^{\mathbf E(T)}\right)^n \Omega(T)(C)
+  & = \set{
+    \begin{array}{l}
+      \mbox{factorizations $C_n \xrightarrow{\psi_0} S_1 \xrightarrow{\psi_1} S_2 \xrightarrow{\psi_2} \dots \xrightarrow{\psi_{n-1}} S_n \xrightarrow{\psi_n} T$}
+      \\
+      \mbox{of $\phi$ with $\psi_i$ tall for $i < n$}
+    \end{array}
+  },
+  \\
+  \left(\mathbb F^{\mathbf E(T)}_+ \right)^2 \Omega(T)(C)
+  & = \set{
+    \begin{array}{l}
+      \mbox{factorizations $C_n \xrightarrow{\psi_0} S_1 \xrightarrow{\psi_1} S_2 \xrightarrow{\psi_2} \dots \xrightarrow{\psi_{n-1}} S_n \xrightarrow{\psi_n} T$}
+      \\
+      \mbox{of $\phi$ with $\psi_i$ injective for $i > 1$ and $\psi_i$ tall for $i < n$}
+    \end{array}
+  }
+  \\
+  &= \set{\mbox{nested subsets $S_1 \subseteq S_2 \subseteq \dots \subseteq S_n \subseteq \mathbf E^i(T_{\phi(1 2 \dots n) \leq \phi(0)})$ of inner edges}}.
+\end{align*}
+
+Finally, for any finite set $A$, we recall that the $n$-simplicies of $\Delta[1]^{\times A}$ correspond to $(n+1)$-strings of nested subsets of $A$.
+Thus we have the following description of $W(T)$:
+
+\begin{equation}
+      \label{WT_EQ}
+      W(T)(C) = 
       \begin{cases}
-            \Delta[1]^{\times \mathbf E^i(T_{\underline e \leq e})}, \qquad & e_1e_2 \dots e_n \leq e \text{ a broad relation}
+            \Delta[1]^{\times \mathbf E^i(T_{\underline e \leq e})}, \qquad & \mbox{there exist $C_n \xrightarrow{\phi} T$ with $\partial \phi = C$}
             \\
             \varnothing & \text{else,}
       \end{cases}
 \end{equation}
-where $E^i$ is the set of \textit{interior} edges
-and $T_{e_1\dots e_n \leq e_0}$ is the associated outer face of $T$.
-This too is functorial $\Omega \into \sOp$, and the associated nerve-realization adjunction
-defines the \textit{homotopy coherent dendroidal nerve} and the \textit{$W_!$-construction}.
-\begin{equation}
-      \label{SOPDSET_EQ}
-      \begin{tikzcd}
-            \sOp \arrow[r, shift right, "hcN"']
-            &
-            \dSet \arrow[l, shift right, "W_!"']
-      \end{tikzcd}
-\end{equation}
-The culmination of work by Cisinski-Moerdijk-Weiss \cite{CM13a,CM13b,CM11,MW09,MW07} is that
-this is a Quillen equivalence.
 
-% Equivalently, given decompositions $T \simeq G \cdot_H U$ and $T \simeq G \cdot U / N$, we have
-% $W(T) \simeq G \cdot_H W(U)$ and $W(T) \simeq G \cdot W(U)/N$.
+It is clear that $W(-)$ is functorial. Thus we have the following definition.
 
-\todo[inline]{the above is garbagio}
+\begin{definition}
+      The \textit{homotopy coherent dendroidal nerve} and the \textit{$W_!$-construction}
+      are the right- and left-adjoints of the nerve-realization adjunction associated to the functor $W: \Omega \into \Op(\sSet)$.
+      \begin{equation}
+            \label{SOPDSET_EQ}
+            \begin{tikzcd}
+                  \sOp \arrow[r, shift right, "hcN"']
+                  &
+                  \dSet \arrow[l, shift right, "W_!"']
+            \end{tikzcd}
+      \end{equation}
+\end{definition}
+The culmination of extnesive work by Cisinski-Moerdijk-Weiss \cite{CM13a,CM13b,CM11,MW09,MW07} is the following.
+
+\begin{theorem}
+      \label{CMW_THM}
+      $hcN$ and $W_!$ form a Quillen equivalence with respect to the model structures
+      which, in particular, are recovered by the $G = \**$ cases of Theorem \ref{MODEL_THM} and \cite[Thm. 2.1]{Per_eds}.
+\end{theorem}
 
 \subsection{The equivariant adjunction}
 
-The main goal of this project \cite{BP_geo,BP_edss,Per_eds} is to understand the correct equivariant lifting of this result.
-The construction of the new adjunction is immediate.
+The main goal of this project \cite{BP_geo,BP_edss,Per_eds} is to understand the correct equivariant lifting of Theorem \ref{CMW_THM}.
+On the one hand, the construction of the new adjunction is immediate.
 
 \begin{definition}
       Define
@@ -4718,9 +4824,14 @@ The construction of the new adjunction is immediate.
       extension of the adjunction \eqref{SOPDSET_EQ}
       given by post-composition.
 \end{definition}
+
+% Equivalently, given decompositions $T \simeq G \cdot_H U$ and $T \simeq G \cdot U / N$, we have
+% $W(T) \simeq G \cdot_H W(U)$ and $W(T) \simeq G \cdot W(U)/N$.
+
+
 \todo[inline]{the above definition is garbage}
 
-While this definition may seem uninspired, the homotopy theories involved are not simplistic, as noted in \S \ref{MSC_SEC} and \S \ref{MS_SEC}.
+On the other hand, the homotopy theories involved are much more involved, as noted in \S \ref{MSC_SEC}, \S \ref{MS_SEC}, and \cite{Per_eds}.
 
 here!
 
