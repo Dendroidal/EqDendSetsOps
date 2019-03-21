@@ -179,7 +179,7 @@ What we need:
       $\mathfrak C$-signatures $\xi$ and
       graph subgroups $\Gamma \leq \Stab(\xi)$.
 
-      More generally, for $\F = \set{\F_n}_{n \geq 0}$ a $(G, \Sigma)$-family with $\F_n$ an \textit{arbitrary} collection of subgroups of $G \times \Sigma_n$,
+      More generally, for $\F = \set{\F_n}_{n \geq 0}$ an \textit{arbitrary} $(G, \Sigma)$-family,
       there exists a model category structure on $\Op^{G, \mathfrak C}(\V)$, which we denote $\Op^{G, \mathfrak C}_\F(\V)$,
       with weak equivalences (resp. fibrations) determined by \eqref{THM1_C_EQ} for $\Gamma \leq (\F_n)_\ksi = \F_n \cap \Aut(\ksi)$.
 
@@ -233,7 +233,7 @@ Here, homotopical essential surjectivity is defined on the underlying categories
       Then there exists a cofibrantly generated model structure on the category $\Op^G(\V)$,
       where weak equivalences are ``graph Dwyer-Kan'' equivalences (see Definition \ref{DK_MODEL_DEF}). 
 
-      More generally, for any indexing family $\F = \set{\F_n}$ with units,
+      More generally, for any $(G, \Sigma)$-family $\F = \set{\F_n}$ with units,
       there exists an ``$\F$-Dwyer-Kan'' model structure on $\Op^G(\V)$.
       weak $\F$-equivalences, $\F$-fibrations, and $\F$-cofibrations defines as in Definition \ref{MODEL_DEFN}.
            
@@ -900,8 +900,9 @@ $\mathsf{Alg}_{T^I}^{p^I}(\mathcal{C}^I)\simeq
 Alternatively, we will find it useful to visualize signatures as \textit{corollas with edges decorated by colors in $\mathfrak{C}$}, as depicted below, so that the maps labeled $\sigma$ interchange the edges of the leftmost tree in such a way that one obtains the colored corolla on the left.
 \[
 \begin{tikzpicture}
-[grow=up,auto,level distance=2.3em,every node/.style = {font=\footnotesize},dummy/.style={circle,draw,inner sep=0pt,minimum size=1.75mm}]
-	\node at (0,0) [font=\normalsize]{}
+      [grow=up,auto,level distance=2.3em,every node/.style = {font=\footnotesize},dummy/.style={circle,draw,inner sep=0pt,minimum size=1.75mm}]
+      
+      \node at (0,0) [font=\normalsize]{}
 		child{node [dummy] {}
 			child{
 			edge from parent node [swap,near end] {$c_n$} node [name=Kn] {}}
@@ -1112,27 +1113,27 @@ one obtains that the monad $\mathbb{F}^G$ applied to
 $X\colon G \ltimes \Sigma_{\mathfrak{C}}^{op} \to \mathcal{V}$
 is the left Kan extension
 \begin{equation}
-\begin{tikzcd}
-	G \ltimes \Omega^{op}_{\mathfrak{C}}
-	\arrow[d, "\mathsf{lr}"']
-	\arrow[r, "V"]
-&
-	(G\ltimes \Sigma \wr \Sigma_{\mathfrak{C}})^{op} \arrow{r}
-	\arrow[dl, Rightarrow]
-&
-	(\Sigma \wr G\ltimes \Sigma_{\mathfrak{C}})^{op} \arrow[r, "X"]
-&
-	(\Sigma \wr \V^{op})^{op} \arrow[r, "\otimes"]
-&
-	\V
-\\
-	G\ltimes\Sigma^{op}_{\mathfrak{C}} \arrow[urrrr, "\Lan = \mathbb F_{\mathfrak{C}}^G X"']
-\end{tikzcd}
+      \label{FGC_EQ}
+      \begin{tikzcd}
+            G \ltimes \Omega^{op}_{\mathfrak{C}}
+            \arrow[d, "\mathsf{lr}"']
+            \arrow[r, "V"]
+            &
+            (G\ltimes \Sigma \wr \Sigma_{\mathfrak{C}})^{op} \arrow{r}
+            \arrow[dl, Rightarrow]
+            &
+            (\Sigma \wr G\ltimes \Sigma_{\mathfrak{C}})^{op} \arrow[r, "X"]
+            &
+            (\Sigma \wr \V^{op})^{op} \arrow[r, "\otimes"]
+            &
+            \V
+            \\
+            G\ltimes\Sigma^{op}_{\mathfrak{C}} \arrow[urrrr, "\Lan = \mathbb F_{\mathfrak{C}}^G X"']
+      \end{tikzcd}
 \end{equation}
 
 {\color{red} HERE}
 
-% \iffalse
 
 \subsection{Symmetric sequences and colored operads}
 
@@ -1965,6 +1966,7 @@ First, one lemma.
 
  
 \subsection{The homotopy theory of operads with a fixed color $G$-set}
+\label{MSC_SEC}
 
 We begin our analysis of the homotopy theory of equivariant colored operads by
 considering the subcategories $\Op^{G, \mathfrak C}(\V) \subseteq \Op^G(\V)$
@@ -2053,8 +2055,10 @@ For full generality, we introduce the following terminology.
 
 \begin{definition}
       \label{GSFAM_DEF}
-      A \textit{$(G, \Sigma)$-family} is a collection $\F = \set{\F_n}_{n \geq 0}$ of families $\F_n$ of subgroups of $G \times \Sigma_n$ \footnote{
+      A \textit{$(G, \Sigma)$-family} is a collection $\F = \set{\F_n}_{n \geq 0}$ of families $\F_n$ of subgroups of $G \times \Sigma_n$.
+      We say $\F$ \textit{has units} if $H \in \F_1$ for all $H \leq G$. \footnote{
         As in \cite{BP_geo} and \cite{BH15}, one often restricts to \textit{$G$-graph families}; see Definition \ref{COR_GGRAPH_DEF}.}.
+      
 \end{definition}
 
 % % ------------------------------ we don't need $G$-graph systems here... everything in this part works for any $(G,\Sigma)$-family ------------------------------
@@ -2072,11 +2076,12 @@ For full generality, we introduce the following terminology.
 
 Extending this discussion to the many-colored setting, we note that
 any $(G,\Sigma)$-family automatically extends to a family for the groupoid $\mathcal D = G \ltimes \Sigma_{\mathfrak C}^{op}$,
-by defining for any $\mathfrak C$-signature $\ksi = (c_1,\dots,c_n;c_0)$ of length $n+1$,
-\[
-      \F_\ksi = \F_n \cap \Aut_{G \times \Sigma_n}(\ksi)
-\]
-the subgroups $\Gamma \in \F_n$ such that $\Gamma \leq \Aut_{G \times \Sigma_n}(\ksi)$.
+by defining for any $\mathfrak C$-signature $C = (c_1,\dots,c_n;c_0)$ of length $n+1$,
+\begin{equation}
+      \label{FAMC_DEF_EQ}
+      \F_C = \F_n \cap \Aut_{G \ltimes \Sigma_{\mathfrak C}}(C)
+\end{equation}
+the subgroups $\Gamma \in \F_n$ such that $\Gamma \leq \Aut_{G \times \Sigma_n}(C)$.
 Applying Proposition \ref{TRANS_MODEL_PROP} induces an $\F$-model structure on the category of $\mathfrak C$-symmetric sequences in $\V$.
 
 \begin{definition}
@@ -2120,10 +2125,20 @@ As in \cite{BP_geo}, we will transfer this model structure along the free-forget
       \Op^{G, \mathfrak C}_\F(\V) \leftrightarrows \Sym^{G, \mathfrak C}_\F: \mathbb F^G_{\mathfrak C}
 \]
 where $\mathbb F^G_{\mathfrak C}$ is the fiber of the cartesian monad $\mathbb F^G$ over $\mathfrak C$,
-described explicitly in {\color{red} diagram in \S 3.2}.
+described explicitly in \eqref{FGC_EQ}.
 
 This transfer will follow much in the same was as in \cite{BP_geo};
 we relegate the technical discussion to Appendix \ref{MONAD_APDX}.
+
+We do recall the necessary additional hypotheses required.
+
+\begin{definition}[{\cite[Defn 6.16]{BP_geo}}]
+      \label{CSPP_DEF}
+      We say a symmetric monoidal model category $\V$ has \textit{cofibrant symmetric pushout powers} if
+      for all (trivial) cofibrations $f$, the pushout product power $f^{\square n}$
+      is a $\Sigma_n$-genuine (trivial) cofibration in $\V^{\Sigma_n}$. 
+\end{definition}
+
 
 % We say $X \to Y \in \Sym^{G, \mathfrak C}(\V)$ is a \textit{level genuine cofibration} if for each $C \in \G \ltimes \SC^{op}$,
 % $X(C) \to Y(C)$ is a genuine cofibration in $\V^{\Aut(C)}$;
@@ -2177,8 +2192,8 @@ we relegate the technical discussion to Appendix \ref{MONAD_APDX}.
 We record a particular step in the proof of Theorem \ref{THM1_C}.
 \begin{corollary}
       \label{LGC_COR}
-      Suppose $\V$ has a cofibrant unit $1_\V$ and has cofibrant symmetric pushout powers.
-      Let $\mathfrak C$ be a $G$-set, and $f: \O \to \P$ a map in $\Op^{G,\mathfrak C}(\V)$.
+      Suppose $\V$ has the hypotheses of Theorem \ref{THM1_C},
+      let $\mathfrak C$ be a $G$-set, and $f: \O \to \P$ a map in $\Op^{G,\mathfrak C}(\V)$.
       If $f$ is a (trivial) cofibration in $\Op^{G, \mathfrak C}_\F(\V)$ for some indexing family $\F$,
       and $\O$ is level genuine cofibrant, then
       $f(C)$ is a genuine (trivial) cofibration in $\V^{\Aut(C)}_{gen}$ for all $\mathfrak C$-signatures $\ksi$.
@@ -2333,10 +2348,13 @@ into a single model structure on the full category of $G$-operads $\Op^G(\V)$ wi
 \end{remark}
 
 \begin{convention}
-      For this section, we assume $\V$ is always a cofibrantly generated closed monoidal model category with cellular fixed points
-      and cofibrant symmetric pushout powers.
+      \label{ALLCOLOR_CONV}
+      For this section, we assume $\V$ is always a cofibrantly generated closed monoidal model category with
+      cofibrant unit, cellular fixed points, and cofibrant symmetric pushout powers.
       In particular, Theorem \ref{THM1_C} and Remark \ref{CATV_MC_REM} imply that $\Cat^{\mathfrak C}(\V)$ is a (semi)-model category for each set $\mathfrak C$,
       and thus in particular has cofibrant replacements.
+
+      We will need to add a small set-theoretic condition below in Convention \ref{GENINT_CONV}.
 \end{convention}
 
 
@@ -2410,7 +2428,7 @@ We recall and extend the following definitions from \cite{BM13}.
       The prototypical example of a $\V$-interval is $J = N(0 \leftrightarrows 1) \in \sSet$ the nerve of the walking isomorphism; see the proof of Proposition \ref{SSET_COH_PROP}.
 \end{remark}
 
-Morally, $\V$-intervals detect ``homotopical isomorphisms'' in any $\V$-cat $\mathcal C$; see Definition \ref{EQUIV_DEF} below.
+Morally, $\V$-intervals detect ``homotopical isomorphisms'' in any $\V$-cat $\mathcal C$; cf. Definition \ref{EQUIV_DEF} below.
 Additionally, we use these $\V$-intervals to define homotopical analogues of isofibrations and surjective maps of $\V$-categories.
 
 \begin{definition}
@@ -2461,18 +2479,8 @@ First, extending \eqref{JSTAR_CAT_EQ}, we have another inclusion-forgetful adjun
 \end{equation}
 where again $j^{\**}$ commutes with $H$-fixed points and fibrant replacement.
 
-Now, recall the notion of a $(G, \Sigma)$-family from Definition \ref{GSFAM_DEF}.
-% Especially well-behaved indexing families are the \textit{(weak) indexing systems} of \cite{BP_geo},
-% of which the maximal indexing family $\mathrm{Gr} = \set{\mathrm{Gr}_n}$ is one.
-In the many-colored setting, the levels of our operad do not have a full action of $G \times \Sigma_n$, and the $(G, \Sigma)$-family needs to reflect this.
-To that end, for any $(G, \Sigma)$-family $\F = \set{\F_n}$ and all $\mathfrak C$-signatures $\ksi \in G \ltimes \SC^{op}$ of length $n+1$, we define
-$\F_\ksi$ to be
-\[
-      \F_\ksi = \sets{\Gamma \in \F_n}{\Gamma \leq \Aut(\ksi)}
-\]
-the set of those subgroups which do act on $\O(\ksi)$.
-\todo[inline]{change $C$ to $\ksi$}
-% all those $\Gamma \in \F_n$ such that $\Gamma \leq \Aut(C)$.
+Now, recall the notion of a $(G, \Sigma)$-family (with units) from Definition \ref{GSFAM_DEF}
+and the extension to the groupoid $G \ltimes \Sigma_{\mathfrak C}^{op}$ in \eqref{FAMC_DEF_EQ}.
 
 
 \begin{definition}
@@ -2493,6 +2501,12 @@ the set of those subgroups which do act on $\O(\ksi)$.
       \item a \textit{(trivial) $\F$-cofibration} if it has the left lifting property against all trivial $\F$-fibrations (resp. $\F$-fibrations).
       \end{itemize}
 \end{definition}
+
+\begin{remark}
+      \label{GRAPHF_REM}
+      If $\F$ is the $(G, \Sigma)$-family composed of all \textit{graph subgroups} $\Gamma \leq G \times \Sigma_n$,
+      we refer to $\F$-equivalences (resp. $\F$-fibrations, etc) as \textit{graph} equivalences (fibrations, etc).
+\end{remark}
 
 % \begin{remark}
 %       If $\V$ has diagonals, then $F \in \Op^G(\V)$ is a $DK$-$\F$-equivalence iff
@@ -2526,8 +2540,8 @@ which constitutes most of the work towards Theorem \ref{INTRO_MODEL_THM}. % (see
 
 \begin{theorem}
       \label{MODEL_THM}
-      Fix an $(G, \Sigma)$-family $\F = \set{\F_n}$ such that $H \in \F_1$ for all $H \leq G$. % with units
-      Let $(\V, \otimes)$ denote either $(\sSet, \times)$ or $(\sSet_{\**}, \wedge)$.
+      Fix a $(G, \Sigma)$-family $\F = \set{\F_n}$ with units,
+      and let $(\V, \otimes)$ denote either $(\sSet, \times)$ or $(\sSet_{\**}, \wedge)$.
       Then there exists a cofibrantly generated model structure on the category $\Op^G(\V)$,
       denoted $\Op^G_\F(\V)$, with
       weak $\F$-equivalences, $\F$-fibrations, and $\F$-cofibrations defined as in Definition \ref{MODEL_DEFN}.
@@ -2539,8 +2553,7 @@ which constitutes most of the work towards Theorem \ref{INTRO_MODEL_THM}. % (see
       \item is a closed monoidal model category with cofibrant unit
             \footnote{Cofibrant unit also needed for \ref{J-CELL_PROP}.},
       \item has cellular fixed-point functors,
-      \item \label{CSPP_LBL} has cofibrant symmetric pushout powers (Defn. \ref{CSPP_DEF}),
-            \todo{this definition should be moved into Section 3}
+      \item \label{CSPP_LBL} has cofibrant symmetric pushout powers % (Defn. \ref{CSPP_DEF}),
             \footnote{Also needed for Props \ref{CAV_4.14_PROP2}, \ref{J-CELL_PROP}}, % \ref{LOCAL_COF_LEM}            
             % --------------------
       \item \label{RP_LBL} is right proper
@@ -2581,11 +2594,11 @@ which constitutes most of the work towards Theorem \ref{INTRO_MODEL_THM}. % (see
       \item $I_{\F}$-inj $= W\cap J_{\F}$-inj; and
       \item $J_{\F}$-cell (with cofibrant source) $\subseteq W\cap I_{\F}$-cof,
       \end{enumerate}
-      where $I\_F$ and $J_\F$ are the sets \eqref{IFJF_EQ} of generating (trivial) cofibrations.
+      where $I_\F$ and $J_\F$ are the sets \eqref{IFJF_EQ} of generating (trivial) cofibrations.
       (1) follows from Proposition \ref{2OUTOF3_PROP} and the fact that if $L$ is a retract of $F$, $L^H$ is a retract of $F^H$.
       (2) follows since colimits in $\mathsf{Op}^G(\V)$ are created in $\Op(\V)$, and it holds non-equivariantly.
       (3) follows from Lemma \ref{CAV_4.8}.
-      (4) follows from Lemma \ref{POINT_4_LEMMA} and Proposition \ref{J-CELL_PROP}.
+      (4) follows from Proposition \ref{J-CELL_PROP}, along with Lemma \ref{POINT_4_LEMMA} and Corollary \ref{LGC_COR}.
 \end{proof}
 
 
@@ -2614,13 +2627,13 @@ We begin with a description of the sets of generating (trivial) cofibrations.
 As expected, these will be freely generated by the generating (trivial) cofibrations of $\V$.
 
 Fix a subgroup $\Gamma \in \F_n$ of $G \times \Sigma_n$,
-and define the $G$-set of colors $\mathfrak C_\Gamma$ and $\mathfrak C_\Gamma$-signature $C_0$
+and define the $G$-set of colors $\mathfrak C_\Gamma$ and $\mathfrak C_\Gamma$-signature $C_0$ by
 \[
       \mathfrak C_\Gamma := \Gamma \backslash (G \times \Sigma_n) \cdot_{\Sigma_n} \underline{n}_+,
       \qquad
       C_0 = ([[e,e],1],[[e,e],2],\dots,[[e,e],n];[[e,e],0]).
 \]
-Let $C_0$ denote the $\mathfrak C_\Gamma$-signature $([[e,e],1],[[e,e],2],\dots,[[e,e],n];[[e,e],0])$.
+% Let $C_0$ denote the $\mathfrak C_\Gamma$-signature $([[e,e],1],[[e,e],2],\dots,[[e,e],n];[[e,e],0])$.
 
 We have a pair of composable free-forgetful adjunctions
 \[
@@ -2632,7 +2645,7 @@ We have a pair of composable free-forgetful adjunctions
             \Op^{G, \mathfrak C}(\V) \arrow[l, shift left]
       \end{tikzcd}
 \]
-where we note that $\Aut_{G, \times \Sigma_n}(C_0)$ is precisely $\Gamma$.
+where we note that $\Aut_{G \ltimes \Sigma_{\mathfrak C_\Gamma}}(C_0)$ is precisely $\Gamma$.
 Let $\mathbb F_\Gamma$ denote the composite of left adjoints.
 % ----------------------------------------------------------------------------------------------------
 % ------------------------------ explicit description of first left adjoint ------------------------------
@@ -2728,6 +2741,7 @@ where $\1$ defined as in Definition \ref{PL_ES_DEFN}, and $\mathbb{G}$ is a gene
 \end{proof}
 
 \begin{lemma}
+      \label{CAV_4.3}
       [{cf. \cite[1.20]{CM13b}, \cite[\S 4.3]{Cav}}]
       $F$ has right lifting against $J_{\F}$ iff $F$ is an $\F$-fibration.
 \end{lemma}
@@ -2763,18 +2777,23 @@ where $\1$ defined as in Definition \ref{PL_ES_DEFN}, and $\mathbb{G}$ is a gene
       Thus $J_\F \subseteq I_\F\mbox{-cof}$, implying the result.
 \end{proof}
 
+\begin{convention}
+      \label{GENINT_CONV}
+      Adding to Convention \ref{ALLCOLOR_CONV}, we will now additionally assume that $\V$ has a generating set of intervals.
+      This is a small condition; in particular, \cite[Lemma 1.12]{BM13} says that this holds for every combinatorial monoidal model category.
+\end{convention}
+
 \subsection{Trivial cofibrations}
 
 Similar to many cases in the literature, the two most difficult steps in the proof of Theorem \ref{MODEL_THM} are showing that
 $J_\F$-cells are weak equivalences, and that weak equivalences satisfy 2-out-of-3.
 We show these results in that order.
 
-The first of these two results, Proposition \ref{J-CELL_PROP}, uses the following lemmas.
+The first of these two results, Proposition \ref{J-CELL_PROP}, uses the following straightforward lemmas.
 
 \begin{lemma}
       \label{TRANSCOMP_ES_LEM}
-      Suppose $\V$ is a monoidal model category.
-      The transfinite composition of essentially surjective maps in $\Op^G(\V)$ is essentially surjective.
+      Transfinite composition of essentially surjective maps in $\Op^G(\V)$ is essentially surjective.
 \end{lemma}
 \begin{proof}
       Since taking fixed points commutes with filtered colimits, they commute with transfinite composition,
@@ -2800,22 +2819,10 @@ The first of these two results, Proposition \ref{J-CELL_PROP}, uses the followin
       the result follows.
 \end{proof}
 
-This result will require an additional hypothesis on the model category $\V$
-that has shown up in the main theorems of both this paper and \cite{BP_geo}.
-
-\todo[inline]{this defn doesn't belong in this spot}
-
-\begin{definition}[{cf. \cite[Defn 6.16]{BP_geo}}]
-      \label{CSPP_DEF}
-      We say a symmetric monoidal model category $\V$ has \textit{cofibrant symmetric pushout powers} if
-      for all (trivial) cofibrations $f$, the pushout product power $f^{\square n}$
-      is a $\Sigma_n$-genuine (trivial) cofibration in $\V^{\Sigma_n}$. 
-\end{definition}
-
 \begin{proposition}
       [{c.f. \cite[4.20]{Cav}}]
       \label{J-CELL_PROP}
-      Suppose $\V$ has a cofibrant unit $1_\V$ and has cofibrant symmetric pushout powers.
+      Suppose $\V$ is as in Convention \ref{ALLCOLOR_CONV}. %has a cofibrant unit $1_\V$ and has cofibrant symmetric pushout powers.
       Then relative $J_{\F}$-cells with locally genuine cofibrant source are weak equivalences.
 \end{proposition}
 \begin{proof}
@@ -2856,7 +2863,7 @@ that has shown up in the main theorems of both this paper and \cite{BP_geo}.
       We know that $\psi$ is injective on colors and a local isomorphism in $\Op(\V)$,
       and hence so is $G/H \cdot \psi$ in $\Op^G(\V)$.
       Since colimits are created non-equivariantly, and equivariant isomorphisms are detected by invertible equivariant maps,
-      Lemma \ref{LOCALISO_LEM} below implies that $\psi'$ is also a local isomorphism in $\Op^G(\V)$ \footnote{
+      Corollary \ref{LOCALISO_COR} below implies that $\psi'$ is also a local isomorphism in $\Op^G(\V)$ \footnote{
         This also follows from the more general result \cite[Prop. B.22]{Cav},
         and from \cite[Prop. 1.28]{CM13b} in the case $(\V, \otimes) = (\sSet, \times)$.
       }.
@@ -2959,101 +2966,98 @@ that has shown up in the main theorems of both this paper and \cite{BP_geo}.
 
 
 
+{\color{OliveGreen} % ---------------------------------------- OLIVE GREEN ----------------------------------------
+  We end by proving a technical step in the above proof, is greater... something than Corollary \ref{LOCALISO_COR}.
+  \begin{lemma}
+        \label{LOCALISO_LEM}
+        Suppose that we have a pushout in $\Op(\V)$ such that $f,g$ are both injective on colors.
+        \[
+              \begin{tikzcd}
+                    A \arrow[d, "g"'] \arrow[r, "f"]
+                    &
+                    \O \arrow[d]
+                    \\
+                    B \arrow[r]
+                    &
+                    \P
+              \end{tikzcd}
+        \]
+        If $A \to B$ is a local isomorphism, then so is $\O \to \P$.
+  \end{lemma}
+  \begin{proof}
+        We denote the sets of colors by
+        \[
+              \mathfrak C = \mathfrak C(A),
+              \qquad
+              \mathfrak C' = \mathfrak C(B),
+              \qquad
+              \mathfrak D = \mathfrak C(\O),
+              \qquad
+              \mathfrak D' = \mathfrak C(\P),
+        \]
+        and fix a $\mathfrak D$-signature $C$ for the duration of the proof.
+        We will show that $\O(C) \to \P(C)$ is an isomorphism
+        by following the string of natural isomorphisms below:
+        \begin{equation}
+              \label{LOCALISO_EQ}
+              \P(C) =
+              \lim_{\Omega_{\mathfrak D'}^p \downarrow C} N =
+              \lim_{\hat\Omega_{\mathfrak D'}^p \downarrow C} N =
+              \lim_{\hat \Omega_{\mathfrak D}^p \downarrow C} N =
+              \lim_{\hat\Omega_{\mathfrak D}^{B, \O} \downarrow C} N = 
+              \lim_{\hat\Omega_{\mathfrak D}^{A,\O} \downarrow C} N =
+              \lim_{\Omega_{\mathfrak D} \downarrow C} N =
+              \O(C),
+        \end{equation}
+        where $N = N^{(B,A,\O)}$ and it's restrictions.
+        
+        Let us define the sequence of full subcategories of $\Omega_{\mathfrak D}^p$, following Lemma \ref{BASICPUSH LEMMA}, written in \eqref{LOCALISO_EQ}.
+        \begin{itemize}
+        \item Let $\hat \Omega_{\mathfrak D'}^p$
+              be spanned by those trees $\set{B,A,\O}$-labeled trees $T$ in $\Omega_{\mathfrak D'}$ such that
+              if $v \in V(T)$ is $A$-labeled (resp. $B$-labeled, $\O$-labeled), then
+              $T_v \in \Sigma_{\mathfrak C}$ (resp. $\Sigma_{\mathfrak C'}$, $\Sigma_{\mathfrak D}$).
+        \item Let $\hat \Omega_{\mathfrak D}^p \subseteq \hat \Omega_{\mathfrak D'}^p$ be spanned by those objects whose udnerlying colored tree lives in $\Omega_{\mathfrak D} \subseteq \Omega_{\mathfrak D'}$.
+        \item Let $\hat \Omega_{\mathfrak D}^{B,\O} \subseteq \hat \Omega_{\mathfrak D}^p$ be spanned by those objects with no $A$-labeled vertices.
+        \item Let $\hat \Omega_{\mathfrak D}^{A,\O} \subseteq \hat \Omega_{\mathfrak D}^p$ be spanned by those objects with no $B$-labeled vertices.
+        \end{itemize}
 
+        The first two isomorphisms follow by \eqref{NBAO EQ} and the associated discussion in the proof of Lemma \ref{BASICPUSH LEMMA}.
+        
+        Next, given $(T \to C) \in \Omega_{\mathfrak D'}^p \downarrow C$, we note that the roots and leaves of $T$ must in fact be $\mathfrak D$-colored,
+        and thus for all maximal outer faces $U \subseteq T$ whose vertices are all $B$-labeled,
+        the roots and leaves of $U$ must be $\mathfrak C$-colored.
+        Thus if we ``collapse'' all of these subtrees, the resulting tree will not have any colors in $\mathfrak C'$.
+        That is, following a variation on the arguments from \cite[Prop. 5.48, Cor. 5.52]{BP_geo},
+        there exist right retractions
+        \[
+              \hat \Omega_{\mathfrak D'}^{p} \downarrow C \xrightarrow{\mathsf{lr}_B}
+              \hat \Omega_{\mathfrak D'}^{p,a} \downarrow C 
+              =
+              \hat \Omega_{\mathfrak D}^{p,a} \downarrow C \xleftarrow{\mathsf{lr}_B}
+              \hat \Omega_{\mathfrak D}^{p} \downarrow C 
+        \]
+        where $\hat \Omega_{\mathfrak D'}^{p,a} \subseteq \hat \Omega_{\mathfrak D'}^{p}$
+        and $\hat \Omega_{\mathfrak D}^{p,a} \subseteq \hat \Omega_{\mathfrak D}^{p}$
+        are full subcategories spanned by those objects whose underlying tree is alternating with active nodes labeled by $B$ \footnote{
+          More information on this terminology can be found in \cite{BP_geo} near
+          Definitions 5.43, 5.47 and the cited results.}.
+        This gives the third isomorphism in \eqref{LOCALISO_EQ}.
 
-We end by proving a technical step in the above proof.
-\todo[inline]{connect with Luis's work}
-\begin{lemma}
-      \label{LOCALISO_LEM}
-      Suppose that we have a pushout in $\Op(\V)$ such that $f,g$ are both injective on colors.
-      \[
-            \begin{tikzcd}
-                  A \arrow[d, "g"'] \arrow[r, "f"]
-                  &
-                  \O \arrow[d]
-                  \\
-                  B \arrow[r]
-                  &
-                  \P
-            \end{tikzcd}
-      \]
-      Suppose $A \to B$ is a local isomorphism.
-      Then so is $\O \to \P$.
-\end{lemma}
-\begin{proof}
-      We denote the sets of colors by
-      \[
-            \mathfrak C = \mathfrak C(A),
-            \qquad
-            \mathfrak C' = \mathfrak C(B),
-            \qquad
-            \mathfrak D = \mathfrak C(\O),
-            \qquad
-            \mathfrak D' = \mathfrak C(\P),
-      \]
-      and fix a $\mathfrak D$-signature $C$ for the duration of the proof.
-      We will show that $\O(C) \to \P(C)$ is an isomorphism
-      by following the string of natural isomorphisms below:
-      \begin{equation}
-            \label{LOCALISO_EQ}
-            \P(C) =
-            \lim_{\Omega_{\mathfrak D'}^p \downarrow C} N =
-            \lim_{\hat\Omega_{\mathfrak D'}^p \downarrow C} N =
-            \lim_{\hat \Omega_{\mathfrak D}^p \downarrow C} N =
-            \lim_{\hat\Omega_{\mathfrak D}^{B, \O} \downarrow C} N = 
-            \lim_{\hat\Omega_{\mathfrak D}^{A,\O} \downarrow C} N =
-            \lim_{\Omega_{\mathfrak D} \downarrow C} N =
-            \O(C),
-      \end{equation}
-      where $N = N^{(B,A,\O)}$ and it's restrictions.
-      
-      Let us define the sequence of full subcategories of $\Omega_{\mathfrak D}^p$, following Lemma \ref{BASICPUSH LEMMA}, written in \eqref{LOCALISO_EQ}.
-      \begin{itemize}
-      \item Let $\hat \Omega_{\mathfrak D'}^p$
-            be spanned by those trees $\set{B,A,\O}$-labeled trees $T$ in $\Omega_{\mathfrak D'}$ such that
-            if $v \in V(T)$ is $A$-labeled (resp. $B$-labeled, $\O$-labeled), then
-            $T_v \in \Sigma_{\mathfrak C}$ (resp. $\Sigma_{\mathfrak C'}$, $\Sigma_{\mathfrak D}$).
-      \item Let $\hat \Omega_{\mathfrak D}^p \subseteq \hat \Omega_{\mathfrak D'}^p$ be spanned by those objects whose udnerlying colored tree lives in $\Omega_{\mathfrak D} \subseteq \Omega_{\mathfrak D'}$.
-      \item Let $\hat \Omega_{\mathfrak D}^{B,\O} \subseteq \hat \Omega_{\mathfrak D}^p$ be spanned by those objects with no $A$-labeled vertices.
-      \item Let $\hat \Omega_{\mathfrak D}^{A,\O} \subseteq \hat \Omega_{\mathfrak D}^p$ be spanned by those objects with no $B$-labeled vertices.
-      \end{itemize}
+        Now, consider the construction $(-)_{A \mapsto B}$ which takes a tree $T \in \hat\Omega_{\mathfrak D}^{p}$
+        and changes all $A$-labels to $B$-labels, so $(T)_{A \mapsto B} \in \hat\Omega_{\mathfrak D}^{B,\O}$.
+        This is functorial on maps which preserve $\O$-labels,
+        those maps $T \to S$ such that if $v \in V(T)$ is $\O$-labeled, then so is every vertex in $S_v$.
+        Moreover, there is a map $(T)_{A \mapsto B} \to T$ for all $T$, natural in such maps.
 
-      The first two isomorphisms follow by \eqref{NBAO EQ} and the associated discussion in the proof of Lemma \ref{BASICPUSH LEMMA}.
-      
-      Next, given $(T \to C) \in \Omega_{\mathfrak D'}^p \downarrow C$, we note that the roots and leaves of $T$ must in fact be $\mathfrak D$-colored,
-      and thus for all maximal outer faces $U \subseteq T$ whose vertices are all $B$-labeled,
-      the roots and leaves of $U$ must be $\mathfrak C$-colored.
-      Thus if we ``collapse'' all of these subtrees, the resulting tree will not have any colors in $\mathfrak C'$.
-      That is, following a variation on the arguments from \cite[Prop. 5.48, Cor. 5.52]{BP_geo},
-      there exist right retractions
-      \[
-            \hat \Omega_{\mathfrak D'}^{p} \downarrow C \xrightarrow{\mathsf{lr}_B}
-            \hat \Omega_{\mathfrak D'}^{p,a} \downarrow C 
-            =
-            \hat \Omega_{\mathfrak D}^{p,a} \downarrow C \xleftarrow{\mathsf{lr}_B}
-            \hat \Omega_{\mathfrak D}^{p} \downarrow C 
-      \]
-      where $\hat \Omega_{\mathfrak D'}^{p,a} \subseteq \hat \Omega_{\mathfrak D'}^{p}$
-      and $\hat \Omega_{\mathfrak D}^{p,a} \subseteq \hat \Omega_{\mathfrak D}^{p}$
-      are full subcategories spanned by those objects whose underlying tree is alternating with active nodes labeled by $B$ \footnote{
-        More information on this terminology can be found in \cite{BP_geo} near
-        Definitions 5.43, 5.47 and the cited results.}.
-      This gives the third isomorphism in \eqref{LOCALISO_EQ}.
-
-      Now, consider the construction $(-)_{A \mapsto B}$ which takes a tree $T \in \hat\Omega_{\mathfrak D}^{p}$
-      and changes all $A$-labels to $B$-labels, so $(T)_{A \mapsto B} \in \hat\Omega_{\mathfrak D}^{B,\O}$.
-      This is functorial on maps which preserve $\O$-labels,
-      those maps $T \to S$ such that if $v \in V(T)$ is $\O$-labeled, then so is every vertex in $S_v$.
-      Moreover, there is a map $(T)_{A \mapsto B} \to T$ for all $T$, natural in such maps.
-
-      We note that any map $T \to S$ with $S \in \hat \Omega_{\mathfrak D}^{B,\O}$ and $T \in \hat\Omega_{\mathfrak D}^p$ factors $T \to T' \to S$ where $T' \to S$ preserves $\O$-labels.
-      Thus, we may follow the proof of \cite[Lemma 5.57]{BP_geo} to show that
-      $\hat\Omega_{\mathfrak D}^{B,\O} \downarrow C$ is initial in $\hat\Omega_{\mathfrak D}^p \downarrow C$, given the fourth isomorphism.
-      
-      Finally, the fifth isomorphism follows as $A \to B$ is a local isomorphism,
-      and the last follows from applying \cite[Prop 5.37]{BP_geo} to the free resolution of $\O$.      
-\end{proof}
-
+        We note that any map $T \to S$ with $S \in \hat \Omega_{\mathfrak D}^{B,\O}$ and $T \in \hat\Omega_{\mathfrak D}^p$ factors $T \to T' \to S$ where $T' \to S$ preserves $\O$-labels.
+        Thus, we may follow the proof of \cite[Lemma 5.57]{BP_geo} to show that
+        $\hat\Omega_{\mathfrak D}^{B,\O} \downarrow C$ is initial in $\hat\Omega_{\mathfrak D}^p \downarrow C$, given the fourth isomorphism.
+        
+        Finally, the fifth isomorphism follows as $A \to B$ is a local isomorphism,
+        and the last follows from applying \cite[Prop 5.37]{BP_geo} to the free resolution of $\O$.      
+  \end{proof}
+} % ---------------------------------------- OLIVE GREEN ----------------------------------------
 
 \subsection{Homotopy in a general model category}
 
@@ -3144,13 +3148,15 @@ We can use these cylinder objects to extend the notion of homotopy to $\V$-categ
 We may assemble homotopies in the following manner.
 
 \begin{lemma}
-      Suppose $\V$ has cofibrant symmetric pushout powers and cellular fixed points.
+      Suppose $\V$ is as in Convention \ref{ALLCOLOR_CONV} \footnote{
+        We don't need that the unit is cofibrant.}.
+        % has cofibrant symmetric pushout powers and cellular fixed points.
       Let $h: Z_1 \to Z_2$ in $\V$ be a (trivial) cofibration between cofibrant objects.
       Then $h^{\otimes n}: Z_1^{\otimes n} \to Z_2^{\otimes n}$ is a genuine (trivial) cofibration in $\V^{\Sigma_n}_{gen}$.
 \end{lemma}
 \begin{proof}
       We apply arguments from \cite[Prop. 6.24]{BP_geo} and \cite[Lemma 4.8]{Pe16}).
-      Given composable arrows $Z_0 \xrightarrow{g} Z_1 \xrightarrow{Z_2}$ in $\V$,
+      Given composable arrows $Z_0 \xrightarrow{g} Z_1 \xrightarrow{h} Z_2$ in $\V$,
       we denote by $Q^n(g), Q^n(h)$ the domains of $g^{\square n}, h^{\square n}$.
       There is a filtration of the box product of the composite $(hg)^{\square n}$ by a series of pushouts as on the left below
       \begin{equation}
@@ -3180,7 +3186,7 @@ We may assemble homotopies in the following manner.
       In the zeroth stage \footnote{
         In the language of \cite[Lemma 4.8]{Pe16}, this is the map associated to the subsets
         $T = P_0$ and $\bar T = \sets{e}{e \leq (1,1,\dots,1)}$.}
-      we have the pushout on the left in \eqref{HGBOX_EQ}.
+      we have the pushout on the right in \eqref{HGBOX_EQ}.
       But when $Z_0 = \varnothing$, $Q^n(g) = Q^n(hg) = \varnothing$, and so
       $k_0: \varnothing \to Z_1^{\otimes n}$ and
       \[
@@ -3197,7 +3203,7 @@ We may assemble homotopies in the following manner.
 
 \begin{lemma}
       \label{ASSEM_HOM_LEM}
-      Suppose $\V$ has cofibrant symmetric pushout powers and cellular fixed points, and cofibrant unit.
+      Suppose $\V$ is as in Convention \ref{ALLCOLOR_CONV}. %has cofibrant symmetric pushout powers and cellular fixed points, and cofibrant unit.
       If $\mathbb C$ is a cylinder, then so is each $\left(\mathbb C^{\otimes n}\right)^{\Lambda}$ for all $\Lambda \leq \Sigma_n$.
 \end{lemma}
 \begin{proof}
@@ -3409,7 +3415,7 @@ Following the work of \cite{Cav, BM13}, we make the following definitions.
 \end{definition}
 
 \cite{Cav, BM13} proved the following comparison results,
-where $(1)$ holds if $\V$ is right proper, and $(2)$ holds if $\V$ satisfies ``coherence condition'' \footnote{To be discussed in \S \ref{DK_SEC}.}
+where the bottom arrows hold if $\V$ satisfies the written condition \footnote{The coherence condition will be discussed in \S \ref{DK_SEC}.}.
 \[
       \begin{tikzcd}[column sep = large]
             \mbox{equivalent}
@@ -3417,15 +3423,14 @@ where $(1)$ holds if $\V$ is right proper, and $(2)$ holds if $\V$ satisfies ``c
             &
             \mbox{ virtually equivalent}
             \arrow[r, Rightarrow, shift left=2, "\mathrm{always}"]
-            \arrow[l, Rightarrow, shift left = 2, "{(1)}"]
+            \arrow[l, Rightarrow, shift left = 2, "\substack{\mathrm{right} \\ \mathrm{proper}}"]
             &
             \mbox{ homotopy equivalent}
-            \arrow[l, Rightarrow, shift left = 2, "{(2)}"]
+            \arrow[l, Rightarrow, shift left = 2, "\substack{\mathrm{coherence} \\ \mathrm{condition}}"]
       \end{tikzcd}
 \]
 
-
-Similar results will hold equivariantly. For our group $G$, we define the following:
+Analgous results hold equivariantly, as we will show below. For our group $G$, we define the following:
 \begin{definition}
       \label{EQUIVG_DEF}
       Fix $H \leq G$, $\mathcal{C}\in \Cat^G(\V)$, and $a,b\in \mathrm{Ob}(\mathcal{C})^H$.
@@ -3660,7 +3665,7 @@ by restricting to the categories $j^{\**}\O^H$ and using \eqref{FIBFIX_LIFT_EQ}.
 % \end{proof}
 
 The key ideas in the proofs are:
-the stacking of $\V$-intervals forms another $\V$-interval \todo{pushout trick and Cav4.14?},
+the stacking of $\V$-intervals forms another $\V$-interval \todo{pushout trick and Cav4.14 - still need that $\mathbb J_0$ is a cofibrant \textit{monoid}!},
 ``nice'' pullbacks in $\Cat(\V)$ preserve local equivalences which are bijective on objects, and
 the two objects of any $\V$-interval $\mathbb J$ are isomorphic in $\pi_0(\mathbb J)$.
 
@@ -3743,9 +3748,9 @@ Now, suppose $d_i$ and $c_i$ are $H_i$-homotopy equivalent.
 We define a new $\mathfrak C$-signature by replacing $c_i$ and all of its ``$\Aut_i(C)$-orbits'' in $C$ with
 the $\Aut_i(C)$-orbit of $d_i$.
 Specifically, let $\lambda \subseteq \langle n \rangle = \set{0,1,2,\dots,n}$ denote the subset of all $j$ such that
-there exists some $(k_j, \sigma_j) \in \Aut(C)$ such that $\sigma_j(i) = j$ (and hence $c_j = k_j c_i$);
+there exists some $(k_j, \sigma_j) \in \Aut(C)$ such that $\sigma_j(i) = j$ (and hence $c_j = k_j c_i$).
 % for each $j \in \lambda$, fix choices of such $(k_j, \sigma_j)$ (with $(k_i,\sigma_i) = (1,1)$).
-Then for all $0 \leq j \leq n$, we define
+Then for all $0 \leq j \leq n$, we define $d_j$ and $D$ by
 \begin{equation}
       \label{DDEF_EQ}
       d_j =
@@ -3762,7 +3767,7 @@ Then for all $0 \leq j \leq n$, we define
       We note that these $d_j$ --- and hence $D$ --- do not depend on the choice of $(k_j,\sigma_j) \in \Aut(C)$:
       If $(k'_j, \sigma'_j) \in \Aut(C)$ also has $\sigma'_j(i) = j$, then
       $(k'_j, \sigma'_j) \cdot (k_j^{-1}, \sigma_j^{-1}) \in \Aut_i(C)$,
-      so $k'_j k_j^{-1} \in \Aut_G(c_i), \Aut_G(d_i)$,
+      so $k'_j k_j^{-1} \in \Aut_G(c_i) \mathop{\cap} \Aut_G(d_i)$,
       and thus $k'_j \cdot d_i = k_j \cdot d_i$.
 \end{remark}
 
@@ -3781,25 +3786,25 @@ Then for all $0 \leq j \leq n$, we define
             in a $\mathfrak C$-colored $G$-operad $\O$,
             the maps
             \begin{equation}
-                  \alpha_j \colon 1_\V \xrightarrow{\alpha} \O(c_i; d_i)^{H_i} \xrightarrow{ k_j \cdot (-) } \O(c_j; d_j)^{H_j}
-                  \qquad
+                  \alpha_j \colon 1_\V \xrightarrow{\alpha} \O(c_i; d_i)^{H_i} \xrightarrow{ k_j \cdot (-) } \O(c_j; d_j)^{H_j},
+                  \qquad \qquad
                   H_j \colon \mathbb C \xrightarrow{H} \O(c_i;c_i)^{H_i} \xrightarrow{k_j \cdot (-)} \O(c_j;c_j)^{H_j}
             \end{equation}
             are well-defined and indepedent of the choice of $(k_j, \sigma_j)$.
       \item For any $\alpha$ and $H$, the maps
-            \begin{gather*}
-                  \otimes_\lambda \alpha_j \colon 1_\V \simeq \otimes_\lambda 1_\V \longto \otimes_\lambda \O(c_j; d_j)^{H_j},
-                  \qquad
-                  \otimes_\lambda H_j \colon \otimes_\lambda \mathbb C \longto \otimes_\lambda \O(c_j;c_j)^{H_j},
-                  \\
-                  (\alpha_j)_{\**} \colon \O(C) \xrightarrow{\otimes_\lambda \alpha_j} \O(C) \otimes \bigotimes_\lambda \O(c_j; d_j)^{H_j} \longto \O(D),
-            \end{gather*}
+            \begin{align*}
+              \otimes_\lambda \alpha_j \colon & 1_\V \simeq \otimes_\lambda 1_\V \longto \otimes_\lambda \O(c_j; d_j)^{H_j},
+              \\
+              \otimes_\lambda H_j \colon & \otimes_\lambda \mathbb C \longto \otimes_\lambda \O(c_j;c_j)^{H_j},
+              \\
+              (\alpha_j)_{\**} \colon & \O(C) \xrightarrow{\otimes_\lambda \alpha_j} \O(C) \otimes \bigotimes_\lambda \O(c_j; d_j)^{H_j} \longto \O(D)
+            \end{align*}
             are $\Aut(C)$-equivariant.
       \end{enumerate}
 \end{lemma}
 \begin{proof}
-      These all follow more-or-less immediately from the same straightforward calculation:
-      fixing $(h,\pi) \in \Aut(C)$ and $j \in \lambda$, we have
+      These all follow more-or-less immediately from the same straightforward calculation.
+      Fixing $(h,\pi) \in \Aut(C)$ and $j \in \lambda$, we have
       \begin{equation}
             (k_{\pi(j)}^{-1} h k_j, \sigma_{\pi(j)}^{-1} \pi \sigma_j) \in \Aut_i(C),
             \qquad
@@ -3811,7 +3816,7 @@ Then for all $0 \leq j \leq n$, we define
 
 \begin{proposition}[{c.f. \cite[Prop. 4.14]{Cav}, \cite[Prop. 2.12]{BM13}}]
       \label{CAV_4.14_PROP2}
-      Suppose $\V$ has cofibrant symmetric pushout powers and cofibrant unit.
+      Suppose $\V$ is as in Convention \ref{ALLCOLOR_CONV}. %has cofibrant symmetric pushout powers and cofibrant unit.
       Let $\O \in \Op^G(\V)$ with color $G$-set $\mathfrak C$,
       fix a $\mathfrak C$-signature $C = (c_1,\dots, c_n;c_0)$,
       and let $H_i$ be defined as in \eqref{DDEF_EQ}.
@@ -3823,7 +3828,7 @@ Then for all $0 \leq j \leq n$, we define
 \end{proposition}
 \begin{proof}
       Without loss of generality, $i = 1$ or $i = 0$.
-      We start with $i=1$; the case $i = 0$, $D = (c_1, \dots, c_n; d_0)$ will follow by an analogous (and simpler) argument.
+      We only consider $i=1$; the case $i = 0$, $D = (c_1, \dots, c_n; d_0)$ will follow by an analogous (and simpler) argument.
 
       First, we note that using appropriate lifts (and \eqref{FIBFIX_LIFT_EQ}), one can show that if $c$ and $d$ are $H$-homotopy equivalent in $\O$, they are
       homotopy $H$-equivalent in the functorial bifibrant replacement $\O_{fc}$ of $\O$ in $\Op^{G, \mathfrak C(\O)}_{gen}(\V)$,
@@ -3871,7 +3876,7 @@ Then for all $0 \leq j \leq n$, we define
             \qquad
             (\alpha_j \beta_j)_{\**} = (\alpha_j)_{\**} (\beta_j)_{\**} \sim id_{\O(D)^\Gamma}
       \end{equation}
-      in $\V$ for all subgroups $\Gamma \leq \Aut(C)$, via the diagram
+      in $\V$ for all subgroups $\Gamma \leq \Aut(C)$ via the diagram
       \begin{equation}
             \begin{tikzcd}
                   \O(C)^\Gamma \otimes (1_\V \amalg 1_\V) \arrow[d, tail] \arrow[rr, "{((\beta_i)_{\**}(\alpha_i)_{\**}, id)}"]
@@ -4134,7 +4139,7 @@ We can now prove the main result of this subsection.
       [{c.f. \cite[4.15]{Cav}, \cite[2.13]{BM13}}]
       \label{CAV_4.15_PROP}
       \label{2OUTOF3_PROP}
-      Suppose $\V$ has cofibrant symmetric pushout powers, cofibrant unit, and is right proper.
+      Suppose $\V$ is as in Convention \ref{ALLCOLOR_CONV} and additionally is right proper.
       Then for any $(G, \Sigma)$-family $\F$ such that $H \in \F_1$ for all $H \leq G$, %with units,
       the class of weak $\F$-equivalences in $\mathsf{Op}^G(\V)$ satisfies the 2-out-of-3 condition.
 \end{proposition}
@@ -4387,11 +4392,8 @@ This requires another condition on $\V$, namely that the homotopy equivalences a
       while right properness and Lemma \ref{RIGHTPROPER_LEM} imply these are actual $H$-equivalences.
 \end{proof}
 
-\begin{remark}
-      We note that this is a \textit{non-equivariant} condition on $\V$.
-\end{remark}
-
-The coherence axiom has been proven in the literature for many categories:
+We note that this is a \textit{non-equivariant} condition on $\V$.
+It has been proven in the literature for many categories:
 \begin{itemize}      
 \item The notion originated with Boardman-Vogt, who showed it holds for compactly-generated weak Hausdorff spaces $(\Top, \times)$ \cite[Lem. 4.16]{BV73};
 \item Using a generalization of this argument, Berger-Moerdijk showed it holds for any category $\V$ which satisfies transfer for operads, is right proper, and has a cofibrant unit \cite[Prop. 2.24]{BM13}.
@@ -4410,15 +4412,16 @@ We prove it here for simplicial sets and pointed simplicial sets.
 \begin{proof}
       Let $\mathcal C_f \in \Cat(\sSet)$ be (locally) fibrant, and
       suppose $\alpha: \mathbb A \to \mathcal C_f$ realizes a homotopy equivalence.
+      Recall the Quillen equivalence $W_!\colon \sSet_{Kan} \rightleftarrows \Cat(\sSet) \, \colon \! h c N$.
       Then, as $W_!\Delta[1] = [1] = \mathbb A$, we have an adjoint map $\tilde \alpha: \Delta[1] \to h c N \mathcal C$,
       which realizes a quasi-isomorphism in the $\infty$-category $h c N \mathcal C$ since $\Ho(h c N (-)) \simeq \pi_0(-)$ on fibrant objects.
       Since $\Delta[1] \to J = N \I$ is anodyne by \cite[Corollary 1.6]{Joy02} or \cite[Lemma 0.15]{Rie}, 
       $\tilde \alpha$ factors through $J$,
       so the adjoint $\alpha$ factors through $W_!J$.
       The result then follows since $W_!J$ is a $\sSet$-interval:
-      $W_!J$ is cofibrant in $\sCat^{\set{0,1}}$ as we have a factorization $\set{0,1} \to \Delta[1] \to J$,
-      and the counit of the Quillen equivalence $W_!\colon \sSet \rightleftarrows \sCat \ \colon \! h c N$
-      yields a weak equivalence $W_!J \xrightarrow{\simeq} [\tilde 1] = \mathbb I = \mathbb I_f$ in $\sCat^{\set{0,1}}$.
+      $W_!J$ is cofibrant in $\sCat^{\set{0,1}}$ as we have a factorization $\set{0,1} \to \Delta[1] \to J$ and $W_!$ is left Quillen,
+      and the counit of the Quillen equivalence % $W_!\colon \sSet \rightleftarrows \sCat \ \colon \! h c N$
+      yields a weak equivalence $W_!J \xrightarrow{\simeq} [\tilde 1] = \mathbb I = \mathbb I_f$ in $\Cat^{\set{0,1}}(\sSet)$.
       % This weak equivalence also holds sinceSince $J$ is contractible (as it models $S^\infty$), we're done.
 \end{proof}
 
@@ -4497,7 +4500,7 @@ We now have collected all the remaining pieces to prove Theorem \ref{INTRO_MODEL
       \item is a closed monoidal model category with cofibrant unit (e.g. \cite[Prop. 4.2.11]{Hov99});
       \item has cellular fixed points by \cite{Pia91} (see also e.g. \cite[Lemma 3.18]{Ste16});
       \item has cofibrant symmetric pushout powers since geometric realization is left Quillen and strong monoidal;
-      \item is right proper and
+      \item is right proper;
       \item has a generating set of intervals, as all objects are fibrant (see \cite[Lemma 2.1]{BM13}); and
       \item is coherent by \cite[Lem. 4.16]{BV73}.
       \end{enumerate}
@@ -4582,141 +4585,476 @@ We now have collected all the remaining pieces to prove Theorem \ref{INTRO_MODEL
 
 \newpage
 
-\section{Quillen equivalence}
+\section{Review of revelent model structures}
+
+In this expository section, we recall the main features of the model structures necessary for the later sections.
+Full details and discussion can be found in \cite{BP_edss} and \cite{Per_eds}.
+
+\subsection{Equivariant dendroidal sets}
+\label{EDS_SEC}
+
+We begin with a brief overview of $G$-trees and equivariant dendroidal sets, whose discovery/definition is central and motivating for this entire project.
+
+\begin{definition}
+      The category $\Omega_G$ of \textit{$G$-trees} is the category of indecomposable forests with $G$-action.
+      Equivalently, an object $T \in \Omega_G$ can be described as:
+      \begin{enumerate}
+      \item A functor $T: G \ltimes R \to \Omega$ for $R = \mathbf R(T)$ the transitive $G$-set of \textit{roots} of $T$.
+      \item A collection $T = (T_i)_{i \in R}$ of trees in $\Omega$, together with a compatible $G$-action on the whole system.
+      \item An induction $T \simeq G \cdot_H T_e$ for some $T_e \in \Omega^H$ and $H \leq G$.
+            % \item The quotient $T \simeq (G \cdot T_e) / N$ for $N$ the graph of the homomorphism $H \to \Aut(T_e)$ encoding the $H$-action.
+      \end{enumerate}
+\end{definition}
+
+We consider the na\'ive presheaf category 
+$
+\dSet^G = \Fun(G \times \Omega^{op}, \Set),
+$
+of \textit{equivariant dendroidal sets}.
+There is a natural inclusion
+\[
+      \Omega[-] \colon \Omega_G \to \dSet^G,
+      \qquad
+      \Omega[T] = \coprod \Omega[T_i] \simeq G \cdot_H \Omega[T_e].
+      % \simeq \left(G \cdot \Omega[T_e] \right) / N
+\]
+extending the Yoneda embedding $\Omega \times G \into \dSet^G$.
+Even though the presheaf category is na\'ive, this functor allows us to see genuine equivariant information recorded by $G$-trees
+and build a more ``genuine'' model structure.
+To begin, we make the following definitions (see \cite[\S 6]{Per_eds}).
+
+\begin{definition}
+      For $T \in \Omega_G$, let $\partial \Omega[T]$ denote the \textit{boundary}
+      \[
+            \partial \Omega[T] = \coprod \partial \Omega[T_i] \simeq G \cdot_H \partial \Omega[T_e].
+            % \simeq \left(G \cdot \partial \Omega[T_e] \right) / N.
+      \]
+      The \textit{boundary inclusions} are maps in $\dSet^G$ of the form
+      \[
+            \partial \Omega[T] \to \Omega[T] =
+            \coprod \big( \partial \Omega[T_i] \to \Omega[T_i]\big) \simeq
+            G \cdot_H \big( \partial \Omega[T_e] \to \Omega[T_e] \big).
+            % \simeq
+            % \left( G \cdot \left( \partial \Omega[T_e] \into \Omega[T_e] \right) \right) / N.
+      \]
+\end{definition}
+
+\begin{definition}
+      Given $T \in \Omega_G$ and $e \in E(T)$, the associated \textit{$G$-inner horn} is the sub presheaf
+      \[
+            \Lambda^{Ge}[T] \into \partial \Omega[T] \into \Omega[T],
+            \qquad
+            \Lambda^{Ge}[T] = \amalg \Lambda^{H_i e}{T_i} \simeq G \cdot_H \Lambda^{He}[T_e].
+            % \simeq \left(G \cdot \Lambda^{He}[T_e] \right) / N.
+      \]
+      The \textit{generating $G$-inner horn inclusion} are maps in $\dSet^G$ of the form
+      \[
+            \Lambda^{Ge}[T] \to \Omega[T]
+      \]
+      for $T \in \Omega_G$ and $e \in E(T)$.
+
+      A presheaf $X$ is called a \textit{$G$-$\infty$-operad} if $X \to \**$ has the right lifting property with respect to all generating $G$-inner horn inclusions.
+\end{definition}
+
+\begin{definition}
+      The class of \textit{$G$-normal monomorphisms}
+      is the smallest saturated\footnote{
+        A class of maps is \textit{saturated} if it is closed under pushouts, retracts, and transfinite compositions.}
+      class of maps containing the boundary inclusions $\partial \Omega[T] \into \Omega[T]$.
+      A map is called a \textit{trivial fibration} if it has the right lifting property with respect to the $G$-normal monomorphisms.
+      
+      The class of \textit{$G$-inner anodyne extensions} is the smallest saturated class of maps containing the generating $G$-inner horn inclusions.
+\end{definition}
+
+These two classes of maps for the basis of a model structure on $\dSet^G$.
+
+\begin{theorem}[{cf. \cite[Thm 2.1, Thm 8.22]{Per_eds}}]
+      There exists a model structure on $\dSet^G$ such that
+      \begin{itemize}
+      \item cofibrations are $G$-normal monomorphisms,
+      \item fibrant objects are $G$-$\infty$-operads,
+      \item fibrations between fibrant objects are precisely the maps $X \to Y$ such that the functors associated to each of the fixed-point homotopy categories $\tau j^{\**}(X^H \to Y^H)$ are categorical fibrations for all $H \leq G$.
+      \item weak equivalences are the smallest saturated class of maps containing $G$-inner anodyne extensions and trivial fibrations, and is closed via 2-out-of-3.
+      \end{itemize}
+\end{theorem}
+
+This will be applied in Proposition \ref{W!_COF_PROP}, the main result necessary to prove that $W_!$ is left Quillen.
+
+
+
+
+here!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Equivariant dendroidal Segal spaces and the joint Bousfield model structure}
+\label{JT_SEC}
+
+
+
+\subsection{Segal preoperads}
+\label{SPREOP_SEC}
+
+
+\section{The tame model structure}
+\label{TAME_SEC}
+
+In this section, we build an auxiliary model structure on preoperads, Quillen equivalent to the one recalled in \S \ref{SPREOP_SEC},
+as well as prove Proposition \ref{KEYPR PROP},
+the main tool which allows us to show that the nerve $\sOp^G \to \mathsf{PreOp}^G$ is an equivalence of homotopy theories.
+
+
+
+
+\newpage
+
+\section{The Quillen equivalence}
 
 In this section, we sythensize the above results as well as the results of the related papers \cite{BP_geo,BP_edss,Per_eds},
 to prove the main theorem of this project, Theorem \ref{QE_THM}.
 
+\subsection{The non-equivariant adjunction}
 We recall the adjunction in question.
 \todo[inline]{say more. come back once the paper is organized}
+
+
 
 \begin{definition}
       Fix $T \in \Omega$.
       The operad $\Omega(T)$ is the free colored operad generated by its edges and vertices
       it has colors $\mathfrak C = \mathbf E(T)$ the set of edges, and
+      for any $\mathbf E(T)$-colored sequence $C$, 
       \begin{equation}
-            \Omega(T)(e_1, \dots e_n; e_0) =
+            \Omega(T)(C) =
             \begin{cases}
-                  \** \qquad & \mbox{$e_1e_2\dots e_n \leq e$ is a broad relation \footnote{That is, generates an outer face.} in $T$}T
-                  \\
-                  \varnothing & \text{else.}
-            \end{cases}
-      \end{equation}
-      This extends to a functor $\Omega \into \Op(\Set)$, and has an associated nerve-realization adjunction
-      \[
-            \Op(\Set) \leftrightarrows \dSet
-      \]
-      and {\color{red} people} \todo{find this} show that this adjunction is Quillen.
-
-      To enrich this to a Quillen adjunction out of $\sOp$, we need a topological enrichment of this inclusion.     
-      Given $T \in \Omega$, 
-      define $W(T)$ to have the same objects $\mathbf E(T)$ as $\Omega(T)$, and 
-      \begin{equation}
-            W(T)(e_1, e_2, \dots, e_n; e_0) =
-            \begin{cases}
-                  \Delta[1]^{\times \mathbf E^i(T_{\underline e \leq e})}, \qquad & e_1e_2 \dots e_n \leq e \text{ a broad relation}
+                  \** \qquad \qquad \qquad & \mbox{there exists $C_n \xrightarrow{\phi} T$ such that $\partial \phi = C$}
                   \\
                   \varnothing & \text{else,}
             \end{cases}
       \end{equation}
-      where $E^i$ is the set of \textit{interior} edges
-      and $T_{e_1\dots e_n \leq e_0}$ is the associated outer face of $T$.
-      This too is functorial $\Omega \into \sOp$, and the associated nerve-realization adjunction
-      defines the \textit{homotopy coherent dendroidal nerve} and the \textit{$W_!$-construction}.
-      \begin{equation}
-            \label{SOPDSET_EQ}
-            \begin{tikzcd}
-                  \sOp \arrow[r, shift right, "hcN"']
-                  &
-                  \dSet \arrow[l, shift right, "W_!"']
-            \end{tikzcd}
-      \end{equation}
-      The culmination of work by Cisinski-Moerdijk-Weiss \cite{CM13a,CM13b,CM11,MW09,MW07} is that
-      this is a Quillen equivalence.
-      % Equivalently, given decompositions $T \simeq G \cdot_H U$ and $T \simeq G \cdot U / N$, we have
-      % $W(T) \simeq G \cdot_H W(U)$ and $W(T) \simeq G \cdot W(U)/N$.
+      where $\partial \phi$ is the $\mathbf E(T)$-signature $(\phi(1), \phi(2), \dots, \phi(n); \phi(0))$
+      given by the (ordered) image of the edges of $C_n$.
+      \todo[inline]{profile of a map? is this used in other places?}
+      This extends to a functor $\Omega \into \Op(\Set)$, and has an associated nerve-realization adjunction
+      \[
+            \Op(\Set) \leftrightarrows \dSet
+      \]
+      and \cite[Prop. 2.5]{CM11} show that this adjunction is Quillen.
 \end{definition}
 
-The main goal of this project \cite{BP_geo,BP_edss,Per_eds} is to understand the correct equivariant lifting of this result.
+To enrich this to a Quillen adjunction out of $\sOp$, we need a topological enrichment of this inclusion.
+We do this by constructing the free simplicial resolution \footnote{
+  Also called the \textit{Godemont} resolution, c.f. \cite[\S 8.3]{BM06}.}
+of $\Omega(T)$ as an algebra in the category of \textit{pointed} $\mathbf E(T)$-colored symmetric sequences $\Sym^{\mathbf E(T)}_{\**}(\Set)$.
+We elaborate on that distinction now.
 
-\todo[inline]{the above is garbagio}
+\begin{definition}
+      Given a set of colors $\mathfrak C$, let $\eta_{\mathfrak C} = \eta$ denote the initial $\mathfrak C$-colored operad in $\V$,
+      defined for all $\mathfrak C$-sequences $C$ by
+      \[
+            \eta(C) =
+            \begin{cases}
+                  1_\V \qquad \qquad & C = (x;x)
+                  \\
+                  \varnothing & \mbox{else.}
+            \end{cases}
+      \]
+      The category of \textit{pointed} $\mathfrak C$-colored symmetric sequences in $\V$ is the category
+      \[
+            \Sym^{\mathfrak C}_+(\V) := \eta_{\mathfrak C} \downarrow \Sym^{\mathfrak C}(\V).
+      \]
+\end{definition}
+We should think of pointed symmetric sequences as already having selected "identity" operations in any potential operadic structure.
+Indeed, the monad $\mathbb F^{\mathfrak C}$ factors
+\begin{equation}
+      \label{FC_FAC_EQ}
+      \begin{tikzcd}
+            \Sym^{\mathfrak C}(\V) \arrow[r, shift left, "{(-) \amalg \eta}"]
+            &
+            \Sym^{\mathfrak C}_+(\V) \arrow[l, shift left] \arrow[r, shift left, "\mathbb F^{\mathfrak C}_+"]
+            &
+            \Op^{\mathfrak C}(\V) \arrow[l, shift left]
+      \end{tikzcd}
+\end{equation}
+where $\mathbb F^{\mathfrak C}_+$ is defined on $X \in \Sym^{\mathfrak C}_+(\V)$ to be the pushout in $\Op^{\mathfrak C}(\V)$
+\[
+      \begin{tikzcd}
+            \mathbb F^{\mathfrak C} \eta_{\mathfrak C} \arrow[d] \arrow[r]
+            &
+            \eta_{\mathfrak C} \arrow[d]
+            \\
+            \mathbb F^{\mathfrak C} X \arrow[r]
+            &
+            \mathbb F^{\mathfrak C}_+ X.
+      \end{tikzcd}
+\]
 
-To begin, we consider the simplest possible extension.
+The following observations are straightforward.
+\begin{lemma}
+      $\mathbb F^{\mathfrak C}_+$ is left adjoint to the forgetful functor $\Op^{\mathfrak C}(\V) \to \Sym^{\mathfrak C}_+(\V)$,
+      and \eqref{FC_FAC_EQ} is a factorization of the original free-forgetful adjunction for $\mathbb F^{\mathfrak C}$. 
+\end{lemma}
+
+We can now make the following definition of the $W$-construction.
+
+\begin{definition}
+      Given $T \in \Omega$, define $W(T)_\bullet \in \Op(\sSet) \subseteq (\Op^{\mathbf E(T)})^{\Delta^{op}}$ to be the bar construction
+      \[
+            W(T)_n = \left( \mathbb F^{\mathbf E(T)}_+ \right)^{n+1} \left(\Omega(T)\right),
+      \]
+      with the simplicial maps the monadic unit and monadic multiplication.
+\end{definition}
+
+We unpack this $\mathbf E(T)$-colored operad, culminating in \eqref{WT_EQ}.
+First, we consider $\mathbb F^{\mathbf E(T)} \Omega(T)$ and $\mathbb F^{\mathbf E(T)}_+ \Omega(T)$.
+We observe that $\mathbb F^{\mathbf E(T)} \Omega(T)(C) = \varnothing$ iff $\Omega(T)(C) = \varnothing$.
+Otherwise, if $C_n \xrightarrow{\phi} T$ is such that $\partial \phi = C$, then
+\begin{equation}
+      \label{FET_EQ}
+      \mathbb F^{\mathbf E(T)}\Omega(T)(C)
+      = \set{\mbox{factorizations $C_n \xrightarrow{\psi_0} S_1 \xrightarrow{\psi_1} T$ of $\phi$ with $\psi_0$ tall}}.
+\end{equation}
+We note in particular that neither map in the factorization needs to be injective;
+specifically, for any $e \in \mathbf E(T)$,
+\begin{equation}
+      \label{FET_EE_EQ}
+      \mathbb F^{\mathbf E(T)}\Omega(T)(e;e) = \mathbb Z_{\geq 0}
+\end{equation}
+is in bijection with the set of non-negative integers.
+
+\begin{example}
+      More generally, we consider the simple case where $T = C_2$, with leaves $\set{a,b}$ and root $r$.
+      Then $\mathbb F^{\mathbf E(T)}\Omega(T)(a,b;r) = \mathbb Z_{\geq 0}^{\times \set{a,b,r}}$,
+      where the tree $S_1$ associated to the triple $(n_a, n_b, n_r)$ has one node of valence two,
+      with root (resp. left and right) path out of that node of length $n_r$ (resp. $n_a$, $n_b$).
+      \[
+            \begin{tikzpicture}
+                  [grow=up,auto,level distance=1em,every node/.style = {font=\footnotesize},dummy/.style={circle,draw,inner sep=0pt,minimum size=1.75mm}]                  
+                  \node {$S$}
+                  child{node [dummy] {}
+                    child{node [dummy] {$\vdots$}
+                      child{node [dummy] {}
+                        child{node [dummy] {}
+                          child{node [dummy] {$\vdots$}
+                            child{edge from parent node [swap] {$b$}}
+                          }
+                        }
+                        child{node [dummy] {}
+                          child{node [dummy] {$\vdots$}
+                            child{edge from parent node {$a$}}
+                          }
+                        }
+                      }
+                    }
+                    edge from parent node [swap] {$r$}
+                  };
+            \end{tikzpicture}
+      \]
+      where there are $n_r$, $n_b$, and $n_a$ edges on the bottom, right, and left paths respectively.
+\end{example}
+      
+Now, $\mathbb F^{\mathbf E(T)}\eta_{\mathbf E(T)}(C) = \varnothing$ unless $C = (e;e)$ for some $e \in \mathbf E(T)$;
+in this case, $\mathbb F^{\mathbf E(T)}\eta(e;e) = \mathbb Z_{\geq 0}$, as in \eqref{FET_EE_EQ}.
+% 
+If we also denote the unit map by $\eta$, we see that the image of the map
+\[
+      \mathbb F^{\mathbf E(T)}\eta \xrightarrow{\mathbb F^{\mathbf E(T)}\eta} \mathbb F^{\mathbf E(T)} \Omega(T)
+\]
+corresponds to all factorizations from \eqref{FET_EQ} with $S_1$ a linear tree and $\phi$ (and hence $\psi_1$) a degeneracy.
+
+Thus in the pushout $\mathbb F^{\mathbf E(T)}_+\Omega(T)$, all the non-injective operations are identified, and we have
+\begin{align*}
+  \mathbb F^{\mathbf E(T)}_+\Omega(T)(C)
+  & = \set{\mbox{factorizations $C_n \xrightarrow{\psi_0} S_1 \xrightarrow{\psi_1} T$ of $\phi$ with $\psi_1$ injective, $\psi_0$ tall}} \\
+  & = \set{\mbox{inner faces $S$ of $T_{\phi(1 2 \dots n) \leq \phi(0)}$}} \\
+  & = \set{\mbox{subsets $S \subseteq \mathbf E^i(T_{\phi(1 2 \dots n) \leq \phi(0)})$ of inner edges}}    
+\end{align*}
+where $1 2 \dots n \leq 0$ is the vertex of $C_n$ and $T_{\phi(1 2 \dots n) \leq \phi(0)}$ is the associated outer face of $T$.
+
+In a similar fashion,
+% ---------------------------------------- OLIVE GREEN ----------------------------------------
+{\color{OliveGreen} using concatinations of pushout squares of the form
+  \[
+        \begin{tikzcd}
+              \mathbb F^2 \eta \arrow[r] \arrow[d]
+              &
+              \mathbb F \eta \arrow[d] \arrow[r]\
+              &
+              \eta \arrow[d]
+              \\
+              \mathbb F X \arrow[r]
+              &
+              \mathbb F( \mathbb F_+ X) \arrow[r]
+              &
+              \mathbb F_+^2 X,
+        \end{tikzcd}
+  \]
+} % ---------------------------------------- OLIVE GREEN ----------------------------------------
+  we see that
+\begin{align*}
+  \left(\mathbb F^{\mathbf E(T)}\right)^n \Omega(T)(C)
+  & = \set{
+    \begin{array}{l}
+      \mbox{factorizations $C_n \xrightarrow{\psi_0} S_1 \xrightarrow{\psi_1} S_2 \xrightarrow{\psi_2} \dots \xrightarrow{\psi_{n-1}} S_n \xrightarrow{\psi_n} T$}
+      \\
+      \mbox{of $\phi$ with $\psi_i$ tall for $i < n$}
+    \end{array}
+  },
+  \\
+  \left(\mathbb F^{\mathbf E(T)}_+ \right)^2 \Omega(T)(C)
+  & = \set{
+    \begin{array}{l}
+      \mbox{factorizations $C_n \xrightarrow{\psi_0} S_1 \xrightarrow{\psi_1} S_2 \xrightarrow{\psi_2} \dots \xrightarrow{\psi_{n-1}} S_n \xrightarrow{\psi_n} T$}
+      \\
+      \mbox{of $\phi$ with $\psi_i$ injective for $i > 1$ and $\psi_i$ tall for $i < n$}
+    \end{array}
+  }
+  \\
+  &= \set{\mbox{nested subsets $S_1 \subseteq S_2 \subseteq \dots \subseteq S_n \subseteq \mathbf E^i(T_{\phi(1 2 \dots n) \leq \phi(0)})$ of inner edges}}.
+\end{align*}
+
+Finally, for any finite set $A$, we recall that the $n$-simplicies of $\Delta[1]^{\times A}$ correspond to $(n+1)$-strings of nested subsets of $A$.
+Thus we have the following description of $W(T)$:
+
+\begin{equation}
+      \label{WT_EQ}
+      W(T)(C) = 
+      \begin{cases}
+            \Delta[1]^{\times \mathbf E^i(T_{\underline e \leq e})}, \qquad & \mbox{there exist $C_n \xrightarrow{\phi} T$ with $\partial \phi = C$}
+            \\
+            \varnothing & \text{else,}
+      \end{cases}
+\end{equation}
+
+It is clear that $W(-)$ is functorial. Thus we have the following definition.
+
+\begin{definition}
+      The \textit{homotopy coherent dendroidal nerve} and the \textit{$W_!$-construction}
+      are the right- and left-adjoints of the nerve-realization adjunction associated to the functor $W: \Omega \into \Op(\sSet)$.
+      \begin{equation}
+            \label{SOPDSET_EQ}
+            hc N \colon \sOp \leftrightarrows
+            \dSet \colon W_!
+      \end{equation}
+\end{definition}
+The culmination of extnesive work by Cisinski-Moerdijk-Weiss \cite{CM13a,CM13b,CM11,MW09,MW07} is the following.
+
+\begin{theorem}
+      \label{CMW_THM}
+      $hcN$ and $W_!$ form a Quillen equivalence with respect to the model structures
+      which, in particular, are recovered by the $G = \**$ cases of Theorem \ref{MODEL_THM} and \cite[Thm. 2.1]{Per_eds}.
+\end{theorem}
+
+\subsection{The equivariant adjunction}
+
+The main goal of this project \cite{BP_geo,BP_edss,Per_eds} is to understand the correct equivariant lifting of Theorem \ref{CMW_THM}.
+On the one hand, the construction of the new adjunction is immediate:
 
 \begin{definition}
       Define
       \[
-            W_!\colon \dSet^G \rightleftarrows \sOp^G\ :\! hcN_d
+            W_! \colon \dSet^G \rightleftarrows \sOp^G \colon hcN_d
       \]
       to be the
       extension of the adjunction \eqref{SOPDSET_EQ}
-      given by post-composition with the adjunction $\dSet \rightleftarrows \sOp$.
+      given by post-composition.
 \end{definition}
-\todo[inline]{the above definition is garbage}
 
-While this definition may seem uninspired, the associated homotopy theories are not quite as simplistic.
-\todo[inline]{recall the model structures, only so far as are needed below}
+% Equivalently, given decompositions $T \simeq G \cdot_H U$ and $T \simeq G \cdot U / N$, we have
+% $W(T) \simeq G \cdot_H W(U)$ and $W(T) \simeq G \cdot W(U)/N$.
 
-\todo[inline]{go over again how the non-equivariant $W_!$ intersects with the equivariant one}
-\begin{proposition}[{cf. \cite[Prop. 4.5]{CM11}}]
+
+On the other hand, the homotopy theories involved are much more involved to capture the genuine equivariance,
+as noted in \S \ref{MSC_SEC}, \S \ref{MS_SEC}, \S \ref{EDS_SEC}, and \cite{Per_eds}.
+
+here!
+
+We have the following generalization of \cite[Prop 4.5]{CM11} (see also \cite[Prop. 6.15]{Per_eds}).
+
+\begin{proposition}
       \label{W!_COF_PROP}
-      $W_!: \dSet^G \to \sOp^G$ sends normal monomorphisms to cofibrations and inner anodyne extensions to trivial cofibrations.
+      Suppose $\F = \set{\F_n}$ is a weak indexing system.
+      Then $W_!: \dSet^G \to \sOp^G$ sends $\F$-normal monomorphisms to cofibrations and inner $\F$-anodyne extensions to trivial $\F$-cofibrations.
 \end{proposition}
 \begin{proof}
       It suffices to check this on the generating maps.
-
-      Pick a decomposition $T \simeq G \cdot_H U$ and consider the map
+      To that end, let $T \in \Omega_F$, choose a decomposition $T \simeq G \cdot_H T_e$ and consider the map
       \begin{equation}
-            G/H \cdot i: G \cdot_H \left( W_! \partial \Omega[U] \to W(U) \right)      
+            G \cdot_H \left( W_! \partial \Omega[T_e] \xrightarrow{\ i \ } W(T_e) \right)      
       \end{equation}
       in $\sOp^G$.
-      If $T = G/H \cdot \eta$, then $i = W_! \partial \Omega[\eta] = \varnothing \to W(\eta) = \eta$,
-      and so $G/H \cdot i$ is a generating cofibration in $\sOp^G$.
+      If $T_e = \eta$, then $i$ is the canonical map $\varnothing \to \eta$,
+      % W_! \partial \Omega[\eta] = \varnothing \to W(\eta) = \eta$,
+      and so $G \cdot_H i$ is a generating cofibration from \eqref{IFJF_EQ} in $\sOp^G$.
 
       Thus we may assume that $|V(T)| \geq 1$.
-      In this case, $i$ is bijective on objects, and,
-      unless $C = h \cdot \mathsf{lr} (U)$ for some $h \in H$, $i(C)$ is the identity.
-      For $C = \mathsf{lr}(U)$, we have $i(C) = (\partial \Delta[1] \to \Delta[1])^{\square E^i(U)}$ from \cite[Prop. 4.5]{CM11},
-      and hence $G/H \cdot i(C)$ is a cofibration in $\sSet^G$.
-      Thus, $i$ has the left lifting property against all local trivial fibrations in $\sOp^G$.
-      {\color{OliveGreen}
+      In this case, $i$ is an isomorphism on object $H$-sets $\mathbf E(T_e)$,
+      and for any $\mathbf E(T_e)$-signature $C$,
+      $i(C)$ is the identity unless $C = h \cdot \mathsf{lr}(T_e)$ for some $h \in H$,
+      where $\mathsf{lr}(T_e)$ is the signature $(e_1, \dots, e_n; e)$ 
+      with $\set{e_1,\dots, e_n}$ the set of leaves of $T_e$ and $e$ the root.
+      When $C = \mathsf{lr}(T_e)$, $i(C)$ is the iterated pushout product
+      \[
+            i(C) = (\partial \Delta[1] \to \Delta[1])^{\square \mathbf E^i(T_e)}.
+      \]
+      We need that $i(C)$ is a genuine cofibration in $\sSet^{\Aut(C)}_\F$.
+      However, $\Aut(C) = \Gamma \leq H \times \Sigma_n$ for $\Gamma \leq H \times \Sigma_n$ the graph subgroup encoding the $H$-action on the set of leaves $\set{e_1, \dots, e_n}$,
+      and since $\F$ is a weak indexing system, $\Aut(C) \in \F_n$,
+      and thus, as $\F$ is closed under subgroups, $\sSet^{\Aut(C)}_\F = \sSet^{\Aut(C)}_{gen}$.
+      Then the claim follows from the fact that monomorphisms are genuine cofibrations,
+      {\color{OliveGreen} % ---------- OLIVE GREEN ----------------------------------------
+        or using the fact that $\sSet$ has cofibrant symmetric pushout powers,
+        so $(\partial \Delta[1] \to \Delta[1])^{\square m}$ is a genuine $\Sigma_m$-cofibration where $m = |\mathbf E^i(T_e)|$,
+        and then as restriction is left Quillen on genuine model structures,
+        \[
+              \mathrm{Res}^{\Sigma_m}_{\Aut(C)}(\partial \Delta[1] \to \Delta[1])^{\square m} = i(C),
+              \qquad
+              \Aut(C) = \Gamma \xrightarrow{pr} H \xrightarrow{\mathbf E^i(T_e)} \Sigma_m,
+        \]
+        is a genuine $\Aut(C)$-cofibration.
+      } % ---------------------------------------- OLIVE GREEN --------------------
+      %
+      It is then straightforward to check that $G \cdot_H i$ has the left lifting property against all local trivial $\F$-fibrations in $\sOp^G$.
+      {\color{OliveGreen} % ----------------------------------------
         Indeed, we clearly have a lifts on the level of sequences.
-        To check that the resulting map is operadic, it suffices to check when $C \circ (C_1, \dots, C_n) = \mathsf{lr}(U)$:
-        if nothing is $\mathsf{lr}(U)$, this is just the map out of $W_!\partial \Omega[U]$;
-        if $C = U$, the $C_i$ must all be identities and hence there is no content to check;
-        similarly if one of the $C_i$ is $U$.
-        But in this case, we have the following commuting diagram, as needed.
-        \begin{equation}
-              \begin{tikzcd}
-                    W(T)(C) \times \prod W(T)(C_i) \arrow[r] \arrow[d, equal]
-                    &
-                    W(T)(U) \arrow[shift left = 4, dd, bend left = 45, dashed]
-                    \\
-                    \partial W(T)(C) \times \prod \partial W(T)(C_i) \arrow[r] \arrow[d]
-                    &
-                    \partial W(T)(U) \arrow[u] \arrow[d]
-                    \\
-                    \O(C) \times \prod \O(C_i) \arrow[r]
-                    &
-                    \O(U)
-              \end{tikzcd}
-        \end{equation}
+        To check that the resulting map is operadic, it suffices to check on composites of the form
+        $C_0 \circ (C_1, \dots, C_n) = \mathsf{lr}(T_e)$.
+        If $C_j = \mathsf{lr}(T_e)$ for some $j$, then the composite map is just the identity, and there is no content to check.
+        If $C_j \neq \mathsf{lr}(T_e)$ for all $j$,
+        then this follows by a simple diagram chase on the cube relating the compositions in $W(T)$ and $W_! \partial \Omega(T)$ with those in the source and target of the testing trivial fibration.
       } % COLOR OLIVEGREEN
-      Thus $i$ must be a cofibration in $\sOp^G$, as desired.
-
-      Similarly, for $T \simeq G \cdot_H U$ with (non-empty) inner edge orbit $G \cdot_H E$, consider the map
-      $G \cdot_H j = G \cdot_H \left( W_!\Lambda^E[U] \to W(U) \right)$.
-      Again, $j$ is bijective on objects and $j(C)$ is the identity unless $C = h \cdot \mathsf{lr}(U)$.
-      When $C = \mathsf{lr}(U)$, $j(C)$ is the pushout product
+      Hence $G \cdot_H i$ is an $\F$-cofibration in $\sOp^G$ by Lemma \ref{CAV_4.8}.
+      
+     
+      Similarly, consider a generating $\F$-inner horn inclusion
+      \[
+            G \cdot_H \left(W_! \Lambda^{H e}[T_e] \xrightarrow{\ j \ } W(T_e) \right).
+      \]
+      with $T \simeq G \cdot_H T_e \in \Omega_\F$ and $e \in \mathbf E(T_e)$ some inner edge.
+      Again, $j$ is bijective on objects and $j(C)$ is the identity unless $C = h \cdot \mathsf{lr}(T_e)$.
+      When $C = \mathsf{lr}(T_e)$, $j(C)$ is the iterated pushout product
       \begin{equation}
             j(C) =
             \left(
                   \begin{tikzcd}
                         \partial \left(
-                              \Delta[1]^{\times E^i(T) \setminus E}
+                              \Delta[1]^{\times \mathbf E^i(T_e) \setminus H e}
                         \right) \arrow[d]
                         \\
-                        \Delta[1]^{\times E^i(T) \setminus E}
+                        \Delta[1]^{\times \mathbf E^i(T_e) \setminus H e}
                   \end{tikzcd}
             \right) \square
             \left(
@@ -4725,7 +5063,7 @@ While this definition may seem uninspired, the associated homotopy theories are 
                         \\
                         \Delta[1]
                   \end{tikzcd}
-            \right)
+            \right)^{\square H e}
             =
             \left(
                   \begin{tikzcd}
@@ -4733,7 +5071,7 @@ While this definition may seem uninspired, the associated homotopy theories are 
                         \\
                         \Delta[1]
                   \end{tikzcd}
-            \right)^{\square E^i(T) \setminus E}
+            \right)^{\square \mathbf E^i(T_e) \setminus H e}
             \square
             \left(
                   \begin{tikzcd}
@@ -4741,16 +5079,20 @@ While this definition may seem uninspired, the associated homotopy theories are 
                         \\
                         \Delta[1]
                   \end{tikzcd}
-            \right).                              
+            \right)^{\square H e}.                              
       \end{equation}
-      The same argument as before shows that $G \cdot_H j$ has the left lifting property against all local fibrations,
-      hence is a trivial cofibration in $\sOp^G$.
+      A similar argument shows that $G \cdot_H j$ has the left lifting property against all local $\F$-fibrations,
+      hence is a trivial $\F$-cofibration in $\sOp^G$ by Lemma \ref{CAV_4.3}, as desired. 
 \end{proof}
 
+We have the following immediate corollary.
 \begin{corollary}
-      [{\cite[Prop. 6.15]{Per_eds}, cf. \cite[Cor. 4.6]{CM11}}]
-      For any fibrant $\O \in \sOp^G$, $h c N \O$ is a $G$-$\infty$-operad.
+      [{cf. \cite[Prop. 6.15]{Per_eds}, \cite[Cor. 4.6]{CM11}}]
+      For any $\F$-fibrant $\O \in \sOp^G$, $h c N \O$ is an $\F$-$\infty$-operad.
 \end{corollary}
+
+\todo[inline]{$\F$-model structures for $\dSet^G$ - write them down above!}
+here!
 
 \begin{proposition}[{cf. \cite[Prop/ 4.9]{CM11}}]
       $W_!: \dSet^G \to \sOp^G$ is left Quillen.
@@ -4758,8 +5100,8 @@ While this definition may seem uninspired, the associated homotopy theories are 
 \begin{proof}
       As we already know by Proposition \ref{W!_COF_PROP} that $W_!$ preserves cofibrations,
       it suffices by Corollary \ref{SIMPLQUILL COR} to show that $h c N$ preserves fibrations between fibrant objects.
-      Suppose $f: \O \to \P$ is a (graph) fibration between (graph) fibrant operads in $\sOp^G$.
-      Then Proposition \ref{W!_COF_PROP} also implies that $h c N (f)$ is a $G$-inner-fibration between $G$-$\infty$-operads.
+      Suppose $f: \O \to \P$ is a graph fibration between graph fibrant operads in $\sOp^G$.
+      Then Proposition \ref{W!_COF_PROP} also implies that $h c N (f)$ is a graph inner-fibration between $G$-$\infty$-operads.
       By \cite[Thm. 8.22]{Per_eds}, this is a fibration in $\dSet^G$ iff $\tau (h c N_d(f)^H) = \tau (h c N_d(f^H))$ is a categorical fibration for all $H \leq G$.
       But by Remark \ref{FIB_ISOFIB_REM}, being a fibration in $\sOp^G$ implies that $\pi_0(f^H)$ is a categorical fibration for all $H \leq G$, 
       and since $\pi_0 = \tau \circ h c N$ by \cite[Prop. 4.8]{CM11}, the result follows.
@@ -4789,7 +5131,6 @@ While this definition may seem uninspired, the associated homotopy theories are 
       will be further explored in a sequel. 
 \end{remark}
 
-\todo[inline]{how much do we need to recall here? I guess most of it is to be recalled in ``tame time''...}
 
 {\color{red} include Proposition \ref{COMUOTOHOM PROP}.}
 
@@ -12000,6 +12341,26 @@ This follows by adding to both $A$ and $\mathcal{O}$ a disjoint trivial operad w
 \end{proof}
 
 
+\begin{corollary}
+      \label{LOCALISO_COR}
+      Suppose that we have a pushout in $\Op(\V)$ such that $f,g$ are both injective on colors.
+      \[
+            \begin{tikzcd}
+                  A \arrow[d, "g"'] \arrow[r, "f"]
+                  &
+                  \O \arrow[d]
+                  \\
+                  B \arrow[r]
+                  &
+                  \P
+            \end{tikzcd}
+      \]
+      If $A \to B$ is a local isomorphism, then so is $\O \to \P$.
+\end{corollary}
+\begin{proof}
+      A map $g: A \to B$ is a local isomorphism iff $A \to g^{\**}B$ is an isomorphism in $\Op^{\mathfrak C(A)}(\V)$.
+      Thus the result follows by applying Corollary \ref{FGTPUSH COR} with the notations of $B$ and $\O$ switched.      
+\end{proof}
 
 
 
