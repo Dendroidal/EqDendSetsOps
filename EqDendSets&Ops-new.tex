@@ -8521,7 +8521,9 @@ follow from obvious analogues of these diagrams.
 
 
 
-\subsection{The monad on colored spans}
+\subsection{The non-equivariant monad}
+
+\subsubsection{The non-equivariant monad on colored spans}
 
 Our task in this section is to provide a suitable description of
 $\mathsf{Op}(\mathcal{V})$.
@@ -8568,7 +8570,7 @@ Moreover, one easily checks that this is a Grothendieck fibration, with the cart
 
 
 
-\begin{remark}
+\begin{remark}\label{LANADJ REM}
 Given a $\Sigma^{op}_{\mathfrak{C}} \leftarrow A^{op} \rightarrow \mathcal{V}$
 one can the form the left Kan extension
 \[
@@ -8790,7 +8792,7 @@ is encoded by
 \end{tikzcd}
 \]
 That the leftmost sections of these diagrams match follows by 
-parts (IT1) and (FF1) of Proposition \ref{CATFDIAG2 PROP},
+parts (IT1) and (FF1) of Proposition \ref{CATDIAG2 PROP},
 while the fact that the rightmost sections coincide follows since
 $\mathcal{V}$ is a monoidal category.
 
@@ -8799,7 +8801,151 @@ follows by a simpler version of the argument above.
 \end{proof}
 
 
+
+\subsubsection{The non-equivariant monad on symmetric sequences}
+
+
+We will now use the adjunction
+\[
+	\mathsf{Lan} \colon
+	\mathsf{WSpan}^l(\Sigma_{\bullet}^{op},\mathcal{V}) 
+\rightleftarrows
+	\mathsf{Sym}(\mathcal{V})
+	\colon \iota
+\]
+from Remark \ref{LANADJ REM} to induce a monad on 
+$\mathsf{Sym}(\mathcal{V})$.
+To do so, we will verify the conditions in \cite[Proposition 2.27]{BP_geo},
+stating that the natural transformations
+\[
+	\mathsf{Lan} \iota \xrightarrow{\epsilon} id
+\qquad
+	\mathsf{Lan} N \xrightarrow{\eta} \mathsf{Lan} N \iota \mathsf{Lan}
+\]
+are natural isomorphisms.
+
+This is clear for $\epsilon$ while for $\eta$ it follows from the following two lemmas, the first of which is proven exactly as \cite[Lemma 2.21]{BP_geo}.
+
+
+\begin{lemma}\label{FINWREATPRODLIM LEM}
+If in $\mathcal{V}$
+the monoidal product %products
+commutes with colimits in each variable, and the leftmost diagram
+\begin{equation}\label{WRLAN EQ}
+	\begin{tikzcd}[column sep = 4.5em]
+	\mathcal{C}^{op} \ar{r}[swap,name=F]{}{G} \ar{d}[swap]{k^{op}} & 
+	\mathcal{V} & 
+	(\Sigma \wr \mathcal{C})^{op} \ar{d}[swap]{(\Fin_s \wr k)^{op}} 
+	\ar{r}[swap,name=FF]{}{(\Sigma \wr G^{op})^{op}} & 
+	(\Sigma \wr \mathcal{V}^{op})^{op} \ar{r}{\otimes} &
+	\mathcal{V}
+\\
+	|[alias=D]|\mathcal{D}^{op} \ar{ru}[swap]{H} &
+	& 
+	|[alias=FD]|(\Sigma \wr \mathcal{D})^{op} 
+	\ar{ru}[swap]{(\Sigma \wr H^{op})^{op}}
+	\ar[bend right=13]{rru}[swap]{\otimes \circ (\Sigma \wr H^{op})^{op}}
+	&
+	\arrow[Leftarrow, from=D, to=F,shorten <=0.10cm,"\epsilon"]
+	\arrow[Leftarrow, from=FD, to=FF,shorten <=0.10cm]
+	\end{tikzcd}
+\end{equation}
+is a left Kan extension diagram then so is the composite of the rightmost diagram. 
+\end{lemma}
+
+
+The following is a variation of \cite[Lemma 4.28]{BP_geo}
+\begin{lemma}\label{LANPULLCOMA LEM}
+	Suppose that $\mathcal{V}$ is complete. If the rightmost triangle in 
+\[
+\begin{tikzcd}
+	\Omega_{\mathfrak{C}}^{0} \wr A \ar{r}{V} 
+	\ar{d} & 
+	\Sigma \wr A  
+	\ar{d}  \ar{r}[swap,name=F]{}&
+	\mathcal{V}^{op}
+\\
+	\Omega_{\mathfrak{C}}^{0} \ar{r}[swap]{V} & 
+	|[alias=FEG]|\Sigma \wr \Sigma_{\mathfrak{C}} \ar{ru}
+\arrow[Rightarrow, from=FEG, to=F,shorten <=0.15cm]
+\end{tikzcd}
+\]
+is a right Kan extension diagram then so is the composite diagram.
+\end{lemma}
+
+
+
+\begin{proof}
+Our proof will be a slightly more formalized version of the proof in \cite[Lemma 4.28]{BP_geo}.
+
+Firstly, note that the composite
+\begin{equation}\label{COMPISO EQ}
+T \downarrow \Omega^0_{\mathfrak{C}} 
+	\to 
+\left( T_v \right)_{V(T)} \downarrow \Sigma \wr \Sigma_{\mathfrak{C}}
+	\to
+\left( T_v \right)_{V(T)} \downarrow_{\Sigma} \Sigma \wr \Sigma_{\mathfrak{C}}
+\end{equation}
+is an isomorphism. Indeed, the objects of 
+$T \downarrow \Omega^0_{\mathfrak{C}}$
+are isomorphisms $T \simeq T'$, which are entirely determined by 
+a tuple of isomorphisms $\left(T_v \simeq T'_v\right)_{V(T)}$,
+which are the objects of the target. 
+
+We now claim that the maps
+\begin{equation}\label{COMPISO2 EQ}
+T \downarrow \Omega^0_{\mathfrak{C}} \wr A
+	\to 
+\left( T_v \right)_{V(T)} \downarrow \Sigma \wr A
+	\to
+\left( T_v \right)_{V(T)} \downarrow_{\Sigma} \Sigma \wr A
+\end{equation}
+are likewise isomorphisms.
+Indeed, writing $G$ (resp. $\bar{G}$) for the composite functors in \eqref{COMPISO EQ}, (resp. \eqref{COMPISO2 EQ}), one has
+\[
+\bar{G}^{-1}
+\left((a_v), (T_v) \xrightarrow{g} (f(a_v))\right)=
+\left(\left(\left(\pi_{\Sigma} V G^{-1}(g)\right)^{-1}\right)^{\**} (a_v),
+%G^{-1}\left((T_v \xrightarrow{\simeq} f(a_v))_{V(T)}\right),
+T \xrightarrow{G^{-1}(g)} \bullet
+\right).
+\]
+Now consider the diagram
+\begin{equation}\label{COMPISO3 EQ}
+T \downarrow \Omega^0_{\mathfrak{C}} \wr A
+	\to 
+\left( T_v \right)_{V(T)} \downarrow \Sigma \wr A
+	\to
+\left( T_v \right)_{V(T)} \downarrow_{\Sigma} \Sigma \wr A
+	\to 
+\left( T_v \right)_{V(T)} \downarrow \Sigma \wr A.
+\end{equation}
+The result will follow provided that the first map in \eqref{COMPISO3 EQ} is final. But this now follows since this map is isomorphic to the full composite of \eqref{COMPISO3 EQ}, which is final since \eqref{COMPISO2 EQ} is an isomorphism and the last map in \eqref{COMPISO3 EQ} is known to be final.
+\end{proof}
+
+
+
+\begin{definition}
+The (colored) free operad monad is the monad
+$\mathbb{F}$ on $\mathsf{Sym}(\mathcal{V})$
+with underlying functor
+$\mathbb{F} = \mathsf{Lan} N \iota$ with multiplication and unit given by
+\[
+	\mathsf{Lan} N \iota \mathsf{Lan} N \iota \xleftarrow{\simeq} 
+	\mathsf{Lan} N N \iota \to 
+	\mathsf{Lan} N \iota
+\qquad
+	id \xleftarrow{\simeq} 
+	\mathsf{Lan} \iota \to
+	\mathsf{Lan} N \iota.
+\]
+\end{definition}
+
 {\color{red} HERE}
+
+
+
+
 
 
 
@@ -11336,769 +11482,7 @@ g^{\**} T_d c  \to T_d c
 
 
 
-
-\section{Leftover on transfer of monoidal structure argument}
-
-
-
-\begin{remark}
-Suppose that in the pullback square below one has that:
-\begin{inparaenum}
-	\item[(i)] $\rho$ is a map of split Grothendieck fibrations over a base $\mathcal{B}$;
-	\item[(ii)] $\mathcal{E}$ is a a split Grothendieck fibration over a base $\mathcal{A}$;
-	\item[(iii)] $F$ sends pullback arrows over $\mathcal{A}$ to pullback arrows over $\mathcal{B}$.
-\end{inparaenum}
-\begin{equation}\label{PULLGROTH EQ}
-\begin{tikzcd}
-	\mathcal{E} \times_{\mathcal{D}} \mathcal{C} \ar{r} \ar{d} &
-	\mathcal{C} \ar{d}{\rho}
-\\
-	\mathcal{E} \ar{r}[swap]{F} &
-	\mathcal{D}
-\end{tikzcd}
-\end{equation}
-One can then show that the map 
-$\mathcal{E} \times_{\mathcal{D}} \mathcal{C} \to \mathcal{E}$
-is a map of split fibrations over $\mathcal{A}$.
-Indeed, it is straightforward to verify that 
-one can define the pullback arrows in 
-$\mathcal{E} \times_{\mathcal{D}} \mathcal{C}$
-to be those arrows whose coordinate components are all pullback arrows.
-Alternatively, by writing
-$\mathcal{E} \simeq \left( \mathcal{A}^{op} \ltimes \mathcal{E}_{\bullet}^{op} \right)^{op}$
-as the Grothendieck construction of a functor
-$\mathcal{A}^{op} \xrightarrow{\mathcal{E}_{\bullet}} \mathsf{Cat}$,
-condition (iii) guarantees that $\mathcal{E}_{\bullet}$
-factors as in the left triangle below
-\[
-\begin{tikzcd}
-	\mathcal{A}^{op} \ar{r} \ar[bend right=10]{rrd}[swap]{\mathcal{E}_{\bullet}} &
-	\mathsf{Cat} \downarrow^r_{\mathcal{B}} \mathcal{D}
-	\ar{r}{\rho^{\**}} \ar{rd}[swap,near start]{\mathsf{fgt}}[name=D]{} &
-	|[alias=C]|
-	\mathsf{Cat} \downarrow^r_{\mathcal{B}} \mathcal{C}
-	\ar{d}{\mathsf{fgt}}
-\\
-	& &
-	\mathsf{Cat}
-\arrow[Rightarrow, from=C, to=D,shorten >=0.05cm,shorten <=0.05cm]
-\end{tikzcd}
-\]
-and $\mathcal{E} \times_{\mathcal{D}} \mathcal{C}$
-is then the (contravariant) Grothendieck construction for the top right composite.
-\end{remark}
-
-
-
-\begin{lemma}
-Suppose that in \eqref{PULLGROTH EQ}
-one has that conditions (i),(ii),(iii)
-hold and that in addition:
-\begin{inparaenum}
-\item[(iv)] the fibers of $\mathcal{E} \to \mathcal{A}$ are groupoids (equivalently, any arrow mapping to an identity is an isomorphism);
-\item[(v)]
-for all $e \in \mathcal{E}$
-the induced composite functors
-\begin{equation}\label{COMPISO EQ}
-e \downarrow_{\mathsf{r}} \mathcal{E}
-	\hookrightarrow
-e \downarrow \mathcal{E}
-	\to 
-F(e) \downarrow \mathcal{D}
-	\to
-F(e) \downarrow_{\mathsf{r}} \mathcal{D}
-\end{equation}
-are isomorphisms.
-\end{inparaenum}
-
-Then for all 
-$e \in \mathcal{E}$
-the induced composite functors
-\begin{equation}\label{COMPISO2 EQ}
-e \downarrow_{\mathsf{r}}
-\mathcal{E} \times_{\mathcal{D}} \mathcal{C}
-	\hookrightarrow
-e \downarrow
-\mathcal{E} \times_{\mathcal{D}} \mathcal{C}
-	\to 
-F(e) \downarrow \mathcal{C}
-	\to
-F(e) \downarrow_{\mathsf{r}} \mathcal{C}
-\end{equation}
-are again isomorphisms.
-\end{lemma}
-
-
-\begin{proof}
-Let us write $G$ (resp. $\bar{G}$) for the composite functors in \eqref{COMPISO EQ}
-(resp. \eqref{COMPISO2 EQ}), as well as 
-$\pi_{\mathcal{B}} \colon \mathcal{D} \to \mathcal{B}$
-for the projection.
-
-One then has 
-$G \left(e \xrightarrow{f} e' \right)=
-\left(
-F(e) \to \left( \pi_{\mathcal{B}} F(f)\right)^{\**} F(e')
-\right)
-$
-and 
-\[
-\bar{G}\left((e',c'),e \xrightarrow{f} e' \right) =
-\left( \left( \pi_{\mathcal{B}} F(f)\right)^{\**} c', F(e) \to \left( \pi_{\mathcal{B}} F(f)\right)^{\**} F(e')\right)
-\]
-Assumption (iv) then implies that the arrows
-$f$ in $\mathcal{E}$ are invertible
-and thus so are the arrows 
-$\pi_{\mathcal{B}} F(f)$ in $\mathcal{B}$,
-while assumption (v) says that $G$ is invertible.
-It is then straightforward to check that 
-$\bar{G}^{-1}$ is given on objects by 
-\[
-\bar{G}^{-1}
-\left(c, F(e) \xrightarrow{g} \rho(c) \right)
-=
-\left(
-	\left(
-	\left(
-	\pi_{\mathcal{B}} F G^{-1}(g)
-	\right)^{-1}
-\right)^{\**} c, e \xrightarrow{G^{-1}(g)} \bullet
-\right)
-\]
-\end{proof}
-
-
-
-\begin{corollary}
-Suppose that the following pullback square satisfies conditions 
-(i),(ii),(iii),(iv),(v)
-listed previously.
-\begin{equation}\label{PULLGROTH EQ}
-\begin{tikzcd}
-	\mathcal{E} \times_{\mathcal{D}} \mathcal{C} \ar{r}{\bar{F}} \ar{d}[swap]{\bar{\rho}} &
-	\mathcal{C} \ar{d}{\rho}
-\\
-	\mathcal{E} \ar{r}[swap]{F} &
-	\mathcal{D}
-\end{tikzcd}
-\end{equation}
-Then, for any functor 
-$H \colon \mathcal{C} \to \mathcal{V}$ with $\mathcal{V}$ a complete category one has a natural isomorphism
-\[
-	\left(\mathsf{Ran}_{\rho} H\right) \circ F
-\xrightarrow{\simeq}
-	\mathsf{Ran}_{\bar{\rho}} \left( H \circ \bar{F} \right)
-\]
-\end{corollary}
-
-
-\begin{proof}
-	It suffices to show that, for each $e \in \mathcal{E}$ the induced functor
-	$e \downarrow \mathcal{E} \to F(e) \downarrow \mathcal{D}$ is initial.
-	And since initial functors satisfy the $2$-out-of-$3$ property, it suffices to show that the composite
-	$e \downarrow_{\mathsf{r}} \mathcal{E} \to F(e) \downarrow \mathcal{D}$
-	is initial.
-	
-	Our assumptions then imply that this functor is naturally isomorphic to the composite
-	$e \downarrow_{\mathsf{r}} \mathcal{E} \to 
-	F(e) \downarrow \mathcal{D} \to 
-	F(e) \downarrow_{\mathsf{r}} \mathcal{D} \to
-	F(e) \downarrow \mathcal{D}$, which is initial since 
-	\eqref{COMPISO2 EQ} is an isomorphism and
-	$F(e) \downarrow_{\mathsf{r}} \mathcal{D} \to
-	F(e) \downarrow \mathcal{D}$
-	is initial. Noting that natural isomorphisms preserve initiality of functors finishes the proof. 
-\end{proof}
-
-
-
-
-
 \section{Monads}
-
-
-\subsection{Monad on spans}
-
-
-Let $\mathfrak{C}$ be a set of colors
-and $\mathcal{V}$ a symmetric monoidal category.
-We first define a monad $N_{\mathfrak{C}}$ on the category
-$\mathsf{WSpan}^l(\Sigma_{\mathfrak{C}}^{op},\mathcal{V})
-\simeq
-\mathsf{WSpan}^r(\Sigma_{\mathfrak{C}},\mathcal{V}^{op})$.
-
-Firstly, given a functor 
-$\rho \colon A \to \Sigma_{\mathfrak{C}}$
-we will write 
-$(-) \wr A = \left( \Sigma \wr \rho \right)^{\**}(-)$ for the pullback functor as in 
-\eqref{WSPANPULL2 EQ}, i.e. for the $2$-functor
-\begin{equation}\label{WRA2FUN EQ}
-\mathsf{Cat} \downarrow^r_{\Sigma} \Sigma \wr \Sigma_{\mathfrak{C}}
-	\xrightarrow{(-)\wr A}
-\mathsf{Cat} \downarrow^r_{\Sigma} \Sigma \wr A
-\end{equation}
-In particular, this defines categories 
-$\Omega^n_{\mathfrak{C}} \wr A$
-for $n\geq -1$ via the pullback diagrams
-(note that by Remark \ref{COSPULL REM} one is free to assume 
-$\Omega^{-1}_{\mathfrak{C}} \wr A = A$)
-\begin{equation}\label{OMEGAADEF EQ}
-\begin{tikzcd}
-	\Omega^n_{\mathfrak{C}} \wr A \ar{r}{\boldsymbol{V}^n} \ar{d} &
-	\Sigma \wr A  \ar{d}
-\\
-	\Omega^n_{\mathfrak{C}} \ar{r}{\boldsymbol{V}^n} &
-	\Sigma \wr \Sigma_{\mathfrak{C}}
-\end{tikzcd}
-\end{equation}
-and one has functors
-$d^i \wr A \colon \Omega^n_{\mathfrak{C}} \wr A \to \Omega^{n-1}_{\mathfrak{C}} \wr A$ for $0 \leq i < n$,
-$s^j \wr A \colon \Omega^n_{\mathfrak{C}} \wr A \to \Omega^{n+1}_{\mathfrak{C}} \wr A$ for $-1 \leq j \leq n$, 
-and
-$\boldsymbol{V}^k \wr A \colon \Omega^n_{\mathfrak{C}} \wr A \to 
-\Sigma \wr \Omega^{n-k-1}_{\mathfrak{C}} \wr A$
-for $-1 \leq k \leq n$
-and natural isomorphisms
-$\pi_{i,k}\wr A \colon (\boldsymbol{V}^{k-1} \wr A )
-(d^i \wr A)
-\xrightarrow{\simeq} \boldsymbol{V}^{k} \wr A$
-for $0\leq i < k \leq n$
-\begin{equation}
-\begin{tikzcd}[row sep = tiny, column sep = 35pt]
-	\Omega^n_{\mathfrak{C}} \wr A
-	\arrow{dr}[swap,name=U]{}{V^k} \arrow{dd}[swap]{d^i} \\
-	& \Sigma \wr \Omega^{n-k-1}_{\mathfrak{C}} \wr A
-\\
-	|[alias=V]|
-	\Omega^{n-1}_{\mathfrak{C}} \wr A \arrow{ur}[swap]{V^{k-1}} \arrow[Leftrightarrow, from=V, to=U,shorten >=0.15cm,shorten <=0.15cm
-,swap,"\pi_{i,k}"
-]
-\end{tikzcd}
-\end{equation}
-satisfying all applicable analogues of the relations in 
-Proposition \ref{CATFDIAG2 PROP}. 
-
-\begin{remark}
-For the sake of definiteness, we make the convention that the operations $\Sigma \wr (-)$ as performed last, so that for example 
-$\Sigma \wr \Omega^{n}_{\mathfrak{C}} \wr A
-=
-\Sigma \wr (\Omega^n_{\mathfrak{C}} \wr A)$.
-This causes no issues in practice since, 
-just as in the proof of Corolary \ref{COLORCOR COR},
-there are canonical isomorphisms of $2$-functors
-$(\Sigma \wr \Omega^n_{\mathfrak{C}}) \wr (-) \simeq \Sigma \wr (\Omega^n_{\mathfrak{C}} \wr (-))$
-which are compatible with the cosimplicial operators 
-$\sigma^i$, $\delta^i$.
-\end{remark}
-
-
-
-Next, note that thanks to the composite functors 
-$\Omega^n_{\mathfrak{C}} \wr A \to \Omega^n_{\mathfrak{C}} 
-\xrightarrow{d^{0,\cdots,n}} \Sigma_{\mathfrak{C}}$
-one can regard the $\Omega^n \wr (-)$ constructions
-as endofunctors on the regular $1$-overcategory
-$\mathsf{Cat} \downarrow \Sigma_{\mathfrak{C}}$.
-
-
-\begin{proposition}\label{ASSOCIDS PROP}
-Let $k,l\leq -1$. One has canonical natural identifications 
-$\Omega^k_{\mathfrak{C}} \wr \Omega^l_{\mathfrak{C}} \wr A
-\simeq 
-\Omega^{k+l+1}_{\mathfrak{C}} \wr A $.
-
-Moreover, these identifications are associative in the sense that for any $k,l,m \leq -1$ the iterated composite identifications below coincide.
-\[
-\Omega^k_{\mathfrak{C}} \wr \Omega^l_{\mathfrak{C}} \wr \Omega^m_{\mathfrak{C}} \wr A
-	\simeq 
-\Omega^{k+l+1}_{\mathfrak{C}} \wr \Omega^m_{\mathfrak{C}} \wr A
-	\simeq 
-\Omega^{k+l+m+2}_{\mathfrak{C}} \wr A
-\qquad
-\Omega^k_{\mathfrak{C}} \wr \Omega^l_{\mathfrak{C}} \wr \Omega^m_{\mathfrak{C}} \wr A
-	\simeq 
-\Omega^{k}_{\mathfrak{C}} \wr \Omega^{l+m+1}_{\mathfrak{C}} \wr A
-	\simeq 
-\Omega^{k+l+m+2}_{\mathfrak{C}} \wr A
-\]
-Moreover, these the identifications above induce the following further identifications
-\[
-d^i \wr \Omega^l \wr A \simeq d^i \wr A
-	\quad
-\pi_{i,k} \wr \Omega^l \wr A \simeq \pi_{i,k} \wr A
-	\quad
-s^j \wr \Omega^l \wr A \simeq d^j \wr A
-	\quad
-\Omega^k \wr d^i \wr A \simeq d^{k+i+1} \wr A
-	\quad
-\Omega^k \wr s^j \wr A \simeq s^{k+j+1} \wr A
-\]
-\end{proposition}
-
-
-\begin{proof}
-	The first claim follows by noting that all squares in the diagram below are pullback squares
-\[
-\begin{tikzcd}
-	\Omega^{k+l+1}_{\mathfrak{C}} \wr A \ar{r}{\boldsymbol{V}^k} \ar{d} &
-	\Sigma \wr \Omega^{l}_{\mathfrak{C}} \wr A  \ar{d} \ar{r}{\boldsymbol{V}^l} &
-	\Sigma^{\wr 2} \wr A \ar{d}
-\\
-	\Omega^{k+l+1}_{\mathfrak{C}} \ar{r}{\boldsymbol{V}^k} 
-	\ar{d}[swap]{d^{k+1,\cdots,k+l+1}} &
-	\Sigma \wr \Omega^{l}_{\mathfrak{C}} \ar{r}{\boldsymbol{V}^l}
-	\ar{d}{d^{0,\cdots,l}} &
-	\Sigma^{\wr 2} \wr \Sigma_{\mathfrak{C}}
-\\
-	\Omega^{k}_{\mathfrak{C}} \ar{r}{\boldsymbol{V}^k} &
-	\Sigma \wr \Sigma_{\mathfrak{C}}
-\end{tikzcd}
-\]
-while associativity follows from the obvious extension of the diagram above.
-
-For the additional identifications, 
-those identifications concerning $d^i$ and $\pi_{i,k}$
-follow from the left diagram below 
-(the bottom section of which commutes by 
-Proposition \ref{CATFDIAG2 PROP} (FF2)),
-the identification concerning $d^{k+i+1}$ follows from the rightmost diagram, and the identifications concerning 
-$s^j$ and $s^{k+j+1}$
-follow from obvious analogues of these diagrams.
-\[
-\begin{tikzcd}[row sep = 10pt]
-	\Omega^{k+l+1}_{\mathfrak{C}} \wr A \ar{rrr}[name=TT,swap]{} \ar{rd}[swap]{d^i} \ar{dd} &&&
-	\Sigma \wr \Omega^{l}_{\mathfrak{C}} \wr A \ar{dd}
-&
-	\Omega^{k+l+1}_{\mathfrak{C}} \wr A \ar{rr} \ar{rd}[swap]{d^{k+j+1}} \ar{dd} &&
-	\Sigma \wr \Omega^{l}_{\mathfrak{C}} \wr A \ar{rd} \ar{dd}
-\\
-	&
-	|[alias=TD]|
-	\Omega^{k+l}_{\mathfrak{C}} \wr A \ar{rru} \ar{dd} &&
-&
-	&
-	\Omega^{k+l}_{\mathfrak{C}} \wr A \ar{rr} \ar{dd} &&
-	\Sigma \wr \Omega^{l-1}_{\mathfrak{C}} \wr A 	 \ar{dd}
-\\
-	\Omega^{k+l+1}_{\mathfrak{C}} \ar{rrr}[name=MT,swap]{} \ar{rd}[swap]{d^i} \ar{dd} &&&
-	\Sigma \wr \Omega^{l}_{\mathfrak{C}} \ar{dd}
-&
-	\Omega^{k+l+1}_{\mathfrak{C}} \ar{rr} \ar{rd}[swap]{d^{k+j+1}} \ar{dd}&&
-	\Sigma \wr \Omega^{l}_{\mathfrak{C}} \ar{rd} \ar{dd}
-\\
-	&
-	|[alias=MD]|
-	\Omega^{k+l}_{\mathfrak{C}} \ar{rru} \ar{dd} &&
-&
-	&
-	\Omega^{k+l}_{\mathfrak{C}} \ar{rr} \ar{dd} &&
-	\Sigma \wr \Omega^{l-1}_{\mathfrak{C}} \ar{dd}
-\\
-	\Omega^{k}_{\mathfrak{C}} \ar{rrr}[name=DT,swap]{} \ar{rd}[swap]{d^i} &&&
-	\Sigma \wr \Sigma_{\mathfrak{C}}
-&
-	\Omega^{k}_{\mathfrak{C}} \ar{rr} \ar[equal]{rd} &&
-	\Sigma \wr \Sigma_{\mathfrak{C}} \ar[equal]{rd}
-\\
-	&
-	|[alias=DD]|
-	\Omega^{k-1}_{\mathfrak{C}} \ar{rru} &&
-&
-	&
-	\Omega^{k}_{\mathfrak{C}} \ar{rr} &&
-	\Sigma \wr \Sigma_{\mathfrak{C}} 
-\arrow[Leftrightarrow, from=TT, to=TD,shorten >=0.05cm,shorten <=0.05cm,
-"\pi_{i}"
-]
-\arrow[Leftrightarrow, from=MT, to=MD,shorten >=0.05cm,shorten <=0.05cm,
-"\pi_{i}"
-]
-\arrow[Leftrightarrow, from=DT, to=DD,shorten >=0.05cm,shorten <=0.05cm,
-"\pi_{i}"
-]
-\end{tikzcd}
-\]
-\end{proof}
-
-
-Given a span $\Sigma_{\mathfrak{C}} \leftarrow A \to \mathcal{V}^{op}$
-we now define the span 
-$N_{\mathfrak{C}}
-\left( \Sigma_{\mathfrak{C}} \leftarrow A \to \mathcal{V}^{op} \right)$ 
-as the composite span in the diagram
-\[
-\begin{tikzcd}
-	\Omega^0_{\mathfrak{C}} \wr A \ar{r}{\boldsymbol{V}^0} \ar{d} &
-	\Sigma \wr A  \ar{d} \ar{r} &
-	\Sigma \wr \mathcal{V}^{op} \ar{r}{\otimes} &
-	\mathcal{V}^{op}
-\\
-	\Omega^0_{\mathfrak{C}} \ar{r}{\boldsymbol{V}^0} \ar{d} &
-	\Sigma \wr \Sigma_{\mathfrak{C}} 
-\\
-	\Sigma_{\mathfrak{C}}
-\end{tikzcd}
-\]
-and define the monad multiplication
-$\mu \colon N_{\mathfrak{C}} N_{\mathfrak{C}}
-\Rightarrow 
-N_{\mathfrak{C}}$ via the diagram
-\begin{equation}\label{NMONMULT EQ}
-\begin{tikzcd}
-	\Sigma_{\mathfrak{C}} \ar[equal]{d}&
-	\Omega^1_{\mathfrak{C}} \wr A \ar{l} \ar{r} \ar{d}[swap]{d^0}&
-	\Sigma \wr \Omega^0_{\mathfrak{C}} \wr A \ar{r} &
-	|[alias=U]|
-	\Sigma^{\wr 2} \wr A \ar{r} \ar{d}[swap]{\sigma^0} &
-	\Sigma^{\wr 2} \wr \mathcal{V}^{op} \ar{r}{\otimes} \ar{d}[swap]{\sigma^0} &
-	\Sigma \wr \mathcal{V}^{op} \ar{r}{\otimes} &
-	|[alias=UU]|
-	\mathcal{V}^{op} \ar[equal]{d}
-\\
-	\Sigma_{\mathfrak{C}} &
-	|[alias=V]|
-	\Omega^0_{\mathfrak{C}} \wr A \ar{l} \ar{rr} & &
-	\Sigma \wr A \ar{r} &
-	|[alias=VV]|
-	\Sigma \wr \mathcal{V}^{op} \ar{rr}{\otimes} & &
-	\mathcal{V}^{op}
-\arrow[Leftrightarrow, from=V, to=U,shorten >=0.15cm,shorten <=0.15cm
-,swap,"\pi"
-]
-\arrow[Leftrightarrow, from=VV, to=UU,shorten >=0.15cm,shorten <=0.15cm
-]
-\end{tikzcd}
-\end{equation}
-and the unit
-$\eta \colon id \Rightarrow N_{\mathfrak{C}}$ by
-\begin{equation}\label{NMONID EQ}
-\begin{tikzcd}
-	\Sigma_{\mathfrak{C}} \ar[equal]{d} & 
-	A \ar{d}[swap]{s^{-1}} \ar{l} \ar[equal]{r} &
-	A \ar{d}[swap]{\delta^0} \ar{r} &
-	\mathcal{V}^{op} \ar{d}[swap]{\delta^0} \ar[equal]{r} &
-	\mathcal{V}^{op} \ar[equal]{d}
-\\
-	\Sigma_{\mathfrak{C}} &
-	\Omega^0_{\mathfrak{C}} \wr A \ar{l} \ar{r} &
-	\Sigma \wr A \ar{r} &
-	\Sigma \wr \mathcal{V}^{op} \ar{r}{\otimes} &
-	\mathcal{V}^{op}
-\end{tikzcd}
-\end{equation}
-
-
-
-
-
-\begin{proposition}\label{MONISMON PROP}
-For each set of colors $\mathfrak{C}$ then
-$N_{\mathfrak{C}}$ is a monad.
-\end{proposition}
-
-
-\begin{proof}
-To check associativity, the functor $\mu N_{\mathfrak{C}} \colon 
-N_{\mathfrak{C}} N_{\mathfrak{C}} N_{\mathfrak{C}}
-\Rightarrow N_{\mathfrak{C}} N_{\mathfrak{C}}$
-is encoded by the diagram
-\[
-\begin{tikzcd}
-	\Omega^2_{\mathfrak{C}} \wr A \ar{r} \ar{d}[swap]{d^0} &
-	\Sigma \wr \Omega^1_{\mathfrak{C}} \wr A \ar{r} &
-	|[alias=UUU]|
-	\Sigma^{\wr 2} \wr \Omega^0_{\mathfrak{C}} \wr A
-	\ar{d}[swap]{\sigma^0} \ar{r} &
-	\Sigma^{\wr 3} \wr A \ar{d}[swap]{\sigma^0} \ar{r} &
-	\Sigma^{\wr 3} \wr \mathcal{V}^{op} \ar{d}[swap]{\sigma^0} \ar{r}{\otimes} &
-	\Sigma^{\wr 2} \wr \mathcal{V}^{op} \ar{d}[swap]{\sigma^0} \ar{r}{\otimes} &
-	\Sigma \wr \mathcal{V}^{op} \ar{r}{\otimes} & 
-	|[alias=UUUU]|
-	\mathcal{V}^{op} \ar[equal]{d}
-\\
-	|[alias=VVV]|
-	\Omega^1_{\mathfrak{C}} \wr A \ar{rr} \ar{d}[swap]{d^0} & &
-	\Sigma \wr \Omega^0_{\mathfrak{C}} \wr A \ar{r} &
-	|[alias=U]|
-	\Sigma^{\wr 2} \wr A \ar{r} \ar{d}[swap]{\sigma^0} &
-	\Sigma^{\wr 2} \wr \mathcal{V}^{op} \ar{r}{\otimes} \ar{d}[swap]{\sigma^0} &
-	|[alias=VVVV]|
-	\Sigma \wr \mathcal{V}^{op} \ar{rr}{\otimes} & &
-	|[alias=UU]|
-	\mathcal{V}^{op} \ar[equal]{d}
-\\
-	|[alias=V]|
-	\Omega^0_{\mathfrak{C}} \wr A \ar{rrr} & & &
-	\Sigma \wr A \ar{r} &
-	|[alias=VV]|
-	\Sigma \wr \mathcal{V}^{op} \ar{rrr}{\otimes} & & &
-	\mathcal{V}^{op}
-\arrow[Leftrightarrow, from=V, to=U,shorten >=0.15cm,shorten <=0.15cm
-,swap,"\pi"
-]
-\arrow[Leftrightarrow, from=VV, to=UU,shorten >=0.15cm,shorten <=0.15cm
-]
-\arrow[Leftrightarrow, from=VVV, to=UUU,shorten >=0.15cm,shorten <=0.15cm
-,swap,"\pi"
-]
-\arrow[Leftrightarrow, from=VVVV, to=UUUU,shorten >=0.15cm,shorten <=0.15cm
-]
-\end{tikzcd}
-\]
-while the functor
-$ N_{\mathfrak{C}} \mu \colon 
-N_{\mathfrak{C}} N_{\mathfrak{C}} N_{\mathfrak{C}}
-\Rightarrow N_{\mathfrak{C}} N_{\mathfrak{C}}$
-is encoded by
-\[
-\begin{tikzcd}
-	\Omega^2_{\mathfrak{C}} \wr A \ar{d}[swap]{d^1} \ar{r} &
-	\Sigma \wr \Omega^1_{\mathfrak{C}} \wr A \ar{d}[swap]{d^0} \ar{r} &
-	\Sigma^{\wr 2} \wr \Omega^0_{\mathfrak{C}} \wr A \ar{r} &
-	|[alias=UUU]|
-	\Sigma^{\wr 3} \wr A \ar{d}[swap]{\sigma^1} \ar{r} &
-	\Sigma^{\wr 3} \wr \mathcal{V}^{op} \ar{d}[swap]{\sigma^1} \ar{r}{\otimes} &
-	\Sigma^{\wr 2} \wr \mathcal{V}^{op} \ar{r}{\otimes} &
-	|[alias=UUUU]|
-	\Sigma \wr \mathcal{V}^{op} \ar{r}{\otimes} \ar[equal]{d} &
-	\mathcal{V}^{op} \ar[equal]{d}
-\\
-	\Omega^1_{\mathfrak{C}} \wr A \ar{r} \ar{d}[swap]{d^0} &
-	|[alias=VVV]|
-	\Sigma \wr \Omega^0_{\mathfrak{C}} \wr A \ar{rr} & &
-	|[alias=U]|
-	\Sigma^{\wr 2} \wr A \ar{r} \ar{d}[swap]{\sigma^0} &
-	|[alias=VVVV]|
-	\Sigma^{\wr 2} \wr \mathcal{V}^{op} \ar{rr}{\otimes} \ar{d}[swap]{\sigma^0} & &
-	\Sigma \wr \mathcal{V}^{op} \ar{r}{\otimes} &
-	|[alias=UU]|
-	\mathcal{V}^{op} \ar[equal]{d}
-\\
-	|[alias=V]|
-	\Omega^0_{\mathfrak{C}} \wr A \ar{rrr} & & &
-	\Sigma \wr A \ar{r} &
-	|[alias=VV]|
-	\Sigma \wr \mathcal{V}^{op} \ar{rrr}{\otimes} & & &
-	\mathcal{V}^{op}
-\arrow[Leftrightarrow, from=V, to=U,shorten >=0.15cm,shorten <=0.15cm
-,swap,"\pi"
-]
-\arrow[Leftrightarrow, from=VV, to=UU,shorten >=0.15cm,shorten <=0.15cm
-]
-\arrow[Leftrightarrow, from=VVV, to=UUU,shorten >=0.15cm,shorten <=0.15cm
-,swap,"\pi"
-]
-\arrow[Leftrightarrow, from=VVVV, to=UUUU,shorten >=0.15cm,shorten <=0.15cm
-]
-\end{tikzcd}
-\]
-That the leftmost sections of these diagrams match follows by 
-parts (IT1) and (FF1) of Proposition \ref{CATFDIAG2 PROP},
-while the fact that the rightmost sections coincide follows since
-$\mathcal{V}$ is a monoidal category.
-
-The unitality of the monad $N_{\mathfrak{C}}$
-follows by a simpler version of the argument above.
-\end{proof}
-
-
-
-\begin{proposition}
-Let $f \colon \mathfrak{C} \to \mathfrak{D}$ be a map between color sets.
-Then there exists a map of monads
-\begin{equation}\label{MONADMAP EQ}
-N_{\mathfrak{C}} \Rightarrow 
-f^{\**} N_{\mathfrak{D}} f_!
-\end{equation}
-\end{proposition}
-
-
-\begin{proof}
-It is easier to describe the adjoint
-$f_! N_{\mathfrak{C}} f^{\**} \Rightarrow N_{\mathfrak{D}}$ for
-which, on a span $\Sigma_{\mathfrak{D}} \leftarrow B \to \mathcal{V}^{op}$,
-the required map
-$\Omega^0_{\mathfrak{C}} \wr f^{\**} B \to 
-\Omega^0_{\mathfrak{D}} \wr B$ is obtained by 
-applying the $2$-functor $(-) \wr B$ to the commutative diagram
-\[
-\begin{tikzcd}
-	\Omega^0_{\mathfrak{C}} \ar{r} \ar{d} &
-	\Sigma \wr \Sigma_{\mathfrak{C}} \ar{d}
-\\
-	\Omega^0_{\mathfrak{D}} \ar{r} &
-	\Sigma \wr \Sigma_{\mathfrak{D}}
-\end{tikzcd}
-\]
-and the remaining data is obtained by whiskering with the maps
-$\Omega^0_{\mathfrak{D}} \to \Sigma_{\mathfrak{D}}$
-and
-$\Sigma \wr B \to \Sigma \wr \mathcal{V} \xrightarrow{\otimes} \mathcal{V}^{op}$.
-
-To check that \eqref{MONADMAP EQ} is a monad map, 
-one needs to check that the leftmost diagram below commutes,
-and this follows since that leftmost diagram is obtained by
-applying $(-) \wr B$ to the rightmost diagram.
-\[
-\begin{tikzcd}[row sep = 10pt, column sep = 5pt]
-	\Omega^{1}_{\mathfrak{C}} \wr f^{\**} B \ar{rrr} \ar{rd} \ar{dd} &&&
-	|[alias=MT]|
-	\Sigma^{\wr 2} \wr f^{\**} B \ar{dd} \ar{rd} &
-&&
-	\Omega^{1}_{\mathfrak{C}} \ar{rrr} \ar{rd} \ar{dd} &&&
-	|[alias=MT2]|
-	\Sigma^{\wr 2} \wr \Sigma_{\mathfrak{C}} \ar{dd} \ar{rd} &
-\\
-	&
-	|[alias=MD]|
-	\Omega^{0}_{\mathfrak{C}} \wr f^{\**} B \ar{rrr} \ar{dd} &&&
-	\Sigma \wr f^{\**} B \ar{dd}
-&&
-	&
-	|[alias=MD2]|
-	\Omega^{0}_{\mathfrak{C}} \ar{rrr} \ar{dd} &&&
-	\Sigma \wr \Sigma_{\mathfrak{C}} \ar{dd}
-\\
-	\Omega^{1}_{\mathfrak{D}} \wr B \ar{rrr} \ar{rd} &&&
-	|[alias=DT]|
-	\Sigma^{\wr 2} \wr B \ar{rd} &
-&&
-	\Omega^{1}_{\mathfrak{D}} \ar{rrr} \ar{rd} &&&
-	|[alias=DT2]|
-	\Sigma^{\wr 2} \wr \Sigma_{\mathfrak{D}} \ar{rd} &
-\\
-	&
-	|[alias=DD]|
-	\Omega^{0}_{\mathfrak{D}} \wr B \ar{rrr} &&&
-	\Sigma \wr B
-&&
-	&
-	|[alias=DD2]|
-	\Omega^{0}_{\mathfrak{D}} \ar{rrr} &&&
-	\Sigma \wr \Sigma_{\mathfrak{D}}
-\arrow[Leftrightarrow, from=MT, to=MD,shorten >=0.05cm,shorten <=0.05cm,
-"\pi"
-]
-\arrow[Leftrightarrow, from=DT, to=DD,shorten >=0.05cm,shorten <=0.05cm,
-"\pi"
-]
-\arrow[Leftrightarrow, from=MT2, to=MD2,shorten >=0.05cm,shorten <=0.05cm,
-"\pi"
-]
-\arrow[Leftrightarrow, from=DT2, to=DD2,shorten >=0.05cm,shorten <=0.05cm,
-"\pi"
-]
-\end{tikzcd}
-\]
-\end{proof}
-
-
-%$N_{\mathfrak{C}} N_{\mathfrak{C}} f^{\**}$
-%
-%\[
-%\begin{tikzcd}
-%%	\Omega_{\mathfrak{C}}^{k+l+1}
-%%	\ar{rr} \ar{dd} \ar{rd}
-%	&&
-%	\Sigma \wr \Omega_{\mathfrak{C}}^{l}
-%	\ar{rr} \ar{dd} \ar{rd} &&
-%	\Sigma^{\wr 2} \wr \Sigma_{\mathfrak{C}} \ar{rd}
-%\\
-%	&
-%%	\Omega_{\mathfrak{D}}^{k+l+1}
-%%	\ar{rr} \ar{dd} 
-%	&&
-%	\Sigma \wr \Omega_{\mathfrak{D}}^{l}
-%	\ar{rr} \ar{dd} &&
-%	\Sigma^{\wr 2} \wr \Sigma_{\mathfrak{D}}
-%\\
-%	\Omega_{\mathfrak{C}}^{k}
-%	\ar{rr} \ar{dd} \ar{rd} &&
-%	\Sigma \wr \Sigma_{\mathfrak{C}} \ar{rd}
-%	&&
-%\\
-%	&
-%	\Omega_{\mathfrak{D}}^{k}
-%	\ar{rr} \ar{dd} &&
-%	\Sigma \wr \Sigma_{\mathfrak{D}}
-%	&&
-%\\
-%	\Sigma_{\mathfrak{C}}\ar{rd}
-%	&&
-%	&&
-%\\
-%	&
-%	\Sigma_{\mathfrak{D}}
-%	&&
-%	&&
-%\end{tikzcd}
-%\]
-
-
-%$N_{\mathfrak{C}} f^{\**} N_{\mathfrak{D}}$
-%
-%\[
-%\begin{tikzcd}
-%	&
-%%	\Omega_{\mathfrak{D}}^{k+l+1}
-%%	\ar{rr} \ar{dd} 
-%	&&
-%	\Sigma \wr \Omega_{\mathfrak{D}}^{l}
-%	\ar{rr} \ar{dd} &&
-%	\Sigma^{\wr 2} \wr \Sigma_{\mathfrak{D}}
-%\\
-%	\Omega_{\mathfrak{C}}^{k}
-%	\ar{rr} \ar{dd} \ar{rd} &&
-%	\Sigma \wr \Sigma_{\mathfrak{C}} \ar{rd}
-%	&&
-%\\
-%	&
-%	\Omega_{\mathfrak{D}}^{k}
-%	\ar{rr} \ar{dd} &&
-%	\Sigma \wr \Sigma_{\mathfrak{D}}
-%	&&
-%\\
-%	\Sigma_{\mathfrak{C}}\ar{rd}
-%	&&
-%	&&
-%\\
-%	&
-%	\Sigma_{\mathfrak{D}}
-%	&&
-%	&&
-%\end{tikzcd}
-%\]
-
-
-%$f^{\**} N_{\mathfrak{D}} N_{\mathfrak{D}}$
-%
-%\[
-%\begin{tikzcd}
-%	&
-%%	\Omega_{\mathfrak{D}}^{k+l+1}
-%%	\ar{rr} \ar{dd} 
-%	&&
-%	\Sigma \wr \Omega_{\mathfrak{D}}^{l}
-%	\ar{rr} \ar{dd} &&
-%	\Sigma^{\wr 2} \wr \Sigma_{\mathfrak{D}}
-%\\
-%\\
-%	&
-%	\Omega_{\mathfrak{D}}^{k}
-%	\ar{rr} \ar{dd} &&
-%	\Sigma \wr \Sigma_{\mathfrak{D}}
-%	&&
-%\\
-%	\Sigma_{\mathfrak{C}}\ar{rd}
-%	&&
-%	&&
-%\\
-%	&
-%	\Sigma_{\mathfrak{D}}
-%	&&
-%	&&
-%\end{tikzcd}
-%\]
 
 
 
