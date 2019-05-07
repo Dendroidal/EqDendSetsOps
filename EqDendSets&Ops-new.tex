@@ -4504,10 +4504,10 @@ We begin with a brief overview of $G$-trees and equivariant dendroidal sets, who
 
 \begin{definition}
       The category $\Omega_G$ of \textit{$G$-trees} is the category of indecomposable forests with $G$-action.
-      Equivalently, an object $T \in \Omega_G$ can be described as:
+      Equivalently, an object $T \in \Omega_G$ can be described as any of the following:
       \begin{enumerate}
-      \item A functor $T: G \ltimes R \to \Omega$ for $R = \mathbf R(T)$ the transitive $G$-set of \textit{roots} of $T$.
       \item A collection $T = (T_i)_{i \in R}$ of trees in $\Omega$, together with a compatible $G$-action on the whole system.
+      \item A functor $T: G \ltimes R \to \Omega$ for $R = \mathbf R(T)$ the transitive $G$-set of \textit{roots} of $T$.
       \item An induction $T \simeq G \cdot_H T_e$ for some $T_e \in \Omega^H$ and $H \leq G$.
             % \item The quotient $T \simeq (G \cdot T_e) / N$ for $N$ the graph of the homomorphism $H \to \Aut(T_e)$ encoding the $H$-action.
       \end{enumerate}
@@ -4565,8 +4565,7 @@ To begin, we make the following definitions (see \cite[\S 6]{Per_eds}).
 
 \begin{definition}
       The class of \textit{$G$-normal monomorphisms}
-      is the smallest saturated\footnote{
-        A class of maps is \textit{saturated} if it is closed under pushouts, retracts, and transfinite compositions.}
+      is the smallest saturated\footnote{A class of maps is \textit{saturated} if it is closed under pushouts, retracts, and transfinite compositions.}
       class of maps containing the boundary inclusions $\partial \Omega[T] \into \Omega[T]$.
       A map is called a \textit{trivial fibration} if it has the right lifting property with respect to the $G$-normal monomorphisms.
       
@@ -4581,7 +4580,8 @@ These two classes of maps for the basis of a model structure on $\dSet^G$.
       \item cofibrations are $G$-normal monomorphisms,
       \item fibrant objects are $G$-$\infty$-operads,
       \item fibrations between fibrant objects are precisely the maps $X \to Y$ such that the functors associated to each of the fixed-point homotopy categories $\tau j^{\**}(X^H \to Y^H)$ are categorical fibrations for all $H \leq G$.
-      \item weak equivalences are the smallest saturated class of maps containing $G$-inner anodyne extensions and trivial fibrations, and is closed via 2-out-of-3.
+      \item weak equivalences are the smallest hypersaturated class\footnote{A class of maps is \textit{hypersaturated} if it is saturated and closed under 2-out-of-3.}
+            of maps containing the $G$-inner anodyne extensions and trivial fibrations.
       \end{itemize}
 \end{theorem}
 
@@ -4602,7 +4602,7 @@ so each $\F_n$ is a family of graph subgroups of $G \times \Sigma_n$.
 Extending the above, a map is \textit{$\F$-normal} (resp. \textit{$\F$-anodyne})
 if it is in the smallest saturated class of maps containing the
 boundary inclusions (resp. generating $G$-inner horn inclusions) for $T \in \Omega_\F$.
-Additionally, a map is a \textit{trivial $\F$-fibration} (resp. \textit{$\F$-$\infty$-operad} if it has the right lifting property with respect to $\F$-normal maps (resp. $\F$-anodyne maps).
+Additionally, a map is a \textit{trivial $\F$-fibration} (resp. \textit{$\F$-$\infty$-operad}) if it has the right lifting property with respect to $\F$-normal maps (resp. $\F$-anodyne maps).
 
 \begin{theorem}[{\cite[\S 9]{Per_eds}}]
       There exists an $\F$-model structure on $\dSet^G$, denoted $\dSet^G_\F$, such that
@@ -4652,39 +4652,68 @@ An organizational feature of \cite{BP_edss} was the use of joint Bousfield local
 
 
 
-Facts we need for Proposition \ref{COMUOTOHOM PROP}:
-
-\begin{enumerate}
-\item The Reedy generating (trivial) cofibrations in $\mathcal M^{\Delta^{op}}$ are
-      \[
-            (\partial \Delta[n] \to \Delta[n]) \square i
-      \]
-      where $i$ is a generating (trivial) cofibration in $\mathcal M$.
-      More generally, the $R$-Reedy generating (trivial) cofibrations in $\mathcal M^{\Delta^{op} \times R^{op}}$ are
-      \[
-            (\partial \Delta[n] \to \Delta[n]) \square i'
-            \qquad
-            (\Lambda^i[n] \to \Delta[n]) \square i'
-      \]
-      where $i'$ is a generating cofibration for the Reedy model structure on $\mathcal M^{R^{op}}$.
-\item Reedy (co)fibration implies levelwise (co)fibration.
-      In particular, joint fibrantions are levelwise fibrations in either direction.
-\item If $X_\bullet(-) \in \mathcal M^{\Delta^{op} \times R^{op}}$ is $R$-Reedy fibrant, then for all structure maps $m \to m'$,
-      $X_m(-) \to X_{m'}(-)$ is a weak equivalence in $\mathcal M^{R^{op}}$.
-      \begin{proof}
-            In particular, we have $(\Delta[0] \to \Delta[n]) \square i'$ is a generating trivial cofibration in the $R$-Reedy model structure, so $X_m(-) \to X_0(-)$ is a weak equivalence in $\mathcal M^{R^{op}}$.
-            But then there is an $R$-equivalence between $X$ and the simplicially constant object at $X_0(-)$.
-            Thus the result follows by 2-out-of-3.
-      \end{proof}
-\item Horizontal and vertical equivalences are joint equivalences.
-\end{enumerate}
 
 
-\begin{enumerate}
-\item \item if $X \in \mathcal M^{\Delta^{op}}$ is Reedy fibrant, then all vertex maps $X_m \to X_0$ are weak equivalences in $\mathcal M$
-      (as $(\Delta[0] \to \Delta[n]) \square i$ is a trivial cofibration in $\mathcal M^{\Delta^{op}}$)
-      here!
-\end{enumerate}
+\begin{lemma}
+      \label{COMUOTOHOM_FACTS}
+      Facts we need for Proposition \ref{COMUOTOHOM PROP}:
+      \begin{enumerate}[label = (\roman*)]
+      \item The Reedy generating (trivial) cofibrations in $\mathcal M^{\Delta^{op}}$ and $\mathcal M^{G \times \Omega^{op}}$ are
+            \[
+                  (\partial \Delta[n] \to \Delta[n]) \square i,
+                  \qquad
+                  (\partial \Omega[T] \to \Omega[T]) \square i,
+            \]
+            for $n \geq 0$ and $T \in \Omega_G$,
+            where $i$ is a generating (trivial) cofibration in $\mathcal M$
+            ({\cite[Prop. A.33, Example A.34]{BP_edss}}).
+            % More generally, the $R$-Reedy generating (trivial) cofibrations in $\mathcal M^{\Delta^{op} \times R^{op}}$ are
+            % \[
+            %       (\partial \Delta[n] \to \Delta[n]) \square i'
+            %       \qquad
+            %       (\Lambda^i[n] \to \Delta[n]) \square i'
+            % \]
+            % where $i'$ is a generating cofibration for the Reedy model structure on $\mathcal M^{R^{op}}$.
+      \item If $\mathbb R$ and $\mathbb S$ are generalized Reedy with
+            corresponding Reedy admissible families $\set{\F_r}_{r \in \mathbb R}$, $\set{\F_s}_{s \in \mathbb s}$,
+            then the $\set{\F_{r,s}}$-Reedy model structure on $\mathcal M^{\mathbb R \times \mathbb S}$
+            can be equivalently obtained by considering the $\set{\F_r}$-Reedy model structure over the $\set{\F_s}$-Reedy model structure on $\mathcal M^{\mathbb S}$ (and vice versa)
+            ({\cite[Remark A.31]{BP_edss}}).
+      \item If $X \in (\mathsf{sdSet}^G)^{\Delta^{op}}$ is fibrant in the Reedy-over-joint model structure,
+            then each $X(T)$ is fibrant in the Reedy model structure on $(\mathsf{sSet})^{\Delta^{op}}$.
+            \begin{proof}
+                  This follows from the Quillen adjuction
+                  \[
+                        \left( \mathsf{sdSet}_{jt}^G \right)^{\Delta^{op}} \leftrightarrows
+                        (\mathsf{sSet})^{\Omega^{op} \times G \times \Delta^{op}} =
+                        \left( (\mathsf{sSet})^{\Delta^{op}} \right)^{\Omega^{op} \times G}
+                  \]
+                  where $(\sSet)^{\mathbb R}$ is given the $\mathbb R$-Reedy model structure over the Kan-Quillen model structure.
+                  and the fact that Reedy fibrations are in particular level fibrations.                  
+            \end{proof}
+      \item $\left(\mathsf{sdSet}_{jt}^G\right)^{\Delta^{op}} = L_{\Omega^{op} \times G}\left(\left(\mathsf{dSet}^G\right)^{\Delta^{op} \times \Delta^{op}}\right)$.
+            \begin{proof}
+                  come back!
+                  % This is a corollary of Lemma \ref{LOCALREEDY_LEM}.
+            \end{proof}
+      \item If $X \in (\mathsf{sdSet}^G)^{\Delta^{op}}$ is Reedy fibrant, then $X(m) \to X(0)$ is a joint trivial fibration in $\mathsf{sdSet}^G$ for all vertex maps.
+            \begin{proof}
+                  This follows from two instances of the previous Lemma, combined with \cite[Prop. 4.5(i)]{BP_edss}.
+            \end{proof}
+      \item Reedy (co)fibrations are levelwise (co)fibrations. 
+            In particular, joint fibrantions are levelwise fibrations in either direction.
+      \item Horizontal and vertical equivalences are joint equivalences (by construction)
+      \item weak equivalences in $\mathsf{PreOp}^G$ are detected by $\gamma^{\**}$.
+      \end{enumerate}
+\end{lemma}
+
+% \begin{lemma}
+%       \label{LOCALREEDY_LEM}
+%       $(L_S\mathcal M)^{\mathbb R} = L_{S \square R}(\mathcal M^{\mathbb R})$.
+% \end{lemma}
+% come back!
+
+
 
 
 \subsection{Segal preoperads}
@@ -5117,8 +5146,6 @@ Another corollary is the following key step.
 \end{remark}
 
 
-\todo[inline]{include Proposition \ref{COMUOTOHOM PROP}!}
-
 here!
 
 Finally, the following is a reformalized proof of \cite[Thm. 8.14]{CM13b}, extended to the equivariant setting;
@@ -5129,11 +5156,11 @@ the main result is an immediate corollary.
       the (right) derived composite functors in the following diagram commute up to a zigzag of weak equivalences. 
       \[
             \begin{tikzcd}
-                  \mathsf{PreOp} \ar{d}[swap]{\gamma^{\**}}&
-                  \mathsf{sOp} \ar{l}[swap]{N} \ar{d}{hcN}
+                  \mathsf{PreOp}^G_{\mathcal F} \ar{d}[swap]{\gamma^{\**}}&
+                  \mathsf{sOp}^G_{\mathcal F} \ar{l}[swap]{N} \ar{d}{hcN}
                   \\
-                  \mathsf{sdSet} &
-                  \mathsf{dSet} \ar{l}{c_{!}}
+                  \mathsf{sdSet}^G_{\mathcal F} &
+                  \mathsf{dSet}^G_{\mathcal F} \ar{l}{c_{!}}
             \end{tikzcd}
       \]
 \end{proposition}
@@ -5148,73 +5175,82 @@ $\mathsf{sOp}$.
 	simplcial object $c_!(X)$ in the Reedy model structure on $\mathcal{M}^{\Delta^{op}}$.
 	Moreover, if $X$ was already fibrant one is free to assume that $\widetilde{X}(0) = X$.
 	
-	Let $\mathcal{O} \in \mathsf{sOp}$ be fibrant, 
+	Let $\mathcal{O} \in \mathsf{sOp}^G$ be fibrant, 
 	choose a (functorial) fibrant simplicial frame
-	$\widetilde{\mathcal{O}}(\bullet) \in \mathsf{sOp}^{\Delta^{op}}$, where we assume $\widetilde{\mathcal{O}} (0) = \mathcal{O}$.
+	$\widetilde{\mathcal{O}}(\bullet) \in (\mathsf{sOp}^G)^{\Delta^{op}}$, where we assume $\widetilde{\mathcal{O}} (0) = \mathcal{O}$.
 	Next, let 
 	$\gamma^{\**} N \widetilde{\mathcal{O}}(\bullet) 
 	\to \widetilde{Q}(\bullet)$
 	be a Reedy fibrant replacement in  
-	$\mathsf{sdSet}^{\Delta^{op}}$.
+	$(\mathsf{sdSet}^G)^{\Delta^{op}}$.
 	
-	We claim that the following is a zigzag of weak equivalences in $\mathsf{sdSet}$.
-\begin{equation}\label{BIGZIG EQ}
-	\gamma^{\**} N \mathcal{O} \xrightarrow{\sim}
-	\widetilde{Q}(0) \xrightarrow{\sim}
-	\delta^{\**} \widetilde{Q} \xleftarrow{\sim}
-	\widetilde{Q}_0 \xleftarrow{\sim}
-	\left(\gamma^{\**} N \widetilde{\mathcal{O}}\right)_0
-	\xrightarrow{\sim}
-	hcN \widetilde{\mathcal{O}} \xleftarrow{\sim}
-	c_{!} hcN \mathcal{O}
-\end{equation}
-That the first map is an equivalence is obvious from definition of $\widetilde{Q}$ and the assumption $\widetilde{\mathcal{O}}(0) = \mathcal{O}$.
+	We claim that the following is a zigzag of weak equivalences in $\mathsf{sdSet}^G$.
+        \begin{equation}\label{BIGZIG EQ}
+              \gamma^{\**} N \mathcal{O} \xrightarrow{\sim}
+              \widetilde{Q}(0) \xrightarrow{\sim}
+              \delta^{\**} \widetilde{Q} \xleftarrow{\sim}
+              \widetilde{Q}_0 \xleftarrow{\sim}
+              \left(\gamma^{\**} N \widetilde{\mathcal{O}}\right)_0
+              \xrightarrow{\sim}
+              hcN \widetilde{\mathcal{O}} \xleftarrow{\sim}
+              c_{!} hcN \mathcal{O}
+        \end{equation}
+        
+        That the first map is an equivalence is obvious from definition of $\widetilde{Q}$ and the assumption $\widetilde{\mathcal{O}}(0) = \mathcal{O}$.
+        
+        For the second and third maps, note first that
+        $\widetilde{Q}$ is homotopically constant, in the sense that
+        all vertex maps $\widetilde{Q}(m) \to \widetilde{Q}(0)$ are joint equivalences in $\mathsf{sdSet}$,
+        by combining Lemma \ref{COMUOTOHOM_FACTS}(iv),(v).        
+        % 
+        Moreover, since the levels $\widetilde{Q}$ are joint fibrant in $\mathsf{sdSet}$,
+        \cite[Prop. 4.5(iii)]{BP_edss} implies that these are in fact simplicial equivalences,
+        i.e. that for each tree $T \in \Omega$ the evaluations
+        $\widetilde{Q}(T)(m) \to \widetilde{Q}(T)(0)$
+        are Kan equivalences in $\mathsf{sSet}$.
+        %
+        But since $\widetilde{Q}(T) \in \mathsf{sSet}^{\Delta^{op}}$ is itself Reedy fibrant by Lemma \ref{COMUOTOHOM_FACTS}(iii),
+        (the proof of) \cite[Prop. 4.24(ii)]{BP_edss} implies that it is in fact joint Reedy fibrant in $\mathsf{sSet}^{\Delta^{op}}$,
+        and hence by \cite[Prop. 4.5(iv)]{BP_edss}, one has Kan equivalences 
+        $\widetilde{Q}(T)(0) \xrightarrow{\sim}
+        \delta^{\**} \widetilde{Q}(T) \xleftarrow{\sim}
+        \widetilde{Q}_0(T)$,
+        showing that the second and third maps in \eqref{BIGZIG EQ} are indeed simplicial equivalences, and hence joint weak equivalences.
+        
+        For the fourth equivalence, note that one can write
+        \[\widetilde{Q}_0(T) = 
+              \mathsf{Hom}_{\mathsf{sdSet}}(\Omega[T],\widetilde{Q})=
+              \mathsf{Hom}_{\mathsf{PreOp}}(\Omega[T],\gamma_{\**}\widetilde{Q})\]
+        \[
+              \left(\gamma^{\**} N \widetilde{\mathcal{O}}\right)_0(T) = 
+              \mathsf{Hom}_{\mathsf{sdSet}}(\Omega[T],\gamma^{\**} N \widetilde{\mathcal{O}})=
+              \mathsf{Hom}_{\mathsf{PreOp}}(\Omega[T], N \widetilde{\mathcal{O}})
+        \]
+        The claim now follows by noting that
+        $N \widetilde{\mathcal{O}} \to \gamma_{\**} \widetilde{Q}$
+        is an equivalence of Reedy fibrant objects in
+        $(\mathsf{PreOp}^G_{tame})^{\Delta^{op}}$ (as $\gamma^{\**}\gamma_{\**}\tilde Q \to \tilde Q$ is a joint equivalence)
+        and that $\Omega(T)$ is tame cofibrant.
 
-For the second and third maps, note first that $\widetilde{Q}$ is homotopically constant, in the sense that all structure maps $\widetilde{Q}(m) \to \widetilde{Q}(m')$
-are equivalences.
-Moreover, since the levels $\widetilde{Q}$ are fibrant in 
-$\mathsf{sdSet}$, this implies that these are simplicial equivalences, i.e. that for each tree $T \in \Omega$
-the evaluations 
-$\widetilde{Q}(T)(m) \to \widetilde{Q}(T)(m')$
-are Kan equivalences in $\mathsf{sSet}$.
-But since $\widetilde{Q}(T) \in \mathsf{sSet}^{\Delta^{op}}$ is itself Reedy fibrant, this shows that it is in fact joint Reedy fibrant, so that one has Kan equivalences 
-$\widetilde{Q}(T)(0) \xrightarrow{\sim}
-\delta^{\**} \widetilde{Q}(T) \xleftarrow{\sim}
-\widetilde{Q}_0(T)$, showing that the second and third maps in \eqref{BIGZIG EQ} are indeed weak equivalences.
+        For the fifth equivalence, note that
+        \[
+              \left(\gamma^{\**} N \widetilde{\mathcal{O}}\right)_0(T) = 
+              \mathsf{Hom}_{\mathsf{PreOp}}(\Omega[T], N \widetilde{\mathcal{O}}) =
+              \mathsf{Hom}_{\mathsf{sOp}}(\Omega(T),  \widetilde{\mathcal{O}})
+        \]
+        \[
+              \left(hcN \widetilde{\mathcal{O}} \right)(T) = 
+              \mathsf{Hom}_{\mathsf{sOp}}(W_!(T),  \widetilde{\mathcal{O}})
+        \]
+        so that the required claim follows since 
+        $\widetilde{\mathcal{O}}$ is Reedy fibrant and
+        $W_!(T) \to \Omega(T)$ is a weak equivalence of cofibrant operads.
 
-For the fourth equivalence, note that one can write
-\[\widetilde{Q}_0(T) = 
-\mathsf{Hom}_{\mathsf{sdSet}}(\Omega[T],\widetilde{Q})=
-\mathsf{Hom}_{\mathsf{PreOp}}(\Omega[T],\gamma_{\**}\widetilde{Q})\]
-\[
-\left(\gamma^{\**} N \widetilde{\mathcal{O}}\right)_0(T) = 
-\mathsf{Hom}_{\mathsf{sdSet}}(\Omega[T],\gamma^{\**} N \widetilde{\mathcal{O}})=
-\mathsf{Hom}_{\mathsf{PreOp}}(\Omega[T], N \widetilde{\mathcal{O}})
-\]
-The claim now follows by noting that
-$N \widetilde{\mathcal{O}} \to \gamma_{\**} \widetilde{Q}$
-is an equivalence of Reedy fibrant objects on 
-$\mathsf{PreOp}^{\Delta^{op}}$ (over the tame model structure) and that $\Omega(T)$ is tame cofibrant. 
-
-For the fifth equivalence, note that
-\[
-\left(\gamma^{\**} N \widetilde{\mathcal{O}}\right)_0(T) = 
-\mathsf{Hom}_{\mathsf{PreOp}}(\Omega[T], N \widetilde{\mathcal{O}}) =
-\mathsf{Hom}_{\mathsf{sOp}}(\Omega(T),  \widetilde{\mathcal{O}})
-\]
-\[
-\left(hcN \widetilde{\mathcal{O}} \right)(T) = 
-\mathsf{Hom}_{\mathsf{sOp}}(W_!(T),  \widetilde{\mathcal{O}})
-\]
-so that the required claim follows since 
-$\widetilde{\mathcal{O}}$ is Reedy fibrant and
-$W_!(T) \to \Omega(T)$ is a weak equivalence of cofibrant operads.
-
-Lastly, for the last map, one needs simply note that
-$c_! hcN \mathcal{O} = hcN c_! \mathcal{O}$, so that the required claim follows since 
-$c_! \mathcal{O} \to \widetilde{O}$
-is a levelwise equivalence of levelwise fibrant operads
-and $hcN$ is right Quillen.
+        Lastly, for the last map, one needs simply note that
+        $c_! hcN \mathcal{O} = hcN c_! \mathcal{O}$, so that the required claim follows since 
+        $c_! \mathcal{O} \to \widetilde{O}$
+        is a levelwise equivalence of levelwise fibrant operads
+        and $hcN$ is right Quillen.
 \end{proof}
 
 \begin{proof}
@@ -6147,7 +6183,7 @@ But since $B'$ is $J$-fibrant, this follows from (a), which shows that the compo
 The following is a reformalized proof of \cite[Thm. 8.14]{CM13b}.
 
 
-\begin{proposition}\label{COMUOTOHOM PROP}
+\begin{proposition}\label{COMUOTOHOM2 PROP}
 The (right) derived composite functors in the following diagram commute up to a zigzag of weak equivalences. 
 \[
 \begin{tikzcd}
