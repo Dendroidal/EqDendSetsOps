@@ -7972,7 +7972,7 @@ For $0 \leq i < k \leq j \leq n$
 
 
 
-\subsection{The $(-)\wr A$ construction}
+\subsection{The $(-)\wr A$ construction}\label{WRACONST SEC}
 
 
 
@@ -9024,7 +9024,7 @@ yields that
   \\
   &
     \simeq \colim_{[l] \in \Delta^{op},[n] \in \Delta^{op}} 
-    \mathsf{Lan} N \circ \left( N^{\circ n} \iota \O \amalg \iota X^{\amalg 2l +1} \amalg \iota Y \right),
+    \mathsf{Lan} N \circ \left( N^{\circ n} \iota \O \amalg_{\mathsf{F}} \iota X^{\amalg_{\mathsf{F}} 2l +1} \amalg_{\mathsf{F}} \iota Y \right),
     \stepcounter{equation}\tag{\theequation}\label{OU EQ1}
     % =: \colim_{n,l} \mathsf{Lan} \hat N_{n,l}^{(\O,X,Y)},
 \end{align*}
@@ -9038,9 +9038,8 @@ so that the colimits in \eqref{OU EQ1}
 can be computed in $\mathsf{Sym}(\mathcal{V})$
 rather than in $\mathsf{Op}(\mathcal{V})$.
 
-{\color{red} HERE}
 
-Noting that $N^{\circ n} \iota \O \amalg \iota X^{\amalg 2l +1} \amalg \iota Y$ denotes a certain span
+Noting that $N \left(N^{\circ n} \iota \O \amalg_{\mathsf{F}} \iota X^{\amalg_{\mathsf{F}} 2l +1}\amalg_{\mathsf{F}} \iota Y \right)$ denotes a certain span
 $\Sigma_{\mathfrak{C}}^{op} \leftarrow 
 \left(\Omega^{n,\lambda_l}_{\mathfrak{C}}\right)^{op} \to \mathcal{V}$,
 we will then apply (the natural analogue of)
@@ -9052,17 +9051,175 @@ over a single span
 $\Sigma_{\mathfrak{C}}^{op} \leftarrow 
 \left|\Omega^{n,\lambda_l}_{\mathfrak{C}}\right|^{op} \to \mathcal{V}$.
 
-Our first step is to describe 
-$\Omega^{n,\lambda_l}_{\mathfrak{C}}$.
-Much like Proposition \ref{ASSOCIDS PROP} implies that
+The task of describing 
+$\Omega^{n,\lambda_l}_{\mathfrak{C}}$
+is similar to the upshot of Proposition \ref{ASSOCIDS PROP}, which shows that
 $N^{\circ n+1}$ is naturally calculated using the
 $\Omega_{\mathfrak{C}}^{n} \wr (-)$ 
 construction.
 
+Indeed, we will do a little more. For $\lambda = \lambda_a \amalg \lambda_i$
+a partition of $\set{1,2,\dots,l}$
+we will write 
+$N^{\times \lambda}$
+for the monad (cf. \cite[\S 2.3]{BP_geo}) on 
+$\left(\mathsf{WSpan}_l(\Sigma_{\bullet}^{op},\mathcal{V})\right)^{\times l}$
+given by
+\[
+\left(N^{\times \lambda} (A_j)\right)_k = 
+\begin{cases}
+N(A_k) & \text{if } k\in \lambda_a
+\\
+A_k & \text{if } k\in \lambda_i
+\end{cases}
+\]
+where we note that $N^{\times \lambda}$
+preserves the fibered product
+$\left(\mathsf{WSpan}_l(\Sigma_{\bullet}^{op},\mathcal{V})\right)^{\times_{\mathsf{F}} l}$,
+i.e. the subcategory consisting of those tuples $(A_j)$ with the same objects in $\mathsf{F}$ (and similarly for maps), and we will slightly abuse notation by also writing 
+$N^{\times \lambda}$
+for the monad restricted to this subcategory.
+
+The categories $\Omega_{\mathfrak C}^{n,s,\lambda}$ in the following definition will then represent
+the functors
+$N^{\circ s+1} \circ \coprod_{\mathsf{F}} \circ \left(N^{\times \lambda}\right)^{\circ n-s}$.
 
  
+
+\begin{definition}[{cf. \cite[Defn. 5.10]{BP_geo}}]\label{CLPS DEF}
+      Given $-1 \leq s \leq n$, $l \geq 0$, and a partition $\lambda = \lambda_a \amalg \lambda_i$ of $\set{1,2,\dots,l}$,
+      define $\Omega_{\mathfrak C}^{n,s,\lambda}$ to have as objects
+$n$-planar strings
+\begin{equation}
+	T_{-1} \xrightarrow{\varphi_0} T_0 \xrightarrow{\varphi_1} T_1 \xrightarrow{\varphi_2} \dots
+	T_{s} \xrightarrow{\varphi_{s+1}} T_{s+1} \xrightarrow{\varphi_{s+2}}  \dots
+	\xrightarrow{\varphi_n} T_n
+\end{equation}
+together with $l$-labelings of $T_s, T_{s+1}, \cdots, T_n$
+such that
+$\varphi_{r}, r>s$ are $\lambda_i$-inert label maps.
+
+Arrows in $\Omega_{\mathfrak C}^{n,s,\lambda}$
+are isomorphisms $\left(\pi_r \colon T_r \to T'_r\right)$
+such that $\pi_r,r \geq s$ are label maps.
+
+Further, for any $s<0$ of $n<s'$ we write
+\[
+\Omega_{\mathfrak{C}}^{n,s,\lambda} = \Omega_{\mathfrak{C}}^{n,-1,\lambda}
+\qquad
+\Omega_{\mathfrak{C}}^{n,s',\lambda} = \Omega_{\mathfrak{C}}^{n}
+\]
+\end{definition}
+
+We now discuss the functors relating the $\Omega_{\mathfrak{C}}^{n,s,\lambda}$ categories. Firstly, for 
+$s \leq s'$ 
+and map of labels $g \colon \{1,\cdots,l'\} \to \{1,\cdots,l\}$
+such that $\lambda'_a \subseteq g^{-1}\left( \lambda_a\right)$
+there are natural functors
+\[
+\Omega_{\mathfrak{C}}^{n,s,\lambda} \to \Omega_{\mathfrak{C}}^{n,s',\lambda},
+\qquad
+\Omega_{\mathfrak{C}}^{n,s,\lambda'} \xrightarrow{g_{\**}} \Omega_{\mathfrak{C}}^{n,s,\lambda}.
+\]
+Second, by keeping track of labels on vertices,
+ the usual functors relating the categories 
+$\Omega^n_{\mathfrak{C}}$ extend to the categories
+$\Omega_{\mathfrak{C}}^{n,s,\lambda}$. Indeed, for 
+$k \leq n$
+and 
+$f \colon \mathfrak{C} \to \mathfrak{D}$ a map of colors
+one has functors
+\begin{equation}\label{FGTLABEL EQ}
+\Omega_{\mathfrak{C}}^{n,s,\lambda} \xrightarrow{V^k} \Sigma \wr\Omega_{\mathfrak{C}}^{n-k-1,s-k-1,\lambda},
+\qquad
+\Omega_{\mathfrak{C}}^{n,s,\lambda} \xrightarrow{f_{\**}} \Omega_{\mathfrak{D}}^{n,s,\lambda}.
+\end{equation}
+Lastly, one also has simplicial operators $d_i$, $s_j$, 
+but some care is needed with the way these interact with the index $s$. To do so, defining functions $d_i,s_j\colon \mathbb{Z} \to \mathbb{Z}$ by
+\[
+d_i(s) = 
+\begin{cases}
+s-1, & i<s
+\\
+s, & s\leq i
+\end{cases}
+\qquad
+s_j(s) = 
+\begin{cases}
+s+1, & j<s
+\\
+s, & s\leq j
+\end{cases}
+\]
+one has simplicial operators
+\[
+\Omega_{\mathfrak{C}}^{n,s,\lambda} \xrightarrow{d_i} \Sigma \wr\Omega_{\mathfrak{C}}^{n,d_i(s),\lambda},
+\qquad
+\Omega_{\mathfrak{C}}^{n,s,\lambda} \xrightarrow{s_j} \Sigma \wr\Omega_{\mathfrak{C}}^{n,s_j(s),\lambda},
+\]
+for $0\leq i \leq n$ and $-1\leq j \leq n$.
+In practice, we will prefer to suppress $s$ from the notation,
+and write 
+$\Omega_{\mathfrak{C}}^{n,\bullet,\lambda}$ to denote the string of categories 
+$\Omega_{\mathfrak{C}}^{n,s,\lambda}$ as a whole.
+Lastly, the $\pi_{i,k}$ natural isomorphisms for $i<k$ from Proposition \ref{CATDIAG PROP}
+generalize to natural isomorphisms
+\begin{equation}
+\begin{tikzcd}[row sep = tiny, column sep = 35pt]
+	\Omega_{\mathfrak{C}}^{n,s,\lambda}
+	\arrow{r}{V^k} \arrow{dd}[swap]{d^i} &
+	|[alias=U]|
+	 \Sigma \wr \Omega_{\mathfrak{C}}^{n-k-1,s-k-1,\lambda}
+	 \ar[equal]{dd}{}
+\\
+\\
+	|[alias=V]|
+	\Omega_{\mathfrak{C}}^{n-1,d_i(s),\lambda} \arrow{r}[swap]{V^{k-1}} &
+	 \Sigma \wr \Omega_{\mathfrak{C}}^{n-k-1,d_i(s)-k,\lambda}
+\arrow[Leftrightarrow, from=V, to=U,shorten >=0.15cm,shorten <=0.15cm
+,swap,"\pi_{i,k}"
+]
+\end{tikzcd}
+\end{equation}
+(note that the right vertical map is an identity even if
+$s-k-1 \neq d_i(s)-k$, since that can only occur if $s\leq i \leq k$, implying that the rightmost terms are both $\Sigma \wr \Omega_{\mathfrak{C}}^{n-k-1,-1,\lambda}$).
+
+\begin{remark}
+We now discuss the naturality of the given functors on the categories
+$\Omega_{\mathfrak{C}}^{n,s,\lambda}$ just described.
+\begin{enumerate}[label=(\roman*)]
+\item by keeping track of vertex labels, all the analogues of the properties in Propositions \ref{CATDIAG PROP} and \ref{CATDIAG2 PROP} extend (note that this includes the pullback claims in 
+Proposition \ref{CATDIAG PROP}(ii))
+\item the change of color functors $f_{\**}$, change of label functors $g_{\**}$, and the forgetful functors in
+\eqref{FGTLABEL EQ} are all natural with respect to each other.
+\item $d_i$, $s_j$, $\boldsymbol{V}^k$
+and $\pi_{i,k}$, are natural with respect to the change of label functors $g_{\**}$ and the forgetful functors in
+\eqref{FGTLABEL EQ}, 
+in the sense that they satisfy the analogues of the properties in 
+Proposition \ref{CATDIAG PROP}(iii) with 
+the role of $f_{\**}$ replaced with the latter functors.
+\item
+For $k \leq s \leq s'$ the following squares are pullback squares
+\[
+\begin{tikzcd}[column sep = small, row sep = small]
+	\Omega^{n,s,\lambda}_{\mathfrak{C}} \ar{r}{\boldsymbol{V}^k} \ar{dd} &
+	\Sigma \wr \Omega^{n-k-1,s-k-1,\lambda}_{\mathfrak{C}} \ar{dd}
+\\
+\\
+	\Omega^{n,s',\lambda}_{\mathfrak{C}} \ar{r}[swap]{\boldsymbol{V}^k} &
+	\Sigma \wr \Omega^{n-k-1,s'-k-1,\lambda}_{\mathfrak{C}}
+\end{tikzcd}
+\]
+\end{enumerate}
+\end{remark}
+
+
 {\color{red} HERE}
 
+
+The following is the main purpose of the 
+$\Omega_{\mathfrak{C}}^{n,s,\lambda}$ categories,
+adapting the work in \S \ref{WRACONST SEC}
 
 
 \newpage
