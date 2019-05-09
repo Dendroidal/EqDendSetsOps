@@ -43,14 +43,17 @@ cd,patterns,calc}
 
 \usepackage{ifdraft}
 \ifdraft{
-%  \color[RGB]{63,63,63}
-  % \pagecolor[rgb]{0.5,0.5,0.5}
-%  \pagecolor[RGB]{220,220,204}
-  % \color[rgb]{1,1,1}
+  \color[RGB]{63,63,63}
+%   \pagecolor[rgb]{0.5,0.5,0.5}
+  \pagecolor[RGB]{220,220,204}
+%  \color[rgb]{1,1,1}
+  \usepackage{showkeys}
+}
+{
+  \usepackage[notref]{showkeys}
 }
 
 
-\usepackage[draft]{showkeys}
 \usepackage{todonotes}%[obeyDraft]
 
 
@@ -105,6 +108,11 @@ cf.  }
 
 \newcommand{\UV}{\underline{\mathcal V}}
 \newcommand{\UC}{\underline{\mathfrak C}}
+
+
+
+\usepackage{harpoon}
+\newcommand{\vect}[1]{\overrightharp{\ensuremath{#1}}}
 
 
 % ---- Title --------
@@ -2640,9 +2648,9 @@ We have a pair of composable free-forgetful adjunctions
       \begin{tikzcd}
             \V^\Gamma \arrow[r, shift left]
             &
-            \Sym^{G, \mathfrak C_0}(\V) \arrow[l, shift left, "ev_{C_0}"] \arrow[r, shift left, "\mathbb F^G_{\mathfrak C_0}"]
+            \Sym^{G, \mathfrak C_\Gamma}(\V) \arrow[l, shift left, "ev_{C_0}"] \arrow[r, shift left, "\mathbb F^G_{\mathfrak C_\Gamma}"]
             &
-            \Op^{G, \mathfrak C}(\V) \arrow[l, shift left]
+            \Op^{G, \mathfrak C_\Gamma}(\V) \arrow[l, shift left]
       \end{tikzcd}
 \]
 where we note that $\Aut_{G \ltimes \Sigma_{\mathfrak C_\Gamma}}(C_0)$ is precisely $\Gamma$.
@@ -2671,7 +2679,7 @@ Let $\mathbb F_\Gamma$ denote the composite of left adjoints.
 % does not depend on the choice of $g_0$, 
 % and furthermore is natural in $C$.
 % ----------------------------------------------------------------------------------------------------
-It is straightforward that for each $X \in \V^\Gamma$,
+It is then straightforward that for each $X \in \V^\Gamma$,
 the operad $\mathbb F_\Gamma[X]$ has the universal property that for all $\O \in \Op^G(\V)$,
 \begin{equation}
       \Hom_{\Op^G(\V)}(\mathbb F_\Gamma[X], \O) = \mathop\coprod\limits_{C \in (\mathfrak C_{\O}^{\times n+1})^\Gamma}\Hom_{\V^\Gamma}(X, \O(C)).
@@ -2703,7 +2711,35 @@ where $\1$ defined as in Definition \ref{PL_ES_DEFN}, and $\mathbb{G}$ is a gene
 
 
 \begin{example}
-      When $G = \**$ and $n=1$, $\Gamma = \**$ and $\mathfrak C_\Gamma = \set{0,1}$, and we have
+      If $\Gamma$ is a graph subgroup, say corresponding to a map $G \geq H \xrightarrow{\alpha} \Sigma_n$, then
+      $\mathfrak C_{\Gamma} \simeq G \cdot_H (A_+)$ where $A$ is the $H$-action on $n$ given by $\alpha$.
+
+      Moreover, if $\V = \sSet$ and $C = C_A \in \Sigma_G$ is a $G$-corolla corresponding to $\Gamma$, then
+      $\Omega(C) = \mathbb F_{\Gamma}(\**)$.
+      In particular, $\Omega(C) \in \sOp^G$ is cofibrant for all $C \in \Sigma_G$.
+      \todo[inline]{connect to Definition \ref{OT_DEF}}
+      Similarly, $\Omega(T) \in \sOp^G$ is cofibrant for all $T \in \Omega_G$, as we have a pushout in $\sOp^G$
+      \[
+            \begin{tikzcd}
+                  \displaystyle{
+                    \coprod_{Ge \in \boldsymbol{E}_G(C)} \Omega(Ge)}
+                  \arrow[r] \arrow[d]
+                  &
+                  \Omega(C) \arrow[d]
+                  \\
+                  \displaystyle{
+                    \coprod_{Ge \in \boldsymbol{E}_G(C)} \Omega(T_e)}
+                  \arrow[r]
+                  &
+                  \Omega(T)
+            \end{tikzcd}
+      \]
+      for all grafting decompositions $T = C \coprod_{\boldsymbol{E}_G(C)} (T_{Ge})$.
+\end{example}
+\todo[inline]{$\Omega(T)$ is $\mathcal F$-cofibrant iff $T \in \Omega_{\mathcal F}$}
+
+\begin{example}
+      When $G = \**$ and $n=1$, so $\Gamma = \**$ and $\mathfrak C_\Gamma = \set{0,1}$, we have
       \[
             \mathbb F_{\Gamma}[1_\V] = \mathbb A^{op}, \qquad \mathbb F_{\Gamma}[\varnothing] = \eta \amalg \eta.
       \]
@@ -2715,6 +2751,7 @@ where $\1$ defined as in Definition \ref{PL_ES_DEFN}, and $\mathbb{G}$ is a gene
       %
       Extending to higher arity operations, we see that,
       morally, cofibrations are built by freely adding an orbit's worth of operations.
+      \todo[inline]{this example sucks}
 \end{example}
 
 \begin{lemma}
@@ -4658,7 +4695,7 @@ An organizational feature of \cite{BP_edss} was the use of joint Bousfield local
       \label{COMUOTOHOM_FACTS}
       Facts we need for Proposition \ref{COMUOTOHOM PROP}:
       \begin{enumerate}[label = (\roman*)]
-      \item The Reedy generating (trivial) cofibrations in $\mathcal M^{\Delta^{op}}$ and $\mathcal M^{G \times \Omega^{op}}$ are
+      \item \label{GENREEDY_LBL} The Reedy generating (trivial) cofibrations in $\mathcal M^{\Delta^{op}}$ and $\mathcal M^{G \times \Omega^{op}}$ are
             \[
                   (\partial \Delta[n] \to \Delta[n]) \square i,
                   \qquad
@@ -4674,12 +4711,12 @@ An organizational feature of \cite{BP_edss} was the use of joint Bousfield local
             %       (\Lambda^i[n] \to \Delta[n]) \square i'
             % \]
             % where $i'$ is a generating cofibration for the Reedy model structure on $\mathcal M^{R^{op}}$.
-      \item If $\mathbb R$ and $\mathbb S$ are generalized Reedy with
+      \item \label{PRODREEDY_LBL} If $\mathbb R$ and $\mathbb S$ are generalized Reedy with
             corresponding Reedy admissible families $\set{\F_r}_{r \in \mathbb R}$, $\set{\F_s}_{s \in \mathbb s}$,
             then the $\set{\F_{r,s}}$-Reedy model structure on $\mathcal M^{\mathbb R \times \mathbb S}$
             can be equivalently obtained by considering the $\set{\F_r}$-Reedy model structure over the $\set{\F_s}$-Reedy model structure on $\mathcal M^{\mathbb S}$ (and vice versa)
             ({\cite[Remark A.31]{BP_edss}}).
-      \item If $X \in (\mathsf{sdSet}^G)^{\Delta^{op}}$ is fibrant in the Reedy-over-joint model structure,
+      \item \label{RJOINTT_LBL} If $X \in (\mathsf{sdSet}^G)^{\Delta^{op}}$ is fibrant in the Reedy-over-joint model structure,
             then each $X(T)$ is fibrant in the Reedy model structure on $(\mathsf{sSet})^{\Delta^{op}}$.
             \begin{proof}
                   This follows from the Quillen adjuction
@@ -4691,31 +4728,16 @@ An organizational feature of \cite{BP_edss} was the use of joint Bousfield local
                   where $(\sSet)^{\mathbb R}$ is given the $\mathbb R$-Reedy model structure over the Kan-Quillen model structure.
                   and the fact that Reedy fibrations are in particular level fibrations.                  
             \end{proof}
-      \item $\left(\mathsf{sdSet}_{jt}^G\right)^{\Delta^{op}} = L_{\Omega^{op} \times G}\left(\left(\mathsf{dSet}^G\right)^{\Delta^{op} \times \Delta^{op}}\right)$.
-            \begin{proof}
-                  come back!
-                  \todo[inline]{I don't think this is true. At least, the set I am localizing against on the RHS is \textbf{not} symmetric in the two $\Delta^{op}$.}
-                  % This is a corollary of Lemma \ref{LOCALREEDY_LEM}.
-            \end{proof}
-      \item If $X \in (\mathsf{sdSet}^G)^{\Delta^{op}}$ is Reedy fibrant, then $X(m) \to X(0)$ is a joint trivial fibration in $\mathsf{sdSet}^G$ for all vertex maps.
-            \begin{proof}
-                  This follows from two instances of the previous Lemma, combined with \cite[Prop. 4.5(i)]{BP_edss}.
-            \end{proof}
       \item Reedy (co)fibrations are levelwise (co)fibrations. 
             In particular, joint fibrantions are levelwise fibrations in either direction.
       \item Horizontal and vertical equivalences are joint equivalences (by construction)
       \item weak equivalences in $\mathsf{PreOp}^G$ are detected by $\gamma^{\**}$.
-      \item $X,Y \in \mathsf{sdSet}$ simplicially fibrant, then $X \to Y$ is a joint equivalence iff it is a simplicial equivalence (\cite[Prop. 4.5(iii), Cor. 4.29(iii)]{BP_edss}.
-      \item $X \in \mathsf{ssSet}$ is joint fibrant iff $X$ is horizontally fibrant and all vertex maps $X(m) \to X(0)$ are weak equivalences in $\mathsf{sSet}$ (\cite[Prop. 4.24(iii)]{BP_edss}).
-      \item If $X \in \mathsf{ssSet}$ is horizontal Reedy firant, then $X_0 \to \delta^{\**}X$ is a Kan equivalence in $\mathsf{sSet}$ (\cite[Prop. 4.5(iv)]{BP_edss}).
+      \item \label{SFIB_JEQ_LBL} $X,Y \in \mathsf{sdSet}$ simplicially fibrant, then $X \to Y$ is a joint equivalence iff it is a simplicial equivalence (\cite[Prop. 4.5(iii), Cor. 4.29(iii)]{BP_edss}.
+      \item \label{JF_VERT_LBL} $X \in \mathsf{ssSet}$ is joint fibrant iff $X$ is horizontally fibrant and all vertex maps $X(m) \to X(0)$ are weak equivalences in $\mathsf{sSet}$ (\cite[Prop. 4.24(ii)]{BP_edss}).
+      \item \label{DIAG_LBL} If $X \in \mathsf{ssSet}$ is horizontal Reedy firant, then $X_0 \to \delta^{\**}X$ is a Kan equivalence in $\mathsf{sSet}$ (\cite[Prop. 4.5(iv)]{BP_edss}).
       \end{enumerate}
 \end{lemma}
 
-% \begin{lemma}
-%       \label{LOCALREEDY_LEM}
-%       $(L_S\mathcal M)^{\mathbb R} = L_{S \square R}(\mathcal M^{\mathbb R})$.
-% \end{lemma}
-% come back!
 
 
 
@@ -4748,20 +4770,21 @@ We recall the adjunction in question.
 
 
 \begin{definition}
+      \label{OT_DEF}
       Fix $T \in \Omega$.
       The operad $\Omega(T)$ is the free colored operad generated by its edges and vertices
       it has colors $\mathfrak C = \mathbf E(T)$ the set of edges, and
-      for any $\mathbf E(T)$-colored sequence $C$, 
+      for any $\mathbf E(T)$-colored sequence $\vect C$, 
       \begin{equation}
-            \Omega(T)(C) =
+            \Omega(T)(\vect C) =
             \begin{cases}
-                  \** \qquad \qquad \qquad & \mbox{there exists $C_n \xrightarrow{\phi} T$ such that $\partial \phi = C$}
+                  \** \qquad \qquad \qquad & \mbox{there exists $C \xrightarrow{\phi} T$ such that $\partial \phi = \vect C$}
                   \\
                   \varnothing & \text{else,}
             \end{cases}
       \end{equation}
       where $\partial \phi$ is the $\mathbf E(T)$-signature $(\phi(1), \phi(2), \dots, \phi(n); \phi(0))$
-      given by the (ordered) image of the edges of $C_n$.
+      given by the (ordered) image of the edges of $C$.
       \todo[inline]{profile of a map? is this used in other places?}
       This extends to a functor $\Omega \into \Op(\Set)$, and has an associated nerve-realization adjunction
       \[
@@ -4778,11 +4801,11 @@ We elaborate on that distinction now.
 
 \begin{definition}
       Given a set of colors $\mathfrak C$, let $\eta_{\mathfrak C} = \eta$ denote the initial $\mathfrak C$-colored operad in $\V$,
-      defined for all $\mathfrak C$-sequences $C$ by
+      defined for all $\mathfrak C$-sequences $\vect C$ by
       \[
-            \eta(C) =
+            \eta(\vect C) =
             \begin{cases}
-                  1_\V \qquad \qquad & C = (x;x)
+                  1_\V \qquad \qquad & \vect C = (x;x)
                   \\
                   \varnothing & \mbox{else.}
             \end{cases}
@@ -4835,12 +4858,12 @@ We can now make the following definition of the $W$-construction.
 
 We unpack this $\mathbf E(T)$-colored operad, culminating in \eqref{WT_EQ}.
 First, we consider $\mathbb F^{\mathbf E(T)} \Omega(T)$ and $\mathbb F^{\mathbf E(T)}_+ \Omega(T)$.
-We observe that $\mathbb F^{\mathbf E(T)} \Omega(T)(C) = \varnothing$ iff $\Omega(T)(C) = \varnothing$.
-Otherwise, if $C_n \xrightarrow{\phi} T$ is such that $\partial \phi = C$, then
+We observe that $\mathbb F^{\mathbf E(T)} \Omega(T)(\vect C) = \varnothing$ iff $\Omega(T)(\vect C) = \varnothing$.
+Otherwise, if $C \xrightarrow{\phi} T$ is such that $\partial \phi = \vect C$, then
 \begin{equation}
       \label{FET_EQ}
-      \mathbb F^{\mathbf E(T)}\Omega(T)(C)
-      = \set{\mbox{factorizations $C_n \xrightarrow{\psi_0} S_1 \xrightarrow{\psi_1} T$ of $\phi$ with $\psi_0$ tall}}.
+      \mathbb F^{\mathbf E(T)}\Omega(T)(\vect C)
+      = \set{\mbox{factorizations $C \xrightarrow{\psi_0} S_1 \xrightarrow{\psi_1} T$ of $\phi$ with $\psi_0$ tall}}.
 \end{equation}
 We note in particular that neither map in the factorization needs to be injective;
 specifically, for any $e \in \mathbf E(T)$,
@@ -4851,7 +4874,7 @@ specifically, for any $e \in \mathbf E(T)$,
 is in bijection with the set of non-negative integers.
 
 \begin{example}
-      More generally, we consider the simple case where $T = C_2$, with leaves $\set{a,b}$ and root $r$.
+      More generally, we consider the simple case where $T = \mathbb Z_{/2}$, with leaves $\set{a,b}$ and root $r$.
       Then $\mathbb F^{\mathbf E(T)}\Omega(T)(a,b;r) = \mathbb Z_{\geq 0}^{\times \set{a,b,r}}$,
       where the tree $S_1$ associated to the triple $(n_a, n_b, n_r)$ has one node of valence two,
       with root (resp. left and right) path out of that node of length $n_r$ (resp. $n_a$, $n_b$).
@@ -4887,7 +4910,7 @@ is in bijection with the set of non-negative integers.
       where there are $n_r$, $n_b$, and $n_a$ edges on the bottom, right, and left paths respectively.
 \end{example}
       
-Now, $\mathbb F^{\mathbf E(T)}\eta_{\mathbf E(T)}(C) = \varnothing$ unless $C = (e;e)$ for some $e \in \mathbf E(T)$;
+Now, $\mathbb F^{\mathbf E(T)}\eta_{\mathbf E(T)}(\vect C) = \varnothing$ unless $\vect C = (e;e)$ for some $e \in \mathbf E(T)$;
 in this case, $\mathbb F^{\mathbf E(T)}\eta(e;e) = \mathbb Z_{\geq 0}$, as in \eqref{FET_EE_EQ}.
 % 
 If we also denote the unit map by $\eta$, we see that the image of the map
@@ -4898,12 +4921,12 @@ corresponds to all factorizations from \eqref{FET_EQ} with $S_1$ a linear tree a
 
 Thus in the pushout $\mathbb F^{\mathbf E(T)}_+\Omega(T)$, all the non-injective operations are identified, and we have
 \begin{align*}
-  \mathbb F^{\mathbf E(T)}_+\Omega(T)(C)
-  & = \set{\mbox{factorizations $C_n \xrightarrow{\psi_0} S_1 \xrightarrow{\psi_1} T$ of $\phi$ with $\psi_1$ injective, $\psi_0$ tall}} \\
+  \mathbb F^{\mathbf E(T)}_+\Omega(T)(\vect C)
+  & = \set{\mbox{factorizations $C \xrightarrow{\psi_0} S_1 \xrightarrow{\psi_1} T$ of $\phi$ with $\psi_1$ injective, $\psi_0$ tall}} \\
   & = \set{\mbox{inner faces $S$ of $T_{\phi(1 2 \dots n) \leq \phi(0)}$}} \\
   & = \set{\mbox{subsets $S \subseteq \mathbf E^i(T_{\phi(1 2 \dots n) \leq \phi(0)})$ of inner edges}}    
 \end{align*}
-where $1 2 \dots n \leq 0$ is the vertex of $C_n$ and $T_{\phi(1 2 \dots n) \leq \phi(0)}$ is the associated outer face of $T$.
+where $1 2 \dots n \leq 0$ is the vertex of $C$ and $T_{\phi(1 2 \dots n) \leq \phi(0)}$ is the associated outer face of $T$.
 
 In a similar fashion,
 % ---------------------------------------- OLIVE GREEN ----------------------------------------
@@ -4926,19 +4949,19 @@ In a similar fashion,
 } % ---------------------------------------- OLIVE GREEN ----------------------------------------
   we see that
 \begin{align*}
-  \left(\mathbb F^{\mathbf E(T)}\right)^n \Omega(T)(C)
+  \left(\mathbb F^{\mathbf E(T)}\right)^n \Omega(T)(\vect C)
   & = \set{
     \begin{array}{l}
-      \mbox{factorizations $C_n \xrightarrow{\psi_0} S_1 \xrightarrow{\psi_1} S_2 \xrightarrow{\psi_2} \dots \xrightarrow{\psi_{n-1}} S_n \xrightarrow{\psi_n} T$}
+      \mbox{factorizations $C \xrightarrow{\psi_0} S_1 \xrightarrow{\psi_1} S_2 \xrightarrow{\psi_2} \dots \xrightarrow{\psi_{n-1}} S_n \xrightarrow{\psi_n} T$}
       \\
       \mbox{of $\phi$ with $\psi_i$ tall for $i < n$}
     \end{array}
   },
   \\
-  \left(\mathbb F^{\mathbf E(T)}_+ \right)^2 \Omega(T)(C)
+  \left(\mathbb F^{\mathbf E(T)}_+ \right)^n \Omega(T)(\vect C)
   & = \set{
     \begin{array}{l}
-      \mbox{factorizations $C_n \xrightarrow{\psi_0} S_1 \xrightarrow{\psi_1} S_2 \xrightarrow{\psi_2} \dots \xrightarrow{\psi_{n-1}} S_n \xrightarrow{\psi_n} T$}
+      \mbox{factorizations $C \xrightarrow{\psi_0} S_1 \xrightarrow{\psi_1} S_2 \xrightarrow{\psi_2} \dots \xrightarrow{\psi_{n-1}} S_n \xrightarrow{\psi_n} T$}
       \\
       \mbox{of $\phi$ with $\psi_i$ injective for $i > 1$ and $\psi_i$ tall for $i < n$}
     \end{array}
@@ -4952,9 +4975,9 @@ Thus we have the following description of $W(T)$:
 
 \begin{equation}
       \label{WT_EQ}
-      W(T)(C) = 
+      W(T)(\vect C) = 
       \begin{cases}
-            \Delta[1]^{\times \mathbf E^i(T_{\underline e \leq e})}, \qquad & \mbox{there exist $C_n \xrightarrow{\phi} T$ with $\partial \phi = C$}
+            \Delta[1]^{\times \mathbf E^i(T_{\underline e \leq e})}, \qquad & \mbox{there exist $C \xrightarrow{\phi} T$ with $\partial \phi = \vect C$}
             \\
             \varnothing & \text{else,}
       \end{cases}
@@ -4978,6 +5001,8 @@ The culmination of extensive work by Cisinski-Moerdijk-Weiss \cite{CM13a,CM13b,C
       $hcN$ and $W_!$ form a Quillen equivalence with respect to the model structures
       which, in particular, are recovered by the $G = \**$ cases of Theorem \ref{MODEL_THM} and \cite[Thm. 2.1]{Per_eds}.
 \end{theorem}
+
+\todo[inline]{come back}
 
 \subsection{The equivariant adjunction}
 
@@ -5021,29 +5046,29 @@ We have the following generalization of \cite[Prop 4.5]{CM11} (see also \cite[Pr
 
       Thus we may assume that $|V(T)| \geq 1$.
       In this case, $i$ is an isomorphism on object $H$-sets $\mathbf E(T_e)$,
-      and for any $\mathbf E(T_e)$-signature $C$,
-      $i(C)$ is the identity unless $C = h \cdot \mathsf{lr}(T_e)$ for some $h \in H$,
-      where $\mathsf{lr}(T_e)$ is the signature $(e_1, \dots, e_n; e)$ 
+      and for any $\mathbf E(T_e)$-signature $\vect C$,
+      $i(\vect C)$ is the identity unless $\vect C = h \cdot \partial \mathsf{lr}(T_e)$ for some $h \in H$,
+      where $\partial \mathsf{lr}(T_e)$ is the signature $(e_1, \dots, e_n; e)$ 
       with $\set{e_1,\dots, e_n}$ the set of leaves of $T_e$ and $e$ the root.
-      When $C = \mathsf{lr}(T_e)$, $i(C)$ is the iterated pushout product
+      When $\vect C = \partial \mathsf{lr}(T_e)$, $i(\vect C)$ is the iterated pushout product
       \[
-            i(C) = (\partial \Delta[1] \to \Delta[1])^{\square \mathbf E^i(T_e)}.
+            i(\vect C) = (\partial \Delta[1] \to \Delta[1])^{\square \mathbf E^i(T_e)}.
       \]
-      We need that $i(C)$ is a genuine cofibration in $\sSet^{\Aut(C)}_\F$.
-      However, $\Aut(C) = \Gamma \leq H \times \Sigma_n$ for $\Gamma \leq H \times \Sigma_n$ the graph subgroup encoding the $H$-action on the set of leaves $\set{e_1, \dots, e_n}$,
-      and since $\F$ is a weak indexing system, $\Aut(C) \in \F_n$,
-      and thus, as $\F$ is closed under subgroups, $\sSet^{\Aut(C)}_\F = \sSet^{\Aut(C)}_{gen}$.
+      We need that $i(\vect C)$ is a genuine cofibration in $\sSet^{\Aut(\vect C)}_\F$.
+      However, $\Aut(\vect C) = \Gamma \leq H \times \Sigma_n$ for $\Gamma \leq H \times \Sigma_n$ the graph subgroup encoding the $H$-action on the set of leaves $\set{e_1, \dots, e_n}$,
+      and since $\F$ is a weak indexing system, $\Aut(\vect C) \in \F_n$,
+      and thus, as $\F$ is closed under subgroups, $\sSet^{\Aut(\vect C)}_\F = \sSet^{\Aut(\vect C)}_{gen}$.
       Then the claim follows from the fact that monomorphisms are genuine cofibrations,
       {\color{OliveGreen} % ---------- OLIVE GREEN ----------------------------------------
         or using the fact that $\sSet$ has cofibrant symmetric pushout powers,
         so $(\partial \Delta[1] \to \Delta[1])^{\square m}$ is a genuine $\Sigma_m$-cofibration where $m = |\mathbf E^i(T_e)|$,
         and then as restriction is left Quillen on genuine model structures,
         \[
-              \mathrm{Res}^{\Sigma_m}_{\Aut(C)}(\partial \Delta[1] \to \Delta[1])^{\square m} = i(C),
+              \mathrm{Res}^{\Sigma_m}_{\Aut(C)}(\partial \Delta[1] \to \Delta[1])^{\square m} = i(\vect C),
               \qquad
-              \Aut(C) = \Gamma \xrightarrow{pr} H \xrightarrow{\mathbf E^i(T_e)} \Sigma_m,
+              \Aut(\vect C) = \Gamma \xrightarrow{pr} H \xrightarrow{\mathbf E^i(T_e)} \Sigma_m,
         \]
-        is a genuine $\Aut(C)$-cofibration.
+        is a genuine $\Aut(\vect C)$-cofibration.
       } % ---------------------------------------- OLIVE GREEN --------------------
       %
       It is then straightforward to check that $G \cdot_H i$ has the left lifting property against all local trivial $\F$-fibrations in $\sOp^G$.
@@ -5063,10 +5088,10 @@ We have the following generalization of \cite[Prop 4.5]{CM11} (see also \cite[Pr
             G \cdot_H \left(W_! \Lambda^{H e}[T_e] \xrightarrow{\ j \ } W(T_e) \right).
       \]
       with $T \simeq G \cdot_H T_e \in \Omega_\F$ and $e \in \mathbf E(T_e)$ some inner edge.
-      Again, $j$ is bijective on objects and $j(C)$ is the identity unless $C = h \cdot \mathsf{lr}(T_e)$.
-      When $C = \mathsf{lr}(T_e)$, $j(C)$ is the iterated pushout product
+      Again, $j$ is bijective on objects and $j(\vect C)$ is the identity unless $\vect C = h \cdot \partial \mathsf{lr}(T_e)$.
+      When $\vect C = \partial \mathsf{lr}(T_e)$, $j(\vect C)$ is the iterated pushout product
       \begin{equation}
-            j(C) =
+            j(\vect C) =
             \left(
                   \begin{tikzcd}
                         \partial \left(
@@ -5149,22 +5174,29 @@ Another corollary is the following key step.
       will be further explored in a sequel. 
 \end{remark}
 
+\begin{remark}
+      For any $\mathcal F$-tree $T \in \Omega_{\mathcal F}$, $\Omega[T] \in \dSet^G$ is $\mathcal F$-cofibrant/normal,
+      and hence $W(T)$ is $\mathcal F$-cofibrant in $\sOp^G$ for all $T \in \Omega_{\mathcal F}$.
+      \todo[inline]{do we need to worry about the case when $W(T)$ is \textit{not} cofibrant? Then we won't get the simplicial equivalences we want below}
+\end{remark}
 
-here!
+come back!
+
+
 
 Finally, the following is a reformalized proof of \cite[Thm. 8.14]{CM13b}, extended to the equivariant setting;
 the main result is an immediate corollary.
 
 \begin{proposition}\label{COMUOTOHOM PROP}
-      For all weak indexing systems $\F$,
-      the (right) derived composite functors in the following diagram commute up to a zigzag of weak equivalences. 
+      % For all weak indexing systems $\F$,
+      The (right) derived composite functors in the following diagram commute up to a zigzag of weak equivalences. 
       \[
             \begin{tikzcd}
-                  \mathsf{PreOp}^G_{\mathcal F} \ar{d}[swap]{\gamma^{\**}}&
-                  \mathsf{sOp}^G_{\mathcal F} \ar{l}[swap]{N} \ar{d}{hcN}
+                  \mathsf{PreOp}^G \ar{d}[swap]{\gamma^{\**}}&
+                  \mathsf{sOp}^G \ar{l}[swap]{N} \ar{d}{hcN}
                   \\
-                  \mathsf{sdSet}^G_{\mathcal F} &
-                  \mathsf{dSet}^G_{\mathcal F} \ar{l}{c_{!}}
+                  \mathsf{sdSet}^G &
+                  \mathsf{dSet}^G \ar{l}{c_{!}}
             \end{tikzcd}
       \]
 \end{proposition}
@@ -5204,19 +5236,22 @@ $\mathsf{sOp}$.
         
         For the second and third maps, note first that
         $\widetilde{Q}$ is homotopically constant, in the sense that
-        all vertex maps $\widetilde{Q}(m) \to \widetilde{Q}(0)$ are joint equivalences in $\mathsf{sdSet}$,
-        by combining Lemma \ref{COMUOTOHOM_FACTS}(iv),(v).
-        \todo[inline]{I don't see how this works. I can only show that $X(m) \to X(0)$ is a joint fibration between joint fibrant objects.}
+        all vertex maps $\widetilde{Q}(m) \to \widetilde{Q}(0)$ are joint equivalences in $\mathsf{sdSet}$.
+        \todo[inline]{I don't see how this follows. I can only show that $X(m) \to X(0)$ is a joint fibration between joint fibrant objects.}
         % 
         Moreover, since the levels $\widetilde{Q}$ are joint fibrant in $\mathsf{sdSet}$,
-        \cite[Prop. 4.5(iii)]{BP_edss} implies that these are in fact simplicial equivalences,
+        Lemma \ref{COMUOTOHOM_FACTS} \ref{SFIB_JEQ_LBL} % \cite[Prop. 4.5(iii)]{BP_edss}
+        implies that these are in fact simplicial equivalences,
         i.e. that for each tree $T \in \Omega$ the evaluations
         $\widetilde{Q}(T)(m) \to \widetilde{Q}(T)(0)$
         are Kan equivalences in $\mathsf{sSet}$.
         %
-        But since $\widetilde{Q}(T) \in \mathsf{sSet}^{\Delta^{op}}$ is itself Reedy fibrant by Lemma \ref{COMUOTOHOM_FACTS}(iii),
-        (the proof of) \cite[Prop. 4.24(ii)]{BP_edss} implies that it is in fact joint Reedy fibrant in $\mathsf{sSet}^{\Delta^{op}}$,
-        and hence by \cite[Prop. 4.5(iv)]{BP_edss}, one has Kan equivalences 
+        But since $\widetilde{Q}(T) \in \mathsf{sSet}^{\Delta^{op}}$ is itself Reedy fibrant by
+        Lemma \ref{COMUOTOHOM_FACTS} \ref{RJOINTT_LBL},
+        Lemma \ref{COMUOTOHOM_FACTS} \ref{JF_VERT_LBL} % (the proof of) \cite[Prop. 4.24(ii)]{BP_edss} 
+        implies that it is in fact joint Reedy fibrant in $\mathsf{sSet}^{\Delta^{op}}$,
+        and hence by Lemma \ref{COMUOTOHOM_FACTS} \ref{DIAG_LBL}, %\cite[Prop. 4.5(iv)]{BP_edss}
+        one has Kan equivalences 
         $\widetilde{Q}(T)(0) \xrightarrow{\sim}
         \delta^{\**} \widetilde{Q}(T) \xleftarrow{\sim}
         \widetilde{Q}_0(T)$,
@@ -5224,18 +5259,19 @@ $\mathsf{sOp}$.
         
         For the fourth equivalence, note that one can write
         \[\widetilde{Q}_0(T) = 
-              \mathsf{Hom}_{\mathsf{sdSet}}(\Omega[T],\widetilde{Q})=
-              \mathsf{Hom}_{\mathsf{PreOp}}(\Omega[T],\gamma_{\**}\widetilde{Q})\]
+              \mathsf{Hom}_{\mathsf{sdSet}}(c_!\Omega[T],\widetilde{Q})=
+              \mathsf{Hom}_{\mathsf{PreOp}}(c_!\Omega[T],\gamma_{\**}\widetilde{Q})\]
         \[
               \left(\gamma^{\**} N \widetilde{\mathcal{O}}\right)_0(T) = 
-              \mathsf{Hom}_{\mathsf{sdSet}}(\Omega[T],\gamma^{\**} N \widetilde{\mathcal{O}})=
-              \mathsf{Hom}_{\mathsf{PreOp}}(\Omega[T], N \widetilde{\mathcal{O}})
+              \mathsf{Hom}_{\mathsf{sdSet}}(c_!\Omega[T],\gamma^{\**} N \widetilde{\mathcal{O}})=
+              \mathsf{Hom}_{\mathsf{PreOp}}(c_!\Omega[T], N \widetilde{\mathcal{O}})
         \]
         The claim now follows by noting that
         $N \widetilde{\mathcal{O}} \to \gamma_{\**} \widetilde{Q}$
-        is an equivalence (as $\gamma^{\**}\gamma_{\**}\tilde Q \to \tilde Q$ is a joint equivalence)
-        between Reedy fibrant objects in $(\mathsf{PreOp}^G_{tame})^{\Delta^{op}}$,
-        and that $\Omega(T)$ is tame cofibrant. \todo{citation}
+        is an equivalence
+        between Reedy fibrant objects in $(\mathsf{PreOp}^G_{tame})^{\Delta^{op}}$
+        (as $\gamma^{\**}\gamma_{\**}\tilde Q \to \tilde Q$ is a joint equivalence and $N$, $\gamma_{\**}$ are right Quillen),
+        and that $N\Omega(T) = c_!\Omega[T]$ is tame cofibrant \todo{citation}.
 
         For the fifth equivalence, note that
         \[
@@ -5249,14 +5285,18 @@ $\mathsf{sOp}$.
         \]
         so that the required claim follows since 
         $\widetilde{\mathcal{O}}$ is Reedy fibrant and
-        $W_!(T) \to \Omega(T)$ is a weak equivalence of cofibrant operads.
+        $W(T) \to \Omega(T)$ is a weak equivalence of cofibrant operads.
 
-        Lastly, for the last map, one needs simply note that
+        Finally, for the last map, one needs simply to note that
         $c_! hcN \mathcal{O} = hcN c_! \mathcal{O}$, so that the required claim follows since 
         $c_! \mathcal{O} \to \widetilde{O}$
         is a levelwise equivalence of levelwise fibrant operads
         and $hcN$ is right Quillen.
 \end{proof}
+
+\todo[inline]{what changes when we add $\mathcal F$'s?
+  (1) $W(T)$ nor $\Omega(T)$ need to be $\mathcal F$-cofibrant,
+(2) }
 
 \begin{proof}
       [Proof of Theorem \ref{QE_THM}]
