@@ -702,6 +702,7 @@ Random lemmas:
 \end{proof}
 
 
+\fi
 
 
 
@@ -1028,7 +1029,7 @@ and of the restriction of the monad $\mathbb{F}^G$ to those fibers.
 We start with the following, which is a slight strengthening of
 \cite[Lemma A.6]{BP_geo}.
 
-\begin{lemma}
+\begin{lemma}\label{EQUIVFUNCONV LEM}
 Let $G$ be a group and $\mathfrak{C} \colon G \to \mathsf{F}$ be a $G$-set (or, more generally, $\mathcal{D}$ a category and 
 $\mathcal{C}_{\bullet}\colon \mathcal{D} \to \mathsf{Cat}$ a functor). Then category of sections as on the left below (or, more generally, as on the left)
 \begin{equation}
@@ -1584,6 +1585,7 @@ is hence the subcategory of $\mathfrak C$-colored operads and maps which are the
 	(though only a partial action by $\Sigma_{|\xi|}$).
 \end{remark}
 
+\iffalse
 
 
 
@@ -9096,7 +9098,7 @@ we will find it convenient to consider all colors simultaneously,
 and note that our constructions are natural 
 on \eqref{OU EQ} with respect to change of colors.
 More explicitly, this will mean that our work in this section will be natural with regard to commutative diagrams
-\begin{equation}
+\begin{equation}\label{COLORCHNAT EQ}
 	\begin{tikzcd}
 		\mathbb X \arrow[r, "u"',swap] \arrow[d]
 	&
@@ -9704,7 +9706,7 @@ The following results follow exactly as in the cited result from
 
 
 We now finally describe the filtration \eqref{FILT EQ}.
-\begin{definition}
+\begin{definition}\label{FILTSTAGE DEF}
 Let $\O_k$ denote the left Kan extension
 \begin{equation}
 \begin{tikzcd}
@@ -9758,7 +9760,7 @@ rewrite the left vertical map of can extensions in \eqref{FILTLAN EQ}
 
 
 \begin{proposition}[{cf. \cite[Prop. 5.66]{BP_geo}}]
-      \label{FILT_PUSH_PROP}
+      \label{FILTPUSH PROP}
 %      Suppose $\V$ is a closed monoidal category, and fix a $G$-set $\mathfrak C$.
 %      For $n \geq 0$, let $\O_n$ denote the $n$-stage of the filtration \eqref{FILT_EQ} in $\Sym^{G, \mathfrak C}(\V)$
 %      of the pushout map from \eqref{OU_EQ}.
@@ -9807,33 +9809,92 @@ the leftmost map in \eqref{FILTLAN EQ} as
 \end{proof}
 
 
+
 \subsection{Filtration of free extensions in the equivariant case}
 
-{\color{red} HERE}
+
+When \eqref{OU EQ} is a $G$-equivariant diagram (note that the maps are still assumed the identity on colors),
+naturality with regard to data as in \eqref{COLORCHNAT EQ}
+shows that in 
+\eqref{2NDRED EQ} the left Kan extension 
+is compatible with $G$-equivariance, i.e. it is in fact 
+$
+\mathsf{Lan}^G \colon 
+\left(
+\mathsf{WSpan}_l
+(\Sigma^{op}_{\bullet},\mathcal{V})
+\right)^G
+\to
+\left(
+\mathsf{Fun}
+(\Sigma^{op}_{\bullet},\mathcal{V})
+\right)^G
+$.
+Hence, by (the span version of) Lemma \ref{EQUIVFUNCONV LEM},
+we further have the alternative formula
+\begin{equation}\label{3RDRED EQ}
+\O[u] \simeq
+	\mathsf{Lan}_{\left(G^{op} \ltimes \Omega_{\mathfrak C}^{e} \to
+	G^{op} \ltimes \Sigma_{\mathfrak C}\right)^{op}} N^{(\O,X,Y)}
+\end{equation}
+and, since the subcategories 
+$\widehat{\Omega}_{\mathfrak{C}}^e$,
+$\widehat{\Omega}_{\mathfrak{C}}^e[\leq k]$,
+$\widehat{\Omega}_{\mathfrak{C}}^e[k]$
+are compatible with the $G$-action, by replacing these categories with 
+$G^{op} \ltimes \widehat{\Omega}_{\mathfrak{C}}^e$,
+$G^{op} \ltimes \widehat{\Omega}_{\mathfrak{C}}^e[\leq k]$,
+$G^{op} \ltimes \widehat{\Omega}_{\mathfrak{C}}^e[k]$
+in Definition \ref{FILTSTAGE DEF}
+we see that the right square in \eqref{FILTLAN EQ}
+is naturally a square in 
+$\mathsf{Sym}(\mathcal{V})^G$.
+
+Hence, by accounting for equivariance
+we further obtain the following analogue of 
+Proposition \ref{FILTPUSH PROP}
 
 
 
+
+\begin{proposition}[{cf. \cite[Prop. 5.66]{BP_geo}}]
+      \label{FILTPUSH PROP}
+%      Suppose $\V$ is a closed monoidal category, and fix a $G$-set $\mathfrak C$.
+%      For $n \geq 0$, let $\O_n$ denote the $n$-stage of the filtration \eqref{FILT_EQ} in $\Sym^{G, \mathfrak C}(\V)$
+%      of the pushout map from \eqref{OU_EQ}.
+For each $\mathfrak C$-signature $C \in \Sigma_{\mathfrak C}$, one has a pushout diagram
+      \vspace{-10pt}
 \begin{align}\label{FILTPUSHG EQ}
 \begin{tikzcd}[ampersand replacement=\&]
-	\mathop{\coprod}\limits_{[T] \in \Iso(C \downarrow G \ltimes \Omega_{\mathfrak C}^a[k])}
+	\mathop{\coprod}\limits_{[T] \in \Iso(C \downarrow G^{op} \ltimes \Omega_{\mathfrak C}^a[k])}
 	\left(
 		\mathop{\bigotimes}\limits_{v \in V^{ac}(T)} \O(T_v) \otimes
 		Q^{in}_T[u]
-	\right) \cdot_{\Aut_{G \ltimes \OC}(T)} \Aut_{G \ltimes \SC}(C)
+	\right) \cdot_{\Aut_{G^{op} \ltimes \OC}(T)} \Aut_{G^{op} \ltimes \SC}(C)
 		\arrow[r] \arrow[d]
 \&
 	\O_{k-1}(C) \arrow[d]
 \\                  
-	\mathop{\coprod}\limits_{[T] \in \Iso(C \downarrow G \ltimes \Omega_{\mathfrak C}^a[k])}
+	\mathop{\coprod}\limits_{[T] \in \Iso(C \downarrow G^{op} \ltimes \Omega_{\mathfrak C}^a[k])}
 	\left(
 		\mathop{\bigotimes}\limits_{v \in V^{ac}(T)} \O(T_v) \otimes
 		\mathop{\bigotimes}\limits_{v \in V^{in}(T)} Y(T_v)
-	\right) \cdot_{\Aut_{G \ltimes \OC}(T)} \Aut_{G \ltimes \SC}(C)
+	\right) \cdot_{\Aut_{G^{op} \ltimes \OC}(T)} \Aut_{G^{op} \ltimes \SC}(C)
 		\arrow[r]
 \&
 	\O_k(C)
 \end{tikzcd}
 \end{align}
+\end{proposition}
+
+
+
+
+
+{\color{red} HERE}
+
+
+
 
 
 
