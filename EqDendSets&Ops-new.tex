@@ -43,9 +43,9 @@ cd,patterns,calc}
 
 \usepackage{ifdraft}
 \ifdraft{
-  \color[RGB]{63,63,63}
+%  \color[RGB]{63,63,63}
   % \pagecolor[rgb]{0.5,0.5,0.5}
-  \pagecolor[RGB]{220,220,204}
+%  \pagecolor[RGB]{220,220,204}
   % \color[rgb]{1,1,1}
 }
 
@@ -8527,13 +8527,13 @@ and then applying the pullback functor $(-) \wr B$.
 Next, note that thanks to the composite functors 
 $\Omega^n_{\mathfrak{C}} \wr A \to \Omega^n_{\mathfrak{C}} 
 \xrightarrow{d^{0,\cdots,n}} \Sigma_{\mathfrak{C}}$
-one can regard the $\Omega^n \wr (-)$ constructions
+one can regard the $\Omega_{\mathfrak{C}}^n \wr (-)$ constructions
 as endofunctors on the regular $1$-overcategory
 $\mathsf{Cat} \downarrow \Sigma_{\mathfrak{C}}$.
 
 
 \begin{proposition}\label{ASSOCIDS PROP}
-Let $k,l\leq -1$. One has canonical natural identifications 
+Let $k,l\geq -1$. One has canonical natural identifications 
 $\Omega^k_{\mathfrak{C}} \wr \Omega^l_{\mathfrak{C}} \wr A
 \simeq 
 \Omega^{k+l+1}_{\mathfrak{C}} \wr A $.
@@ -9269,8 +9269,8 @@ one has functors
 \end{equation}
 Lastly, one also has simplicial operators $d_i$, $s_j$, 
 but some care is needed with the way these interact with the index $s$. To do so, defining functions $d_i,s_j\colon \mathbb{Z} \to \mathbb{Z}$ by
-\[
-d_i(s) = 
+\begin{equation}\label{SIMPLEXP EQ}
+ d_i(s) = 
 \begin{cases}
 s-1, & i<s
 \\
@@ -9283,7 +9283,7 @@ s+1, & j<s
 \\
 s, & s\leq j
 \end{cases}
-\]
+\end{equation}
 one has simplicial operators
 \[
 \Omega_{\mathfrak{C}}^{n,s,\lambda} \xrightarrow{d_i} \Sigma \wr\Omega_{\mathfrak{C}}^{n,d_i(s),\lambda},
@@ -9346,13 +9346,550 @@ For $k \leq s \leq s'$ the following squares are pullback squares
 \end{enumerate}
 \end{remark}
 
+The following is the main purpose of the 
+$\Omega_{\mathfrak{C}}^{n,s,\lambda}$ categories,
+adapting the work in \S \ref{WRACONST SEC}.
+
+\begin{definition}[{cf. \cite[Notation 5.24]{BP_geo}}]\label{NA_DEF}
+      Given a $l$-tuple of functors
+      $\left(A_j \to \Sigma_{\mathfrak C} \right)_{1\leq j \leq l}$,
+we write
+\begin{equation}\label{WRAJDEF EQ}
+(-) \wr (A_j) \colon 
+\mathsf{Cat} \downarrow^r_{\Sigma} \Sigma \wr \Sigma_{\mathfrak{C}}^{\amalg l}
+\to
+\mathsf{Cat} \downarrow^r_{\Sigma} \Sigma \wr \amalg_j A_j
+\end{equation}
+for the pullback \eqref{WSPANPULL EQ} for the map
+$\Sigma \wr \amalg_j A_j \to \Sigma \wr \Sigma_{\mathfrak{C}}^{\amalg l}$.
+ 
+In particular, for all $-1\leq s \leq n$, this defines categories
+$\Omega^{n,s,\lambda}_{\mathfrak{C}} \wr (A_j)$ via pullbacks
+(note that the $s \leq n$ restriction guarantees that the target of the lower $\boldsymbol{V}^n$ is indeed $\Sigma \wr \Sigma_{\mathfrak{C}}^{\amalg l}$) 
+\begin{equation}\label{WRAJSAMPLE EQ}
+\begin{tikzcd}
+	\Omega^{n,s,\lambda}_{\mathfrak{C}} \wr (A_j) \ar{r}{\boldsymbol{V}^n} \ar{d} &
+	\Sigma \wr \amalg_j A_j  \ar{d}
+\\
+	\Omega^{n,s,\lambda}_{\mathfrak{C}} \ar{r}{\boldsymbol{V}^n} &
+	\Sigma \wr \Sigma_{\mathfrak{C}}^{\amalg l}
+\end{tikzcd}
+\end{equation}
+along with analogues of $d_i$ (for $i<n$), $s_j$, $V^k$, $\pi_{i,k}$
+and of the forgetful functors in \eqref{FGTLABEL EQ}
+(cf. the discussion following \eqref{WRADEF EQ}).
+\end{definition}
+ 
+
+\begin{proposition}\label{SPANPIECEJ PROP}
+A tuple of commutative squares
+\begin{equation}\label{SPANPIECEJ EQ}
+\begin{tikzcd}
+	A_j \ar{d} \ar{r}{f} &  \ar{d} B_j
+\\
+	\Sigma_{\mathfrak{C}} \ar{r}[swap]{f} & \Sigma_{\mathfrak{D}}
+\end{tikzcd}
+\end{equation}
+induces natural maps 
+$f_{\**} \colon
+\Omega_{\mathfrak{C}}^{n,\bullet,\lambda} \wr (A_j) \to 
+\Omega_{\mathfrak{D}}^{n,\bullet,\lambda} \wr (B_j) $.
+
+Similarly, a map of tuples $A_j \to B_{g(j)}$ for 
+$g \colon \{1,\cdots,l\} \to \{1,\cdots,l'\}$
+induces natural maps 
+$g_{\**} \colon
+\Omega_{\mathfrak{C}}^{n,\bullet,\lambda} \wr (A_j) \to 
+\Omega_{\mathfrak{C}}^{n,\bullet,\lambda'} \wr (B_{j'}) $.
+
+Moreover, both $f_{\**}$ and $g_{\**}$ satisfy the analogues of the commutativity properties in Proposition \ref{SPANPIECE PROP}.
+In particular, the diagrams below commute.
+\[
+\begin{tikzcd}[column sep = 4pt, row sep = small]
+	\Omega^{n,\bullet,\lambda}_{\mathfrak{C}} \wr (A_j)
+	\ar{rrrrr}[name=toE]{\boldsymbol{V}^k} \ar{rd}[swap]{d^i} \ar{dd}[swap]{f_{\**}}
+	&&&
+	&&
+	\Sigma \wr \Omega^{n-k-1,\bullet,\lambda}_{\mathfrak{C}} \wr (A_j) \ar{dd}{f_{\**}}
+&
+	\Omega^{n,\bullet,\lambda}_{\mathfrak{C}} \wr (A_j)
+	\ar{rrrrr}[name=toE2]{\boldsymbol{V}^k} \ar{rd}[swap]{d^i} \ar{dd}[swap]{f_{\**}}
+	&&&
+	&&
+	\Sigma \wr \Omega^{n-k-1,\bullet,\lambda}_{\mathfrak{C}} \wr (A_j) \ar{dd}{f_{\**}}
+\\
+	&
+	|[alias=DBE]|
+	\Omega^{n-1,\bullet,\lambda}_{\mathfrak{C}} \wr (A_j) \ar{rrrru}[swap]{\boldsymbol{V}^{k-1}}
+	&&&&
+&
+	&
+	|[alias=DBE2]|
+	\Omega^{n-1,\bullet,\lambda}_{\mathfrak{C}} \wr (A_j) \ar{rrrru}[swap]{\boldsymbol{V}^{k-1}}
+\\
+	\Omega^{n,\bullet,\lambda}_{\mathfrak{D}} \wr (B_j) \ar{rrrrr}[name=toB]{\boldsymbol{V}^k} \ar{rd}[swap]{d^i}
+	&&&
+	&&
+	\Sigma \wr \Omega^{n-k-1,\bullet,\lambda}_{\mathfrak{D}} \wr (B_j)
+&
+	\Omega^{n,\bullet,\lambda'}_{\mathfrak{C}} \wr (B_{j'}) \ar{rrrrr}[name=toB2]{\boldsymbol{V}^k} \ar{rd}[swap]{d^i}
+	&&&
+	&&
+	\Sigma \wr \Omega^{n-k-1,\bullet,\lambda'}_{\mathfrak{C}} \wr (B_{j'})
+\\
+	&
+	|[alias=D]| \Omega^{n-1,\bullet,\lambda}_{\mathfrak{D}} \wr (B_j) \ar{rrrru}[swap]{\boldsymbol{V}^{k-1}}
+	&&&&
+&
+	&
+	|[alias=D2]| \Omega^{n-1,\bullet,\lambda'}_{\mathfrak{C}} \wr (B_{j'}) \ar{rrrru}[swap]{\boldsymbol{V}^{k-1}}
+\arrow[Leftrightarrow, from=DBE, to=toE, shorten <=0.15cm,shorten >=0.15cm
+,swap,"\pi"
+]
+	\arrow[Leftrightarrow, from=D, to=toB, shorten <=0.15cm,shorten >=0.15cm,swap,"\pi"]
+	\arrow[from=DBE, to=D, crossing over, near start, swap, "f_{\**}"]
+\arrow[Leftrightarrow, from=DBE2, to=toE2, shorten <=0.15cm,shorten >=0.15cm
+,swap,"\pi"
+]
+	\arrow[Leftrightarrow, from=D2, to=toB2, shorten <=0.15cm,shorten >=0.15cm,swap,"\pi"]
+	\arrow[from=DBE2, to=D2, crossing over, near start, swap, "f_{\**}"]
+\end{tikzcd}
+\]
+\end{proposition}
+
+\begin{proof}
+This follows by repeating the argument in the proof of Proposition \ref{SPANPIECE PROP}.
+\end{proof}
+
+
+ 
+Thanks to the composite functors
+$\Omega_{\mathfrak{C}}^{n,s,\lambda} \wr (A_j)
+\to \Omega_{\mathfrak{C}}^{n,s,\lambda} 
+\to \Omega^{-1,0}_{\mathfrak{C}} = \Sigma_{\mathfrak{C}}$,
+we can regard the 
+$\Omega_{\mathfrak{C}}^{n,s,\lambda} \wr (-)$
+construction as a functor
+$\left(\mathsf{Cat}\downarrow \Sigma_{\mathfrak{C}}\right)^{\times l}
+\to \mathsf{Cat}\downarrow \Sigma_{\mathfrak{C}}$
+
+\begin{corollary}[{cf. \cite[Cor. 5.32]{BP_geo}}]
+Let $-1 \leq k, -1 \leq s \leq n$.
+There are natural identifications
+\[
+	\OC^k \wr \OC^{n,s,\lambda} \wr (A_j) \simeq
+	\OC^{n+k+1,s+k+1,\lambda} \wr (A_j),
+\qquad
+	\OC^{n,s,\lambda} \wr (\OC^k)^{\times \lambda} \wr (A_j) \simeq
+	\OC^{n+k+1,s,\lambda} \wr (A_j)	
+\]
+which are unital and associative in the natural ways.
+Moreover, these induce identifications
+\[
+d^i \wr \Omega^{n,s,\lambda} \wr (A_j) \simeq d^i \wr (A_j)
+	\quad
+\pi_{i,k} \wr \Omega^{n,s,\lambda} \wr (A_j) \simeq \pi_{i,k} \wr (A_j)
+	\quad
+s^j \wr \Omega^{n,s,\lambda} \wr (A_j) \wr A \simeq d^j \wr  (A_j)
+\]
+\[
+\Omega^k \wr (d^i) \wr (A_j) \simeq d^{k+i+1} \wr (A_j)
+	\quad
+\Omega^k \wr (s^j) \wr (A_j) \simeq s^{k+j+1} \wr (A_j)
+\]
+\end{corollary}
+
+
+\begin{proof}
+Much as in Proposition \ref{ASSOCIDS PROP}, this follows by nothing that all squares in the following diagrams are pullback squares.
+\begin{equation}\label{LSTRINGS EQ}
+\begin{tikzcd}[column sep = 9pt]
+		\OC^{n+k+1,s+k+1,\lambda} \arrow{r}{\boldsymbol{V}^k} \wr (A_j)
+		\ar{r} \ar{d}
+		%\bullet \arrow[dashed]{d} \arrow[dashed]{r}
+	&
+		\Sigma \wr \OC^{n,s,\lambda} \wr (A_j) \ar{r} \ar{d}
+		%\bullet \arrow[dashed]{d} \arrow[dashed]{r}
+	&
+		\Sigma^{\wr 2} \wr \amalg_j A_j \arrow{r} \ar{d}
+	&
+		\Sigma \wr \amalg_j A_j \ar{d}
+\\
+		\OC^{n+k+1,s+k+1,\lambda} \arrow{r}{\boldsymbol{V}^k} \arrow[d]
+	&
+		\Sigma \wr \OC^{n,s,\lambda} \arrow{r}{\boldsymbol{V}^n} \arrow[d]
+	&
+		\Sigma^{\wr 2} \wr \Sigma_{\mathfrak C}^{\amalg l} \ar{r}
+	&
+		\Sigma \wr \Sigma_{\mathfrak C}^{\amalg l}
+\\
+		\OC^k \arrow{r}{\boldsymbol{V}^k}
+	&
+		\Sigma \wr \Sigma_{\mathfrak C}
+\\ % NEW DIAGRAM ------------------------------
+		\OC^{n+k+1,s,\lambda} \arrow{r}{\boldsymbol{V}^k} \wr (A_j)
+		\ar{r} \ar{d}
+		%\bullet \arrow[dashed]{d} \arrow[dashed]{r}
+	&
+		\Sigma \wr \amalg \left(\OC^{k}\right)^{\times \lambda} \wr (A_j)
+		\ar{r} \ar{d}
+		%\bullet \arrow[dashed]{d} \arrow[dashed]{r}
+	&
+		\Sigma \wr \amalg_j \Sigma \wr A_j \arrow{r} \ar{d}
+	&
+		\Sigma^{\wr 2} \wr \amalg_j A_j \arrow{r} \ar{d}
+	&
+		\Sigma \wr \amalg_j A_j \ar{d}
+\\
+		\OC^{n+k+1,s,\lambda} \arrow{r}{\boldsymbol{V}^n} \arrow[d]
+	&
+		\Sigma \wr \amalg \left(\OC^{k}\right)^{\times \lambda} \arrow{r}{\boldsymbol{V}^k} \arrow[d]
+	&
+		\Sigma \wr \amalg_l \Sigma \wr \Sigma_{\mathfrak{C}} \ar{r}
+	&
+		\Sigma^{\wr 2} \wr \amalg_l \Sigma_{\mathfrak{C}} \ar{r}
+	&
+		\Sigma \wr \Sigma_{\mathfrak C}^{\amalg l}
+\\
+		\OC^{n,s,\lambda} \arrow{r}{\boldsymbol{V}^n}
+	&
+		\Sigma \wr \Sigma_{\mathfrak C}^{\amalg l}
+            \end{tikzcd}
+      \end{equation}
+\end{proof}
+
+
+We now return to discussing
+\eqref{OU EQ1}.
+The preceeding discussion shows that
+({\color{blue} $N_{n,l}^{(\O,X,Y)}$ notation undiscussed})
+\begin{equation}\label{1STRED EQ}
+\O[u] \simeq
+\mathop{\colim}\limits_{(\Delta \times \Delta)^{op}}
+\left(
+	\mathsf{Lan}_{\left(\Omega_{\mathfrak C}^{n,\lambda_l} \to \Sigma_{\mathfrak C}\right)^{op}} N_{n,l}^{(\O,X,Y)}
+\right)
+\end{equation}
+where $\lambda_l$ is the partition on 
+\[
+\langle \langle l \rangle \rangle
+=
+\{-\infty,-l,\cdots,-1,0,1,\cdots,+\infty\}
+\]
+such that $\left(\lambda_l\right)_a = \{-\infty\}$.
+Moreover, the simplicial operators in the $l$ direction are described by antisymmetric functions $\langle \langle l \rangle \rangle
+ \to \langle \langle l' \rangle \rangle
+$
+which are given by \eqref{SIMPLEXP EQ} on non-negative values.
+
+
+\begin{proposition}
+The double simplicial realization
+$|\Omega_{\mathfrak C}^{n,\lambda_l}|$,
+which we call the \textit{extension tree category}
+and denote
+$\OC^e$, has as objects the 
+$\{\O,X,Y\}$-labeled trees
+and as arrows tall maps $\varphi \colon T \to S$ such that
+\begin{enumerate}[label=(\roman*)]
+\item if $T_v$ has a $X$-label, then 
+$S_v \in \Sigma_{\mathfrak{C}}$ and
+$S_v \in \Sigma_{\mathfrak{C}}$ has a $X$-label;
+\item if $T_v$ has a $Y$-label, then 
+$S_v \in \Sigma_{\mathfrak{C}}$ and
+$S_v \in \Sigma_{\mathfrak{C}}$ has either a $X$-label or a $Y$-label;
+\item if $T_v$ has a $\O$-label, then 
+$S_v \in \Sigma_{\mathfrak{C}}$ has only $X$ and $\O$ label;
+\end{enumerate}
+\end{proposition}
+
+
+\begin{proof}
+This is a direct analogue of \cite[Prop. 5.41]{BP_geo}, and the proof therein carries through without significant changes, so we only sketch the key arguments.
+Firstly, it is straightforward to check that for each fixed $l$,
+the realization $|\Omega^{n,\lambda_l}|$
+in the $n$ direction is the category 
+$\Omega^{t,\lambda_l}_{\mathfrak{C}}$
+with objects the $\langle \langle l \rangle \rangle$-labeled trees and and maps the tall label maps which are inert on colors other than $-\infty$/$\O$ (cf. \cite[Rem. 5.36]{BP_geo}).
+Moreover, maps 
+$T \to S$
+in 
+$\Omega^e_{\mathfrak{C}}$
+canonically factor 
+as
+$T \to T' \to S$
+where the first map is a a relabel map (i.e. an underlying isomorphism of trees that simply changes labels) and the second map is a label map, 
+so that the result follows from the observation that relabel maps in 
+$\Omega^e_{\mathfrak{C}}$
+correspond to objects of  
+$\Omega^{t,\lambda_1}$
+while label maps correspond to maps of
+$\Omega^{t,\lambda_0}$.
+\end{proof}
+
+
+(The natural analogue of) \cite[Prop 5.37]{BP_geo}
+applied to 
+\eqref{1STRED EQ}
+(note that the ``natural transformation component of differential operators are isomorphisms for the $n$ direction follows from \eqref{NMONMULTTR EQ} and \eqref{NMONIDTR EQ}''
+while in the $l$ direction it follows since the associate maps of tuples (cf. Proposition \ref{SPANPIECEJ PROP}) are the identity in each coordinate) now yields
+\begin{equation}\label{2NDRED EQ}
+\O[u] \simeq
+	\mathsf{Lan}_{\left(\Omega_{\mathfrak C}^{e} \to
+	\Sigma_{\mathfrak C}\right)^{op}} N^{(\O,X,Y)}
+\end{equation}
+
+We can explain how the desired filtration 
+\eqref{FILT EQ} is obtained:
+after replacing  
+$\Omega_{\mathfrak C}^{e}$
+in \eqref{2NDRED EQ}
+with a suitable subcategory 
+$\widehat{\Omega}_{\mathfrak C}^{e}$,
+the filtration will follow from a filtration 
+$\widehat{\Omega}_{\mathfrak C}^{e}[\leq k]$
+of 
+$\widehat{\Omega}_{\mathfrak C}^{e}$ itself.
+
+
+\begin{definition}
+$\widehat{\Omega}_{\mathfrak C}^{e} \hookrightarrow \Omega_{\mathfrak C}^{e}$
+is the full subcategory of those labeled trees whose underlying tree is alternating, active nodes are labeled by $\O$ 
+and passive nodes are labeled by $X$ or $Y$.
+
+Moreover, writing $|T| = |V^X(T)|+ |V^Y(T)|$,
+\begin{enumerate}[label=(\roman*)]
+\item $\widehat{\Omega}_{\mathfrak C}^{e}[\leq k]$ (resp. $\widehat{\Omega}_{\mathfrak C}^{e}[k]$)
+is the full subcategory of those $T$ with $|T| \leq k$ ($|T|=k$);
+\item $\widehat{\Omega}_{\mathfrak C}^{e}[\leq k \setminus Y]$ (resp. $\widehat{\Omega}_{\mathfrak C}^{e}[k \setminus Y]$)
+is the further subcategory of those $T$ with $|T|_Y \neq k$.
+\end{enumerate}
+Subcategories $\OC^a[\leq k], \OC^a[k]$ of $\OC^a$ are defined similarly.
+\end{definition}
+
+
+
+The following results follow exactly as in the cited result from 
+\cite{BP_geo} that they generalize.
+
+\begin{lemma}[{cf. \cite[Cor. 5.53, Lemma 5.58]{BP_geo}}]
+\label{LANINT LEM}
+
+	$\widehat\Omega_{\mathfrak C}^e \into 
+	\Omega_{\mathfrak C}^e$
+	is $\Ran$-initial over $\SC$.
+     
+	Similarly, $\widehat\Omega_{\mathfrak C}^e[\leq k-1] \into 
+\widehat\Omega_{\mathfrak C}^e[\leq k \setminus Y]$
+	is $\Ran$-initial over $\SC$.
+\end{lemma}
+
+\begin{remark}[{cf. \cite[Remark 5.57]{BP_geo}}]
+      \label{OEFIB REM}
+      The following diagram
+      \begin{equation}
+            \begin{tikzcd}
+                  \widehat\Omega_{\mathfrak C}^e[k \setminus Y] \arrow[rr, hookrightarrow] \arrow[dr]
+                  &&
+                  \widehat\Omega_{\mathfrak C}^e[k] \arrow[dl]
+                  \\
+                  &
+                  \Omega_{\mathfrak C}^a[k]
+            \end{tikzcd}
+      \end{equation}
+	is a map of Grothendieck fibrations
+	such that fibers over $T \in \Omega_{\mathfrak C}^a[k]$ are the punctured cube and cube categories
+      \begin{equation}
+            (Y \to X)^{\times V^{in}(T)} - Y^{\times V^{in}(T)},
+            \qquad
+            (Y \to X)^{\times V^{in}(T)}.
+      \end{equation}
+	for $V^{in}(T)$ the set of inert vertices.
+\end{remark}
+
+
+We now finally describe the filtration \eqref{FILT EQ}.
+\begin{definition}
+Let $\O_k$ denote the left Kan extension
+\begin{equation}
+\begin{tikzcd}
+	|[alias = A]|
+	\widehat\Omega_{\mathfrak C}^e[\leq k]^{op}
+	\arrow[r, "\tilde N"] \arrow[d, "\mathsf{lr}"']
+&
+	\V
+\\
+	\SC^{op}
+	\arrow[ur, "\O_k"', ""{name = B}]
+	\arrow[Rightarrow, from = A, to = B]
+\end{tikzcd}
+\end{equation}
+\end{definition}
+
+Since $\widehat\Omega_{\mathfrak C}^e[\leq 0] \simeq \SC$
+and the nerve of $\widehat \Omega_{\mathfrak C}^e$ is the union of the nerves of the $\widehat\Omega_{\mathfrak C}^e[\leq k]$
+the desired filtration \eqref{FILT EQ} follows.
+
+
+Moreover, to prove Theorem \ref{THM1_C}, we will to
+understand how each filtration stage is built from the previous one.
+To do so, we consider the following diagram, where the left square is a pushout at the level of nerves (cf. \cite[(5.65)]{BP_geo}),
+so that after taking $\mathsf{Lan}$
+one obtains the right pushout
+(that the top right corner is indeed $\O_{k-1}$ follows from Lemma \ref{LANINT LEM})
+\begin{equation}\label{FILTLAN EQ}
+\begin{tikzcd}
+		\widehat\Omega_{\mathfrak C}^e[k \setminus Y] \arrow[r] \arrow[d]
+	&
+		\widehat\Omega_{\mathfrak C}^e[\leq k \setminus Y] \arrow[d]
+&
+		\mathsf{Lan}_{\widehat\Omega_{\mathfrak C}^e[k \setminus Y]^{op}} \tilde N \arrow[r] \arrow[d]
+	&
+		\O_{k-1} \arrow[d]
+\\
+		\widehat\Omega_{\mathfrak C}^e[k] \arrow[r]
+	&
+		\widehat\Omega_{\mathfrak C}^e[\leq k]
+&
+		\mathsf{Lan}_{\widehat \Omega_{\mathfrak C}^e[k]^{op}} \tilde N \arrow[r]
+	&
+		\O_k
+\end{tikzcd}
+\end{equation}
+
+
+Lastly, Remark \ref{OEFIB REM} allows us to 
+rewrite the left vertical map of can extensions in \eqref{FILTLAN EQ}
+
+
+\begin{proposition}[{cf. \cite[Prop. 5.66]{BP_geo}}]
+      \label{FILT_PUSH_PROP}
+%      Suppose $\V$ is a closed monoidal category, and fix a $G$-set $\mathfrak C$.
+%      For $n \geq 0$, let $\O_n$ denote the $n$-stage of the filtration \eqref{FILT_EQ} in $\Sym^{G, \mathfrak C}(\V)$
+%      of the pushout map from \eqref{OU_EQ}.
+For each $\mathfrak C$-signature $C \in \Sigma_{\mathfrak C}$, one has a pushout diagram
+      \vspace{-10pt}
+\begin{align}\label{FILTPUSH EQ}
+\begin{tikzcd}[ampersand replacement=\&]
+	\mathop{\coprod}\limits_{[T] \in \Iso(C \downarrow \Omega_{\mathfrak C}^a[k])}
+	\left(
+		\mathop{\bigotimes}\limits_{v \in V^{ac}(T)} \O(T_v) \otimes
+		Q^{in}_T[u]
+	\right) \cdot_{\Aut_{\OC} (T)} \Aut_{\SC}(C)
+		\arrow[r] \arrow[d]
+\&[15pt]
+	\O_{k-1}(C) \arrow[d]
+\\                  
+	\mathop{\coprod}\limits_{[T] \in \Iso(C \downarrow \Omega_{\mathfrak C}^a[k])}
+	\left(
+		\mathop{\bigotimes}\limits_{v \in V^{ac}(T)} \O(T_v) \otimes
+		\mathop{\bigotimes}\limits_{v \in V^{in}(T)} Y(T_v)
+	\right) \cdot_{\Aut_{\OC}(T)} \Aut_{\SC}(C)
+		\arrow[r]
+\&
+\O_k(C)
+\end{tikzcd}
+\end{align}
+      where $Q^{in}_T[u]$ denotes the source of the pushout-product map
+      \begin{equation}
+            \mathop{\mathlarger{\mathlarger{\mathlarger{\square}}}}_{v \in V^{in}(T)} u(T_v): Q^{in}_T[u] \to \bigotimes_{v \in V^{in}(T)} Y(T_v).
+      \end{equation}
+\end{proposition}
+
+\begin{proof}
+Computing the left Kan extensions iteratively by first extending to
+$G \ltimes \OC^a[k]^{op}$, 
+Remark \ref{OEFIB REM} allows us to rewrite 
+the leftmost map in \eqref{FILTLAN EQ} as
+\begin{equation}\label{FILTLANFIN EQ}
+	\mathsf{Lan}{(\OC^a[k] \to \SC)^{op}}\left(
+		\bigotimes_{v \in V^{ac}(T)}\O(T_v) \otimes
+		\mathop{\mathlarger{\mathlarger{\mathlarger{\square}}}}\limits_{v \in V^{in}(T)} u(T_v)
+		\right).
+\end{equation}
+	The description of the leftmost maps in \eqref{FILTPUSH EQ} follows since the undercategories
+	$C \downarrow \OC^a[k]^{op}$ are groupoids.
+\end{proof}
+
+
+\subsection{Filtration of free extensions in the equivariant case}
 
 {\color{red} HERE}
 
 
-The following is the main purpose of the 
-$\Omega_{\mathfrak{C}}^{n,s,\lambda}$ categories,
-adapting the work in \S \ref{WRACONST SEC}
+
+\begin{align}\label{FILTPUSHG EQ}
+\begin{tikzcd}[ampersand replacement=\&]
+	\mathop{\coprod}\limits_{[T] \in \Iso(C \downarrow G \ltimes \Omega_{\mathfrak C}^a[k])}
+	\left(
+		\mathop{\bigotimes}\limits_{v \in V^{ac}(T)} \O(T_v) \otimes
+		Q^{in}_T[u]
+	\right) \cdot_{\Aut_{G \ltimes \OC}(T)} \Aut_{G \ltimes \SC}(C)
+		\arrow[r] \arrow[d]
+\&
+	\O_{k-1}(C) \arrow[d]
+\\                  
+	\mathop{\coprod}\limits_{[T] \in \Iso(C \downarrow G \ltimes \Omega_{\mathfrak C}^a[k])}
+	\left(
+		\mathop{\bigotimes}\limits_{v \in V^{ac}(T)} \O(T_v) \otimes
+		\mathop{\bigotimes}\limits_{v \in V^{in}(T)} Y(T_v)
+	\right) \cdot_{\Aut_{G \ltimes \OC}(T)} \Aut_{G \ltimes \SC}(C)
+		\arrow[r]
+\&
+	\O_k(C)
+\end{tikzcd}
+\end{align}
+
+
+
+% ------------------------------ homotopy stuff ------------------------------
+
+We end this section by discussing the homotopical nature of this filtration.
+Again, the results from \cite{BP_geo} are sufficiently robust.
+
+We say $X \to Y \in \Sym^{G, \mathfrak C}(\V)$ is a \textit{level genuine cofibration} if for each $C \in G \ltimes \SC^{op}$,
+$X(C) \to Y(C)$ is a genuine cofibration in $\V^{\Aut(C)}$;
+we say $X$ is \textit{level genuine cofibrant} if $\varnothing \to X$ is a level genuine cofibration.
+
+\begin{lemma}[{cf. \cite[5.73]{BP_geo}}] % EXMAINLEM LEM
+      \label{EXMAINLEM LEM}
+      Suppose $\mathcal{V}$ is a cofibrantly generated closed monoidal model category
+      with cellular fixed points and
+      with cofibrant symmetric pushout powers (Defn \ref{CSPP_DEF}).
+      
+      Let $\O \in \mathsf{Sym}^{G,\mathfrak C}(\mathcal{V})$
+      be level genuine cofibrant
+      and  
+      $u: X \to Y$ in $\Sym^{G, \mathfrak C}(\V)$ a level genuine cofibration. 
+      Let $T \in G \ltimes \Omega_{\mathfrak C}^a[k]^{op}$ and write $C = \mathsf{lr}(T)$.
+      Then
+      \begin{equation}\label{EXMAINLEM EQ}
+            \left(
+                  \bigotimes\limits_{v \in V^{ac}(T)}\P(T_v) \otimes
+                  \underset{v \in V^{in}(T)}
+                  {\mathlarger{\mathlarger{\mathlarger{\square}}}}
+                  u(T_v)
+            \right) 
+            \mathop{\otimes}\limits_{\mathsf{Aut}(T)} \mathsf{Aut}(C).
+      \end{equation}
+      is a genuine cofibration in 
+      $\mathcal{V}^{\mathsf{Aut}(C)}_{\text{gen}}$,
+      where the automorphism groups are either all taken in $G \ltimes \OC$ or all taken in $\Omega_{\mathfrak C}$,
+      and which is trivial if $k \geq 1$ and $u$ is trivial.	
+\end{lemma}
+\begin{proof}
+      This follows exactly as in \cite{BP_geo}, as we may take the automorphism groups to live in either
+      $\Fin \wr (G^{op} \ltimes \Sigma_{\mathfrak C})$ or $\Fin \wr \Sigma_{\mathfrak C}$.
+\end{proof}
+
+
+
+
+
+
+
+
+
 
 
 \newpage
@@ -9361,7 +9898,8 @@ adapting the work in \S \ref{WRACONST SEC}
 \section{Monad for colored operads}
 \label{MONAD_APDX}
 
-\subsection{Filtrations of free extensions} % Previously: Homotpy thy of ops with fixed g-set of colors, section 2
+\subsection{Filtrations of free extensions} 
+% Previously: Homotpy thy of ops with fixed g-set of colors, section 2
 
 We mimic the discussions and constructions in \cite[\S 5.1 - 5.3]{BP_geo}
 in order to understand free extensions of the fibers $\mathbb F^G_{\mathfrak C}$ of the fibered monad $\mathbb F^G$.
@@ -9767,6 +10305,8 @@ to produce a levelwise filtration of $\O \to \O[u]$.
       \]
       where $\hat\Omega^e[\bullet] \subseteq \hat\Omega^e$ are the full subcategories of degree-restricted trees from \cite[Defn. 5.55]{BP_geo}.
 \end{definition}
+
+
 
 \begin{remark}[{cf. \cite[Remark 5.56]{BP_geo}}]
       \label{OEFIB_REM}
