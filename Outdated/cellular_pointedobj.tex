@@ -1,0 +1,682 @@
+
+\section{Random Stuff}
+
+{\color{OliveGreen} % -------------------------------------------------- OLIVE GREEN ----------------------------------------
+  \subsection{Categories of pointed objects}
+  \label{PT_SEC}
+
+  \todo[inline]{not really needed - none of these arguments are too difficult, and they are not needed for the narrative}
+
+  To prove this, we take a brief digression on categories of pointed objects in a category,
+  culminating with Corollar \ref{PT_MODEL_COR}
+
+  In this short section, we show that, in some cases,
+  if $\Op^G_\F(\V)$ has the (semi)-model structure from Theorem \ref{MODEL_THM}, then so does $\Op^G_\F(\V_{\**})$.
+
+
+  Given $(\V, \otimes)$, the category of pointed objects $\V_{\**} = \** \downarrow \V$ with $\**$ terminal
+  is also monoidal via a smash product (see e.g. the proof of \cite[Prop. 4.2.9]{Hov99}).
+
+  % \begin{definition}
+  %       [{\cite[Construction 4.19]{EM09}}]
+  %       Given $X, Y \in \V_{\**}$, define $X \wedge Y$ to be the pushout
+  %       \begin{equation}
+  %             \begin{tikzcd}
+  %                   X \otimes \** \amalg \** \otimes Y \arrow[d] \arrow[r]
+  %                   &
+  %                   X \otimes Y \amalg X \otimes Y \arrow[r]
+  %                   &
+  %                   X \otimes Y \arrow[d]
+  %                   \\
+  %                   \** \arrow[rr]
+  %                   &&
+  %                   X \wedge Y.
+  %             \end{tikzcd}
+  %       \end{equation}
+  %       This recovers the smash product of pointed spaces and simplicial sets.
+  % \end{definition}
+
+  We recall the following.
+
+  \begin{lemma}
+        If $\V \rightleftarrows \mathcal W$ is a strong symmetric monoidal adjunction, then
+        the induced pair $\Cat^{\mathfrak C}(\V) \rightleftarrows \Cat^{\mathfrak C}(\mathcal W)$ is an adjunction.
+  \end{lemma}
+
+  \begin{lemma}
+        The adjunction
+        \[
+              (-) \amalg \**: (\V,\otimes) \rightleftarrows (\V_{\**}, \wedge) : \mathrm{fgt}
+        \]
+        is strong symmetric monoidal.
+
+        If $\V$ is a model category, then so is $\V_{\**}$, where $f \in \V_{\**}$ is a weak equivalence (resp. fibration, cofibration) iff
+        $U(f)$ is so in $\V$ % \cite[Lemma 1.1.8]{Hov99}.
+  \end{lemma}
+
+  Many properties of $\V$ descend to $\V_{\**}$. 
+
+  \begin{lemma}
+        \label{PT_PROP_LEM}
+        The following hold. 
+        \begin{enumerate*}[label = (\roman*)]
+        \item If $\V$ is cofibrantly generated, then so is $\V_{\**}$ \cite[Lemma 2.1.21]{Hov99},
+        \item If $\V$ is a monoidal model category with $1_\V = \**$ and $1_\V$ is cofibrant, then $\V_{\**}$ is a monoidal model category \cite[Lemma 4.2.9]{Hov99}
+        \item If $\V$ has a cofibrant unit and $\**$ is cofibrant, then $\V_{\**}$ has a cofibrant unit $1_\V amalg \**$.
+        \item left or right proper \cite{Hir}
+        \item If $\V$ has cofibrant symmetric pushout powers, then so does $\V_{\**}$ (since pushouts in $\V_{\**}$ are computed in $\V$).
+        \end{enumerate*}
+  \end{lemma}
+
+  \begin{corollary}
+        If $\Op^{\mathfrak C}(\V)$ has the (semi)-model structure from Theorem \ref{THM1_C}, then so does $\Op^{\mathfrak C}(\V_{\**})$.     
+  \end{corollary}
+
+  \begin{lemma}
+        Suppose $\V$ is a cofibrantly generated monoidal model category with cofibrant unit and cofibrant symmetric pushout powers.
+        Then
+        $\Cat^{\mathfrak C}(\V) \rightleftarrows \Cat^{\mathfrak C}(\V_{\**})$ is a Quillen pair of (semi)-model categories.
+  \end{lemma}
+
+  We would like $\V_{\**}$ to additionally inherit cellular fixed points from $\V$.
+  While this will \textit{not} necessarily be the case, something weaker is always true.
+  \begin{definition}
+        A model category $\mathcal M$ has \textit{weakly cellular fixed points} if
+        $\mathcal M$ satisfies conditions $(i)$ and $(ii)$ of cellularity (Defn. \ref{CELLFP_DEF}),
+        and additionally the composite functor $(G/K \cdot (-))^H$ sends generating (trivial) cofibrations to (trivial) cofibrations.
+
+        It is clear that all model categories will cellular fixed points have weakly cellular fixed points.
+  \end{definition}
+
+  \begin{remark}
+        By \cite[Rem. 2.8]{Ste16}, $\mathcal M$ having weakly cellular fixed points is sufficient for the 
+        $\F$-model structure on $\mathcal M^G$ to exist for any family $\F$ of subgroups of $G$.
+  \end{remark}
+
+  \begin{remark}
+        \label{WEAKCELL_REM}
+        Conveniently, at no place in our proof of Theorem \ref{MODEL_THM} (including importantly Theorem I and II from \cite{BP_geo})
+        did we ever use the full strength of cellular fixed points,
+        and instead we only ever required the existance of the $\F$-model structures.
+        The reason we (and \cite{Ste16}) use cellular fixed points is that the full condition (iii) is what allows us to say anything meaningful about the \textit{cofibrant} objects in our category (see, e.g. \cite[Prop. 6.56 and Lemma 6.59]{BP_geo}).
+  \end{remark}
+
+
+  \begin{lemma}
+        \label{PT_CELL_LEM}
+        Suppose $\V$ is a  cofibrantly generated monoidal model category with weakly cellular fixed points.
+        Then $\V_{\**}$ has weakly cellular fixed points.
+        If in addition $\V$ has cellular fixed points and all monomorphisms are cofibrations,
+        \footnote{
+          In fact, we only need that all possible maps $\** \to X$ are cofibrations.
+        }.
+        then $\V_{\**}$ also has cellular fixed points.
+  \end{lemma}
+  \begin{proof}
+        We note that $(-)^H \circ U = U \circ (-)^H$,
+        and that colimits in $\V_{\**}$ can be computed in $\V$ as long as we add an initial object to the indexing diagram (and send it to the zero object in $\V_{\**}$).
+        Thus, for any directed poset $\mathcal D$, with $\mathcal D^\triangleleft$ denoting $\mathcal D$ with a free initial object,
+        we have the following diagram, where all but the left side of the square are known to commute.
+        \begin{equation}
+              \begin{tikzcd}[row sep = tiny, column sep = tiny]
+                    \Fun(\mathcal D, V^G_{\**}) \arrow[r]
+                    &
+                    \Fun_{\**}(\mathcal D^\triangleleft, \V^G_{\**}) \arrow[rr] \arrow[dd] \arrow[dr]
+                    &&
+                    \Fun_{\**}(\mathcal D^\triangleleft, \V^G) \arrow[dd] \arrow[dr]
+                    \\
+                    &&
+                    \Fun_{\**}(\mathcal D^\triangleleft, \V_{\**}) \arrow[rr, crossing over]
+                    &&
+                    \Fun_{\**}(\mathcal D^\triangleleft, \V) \arrow[dd]
+                    \\
+                    &
+                    \V^G_{\**} \arrow[rr] \arrow[dr]
+                    &&
+                    \V^G \arrow[dr]
+                    \\
+                    &&
+                    \V_{\**} \arrow[rr] \arrow[uu, leftarrow, crossing over]
+                    &&
+                    \V
+              \end{tikzcd}
+        \end{equation}
+        Hence $(i)$ of cellularity (Defn. \ref{CELLFP_DEF}) follows.
+        
+        Moreover, since pushouts and cofibrations are computed in $\V$, $(ii)$ follows immediately.
+        
+        For $(iii)$, the general case follows since
+        the generating (trivial) cofibrations of $\V_{\**}$ are just $f_+$ for $f$ a generating (trivial) cofibration in $\V$,
+        and the following equation holds.
+        \begin{equation}
+              (G/K \cdot_{\**} (-)_+)^H \cong \left( (G/K \cdot (-))_+ \right)^H \cong (G/K \cdot (-))^H_+
+        \end{equation}
+
+        With the additional hypothesis, we note that for $A \in \Set$ and $X \in \V_{\**}$, the canonical copowering $A \cdot_{\**} X$ in $\V_{\**}$ is given by the diagram on the left below.
+        Thus, using $(ii)$ for $\V$ and our assumption that $\** \to X$ is a cofibration, $(iii)$ follows by the diagram on the right,
+        where both the front and back panels are pushouts, the back by definition, and the front by our assumption that every $\** \to X$ is a cofibration (as these are always categorical monomorphisms) and cellularity condition $(ii)$ for $\V$.      
+        \begin{equation}
+              \begin{tikzcd}[row sep = tiny]
+                    A \cdot \** \arrow[d] \arrow[r]
+                    &
+                    A \cdot X \arrow[d]
+                    & % ----------
+                    (G/K)^H \cdot \** \arrow[dd] \arrow[rr] \arrow[dr, "\cong"']
+                    &[-15pt]&[-15pt]
+                    (G/K)^H \cdot X \arrow[dd] \arrow[dr, "\cong"]
+                    \\
+                    \** \arrow[r]
+                    &
+                    A \cdot_{\**} X
+                    & % ----------
+                    &
+                    (G/K \cdot \**)^H \arrow[rr, crossing over]
+                    &&[-15pt]
+                    (G/K \cdot X)^H \arrow[dd]
+                    \\
+                    && % ----------
+                    \** \arrow[rr] \arrow[dr, equal]
+                    &&
+                    (G/K)^H \cdot_{\**} X \arrow[dr, dashed, "\cong"]
+                    \\
+                    && % ----------
+                    & \**^H \arrow[rr] \arrow[uu, leftarrow, crossing over]
+                    &&
+                    (G/K \cdot_{\**} X)^H
+              \end{tikzcd}
+        \end{equation}
+  \end{proof}
+
+  To complete Theorems \ref{MODEL_THM} and \ref{INTRO_MODEL_THM} for $\V_{\**}$, we need to check the existance of $\V_{\**}$-intervals and the inheritance of the coherence axiom.
+
+  \begin{proposition}
+        \label{VPT_INT_PROP}
+        Suppose $\V$ is a cofibrantly generated monoidal model category with cofibrant unit and cofibrant symmetric pushout powers,
+        and moreover suppose $(-)_+$ preserves all weak equivalences.
+        Then $\J_+$ is a $\V_{\**}$-interval for any $\V$-interval $\J$.
+  \end{proposition}
+  \begin{proof}
+        Given the composite on the left below, we produce the composite on the right
+        \begin{equation}
+              \begin{tikzcd}
+                    \varnothing \arrow[r, rightarrowtail]
+                    &
+                    \J \arrow[r, "\simeq"]
+                    &
+                    \I_f
+                    & % ----------
+                    \** \arrow[r, rightarrowtail]
+                    &
+                    \J_+ \arrow[r]
+                    &
+                    (\I_f)_+ \arrow[r, dashed, "\simeq"]
+                    &
+                    (\I_+)_f
+              \end{tikzcd}
+        \end{equation}
+        by applying $(-)_+$ and using the lifting from the square
+        \begin{equation}
+              \label{IFP_IPF_EQ}
+              \begin{tikzcd}
+                    \I_+ \arrow[d, rightarrowtail, "\simeq"'] \arrow[r, rightarrowtail, "\simeq"]
+                    &
+                    (\I_+)_f \arrow[d, twoheadrightarrow]
+                    \\
+                    (\I_f)_+ \arrow[ur, dashed, "\simeq"] \arrow[r]
+                    &
+                    \**.
+              \end{tikzcd}
+        \end{equation}
+        Since $(-)_+$ also preserves all weak equivalences, $\J_+$ is a $\V_{\**}$-interval, as desired.
+  \end{proof}
+
+  \begin{proposition}
+        \label{PT_COH_PROP}
+        Suppose $\V$ is a cofibrantly generated monoidal model category with cofibrant unit and cofibrant symmetric pushout powers,
+        and moreover suppose $(-)_+$ preserves all weak equivalences.
+        If $\V$ satisfies the coherence axiom, then so does $\V_{\**}$.
+  \end{proposition}
+  \begin{proof}
+        Fix a map $\alpha:\mathbb A_+ \to \mathcal C_f$ detecting a homotopy equivalence in $\Cat(\V_{\**})$.
+        By coherence of $\V$, it's adjoint map $\tilde \alpha$
+        factors through a natural cofibration $\mathbb A \rightarrowtail \J$.
+        Applying $(-)_+$ yields the diagram below, for which the top arrow is again $\alpha$ by adjointness.
+        \begin{equation}
+              \begin{tikzcd}
+                    \mathbb A_+ \arrow[d, rightarrowtail] \arrow[r, "\tilde{\alpha}_+"]
+                    &
+                    (U \mathcal C_f)_+ \arrow[r]
+                    &
+                    \mathcal C_f
+                    \\
+                    \J_+ \arrow[ur, dashed]
+              \end{tikzcd}
+        \end{equation}
+        By Proposition \ref{VPT_INT_PROP}, it now suffices to show that $(-)_+$ preserves natural cofibration.
+        This too holds by the following diagram, where the bottom right horizontal map is from \eqref{IFP_IPF_EQ}.
+        \begin{equation}
+              \begin{tikzcd}
+                    \mathbb A_+ \arrow[d, rightarrowtail] \arrow[r]
+                    &
+                    \I_+ \arrow[d, rightarrowtail, "\simeq"] \arrow[r, equal]
+                    &
+                    \I_+ \arrow[d, rightarrowtail, "\simeq"]
+                    \\
+                    \J_+ \arrow[r, "\simeq"]
+                    &
+                    (\I_f)_+ \arrow[r, "\simeq"]
+                    &
+                    (\I_+)_f
+              \end{tikzcd}
+        \end{equation}
+  \end{proof}
+
+  \begin{lemma}
+        \label{P_P_WE_LEM}
+        Suppose $\V$ is a cofibrantly generated monoidal model category with cofibrant unit and cofibrant symmetric pushout powers,
+        and moreover suppose $\V$ is left proper and $\**$ is cofibrant in $\V$.
+        Then $(-)_+: \V \to \V_{\**}$, and hence $\Cat^{\mathfrak C}(\V) \to \Cat^{\mathfrak C}(\V_{\**})$, preserves all weak equivalences.
+  \end{lemma}
+  \begin{proof}
+        This follows by considering the pushout square below.
+        \begin{equation}
+              \begin{tikzcd}
+                    A \arrow[r, rightarrowtail] \arrow[d, "\simeq"']
+                    &
+                    A \amalg \** \arrow[d, "\simeq"]
+                    \\
+                    B \arrow[r, rightarrowtail]
+                    &
+                    B \amalg \**
+              \end{tikzcd}
+        \end{equation}
+  \end{proof}
+
+  \begin{corollary}
+        \label{PT_MODEL_COR}
+        Suppose $\V$ satisfies the hypotheses of Theorem \ref{MODEL_THM} (resp. Theorem \ref{INTRO_MODEL_THM}),
+        possibly replacing ``cellular'' with ``weakly cellular'',
+        and moreover that $\V$ is left proper and $1_\V = \**$.
+        Let $\F$ be any $(G, \Sigma)$-family.
+        Then $\Op^G(\V_{\**})$ has the $\F$-(semi)-model structure (resp. $\F$-Dwyer-Kan (semi)-model structure).
+  \end{corollary}
+  \begin{proof}
+        Combine Lemmas \ref{PT_PROP_LEM} and \ref{P_P_WE_LEM}, Remark \ref{WEAKCELL_REM}, and Proposition \ref{PT_COH_PROP}.
+  \end{proof}
+
+} % ---------------------------------------- OLIVE GREEN ----------------------------------------
+
+
+\subsection{Pullback functor and the geometric realization}
+
+In this short section, we will prove that the pullback 2-functor $\pi^{\**}$ and geometric realization $|-|$ commute.
+
+\begin{remark}
+      \label{REAL_CAT_REM}
+      We recall that $|\mathcal C_\bullet|$ has object set $\Ob(\mathcal C_0)$,
+      arrows generated by
+      maps $f_0: a_0 \to \bar a_0$ in $\mathcal C_0$ and objects $a_1: d_1(a_1) \xrightarrow{a_1} d_0(a_1)$ in $\mathcal C_1$,
+      and relations given by information in just $\mathcal C_0$, $\mathcal C_1$, and $\mathcal C_2$:
+      \begin{enumerate}[label = (\roman*)]\setcounter{enumi}{-1}
+      \item $[f_0] \circ [g_0] = [f_0 \circ g_0]$,
+      \item $[id_{a_0}] = [\ ]_{a_0}$,
+      \item $[s_0a_0] = [id_{a_0}]$,
+      \item for all $f_1: a_1 \to b_1$ in $\mathcal C_1$, the following diagram commutes.
+            \begin{equation}
+                  \begin{tikzcd}
+                        d_1 a_1 \arrow[r, "a_1"] \arrow[d, "d_1 f_1"']
+                        &
+                        d_0 a_1 \arrow[d, "d_0 f_1"]
+                        \\
+                        d_1 b_1 \arrow[r, "b_1"]
+                        &
+                        d_0 b_1
+                  \end{tikzcd}
+            \end{equation}
+      \item for all $a_2 \in \mathcal C_2$, the following diagram commutes.
+            \begin{equation}
+                  \begin{tikzcd}
+                        d_1 d_2 a_2 = d_1 d_1 a_2 \arrow[dr, "d_2 a_2"'] \arrow[rr, "d_1 a_2"]
+                        &&
+                        d_0 d_1 a_2 = d_0 d_0 a_2
+                        \\
+                        &
+                        d_0 d_2 a_2 = d_1 d_0 a_2 \arrow[ur, "d_0 a_2"]
+                  \end{tikzcd}
+            \end{equation}
+      \end{enumerate}
+
+      See \cite[Remark A.5]{BP_geo} for more details.
+\end{remark}
+
+\begin{proposition}
+      \label{PIREAL_PROP}
+      Let $E_\bullet: \mathcal C_\bullet \to \mathcal B$ be a simplicial object in $\Cat \downarrow^r \mathcal B$
+      such that the natural transformation component $\phi_0$ of the structure map $d_0: \mathcal C_1 \to \mathcal C_0$
+      is an isomorphism.
+
+      Then we have a map out of the realization $E: |\mathcal C_\bullet| \to \mathcal B$,
+      acting by $E_0$ on objects and defined on the generating arrows as follows:
+      $f_0 \in \mathcal C_0$ goes to $E_0(f_0)$, and $a_1 \in \mathcal C_1$ goes to the composite
+      \begin{equation}
+            E_0 d_0(a_1) \xrightarrow{\phi_1} E_1(a_1) \xrightarrow{\phi_0^{-1}} E_0 d_0(a_1).
+      \end{equation}
+      Moreover, for any (split) Grothendieck fibration $\pi: \mathcal E \to \mathcal B$,
+      the map $|\pi^{\**} \mathcal C_\bullet| \to \pi^{\**} |\mathcal C_\bullet|$ is an isomorphism.
+\end{proposition}
+\begin{proof}
+      This result is not challenging, but requires carefully checking all the pieces fit together.
+      
+      For the first claim, it suffices to check that the map described above is well-defined with respect to the relations on the set of arrows in $|\mathcal C_\bullet|$, and this is not hard to verify directly.
+      {\color{OliveGreen}
+        Conditions (0) - (ii) are straightforward, $(iii)$ follows as $\phi_0$ and $\phi_1$ are natural transformations,
+        and $(iv)$ follows as the following diagram commutes by the simplicial identities.
+        \begin{equation}
+              \begin{tikzcd}
+                    E_0 d_1 d_2 a_2 \arrow[d, equal] \arrow[r, "\phi_1"]
+                    &
+                    E_1 d_2 a_2 \arrow[dd, "\phi_2"]
+                    &
+                    E_0 d_0 d_2 a_2 \arrow[d, equal] \arrow[l, "\phi_0"]
+                    \\
+                    E_0 d_1 d_1 a_2 \arrow[d, "\phi_1"]
+                    &&
+                    E_0 d_1 d_0 a_2 \arrow[d, "\phi_1"]
+                    \\
+                    E_1 d_1 a_2 \arrow[r, "\phi_1"]
+                    &
+                    E_2 a_2
+                    &
+                    E_1 d_0 a_2 \arrow[l, "\phi_0"]
+                    \\
+                    &&
+                    E_0 d_0 d_0 a_2 \arrow[u, "\phi_0"] \arrow[d, equal]
+                    \\
+                    E_0 d_0 d_1 a_2 \arrow[uu, "\phi_0"] \arrow[r, "\phi_0"]
+                    &
+                    E_1 d_1 a_2 \arrow[uu, "\phi_1"]
+                    &
+                    E_0 d_0 d_1 a_2 \arrow[l, "\phi_0"]
+              \end{tikzcd}
+        \end{equation}
+      }
+
+      Now, both $|\pi^{\**} \mathcal C_\bullet|$ and $\pi^{\**}|\mathcal C_\bullet|$ (which we now know is well-defined)
+      have $\Ob(\mathcal C_0) \times_{\Ob(\mathcal B)} \Ob(\mathcal E)$ as their set of objects.
+      For maps, we see the category $|\pi^{\**} \mathcal C_\bullet|$ has arrows generated by
+      \begin{enumerate}[label = (\Roman*)]
+      \item arrows in $\pi^{\**} \mathcal C_0$, namely pairs of arrows $(f_0,\alpha)$ compatible over $\mathcal B$, and
+      \item formal arrows $a_1 \wedge e$ for each object $(a_1,e)$ in $\pi^{\**}\mathcal C_1$, which are of the form
+            \begin{equation}
+                  d_1(a_1,e) = (d_1(a_1), (\phi_1\pi)^{\**}e) \xrightarrow{(a_1,e)} (d_0(a_1), (\phi_0 \pi)^{\**} e).
+            \end{equation}
+      \end{enumerate}
+      These are subject to conditions analogous to those from Remark \ref{REAL_CAT_REM}.
+      {\color{OliveGreen}
+        \begin{enumerate}[label = (\roman*)]\setcounter{enumi}{-1}
+        \item $[(f_0, \alpha)] \circ [(f_0', \alpha')] = [(f_0 f_0', \alpha \alpha')]$,
+        \item $[(id_{a_0}, id_e)] = [\ ]_{(a_0,e)}$,
+        \item $[s_0 a_0 \wedge e] = [(id_{a_0}, id_e)]$,
+        \item For all $(f_1, \alpha): (a_1, e) \to (b_1, \bar e)$ in $\pi^{\**} \mathcal C_1$,
+              the following diagram commutes.
+              \begin{equation}
+                    \begin{tikzcd}
+                          d_1(a_1, e) = (d_1 a_1, \phi_1^{\**} e) \arrow[d, "{d_1(f_1, \alpha) = (d_1 f_1, \phi_1^{\**} \alpha)}"'] \arrow[r, "a_1 \wedge e"]
+                          &
+                          d_0(a_1,e)  (d_0 a_1, \phi_0^{\**} e) \arrow[d, "{d_0(f_1, \alpha) = (d_0 f_1, \phi_0^{\**} \alpha)}"]
+                          \\
+                          d_1(b_1, \bar e) = (d_1 b_1, \phi_1^{\**} \bar e) \arrow[r, "b_1 \wedge \bar e"]
+                          &
+                          d_0(b_1, \bar e) = (d_0 b_1, \phi_0^{\**} \bar e).
+                    \end{tikzcd}
+              \end{equation}
+        \item For all $(a_2, e) \in \pi^{\**} \mathcal C_2$, the following diagram commutes.
+              \begin{equation}
+                    \begin{tikzcd}
+                          d_1 d_2 (a_2, e) = d_1 d_1 (a_2, e) \arrow[rr, "d_1 a_2 \wedge \phi_1^{\**} e"] \arrow[dr, "d_2 a_2 \wedge \phi_2^{\**} e"]
+                          &&
+                          d_0 d_1(a_2, e) = d_0 d_0(a_2, e)
+                          \\
+                          &
+                          d_0 d_2 (a_2, e) = d_1 d_0 (a_2, e) \arrow[ur, "d_1 a_2 \wedge \phi_1^{\**} e"]
+                    \end{tikzcd}
+              \end{equation}
+        \end{enumerate}
+      }
+
+      Conversely, maps in $\pi^{\**}|\mathcal C_\bullet|$ are simply pairs of arrows $(f, \alpha)$ in $|\mathcal C_\bullet| \times_{\mathcal B} \mathcal E$.
+
+      We have a natural map $F: |\pi^{\**} \mathcal C_\bullet| \to \pi^{\**} |\mathcal C_\bullet|$, which is the identity on objects,
+      and acts as follows on the generating arrows:
+      $(f_0, \alpha)$ gets mapped to $([f_0], \alpha)$, while
+      $a_1 \wedge e$ gets mapped to $([a_1], \phi_1^{\**} e \to e \to \phi_0^{\**} e)$
+      (where here we are again using the $\phi_0$ is invertible).
+      It is straightforward to verify that this map is well-defined.      
+
+      We will use the fact that $\pi$ is a split Grothendieck fibration in order to build an inverse $G$ of the functor $F$.
+      Namely, given any word $W: a_0 \to b_0$ of composable generating arrows from $\pi^{\**}|\mathcal C_{\**}|$,
+      any map $\alpha: \bar e \to e$ lifting $E([W])$ has an induced factorization into
+      a map $W^{\**}\alpha$ over $E_0(a_0)$, followed by a composite of cartesian arrows $\alpha_i$, one for each letter $w$ in $W$.
+
+      Now, we send $([W],\alpha)$ to the composite of $|W|+1$ arrows defined as follows.
+      If $w_i = (a_0 \xrightarrow{c_0} b_0)$ and the target of $\alpha_i$ is $e$, then the $(i+1)$-st arrow is $(f_0, f_0^{\**}<e>)$.
+      If $w_i = a_1$, then the $(i+1)$-st arrow is $a_1 \wedge (\phi_0^{\-1})^{\**} e$.
+      Finally, we precompose with $(id_{a_0}, W^{\**}\alpha)$.
+
+      As an example, suppose we have a word $W$ equal to the top row below, so $E(W)$ is as in the second row,
+      and an arrow $\alpha: \bar e \to e$ in $\mathcal E$ such that $\pi(\alpha) = E(W)$.
+      \begin{equation}
+            \begin{tikzcd}[column sep = small]
+                  W:
+                  &[-20pt]
+                  &[20pt]
+                  a_0 \arrow[r, "f_0"]
+                  &[20pt]
+                  b_0 = d_1 a_1 \arrow[rr, "a_1"]
+                  &&
+                  d_0 a_1
+                  \\
+                  E(W):
+                  &
+                  &
+                  E_0 a_0 \arrow[r, "E_0 f_0"] % \arrow[d, equal]
+                  &
+                  E_0 b_0 = E_0 d_1 a_1 \arrow[r, "\phi_1"]
+                  &
+                  E_1 a_1 \arrow[r, "{\phi_0^{-1}}"]
+                  &
+                  E_0 d_0 a_1 % \arrow[d, equal]
+                  % \\
+                  % \pi(\bar e) \arrow[r, equal]
+                  % &
+                  % \pi(\bar e) \arrow[rrr, "{\pi(\alpha)}"]
+                  % &&&
+                  % \pi(e)
+                  \\
+                  &
+                  \bar e \arrow[r, dashed, "{\exists ! W^{\**} \alpha}"]
+                  &
+                  f_0^{\**} (\phi_0^{-1} \phi_1)^{\**} e \arrow[r]
+                  &
+                  (\phi_0^{-1} \phi_1)^{\**} e \arrow[rr]
+                  &&
+                  e
+                  \\
+                  G([W], \alpha):
+                  &
+                  (a_0, \bar e) \arrow[r, "{(id, W^{\**} \alpha)}"]
+                  &
+                  (a_0, f_0^{\**} (\phi_0^{-1} \phi_1)^{\**} e) \arrow[r, "{(f_0, f_0^{\**})}"]
+                  &
+                  (b_0 = d_1 a_1, (\phi_0^{-1} \phi_1)^{\**} e) \arrow[rr, "a_1 \wedge \phi_0^{-1,\**} e"]
+                  &&
+                  (d_0 a_1, e)
+            \end{tikzcd}
+      \end{equation}
+      The word $E(W)$ induces a factorization of $\alpha$ into two chosen cartesian maps, along with a unique map $W^{\**}\alpha$ determined by the cartesian maps.
+      With this factorization, the last line displays the image of the arrow $([W], \alpha)$ in $\pi^{\**}|\mathcal C_\bullet|$. 
+      
+      Now, it is clear that these functors are invertible, assuming $G$ is in fact functorial.
+      We begin by showing that $G$ behaves well under composition.
+      It suffices to show that these end maps $W^{\**}\alpha$ ``commute'' with the more structured maps.
+      We have two cases, one for each type of generating arrow.
+      First, suppose we have a word/map $W = f_0: a_0 \to b_0$ in $\mathcal C_0$, and two maps
+      \begin{equation}
+            \bar{\bar e} \xrightarrow{\beta} \bar e \xrightarrow{\alpha} e            
+      \end{equation}
+      in $\mathcal E$, with $\alpha \in \mathcal E_{E_0 a_0}$ and $\pi(\alpha\beta) = E_0 f_0$.
+      We must show that the composites
+      \begin{align*}
+        (a_0, \bar{\bar e}) & \xrightarrow{(id, W^{\**}\beta)}
+                              (a_0, f_0^{\**} \bar e) \xrightarrow{(f_0, f_0^{\**})}
+                              (b_0, \bar e) \xrightarrow{(id, \alpha)}
+                              (b_0, e)
+        \\
+        (a_0, \bar{\bar e}) & \xrightarrow{(id, W^{\**}(\alpha\beta))}
+                              (a_0, f_0^{\**} e) \xrightarrow{(f_0, f_0^{\**})}
+                              (b_0, e)
+      \end{align*}
+      agree. However, these are all arrows of type (I), and so the composites are both $(f_0, \alpha\beta)$.
+
+      Second, suppose we have a word/map $W = a_1$, with $\alpha$, $\beta$ as before such that $\alpha \in \mathcal E_{E_0 d_0 a_1}$ and $\pi(\alpha\beta) = E_0 a_1$.
+      Then we have the following diagram
+      \begin{equation}
+            \begin{tikzcd}[column sep = large]
+                  (d_1 a_1, \bar{\bar e}) \arrow[r, "{(id, W^{\**} \beta)}"] \arrow[dr, "{(id, W^{\**}(\alpha\beta))}"']
+                  &
+                  (d_1 a_1, (\phi_0^{-1} \phi_1)^{\**} \bar e) \arrow[d, "{(id, (\phi_0^{-1} \phi_1)^{\**} \alpha)}"] \arrow[r, "a_1 \wedge \phi_0^{-1,\**} \bar e"]
+                  &
+                  (d_0 a_1, \bar e) \arrow[d, "{(id, \alpha)}"]
+                  \\
+                  &
+                  (d_1 a_1, (\phi_0^{-1} \phi_1)^{\**} e) \arrow[r, "a_1 \wedge \phi_0^{-1,\**} e"']
+                  &
+                  (d_0 a_1, e).
+            \end{tikzcd}
+      \end{equation}
+      This commutes by relation (iii) in $|\pi^{\**} \mathcal C_\bullet|$ on the map $(id_{a_1}, \phi_0^{-1,\**}\alpha)$,
+      as desired.
+
+      It remains to check that $G$ is independent of the choice of word representative. We will show that the relations all hold in the image of $G$.
+      (i) through (iii) are straightforward from the fact the composition works as above.
+      For (iii), given $f_1: a_1 \to b_1$, we have two word decompositions
+      \begin{equation}
+            W:
+            \quad 
+            d_1 a_1 \xrightarrow{a_1} d_0 a_0 \xrightarrow{d_0 f_1} d_0 b_1,
+            \qquad \qquad
+            V:
+            \quad
+            d_1 a_1 \xrightarrow{d_1 f_1} d_1 b_1 \xrightarrow{b_1} d_0 b_1
+      \end{equation}
+      whose images under $E$ are equal, and we must check that for any $\alpha: \bar e \to e$ over this image,
+      the images under $G$ are equal:
+      \begin{equation}
+            \label{IMUG_EQ}
+            \begin{tikzcd}[row sep = small]
+                  (d_1 a_1, \bar e) \arrow[r, "{(id, W^{\**}\alpha)}"]
+                  &[15pt]
+                  (d_1 a_1, (\phi_0^{-1}\phi_1)^{\**} (d_0f_1)^{\**} e) \arrow[r, "{a_1 \wedge \phi_0^{-1,\**} (d_0 f_1)^{\**} e}"]
+                  &[35pt]
+                  (d_0 a_1, (d_0 f_1)^{|**} e) \arrow[r, "{(d_0f_1, d_0 f_1^{\**})}"]
+                  &[20pt]
+                  (d_0 b_1, e)
+                  \\
+                  (d_1 a_1, \bar e) \arrow[r, "{(id, V^{\**}\alpha)}"]
+                  &
+                  (d_1 a_1, (d_1f_1)^{\**} (\phi_0^{-1} \phi_1)^{\**} e) \arrow[r, "{(d_1 f_1, d_1 f_1^{\**})}"]
+                  &
+                  (d_1 b_1, (\phi_0^{-1} \phi_1)^{\**} e) \arrow[r, "{b_1 \wedge \phi_0^{-1, \**} e}"]
+                  &
+                  (d_0 b_1, e).
+            \end{tikzcd}
+      \end{equation}
+
+      But we note that $d_1 f_1^{\**} = \phi_1^{\**} \beta$ with $\beta = \phi_0^{-1,\**} (d_0 f_1)^{\**}$, as indicated by the following diagram, using relation (iii) from $|\mathcal C_\bullet|$.
+      \begin{equation}
+            \begin{tikzcd}[column sep = tiny, row sep = small]
+                  (d_1 f_1)^{\**} (\phi_0^{-1} \phi_1)^{\**} e \arrow[rr, equal] \arrow[dd, mapsto] \arrow[dr, dashed, "\exists !"]
+                  &&
+                  (\phi_0^{\-1} \phi_1)^{\**} (d_0 f_1)^{\**} e \arrow[rr] \arrow[dd, mapsto] \arrow[dr, dashed, "\exists !"]
+                  &&
+                  \phi_0^{-1,\**} (d_0 f_1)^{\**} e \arrow[rr] \arrow[dd, mapsto] \arrow[dr, dashed, "\exists !", "\beta"']
+                  &&
+                  (d_0 f_1)^{\**} e \arrow[dr] \arrow[dd, mapsto]
+                  \\
+                  &
+                  (\phi_0^{-1} \phi_1)^{\**} \arrow[rr, equal, crossing over]
+                  &&
+                  (\phi_0^{-1} \phi_1)^{\**} e \arrow[rr, crossing over]
+                  &&
+                  \phi_0^{-1,\**} e \arrow[rr, crossing over]
+                  &&
+                  e \arrow[dd, mapsto]
+                  \\
+                  E_0 d_1 a_1 \arrow[rr, equal] \arrow[dr]
+                  &&
+                  E_0 d_1 a_1 \arrow[dr] \arrow[rr]
+                  &&
+                  E_1 a_1 \arrow[rr] \arrow[dr]
+                  &&
+                  E_0 d_0 a_1 \arrow[dr]
+                  \\
+                  &
+                  E_0 d_1 b_1 \arrow[uu, mapsfrom, crossing over] \arrow[rr, equal]
+                  &&
+                  E_0 d_1 b_1 \arrow[uu, mapsfrom, crossing over] \arrow[rr]
+                  &&
+                  E_1 b_1 \arrow[uu, mapsfrom, crossing over] \arrow[rr]
+                  &&
+                  E_0 d_0 b_1 
+            \end{tikzcd}
+      \end{equation}
+      Hence, by relation (iii) for $|\pi^{\**} \mathcal C_\bullet|$, the maps in \eqref{IMUG_EQ} agree.
+
+      Relation (iv) holds by a similar argument. Thus $G$ is a well-defined inverse to the map $F$, showing $|\pi^{\**} \mathcal C_\bullet|$ and $\pi^{\**}|\mathcal C_\bullet|$ are isomorphic.      
+      % Moreover, since $\pi$ is a fibration, any choice of factorization of the arrow $f$ into its generating pieces
+      % must in turn produce a factorization of the map $\alpha$ (up to isomorphism on the source).
+      % Thus, we have that arrows here are generated by
+      % \begin{enumerate}[label = (\roman*)]
+      % \item pairs $(f_0: a_0 \to \bar a_0, (E_0(f_0))^{\**}e \to e)$ with $p(e) = E_0(a_0)$.
+      % \item pairs $(a_1:d_1(a_1) \to d_0(a_1), \phi_1^{\**}(\phi_0^{-1})^{\**} e \to (\phi_0^{-1})^{\**}e \to e)$ with $p(e) = E_0d_0(a_1)$.
+      % \end{enumerate}
+
+      % Thus, it suffices to show that
+      % (i) all maps are (isomorphic to one) of the form $E_0(f_0)^{\**}e \to e$, and
+      % (ii) all objects $e$ are (isomorphic to one) of the form $(\phi_0 \pi)^{\**} \bar e$.
+
+      % (ii) follows since $\phi_0$ is invertible, so $e = (\phi_0\pi)^{\**} (\phi_0^{-1}\pi)^{\**} e$.
+      % (i).... i don't know yet.
+      % \todo[inline]{come back}.
+\end{proof}
+
+
+
+
+
+\subsection{Realization and $G\ltimes -$}
+
+\begin{proposition}
+      \label{GWRREAL_PROP}
+For $\mathcal{C}_{\bullet} \in \mathsf{Cat}^{G\times \Delta^{op}}$
+one has a natural identification
+\[|G \ltimes \mathcal{C}_{\bullet}| \simeq G \ltimes |\mathcal{C}_{\bullet}|.\]
+\end{proposition}
+
+\begin{proof}
+	This follows directly by comparing the generating arrows and relations, with the only interesting case being that of the relations
+\[
+\begin{tikzcd}
+	d^1(c_1) \ar{r}{c_1} \ar{d}[swap]{g} &
+	d^0(c_1) \ar{d}{g}
+\\
+	d^1(g c_1) \ar{r}{g c_1} &
+	d^0(g c_1)	
+\end{tikzcd}
+\]
+for $c_1 \in \mathcal{C}_1$ which in
+$|G \ltimes \mathcal{C}_{\bullet}|$ follow from the existence of the arrow $c_1 \xrightarrow{g} g c_1$ in $G \ltimes \mathcal{C}_1$ 
+and in $G \ltimes |\mathcal{C}_{\bullet}|$ follow from an action relation.
+\end{proof}
+
+
