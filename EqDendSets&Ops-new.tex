@@ -2318,7 +2318,6 @@ The following is immediate.
 
 
 
-\iffalse
 
 
 
@@ -7611,7 +7610,6 @@ inductions.
 
 
 
-\fi
 
 
 
@@ -8919,7 +8917,7 @@ are natural isomorphisms.
 This is clear for $\epsilon$ while for $\eta$ it follows from the following two lemmas, the first of which is proven exactly as \cite[Lemma 2.21]{BP_geo}.
 
 
-\begin{lemma}\label{FINWREATPRODLIM LEM}
+\begin{lemma}\label{FINWRPRODLIM LEM}
 If in $\mathcal{V}$
 the monoidal product %products
 commutes with colimits in each variable, and the leftmost diagram
@@ -9037,7 +9035,7 @@ $\mathbb{F} = \mathsf{Lan} N \iota$ with multiplication and unit given by
 
 
 
-\subsection{Filtration of free extensions}
+\subsection{Pushouts of operads}
 
 
 
@@ -9092,7 +9090,7 @@ $\mathcal{O}_i \in \mathsf{Sym}(\mathcal{V})$
 (all maps in \eqref{FILT EQ} will, again, be the identity on colors).
 
 
-Writing $\amalg_{\mathsf{F}}$ and $\mathbin{\hat\amalg}_{\mathsf{F}}$
+Writing $\amalg_{\mathsf{F}}$ and $\mathbin{\check\amalg}_{\mathsf{F}}$
 for the fibered coproducts in 
 $\mathsf{Sym}(\mathcal{V})$ and
 $\mathsf{Op}(\mathcal{V})$
@@ -9103,7 +9101,7 @@ yields that
   \O[u]
   &
     \simeq \mathrm{coeq}\left(
-          \O \mathbin{\hat\amalg_{\mathsf{F}}} \mathbb F X \mathbin{\hat\amalg}_{\mathsf{F}} \mathbb F Y \rightrightarrows \O \mathbin{\hat\amalg}_{\mathsf{F}} \mathbb F Y
+          \O \mathbin{\check\amalg_{\mathsf{F}}} \mathbb F X \mathbin{\check\amalg}_{\mathsf{F}} \mathbb F Y \rightrightarrows \O \mathbin{\check\amalg}_{\mathsf{F}} \mathbb F Y
           \right)
   \\
   &
@@ -9121,7 +9119,7 @@ yields that
     % =: \colim_{n,l} \mathsf{Lan} \hat N_{n,l}^{(\O,X,Y)},
 \end{align*}
 where $B_{\bullet}$ denotes the \textit{double bar construction}
-with respect to $\mathbin{\hat\amalg}_{\mathsf{F}}$,
+with respect to $\mathbin{\check\amalg}_{\mathsf{F}}$,
 $\mathbb{F}^{\bullet +1} \mathcal{O}$ denotes the simplicial resolution of $\mathcal{O}$, 
 and $N$ is the span monad in Definition \ref{NCOLOR DEF}.
 Crucially, we note that colimits over $\Delta^{op}$
@@ -9171,6 +9169,9 @@ $\left(\mathsf{WSpan}_l(\Sigma_{\bullet}^{op},\mathcal{V})\right)^{\times_{\math
 i.e. the subcategory consisting of those tuples $(A_j)$ with the same objects in $\mathsf{F}$ (and similarly for maps), and we will slightly abuse notation by also writing 
 $N^{\times \lambda}$
 for the monad restricted to this subcategory.
+
+
+\subsubsection{Labeled colored strings}
 
 The categories $\Omega_{\mathfrak C}^{n,s,\lambda}$ in the following definition will then represent
 the functors
@@ -9517,6 +9518,8 @@ Much as in Proposition \ref{ASSOCIDS PROP}, this follows by nothing that all squ
       \end{equation}
 \end{proof}
 
+\subsubsection{Filtration of free extensions}
+
 
 We now return to discussing
 \eqref{OU EQ1}.
@@ -9542,7 +9545,7 @@ $
 which are given by \eqref{SIMPLEXP EQ} on non-negative values.
 
 
-\begin{proposition}
+\begin{proposition}\label{EXTENTREE PROP}
 The double simplicial realization
 $|\Omega_{\mathfrak C}^{n,\lambda_l}|$,
 which we call the \textit{extension tree category}
@@ -9772,7 +9775,7 @@ the leftmost map in \eqref{FILTLAN EQ} as
 
 
 
-\subsection{Filtration of free extensions in the equivariant case}
+\subsubsection{Filtration of free extensions in the equivariant case}
 
 
 When \eqref{OU EQ} is a $G$-equivariant diagram (note that the maps are still assumed the identity on colors),
@@ -9955,20 +9958,90 @@ we say $X$ is \textit{level genuine cofibrant} if $\varnothing \to X$ is a level
 
 
 
-\newpage
-
-{\color{red} HERE}
-
-
-
-
-
-
-
-\section{Lemmas for pushouts of operads}
 
 
 \subsubsection{Pushouts and change of color}
+
+
+
+First note that, by a variation of the arguments in \eqref{OU EQ1}, \eqref{1STRED EQ}, \eqref{2NDRED EQ},
+any pushout 
+\[
+\begin{tikzcd}
+	A \ar{r} \ar{d} & \mathcal{O} \ar{d}
+\\
+	B \ar{r} & \mathcal{P}
+\end{tikzcd}
+\]
+has a description
+\begin{align*}
+  \mathcal{P}
+  &
+    \simeq \colim_{[l] \in \Delta^{op}} 
+    B_l \left( \O, A, A, A, B \right)
+  \\
+  &
+    \simeq \colim_{[l] \in \Delta^{op},[n] \in \Delta^{op}} 
+    B_l \left( \mathbb F^{\circ n+1} \O, \mathbb F^{\circ n+1} A, 
+    \mathbb F^{\circ n+1} A, \mathbb F^{\circ n+1} A, \mathbb F^{\circ n+1} B \right)
+\\
+&
+    \simeq \colim_{[l] \in \Delta^{op},[n] \in \Delta^{op}} 
+    \mathsf{Lan} N \circ \left( N^{\circ n} \iota \O 
+		\amalg_{\mathsf{F}}
+	\left( N^{\circ n} \iota X\right)^{\amalg_{\mathsf{F}} 2l +1}
+		\amalg_{\mathsf{F}}
+	N^{\circ n} \iota Y \right)
+\\
+&	
+	\simeq
+	\mathop{\colim}\limits_{(\Delta \times \Delta)^{op}}
+\left(
+	\mathsf{Lan}_{\left(\Omega_{\mathfrak C}^{n,\lambda^a_l} \to \Sigma_{\mathfrak C}\right)^{op}} N_{n,l}^{(\O,A,B)}
+\right)
+\\
+&	
+	\simeq
+	\mathsf{Lan}_{\left(\Omega_{\mathfrak C}^{p} \to
+	\Sigma_{\mathfrak C}\right)^{op}} N^{(\O,A,B)}
+    \stepcounter{equation}\tag{\theequation}\label{OU EQ2}
+    % =: \colim_{n,l} \mathsf{Lan} \hat N_{n,l}^{(\O,X,Y)},
+\end{align*}
+where the partition $\lambda^a_l$ in the fourth line is the active partition with $\left(\lambda^a_l\right)_a = \{1,\cdots,l\}$
+and, similarly to Proposition \ref{EXTENTREE PROP},
+the double realization
+$\OC^p \simeq |\Omega_{\mathfrak C}^{n,\lambda^a_l}|$
+%
+%in $\mathsf{Op}^{\mathfrak{C}}$ can be described as a left Kan extension
+%\[
+%\begin{tikzcd}
+%	\Omega_{\mathfrak{C}}^{p,op} \ar{rr}{N^{(B,A,\mathcal{O})}} \ar{d}[swap]{\mathsf{lr}} &&
+%	\mathcal{V}
+%\\
+%	\Sigma_{\mathfrak{C}}^{op} \ar[dashed]{rru}[swap]{\mathcal{P}}
+%\end{tikzcd}
+%\]
+%Where $\Omega^p_{\mathfrak{C}}$ 
+is the category whose objects are the
+$\{\mathcal{O},A,B\}$-labeled trees
+%$T \in \Omega_{\mathfrak{C}}$ together with a map
+%$V(T) \to \{\mathcal{O},A,B\}$ (i.e. a labeling of the vertices of $T$ by $\{\mathcal{O},A,B\}$)
+and whose arrows are tall maps $T \to S$ such that
+\begin{enumerate}[label=(\roman*)]
+\item if $v \in V(T)$ is $A$-labeled, then all vertices in $S_{v}$ are $A$-labeled
+\item if $v \in V(T)$ is $B$-labeled, then all vertices in $S_{v}$ are either $A$-labeled or $B$-labeled
+\item if $v \in V(T)$ is $\mathcal{O}$-labeled, then all vertices in $S_{v}$ are either $A$-labeled or $\mathcal{O}$-labeled
+\end{enumerate}
+Moreover, one has the formula
+\begin{equation}\label{NBAO EQ}
+N^{(B,A,\mathcal{O})}(T) = 
+\left(\bigotimes_{v \in V_B(T)} B(T_v) \right) \otimes
+\left(\bigotimes_{v \in V_A(T)} A(T_v) \right) \otimes
+\left(\bigotimes_{v \in V_{\mathcal{O}}(T)} \mathcal{O}(T_v) \right)
+\end{equation}
+
+
+
 
 
 \begin{lemma}\label{BASICPUSH LEMMA}
@@ -9988,40 +10061,6 @@ Then if the leftmost diagram in $\mathsf{Op}^{\mathfrak{D}}$ is a pushout, so is
 \end{tikzcd}
 \]
 \end{lemma}
-
-We first note that, by a variation of the arguments in \cite[\S 5]{BP_geo}, any pushout 
-\[
-\begin{tikzcd}
-	A \ar{r} \ar{d} & \mathcal{O} \ar{d}
-\\
-	B \ar{r} & \mathcal{P}
-\end{tikzcd}
-\]
-in $\mathsf{Op}^{\mathfrak{C}}$ can be described as a left Kan extension
-\[
-\begin{tikzcd}
-	\Omega_{\mathfrak{C}}^{p,op} \ar{rr}{N^{(B,A,\mathcal{O})}} \ar{d}[swap]{\mathsf{lr}} &&
-	\mathcal{V}
-\\
-	\Sigma_{\mathfrak{C}}^{op} \ar[dashed]{rru}[swap]{\mathcal{P}}
-\end{tikzcd}
-\]
-Where $\Omega^p_{\mathfrak{C}}$ is the category whose objects are trees
-$T \in \Omega_{\mathfrak{C}}$ together with a map
-$V(T) \to \{B,A,\mathcal{O}\}$ (i.e. a labeling of the vertices of $T$ by $\{B,A,\mathcal{O}\}$)
-and whose arrows are {\color{OliveGreen} planar tall} maps $T \to S$ such that
-\begin{itemize}
-\item if $v \in V(T)$ is $A$-labeled, then all vertices in $S_{v}$ are $A$-labeled
-\item if $v \in V(T)$ is $B$-labeled, then all vertices in $S_{v}$ are either $A$-labeled or $B$-labeled
-\item if $v \in V(T)$ is $\mathcal{O}$-labeled, then all vertices in $S_{v}$ are either $A$-labeled or $\mathcal{O}$-labeled
-\end{itemize}
-Moreover, one has the formula
-\begin{equation}\label{NBAO EQ}
-N^{(B,A,\mathcal{O})}(T) = 
-\left(\bigotimes_{v \in V_B(T)} B(T_v) \right) \otimes
-\left(\bigotimes_{v \in V_A(T)} A(T_v) \right) \otimes
-\left(\bigotimes_{v \in V_{\mathcal{O}}(T)} \mathcal{O}(T_v) \right)
-\end{equation}
 
 
 \begin{proof}[Proof of Lemma \ref{BASICPUSH LEMMA}]
@@ -10216,7 +10255,7 @@ This follows by adding to both $A$ and $\mathcal{O}$ a disjoint trivial operad w
 
 
 
-\subsubsection{Free operads and change of color}
+\subsection{Free operads and change of color}
 
 
 Let $f \colon \mathfrak{C} \to \mathfrak{D}$ be an inclusion of colors.
@@ -10366,7 +10405,7 @@ f^{\**} \circ \mathsf{Lan} \circ N_{\mathfrak{D}} \circ \iota \xleftarrow{\simeq
 \]
 where the second step follows since 
 $\Sigma_{\mathfrak{C}} \to \Sigma_{\mathfrak{D}}$ is an inclusion of components and the fourth step follows
-{\color{green} from the Lemma showing $\mathbb{F}$ is a monad}.
+from Lemmas \ref{FINWRPRODLIM LEM} and \ref{LANPULLCOMA LEM}.
 
 We now tackle the remaining claim of showing that
 \eqref{HATFSTSP EQ} commutes up to isomorphism.
@@ -10519,110 +10558,6 @@ is encoded by the diagram
 \]
 
 
-
-
-
-
-
-
-
-
-\iffalse
-
-\subsection{Fiber monads (leftovers)}
-
-\begin{lemma}
-Suppose $T$ is a fiber monad for 
-$\mathcal{C} \to \mathcal{D}$.
-Then if $f\colon d \to d'$ is an isomorphism in $\mathcal{D}$,
-the associated map
-$T_d f^{\**} \to f^{\**}T_{d'}$
-is a natural isomorphism.
-\end{lemma}
-
-\begin{proof}
-It is sufficient to argue for the existence of both a left and a right inverse. Moreover, it suffices to show that those inverses exist after precomposition and postcomposition with $(f^{-1})^{\**}$. This now follows by noting that the composites below are both identities.
-\[T_d f^{\**}(f^{-1})^{\**} \to 
-f^{\**} T_{d'} (f^{-1})^{\**} \to
-f^{\**}(f^{-1})^{\**} T_d
-\qquad 
-T_{d'} (f^{-1})^{\**}f^{\**} \to 
-(f^{-1})^{\**} T_{d} f^{\**} \to
-(f^{-1})^{\**} f^{\**}T_{d'}
-\]
-\end{proof}
-
-
-
-
-
-
-Our next goal is to make this discussion more explicit in the case where
-$I=G$ is a group.
-Namely, given a $G$-object $d \in \mathcal{D}^G$,
-we wish for a more explicit description of the fiber
-$\left(\mathcal{C}^G\right)_d$ of $\mathcal{C}^G$ over $d$,
-as well as of the fiber monad $(T^G)_d$.
-To do so, we will find it helpful to slightly abuse notation by writing $\mathcal{C}_d$ for the fiber of $\mathcal{C}$ over the underlying object $d \in \mathcal{D}$ and $T_d$ for the fiber monad.
-
-Writing $d\xrightarrow{g} d$ for the $G$-action on $d$, one obtains a  $G^{op}$-action on $T_d$ via the pullback functors $g^{\**}$.
-Additionally, we write $EG$ for the contractible groupoid with objects the elements of $G$, and note that $EG$ has an obvious 
-$G^{op}$-action given by right multiplication of the objects.
-
-It is then straightforward to check that the objects of the equivariant functor category
-\begin{equation}\label{TWISTEDFIX EQ}
-\mathsf{Fun}^{G^{op}}(EG,\mathcal{C}_d)
-\end{equation}
-are determined by ``twisted $G$-objects'' in $\mathcal{C}_d$, i.e. objects 
-$c\in \mathcal{C}_d$
-together with action maps 
-$b_g \colon c \to g^{\**}c$
-which are associative in the sense that the composite
-$c \xrightarrow{b_g} g^{\**}c \xrightarrow{g^{\**}b_h} g^{\**} h^{\**} c = (hg)^{\**}c$ equals $b_{hg}$
-and unital in the sense that
-$b_e \colon c \xrightarrow{=} e^{\**}c = c$
-is the identity
-(indeed, the only difference is that the
-objects of \ref{TWISTEDFIX EQ} explicitly include the data
-of the conjugate maps $g^{\**}b_h$).
-
-One now has the following.
-
-
-
-\begin{proposition}
-There are natural identifications
-\[
-\left(\mathcal{C}^G\right)_d \simeq
-\mathsf{Fun}^{G^{op}}(EG,\mathcal{C}_d)
-\]
-Further, the monad $\left(T^G\right)_d$
-is identified with the assignment
-$(c \to g^{\**}c) \mapsto 
-(T_d c \to T_dg^{\**}c \xrightarrow{\simeq} g^{\**}T_d c)$.
-\end{proposition}
-
-
-
-\begin{proof}
-An object of $\left(\mathcal{C}^G\right)_d$
-consists of an object $c \in \mathcal{C}_d$ together with action maps
-$a_g\colon c \to c$ which lift the action maps $d \xrightarrow{g} d$.
-Factoring these maps
-as $c \xrightarrow{b_g} g^{\**}c \to c$
-yields the corresponding map of $\mathsf{Fun}^{G^{op}}(EG,\mathcal{C}_d)$,
-and one can readily check that the associativity and unit conditions on $a_g$ correspond to those on $b_g$.
-
-Lastly, the claim concerning $\left(T^G\right)_d$ simply unpacks definitions, by noting that
-$T_d(a_g)$ is the composite
-\[
-T_d c \xrightarrow{T_d b_g}
-T_d g^{\**} c \xrightarrow{\simeq} 
-g^{\**} T_d c  \to T_d c 
-\]
-\end{proof}
-
-\fi
 
 
 
