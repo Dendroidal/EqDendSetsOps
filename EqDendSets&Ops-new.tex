@@ -712,6 +712,177 @@ Random lemmas:
 
 
 
+\subsection{Fibered adjunctions}
+
+
+
+\begin{notation}
+Given a Grothendieck fibration $p\colon \mathcal{C} \to \mathcal{E}$, 
+two objects $\bar{c},c \in \mathcal{C}$
+and an arrow $f \colon p(\bar{c}) \to p(c)$, 
+we write $\mathcal{C}_f(\bar{c},c)$ for the subset of maps over $f$, i.e. to the pullback in the following diagram.
+\begin{equation}
+\begin{tikzcd}
+		\mathcal{C}_f\left(\bar{c},c \right) \arrow[d] \arrow[r]
+	&
+		\mathcal{C}\left(\bar{c},c \right) \arrow[d]
+\\
+		\{f\} \arrow[r]
+	&
+		\mathcal{E}\left(p(\bar{c}),p(c)\right)
+\end{tikzcd}
+\end{equation}
+\end{notation}
+
+
+\begin{remark}
+One has a natural decomposition
+\begin{equation}
+	\mathcal{C}(\bar{c},c) \simeq \coprod_{f \in \mathcal{E}(p(\bar{c}),p(c))} \mathcal{C}_f\left(\bar{c},c \right)
+\end{equation}
+\end{remark}
+
+
+\begin{remark}\label{CARTCHAR REM}
+An arrow $F\colon \bar{c} \to c$ in a Grothendieck fibration
+$p \colon \mathcal{C} \to \mathcal{E}$ is cartesian
+precisely if it induces natural isomorphisms
+\[
+\mathcal{C}_{id_{p(\bar{c})}}
+\left(- ,\bar{c} \right)
+\xrightarrow{\simeq}
+\mathcal{C}_{p(F)}\left(- ,c \right)
+\]
+(note that this condition is weaker than the condition defining cartesian arrows; the claim being made here is that if cartesian arrows are already known to exist, then they are detected by this condition).
+\end{remark}
+
+
+
+\begin{definition}
+Let 
+$p\colon \mathcal{C} \to \mathcal{E}$,
+$p\colon \mathcal{D} \to \mathcal{E}$,
+be Grothendieck fibrations.
+A \emph{fibered adjunction} is an adjunction
+\[
+L \colon \mathcal{C} \rightleftarrows \mathcal{D} \colon R
+\]
+where the functors, unit and counit are all fibered, i.e.
+$pL=p$, $pR=p$, $p \eta = id_{p}$, $p\eta = id_p$.
+\end{definition}
+
+
+\begin{remark}
+A fibered adjunction induces natural isomorphisms
+\[
+\mathcal{D}_f\left(Lc,d\right)
+\simeq
+\mathcal{C}_f\left(c,Rd\right)
+\]
+for each $c\in \mathcal{C}$, $d \in \mathcal{D}$, $f\colon p(c)\to p(d)$. 
+\end{remark}
+
+
+
+\begin{proposition}
+Let $L \colon \mathcal{C} \rightleftarrows \mathcal{D} \colon R$
+be an adjunction between Grothendieck fibrations.
+
+If the adjunction is a fibered then 
+%the right adjoint
+$R$ is 
+a fibered functor which preserves cartesian arrows.
+
+Conversely, if the right adjoint $R$ is 
+a fibered functor which preserves cartesian arrows, then it is possible to modify the adjunction so that it becomes a fibered adjunction.
+
+\end{proposition}
+
+
+\begin{proof}
+For the first claim, 
+letting $F \colon \bar{d} \to d$ be a cartesian arrow, 
+the fact that $R(F)$ is again cartesian follows from
+Remark \ref{CARTCHAR REM} applied to the composite
+\[
+\mathcal{C}_{id_{p(\bar{d})}}
+	\left(-,R\bar{d}\right)
+	\simeq 
+\mathcal{D}_{id_{p(\bar{d})}}
+	\left(L(-),\bar{d}\right)
+	\xrightarrow{\simeq}
+\mathcal{D}_{p(F)}\left(L(-),d\right)
+	\simeq
+\mathcal{C}_{p(F)}\left(-,Rd\right)
+\]
+For the ``conversely'' claim,
+noting that by assumption $pRL = pL$,
+one can choose a cartesian natural transformation $\bar{L} \to L$
+(i.e. a cartesian arrow in $\mathcal{D}^{\mathcal{C}}$)
+over the projection of the adjunction unit
+$ p \xrightarrow{p \eta} pRL$
+(which is an arrow in $\mathcal{E}^{\mathcal{C}}$).
+Moreover, noting that by assumption
+$R\bar{L} \to RL$ is again cartesian, we write
+$id_{\mathcal{C}} \xrightarrow{\bar{\eta}} R \bar{L} \to RL$
+for the natural factorization
+as well as $\bar{\epsilon}$
+for the composite
+$\bar{L}R \to LR \xrightarrow{\epsilon} id_{\mathcal{D}}$.
+We claim that $\bar{L},R,\bar{\eta},\bar{\epsilon}$
+now form provide fibered adjunction, with the non obvious claim being that this is in fact still an adjunction.
+That the composite
+$R\xrightarrow{\bar{\eta}R} R\bar{L}R \xrightarrow{R\bar{\epsilon}} R$
+is the identity follows since this is 
+$R \xrightarrow{\bar{\eta} R} R\bar{L}R \to RLR \xrightarrow{R \epsilon} R$ and thus
+$R \xrightarrow{\eta R} RLR \xrightarrow{R \epsilon} R$.
+The remaining claim is that the top horizontal composite in the diagram below is the identity, 
+\begin{equation}
+\begin{tikzcd}
+		\bar{L} \arrow[d] \arrow{r}{\bar{L}\bar{\eta}}
+	&
+		\bar{L} R \bar{L} \arrow[d] \ar{r} \ar{d}
+		\arrow[bend left]{rr}{\bar{\epsilon}\bar{L}}
+	&
+		L R \bar{L} \ar{r}{\epsilon \bar{L}} \ar{d}
+	&
+		\bar{L} \ar {d}
+\\
+		L \arrow{r}{L\bar{\eta}}
+		\arrow[bend right]{rr}[swap]{L \eta}
+	&
+		LR\bar{L} \ar{r}
+	&
+		LRL \ar{r}{\epsilon L}
+	&
+		L
+\end{tikzcd}
+\end{equation}
+and since 
+$\bar{L} \to L$ is cartesian, 
+is in fact enough to show that the overall composite $\bar{L} \to L$
+is the standard map, which is clear. 
+\end{proof}
+
+
+\begin{example}
+Letting $\mathcal{O} \in \mathsf{sOp}$ be a simplicial colored operad
+and $K \in \mathsf{sSet}$,
+one has a pointwise simplicial cotensoring
+$\{K,\O\}_{\mathsf{F}} \in \mathsf{sOp}$
+given by
+$\{K,\O\}_{\mathsf{F}}(\ksi) = 
+\left(\O(\ksi)\right)^K$
+for each signature $\ksi$.
+
+$\{K,-\}_{\mathsf{F}}\colon \mathsf{sOp} \to \mathsf{sOp}$
+is then a fibered right adjoint which preserves pullback arrows,
+and thus the corresponding adjunction is also fibered.
+\end{example}
+
+
+
+
 \section{Colored operads}
 
 
@@ -5997,8 +6168,913 @@ The above reflects the following result.
 \end{proof}
 
 
-
 \newpage
+
+
+
+
+\section{Scratchwork}
+
+
+
+
+\subsection{Semi-cofibrantly generated}
+
+
+The following codifies a formal argument implicit in the proof of \cite[Thm. 7.19]{CM13b}.
+
+\begin{definition}
+Given a set $J$ of maps that admit the small object argument, we say that $X \in \mathcal{M}$ is \textit{$J$-fibrant} if $X \to \**$ has the right lifting property against maps in $J$.
+
+Further, given $D$ a class of maps in $\mathcal{M}$,
+we write $D_{J\text{-fib}} \subseteq D$ to denote 
+the subclass of maps whose target is $J$-fibrant.
+\end{definition}
+
+\begin{lemma}\label{SEMICOF LEM}
+	Let $\mathcal{M}$ be a model category with $(C,W,F)$
+	the corresponding classes of cofibrations, weak equivalences and fibrations. 
+	Further, $J$ be a set of maps admitting the small object argument and such that:
+\begin{itemize}
+	\item[(i)] $J \subseteq C \cap W$;
+	\item[(ii)] 
+	$\left(J^{\boxslash} \cap W \right)_{J\text{-fib}}
+	\subseteq \left( F \cap W \right)_{J\text{-fib}}$.
+\end{itemize}
+Then one further has that:
+\begin{itemize}
+	\item[(a)]
+	$\left(\prescript{\boxslash}{}{\left(J^{\boxslash}\right)}\right)_{J\text{-fib}}
+	= 
+	\left( C \cap W \right)_{J\text{-fib}}$;
+	\item[(b)]
+	$\left(J^{\boxslash} \right)_{J\text{-fib}}
+	= F_{J\text{-fib}}$.
+\end{itemize}
+\end{lemma}
+
+\begin{remark}
+Rephrasing (b), one has that the fibrant objects of $\mathcal{M}$ are precisely the $J$-fibrant objects
+and thus that the fibrations between fibrant objects are precisely the $J$-fibrations.
+\end{remark}
+
+\begin{proof}
+	To check (a), recalling first that 
+	$\prescript{\boxslash}{}{\left(J^{\boxslash}\right)}$
+	is the saturation of $J$, one has that (i) in fact implies 
+	$\prescript{\boxslash}{}{\left(J^{\boxslash}\right)}
+		\subseteq C \cap W $.
+	For the converse direction, given a trivial cofibration
+	$A \to Y$ with $J$-fibrant target,
+	form the factorization 
+	$A \to X \to Y$ as a 
+	$J$-cofibration followed by a $J$-fibration. 
+	By the first direction the map $A\to X$ is a weak equivalence, and thus by 2-out-of-3 so is $X \to Y$.
+	But then by (ii) the map $X \to Y$ is a trivial fibration, so that the lifting below exists,
+	showing that $A \to Y$ is a retract of $A \to X$, and thus also in the saturation $\prescript{\boxslash}{}{\left(J^{\boxslash}\right)}$, 
+	as desired.
+\[
+\begin{tikzcd}
+	A \ar[>->]{r}{J} \ar[>->]{d}[swap]{\sim}&
+	X \ar[->>]{d}{J}
+%& &
+%	A \ar[>->]{r}{\sim} \ar[>->]{d}[swap]{\sim}&
+%	Y \ar[->>]{d}{\sim}
+\\
+	Y \ar[equal]{r} \ar[dashed]{ru} & Y
+%& &
+%	X \ar[equal]{r} \ar[dashed]{ru} & X
+\end{tikzcd}
+\]
+
+To check (b), one direction is again immediate from (i),
+since $J^{\boxslash} \supseteq (C \cap W)^{\boxslash} = F$.
+For the converse direction, it suffices to show that 
+a $J$-fibration $X\to Y$ with $J$-fibrant target has the right lifting property against trivial cofibrations, as on the left diagram below.
+After factoring the bottom horizontal map as a $J$-cofibration followed by a $J$-fibration as on the right diagram, it suffices to shows that a lift $B' \to X$ exists.
+But since $B'$ is $J$-fibrant, this follows from (a), which shows that the composite $A \to B \to B'$ is a $J$-cofibration.
+\[
+\begin{tikzcd}
+	A \ar{r} \ar[>->]{d}[swap]{\sim}&
+	X \ar[->>]{d}{J}
+&&
+	A \ar{rr} \ar[>->]{d}[swap]{\sim}&&
+	X \ar[->>]{d}{J}
+\\
+	B \ar{r} \ar[dashed]{ru} & Y
+&&
+	B \ar[>->]{r}[swap]{J} &
+	B' \ar[->>]{r}[swap]{J} \ar[dashed]{ru}
+	& Y
+\end{tikzcd}
+\]
+\end{proof}
+
+\begin{remark}
+	Analyzing the proof above, one is free to replace the class of fibrant objects with any other class that is compatible with $J$-fibrations, in the sense that if 
+	$X \to Y$ is a $J$-fibration and $Y$ is in the class, then so is $X$.
+\end{remark}
+
+
+
+
+
+\subsection{Formalizing some stuff}
+
+
+
+\begin{lemma} \label{INTER_LEM}
+Let $\mathcal{O} \in \mathsf{sOp}$ and let
+$g \colon x \to y$ be an equivalence in $\mathcal{O}$.
+
+Then there exists a countable, cofibrant and contractile $H \in \mathsf{sOp}_{\{0,1\}}$ 
+and a map 
+$\varphi \colon H \to \mathcal{O}$
+such that 
+$g$ is in the image of $\varphi$. 
+\end{lemma}
+
+
+\begin{proof}
+	We start by considering the case where $\mathcal{O}$ is locally fibrant.
+	
+	$g$ can be regarded as a map
+	$[1] \xrightarrow{g} \mathcal{O}$,
+	and one thus likewise gets a map
+	$\Delta[1] \xrightarrow{g}  hcN \mathcal{O}$
+	which is an equivalence in the 
+	$\infty$-category $hcN \mathcal{O}$,
+	so that one can find a (non-unique) factorization
+	$\Delta[1] \to J \to hcN \mathcal{O}$
+	which by adjunction yields a factorization
+	$[1]=W_!\Delta[1] \to W_! J \to \mathcal{O}$,
+	which establishes the desired claim 
+	since $W_! J$ is contractible due to 
+	Example \ref{WJ EX}.
+	
+	For a general $\mathcal{O}$, 
+	consider first a local fibrant replacement
+	$F \colon \mathcal{O} \to \mathcal{O}'$.
+	One can hence find a map 
+	$W_! J \to \mathcal{O}'$ such that
+	$F(g)$ is in its image. 
+	We now factor this map as
+	$W_! J \xrightarrow{\sim} H \to \mathcal{O}'$
+	where the second map is a local fibration.
+	
+	One can now form a pullback
+\[
+\begin{tikzcd}
+	\tilde{H} \ar{r} \ar{d} & H' \ar{d}
+\\
+	\mathcal{O} \ar{r} & \mathcal{O}'
+\end{tikzcd}
+\]
+where $\tilde{H}$ is seen to be contractible since
+$\mathsf{sSet}$ is right proper.
+	A priori, $\tilde{H}$ will need not be countable nor cofibrant, but this is easily rectified:
+	indeed one can show that any countable subcomplex of $\tilde{H}$ is contained in a contractible countable subomplex, 
+	yielding a countable contractible subcomplex whose image in $\mathcal{O}$ contains $g$. Lastly, performing a cofibrant replacement of that complex finishes the proof.
+\end{proof}
+
+
+
+\begin{example}\label{WJ EX}
+	Let $J = N \widetilde{[1]}$ be the nerve of the contractible groupoid on two objects.
+	
+	Then there is an identification
+\[
+	W_{!} J \simeq \mathbb{F}^{\bullet} \widetilde{[1]}
+\]
+	where $\mathbb{F}$ denotes the (unital) free operad monad.
+
+	To see this, we start by describing
+	$\mathbb{F}^{\bullet} \widetilde{[1]}$.
+	Writing $f \colon 0 \to 1$ and 
+	$g \colon  1\to 0$ for the non-identity arrows in 
+	$\widetilde{[1]}$ (so that $g=f^{-1}$), the $0$-simplices of $\mathbb{F}^{\bullet} \widetilde{[1]}$
+	are the alternating words
+	$f,g,fg,gf,fgf,gfg,fgfg,gfgf,\cdots$
+	in the letters $f$, $g$.
+	More generally
+	$n$-simplices are given by equipping such alternating words with ``$n$ nested layers of brackets''
+	(so that, for example, 
+	$\left((f)(gf)\right) 
+	\left( (gf) \right)$
+	encodes a $2$-simplex).
+	Alternatively, given an alternating word of length $l$, such bracketings are encoded by a flag of subsets
+	$F_1 \subseteq F_2 \subseteq \cdots 
+	\subseteq F_n \subseteq \{1,\cdots,l-1\}$.
+	
+	To describe $W_{!} J$, we apply the explicit description of the $W_{!} (-)$ construction given in 
+	\cite{DS11}.
+	Following \cite[Cor. 4.8]{DS11}, the $n$-simplices of $W_{!} J$ are uniquely encoded by a map
+\begin{equation}\label{NECMAP EQ}
+	N = \Delta^{k_1} \vee \Delta^{k_2} 
+	\vee \cdots \vee \Delta^{k_r} 
+	\to J 
+\end{equation}
+which is totally nondegenerate (this means that all simplices $\Delta^{k_i} \to J$ are nondegenerate)
+together with a flag of subsets
+	$\boldsymbol{J}(N) = 
+	G_0 \subseteq 
+	G_1 \subseteq \cdots \subseteq
+	G_{n-1} \subseteq \boldsymbol{E}^{\mathsf{i}}(N)$.
+	Noting that the nondegenerate simplices of $J$ (other than the points $0,1$)
+	are themselves identified with alternating words
+	$f,g,fg,gf,fgf,gfg,fgfg,gfgf,\cdots$,
+	one sees that so is the map \eqref{NECMAP EQ}.
+	Therefore, we see that a $n$-simplex of 
+	$W_{!} J$ is uniquely, determined by some alternating word of some size $l$ together with a flag  
+	$G_0 \subseteq 
+	G_1 \subseteq \cdots \subseteq
+	G_{n-1} \subseteq \boldsymbol{E}^{\mathsf{i}}(N)
+	=\{1,\cdots,l-1\}$, since 
+	$G_0$ suffices to recover the domain of 
+	\eqref{NECMAP EQ}.
+	
+	This shows that $W_{!} J$ $\mathbb{F}^{\bullet} \widetilde{[1]}$ indeed have the same simplices.
+	The fact that the simplicial operators coincide can be readily checked explicitly with the most interesting case is that of the top differential $d_n$, which in either case is induced by multiplication in 
+	$\widetilde{[1]}$ 
+	(that this is the case for $W_{!} J$ follows from the description of the simplicial operators in 
+	\cite[Cor. 4.4]{DS11} together with the description of the ``flanking'' procedure in \cite[Lemma 4.5]{DS11}).
+\end{example}
+
+
+
+
+\subsection{Extra lifts for $\infty$-categories}
+
+
+\begin{lemma}
+The inclusion 
+\[[0,1,2] \cup [0,2,3,\cdots,n] \cup 
+\Lambda^0[0,1,3,\cdots,n]
+ \to \Lambda^{0,2}[n]\]
+is built cellularly from inclusions
+$\Lambda^0[k] \to \Delta[k]$ with $k<n$.
+Moreover, all such cells send $[0,1]$ to $[0,1]$.
+\end{lemma}
+
+\begin{proof}
+Since $[0,2,3,\cdots,n]$ is in the domain, all missing faces must contain $1$.
+Moreover, since the smallest face not containing $2$
+that is not in $\Lambda^0[0,1,3,\cdots,n]$ is $[1,3,\cdots,n]$,
+which is also the smallest face not in $\Lambda^{0,2}[n]$,
+we see that all missing faces must contain $2$ as well.
+
+It now suffices to check that $0$ is characteristic with respect to the missing faces, i.e.
+that $12\underline{a}$ is missing iff $012\underline{a}$ is missing, and this is now obvious. 
+\end{proof}
+
+\begin{remark}
+	The map $\Lambda^{0,2}[n] \to \Delta[n]$ is inner anodyne ($2$ is characteristic).
+	
+	This observation, together with the previous lemma, are the technical core of the observation that lifts
+\[
+	\begin{tikzcd}
+	\Lambda^{0}[n] \ar{d}  \ar{r} & X
+\\
+	\Delta[n] \ar[dashed]{ru}
+	\end{tikzcd}
+\]
+exist when $X$ is an $\infty$-category and $[0,1]$ is mapped to an equivalence in $X$.
+\end{remark}
+
+
+
+
+\subsection{TBD}
+
+
+\begin{lemma}
+Suppose that a category $\Xi$ has subcategories 
+$\Xi^-,\Xi^+$ which contain the isomorphisms and satisfy the unique factorization up to unique isomorphism axiom.
+
+Write $\mathsf{Arr}(\Xi)$ for the arrow category of $\Xi$ and 
+$\mathsf{Arr}^{-}(\Xi), \mathsf{Arr}^{+}(\Xi)$
+for the full subcategories whose objects are arrows in $\Xi^-,\Xi^+$. 
+Then $\mathsf{Arr}^{-}(\Xi)$ (resp. $\mathsf{Arr}^{+}(\Xi)$)
+is initial (resp. terminal) in $\mathsf{Arr}(\Xi)$.
+\end{lemma}
+
+
+
+\begin{proof}
+Given $f \in \mathsf{Arr}(\Xi)$, we need to show that there exist diagrams as below, and moreover that all such diagrams are connected. 
+Existence follows from the factorization assumption. Moreover, its is straightforward from the ``uniqueness up to isomorphism'' that all connections are connected.
+But by factoring the left vertical map in the diagram below, we now see that all such diagrams are connected to a factorization.
+\[
+\begin{tikzcd}
+	\bullet \ar{r}{f} \ar{d}& 
+	\bullet \ar{d}
+\\
+	\bullet \ar{r}[swap]{+} &
+	\bullet
+\end{tikzcd}
+\]
+%
+%\[
+%\begin{tikzcd}
+%	\bullet \ar{r}{-} \ar{dd} \ar{rd}[swap]{-} &
+%	\bullet \ar{rrr}{+} \ar{rrd}{-} &&&
+%	\bullet \ar{dd}
+%\\
+%	&
+%	\bullet \ar{rrd}[swap]{+}  && 
+%	\bullet \ar{rd}{+} \ar[dashed]{ll}[swap]{\simeq}
+%\\
+%	\bullet 	\ar{rrr}[swap]{-} &&&
+%	\bullet \ar{r}[swap]{+} & 
+%	\bullet
+%\end{tikzcd}
+%\]
+\end{proof}
+
+
+
+\begin{lemma}\label{REDUCELAN LEM}
+	Suppose that $F \colon \mathcal{C} \to \mathcal{D}$ is a functor in 
+	$\mathsf{Cat}^G$.
+Then the following square commutes up to natural isomorphism
+\[
+\begin{tikzcd}[column sep=50pt]
+	\mathcal{V}^{G \ltimes \mathcal{C}} 
+	\ar{r}{\mathsf{Lan}_{G \ltimes \mathcal{C} \to G \ltimes \mathcal{D}}} \ar{d}[swap]{\mathsf{fgt}}&
+	\mathcal{V}^{G \ltimes \mathcal{D}} \ar{d}{\mathsf{fgt}}
+\\
+	\mathcal{V}^{\mathcal{C}} 
+	\ar{r}[swap]{\mathsf{Lan}_{\mathcal{C} \to\mathcal{D}}} &
+	\mathcal{V}^{\mathcal{D}}
+\end{tikzcd}
+\]
+\end{lemma}
+
+
+\begin{proof}
+For each $d \in \mathcal{D}$ (recall that $\mathcal{D}$ and $G \ltimes \mathcal{D}$ have the same objects) one has an obvious inclusion 
+$\mathcal{C} \downarrow d \to G\ltimes \mathcal{C} \downarrow d$.
+Moreover, for each object of $G\ltimes \mathcal{C} \downarrow d$
+there is a unique $g \in G$ such that the object is described as a composite
+$F(c) \xrightarrow{g} g F(c) \to d$,
+were $g F(c) \to d$ can be regarded as an object of $\mathcal{C} \downarrow d$.
+One thus has a retraction 
+$G \ltimes \mathcal{C} \downarrow d \to \mathcal{C} \downarrow d$
+showing that $\mathcal{C} \downarrow d$ is terminal in
+$G \ltimes \mathcal{C} \downarrow d$
+and finishing the proof. 
+\end{proof}
+
+
+
+\subsection{Fixed color lemmas}
+
+Given a set $\mathfrak{C}$ of colors,
+write $\Sigma_{\mathfrak{C}}$ for the groupoid of corollas with edges labeled by colors in $\mathfrak{C}$.
+
+If, in addition, $\mathfrak{C}$ is a $G$-set, 
+we write $G \ltimes \Sigma_{\mathfrak{C}}^{op}$ for the larger groupoid obtained via the associated Grothendieck construction.
+
+
+Writing
+$\mathsf{Sym}^{G,\mathfrak{C}} = 
+\mathsf{Set}^{G \ltimes \Sigma_{\mathfrak{C}}^{op}}$,
+we have a natural monad $\mathbb{F}$ on
+$\mathsf{Sym}^{G,\mathfrak{C}}$
+whose algebra category we denote by 
+$\mathsf{Op}^{G,\mathfrak{C}}$.
+
+
+\begin{notation}
+	Given a $G$-equivariant function 
+	$f \colon \mathfrak{C} \to \mathfrak{D}$
+	we write
+\[
+	f_{\**} \colon 
+	\mathsf{Sym}^{G,\mathfrak{C}}
+	\rightleftarrows
+	\mathsf{Sym}^{G,\mathfrak{D}}
+	\colon f^{\**}
+\qquad
+	\check{f}_{\**} \colon 
+	\mathsf{Op}^{G,\mathfrak{C}}
+	\rightleftarrows
+	\mathsf{Op}^{G,\mathfrak{D}}
+	\colon f^{\**}
+\]
+for the standard adjunctions (note the need to distinguish notations for the left adjoints).
+\end{notation}
+
+
+\begin{example}\label{GCORMPA EX}
+Given a $G$-corolla $C \in \Sigma_G$, we write $\partial C$ for the set of edges of $C$, which is naturally identified with the set of objects of the associated $G$-operad
+$\Omega(C) \in \mathsf{Op}^G$.
+
+One can then regard $\Omega(C) \in \mathsf{Op}^{G,\partial C}$ and, moreover, $\Omega(C)$ is in fact the free operad over the symmetric sequence obtained by removing the units of $\Omega(C)$,
+which we denote by
+$\Omega'(C) \in \mathsf{Sym}^{G,\partial C}$.
+
+Given the non-equivariant decomposition
+$C = C_1 \amalg \cdots \amalg C_k$
+with $C_i \in \Sigma$, 
+one can naturally regard the $C_i$ as objects of $\Sigma_{\partial C}$.
+In fact, one then has an identification
+\begin{equation}\label{SOMEIDEN EQ}
+	\Omega'(C) \simeq 
+	\Sigma_{\partial C}[C_1] \amalg \cdots \amalg \Sigma_{\partial C}[C_k]
+\end{equation}
+where $\Sigma_{\partial C}[-]$ denotes the representable presheaf in 
+$\mathsf{Set}^{\Sigma_{\partial C}^{op}}$.
+This claim requires some justification, since a priori the right hand side of \eqref{SOMEIDEN EQ} is an object in $\mathsf{Set}^{\Sigma_{\partial C}^{op}}$,
+rather than in $\mathsf{Set}^{G \ltimes \Sigma_{\partial C}^{op}}$,
+i.e. we need to describe the action of the additional action arrows
+$D \xrightarrow{g} gD$ on this presheaf.
+This action is given by the following diagram, where the vertical $g$ arrows simply act on labels, and all horizontal arrows are shuffle arrows (i.e. arrows in $\Sigma_{\partial C}$).
+The diagonal $C_g$ arrow corresponds to the structural $G$-action on $C$. It is then straightforward to check that there is a unique dashed shuffle $\tau_g$ as indicated
+\[
+\begin{tikzcd}
+	D \ar{d}[swap]{g} \ar{r}{\sigma} & C_i \ar{rd}{C_g} \ar{d}[swap]{g}
+\\
+	g D \ar{r}[swap]{g \sigma} & g C_i \ar[dashed]{r}{\simeq}[swap]{\tau_g} & C_{g i}
+\end{tikzcd}
+\]
+and one defines $g_{\**}\colon \Sigma_{\partial C}[C_i] \to \Sigma_{\partial C}[C_{gi}]$
+via $\sigma \mapsto \tau_g \circ (g \sigma)$.
+
+Moreover, letting $f \colon \partial C \to \mathfrak{C}$
+be a map of colors, 
+one obtains $\mathfrak{C}$-corollas $C_i^{f} \in \Sigma_{\mathfrak{C}}$
+by coloring each edge $e\in \partial C$ by $f(e) \in \mathfrak{C}$, resulting in a generalized identification 
+\begin{equation}\label{SOMEIDENGEN EQ}
+	f_{\**} \Omega'(C) \simeq 
+	\Sigma_{\mathfrak{C}}[C_1^f] \amalg \cdots \amalg \Sigma_{\mathfrak{C}}[C^f_k]
+\end{equation}
+Indeed, \eqref{SOMEIDENGEN EQ} follows from the observation
+that the Kan extension 
+$\mathsf{Lan}_{G \ltimes \Sigma_{\partial C} \to G \ltimes \Sigma_{\mathfrak{C}}}$ 
+coincides, after forgetting with the $G$-action arrows,
+with the Kan extension
+$\mathsf{Lan}_{\Sigma_{\partial C} \to \Sigma_{\mathfrak{C}}}$
+(cf. Lemma \ref{REDUCELAN LEM}).
+\end{example}
+
+
+\begin{definition}
+      \label{COR_GGRAPH_DEF}
+	Given a $\mathfrak{C}$-corolla $C$, 
+	a subgroup 
+	$\Gamma \leq \mathsf{Aut}_{G \ltimes \Sigma_{\mathfrak{C}}^{op}}(C)$
+	is called a \textit{$G$-graph subgroup} if
+	$\Gamma \cap \mathsf{Aut}_{\Sigma_{\mathfrak{C}}^{op}}(C) = \**$.
+	
+	We write $\mathcal{F}^{\Gamma} = \{\mathcal{F}^{\Gamma}_C\}$
+	for the collection of families of $G$-graph subgroups.
+	
+	A $G$-$\mathfrak{C}$-symmetric sequence
+	$X \in \mathsf{Sym}^{G,\mathfrak{C}}$
+	is called $\Sigma$-cofibrant if each level
+	$X(C)$ is $\mathcal{F}^{\Gamma}_C$-cofibrant.
+\end{definition}
+
+
+\begin{remark}
+	Write a $\mathfrak{C}$-corolla as $C^f \in \Sigma_{\mathfrak{C}}$,
+	where $C \in \Sigma$ is the underlying corolla and
+	$f\colon \partial C \to \mathfrak{C}$
+	is the coloring.
+	A $G$-graph subgroup 
+	$\Gamma \leq \mathsf{Aut}_{G \ltimes \Sigma_{\mathfrak{C}}^{op}}(C^f)$ is, under the map 
+	$G \ltimes \Sigma_{\mathfrak{C}}^{op} \to
+	G \times \Sigma^{op}$,
+	identified with a 
+	$G$-graph subgroup of 
+	$G \times \mathsf{Aut}_{\Sigma^{op}}(C)$,
+	i.e., with the graph of a partial antihomomorphism
+\[
+	G^{op} \geq H^{op} \xrightarrow{(-)^{-1}} H 
+	\xrightarrow{\tau_{(-)}} \mathsf{Aut}_{\Sigma^{op}}(C)
+\]
+	which is subject to the requirement
+\[
+	f(\tau_h(e)) = h f(e).
+\]
+Using the $\tau$ automorphisms one can then
+\begin{inparaenum}
+\item[(i)] equip $C$ with a $H$-action,
+so that one can regard $C \in \Sigma^H \subseteq \Sigma_H$;
+\item[(ii)] extend $\Sigma_{\mathfrak{C}}[C^f]$ to 
+an object in $\mathsf{Set}^{H \ltimes \Sigma_{\mathfrak{C}}}$
+by defining the action of the $H$-action arrows $h$ via 
+$\sigma \mapsto \tau_{h} \circ (h \sigma)$;
+\item[(iii)]
+following Example \ref{GCORMPA EX}, one thus has an identification
+\[
+	f_{\**} \Omega'(C) \simeq \Sigma_{\mathfrak{C}}[C^f]
+\]
+of objects in $\mathsf{Set}^{H \ltimes \Sigma_{\mathfrak{C}}}$ and therefore an identification 
+\[
+	f_{\**} \left( G \cdot_H \Omega'(C) \right) \simeq 
+	G\cdot_H \Sigma_{\mathfrak{C}}[C^f]
+\]
+of objects in $\mathsf{Set}^{G \ltimes \Sigma_{\mathfrak{C}}}$.
+\end{inparaenum}
+\end{remark}
+
+
+\begin{example}
+Let $G = \mathbb{Z}_{/2} = \{\pm 1\}$ and 
+$\mathfrak{C} = \{\mathfrak{a}, -\mathfrak{a}, \mathfrak{b}\}$ where we implicitly have
+$-\mathfrak{b} = \mathfrak{b}$.
+Consider the two $\mathfrak{C}$-corollas 
+$C,D \in \Sigma_{\mathfrak{C}}$ below.
+\begin{equation}
+	\begin{tikzpicture}[auto,grow=up, level distance = 2.2em,
+	every node/.style={font=\scriptsize,inner sep = 2pt}]%
+		\tikzstyle{level 2}=[sibling distance=3em]%
+			\node at (0,0) [font = \normalsize] {$C$}%	
+				child{node [dummy] {}%
+					child{node {}%
+					edge from parent node [swap] {$-\mathfrak{a}$}}%
+					child[level distance = 2.9em]{node {}%
+					edge from parent node [swap,	near end] {$\mathfrak{b}$}}%
+					child[level distance = 2.9em]{node {}%
+					edge from parent node [near end] {$\mathfrak{b}$}}%
+					child{node {}%
+					edge from parent node  {$\mathfrak{a}$}}%
+				edge from parent node [swap] {$\mathfrak{b}$}};%
+			\node at (7,0) [font = \normalsize] {$D$}%	
+				child{node [dummy] {}%
+					child{node {}%
+					edge from parent node [swap] {$-\mathfrak{a}$}}%
+					child[level distance = 2.9em]{node {}%
+					edge from parent node [swap,	near end] {$-\mathfrak{a}$}}%
+					child[level distance = 2.9em]{node {}%
+					edge from parent node [near end] {$\mathfrak{a}$}}%
+					child{node {}%
+					edge from parent node  {$\mathfrak{a}$}}%
+				edge from parent node [swap] {$\mathfrak{b}$}};%
+	\end{tikzpicture}%
+\end{equation}%
+Each of $C,D$ admit exactly two non-trivial $G$-graph subgroups,
+which are encoded by the $\mathbb{Z}_{/2}$-actions on the underlying corollas depicted below.
+\begin{equation}
+	\begin{tikzpicture}[auto,grow=up, level distance = 2.2em,
+	every node/.style={font=\scriptsize,inner sep = 2pt}]%
+		\tikzstyle{level 2}=[sibling distance=3em]%
+			\node at (-1.6,0) [font = \normalsize] {$C_1$}%	
+				child{node [dummy] {}%
+					child{node {}%
+					edge from parent node [swap] {$-a$}}%
+					child[level distance = 2.9em]{node {}%
+					edge from parent node [swap,	near end] {$c\phantom{b}$}}%
+					child[level distance = 2.9em]{node {}%
+					edge from parent node [near end] {$b$}}%
+					child{node {}%
+					edge from parent node  {$a$}}%
+				edge from parent node [swap] {$r$}};%
+			\node at (1.6,0) [font = \normalsize] {$C_2$}%	
+				child{node [dummy] {}%
+					child{node {}%
+					edge from parent node [swap] {$-a$}}%
+					child[level distance = 2.9em]{node {}%
+					edge from parent node [swap,	near end] {$-b$}}%
+					child[level distance = 2.9em]{node {}%
+					edge from parent node [near end] {$b$}}%
+					child{node {}%
+					edge from parent node  {$a$}}%
+				edge from parent node [swap] {$r$}};%
+			\node at (5.4,0) [font = \normalsize] {$D_1$}%	
+				child{node [dummy] {}%
+					child{node {}%
+					edge from parent node [swap] {$-a$}}%
+					child[level distance = 2.9em]{node {}%
+					edge from parent node [swap,	near end] {$-b$}}%
+					child[level distance = 2.9em]{node {}%
+					edge from parent node [near end] {$b$}}%
+					child{node {}%
+					edge from parent node  {$a$}}%
+				edge from parent node [swap] {$r$}};%
+			\node at (8.6,0) [font = \normalsize] {$D_2$}%	
+				child{node [dummy] {}%
+					child{node {}%
+					edge from parent node [swap] {$-b$}}%
+					child[level distance = 2.9em]{node {}%
+					edge from parent node [swap,	near end] {$-a$}}%
+					child[level distance = 2.9em]{node {}%
+					edge from parent node [near end] {$b$}}%
+					child{node {}%
+					edge from parent node  {$a$}}%
+				edge from parent node [swap] {$r$}};%
+	\end{tikzpicture}%
+\end{equation}%
+
+\end{example}
+
+
+The following is the analogue of \cite[Prop. 3.2]{CM13b}
+
+\begin{proposition}\label{KEYPR PROP}
+Suppose that $\mathcal{O} \in \mathsf{Op}^{G,\mathfrak{C}}$
+is $\Sigma$-cofibrant.
+Further, let $C \in \Sigma_G$ be any $G$-corolla and consider 
+a pushout in $\mathsf{Op}^{G}$ of the form
+\begin{equation}\label{PUSHOUTPROP EQ}
+\begin{tikzcd}
+	\partial \Omega(C) \ar{r} \ar{d} & \mathcal{O} \ar{d}
+\\
+	\Omega(C) \ar{r} & \mathcal{P}.
+\end{tikzcd}
+\end{equation}
+Then the induced map
+\begin{equation}\label{ANODYNE MAP}
+	\Omega[C] \amalg_{\partial \Omega[C]} N\mathcal{O} \to N\mathcal{P}
+\end{equation}
+is $G$-inner anodyne.
+\end{proposition}
+
+\begin{proof}
+The desired claim that \eqref{ANODYNE MAP}
+is $G$-inner anodyne will follow by applying the  
+\textit{characteristic edge lemma} \cite[Lemma 3.4]{BP_edss},
+but we first need some preliminary discussion. 
+
+Let us write $f \colon \partial C \to \mathfrak{C}$
+for the induced map of colors.
+The first step is to rewrite \eqref{PUSHOUTPROP EQ} as a pushout diagram in $\mathsf{Op}^{G,\mathfrak{C}}$, which can be done by applying $\check{f}_{\**}$
+to the leftmost objects in \eqref{PUSHOUTPROP EQ}.
+Since
+\[
+	\check{f}_{\**} \Omega(C) \simeq 
+	\check{f}_{\**} \left( \mathbb{F} \Omega'(C) \right) \simeq 
+	\mathbb{F} \left(f_{\**}  \Omega'(C) \right)
+\]
+one has that, writing $C \simeq G \cdot_H C_{\star}$ one has the alternative pushout in $\mathsf{Op}^{G,\mathfrak{C}}$
+\begin{equation}
+\begin{tikzcd}
+	\mathbb{F} ( \emptyset ) \ar{r} \ar{d} & \mathcal{O} \ar{d}
+\\
+	\mathbb{F} \left( 
+	G \cdot_H \Sigma_{\mathfrak{C}}[C^f_{\star}] \right) \ar{r} & \mathcal{P}.
+\end{tikzcd}
+\end{equation}
+Writing $B = G \cdot_H \Sigma_{\mathfrak{C}}[C^f_{\star}]$, one then has
+\begin{equation}\label{PUSHOPPR EQ}
+	\mathcal{P}(C) = 
+	\coprod_{
+	[T] \in \mathsf{Iso}
+	\left( \Omega_{\mathfrak{C}}^a \downarrow_{\mathsf{r}} C \right)
+	}
+	\left(
+		\prod_{v \in V^{ac}(T)} \mathcal{O}(T_v)
+	\times
+		\prod_{v \in V^{in}(T)} B(T_v)
+	\right)
+	\cdot_{\mathsf{Aut}_{\Omega^a_{\mathfrak{C}}}(T)} \mathsf{Aut}_{\Sigma_{\mathfrak{C}}}(C)
+\end{equation}
+
+We now discuss the dendrices of $N \mathcal{P}$. Firstly, recall that, by the strict Segal condition characterization of nerves \cite[Cor. 2.7]{CM13a},
+a dendrex $\Omega[T] \to N \mathcal{P}$
+is uniquely specified by the tree $T \in \Omega$ together with a choice of operations
+$\{p_v \in \mathcal{P}(T_v)\}_{v \in \boldsymbol{V}(T)}$.
+Noting that \eqref{PUSHOPPR EQ} implies that the canonical map (of sequences) 
+$\mathcal{O} \amalg B \to \mathcal{P}$
+is a monomorphism, 
+we will say a dendrex $(T,\{p_v\})$ is \textit{elementary}
+if all operations $p_v$ are in $\mathcal{O} \amalg B$.
+Additionally, an elementary dendrex $(T,\{p_v\})$ is called \textit{alternating} if $T$ is an alternating tree and 
+$p_v$ is in $\mathcal{O}$ (resp. $B$) if
+$v \in \boldsymbol{V}(T)$ is active (resp. inert).
+
+Given an elementary dendrex $(T,\{p_v\})$ and a map of trees 
+$\varphi \colon S \to T$
+we will need to know when 
+$\varphi^{\**}(T,\{p_v\})$
+is again elementary.
+Since all maps in $\Omega$ are, uniquely up to isomorphism,
+factored as a degeneracy followed by an inner face followed by an outer face, it suffices to discuss each of those cases.
+It is straightforward to check that 
+$\varphi^{\**}(T,\{p_v\})$ 
+is elementary whenever $\varphi$ is a degeneracy or an outer face.
+For an inner face
+$\varphi \colon T-D \to T$,
+noting that a partial composite $p \circ_i q$ of non-unit operations is in $\mathcal{O} \amalg B$ iff both operations are in $\mathcal{O}$,
+one sees that $\varphi^{\**}(T,\{p_v\})$ is elementary iff
+for each $d \in D$ the adjacent vertices of $T$ are either both labeled by operations of $\mathcal{P}$ or one of them is labeled by an identity.
+An elementary dendrex is called \textit{reduced} if it has no such edges. 
+In other words, an elementary dendrex is reduced iff none of its inner faces are reduced, so that, in particular, all elementary dendrices admit at least one reduced inner face (note that specifying such a face is somewhat subtle: even when a dendrex is non-degenerate, it may not be enough to collapse edges connecting $\mathcal{O}$ vertices, since this may possibly introduce new identity vertices, resulting in a degenerate vertex).
+Note that reduced dendrices are necessarily non-degenerate, but not vice versa.
+In fact, a non-degenerate dendrex is reduced iff it has a degeneracy which is an alternating dendrex. 
+
+
+In what follows, we will find it convenient to work with elementary dendrices that have been suitably ``planarized''.
+To do so, fix a subset
+$\mathcal{O}^{\mathsf{st}} \amalg B^{\mathsf{st}} 
+\subset
+\coprod_{C \in \Sigma_{\mathfrak{C}}}
+\mathcal{O}(C) \amalg B(C)$
+of coset representatives for the $\Sigma$-action,
+which we call \textit{standard} representatives.
+An elementary dendrex $(T,\{p_v\})$ is then called \textit{standard}
+if all $p_v$ are standard (i.e. in 
+$\mathcal{O}^{\mathsf{st}} \amalg B^{\mathsf{st}}$).
+Moreover, since both $\mathcal{O}$ and $B$ are $\Sigma$-cofibrant/$\Sigma$-free sequences (the former by assumption),
+for each elementary simplex $(T,\{p_v\})$,
+there is a unique (replanarization) isomorphism
+$\varphi \colon T' \to T$ such that
+$(T',\{\varphi^{\**}p_v\})$ is standard,
+and we write 
+$\mathsf{st}(T,\{p_v\}) = \varphi^{\**} (T,\{p_v\}) = (T',\{\varphi^{\**}_v p_v\})$
+to denote this.
+
+
+Note that it now follows from \eqref{PUSHOPPR EQ} that,
+for each operation $p \in \mathcal{P}(C)$,
+there exists a unique standard alternating dendrex
+$b'_p \colon \Omega[T'_p] \to N \mathcal{P}$ and isomorphism 
+$C \simeq T'_p - \boldsymbol{E}^{\mathsf{i}}(T'_p)$
+such that the composite
+\begin{equation}\label{STANDELDE EQ}
+	\Omega[C] \simeq
+	\Omega[T'_p - \boldsymbol{E}^{\mathsf{i}}(T'_p)] \to 
+	\Omega[T'_p] \xrightarrow{b'_p}
+	N \mathcal{P}
+\qquad
+	\Omega[C] \simeq
+	\Omega[T_p - \boldsymbol{E}^{\mathsf{i}}(T_p)] \to 
+	\Omega[T_p] \xrightarrow{b_p}
+	N \mathcal{P}
+\end{equation}
+is $p$. In fact, due to the correspondence between alternating elementary dendrices and reduced elementary dendrices, 
+the analogous claim  also holds 
+for the corresponding non-degenerate dendrex 
+$b_p \colon \Omega[T_p] \to N \mathcal{P}$.
+
+
+We can now finally discuss how to apply \cite[Lemma 3.4]{BP_edss}.
+
+Firstly, we need to identify a $G$-poset $I$ and dendrices 
+$b_i \colon \Omega[U_i] \to N \mathcal{P}$ for $i \in I$.
+Firstly, the underlying set of $I$ is the set of 
+non-degenerate standard dendrices of $\mathcal{P}$,
+which we abbreviate as
+$i = (U_i,\{p_v^i\})$.
+The dendrex $b_i \colon \Omega[U_i] \to N \mathcal{P}$ is then tautological, being $i$ itself, but it will preferable to use distinct notations for $i \in I$ and
+$b_i \in N \mathcal{P} (U_i)$.
+Given $i,j \in I$, we write $i \leq j$ if exists a (in general not  planar) face map
+$\varphi \colon U_i \to U_j$
+such that $b_i = \varphi^{\**}(b_j)$.
+Note that by the uniqueness of standardizations $\varphi$ can only be an isomorphism if $i=j$, showing that $\leq$ indeed satisfies anti-symmetry.
+Lastly, we define the $G$-action on $I$ via
+\[b_{g i} = \mathsf{st} (g b_i).\]
+When reading this formula, note that
+$g b_i \in \mathcal{P}(U_i)$
+(since this uses the $G$-action
+on $\mathcal{P}$),
+while $b_{g i} \in \mathcal{P}(U_{g i})$,
+where $U_{g i}$ comes with the unique isomorphism
+$U_{g i} \xrightarrow{g^{-1}} U_i$ which standardizes $b g_i$.
+
+Lastly, the characteristic edge sets 
+$\Xi^i \subseteq \boldsymbol{E}^{\mathsf{i}}(U_i)$ consist of those inner edges such that at least one of the adjacent vertices is mapped to an operation in $B$. Note that, by the discussion above, for an inner face of $\varphi \colon U_i - D \to U_i$
+the dendrex $\varphi^{\**}(b_i)$ is elementary iff
+$D \cap \Xi^i = \emptyset$.
+
+We now note that it is in fact 
+$N \mathcal{P} = 
+A \cup \bigcup_{i \in I} b_i\left(\Omega[U_i]\right)$.
+Indeed, given an arbitrary (non-elementary) non-degenerate dendrex
+$(S,\{p_v\}_{v \in \boldsymbol{V}(T)})$, 
+the trees $T_{p_v}$ from \eqref{STANDELDE EQ}
+can be regarded as a $S$-substitution datum, which after assembled
+yields a non-degenerate standard dendrex 
+$\Omega[T] \xrightarrow{b_{\{p_v\}}} N \mathcal{P}$ 
+whose image contains $(S,\{p_v\}_{v})$.
+
+We now check the characteristic conditions in \cite[Lemma 3.4]{BP_edss}.
+
+(Ch0.2) is straightforward.
+
+For (Ch1), since outer faces of standard dendrices are again standard, one needs only consider the case 
+$\bar{V}=U_i$, or else $\bar{V}$ would be in some $U_j$ for $j<i$.
+But if $\bar{V}=U_i$, the assumption in (Ch1) states that
+$\Xi^i = \emptyset$, so that $i$ must either be a dendrex where all vertices map to $\mathcal{O}$, i.e. $b_i \in N \mathcal{O}$,
+or $U_i$ is a corolla its vertex maps to $B$, i.e. 
+$b_i \in B$.
+In either case, one has
+$b_i \in A = B \cup N\mathcal{O}$, and (Ch1) follows.
+
+To check both (Ch2) and (Ch3), observe first that
+$V \hookrightarrow U_i$ will automatically be in $A_{<i}$ if either 
+$\bar{V} \neq U_i$ or $T = U_i - D$ with 
+$D \not \subseteq \Xi_i$
+(since in either case $U_i$ would be in some $U_j$ with $j<i$),
+so that one needs only consider the case 
+$V=U_i$.
+
+(Ch2) then follows since, except in the trivial cases where $\Xi^i = \emptyset$, the dendrex $b_i(U_i - \Xi^i)$ always contains at least one vertex not in $\mathcal{O} \amalg B$.
+
+For (Ch3), we argue that if 
+$b_i(U_i - \Xi^i) \in b_j \left( \Omega[U_j] \right)$
+then in fact $i\leq j$.
+Writing $\bar{U}_i = U_i - \Xi^i$, the hypothesis is that
+\[
+\begin{tikzcd}
+	\bar{U}_i \ar{d} \ar{r}{\bar{\varphi}} & U_j \ar{r}{b_j} & N \mathcal{P}
+\\
+	U_i \ar[dashed]{ru}[swap]{\varphi}
+\end{tikzcd}
+\]
+there is a face map $\bar{\varphi}$ as above such that
+$b_i(\bar{U}_i) = \bar{\varphi}^{\**}(b_j)$, and the goal is to build $\varphi$ such that $b_i = \varphi^{\**}(b_j)$.
+Let $w \in \boldsymbol{V}(\bar{U}_i)$ be a vertex and 
+let $p_w$ be the corresponding operation of $\mathcal{P}$.
+Then the outer fact $(U_i)_{w}$ is precisely $T_{p_w}$ from
+\eqref{STANDELDE EQ}.
+On the other hand, letting
+$(U_j)_w - D_w \hookrightarrow (U_j)_w$
+be any choice of reduced inner face, 
+one has that this too is $T_{p_w}$, at least up to a replanarization isomorphism, i.e. one has isomorphims
+$(U_i)_{w} \simeq (U_j)_w - D_w$,
+compatible with the restrictions of $b_i$, $b_j$.
+But then combining these isomorphisms yields the desired $\varphi$,
+and (Ch3) follows.
+
+Lastly, we show (Ch0.1).
+Given any non-degenerate dendrex
+$\Omega[V] \xrightarrow{c} N \mathcal{P}$
+by applying \eqref{STANDELDE EQ} to each individual operation
+(together with an ``assembly of substitution data'' argument)
+one obtains that there exists a unique
+non-degenerate standard dendrex 
+$b_c \colon \Omega[U_c] \to N \mathcal{P}$,
+edge subset $D_c \subseteq \Xi^c$ and isomorphism
+$V \simeq U_c - D_c$
+such that $b$ equals the composite
+\begin{equation}\label{STANDELDEGER EQ}
+	V \simeq U_c - D_c
+	\hookrightarrow U_c
+	\xrightarrow{b_c} N \mathcal{P}
+\end{equation}
+Recall now that, by the preliminary argument for (Ch2) and (Ch3), 
+the non-degenerate dendrices not in 
+$b_i^{-1}(A_{< i})$ are precisely the replanarizations of the faces 
+$U_i - D$ with $D \subseteq \Xi^i$.
+But the uniqueness of the data in \eqref{STANDELDEGER EQ}
+implies that all such replanarizations of the $U_i - D$
+do indeed have distinct images in $N \mathcal{P}$,
+thus establishing (Ch0.1) and finishing the proof.
+\end{proof}
+
+
+\begin{remark}
+	In general, injectivity of the map
+	$b_i \colon \Omega[U_i] \to N \mathcal{P}$
+	will fail in $b_i^{-1}(A_{< i})$.
+	Indeed, in general two edges/vertices of $U_i$
+	may be assigned the same color/operation of $\mathcal{P}$.
+	In fact, injectivity may in general fail even for large outer faces.
+\end{remark}
+
+
+{\color{blue} Bla poset not finite but still projective/injective, which is enough}
+
+
+\begin{remark}
+In addition to \eqref{PUSHOPPR EQ}, 
+one also has the alternative formula
+\begin{equation}\label{PUSHOPPRG EQ}
+	\mathcal{P}(C) = 
+	\coprod_{
+	[T] \in \mathsf{Iso}
+	\left( G \ltimes \Omega_{\mathfrak{C}}^a \downarrow_{\mathsf{r}} C \right)
+	}
+	\left(
+		\prod_{v \in V^{ac}(T)} \mathcal{O}(T_v)
+	\times
+		\prod_{v \in V^{in}(T)} B(T_v)
+	\right)
+	\cdot_{\mathsf{Aut}_{G \ltimes \Omega^a_{\mathfrak{C}}}(T)} \mathsf{Aut}_{G \ltimes \Sigma_{\mathfrak{C}}}(C)
+\end{equation}
+which replaces the roles of 
+$\Omega_{\mathfrak{C}}^a$, $\Sigma_{\mathfrak{C}}$
+with 
+$G \ltimes \Omega_{\mathfrak{C}}^a$,
+$G \ltimes \Sigma_{\mathfrak{C}}$.
+The connection between the two formulas is given by Lemma \ref{REDUCELAN LEM},
+though some care is needed.
+Namely, \eqref{PUSHOPPRG EQ} generally features fewer coproduct summands but this is compensated by the inductions
+$(-) \cdot_{\mathsf{Aut}_{G \ltimes \Omega^a_{\mathfrak{C}}}(T)} \mathsf{Aut}_{G \ltimes \Sigma_{\mathfrak{C}}}(C)$,
+which produce more terms than the 
+$(-) \cdot_{\mathsf{Aut}_{\Omega^a_{\mathfrak{C}}}(T)} \mathsf{Aut}_{\Sigma_{\mathfrak{C}}}(C)$
+inductions.
+\end{remark}
+
+
+
+
+
+
+
 
 \subsection{The homotopy genuine equivariant operad}
 
@@ -6634,979 +7710,8 @@ Let $X \in \mathsf{dSet}^G$ be a $G$-$\infty$-operad. Then
 \end{proof}
 
 
-\newpage
 
 
-
-
-\section{Scratchwork}
-
-\subsection{Colored simplicial tensors and cotensors}
-
-
-
-\[
-\begin{tikzcd}
-	K \otimes f^{\**} P \ar{r} \ar{ddd}&
-	K \otimes f^{\**} \left( (K \otimes P)^K \right) \ar{r}{\simeq} \ar{d}&
-	K \otimes \left( f^{\**} (K \otimes P) \right)^K \ar{r} \ar{d} &
-	f^{\**} (K \otimes P) \ar{ddd}
-\\
-	&
-	K \otimes f^{\**} \left( (L \otimes P)^K \right) \ar{d}
-	\ar{r}{\simeq} &
-	K \otimes \left( f^{\**} (L \otimes P) \right)^K
-	\ar{d}
-\\
-	&
-	L \otimes f^{\**} \left( (L \otimes P)^K \right)
-	\ar{r}{\simeq} &
-	L \otimes \left( f^{\**} (L \otimes P) \right)^K
-\\
-	L \otimes f^{\**} P \ar{r} &
-	L \otimes f^{\**} \left( (L \otimes P)^L \right) \ar{r}{\simeq} \ar{u} &
-	L \otimes \left( f^{\**} (L \otimes P) \right)^L \ar{r}&
-	f^{\**} (L \otimes P)
-\end{tikzcd}
-\]
-
-
-
-\[
-\begin{tikzcd}
-	K \otimes f^{\**} P \ar{r} \ar{d}&
-	K \otimes f^{\**} \left( (K \otimes P)^K \right) \ar{r}{\simeq} &
-	K \otimes \left( f^{\**} (K \otimes P) \right)^K \ar{r}  &
-	f^{\**} (K \otimes P) \ar{ddd}
-\\
-	K \otimes \left( (L \otimes f^{\**} P) \right)^L \ar{d} &
-	K \otimes \left( (L \otimes f^{\**} \left( (K \otimes P)^K \right)) \right)^L &
-\\
-	K \otimes \left( (L \otimes f^{\**} P) \right)^K \ar{d} &
-	K \otimes \left( (L \otimes f^{\**} \left( (K \otimes P)^K \right)) \right)^K
-\\
-	L \otimes f^{\**} P \ar{r} &
-	L \otimes f^{\**} \left( (L \otimes P)^L \right) \ar{r}{\simeq} &
-	L \otimes \left( f^{\**} (L \otimes P) \right)^L \ar{r}&
-	f^{\**} (L \otimes P)
-\end{tikzcd}
-\]
-
-
-
-
-\[
-\begin{tikzcd}
-	f^{\**} P \ar{rr} \ar{rd} \ar{dd} & &
-	f^{\**} \left( (K \otimes P)^K \right) \ar{d} &
-	\left( f^{\**} (K \otimes P) \right)^K \ar{l}[swap]{\simeq} \ar{ddd}
-\\
-	&
-	f^{\**} \left( (L \otimes P)^L \right) \ar{r} &
-	f^{\**} \left( (L \otimes P)^K \right) 
-\\
-	\left( L \otimes f^{\**} P \right)^L \ar{r} \ar{d} &
-	\left( f^{\**}( L \otimes P ) \right)^L \ar{u}{\simeq} \ar{rrd} 
-\\
-	\left( L \otimes f^{\**} P \right)^K \ar{rrr} &&&
-	\left( f^{\**}( L \otimes P ) \right)^K \ar{uul}[swap]{\simeq}
-\end{tikzcd}
-\]
-
-
-\newpage
-
-
-\subsection{Semi-cofibrantly generated}
-
-
-The following codifies a formal argument implicit in the proof of \cite[Thm. 7.19]{CM13b}.
-
-\begin{definition}
-Given a set $J$ of maps that admit the small object argument, we say that $X \in \mathcal{M}$ is \textit{$J$-fibrant} if $X \to \**$ has the right lifting property against maps in $J$.
-
-Further, given $D$ a class of maps in $\mathcal{M}$,
-we write $D_{J\text{-fib}} \subseteq D$ to denote 
-the subclass of maps whose target is $J$-fibrant.
-\end{definition}
-
-\begin{lemma}\label{SEMICOF LEM}
-	Let $\mathcal{M}$ be a model category with $(C,W,F)$
-	the corresponding classes of cofibrations, weak equivalences and fibrations. 
-	Further, $J$ be a set of maps admitting the small object argument and such that:
-\begin{itemize}
-	\item[(i)] $J \subseteq C \cap W$;
-	\item[(ii)] 
-	$\left(J^{\boxslash} \cap W \right)_{J\text{-fib}}
-	\subseteq \left( F \cap W \right)_{J\text{-fib}}$.
-\end{itemize}
-Then one further has that:
-\begin{itemize}
-	\item[(a)]
-	$\left(\prescript{\boxslash}{}{\left(J^{\boxslash}\right)}\right)_{J\text{-fib}}
-	= 
-	\left( C \cap W \right)_{J\text{-fib}}$;
-	\item[(b)]
-	$\left(J^{\boxslash} \right)_{J\text{-fib}}
-	= F_{J\text{-fib}}$.
-\end{itemize}
-\end{lemma}
-
-\begin{remark}
-Rephrasing (b), one has that the fibrant objects of $\mathcal{M}$ are precisely the $J$-fibrant objects
-and thus that the fibrations between fibrant objects are precisely the $J$-fibrations.
-\end{remark}
-
-\begin{proof}
-	To check (a), recalling first that 
-	$\prescript{\boxslash}{}{\left(J^{\boxslash}\right)}$
-	is the saturation of $J$, one has that (i) in fact implies 
-	$\prescript{\boxslash}{}{\left(J^{\boxslash}\right)}
-		\subseteq C \cap W $.
-	For the converse direction, given a trivial cofibration
-	$A \to Y$ with $J$-fibrant target,
-	form the factorization 
-	$A \to X \to Y$ as a 
-	$J$-cofibration followed by a $J$-fibration. 
-	By the first direction the map $A\to X$ is a weak equivalence, and thus by 2-out-of-3 so is $X \to Y$.
-	But then by (ii) the map $X \to Y$ is a trivial fibration, so that the lifting below exists,
-	showing that $A \to Y$ is a retract of $A \to X$, and thus also in the saturation $\prescript{\boxslash}{}{\left(J^{\boxslash}\right)}$, 
-	as desired.
-\[
-\begin{tikzcd}
-	A \ar[>->]{r}{J} \ar[>->]{d}[swap]{\sim}&
-	X \ar[->>]{d}{J}
-%& &
-%	A \ar[>->]{r}{\sim} \ar[>->]{d}[swap]{\sim}&
-%	Y \ar[->>]{d}{\sim}
-\\
-	Y \ar[equal]{r} \ar[dashed]{ru} & Y
-%& &
-%	X \ar[equal]{r} \ar[dashed]{ru} & X
-\end{tikzcd}
-\]
-
-To check (b), one direction is again immediate from (i),
-since $J^{\boxslash} \supseteq (C \cap W)^{\boxslash} = F$.
-For the converse direction, it suffices to show that 
-a $J$-fibration $X\to Y$ with $J$-fibrant target has the right lifting property against trivial cofibrations, as on the left diagram below.
-After factoring the bottom horizontal map as a $J$-cofibration followed by a $J$-fibration as on the right diagram, it suffices to shows that a lift $B' \to X$ exists.
-But since $B'$ is $J$-fibrant, this follows from (a), which shows that the composite $A \to B \to B'$ is a $J$-cofibration.
-\[
-\begin{tikzcd}
-	A \ar{r} \ar[>->]{d}[swap]{\sim}&
-	X \ar[->>]{d}{J}
-&&
-	A \ar{rr} \ar[>->]{d}[swap]{\sim}&&
-	X \ar[->>]{d}{J}
-\\
-	B \ar{r} \ar[dashed]{ru} & Y
-&&
-	B \ar[>->]{r}[swap]{J} &
-	B' \ar[->>]{r}[swap]{J} \ar[dashed]{ru}
-	& Y
-\end{tikzcd}
-\]
-\end{proof}
-
-\begin{remark}
-	Analyzing the proof above, one is free to replace the class of fibrant objects with any other class that is compatible with $J$-fibrations, in the sense that if 
-	$X \to Y$ is a $J$-fibration and $Y$ is in the class, then so is $X$.
-\end{remark}
-
-
-
-
-
-\subsection{Formalizing some stuff}
-
-
-
-\begin{lemma} \label{INTER_LEM}
-Let $\mathcal{O} \in \mathsf{sOp}$ and let
-$g \colon x \to y$ be an equivalence in $\mathcal{O}$.
-
-Then there exists a countable, cofibrant and contractile $H \in \mathsf{sOp}_{\{0,1\}}$ 
-and a map 
-$\varphi \colon H \to \mathcal{O}$
-such that 
-$g$ is in the image of $\varphi$. 
-\end{lemma}
-
-
-\begin{proof}
-	We start by considering the case where $\mathcal{O}$ is locally fibrant.
-	
-	$g$ can be regarded as a map
-	$[1] \xrightarrow{g} \mathcal{O}$,
-	and one thus likewise gets a map
-	$\Delta[1] \xrightarrow{g}  hcN \mathcal{O}$
-	which is an equivalence in the 
-	$\infty$-category $hcN \mathcal{O}$,
-	so that one can find a (non-unique) factorization
-	$\Delta[1] \to J \to hcN \mathcal{O}$
-	which by adjunction yields a factorization
-	$[1]=W_!\Delta[1] \to W_! J \to \mathcal{O}$,
-	which establishes the desired claim 
-	since $W_! J$ is contractible due to 
-	Example \ref{WJ EX}.
-	
-	For a general $\mathcal{O}$, 
-	consider first a local fibrant replacement
-	$F \colon \mathcal{O} \to \mathcal{O}'$.
-	One can hence find a map 
-	$W_! J \to \mathcal{O}'$ such that
-	$F(g)$ is in its image. 
-	We now factor this map as
-	$W_! J \xrightarrow{\sim} H \to \mathcal{O}'$
-	where the second map is a local fibration.
-	
-	One can now form a pullback
-\[
-\begin{tikzcd}
-	\tilde{H} \ar{r} \ar{d} & H' \ar{d}
-\\
-	\mathcal{O} \ar{r} & \mathcal{O}'
-\end{tikzcd}
-\]
-where $\tilde{H}$ is seen to be contractible since
-$\mathsf{sSet}$ is right proper.
-	A priori, $\tilde{H}$ will need not be countable nor cofibrant, but this is easily rectified:
-	indeed one can show that any countable subcomplex of $\tilde{H}$ is contained in a contractible countable subomplex, 
-	yielding a countable contractible subcomplex whose image in $\mathcal{O}$ contains $g$. Lastly, performing a cofibrant replacement of that complex finishes the proof.
-\end{proof}
-
-
-
-\begin{example}\label{WJ EX}
-	Let $J = N \widetilde{[1]}$ be the nerve of the contractible groupoid on two objects.
-	
-	Then there is an identification
-\[
-	W_{!} J \simeq \mathbb{F}^{\bullet} \widetilde{[1]}
-\]
-	where $\mathbb{F}$ denotes the (unital) free operad monad.
-
-	To see this, we start by describing
-	$\mathbb{F}^{\bullet} \widetilde{[1]}$.
-	Writing $f \colon 0 \to 1$ and 
-	$g \colon  1\to 0$ for the non-identity arrows in 
-	$\widetilde{[1]}$ (so that $g=f^{-1}$), the $0$-simplices of $\mathbb{F}^{\bullet} \widetilde{[1]}$
-	are the alternating words
-	$f,g,fg,gf,fgf,gfg,fgfg,gfgf,\cdots$
-	in the letters $f$, $g$.
-	More generally
-	$n$-simplices are given by equipping such alternating words with ``$n$ nested layers of brackets''
-	(so that, for example, 
-	$\left((f)(gf)\right) 
-	\left( (gf) \right)$
-	encodes a $2$-simplex).
-	Alternatively, given an alternating word of length $l$, such bracketings are encoded by a flag of subsets
-	$F_1 \subseteq F_2 \subseteq \cdots 
-	\subseteq F_n \subseteq \{1,\cdots,l-1\}$.
-	
-	To describe $W_{!} J$, we apply the explicit description of the $W_{!} (-)$ construction given in 
-	\cite{DS11}.
-	Following \cite[Cor. 4.8]{DS11}, the $n$-simplices of $W_{!} J$ are uniquely encoded by a map
-\begin{equation}\label{NECMAP EQ}
-	N = \Delta^{k_1} \vee \Delta^{k_2} 
-	\vee \cdots \vee \Delta^{k_r} 
-	\to J 
-\end{equation}
-which is totally nondegenerate (this means that all simplices $\Delta^{k_i} \to J$ are nondegenerate)
-together with a flag of subsets
-	$\boldsymbol{J}(N) = 
-	G_0 \subseteq 
-	G_1 \subseteq \cdots \subseteq
-	G_{n-1} \subseteq \boldsymbol{E}^{\mathsf{i}}(N)$.
-	Noting that the nondegenerate simplices of $J$ (other than the points $0,1$)
-	are themselves identified with alternating words
-	$f,g,fg,gf,fgf,gfg,fgfg,gfgf,\cdots$,
-	one sees that so is the map \eqref{NECMAP EQ}.
-	Therefore, we see that a $n$-simplex of 
-	$W_{!} J$ is uniquely, determined by some alternating word of some size $l$ together with a flag  
-	$G_0 \subseteq 
-	G_1 \subseteq \cdots \subseteq
-	G_{n-1} \subseteq \boldsymbol{E}^{\mathsf{i}}(N)
-	=\{1,\cdots,l-1\}$, since 
-	$G_0$ suffices to recover the domain of 
-	\eqref{NECMAP EQ}.
-	
-	This shows that $W_{!} J$ $\mathbb{F}^{\bullet} \widetilde{[1]}$ indeed have the same simplices.
-	The fact that the simplicial operators coincide can be readily checked explicitly with the most interesting case is that of the top differential $d_n$, which in either case is induced by multiplication in 
-	$\widetilde{[1]}$ 
-	(that this is the case for $W_{!} J$ follows from the description of the simplicial operators in 
-	\cite[Cor. 4.4]{DS11} together with the description of the ``flanking'' procedure in \cite[Lemma 4.5]{DS11}).
-\end{example}
-
-
-
-
-\subsection{Extra lifts for $\infty$-categories}
-
-
-\begin{lemma}
-The inclusion 
-\[[0,1,2] \cup [0,2,3,\cdots,n] \cup 
-\Lambda^0[0,1,3,\cdots,n]
- \to \Lambda^{0,2}[n]\]
-is built cellularly from inclusions
-$\Lambda^0[k] \to \Delta[k]$ with $k<n$.
-Moreover, all such cells send $[0,1]$ to $[0,1]$.
-\end{lemma}
-
-\begin{proof}
-Since $[0,2,3,\cdots,n]$ is in the domain, all missing faces must contain $1$.
-Moreover, since the smallest face not containing $2$
-that is not in $\Lambda^0[0,1,3,\cdots,n]$ is $[1,3,\cdots,n]$,
-which is also the smallest face not in $\Lambda^{0,2}[n]$,
-we see that all missing faces must contain $2$ as well.
-
-It now suffices to check that $0$ is characteristic with respect to the missing faces, i.e.
-that $12\underline{a}$ is missing iff $012\underline{a}$ is missing, and this is now obvious. 
-\end{proof}
-
-\begin{remark}
-	The map $\Lambda^{0,2}[n] \to \Delta[n]$ is inner anodyne ($2$ is characteristic).
-	
-	This observation, together with the precious lemma, are the technical core of the observation that lifts
-\[
-	\begin{tikzcd}
-	\Lambda^{0}[n] \ar{d}  \ar{r} & X
-\\
-	\Delta[n] \ar[dashed]{ru}
-	\end{tikzcd}
-\]
-exist when $X$ is an $\infty$-category and $[0,1]$ is mapped to an equivalence in $X$.
-\end{remark}
-
-
-
-
-\subsection{TBD}
-
-
-\begin{lemma}
-Suppose that a subcategory $\Xi$ has subcategories 
-$\Xi^-,\Xi^+$ which contain the isomorphisms and satisfy the unique factorization up to unique isomorphism axiom.
-
-Write $\mathsf{Arr}(\Xi)$ for the arrow category of $\Xi$ and 
-$\mathsf{Arr}^{-}(\Xi), \mathsf{Arr}^{+}(\Xi)$
-for the full subcategories whose objects are arrows in $\Xi^-,\Xi^+$. 
-Then $\mathsf{Arr}^{-}(\Xi)$ (resp. $\mathsf{Arr}^{+}(\Xi)$)
-is initial (resp. terminal) in $\mathsf{Arr}(\Xi)$.
-\end{lemma}
-
-
-
-\begin{proof}
-Given $f \in \mathsf{Arr}(\Xi)$, we need to show that there exist diagrams as on the left, and moreover that all such diagrams are connected. 
-Existence is immediate from the factorization assumption . Moreover, its is straightforward from the ``uniqueness up to isomorphism'' that all connections are connected.
-But by factoring the left vertical map in the diagram below, we now see that all such diagrams are connected to a factorization.
-\[
-\begin{tikzcd}
-	\bullet \ar{r}{f} \ar{d}& 
-	\bullet \ar{d}
-\\
-	\bullet \ar{r}[swap]{+} &
-	\bullet
-\end{tikzcd}
-\]
-%
-%\[
-%\begin{tikzcd}
-%	\bullet \ar{r}{-} \ar{dd} \ar{rd}[swap]{-} &
-%	\bullet \ar{rrr}{+} \ar{rrd}{-} &&&
-%	\bullet \ar{dd}
-%\\
-%	&
-%	\bullet \ar{rrd}[swap]{+}  && 
-%	\bullet \ar{rd}{+} \ar[dashed]{ll}[swap]{\simeq}
-%\\
-%	\bullet 	\ar{rrr}[swap]{-} &&&
-%	\bullet \ar{r}[swap]{+} & 
-%	\bullet
-%\end{tikzcd}
-%\]
-\end{proof}
-
-
-
-\begin{lemma}\label{REDUCELAN LEM}
-	Suppose that $F \colon \mathcal{C} \to \mathcal{D}$ is a functor in 
-	$\mathsf{Cat}^G$.
-Then the following square commutes up to natural isomorphism
-\[
-\begin{tikzcd}[column sep=50pt]
-	\mathcal{V}^{G \ltimes \mathcal{C}} 
-	\ar{r}{\mathsf{Lan}_{G \ltimes \mathcal{C} \to G \ltimes \mathcal{D}}} \ar{d}[swap]{\mathsf{fgt}}&
-	\mathcal{V}^{G \ltimes \mathcal{D}} \ar{d}{\mathsf{fgt}}
-\\
-	\mathcal{V}^{\mathcal{C}} 
-	\ar{r}[swap]{\mathsf{Lan}_{\mathcal{C} \to\mathcal{D}}} &
-	\mathcal{V}^{\mathcal{D}}
-\end{tikzcd}
-\]
-\end{lemma}
-
-
-\begin{proof}
-For each $d \in \mathcal{D}$ (recall that $\mathcal{D}$ and $G \ltimes \mathcal{D}$ have the same objects) one has an obvious inclusion 
-$\mathcal{C} \downarrow d \to G\ltimes \mathcal{C} \downarrow d$.
-Moreover, for each object of $G\ltimes \mathcal{C} \downarrow d$
-there is a unique $g \in G$ such that the object is described as a composite
-$F(c) \xrightarrow{g} g F(c) \to d$,
-were $g F(c) \to d$ can be regarded as an object of $\mathcal{C} \downarrow d$.
-One thus has a retraction 
-$G \ltimes \mathcal{C} \downarrow d \to \mathcal{C} \downarrow d$
-showing that $\mathcal{C} \downarrow d$ is terminal in
-$G \ltimes \mathcal{C} \downarrow d$
-and finishing the proof. 
-\end{proof}
-
-
-
-\subsection{Fixed color lemmas}
-
-Given a set $\mathfrak{C}$ of colors,
-write $\Sigma_{\mathfrak{C}}$ for the groupoid of corollas with edges labeled by colors in $\mathfrak{C}$.
-
-If, in addition, $\mathfrak{C}$ is a $G$-set, 
-we write $G \ltimes \Sigma_{\mathfrak{C}}^{op}$ for the larger groupoid obtained via the associated Grothendieck construction.
-
-
-Writing
-$\mathsf{Sym}^{G,\mathfrak{C}} = 
-\mathsf{Set}^{G \ltimes \Sigma_{\mathfrak{C}}^{op}}$,
-we have a natural monad $\mathbb{F}$ on
-$\mathsf{Sym}^{G,\mathfrak{C}}$
-whose algebra category we denote by 
-$\mathsf{Op}^{G,\mathfrak{C}}$.
-
-
-\begin{notation}
-	Given a $G$-equivariant function 
-	$f \colon \mathfrak{C} \to \mathfrak{D}$
-	we write
-\[
-	f_{\**} \colon 
-	\mathsf{Sym}^{G,\mathfrak{C}}
-	\rightleftarrows
-	\mathsf{Sym}^{G,\mathfrak{D}}
-	\colon f^{\**}
-\qquad
-	\check{f}_{\**} \colon 
-	\mathsf{Op}^{G,\mathfrak{C}}
-	\rightleftarrows
-	\mathsf{Op}^{G,\mathfrak{D}}
-	\colon f^{\**}
-\]
-for the standard adjunctions (note the need to distinguish notations for the left adjoints).
-\end{notation}
-
-
-\begin{example}\label{GCORMPA EX}
-Given a $G$-corolla $C \in \Sigma_G$, we write $\partial C$ for the set of edges of $C$, which is naturally identified with the set of objects of the associated $G$-operad
-$\Omega(C) \in \mathsf{Op}^G$.
-
-One can then regard $\Omega(C) \in \mathsf{Op}^{G,\partial C}$ and, moreover, $\Omega(C)$ is in fact the free operad over the symmetric sequence obtained by removing the units of $\Omega(C)$,
-which we denote by
-$\Omega'(C) \in \mathsf{Sym}^{G,\partial C}$.
-
-Given the non-equivariant decomposition
-$C = C_1 \amalg \cdots \amalg C_k$
-with $C_i \in \Sigma$, 
-one can naturally regard the $C_i$ as objects of $\Sigma_{\partial C}$.
-In fact, one then has an identification
-\begin{equation}\label{SOMEIDEN EQ}
-	\Omega'(C) \simeq 
-	\Sigma_{\partial C}[C_1] \amalg \cdots \amalg \Sigma_{\partial C}[C_k]
-\end{equation}
-where $\Sigma_{\partial C}[-]$ denotes the representable presheaf in 
-$\mathsf{Set}^{\Sigma_{\partial C}^{op}}$.
-This claim requires some justification, since a priori the right hand side of \eqref{SOMEIDEN EQ} is an object in $\mathsf{Set}^{\Sigma_{\partial C}^{op}}$,
-rather than in $\mathsf{Set}^{G \ltimes \Sigma_{\partial C}^{op}}$,
-i.e. we need to describe the action of the additional action arrows
-$D \xrightarrow{g} gD$ on this presheaf.
-This action is given by the following diagram, where the vertical $g$ arrows simply act on labels, and all horizontal arrows are shuffle arrows (i.e. arrows in $\Sigma_{\partial C}$).
-The diagonal $C_g$ arrow corresponds to the structural $G$-action on $C$. It is then straightforward to check that there is a unique dashed shuffle $\tau_g$ as indicated
-\[
-\begin{tikzcd}
-	D \ar{d}[swap]{g} \ar{r}{\sigma} & C_i \ar{rd}{C_g} \ar{d}[swap]{g}
-\\
-	g D \ar{r}[swap]{g \sigma} & g C_i \ar[dashed]{r}{\simeq}[swap]{\tau_g} & C_{g i}
-\end{tikzcd}
-\]
-and one defines $g_{\**}\colon \Sigma_{\partial C}[C_i] \to \Sigma_{\partial C}[C_{gi}]$
-via $\sigma \mapsto \tau_g \circ (g \sigma)$.
-
-Moreover, letting $f \colon \partial C \to \mathfrak{C}$
-be a map of colors, 
-one obtains $\mathfrak{C}$-corollas $C_i^{f} \in \Sigma_{\mathfrak{C}}$
-by coloring each edge $e\in \partial C$ by $f(e) \in \mathfrak{C}$, resulting in a generalized identification 
-\begin{equation}\label{SOMEIDENGEN EQ}
-	f_{\**} \Omega'(C) \simeq 
-	\Sigma_{\mathfrak{C}}[C_1^f] \amalg \cdots \amalg \Sigma_{\mathfrak{C}}[C^f_k]
-\end{equation}
-Indeed, \eqref{SOMEIDENGEN EQ} follows from the observation
-that the Kan extension 
-$\mathsf{Lan}_{G \ltimes \Sigma_{\partial C} \to G \ltimes \Sigma_{\mathfrak{C}}}$ 
-coincides, after forgetting with the $G$-action arrows,
-with the Kan extension
-$\mathsf{Lan}_{\Sigma_{\partial C} \to \Sigma_{\mathfrak{C}}}$
-(cf. Lemma \ref{REDUCELAN LEM}).
-\end{example}
-
-
-\begin{definition}
-      \label{COR_GGRAPH_DEF}
-	Given a $\mathfrak{C}$-corolla $C$, 
-	a subgroup 
-	$\Gamma \leq \mathsf{Aut}_{G \ltimes \Sigma_{\mathfrak{C}}^{op}}(C)$
-	is called a \textit{$G$-graph subgroup} if
-	$\Gamma \cap \mathsf{Aut}_{\Sigma_{\mathfrak{C}}^{op}}(C) = \**$.
-	
-	We write $\mathcal{F}^{\Gamma} = \{\mathcal{F}^{\Gamma}_C\}$
-	for the collection of families of $G$-graph subgroups.
-	
-	A $G$-$\mathfrak{C}$-symmetric sequence
-	$X \in \mathsf{Sym}^{G,\mathfrak{C}}$
-	is called $\Sigma$-cofibrant if each level
-	$X(C)$ is $\mathcal{F}^{\Gamma}_C$-cofibrant.
-\end{definition}
-
-
-\begin{remark}
-	Write a $\mathfrak{C}$-corolla as $C^f \in \Sigma_{\mathfrak{C}}$,
-	where $C \in \Sigma$ is the underlying corolla and
-	$f\colon \partial C \to \mathfrak{C}$
-	is the coloring.
-	A $G$-graph subgroup 
-	$\Gamma \leq \mathsf{Aut}_{G \ltimes \Sigma_{\mathfrak{C}}^{op}}(C^f)$ is, under the map 
-	$G \ltimes \Sigma_{\mathfrak{C}}^{op} \to
-	G \times \Sigma^{op}$,
-	identified with a 
-	$G$-graph subgroup of 
-	$G \times \mathsf{Aut}_{\Sigma^{op}}(C)$,
-	i.e., with the graph of a partial antihomomorphism
-\[
-	G^{op} \geq H^{op} \xrightarrow{(-)^{-1}} H 
-	\xrightarrow{\tau_{(-)}} \mathsf{Aut}_{\Sigma^{op}}(C)
-\]
-	which is subject to the requirement
-\[
-	f(\tau_h(e)) = h f(e).
-\]
-Using the $\tau$ automorphisms one can then
-\begin{inparaenum}
-\item[(i)] equip $C$ with a $H$-action,
-so that one can regard $C \in \Sigma^H \subseteq \Sigma_H$;
-\item[(ii)] extend $\Sigma_{\mathfrak{C}}[C^f]$ to 
-an object in $\mathsf{Set}^{H \ltimes \Sigma_{\mathfrak{C}}}$
-by defining the action of the $H$-action arrows $h$ via 
-$\sigma \mapsto \tau_{h} \circ (h \sigma)$;
-\item[(iii)]
-following Example \ref{GCORMPA EX}, one thus has an identification
-\[
-	f_{\**} \Omega'(C) \simeq \Sigma_{\mathfrak{C}}[C^f]
-\]
-of objects in $\mathsf{Set}^{H \ltimes \Sigma_{\mathfrak{C}}}$ and therefore an identification 
-\[
-	f_{\**} \left( G \cdot_H \Omega'(C) \right) \simeq 
-	G\cdot_H \Sigma_{\mathfrak{C}}[C^f]
-\]
-of objects in $\mathsf{Set}^{G \ltimes \Sigma_{\mathfrak{C}}}$.
-\end{inparaenum}
-\end{remark}
-
-
-\begin{example}
-Let $G = \mathbb{Z}_{/2} = \{\pm 1\}$ and 
-$\mathfrak{C} = \{\mathfrak{a}, -\mathfrak{a}, \mathfrak{b}\}$ where we implicitly have
-$-\mathfrak{b} = \mathfrak{b}$.
-Consider the two $\mathfrak{C}$-corollas 
-$C,D \in \Sigma_{\mathfrak{C}}$ below.
-\begin{equation}
-	\begin{tikzpicture}[auto,grow=up, level distance = 2.2em,
-	every node/.style={font=\scriptsize,inner sep = 2pt}]%
-		\tikzstyle{level 2}=[sibling distance=3em]%
-			\node at (0,0) [font = \normalsize] {$C$}%	
-				child{node [dummy] {}%
-					child{node {}%
-					edge from parent node [swap] {$-\mathfrak{a}$}}%
-					child[level distance = 2.9em]{node {}%
-					edge from parent node [swap,	near end] {$\mathfrak{b}$}}%
-					child[level distance = 2.9em]{node {}%
-					edge from parent node [near end] {$\mathfrak{b}$}}%
-					child{node {}%
-					edge from parent node  {$\mathfrak{a}$}}%
-				edge from parent node [swap] {$\mathfrak{b}$}};%
-			\node at (7,0) [font = \normalsize] {$D$}%	
-				child{node [dummy] {}%
-					child{node {}%
-					edge from parent node [swap] {$-\mathfrak{a}$}}%
-					child[level distance = 2.9em]{node {}%
-					edge from parent node [swap,	near end] {$-\mathfrak{a}$}}%
-					child[level distance = 2.9em]{node {}%
-					edge from parent node [near end] {$\mathfrak{a}$}}%
-					child{node {}%
-					edge from parent node  {$\mathfrak{a}$}}%
-				edge from parent node [swap] {$\mathfrak{b}$}};%
-	\end{tikzpicture}%
-\end{equation}%
-Each of $C,D$ admit exactly two non-trivial $G$-graph subgroups,
-which are encoded by the $\mathbb{Z}_{/2}$-actions on the underlying corollas depicted below.
-\begin{equation}
-	\begin{tikzpicture}[auto,grow=up, level distance = 2.2em,
-	every node/.style={font=\scriptsize,inner sep = 2pt}]%
-		\tikzstyle{level 2}=[sibling distance=3em]%
-			\node at (-1.6,0) [font = \normalsize] {$C_1$}%	
-				child{node [dummy] {}%
-					child{node {}%
-					edge from parent node [swap] {$-a$}}%
-					child[level distance = 2.9em]{node {}%
-					edge from parent node [swap,	near end] {$c\phantom{b}$}}%
-					child[level distance = 2.9em]{node {}%
-					edge from parent node [near end] {$b$}}%
-					child{node {}%
-					edge from parent node  {$a$}}%
-				edge from parent node [swap] {$r$}};%
-			\node at (1.6,0) [font = \normalsize] {$C_2$}%	
-				child{node [dummy] {}%
-					child{node {}%
-					edge from parent node [swap] {$-a$}}%
-					child[level distance = 2.9em]{node {}%
-					edge from parent node [swap,	near end] {$-b$}}%
-					child[level distance = 2.9em]{node {}%
-					edge from parent node [near end] {$b$}}%
-					child{node {}%
-					edge from parent node  {$a$}}%
-				edge from parent node [swap] {$r$}};%
-			\node at (5.4,0) [font = \normalsize] {$D_1$}%	
-				child{node [dummy] {}%
-					child{node {}%
-					edge from parent node [swap] {$-a$}}%
-					child[level distance = 2.9em]{node {}%
-					edge from parent node [swap,	near end] {$-b$}}%
-					child[level distance = 2.9em]{node {}%
-					edge from parent node [near end] {$b$}}%
-					child{node {}%
-					edge from parent node  {$a$}}%
-				edge from parent node [swap] {$r$}};%
-			\node at (8.6,0) [font = \normalsize] {$D_2$}%	
-				child{node [dummy] {}%
-					child{node {}%
-					edge from parent node [swap] {$-b$}}%
-					child[level distance = 2.9em]{node {}%
-					edge from parent node [swap,	near end] {$-a$}}%
-					child[level distance = 2.9em]{node {}%
-					edge from parent node [near end] {$b$}}%
-					child{node {}%
-					edge from parent node  {$a$}}%
-				edge from parent node [swap] {$r$}};%
-	\end{tikzpicture}%
-\end{equation}%
-
-\end{example}
-
-
-The following is the analogue of \cite[Prop. 3.2]{CM13b}
-
-\begin{proposition}\label{KEYPR PROP}
-Suppose that $\mathcal{O} \in \mathsf{Op}^{G,\mathfrak{C}}$
-is $\Sigma$-cofibrant.
-Further, let $C \in \Sigma_G$ be any $G$-corolla and consider 
-a pushout in $\mathsf{Op}^{G}$ of the form
-\begin{equation}\label{PUSHOUTPROP EQ}
-\begin{tikzcd}
-	\partial \Omega(C) \ar{r} \ar{d} & \mathcal{O} \ar{d}
-\\
-	\Omega(C) \ar{r} & \mathcal{P}.
-\end{tikzcd}
-\end{equation}
-Then the induced map
-\begin{equation}\label{ANODYNE MAP}
-	\Omega[C] \amalg_{\partial \Omega[C]} N\mathcal{O} \to N\mathcal{P}
-\end{equation}
-is $G$-inner anodyne.
-\end{proposition}
-
-\begin{proof}
-The desired claim that \eqref{ANODYNE MAP}
-is $G$-inner anodyne will follow by applying the  
-\textit{characteristic edge lemma} \cite[Lemma 3.4]{BP_edss},
-but we first need some preliminary discussion. 
-
-Let us write $f \colon \partial C \to \mathfrak{C}$
-for the induced map of colors.
-The first step is to rewrite \eqref{PUSHOUTPROP EQ} as a pushout diagram in $\mathsf{Op}^{G,\mathfrak{C}}$, which can be done by applying $\check{f}_{\**}$
-to the leftmost objects in \eqref{PUSHOUTPROP EQ}.
-Since
-\[
-	\check{f}_{\**} \Omega(C) \simeq 
-	\check{f}_{\**} \left( \mathbb{F} \Omega'(C) \right) \simeq 
-	\mathbb{F} \left(f_{\**}  \Omega'(C) \right)
-\]
-one has that, writing $C \simeq G \cdot_H C_{\star}$ one has the alternative pushout in $\mathsf{Op}^{G,\mathfrak{C}}$
-\begin{equation}
-\begin{tikzcd}
-	\mathbb{F} ( \emptyset ) \ar{r} \ar{d} & \mathcal{O} \ar{d}
-\\
-	\mathbb{F} \left( 
-	G \cdot_H \Sigma_{\mathfrak{C}}[C^f_{\star}] \right) \ar{r} & \mathcal{P}.
-\end{tikzcd}
-\end{equation}
-Writing $B = G \cdot_H \Sigma_{\mathfrak{C}}[C^f_{\star}]$, one then has
-\begin{equation}\label{PUSHOPPR EQ}
-	\mathcal{P}(C) = 
-	\coprod_{
-	[T] \in \mathsf{Iso}
-	\left( \Omega_{\mathfrak{C}}^a \downarrow_{\mathsf{r}} C \right)
-	}
-	\left(
-		\prod_{v \in V^{ac}(T)} \mathcal{O}(T_v)
-	\times
-		\prod_{v \in V^{in}(T)} B(T_v)
-	\right)
-	\cdot_{\mathsf{Aut}_{\Omega^a_{\mathfrak{C}}}(T)} \mathsf{Aut}_{\Sigma_{\mathfrak{C}}}(C)
-\end{equation}
-
-We now discuss the dendrices of $N \mathcal{P}$. Firstly, recall that, by the strict Segal condition characterization of nerves \cite[Cor. 2.7]{CM13a},
-a dendrex $\Omega[T] \to N \mathcal{P}$
-is uniquely specified by the tree $T \in \Omega$ together with a choice of operations
-$\{p_v \in \mathcal{P}(T_v)\}_{v \in \boldsymbol{V}(T)}$.
-Noting that \eqref{PUSHOPPR EQ} implies that the canonical map (of sequences) 
-$\mathcal{O} \amalg B \to \mathcal{P}$
-is a monomorphism, 
-we will say a dendrex $(T,\{p_v\})$ is \textit{elementary}
-if all operations $p_v$ are in $\mathcal{O} \amalg B$.
-Additionally, an elementary dendrex $(T,\{p_v\})$ is called \textit{alternating} if $T$ is an alternating tree and 
-$p_v$ is in $\mathcal{O}$ (resp. $B$) if
-$v \in \boldsymbol{V}(T)$ is active (resp. inert).
-
-Given an elementary dendrex $(T,\{p_v\})$ and a map of trees 
-$\varphi \colon S \to T$
-we will need to know when 
-$\varphi^{\**}(T,\{p_v\})$
-is again elementary.
-Since all maps in $\Omega$ are, uniquely up to isomorphism,
-factored as a degeneracy followed by an inner face followed by an outer face, it suffices to discuss each of those cases.
-It is straightforward to check that 
-$\varphi^{\**}(T,\{p_v\})$ 
-is elementary whenever $\varphi$ is a degeneracy or an outer face.
-For an inner face
-$\varphi \colon T-D \to T$,
-noting that a partial composite $p \circ_i q$ of non-unit operations is in $\mathcal{O} \amalg B$ iff both operations are in $\mathcal{O}$,
-one sees that $\varphi^{\**}(T,\{p_v\})$ is elementary iff
-for each $d \in D$ the adjacent vertices of $T$ are either both labeled by operations of $\mathcal{P}$ or one of them is labeled by an identity.
-An elementary dendrex is called \textit{reduced} if it has no such edges. 
-In other words, an elementary dendrex is reduced iff none of its inner faces are reduced, so that, in particular, all elementary dendrices admit at least one reduced inner face (note that specifying such a face is somewhat subtle: even when a dendrex is non-degenerate, it may not be enough to collapse edges connecting $\mathcal{O}$ vertices, since this may possibly introduce new identity vertices, resulting in a degenerate vertex).
-Note that reduced dendrices are necessarily non-degenerate, but not vice versa.
-In fact, a non-degenerate dendrex is reduced iff it has a degeneracy which is an alternating dendrex. 
-
-
-In what follows, we will find it convenient to work with elementary dendrices that have been suitably ``planarized''.
-To do so, fix a subset
-$\mathcal{O}^{\mathsf{st}} \amalg B^{\mathsf{st}} 
-\subset
-\coprod_{C \in \Sigma_{\mathfrak{C}}}
-\mathcal{O}(C) \amalg B(C)$
-of coset representatives for the $\Sigma$-action,
-which we call \textit{standard} representatives.
-An elementary dendrex $(T,\{p_v\})$ is then called \textit{standard}
-if all $p_v$ are standard (i.e. in 
-$\mathcal{O}^{\mathsf{st}} \amalg B^{\mathsf{st}}$).
-Moreover, since both $\mathcal{O}$ and $B$ are $\Sigma$-cofibrant/$\Sigma$-free sequences (the former by assumption),
-for each elementary simplex $(T,\{p_v\})$,
-there is a unique (replanarization) isomorphism
-$\varphi \colon T' \to T$ such that
-$(T',\{\varphi^{\**}p_v\})$ is standard,
-and we write 
-$\mathsf{st}(T,\{p_v\}) = \varphi^{\**} (T,\{p_v\}) = (T',\{\varphi^{\**}_v p_v\})$
-to denote this.
-
-
-Note that it now follows from \eqref{PUSHOPPR EQ} that,
-for each operation $p \in \mathcal{P}(C)$,
-there exists a unique standard alternating dendrex
-$b'_p \colon \Omega[T'_p] \to N \mathcal{P}$ and isomorphism 
-$C \simeq T'_p - \boldsymbol{E}^{\mathsf{i}}(T'_p)$
-such that the composite
-\begin{equation}\label{STANDELDE EQ}
-	\Omega[C] \simeq
-	\Omega[T'_p - \boldsymbol{E}^{\mathsf{i}}(T'_p)] \to 
-	\Omega[T'_p] \xrightarrow{b'_p}
-	N \mathcal{P}
-\qquad
-	\Omega[C] \simeq
-	\Omega[T_p - \boldsymbol{E}^{\mathsf{i}}(T_p)] \to 
-	\Omega[T_p] \xrightarrow{b_p}
-	N \mathcal{P}
-\end{equation}
-is $p$. In fact, due to the correspondence between alternating elementary dendrices and reduced elementary dendrices, 
-the analogous claim  also holds 
-for the corresponding non-degenerate dendrex 
-$b_p \colon \Omega[T_p] \to N \mathcal{P}$.
-
-
-We can now finally discuss how to apply \cite[Lemma 3.4]{BP_edss}.
-
-Firstly, we need to identify a $G$-poset $I$ and dendrices 
-$b_i \colon \Omega[U_i] \to N \mathcal{P}$ for $i \in I$.
-Firstly, the underlying set of $I$ is the set of 
-non-degenerate standard dendrices of $\mathcal{P}$,
-which we abbreviate as
-$i = (U_i,\{p_v^i\})$.
-The dendrex $b_i \colon \Omega[U_i] \to N \mathcal{P}$ is then tautological, being $i$ itself, but it will preferable to use distinct notations for $i \in I$ and
-$b_i \in N \mathcal{P} (U_i)$.
-Given $i,j \in I$, we write $i \leq j$ if exists a (in general not  planar) face map
-$\varphi \colon U_i \to U_j$
-such that $b_i = \varphi^{\**}(b_j)$.
-Note that by the uniqueness of standardizations $\varphi$ can only be an isomorphism if $i=j$, showing that $\leq$ indeed satisfies anti-symmetry.
-Lastly, we define the $G$-action on $I$ via
-\[b_{g i} = \mathsf{st} (g b_i).\]
-When reading this formula, note that
-$g b_i \in \mathcal{P}(U_i)$
-(since this uses the $G$-action
-on $\mathcal{P}$),
-while $b_{g i} \in \mathcal{P}(U_{g i})$,
-where $U_{g i}$ comes with the unique isomorphism
-$U_{g i} \xrightarrow{g^{-1}} U_i$ which standardizes $b g_i$.
-
-Lastly, the characteristic edge sets 
-$\Xi^i \subseteq \boldsymbol{E}^{\mathsf{i}}(U_i)$ consist of those inner edges such that at least one of the adjacent vertices is mapped to an operation in $B$. Note that, by the discussion above, for an inner face of $\varphi \colon U_i - D \to U_i$
-the dendrex $\varphi^{\**}(b_i)$ is elementary iff
-$D \cap \Xi^i = \emptyset$.
-
-We now note that it is in fact 
-$N \mathcal{P} = 
-A \cup \bigcup_{i \in I} b_i\left(\Omega[U_i]\right)$.
-Indeed, given an arbitrary (non-elementary) non-degenerate dendrex
-$(S,\{p_v\}_{v \in \boldsymbol{V}(T)})$, 
-the trees $T_{p_v}$ from \eqref{STANDELDE EQ}
-can be regarded as a $S$-substitution datum, which after assembled
-yields a non-degenerate standard dendrex 
-$\Omega[T] \xrightarrow{b_{\{p_v\}}} N \mathcal{P}$ 
-whose image contains $(S,\{p_v\}_{v})$.
-
-We now check the characteristic conditions in \cite[Lemma 3.4]{BP_edss}.
-
-(Ch0.2) is straightforward.
-
-For (Ch1), since outer faces of standard dendrices are again standard, one needs only consider the case 
-$\bar{V}=U_i$, or else $\bar{V}$ would be in some $U_j$ for $j<i$.
-But if $\bar{V}=U_i$, the assumption in (Ch1) states that
-$\Xi^i = \emptyset$, so that $i$ must either be a dendrex where all vertices map to $\mathcal{O}$, i.e. $b_i \in N \mathcal{O}$,
-or $U_i$ is a corolla its vertex maps to $B$, i.e. 
-$b_i \in B$.
-In either case, one has
-$b_i \in A = B \cup N\mathcal{O}$, and (Ch1) follows.
-
-To check both (Ch2) and (Ch3), observe first that
-$V \hookrightarrow U_i$ will automatically be in $A_{<i}$ if either 
-$\bar{V} \neq U_i$ or $T = U_i - D$ with 
-$D \not \subseteq \Xi_i$
-(since in either case $U_i$ would be in some $U_j$ with $j<i$),
-so that one needs only consider the case 
-$V=U_i$.
-
-(Ch2) then follows since, except in the trivial cases where $\Xi^i = \emptyset$, the dendrex $b_i(U_i - \Xi^i)$ always contains at least one vertex not in $\mathcal{O} \amalg B$.
-
-For (Ch3), we argue that if 
-$b_i(U_i - \Xi^i) \in b_j \left( \Omega[U_j] \right)$
-then in fact $i\leq j$.
-Writing $\bar{U}_i = U_i - \Xi^i$, the hypothesis is that
-\[
-\begin{tikzcd}
-	\bar{U}_i \ar{d} \ar{r}{\bar{\varphi}} & U_j \ar{r}{b_j} & N \mathcal{P}
-\\
-	U_i \ar[dashed]{ru}[swap]{\varphi}
-\end{tikzcd}
-\]
-there is a face map $\bar{\varphi}$ as above such that
-$b_i(\bar{U}_i) = \bar{\varphi}^{\**}(b_j)$, and the goal is to build $\varphi$ such that $b_i = \varphi^{\**}(b_j)$.
-Let $w \in \boldsymbol{V}(\bar{U}_i)$ be a vertex and 
-let $p_w$ be the corresponding operation of $\mathcal{P}$.
-Then the outer fact $(U_i)_{w}$ is precisely $T_{p_w}$ from
-\eqref{STANDELDE EQ}.
-On the other hand, letting
-$(U_j)_w - D_w \hookrightarrow (U_j)_w$
-be any choice of reduced inner face, 
-one has that this too is $T_{p_w}$, at least up to a replanarization isomorphism, i.e. one has isomorphims
-$(U_i)_{w} \simeq (U_j)_w - D_w$,
-compatible with the restrictions of $b_i$, $b_j$.
-But then combining these isomorphisms yields the desired $\varphi$,
-and (Ch3) follows.
-
-Lastly, we show (Ch0.1).
-Given any non-degenerate dendrex
-$\Omega[V] \xrightarrow{c} N \mathcal{P}$
-by applying \eqref{STANDELDE EQ} to each individual operation
-(together with an ``assembly of substitution data'' argument)
-one obtains that there exists a unique
-non-degenerate standard dendrex 
-$b_c \colon \Omega[U_c] \to N \mathcal{P}$,
-edge subset $D_c \subseteq \Xi^c$ and isomorphism
-$V \simeq U_c - D_c$
-such that $b$ equals the composite
-\begin{equation}\label{STANDELDEGER EQ}
-	V \simeq U_c - D_c
-	\hookrightarrow U_c
-	\xrightarrow{b_c} N \mathcal{P}
-\end{equation}
-Recall now that, by the preliminary argument for (Ch2) and (Ch3), 
-the non-degenerate dendrices not in 
-$b_i^{-1}(A_{< i})$ are precisely the replanarizations of the faces 
-$U_i - D$ with $D \subseteq \Xi^i$.
-But the uniqueness of the data in \eqref{STANDELDEGER EQ}
-implies that all such replanarizations of the $U_i - D$
-do indeed have distinct images in $N \mathcal{P}$,
-thus establishing (Ch0.1) and finishing the proof.
-\end{proof}
-
-
-\begin{remark}
-	In general, injectivity of the map
-	$b_i \colon \Omega[U_i] \to N \mathcal{P}$
-	will fail in $b_i^{-1}(A_{< i})$.
-	Indeed, in general two edges/vertices of $U_i$
-	may be assigned the same color/operation of $\mathcal{P}$.
-	In fact, injectivity may in general fail even for large outer faces.
-\end{remark}
-
-
-{\color{blue} Bla poset not finite but still projective/injective, which is enough}
-
-
-\begin{remark}
-In addition to \eqref{PUSHOPPR EQ}, 
-one also has the alternative formula
-\begin{equation}\label{PUSHOPPRG EQ}
-	\mathcal{P}(C) = 
-	\coprod_{
-	[T] \in \mathsf{Iso}
-	\left( G \ltimes \Omega_{\mathfrak{C}}^a \downarrow_{\mathsf{r}} C \right)
-	}
-	\left(
-		\prod_{v \in V^{ac}(T)} \mathcal{O}(T_v)
-	\times
-		\prod_{v \in V^{in}(T)} B(T_v)
-	\right)
-	\cdot_{\mathsf{Aut}_{G \ltimes \Omega^a_{\mathfrak{C}}}(T)} \mathsf{Aut}_{G \ltimes \Sigma_{\mathfrak{C}}}(C)
-\end{equation}
-which replaces the roles of 
-$\Omega_{\mathfrak{C}}^a$, $\Sigma_{\mathfrak{C}}$
-with 
-$G \ltimes \Omega_{\mathfrak{C}}^a$,
-$G \ltimes \Sigma_{\mathfrak{C}}$.
-The connection between the two formulas is given by Lemma \ref{REDUCELAN LEM},
-though some care is needed.
-Namely, \eqref{PUSHOPPRG EQ} generally features fewer coproduct summands but this is compensated by the inductions
-$(-) \cdot_{\mathsf{Aut}_{G \ltimes \Omega^a_{\mathfrak{C}}}(T)} \mathsf{Aut}_{G \ltimes \Sigma_{\mathfrak{C}}}(C)$,
-which produce more terms than the 
-$(-) \cdot_{\mathsf{Aut}_{\Omega^a_{\mathfrak{C}}}(T)} \mathsf{Aut}_{\Sigma_{\mathfrak{C}}}(C)$
-inductions.
-\end{remark}
 
 
 
