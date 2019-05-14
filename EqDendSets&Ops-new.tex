@@ -6,17 +6,13 @@
 \pdfcompresslevel=0
 \pdfobjcompresslevel=0
 
-\usepackage[hidelinks]{hyperref}
+\usepackage[pagebackref,hidelinks]{hyperref}
 \hypersetup{
-  % colorlinks,
   final,
   pdftitle={Equivariant simplicial operads and dendroidal sets},
   pdfauthor={Bonventre, P. and Pereira, L. A.},
-  % pdfsubject={Your subject here},
-  % pdfkeywords={keyword1, keyword2},
   linktoc=page
 }
-%\usepackage[open=false]{bookmark}
 
 \input{commands.tex}%
 
@@ -43,9 +39,9 @@ cd,patterns,calc}
 
 \usepackage{ifdraft}
 \ifdraft{
-%  \color[RGB]{63,63,63}
+  \color[RGB]{63,63,63}
 %   \pagecolor[rgb]{0.5,0.5,0.5}
-%  \pagecolor[RGB]{220,220,204}
+  \pagecolor[RGB]{220,220,204}
 %  \color[rgb]{1,1,1}
   \usepackage{showkeys}
 }
@@ -54,7 +50,7 @@ cd,patterns,calc}
 }
 
 
-\usepackage{todonotes}%[obeyDraft]
+\usepackage{todonotes}
 
 
 % ----- Labels Changed? --------
@@ -112,7 +108,7 @@ cf.  }
 
 
 \usepackage{harpoon}
-\newcommand{\vect}[1]{\overrightharp{\ensuremath{#1}}}
+\newcommand{\vect}[1]{\text{\overrightharp{\ensuremath{#1}}}}
 
 
 % ---- Title --------
@@ -162,7 +158,7 @@ What we need:
 
 
 
-\iffalse%
+
 
 
 
@@ -2254,7 +2250,7 @@ For full generality, we introduce the following terminology.
 % } % ------------------------------------------------------------------------------------------------
 
 Extending this discussion to the many-colored setting, we note that
-any $(G,\Sigma)$-family automatically extends to a family for the groupoid $\mathcal D = G \ltimes \Sigma_{\mathfrak C}^{op}$,
+any $(G, \Sigma)$-family automatically extends to a family for the groupoid $\mathcal D = G \ltimes \Sigma_{\mathfrak C}^{op}$,
 by defining for any $\mathfrak C$-signature $C = (c_1,\dots,c_n;c_0)$ of length $n+1$,
 \begin{equation}
       \label{FAMC_DEF_EQ}
@@ -2307,21 +2303,14 @@ where $\mathbb F^G_{\mathfrak C}$ is the fiber of the cartesian monad $\mathbb F
 described explicitly in \eqref{FGC_EQ}.
 
 This transfer will follow much in the same was as in \cite{BP_geo};
-we relegate the technical discussion to Appendix \ref{MONAD_APDX}.
+we relegate the technical discussion of this monad $\mathbb F^G$ to Appendix \ref{MONAD_APDX}.
 
-We do recall the necessary additional hypotheses required.
 
-\begin{definition}[{\cite[Defn 6.16]{BP_geo}}]
-      \label{CSPP_DEF}
-      We say a symmetric monoidal model category $\V$ has \textit{cofibrant symmetric pushout powers} if
-      for all (trivial) cofibrations $f$, the pushout product power $f^{\square n}$
-      is a $\Sigma_n$-genuine (trivial) cofibration in $\V^{\Sigma_n}$. 
+\begin{definition}
+      We say $X \to Y \in \Sym^{G, \mathfrak C}(\V)$ is a \textit{level genuine cofibration} if for each $C \in G \ltimes \SC^{op}$,
+      $X(C) \to Y(C)$ is a genuine cofibration in $\V^{\Aut(C)}$;
+      we say $X$ is \textit{level genuine cofibrant} if $\varnothing \to X$ is a level genuine cofibration.
 \end{definition}
-
-
-% We say $X \to Y \in \Sym^{G, \mathfrak C}(\V)$ is a \textit{level genuine cofibration} if for each $C \in \G \ltimes \SC^{op}$,
-% $X(C) \to Y(C)$ is a genuine cofibration in $\V^{\Aut(C)}$;
-% we say $X$ is \textit{level genuine cofibrant} if $\varnothing \to X$ is a level genuine cofibration.
 
 % \begin{lemma}[{cf. \cite[5.73]{BP_geo}}] % EXMAINLEM LEM
 %       \label{EXMAINLEM LEM}
@@ -2354,28 +2343,54 @@ We do recall the necessary additional hypotheses required.
 % \end{proof}
 
 \begin{proof}[Proof of Theorem \ref{THM1_C}]
-      Proposition \ref{FILTPUSH PROP} shows that we have an appropriate filtration of free extensions of colored operads,
-      while Lemma \ref{EXMAINLEM LEM} says that this filtration is levelwise homotopically well-behaved.
-      Thus Theorem \ref{THM1_C} follows completely analogously to the proof of Theorem I from \cite{BP_geo}.
+      We follow the proof \cite[Thm. I]{BP_geo}.
+
+      First, we build a ``projective genuine'' model structure, transferred across the composite adjunction below,
+      where $\mathbb F$ denotes $\mathbb F^{G, \mathfrak C}$. 
+      \[
+            \begin{tikzcd}
+                  \displaystyle{\prod_{\vect C \in G \ltimes \Sigma_{\mathfrak C}} \V^{\Aut(\vect C)}_{gen}}
+                  \arrow[r, shift left]
+                  &
+                  \Sym^{G, \mathfrak C}(\V) \arrow[r, shift left, "\mathbb F"] \arrow[l, shift left]
+                  &
+                  \Op^{G, \mathfrak C}(\V) \arrow[l, shift left]
+            \end{tikzcd}
+      \]
+      By \cite[Thm. 11.3.2]{Hir03} or \cite[Thm. 2.2.2]{WY}, it suffices to consider pushouts of the form
+      \[
+            \begin{tikzcd}
+                  \mathbb F\left(\Hom_{G \ltimes \Sigma_{\mathfrak C}}(-, \vect D)/H \cdot A\right) \arrow[r] \arrow[d]
+                  &
+                  \O \arrow[d]
+                  \\
+                  \mathbb F\left(\Hom_{G \ltimes \Sigma_{\mathfrak C}}(-, \vect D)/H \cdot B\right) \arrow[r]
+                  &
+                  \O[u]
+            \end{tikzcd}
+      \]
+      for $\vect D \in G \ltimes \Sigma_{\mathfrak C}$, $H \leq \Aut(\vect D)$, and $u \colon A \to B$ a generating (trivial) cofibration in $\V$.
+      Proposition \ref{FILTPUSHG PROP} and Lemma \ref{EXMAINLEM LEM} combine to then say that
+      $\O(\vect C) \to \O[u](\vect C)$ is a genuine (trivial) cofibration in $\V^{\Aut(C)}_{gen}$ for all $\vect C \in G \ltimes \Sigma_{\mathfrak C}$
+      whenever $\O$ is level genuine cofibrant.
+      As in \cite[Thm. 1]{BP_geo}, the transferred model structures for $\V = \sSet, \sSet_{\**}$ and semi-model structures for $\V$ satisfying the stated hypotheses thus exist.
+      
+      Now, fix a $(G, \Sigma)$-family $\mathcal F = \set{\mathcal F_n}$, and let $\mathcal F_{\vect C}$ be defined as in \eqref{FAMC_DEF_EQ}. 
+      The desired $\F$-model structure on $\Op^{G, \mathfrak C}_{\mathcal F}(\V)$ has less (trivial) cofibrations and more weak equivalences than the projective genuine model structure,
+      and thus the transfinite composite of pushouts of $\mathcal F$-trivial cofibrations are genuine projective trivial cofibrations, and hence in particular $\F$-equivalences.
+      The result follows.
 \end{proof}
 
 
-
-\begin{remark}
-      \label{TOP_FULL_REM}
-      The category $\Op^{G,\mathfrak C}(\Top)$ actually has full model structures lifted from $\Sym^{G, \mathfrak C}_\F(\Top)$
-      for any $(G, \Sigma)$-family $\F$,
-      using an argument analogous to \cite[Thm. 3.1]{GW}.
-\end{remark}
 
 We record a particular step in the proof of Theorem \ref{THM1_C}.
 \begin{corollary}
       \label{LGC_COR}
       Suppose $\V$ has the hypotheses of Theorem \ref{THM1_C},
       let $\mathfrak C$ be a $G$-set, and $f: \O \to \P$ a map in $\Op^{G,\mathfrak C}(\V)$.
-      If $f$ is a (trivial) cofibration in $\Op^{G, \mathfrak C}_\F(\V)$ for some indexing family $\F$,
+      If $f$ is a (trivial) cofibration in $\Op^{G, \mathfrak C}_\F(\V)$ for some $(G, \Sigma)$-family $\F$,
       and $\O$ is level genuine cofibrant, then
-      $f(C)$ is a genuine (trivial) cofibration in $\V^{\Aut(C)}_{gen}$ for all $\mathfrak C$-signatures $\ksi$.
+      $f(\vect C)$ is a genuine (trivial) cofibration in $\V^{\Aut(C)}_{gen}$ for all $\mathfrak C$-signatures $\vect C \in G \ltimes \Sigma_{\mathfrak C}$.
 \end{corollary}
 % \begin{proof}
 %       It suffices to show that the map $\O \to \O[u]$ given by the pushout
@@ -2450,6 +2465,12 @@ the cofibrancy of the unit is necessary so that the initial operad $\mathbb F(\v
 \end{remark}
 
 
+\begin{remark}
+      \label{TOP_FULL_REM}
+      The category $\Op^{G,\mathfrak C}(\Top)$ actually has full model structures lifted from $\Sym^{G, \mathfrak C}_\F(\Top)$
+      for any $(G, \Sigma)$-family $\F$,
+      using an argument analogous to \cite[Thm. 3.1]{GW}.
+\end{remark}
 
 
 
@@ -2881,48 +2902,45 @@ where $\1$ defined as in Definition \ref{PL_ES_DEFN}, and $\mathbb{G}$ is a gene
 
 
 \begin{example}
-      If $\Gamma$ is a graph subgroup, say corresponding to a map $G \geq H \xrightarrow{\alpha} \Sigma_n$, then
-      $\mathfrak C_{\Gamma} \simeq G \cdot_H (A_+)$ where $A$ is the $H$-action on $n$ given by $\alpha$.
-
-      Moreover, if $\V = \sSet$ and $C = C_A \in \Sigma_G$ is a $G$-corolla corresponding to $\Gamma$, then
-      $\Omega(C) = \mathbb F_{\Gamma}(\**)$.
-      In particular, $\Omega(C) \in \sOp^G$ is cofibrant for all $C \in \Sigma_G$.
-      \todo[inline]{connect to Definition \ref{OT_DEF}}
-      Similarly, $\Omega(T) \in \sOp^G$ is cofibrant for all $T \in \Omega_G$, as we have a pushout in $\sOp^G$
-      \[
-            \begin{tikzcd}
-                  \displaystyle{
-                    \coprod_{Ge \in \boldsymbol{E}_G(C)} \Omega(Ge)}
-                  \arrow[r] \arrow[d]
-                  &
-                  \Omega(C) \arrow[d]
-                  \\
-                  \displaystyle{
-                    \coprod_{Ge \in \boldsymbol{E}_G(C)} \Omega(T_e)}
-                  \arrow[r]
-                  &
-                  \Omega(T)
-            \end{tikzcd}
-      \]
-      for all grafting decompositions $T = C \coprod_{\boldsymbol{E}_G(C)} (T_{Ge})$.
+      We unpack these definitions with several examples.
+      \begin{enumerate}[label = (\roman*)]
+      \item With $n = 0$, we see $\mathbb F_H(\**) = G/H \cdot \eta$ is cofibrant for all $H \leq G$
+      \item When $G = \**$ and $n=1$, so $\Gamma = \**$ and $\mathfrak C_\Gamma = \set{0,1}$, we have
+            \[
+                  \mathbb F_{\Gamma}[1_\V] = \mathbb A^{op}, \qquad \mathbb F_{\Gamma}[\varnothing] = \eta \amalg \eta.
+            \]
+            More generally, for $G$ finite, $\Gamma = G \leq G \times \Sigma_1$, $\mathfrak C_\Gamma = \set{0,1}$,
+            $\mathbb A_G := \mathbb F_{\Gamma}[1_\V]$ again has only one non-trivial hom object, namely
+            $\mathbb A_G = G \cdot 1_\V$.
+            For $H \leq G$, $\Gamma = H \leq G \times \Sigma_1$, $\mathbb F_{\Gamma}[1_\V] = G \cdot_H \mathbb A_H$.
+      \item For higher arity operations,
+            if $\Gamma$ is a graph subgroup, corresponding to a map $G \geq H \xrightarrow{\alpha} \Sigma_n$, then
+            $\mathfrak C_{\Gamma} \simeq G \cdot_H (A_+)$ where $A$ is the $H$-action on $n$ given by $\alpha$.
+            Morevover, if $\V = \sSet$ and $C = C_A \in \Sigma_G$ is the $G$-corolla (unique up to isomorphism) corresponding to the graph subgroup $\Gamma$, then
+            $\Omega(C) = \mathbb F_{\Gamma}(\**)$.
+            In particular, $\Omega(C) \in \sOp^G$ is cofibrant for all $C \in \Sigma_G$.
+            \todo[inline]{connect to Definition \ref{OT_DEF}}
+      \item Similarly, $\Omega(T) \in \sOp^G$ is cofibrant for all $T \in \Omega_G$, as we have a pushout in $\sOp^G$
+            \[
+                  \begin{tikzcd}
+                        \displaystyle{
+                          \coprod_{Ge \in \boldsymbol{E}_G(C)} \Omega(Ge)}
+                        \arrow[r] \arrow[d]
+                        &
+                        \Omega(C) \arrow[d]
+                        \\
+                        \displaystyle{
+                          \coprod_{Ge \in \boldsymbol{E}_G(C)} \Omega(T_e)}
+                        \arrow[r]
+                        &
+                        \Omega(T)
+                  \end{tikzcd}
+            \]
+            for all grafting decompositions $T = C \coprod_{\boldsymbol{E}_G(C)} (T_{Ge})$.
+            \todo[inline]{$\Omega(T)$ is $\mathcal F$-cofibrant iff $T \in \Omega_{\mathcal F}$}
+      \end{enumerate}
 \end{example}
-\todo[inline]{$\Omega(T)$ is $\mathcal F$-cofibrant iff $T \in \Omega_{\mathcal F}$}
 
-\begin{example}
-      When $G = \**$ and $n=1$, so $\Gamma = \**$ and $\mathfrak C_\Gamma = \set{0,1}$, we have
-      \[
-            \mathbb F_{\Gamma}[1_\V] = \mathbb A^{op}, \qquad \mathbb F_{\Gamma}[\varnothing] = \eta \amalg \eta.
-      \]
-
-      More generally, for $G$ finite, $\Gamma = G \leq G \times \Sigma_1$, $\mathfrak C_\Gamma = \set{0,1}$,
-      $\mathbb A_G := \mathbb F_{\Gamma}[1_\V]$ again has only one non-trivial hom object, namely
-      $\mathbb A_G = G \cdot 1_\V$.
-      For $H \leq G$, $\Gamma = H \leq G \times \Sigma_1$, $\mathbb F_{\Gamma}[1_\V] = G \cdot_H \mathbb A_H$.
-      %
-      Extending to higher arity operations, we see that,
-      morally, cofibrations are built by freely adding an orbit's worth of operations.
-      \todo[inline]{this example sucks}
-\end{example}
 
 \begin{lemma}
       [{cf. \cite[4.8]{Cav}, \cite[2.3]{BM13}, \cite[1.18]{CM13b}}]
@@ -4696,20 +4714,14 @@ We now have collected all the remaining pieces to prove Theorem \ref{INTRO_MODEL
 
 
 
-\fi%
+
 
 \newpage
 
-\section{Review of revelent model structures}
+\section{Review of revelent categories and model structures}
 
-In this expository section, we recall the main features of the model structures necessary for the later sections.
+In this mostly expository section, we recall the main features of the model structures necessary for the later sections.
 Full details and discussion can be found in \cite{BP_edss} and \cite{Per_eds}.
-
-\subsection{Equivariant simplicial operads}
-
-\begin{itemize}
-\item $\Sigma$-cofibration
-\end{itemize}
 
 
 \subsection{Equivariant dendroidal sets}
@@ -4728,7 +4740,7 @@ We begin with a brief overview of $G$-trees and equivariant dendroidal sets, who
       \end{enumerate}
 \end{definition}
 
-We consider the na\'ive presheaf category 
+We consider the na\"ive presheaf category 
 $
 \dSet^G = \Fun(G \times \Omega^{op}, \Set),
 $
@@ -4741,7 +4753,7 @@ There is a natural inclusion
       % \simeq \left(G \cdot \Omega[T_e] \right) / N
 \]
 extending the Yoneda embedding $\Omega \times G \into \dSet^G$.
-Even though the presheaf category is na\'ive, this functor allows us to see genuine equivariant information recorded by $G$-trees
+Even though the presheaf category is na\"ive, this functor allows us to see genuine equivariant information recorded by $G$-trees
 and build a more ``genuine'' model structure.
 To begin, we make the following definitions (see \cite[\S 6]{Per_eds}).
 
@@ -4800,32 +4812,6 @@ These two classes of maps form the basis of a model structure on $\dSet^G$.
       \end{itemize}
 \end{theorem}
 
-More generally, similar model structures exist for any (weak) indexing system.
-\begin{definition}
-      A \textit{weak indexing system} is a sieve\footnote{
-        A subcategory $\mathcal B \subseteq \mathcal C$ is a \textit{sieve} if for all maps $A \to B$ in $\mathcal C$
-        with $B \in \mathcal B$, both $A$ and $f$ are in $\mathcal B$.}
-      $\Omega_\F \subseteq \Omega_G$.
-\end{definition}
-
-Unpacking, let $\Sigma_\F \subseteq \Sigma_G$ denote the image of $\Omega_\F$ under the functor $\mathsf{lr}$.
-As $\Sigma_G$ is equivalent to the category $\coprod_n \O_{\mathrm{Gr}_n}$
-where $\mathrm{Gr}_n$ is the collection of graph subgroups of $G \times \Sigma_n$ \todo{citation},
-$\Sigma_\F$ corresponds to some sub-$(G,\Sigma)$-collection $\F = \set{\F_n}$ of $\mathrm{Gr} = \set{\mathrm{Gr}_n}$
-so each $\F_n$ is a family of graph subgroups of $G \times \Sigma_n$.      
-
-Extending the above, a map is \textit{$\F$-normal} (resp. \textit{$\F$-anodyne})
-if it is in the smallest saturated class of maps containing the
-boundary inclusions (resp. generating $G$-inner horn inclusions) for $T \in \Omega_\F$.
-Additionally, a map is a \textit{trivial $\F$-fibration} (resp. \textit{$\F$-$\infty$-operad}) if it has the right lifting property with respect to $\F$-normal maps (resp. $\F$-anodyne maps).
-
-\begin{theorem}[{\cite[\S 9]{Per_eds}}]
-      There exists an $\F$-model structure on $\dSet^G$, denoted $\dSet^G_\F$, such that
-      cofibrations are $\F$-normal monomorphisms,
-      fibrant objects are $\F$-$\infty$-operads,
-      fibrations between fibrant objects are precisely the maps $X \to Y$ such that the functors associated to each of the fixed-point homotopy categories $\tau j^{\**}(X^H \to Y^H)$ are categorical fibrations for all $H \leq G$,
-      and weak equivalences are the smallest saturated class of maps containing $\F$-inner anodyne extensions and trivial $\F$-fibrations, and is closed via 2-out-of-3.
-\end{theorem}
 
 These results will be applied in Proposition \ref{W!_COF_PROP}, the main result necessary to prove that $W_!$ is left Quillen.
 
@@ -4836,6 +4822,49 @@ These results will be applied in Proposition \ref{W!_COF_PROP}, the main result 
 
 
 
+\subsection{Equivariant simplicial operads}
+
+We will denote by $\mathsf{sOp}$ the category of \textit{colored simplicial operads}, also know as \textit{simplicially enriched multicategories},
+and $\mathsf{sOp}^G$ the category of $G$-objects in $\sOp$.
+
+\begin{definition}
+      Let \todo[inline]{describe}
+\end{definition}
+
+\begin{itemize}
+\item $\Sigma$-cofibration
+\end{itemize}
+
+\begin{definition}
+      \label{OT_DEF}
+      Fix $U \in \Omega$.
+      We denote by $\Omega(U) \in \Op$ the free colored operad (of sets) generated by its edges and vertices:
+      it has colors $\mathfrak C = \mathbf E(U)$ the set of edges, and
+      for any $\mathbf E(U)$-colored sequence $\vect C$, 
+      \begin{equation}
+            \Omega(U)(\vect C) =
+            \begin{cases}
+                  \** \qquad \qquad \qquad & \mbox{there exists $C \xrightarrow{\phi} U$ such that $\partial \phi = \vect C$}
+                  \\
+                  \varnothing & \text{else,}
+            \end{cases}
+      \end{equation}
+      where $\partial \phi$ is the $\mathbf E(U)$-signature $(\phi(1), \phi(2), \dots, \phi(n); \phi(0))$
+      given by the (ordered) image of the edges of $C$.
+      \todo[inline]{profile of a map? is this used in other places?}
+      This extends to a functor $\Omega \into \Op$, and has an associated nerve-realization adjunction
+      \begin{equation}
+            \label{dSETADJ_EQ}
+            \begin{tikzcd}
+                  \dSet \arrow[r, shift left]
+                  &
+                  \Op \arrow[l, shift left, "N"]
+            \end{tikzcd}
+      \end{equation}
+      and \cite[Prop. 2.5]{CM11} show that this adjunction is Quillen.
+\end{definition}
+
+\todo[inline]{move $W(T)$ discussion here!}
 
 
 
@@ -4851,57 +4880,52 @@ These results will be applied in Proposition \ref{W!_COF_PROP}, the main result 
 \subsection{Equivariant dendroidal Segal spaces and the joint Bousfield model structure}
 \label{JT_SEC}
 
-terminology we need:
+We recall the category $\mathsf{sdSet}^G = \Set^{\Delta^{op} \times \Omega^{op} \times G}$ of \textit{equivariant simplicial dendroidal sets} and the three model structures used in \cite{BP_edss}.
+First, for $X \in \mathsf{sdSet}^G$, we write $X_n(U) \in \Set$ for the evaluation at $n \in \Delta$ and $U \in \Omega$,
+and refer to $n$ and $U$ as the \textit{simplicial/vertical} and \textit{dendroidal/horizontal} directions.
+Moreover, for any $X \in \mathsf{sdSet}^G$, have unique colimit-preserving functors
+\begin{equation}
+      \label{SDSET_EQ}
+      X_{(-)} \colon \sSet \to \dSet^G,
+      \qquad
+      X(-) \colon \dSet^G \to \sSet
+\end{equation}
+such that $X_{\Delta[n]} = X_n$ and $X(\Omega[U]) = X(U)$ for $n \geq 0$, $U \in \Omega$.
 
-We recall three of the model structures on $\mathsf{sdSet}^G = \Set^{\Delta^{op} \times \Omega^{op} \times G}$ used in \cite{BP_edss},
-coming from the two different (generalized) Reedy categories.
-The simplicial category $\Delta$ is Reedy, and with the model structure on $\dSet^G$ from \cite{Per_eds} this produces the
-\textit{simplicial Reedy} model structure on  $(\dSet^G)^{\Delta^{op}}$.
-Dually, $\Omega^{op} \times G$ is a generalized Reedy category, and with the usual Kan-Quillen model structure on $\sSet$ produces the
-\textit{dendroidal Reedy} model structure on $\sSet^{\Omega^{op} \times G}$.
+We note that $\dSet^G$ and $\sSet$ are both subcategories, constant in one direction;
+we will often not denote the inclusion funcotr.
+Moreover, for $A \in \dSet^G$ and $K \in \sSet$ we will write $A \times K$ for the natural presheaf $(A \times K)_n(U) = A(U) \times K_n$.
 
-An organizational feature of \cite{BP_edss} was the use of joint Bousfield localizations:
-\begin{definition}[{\cite[Prop. 4.1]{BP_edss}}]
-      
-\end{definition}
+The various model structures on $\mathsf{sdSet}^G$ arise from two associated (generalized) Reedy categories.
+First, we may consider the simplicial Reedy model structure over $\dSet^G$ equipped with the model structure from \cite{Per_eds},
+yielding the \textit{simplicial Reedy} model structure on $\mathsf{sdSet}^G = (\dSet^G)^{\Delta^{op}}$,
+with $f \colon X \to Y$ an equivalence iff $f$ is a \textit{dendroidal equivalence}: for all $n \geq 0$, $f_n: X_n \to Y_n$ is a weak equivalence in $\dSet^G$.
 
-\begin{definition}
-      A map $f: X \to Y$ in the \textit{equivariant dendroidal Reedy model structure} on $\mathcal M^{\Omega^{op} \times G}$
-      is a weak equivalence iff $f(U): X(U) \to Y(U)$ is a $G$-graph weak equivalence in $\mathcal M^{G \times \Aut(U)}$.
-\end{definition}
+Second, $\Omega^{op} \times G$ is generalized Reedy \cite[Example A.7]{BP_edss},
+and we may consider the equivariant dendroidal Reedy model structure over $\sSet$ equipped with the Kan-Quillen model structure,
+yielding the \textit{dendroidal Reedy} model structure on $\mathsf{sdSet}^G = (\sSet)^{\Omega^{op} \times G}$.
+Here, $f\colon X \to Y$ is an equivalence iff $f$ is an \textit{(equivariant) simplicial equivalence}:
+for all $U \in \Omega$, $f(U) \colon X(U) \to Y(U)$ is a $G$-graph Kan equivalence in $\sSet^{G \times \Aut(U)}$.
+Equivalently, since any $T \in \Omega_G$ has a decomposition $T \simeq G \cdot U/\Gamma$ for some graph subgroup $G \leq G \times \Aut(U)$,
+in which case $X(\Omega[T]) \simeq X(U)^\Gamma$,
+we see that $f$ is a simplicial equivalence iff $f(\Omega[T]) \colon X(\Omega[T]) \to Y(\Omega[T])$ is a Kan equivalence in $\sSet$ for all $T \in \Omega_G$.
 
-\begin{notation}
-      For $X \in \mathsf{sdSet}^G$, we have unique colimit-preserving functors
-      \[
-            X_{(-)} \colon \sSet \to \dSet^G,
-            \qquad
-            X(-) \colon \dSet^G \to \sSet
-      \]
-      such that $X_{\Delta[n]} = X_n$ and $X(\Omega[U]) = X(U)$ for $n \geq 0$, $U \in \Omega$.
-\end{notation}
-
-\begin{lemma}
-      \label{COMUOTOHOM_FACTS}
-      Facts we need for Proposition \ref{COMUOTOHOM PROP}:
+Third, we may consider the \textit{joint Bousfield localization} of these two model structures.
+The following result is a summary of work from \cite[\S 4.1]{BP_edss}.
+\begin{proposition}
+      \label{JB_PROP}
+      The \textit{joint Reedy model structure} on $\mathsf{sdSet}^G$ is the smallest joint Bousfield localization of the dendroidal Reedy and simplicial Reedy model structures.
+      Equivalences and fibrant objects are called \textit{joint equivalences} and \textit{joint fibrant objects}.
+      Morever, it has the following properties:
       \begin{enumerate}[label = (\roman*)]
-      \item vertical/simplicial and horizontal/dendroidal equivalences are also joint equivalences
-      \item weak equivalences in $\mathsf{PreOp}^G$ are detected by $\gamma^{\**}$.
-            %
-      \item Reedy (co)fibrations are levelwise (co)fibrations. 
-            In particular, joint fibrantions are levelwise fibrations in either direction.
-            
-            More generally, for any Reedy-admissible collection of families $\set{\mathcal F_r}_{r \in \mathbb R}$,
-            $f$ a Reedy (co)fibration implies that $f_r$ is a $\mathcal F_r$-(co)fibration in $\mathcal M^{\Aut(r)}_{\mathcal F_r}$. (\cite[Lemmas A.27, A.29]{BP_edss}).
-            %
-      \item \label{GENREEDY_LBL} The Reedy generating (trivial) cofibrations in $\mathcal M^{\Delta^{op}}$ and $\mathcal M^{G \times \Omega^{op}}$ are
-            \[
-                  (\partial \Delta[n] \to \Delta[n]) \square i,
-                  \qquad
-                  (\partial \Omega[T] \to \Omega[T]) \square i,
-            \]
-            for $n \geq 0$ and $T \in \Omega_G$,
-            where $i$ is a generating (trivial) cofibration in $\mathcal M$
-            ({\cite[Prop. A.33, Example A.34]{BP_edss}}).
+      % \item \label{GENREEDY_LBL} The Reedy generating (trivial) cofibrations of $\mathcal M^{\Delta^{op}}$ and $\mathcal M^{G \times \Omega^{op}}$ are
+      %       \[
+      %             (\partial \Delta[n] \to \Delta[n]) \square i,
+      %             \qquad
+      %             (\partial \Omega[T] \to \Omega[T]) \square i,
+      %       \]
+      %       for $n \geq 0$ and $T \in \Omega_G$,
+      %       where $i$ is a generating (trivial) cofibration in $\mathcal M$
             % More generally, the $R$-Reedy generating (trivial) cofibrations in $\mathcal M^{\Delta^{op} \times R^{op}}$ are
             % \[
             %       (\partial \Delta[n] \to \Delta[n]) \square i'
@@ -4909,75 +4933,31 @@ An organizational feature of \cite{BP_edss} was the use of joint Bousfield local
             %       (\Lambda^i[n] \to \Delta[n]) \square i'
             % \]
             % where $i'$ is a generating cofibration for the Reedy model structure on $\mathcal M^{R^{op}}$.
-            % ------------------------------
-            % ----------
-      \item \label{PRODREEDY_LBL} If $\mathbb R$ and $\mathbb S$ are generalized Reedy with
-            corresponding Reedy admissible families $\set{\F_r}_{r \in \mathbb R}$, $\set{\F_s}_{s \in \mathbb s}$,
-            then the $\set{\F_{r,s}}$-Reedy model structure on $\mathcal M^{\mathbb R \times \mathbb S}$
-            can be equivalently obtained by considering the $\set{\F_r}$-Reedy model structure over the $\set{\F_s}$-Reedy model structure on $\mathcal M^{\mathbb S}$ (and vice versa)
-            ({\cite[Remark A.31]{BP_edss}}).
-            %
-      %       Now, fix a group $G$ and a family of subgroups $\mathcal F$.
-      % \item $G$ is a Reedy category, with $\set{\mathcal F}$ a Reedy-admissible collection.
-      %       Thus we will say $X \in \left(\mathsf{sSet}^{\Delta^{op}}\right)^G_\F$ is \textit{$\mathcal F$-horizontal Reedy fibrant} if
-      %       $X \in (\sSet)^{\Delta^{op} \times G}$ is $\set{e \times \mathcal F}$-Reedy fibrant;
-      %       equivalently, if $X^H \in \mathsf{sSet}^{\Delta^{op}}$ is horizontally Reedy fibrant for all $H \in \mathcal F$.
             
-      %       Moreover, the following model structures agree:
-      %       \begin{itemize}
-      %       \item the joint model structure on $\mathsf{sSet}^{\Delta^{op} \times G}$,
-      %       \item the joint model structure on $\mathsf{s}\left(\mathsf{Set}^{\Delta^{op}}\right)^G$,
-      %       \item the $\F$-model structure over the joint model structure on $\left(\mathsf{sSet}^{\Delta^{op}}\right)^G$.
-      %       \end{itemize}            
-            % ----------
-      \item $X \to Y$ in $\mathsf{sdSet}^G$ is a simplicial equivalence iff $X(U) \to Y(U)$ is a $G$-graph equivalence in $\sSet^{G \times \Aut(U)}$ for all $U \in \Omega$ iff $X(\Omega[T]) \to Y(\Omega[T])$ is a Kan equivalence in $\sSet$ for all $T \in \Omega_G$.
-            \begin{proof}
-                  The first ``iff'' is by definition of the generalized Reedy structure on $\Omega^{op} \times G$.
-                  Then, as $T \simeq G \cdot U/ \Gamma$ for some graph subgroup $\Gamma \leq G \times \Aut(U)$,
-                  the second ``iff'' follows since $X(\Omega[T]) \simeq X(U)^\Gamma$.
-            \end{proof}                  
-            % 
-      \item \label{SFIB_JEQ_LBL} $X,Y \in \mathsf{sdSet}^G$ simplicially fibrant, then $X \to Y$ is a joint equivalence iff it is a simplicial equivalence
-            (\cite[Prop. 4.5(iii), Cor. 4.29(iii)]{BP_edss}).
-            % ----------
-      \item \label{RJOINTT_LBL} If $X \in (\mathsf{sdSet}^G)^{\Delta^{op}}$ is fibrant in the Reedy-over-joint model structure,
-            then for all $T \in \Omega_G$, $X(\Omega[T])$ is horizontal Reedy fibrant in
-            $\left((\mathsf{sSet})^{\Delta^{op}}\right)^{\Aut(T)}$.
-            \begin{proof}
-                  First, we note that for all $U \in \Omega$, $X(U)$ is $G$-graph horizontal Reedy fibrant in
-                  $\left((\mathsf{sSet})^{\Delta^{op}}\right)^{G \times \Aut(U)}$;
-                  this follows from the Quillen adjuction
-                  \[
-                        \left( \mathsf{sdSet}_{jt}^G \right)^{\Delta^{op}} \leftrightarrows
-                        (\mathsf{sSet})^{\Omega^{op} \times G \times \Delta^{op}} =
-                        \left( (\mathsf{sSet})^{\Delta^{op}} \right)^{\Omega^{op} \times G}
-                  \]
-                  where $(\sSet)^{\mathbb R}$ is given the generalized $\mathbb R$-Reedy model structure over the Kan model structure on $\sSet$.
-                  Then, since $T \simeq G \cdot U/ \Gamma$ for some graph subgroup $\Gamma \leq G \times \Aut(U)$,
-                  the result follows since $X(\Omega[T]) \simeq X(U)^\Gamma$.
-            \end{proof}
-            %
-      \item \label{JF_VERT_LBL}
-            $X \in \mathsf{sSet}^{\Delta^{op}}$ is joint fibrant iff
-            $X$ is horizontal Reedy fibrant and all vertex maps $X(m) \to X(0)$ are Kan equivalences in $\mathsf{sSet}$
-            (\cite[Prop. 4.24(ii)]{BP_edss}).
-            %
-      \item \label{DIAG_LBL}
-             If $X \in \mathsf{sSet}^{\Delta^{op}}$ is horizontal Reedy firant, then
-             $X_n \to X_0$ and hence $X_0 \to \delta^{\**}X$ is a Kan equivalence in $\mathsf{Set}^{\Delta^{op}}$.
-             %
-      % \item \label{JF_VERTG_LBL}
-      %       $X \in \mathsf{sSet}^{\Delta^{op} \times G}$ is joint fibrant iff
-      %       $X$ is horizontal Reedy fibrant and all vertex maps $X(m) \to X(0)$ are $\mathcal F$-weak equivalences in $\mathsf{sSet}^G$
-      %       (\cite[Prop. 4.24(ii)]{BP_edss}).
-      %       %
-      % \item \label{DIAGG_LBL} If $X \in \mathsf{sSet}^{\Delta^{op} \times G}$ is horizontal Reedy firant, then
-      %       $X_n \to X_0$ and hence $X_0 \to \delta^{\**}X$ is an $\mathcal F$-Kan equivalence in $\mathsf{Set}^{\Delta^{op} \times G}$.
-      %       ----------
+      \item \label{SDEQUIV_LBL} both vertical/simplicial and horizontal/dendroidal equivalences are also joint equivalences.
+      \item \label{JTFIB_LBL} $X$ is joint fibrant iff $X$ is both simplicial and dendroidal Reedy fibrant.
+            In particular, $X_n \in \dSet^G$ and $X(\Omega[T]) \in \sSet$ are fibrant.
+      \item \label{JTCFIB_MAP_LBL} Joint Reedy (co)fibrations are levelwise (co)fibrations.
+            Moreover, $f$ a joint (co)fibration implies that $f(\Omega[T])$ is a (co)fibration in $\sSet$ for all $T \in \Omega_G$.
+      \item \label{SFIB_JEQ_LBL} $X,Y$ simplicial (resp. dendroidal) Reedy fibrant, then a map $X \to Y$ is a joint equivalence iff it is a simplicial (resp. dendroidal) equivalence.
       \end{enumerate}
-\end{lemma}
+\end{proposition}
+\begin{proof}
+      % \label{GENREEDY_LBL} combines \cite[Prop. A.33, Example A.34]{BP_edss}.
+      \label{SDEQUIV_LBL} is by construction.
+      \label{JTFIB_LBL} is \cite[Prop. 4.1(ii)]{BP_edss}.
+      \label{JTCFIB_MAP_LBL} follows from \cite[Lemmas A.27, A.29]{BP_edss}.
+      \label{SFIB_JEQ_LBL} follows from \cite[Prop. 4.5(iii), Cor. 4.29(iii)]{BP_edss}.      
+\end{proof}
 
 
+Fourth and finally, there is the \textit{(equivariant) dendroidal Segal space} model structure,
+the localization of the simplicial Reedy model structure with respect to the Segal core inclusions
+\[
+      Sc[T] \longto \Omega[T],
+      \qquad
+      T \in \Omega_G.
+\]
 
 
 
@@ -4995,7 +4975,7 @@ Words:
 \item DK-equivalences
 \end{enumerate}
 
-\begin{theorem}[\cite[BP_edss}]
+\begin{theorem}[\cite{BP_edss}]
     The adjunction $\gamma^{\**} \colon \mathsf{PreOp}^G \rightleftarrows \mathsf{sdSet}^G \colon \gamma_{\**}$
     is a Quillen equivalence, where $\gamma^{\**}$ detects and reflects weak equivalences and cofibrations.
 \end{theorem}
@@ -5445,7 +5425,9 @@ is a weak equivalence.
 	and 2-out-of-3 hence implies that \eqref{UNITEQUIV EQ} is a weak equivalence.
 
 	The most interesting case is then (TC2), 
-	in which case it is well known that 
+	in which case it is well known \todo[inline]{well known?}
+        \todo{need that $\tau$ is left Quillen (proved below), and cofibrations out of $\Sigma$-cofibrant are $\Sigma$-cofibrations (clear)}
+        that
 	$\mathcal{O} \to \mathcal{P}$ is a $\Sigma$-cofibration and
 	each of the levels
 $(B \amalg_{A} N \mathcal{O})_n
@@ -5456,7 +5438,7 @@ is an equivalence in $\mathsf{dSet}^G$ by (an iteration of)
 Proposition \ref{KEYPR PROP}, 
 showing that \eqref{UNITEQUIV EQ} is in fact a dendroidal equivalence, and thus also a complete equivalence.
 
-	We now turn to the case of $A \to B$ a general cofibration between cofibrant objects.
+	We now turn to the case of $A \to B$ a general cofibration between cofibrant objects \todo{not the hypothesis in the statement}.
 	As usual, $A \to B$ is a retract of a transfinite composition of pushouts of generating cofibrations.
 	Since the conclusions of the result are invariant under retracts,
 	we are free to assume that $A \to B$ is a transfinite composite
@@ -6325,35 +6307,9 @@ to prove the main theorem of this project, Theorem \ref{QE_THM}.
 We recall the adjunction in question.
 \todo[inline]{say more. come back once the paper is organized}
 
-
-
-\begin{definition}
-      \label{OT_DEF}
-      Fix $T \in \Omega$.
-      The operad $\Omega(T)$ is the free colored operad generated by its edges and vertices
-      it has colors $\mathfrak C = \mathbf E(T)$ the set of edges, and
-      for any $\mathbf E(T)$-colored sequence $\vect C$, 
-      \begin{equation}
-            \Omega(T)(\vect C) =
-            \begin{cases}
-                  \** \qquad \qquad \qquad & \mbox{there exists $C \xrightarrow{\phi} T$ such that $\partial \phi = \vect C$}
-                  \\
-                  \varnothing & \text{else,}
-            \end{cases}
-      \end{equation}
-      where $\partial \phi$ is the $\mathbf E(T)$-signature $(\phi(1), \phi(2), \dots, \phi(n); \phi(0))$
-      given by the (ordered) image of the edges of $C$.
-      \todo[inline]{profile of a map? is this used in other places?}
-      This extends to a functor $\Omega \into \Op(\Set)$, and has an associated nerve-realization adjunction
-      \[
-            \Op(\Set) \leftrightarrows \dSet
-      \]
-      and \cite[Prop. 2.5]{CM11} show that this adjunction is Quillen.
-\end{definition}
-
-To enrich this to a Quillen adjunction out of $\sOp$, we need a topological enrichment of this inclusion.
-We do this by constructing the free simplicial resolution \footnote{
-  Also called the \textit{Godemont} resolution, c.f. \cite[\S 8.3]{BM06}.}
+To enrich $N: \dSet \rightleftarrows \Op$ from Definition \ref{OT_DEF} to a Quillen adjunction out of $\sOp$,
+we need a topological enrichment of the inclusion $\Omega \into \Op$.
+We do this by constructing the free simplicial resolution \footnote{Also called the \textit{Godemont} resolution, c.f. \cite[\S 8.3]{BM06}.}
 of $\Omega(T)$ as an algebra in the category of \textit{pointed} $\mathbf E(T)$-colored symmetric sequences $\Sym^{\mathbf E(T)}_{+}(\Set)$.
 We elaborate on that distinction now.
 
@@ -6741,7 +6697,8 @@ come back!
 
 
 
-Finally, the following is a reformalized proof of \cite[Thm. 8.14]{CM13b}, extended to the equivariant setting;
+
+Finally, the following is a reformalized statement and proof of \cite[Thm. 8.14]{CM13b}, extended to the equivariant setting;
 the main result is an immediate corollary.
 
 \begin{proposition}\label{COMUOTOHOM PROP}
@@ -6758,12 +6715,53 @@ the main result is an immediate corollary.
       \]
 \end{proposition}
 
-Note that though $\gamma^{\**}$ and $c_{!}$ are left Quillen, they both preserve all equivalences, 
-so that one needs only perform fibrant replacements in 
-$\mathsf{sOp}$.
-
+Before the proof, we list some technical results yielded from \cite{BP_edss} that we will need.
+\begin{lemma}
+      \label{COMUOTOHOM_FACTS}
+      Facts we need for Proposition \ref{COMUOTOHOM PROP}:
+      \begin{enumerate}[label = (\roman*)]
+      \item weak equivalences in $\mathsf{PreOp}^G$ are detected by $\gamma^{\**}$.
+            % ----------
+      \item \label{RJOINTT_LBL} If $X \in (\mathsf{sdSet}^G)^{\Delta^{op}}$ is fibrant in the Reedy-over-joint model structure,
+            then for all $T \in \Omega_G$, $X(\Omega[T])$ is horizontal Reedy fibrant in
+            $\left((\mathsf{sSet})^{\Delta^{op}}\right)^{\Aut(T)}$.
+            %
+      \item \label{JF_VERT_LBL}
+            $X \in \mathsf{sSet}^{\Delta^{op}}$ is joint fibrant iff
+            $X$ is horizontal Reedy fibrant and all vertex maps $X(m) \to X(0)$ are Kan equivalences in $\mathsf{sSet}$
+            % 
+      \item \label{DIAG_LBL}
+             If $X \in \mathsf{sSet}^{\Delta^{op}}$ is horizontal Reedy firant, then
+             $X_n \to X_0$ and hence $X_0 \to \delta^{\**}X$ is a Kan equivalence in $\mathsf{Set}^{\Delta^{op}}$.
+      \end{enumerate}
+\end{lemma}
 \begin{proof}
-      Recall that, given an object $X$ in a model category $\mathcal{M}$, a simplicial frame of $X$ is a fibrant replacement
+      For \label{RJOINTT_LBL},
+      note that the identity gives a right Quillen functor
+      \[
+            \left( \mathsf{sdSet}_{jt}^G \right)^{\Delta^{op}} \longto
+            \left(\mathsf{sSet}^{\Omega^{op} \times G}\right)^{\Delta^{op}} =
+            \left( (\mathsf{sSet})^{\Delta^{op}} \right)^{\Omega^{op} \times G}.
+      \]
+      where $\left(\sSet^{\Omega^{op} \times G}\right)^{\Delta^{op}}$ and $\left(\sSet^{\Delta^{op}}\right)^{\Omega^{op} \times G}$
+      are given the respective (generalized) Reedy model structures over the (generalized) Reedy model structure
+      over the Kan model structure on $\sSet$,
+      and the equality follows from \cite[Remark A.31]{BP_edss}.
+      The result then follows from the description of (equivariant) simplicial equivalences before Proposition \ref{JB_PROP}.
+      
+      \label{JF_VERT_LBL} is \cite[Prop. 4.24(ii)]{BP_edss}.
+
+      \label{DIAG_LBL} is \cite[Prop. 4.5(iv)]{BP_edss}.
+\end{proof}
+
+
+
+\begin{proof}[Proof of Lemma \ref{COMUOTOHOM PROP}]
+      First, we note that though $\gamma^{\**}$ and $c_{!}$ are left Quillen, they both preserve all equivalences, 
+      so that one needs only perform fibrant replacements in 
+      $\mathsf{sOp}$.
+
+      Now, recall that, given an object $X$ in a model category $\mathcal{M}$, a simplicial frame of $X$ is a fibrant replacement
       $c_!(X) \to \widetilde{X}(\bullet)$ of the constant 
       simplcial object $c_!(X)$ in the Reedy model structure on $\mathcal{M}^{\Delta^{op}}$.
       Moreover, if $X$ was already fibrant one is free to assume that $\widetilde{X}(0) = X$.
@@ -6870,16 +6868,40 @@ the \textit{indexing systems} of Blumberg-Hill \cite{BH15}, or more accurately
 the mild generalization of \textit{weak indexing systems} of the authors \cite[\S 9]{Per_eds}, \cite[\S4.4]{BP_geo} (and independently identified by Gutierrez-White \cite{GW}).
 
 
+\subsection{Changes to model structures}
+More generally, similar model structures exist for any (weak) indexing system.
+\begin{definition}
+      A \textit{weak indexing system} is a sieve\footnote{
+        A subcategory $\mathcal B \subseteq \mathcal C$ is a \textit{sieve} if for all maps $A \to B$ in $\mathcal C$
+        with $B \in \mathcal B$, both $A$ and $f$ are in $\mathcal B$.}
+      $\Omega_\F \subseteq \Omega_G$.
+\end{definition}
+
+Unpacking, let $\Sigma_\F \subseteq \Sigma_G$ denote the image of $\Omega_\F$ under the functor $\mathsf{lr}$.
+As $\Sigma_G$ is equivalent to the category $\coprod_n \O_{\mathrm{Gr}_n}$
+where $\mathrm{Gr}_n$ is the collection of graph subgroups of $G \times \Sigma_n$ \todo{citation},
+$\Sigma_\F$ corresponds to some sub-$(G, \Sigma)$-family $\F = \set{\F_n}$ of $\mathrm{Gr} = \set{\mathrm{Gr}_n}$
+so each $\F_n$ is a family of graph subgroups of $G \times \Sigma_n$.      
+
+Extending the above, a map is \textit{$\F$-normal} (resp. \textit{$\F$-anodyne})
+if it is in the smallest saturated class of maps containing the
+boundary inclusions (resp. generating $G$-inner horn inclusions) for $T \in \Omega_\F$.
+Additionally, a map is a \textit{trivial $\F$-fibration} (resp. \textit{$\F$-$\infty$-operad}) if it has the right lifting property with respect to $\F$-normal maps (resp. $\F$-anodyne maps).
+
+\begin{theorem}[{\cite[\S 9]{Per_eds}}]
+      There exists an $\F$-model structure on $\dSet^G$, denoted $\dSet^G_\F$, such that
+      cofibrations are $\F$-normal monomorphisms,
+      fibrant objects are $\F$-$\infty$-operads,
+      fibrations between fibrant objects are precisely the maps $X \to Y$ such that the functors associated to each of the fixed-point homotopy categories $\tau j^{\**}(X^H \to Y^H)$ are categorical fibrations for all $H \leq G$,
+      and weak equivalences are the smallest saturated class of maps containing $\F$-inner anodyne extensions and trivial $\F$-fibrations, and is closed via 2-out-of-3.
+\end{theorem}
 
 
-
-
-
+\subsection{Changes to proofs}
 For COMUOTOHOM PROP: replace all instances of $\Omega_G$ with $\Omega_{\mathcal F}$ - in particular, $X \to Y$ is a simplicial equivalence in $\mathsf{sdSet}^G_{\mathcal F}$ iff $X(\Omega[T]) \to Y(\Omega[T])$ is a Kan equivalence for all $T \in \Omega_{\mathcal F}$. 
 
 
 
-\iffalse%
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -10173,7 +10195,7 @@ $\mathsf{Sym}(\mathcal{V})^G$.
 
 Hence, by accounting for equivariance
 we further obtain the following analogue of 
-Proposition \ref{FILTPUSH PROP}
+Proposition \ref{FILTPUSH PROP}.
 
 
 
@@ -10290,48 +10312,100 @@ $G^{op} \ltimes \OC^{n}
 
 % ------------------------------ homotopy stuff ------------------------------
 
-We end this section by discussing the homotopical nature of this filtration.
+We end this section by building the first step in our understanding of the homotopical nature of this filtration.
 Again, the results from \cite{BP_geo} are sufficiently robust.
 
-We say $X \to Y \in \Sym^{G, \mathfrak C}(\V)$ is a \textit{level genuine cofibration} if for each $C \in G \ltimes \SC^{op}$,
-$X(C) \to Y(C)$ is a genuine cofibration in $\V^{\Aut(C)}$;
-we say $X$ is \textit{level genuine cofibrant} if $\varnothing \to X$ is a level genuine cofibration.
+\begin{lemma}
+      \label{RESGEN_LEM}
+      Suppose $(\V, \otimes)$ is a closed monoidal model category with cellular fixed points.
+      \begin{itemize}
+      \item{\cite[Prop. 6.6, 6.7]{BP_geo}} imply that for any group homomorphism $\phi: \Pi \to \bar \Pi$,
+            the induction and restriction functors on the genuine model structures are left Quillen.
+            \[
+                  \bar{\Pi} \cdot_{\Pi} (-) \colon \V^{\Pi}_{gen} \longto \V^{\bar \Pi}_{gen}
+                  \qquad
+                  \mathrm{res}^{\bar \Pi}_{\Pi} \colon \V^{\bar \Pi}_{gen} \longto \V^{\Pi}_{gen}
+            \]
+      \item {\cite[Equation (6.15)]{BP_geo}} implies that the monoidal product on $\V$ is in fact a Quillen bifunctor
+            \[
+                  \V^{\Pi}_{gen} \times \V^{\bar \Pi}_{gen} \xrightarrow{\otimes} \V^{\Pi \times \bar \Pi}_{gen}.
+            \]
+      \end{itemize}
+\end{lemma}
 
+\begin{definition}[{\cite[Defn 6.16]{BP_geo}}]
+      \label{CSPP_DEF}
+      We say a symmetric monoidal model category $\V$ has \textit{cofibrant symmetric pushout powers} if
+      for all (trivial) cofibrations $f$, the pushout product power $f^{\square n}$
+      is a $\Sigma_n$-genuine (trivial) cofibration in $\V^{\Sigma_n}$. 
+\end{definition}
+
+We now prove a key lemma about this filtration.
+Recall that a map $f: X \to Y$ in $\Sym^{G, \mathfrak C}(\V)$ is a \textit{level genuine (trivial) cofibration} if
+$f(\vect C)$ is a genuine trivial cofibration in $\V^{\Aut(\vect C)}_{gen}$ for all $\mathfrak C$-signatures $\vect C \in G \ltimes \Sigma_{\mathfrak C}$. 
 \begin{lemma}[{cf. \cite[5.73]{BP_geo}}] % EXMAINLEM LEM
       \label{EXMAINLEM LEM}
       Suppose $\mathcal{V}$ is a cofibrantly generated closed monoidal model category
       with cellular fixed points and
-      with cofibrant symmetric pushout powers (Defn \ref{CSPP_DEF}).
-      
-      Let $\O \in \mathsf{Sym}^{G,\mathfrak C}(\mathcal{V})$
-      be level genuine cofibrant
+      with cofibrant symmetric pushout powers.
+
+      Let $\mathfrak C$ be a $G$-set,
+      $\O \in \mathsf{Sym}^{G,\mathfrak C}(\mathcal{V})$
+      be level genuine cofibrant,
       and  
       $u: X \to Y$ in $\Sym^{G, \mathfrak C}(\V)$ a level genuine cofibration. 
-      Let $T \in G \ltimes \Omega_{\mathfrak C}^a[k]^{op}$ and write $C = \mathsf{lr}(T)$.
+      Let $\vect U \in \Omega_{\mathfrak C}^a[k]^{op}$, and write $\vect C = \mathsf{lr}(\vect U)$ and $U \in \Omega^a[k]$ for the underlying tree of $\vect U$.
       Then
       \begin{equation}\label{EXMAINLEM EQ}
             \left(
-                  \bigotimes\limits_{v \in V^{ac}(T)}\P(T_v) \otimes
-                  \underset{v \in V^{in}(T)}
+                  \bigotimes\limits_{v \in \boldsymbol{V}^{ac}(U)}\O(\vect U_v) \otimes
+                  \underset{v \in \boldsymbol{V}^{in}(U)}
                   {\mathlarger{\mathlarger{\mathlarger{\square}}}}
-                  u(T_v)
+                  u(\vect U_v)
             \right) 
-            \mathop{\otimes}\limits_{\mathsf{Aut}(T)} \mathsf{Aut}(C).
+            \mathop{\otimes}\limits_{\mathsf{Aut}({\vect U})} \mathsf{Aut}(\vect C).
       \end{equation}
       is a genuine cofibration in 
-      $\mathcal{V}^{\mathsf{Aut}(C)}_{\text{gen}}$,
-      where the automorphism groups are either all taken in $G \ltimes \OC$ or all taken in $\Omega_{\mathfrak C}$,
-      and which is trivial if $k \geq 1$ and $u$ is trivial.	
+      $\mathcal{V}^{\mathsf{Aut}(\vect C)}_{\text{gen}}$ which is trivial if $k \geq 1$ and $u$ is trivial,
+      where the automorphism groups are either
+      \begin{inparaenum}[(i)]
+      \item all taken in $G \ltimes \OC$, or
+      \item all taken in $\Omega_{\mathfrak C}$.
+      \end{inparaenum}
 \end{lemma}
 \begin{proof}
-      This follows exactly as in \cite{BP_geo}, as we may take the automorphism groups to live in either
-      $\Sigma \wr (G^{op} \ltimes \Sigma_{\mathfrak C})$ or $\Sigma \wr \Sigma_{\mathfrak C}$.
+      This follows as in \cite{BP_geo}:
+      Using Lemma \ref{RESGEN_LEM} and the maps
+      \[
+            \Aut(\vect C) \longleftarrow \Aut(\vect U) \longto
+            \Aut\Big((\vect U_v)_{v \in \boldsymbol{V}^{ac}(U)}\Big) \times \Aut\Big((\vect U_v)_{v \in \boldsymbol{V}^{in}(U)}\Big),
+      \]
+      it suffices to check that
+      \[
+            \bigotimes_{v \in \boldsymbol{V}^{ac}(U)} \O(\vect U_v) = \underset{v \in \boldsymbol{V}^{ac}(U)}{\mathlarger{\mathlarger{\mathlarger{\square}}}}(\varnothing \to \O)(\vect U_v),
+            \qquad
+            \underset{v \in \boldsymbol{V}^{in}(U)}{\mathlarger{\mathlarger{\mathlarger{\square}}}} u(\vect U_v)
+      \]
+      are $\Aut\Big((\vect U_v)_{v \in \boldsymbol{V}^{ac}(U)}\Big)$ and
+      $\Aut\Big((\vect U_v)_{v \in \boldsymbol{V}^{ac}(U)}\Big)$ genuine (trivial) cofibrations respectively, 
+      where the automorphism groups live in either
+      \begin{inparaenum}[(i)]
+      \item $\Fin \wr (G \ltimes \Sigma_{\mathfrak C})$ or
+      \item $\Fin \wr \Sigma_{\mathfrak C}$.
+      \end{inparaenum}
+      The result then follows using the product decomposition of automorphism groups in these categories,
+      Lemma \ref{RESGEN_LEM}, and \cite[Prop. 6.24]{BP_geo} with
+      \begin{inparaenum}[(a)]
+      \item $f$ either $\varnothing \to \O(\vect U_v)$ or $X(\vect U_v) \to Y(\vect U_v)$,
+      \item $\F$ the family of all subgroups, and
+      \item $G = \Aut(\vect U_v)$ in the respective categories.
+      \end{inparaenum}
 \end{proof}
 
 
 
 
-
+come back!
 
 
 \subsubsection{Pushouts and change of color}
@@ -10933,7 +11007,7 @@ is encoded by the diagram
 
 
 
-\fi%
+
 
 
 
