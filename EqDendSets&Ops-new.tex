@@ -5750,8 +5750,6 @@ then implies that
 
 
 
-{\color{red} HERE}
-
 The decomposition \eqref{PUSHOPPR EQ}
 will be the key to verifying the 
 characteristic edge conditions in Definition \ref{CHAREDGE DEF}.
@@ -5762,24 +5760,49 @@ For a dendrex $p\colon \Omega[T] \to N \mathcal{P}$
 we say the principal subpresheaf 
 $\langle p \rangle \subseteq N \mathcal{P}$ is
 \begin{itemize}
+\item \emph{reduced} if $T \in \Sigma_{\mathfrak{C}}$, i.e. $T$ is a $\mathfrak{C}$-corolla;
 \item \emph{elementary} if for each vertex $T_v \hookrightarrow T$,
-it is $\langle \partial_{T_v}^{\**} p\rangle \subseteq \O \amalg_{\mathfrak{C}}B$
+it is $\langle \partial_{T_v}^{\**} p\rangle \subseteq \O \amalg_{\mathfrak{C}}B$;
 \item \emph{alternating} if $T \in \Omega^a$ is an alternating tree
 and for each active (resp. inert) vertex 
 $T_v \hookrightarrow T$ it is
 $\langle \partial_{T_v}^{\**} p \rangle \subseteq \O$
-(resp. inert $\langle \partial_{T_v}^{\**} p \rangle \subseteq B$)
-\item \emph{reduced} if it is elementary and for any proper inner face
+(resp. inert $\langle \partial_{T_v}^{\**} p \rangle \subseteq B$);
+\item \emph{canonical} if it is non-degenerate elementary and for any proper inner face
 $T-E \hookrightarrow T, 
 \emptyset \neq E \subseteq \boldsymbol{E}^{\mathsf{i}}(T)$
-one has that $\langle \partial^{\**}_{T-E} p \rangle$ is \emph{not} elementary
+one has that $\langle \partial^{\**}_{T-E} p \rangle$ is \emph{not} elementary.
 \end{itemize}
 \end{notation}
 
+\begin{remark}\label{NONDEGNEED REM}
+The ``non-degenerate'' condition in the definition of 
+``canonical'' is almost (but not quite) redundant, since degeneracies in $\Omega$ usually admit sections that are proper inner face maps \cite[Cor. 5.38]{Per_eds},
+with the exceptions being the maps $[n] \to [0]$.
+\end{remark}
 
+\begin{notation}
+Any tree $T$ has an associated corolla $\mathsf{lr}(T)$, so that we abbreviate
+$\partial_r p = \partial_{\mathsf{lr}(T)}p$
+and say
+$\langle \partial_r p \rangle$
+is the \emph{reduction} of  
+$\langle p \rangle$.
+\end{notation}
 
+\begin{remark}\label{PUSHOPPRRST REM}
+\eqref{PUSHOPPR EQ} 
+can be restated as saying that for each reduced principal subpresheaf
+$\langle p \rangle \subseteq N \mathcal{P}$
+there exists a \emph{unique} alternating principal subpresheaf
+$\langle p^a \rangle$
+such that
+$\langle \partial_r p^a \rangle = \langle p \rangle$.
 
-{\color{red} HERE}
+More generally, if $\langle p \rangle$
+is not reduced, we still write
+$\langle p^a \rangle = \langle \left(\partial_r p\right)^a \rangle$.
+\end{remark}
 
 
 \begin{remark}
@@ -5790,12 +5813,72 @@ it is $\langle \partial_{T_v}^{\**} p\rangle \subseteq \O $ or
 $\langle \partial_{T_v}^{\**} p\rangle \subseteq B$.
 
 By ({\color{blue} the alternating tree analog of})
-\cite[Prop. 5.49]{BP_geo}, there is hence a unique alternating tree $T^a$ together with a tall planar label map $T^a \to T$.
-{\color{green} need to define reduced to be non-degenerate?}
-
+\cite[Prop. 5.49]{BP_geo}, there is hence a unique alternating tree $T^a$ together with a tall planar $B$-inert label map $T^a \to T$,
+and it then follows that
+$\langle \partial_{T^a} p \rangle = \langle p^a \rangle$.
 \end{remark}
 
 
+
+\begin{lemma}\label{CANCHAR LEM}
+A principal subpresheaf $\langle p \rangle$
+is elementary canonical iff
+$\langle p \rangle$ is non-degenerate and
+$\langle p^a \rangle$
+is a degeneracy of $\langle p \rangle$.
+\end{lemma}
+
+
+\begin{proof}
+Consider first the ``only if'' direction. 
+$p$ is non-degenerate by definition.
+%That $p$ is not degenerate follows since any degeneracy in 
+%$\Omega_{\mathfrak{C}}$ has a section that is an inner face 
+%(this follows from \cite[Cor. 5.38]{Per_eds}).
+For the degeneracy claim,
+consider the degeneracy followed by inner face factorization
+$T^a \to T' \to T$. 
+Then $T'$ inherits a $\{O,B\}$-labeling from $T^a$ and both maps in the factorization are tall planar $B$-inert label maps, 
+so that $\langle \partial_{T'} p \rangle$ is again elementary,
+showing that 
+$\langle p \rangle$
+can only be canonical if $T^a \to T$ is a degeneracy,
+i.e. if $\langle p^a \rangle$
+is a degeneracy of $\langle p\rangle$.
+
+For the ``if'' direction, we consider two cases.
+If $\langle p \rangle$
+comes from a composite $p\colon [n] \to [0] \to N \mathcal{P}$, 
+then $\langle p \rangle$ is non-degenerate iff $n=0$ and the desired statement is trivial.
+Otherwise, by Remark \ref{NONDEGNEED REM}
+one can necessarily find some inner face 
+$T-E$ such that
+$\langle \partial_{T-E} p \rangle$
+is elementary.
+But then $\langle \partial_{T-E} p \rangle$ is the unique principal subpresheaf on which $\langle p^a \rangle$
+is degenerate, and the result follows.
+\end{proof}
+
+
+Combining Lemma \ref{CANCHAR LEM} with 
+Remark \ref{PUSHOPPRRST REM}
+yields the following.
+
+
+\begin{corollary}
+For each reduced principal subpresheaf 
+$\langle p \rangle$
+there exists a unique 
+elementary canonical principal subpresheaf 
+$\langle p^c \rangle$
+such that
+$\langle \partial_r p^c \rangle = \langle p \rangle$.
+\end{corollary}
+
+
+
+
+{\color{red} HERE}
 
 
 
