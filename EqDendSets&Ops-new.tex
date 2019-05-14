@@ -883,7 +883,7 @@ and thus the corresponding adjunction is also fibered.
 
 
 
-\iffalse%
+%\iffalse%
 
 \section{Colored operads}
 
@@ -4697,7 +4697,7 @@ We now have collected all the remaining pieces to prove Theorem \ref{INTRO_MODEL
 
 
 
-\fi%
+%\fi%
 
 \newpage
 
@@ -4873,6 +4873,9 @@ An organizational feature of \cite{BP_edss} was the use of joint Bousfield local
       \label{COMUOTOHOM_FACTS}
       Facts we need for Proposition \ref{COMUOTOHOM PROP}:
       \begin{enumerate}[label = (\roman*)]
+      \item vertical/simplicial and horizontal/dendroidal equivalences are also joint equivalences
+      \item weak equivalences in $\mathsf{PreOp}^G$ are detected by $\gamma^{\**}$.
+            %
       \item Reedy (co)fibrations are levelwise (co)fibrations. 
             In particular, joint fibrantions are levelwise fibrations in either direction.
             
@@ -4895,7 +4898,7 @@ An organizational feature of \cite{BP_edss} was the use of joint Bousfield local
             %       (\Lambda^i[n] \to \Delta[n]) \square i'
             % \]
             % where $i'$ is a generating cofibration for the Reedy model structure on $\mathcal M^{R^{op}}$.
-
+            % ------------------------------
             % ----------
       \item \label{PRODREEDY_LBL} If $\mathbb R$ and $\mathbb S$ are generalized Reedy with
             corresponding Reedy admissible families $\set{\F_r}_{r \in \mathbb R}$, $\set{\F_s}_{s \in \mathbb s}$,
@@ -4903,49 +4906,63 @@ An organizational feature of \cite{BP_edss} was the use of joint Bousfield local
             can be equivalently obtained by considering the $\set{\F_r}$-Reedy model structure over the $\set{\F_s}$-Reedy model structure on $\mathcal M^{\mathbb S}$ (and vice versa)
             ({\cite[Remark A.31]{BP_edss}}).
             %
-
-            Now, fix a group $G$ and a family of subgroups $\mathcal F$.
-      \item $G$ is a Reedy category, with $\set{\mathcal F}$ a Reedy-admissible collection.
-            Thus we will say $X \in \left(\mathsf{sSet}^{\Delta^{op}}\right)^G_\F$ is \textit{horizontal Reedy fibrant} iff
-            $X \in (\sSet)^{\Delta^{op} \times G}$ is $\set{e \times \mathcal F}$-Reedy fibrant iff
-            $X^H \in \mathsf{sSet}^{\Delta^{op}}$ is horizontally Reedy fibrant for all $H \in \mathcal F$.
+      %       Now, fix a group $G$ and a family of subgroups $\mathcal F$.
+      % \item $G$ is a Reedy category, with $\set{\mathcal F}$ a Reedy-admissible collection.
+      %       Thus we will say $X \in \left(\mathsf{sSet}^{\Delta^{op}}\right)^G_\F$ is \textit{$\mathcal F$-horizontal Reedy fibrant} if
+      %       $X \in (\sSet)^{\Delta^{op} \times G}$ is $\set{e \times \mathcal F}$-Reedy fibrant;
+      %       equivalently, if $X^H \in \mathsf{sSet}^{\Delta^{op}}$ is horizontally Reedy fibrant for all $H \in \mathcal F$.
             
-            Moreover, the joint model structures on
-            $\mathsf{sSet}^{\Delta^{op} \times G}$ and $\mathsf{s}\left(\mathsf{Set}^{\Delta^{op}}\right)^G$
-            agree with each other and the $\F$-model structure over the joint model structure on
-            $\left(\mathsf{sSet}^{\Delta^{op}}\right)^G$.
+      %       Moreover, the following model structures agree:
+      %       \begin{itemize}
+      %       \item the joint model structure on $\mathsf{sSet}^{\Delta^{op} \times G}$,
+      %       \item the joint model structure on $\mathsf{s}\left(\mathsf{Set}^{\Delta^{op}}\right)^G$,
+      %       \item the $\F$-model structure over the joint model structure on $\left(\mathsf{sSet}^{\Delta^{op}}\right)^G$.
+      %       \end{itemize}            
+            % ----------
+      \item $X \to Y$ in $\mathsf{sdSet}^G$ is a simplicial equivalence iff $X(U) \to Y(U)$ is a $G$-graph equivalence in $\sSet^{G \times \Aut(U)}$ for all $U \in \Omega$ iff $X(\Omega[T]) \to Y(\Omega[T])$ is a Kan equivalence in $\sSet$ for all $T \in \Omega_G$.
+            \begin{proof}
+                  The first ``iff'' is by definition of the generalized Reedy structure on $\Omega^{op} \times G$.
+                  Then, as $T \simeq G \cdot U/ \Gamma$ for some graph subgroup $\Gamma \leq G \times \Aut(U)$,
+                  the second ``iff'' follows since $X(\Omega[T]) \simeq X(U)^\Gamma$.
+            \end{proof}                  
             % 
+      \item \label{SFIB_JEQ_LBL} $X,Y \in \mathsf{sdSet}^G$ simplicially fibrant, then $X \to Y$ is a joint equivalence iff it is a simplicial equivalence
+            (\cite[Prop. 4.5(iii), Cor. 4.29(iii)]{BP_edss}).
+            % ----------
       \item \label{RJOINTT_LBL} If $X \in (\mathsf{sdSet}^G)^{\Delta^{op}}$ is fibrant in the Reedy-over-joint model structure,
             then for all $T \in \Omega_G$, $X(\Omega[T])$ is horizontal Reedy fibrant in
             $\left((\mathsf{sSet})^{\Delta^{op}}\right)^{\Aut(T)}$.
-            % then for all $U \in \Omega$, $X(U)$ is horizontal Reedy fibrant in
-            % $\left((\mathsf{sSet})^{\Delta^{op}}\right)^{G \times \Aut(U)}$.
             \begin{proof}
-                  This follows from the Quillen adjuction
+                  First, we note that for all $U \in \Omega$, $X(U)$ is $G$-graph horizontal Reedy fibrant in
+                  $\left((\mathsf{sSet})^{\Delta^{op}}\right)^{G \times \Aut(U)}$;
+                  this follows from the Quillen adjuction
                   \[
                         \left( \mathsf{sdSet}_{jt}^G \right)^{\Delta^{op}} \leftrightarrows
                         (\mathsf{sSet})^{\Omega^{op} \times G \times \Delta^{op}} =
                         \left( (\mathsf{sSet})^{\Delta^{op}} \right)^{\Omega^{op} \times G}
                   \]
-                  where $(\sSet)^{\mathbb R}$ is given the $\mathbb R$-Reedy model structure over the Kan-Quillen model structure,
-                  and the fact that for $T \simeq G \cdot_H T_e$, $X(\Omega[T]) \simeq X(T_e)^H$.
+                  where $(\sSet)^{\mathbb R}$ is given the generalized $\mathbb R$-Reedy model structure over the Kan model structure on $\sSet$.
+                  Then, since $T \simeq G \cdot U/ \Gamma$ for some graph subgroup $\Gamma \leq G \times \Aut(U)$,
+                  the result follows since $X(\Omega[T]) \simeq X(U)^\Gamma$.
             \end{proof}
             %
       \item \label{JF_VERT_LBL}
-            $X \in \mathsf{sSet}^{\Delta^{op} \times G}$ is joint fibrant iff
-            $X$ is horizontal Reedy fibrant and all vertex maps $X(m) \to X(0)$ are $\mathcal F$-weak equivalences in $\mathsf{sSet}^G$
+            $X \in \mathsf{sSet}^{\Delta^{op}}$ is joint fibrant iff
+            $X$ is horizontal Reedy fibrant and all vertex maps $X(m) \to X(0)$ are Kan equivalences in $\mathsf{sSet}$
             (\cite[Prop. 4.24(ii)]{BP_edss}).
-            % 
-      \item \label{DIAG_LBL} If $X \in \mathsf{sSet}^{\Delta^{op} \times G}$ is horizontal Reedy firant, then
-            $X_n \to X_0$ and hence $X_0 \to \delta^{\**}X$ is an $\mathcal F$-Kan equivalence in $\mathsf{Set}^{\Delta^{op} \times G}$.
-            % ----------
-
-      \item Horizontal and vertical equivalences are joint equivalences (by construction)
-      \item weak equivalences in $\mathsf{PreOp}^G$ are detected by $\gamma^{\**}$.
-            % 
-      \item \label{SFIB_JEQ_LBL} $X,Y \in \mathsf{sdSet}$ simplicially fibrant, then $X \to Y$ is a joint equivalence iff it is a simplicial equivalence
-            (\cite[Prop. 4.5(iii), Cor. 4.29(iii)]{BP_edss}).
-            %      
+            %
+      \item \label{DIAG_LBL}
+             If $X \in \mathsf{sSet}^{\Delta^{op}}$ is horizontal Reedy firant, then
+             $X_n \to X_0$ and hence $X_0 \to \delta^{\**}X$ is a Kan equivalence in $\mathsf{Set}^{\Delta^{op}}$.
+             %
+      % \item \label{JF_VERTG_LBL}
+      %       $X \in \mathsf{sSet}^{\Delta^{op} \times G}$ is joint fibrant iff
+      %       $X$ is horizontal Reedy fibrant and all vertex maps $X(m) \to X(0)$ are $\mathcal F$-weak equivalences in $\mathsf{sSet}^G$
+      %       (\cite[Prop. 4.24(ii)]{BP_edss}).
+      %       %
+      % \item \label{DIAGG_LBL} If $X \in \mathsf{sSet}^{\Delta^{op} \times G}$ is horizontal Reedy firant, then
+      %       $X_n \to X_0$ and hence $X_0 \to \delta^{\**}X$ is an $\mathcal F$-Kan equivalence in $\mathsf{Set}^{\Delta^{op} \times G}$.
+      %       ----------
       \end{enumerate}
 \end{lemma}
 
@@ -6603,60 +6620,61 @@ $\mathsf{sOp}$.
       
       That the first map is an equivalence is obvious from definition of $\widetilde{Q}$ and the assumption $\widetilde{\mathcal{O}}(0) = \mathcal{O}$.
       
+      The second, third, fourth, and fifth maps are all in fact simplicial equivalences.
       For the second and third maps, note first that $\widetilde{\O}$ and hence
       $\widetilde{Q}$ are homotopically constant, in the sense that
       all vertex maps $\widetilde{Q}(m) \to \widetilde{Q}(0)$ are joint equivalences in $\mathsf{sdSet}^G$.
       % 
       Moreover, since the levels $\widetilde{Q}$ are joint fibrant in $\mathsf{sdSet}^G$,
       Lemma \ref{COMUOTOHOM_FACTS} \ref{SFIB_JEQ_LBL} % \cite[Prop. 4.5(iii)]{BP_edss}
-      implies that these are in fact $G$-graph simplicial equivalences,
-      i.e. that for each tree $U \in \Omega$ the evaluations
-      $\widetilde{Q}(U)(m) \to \widetilde{Q}(U)(0)$
-      are $G$-graph Kan equivalences in $\mathsf{sSet}^{G \times \Aut(U)}$.
+      implies that these are in fact simplicial equivalences, % $G$-graph simplicial equivalences,
+      i.e. that for each $G$-tree $T \in \Omega_G$, the evaluations % tree $U \in \Omega$, the evaluations
+      $\widetilde{Q}(\Omega[T])(m) \to \widetilde{Q}(\Omega[T])(0)$
+      are Kan equivalences in $\mathsf{sSet}$.  %$G$-graph Kan equivalences in $\mathsf{sSet}^{G \times \Aut(U)}$.
       % 
-      But since $\widetilde{Q}(U) \in \mathsf{sSet}^{\Delta^{op} \times (G \times \Aut(U))}$ is itself Reedy fibrant by
+      But since $\widetilde{Q}(\Omega[T]) \in \sSet^{\Delta^{op}}$ %$\widetilde{Q}(U) \in \mathsf{sSet}^{\Delta^{op} \times (G \times \Aut(U))}$
+      is itself Reedy fibrant by
       Lemma \ref{COMUOTOHOM_FACTS} \ref{RJOINTT_LBL},
       Lemma \ref{COMUOTOHOM_FACTS} \ref{JF_VERT_LBL} % (the proof of) \cite[Prop. 4.24(ii)]{BP_edss} 
-      implies that it is in fact $G$-graph joint Reedy fibrant in $\left(\mathsf{sSet}^{\Delta^{op}}\right)^{G \times \Aut(U)}$,
+      implies that it is in fact joint Reedy fibrant in $\mathsf{sSet}^{\Delta^{op}}$ % $G$-graph joint Reedy fibrant in $\left(\mathsf{sSet}^{\Delta^{op}}\right)^{G \times \Aut(U)}$,
       and hence by Lemma \ref{COMUOTOHOM_FACTS} \ref{DIAG_LBL}, %\cite[Prop. 4.5(iv)]{BP_edss}
-      one has $G$-graph Kan equivalences 
-      $\widetilde{Q}(U)(0) \xrightarrow{\sim}
-      \delta^{\**} \widetilde{Q}(U) \xleftarrow{\sim}
-      \widetilde{Q}_0(U)$,
-      showing that the second and third maps in \eqref{BIGZIG EQ} are indeed $G$-graph simplicial equivalences, and hence joint weak equivalences.
+      one has Kan equivalences % $G$-graph Kan equivalences
+      $\widetilde{Q}(\Omega[T])(0) \xrightarrow{\sim}
+      \delta^{\**} \widetilde{Q}(\Omega[T]) \xleftarrow{\sim}
+      \widetilde{Q}_0(\Omega[T])$, as desired.
       
       For the fourth equivalence, note that one can write
       \[
-            \widetilde{Q}_0(U) = 
-            \mathsf{Hom}_{\mathsf{sdSet}^G}(c_!\Omega[U],\widetilde{Q})=
-            \mathsf{Hom}_{\mathsf{PreOp}^G}(c_!\Omega[U],\gamma_{\**}\widetilde{Q}),
+            \widetilde{Q}_0(\Omega[T]) = 
+            \mathsf{Hom}_{\mathsf{sdSet}^G}(c_!\Omega[T],\widetilde{Q})=
+            \mathsf{Hom}_{\mathsf{PreOp}^G}(c_!\Omega[T],\gamma_{\**}\widetilde{Q}),
       \] 
       \[
-            \left(\gamma^{\**} N \widetilde{\mathcal{O}}\right)_0(U) = 
-            \mathsf{Hom}_{\mathsf{sdSet}}(c_!\Omega[U],\gamma^{\**} N \widetilde{\mathcal{O}})=
-            \mathsf{Hom}_{\mathsf{PreOp}}(c_!\Omega[U], N \widetilde{\mathcal{O}}),
+            \left(\gamma^{\**} N \widetilde{\mathcal{O}}\right)_0(\Omega[T]]) = 
+            \mathsf{Hom}_{\mathsf{sdSet}}(c_!\Omega[T],\gamma^{\**} N \widetilde{\mathcal{O}})=
+            \mathsf{Hom}_{\mathsf{PreOp}}(c_!\Omega[T], N \widetilde{\mathcal{O}}),
       \]
-      in $\sSet^{G \times \Aut(U)}$ for each $U \in \Omega$.
+      in $\sSet$ for each $T \in \Omega_G$. % $\sSet^{G \times \Aut(U)}$ for each $U \in \Omega$.
       The claim now follows by noting that
       $N \widetilde{\mathcal{O}} \to \gamma_{\**} \widetilde{Q}$
       is an equivalence between Reedy fibrant replacements for $N \mathcal O$ in $(\mathsf{PreOp}^G_{tame})^{\Delta^{op}}$
       (as $\gamma^{\**}\gamma_{\**}\tilde Q \to \tilde Q$ is a joint equivalence and $N$, $\gamma_{\**}$ are right Quillen),
-      and that $\Omega[U]/\Gamma = \Omega[G \cdot U/\Gamma]$ is tame cofibrant for all $G$-graph subgroups $\Gamma \leq G \times \Aut(U)$ by Lemma \ref{OMEGATTAME_LEM}.
+      and that $\Omega[T]$ is tame cofibrant by Lemma \ref{OMEGATTAME_LEM}.
       
       For the fifth equivalence, note that
       \[
-            \left(\gamma^{\**} N \widetilde{\mathcal{O}}\right)_0(U) = 
-            \mathsf{Hom}_{\mathsf{PreOp}^G}(\Omega[U], N \widetilde{\mathcal{O}}) =
-            \mathsf{Hom}_{\mathsf{sOp}^G}(\Omega(U),  \widetilde{\mathcal{O}}),
+            \left(\gamma^{\**} N \widetilde{\mathcal{O}}\right)_0(\Omega[T]) = 
+            \mathsf{Hom}_{\mathsf{PreOp}^G}(\Omega[T], N \widetilde{\mathcal{O}}) =
+            \mathsf{Hom}_{\mathsf{sOp}^G}(\Omega(T),  \widetilde{\mathcal{O}}),
       \]
       \[
-            \left(hcN \widetilde{\mathcal{O}} \right)(U) = 
-            \mathsf{Hom}_{\mathsf{sOp}^G}(W(U),  \widetilde{\mathcal{O}}),
+            \left(hcN \widetilde{\mathcal{O}} \right)(\Omega[T]) = 
+            \mathsf{Hom}_{\mathsf{sOp}^G}(W(T),  \widetilde{\mathcal{O}}),
       \]
-      in $\sSet^{G \times \Aut(U)}$ for each $U \in \Omega$,
+      in $\sSet$ for each $T \in \Omega_G$, %$\sSet^{G \times \Aut(U)}$ for each $U \in \Omega$,
       so that the required claim follows since 
       $\widetilde{\mathcal{O}}$ is Reedy fibrant and
-      $W(U) \to \Omega(U)$ is a $G$-graph weak equivalence of cofibrant operads in $\sOp^{G \times \Aut(U)}$.
+      $W(T) \to \Omega(T)$ is an equivalence of cofibrant operads in $\sOp^G$. % a $G$-graph weak equivalence of cofibrant operads in $\sOp^{G \times \Aut(U)}$.
 
       Finally, for the last map, one needs simply to note that
       $c_! hcN \mathcal{O} = hcN c_! \mathcal{O}$, so that the required claim follows since 
@@ -6686,11 +6704,11 @@ the mild generalization of \textit{weak indexing systems} of the authors \cite[\
 
 
 
-For COMUOTOHOM PROP: replace all instances of ``$G$-graph'' with ``$\mathcal F$'' in the proof (and the model structures).
+For COMUOTOHOM PROP: replace all instances of $\Omega_G$ with $\Omega_{\mathcal F}$ - in particular, $X \to Y$ is a simplicial equivalence in $\mathsf{sdSet}^G_{\mathcal F}$ iff $X(\Omega[T]) \to Y(\Omega[T])$ is a Kan equivalence for all $T \in \Omega_{\mathcal F}$. 
 
 
 
-\iffalse%
+%\iffalse%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % -------------------- UP: PETER, DOWN: LUIS  --------------------
@@ -10743,7 +10761,7 @@ is encoded by the diagram
 
 
 
-\fi%
+%\fi%
 
 
 
