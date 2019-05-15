@@ -39,9 +39,9 @@ cd,patterns,calc}
 
 \usepackage{ifdraft}
 \ifdraft{
-  \color[RGB]{63,63,63}
+%  \color[RGB]{63,63,63}
 %   \pagecolor[rgb]{0.5,0.5,0.5}
-  \pagecolor[RGB]{220,220,204}
+%  \pagecolor[RGB]{220,220,204}
 %  \color[rgb]{1,1,1}
   \usepackage{showkeys}
 }
@@ -159,7 +159,7 @@ What we need:
 
 
 
-
+\iffalse%
 
 
 \section{Introduction}
@@ -5629,7 +5629,7 @@ is a pushout
 \newpage
 
 
-
+\fi%
 
 
 \section{Nerves of free extensions are homotopy pushouts}
@@ -5770,6 +5770,21 @@ To do so, we will first find it useful to discuss a number of special types of p
 
 
 
+\begin{definition}
+A dendrex $p\colon \Omega[T] \to N \mathcal{P}$ 
+is called:
+\begin{itemize}
+\item \emph{elementary} if for each vertex $T_v \hookrightarrow T$
+it is $\langle \partial_{T_v} p\rangle \subseteq \O \amalg_{\mathfrak{C}}B$;
+\item \emph{alternating} if $T \in \Omega^a$ is an alternating tree
+and for each active (resp. inert) vertex 
+$T_v \hookrightarrow T$ it is
+$\langle \partial_{T_v}^{\**} p \rangle \subseteq \O$
+(resp. $\langle \partial_{T_v}^{\**} p \rangle \subseteq B$).
+\end{itemize}
+\end{definition}
+
+
 
 \begin{definition}
 Let $\langle p \rangle \subseteq N \mathcal{P}$ be 
@@ -5779,14 +5794,23 @@ We say $\langle p \rangle$ is:
 \item \emph{unital} if there is a representative
 $p\colon \Omega[T] \to N \mathcal{P}$ with $T=\eta$ the stick tree;
 \item \emph{reduced} if there is a representative
-$p\colon \Omega[T] \to N \mathcal{P}$ with $T \in \Sigma$, i.e. with $T$ a corolla.
-%\item \emph{alternating} if $T \in \Omega^a$ is an alternating tree
-%and for each active (resp. inert) vertex 
-%$T_v \hookrightarrow T$ it is
-%$\langle \partial_{T_v}^{\**} p \rangle \subseteq \O$
-%(resp. inert $\langle \partial_{T_v}^{\**} p \rangle \subseteq B$);
+$p\colon \Omega[T] \to N \mathcal{P}$ with $T \in \Sigma$, i.e. with $T$ a corolla;
+\item \emph{elementary} 
+if there is an elementary representative
+$p\colon \Omega[T] \to N \mathcal{P}$;
+\item \emph{canonical} 
+if there is an alternating representative
+$p\colon \Omega[T] \to N \mathcal{P}$.
 \end{itemize}
-Moreover, recalling that any tree $T$
+\end{definition}
+
+
+\begin{remark}
+{\color{blue} the definition of elementary does not care if the representative $p$ is non-degenerate or not} 
+\end{remark}
+
+\begin{notation}
+Recalling that any tree $T$
 has an associated corolla $\mathsf{lr}(T)$, 
 we abbreviate
 $\partial_r p = \partial_{\mathsf{lr}(T)}p$
@@ -5794,44 +5818,9 @@ and call
 $\langle \partial_r p \rangle$
 the \emph{reduction} of  
 $\langle p \rangle$.
-\end{definition}
+\end{notation}
 
 
-
-\begin{definition}
-Let $\langle p \rangle \subseteq N \mathcal{P}$ be 
-a principal subpresheaf. 
-We say $\langle p \rangle$ is:
-\begin{itemize}
-\item \emph{elementary} 
-if there is a representative
-$p\colon \Omega[T] \to N \mathcal{P}$ such that for each vertex $T_v \hookrightarrow T$,
-it is $\langle \partial_{T_v} p\rangle \subseteq \O \amalg_{\mathfrak{C}}B$;
-%\item \emph{alternating} if $T \in \Omega^a$ is an alternating tree
-%and for each active (resp. inert) vertex 
-%$T_v \hookrightarrow T$ it is
-%$\langle \partial_{T_v}^{\**} p \rangle \subseteq \O$
-%(resp. inert $\langle \partial_{T_v}^{\**} p \rangle \subseteq B$);
-\item \emph{canonical} if it is elementary and for any elementary
-$\langle q \rangle \subseteq \langle p \rangle$
-such that 
-$\langle \partial_r q \rangle = \langle \partial_r p \rangle$
-it is
-$\langle q \rangle = \langle p \rangle$.
-%
-%
-% for any proper inner face
-%$T-E \hookrightarrow T, 
-%\emptyset \neq E \subseteq \boldsymbol{E}^{\mathsf{i}}(T)$
-%one has that $\langle \partial^{\**}_{T-E} p \rangle$ is \emph{not} elementary.
-\end{itemize}
-Moreover, we say a dendrex $p \colon \Omega[T] \to N \mathcal{P}$
-is \emph{alternating} if $T \in \Omega^a$ is an alternating tree
-and for each active (resp. inert) vertex 
-$T_v \hookrightarrow T$ it is
-$\langle \partial_{T_v}^{\**} p \rangle \subseteq \O$
-(resp. $\langle \partial_{T_v}^{\**} p \rangle \subseteq B$).
-\end{definition}
 
 
 
@@ -5841,17 +5830,12 @@ $\langle \partial_{T_v}^{\**} p \rangle \subseteq \O$
 %with the exceptions being the maps $[n] \to [0]$.
 %\end{remark}
 
-\begin{remark}
-{\color{blue} the definition of elementary does not care if the representative $p$ is non-degenerate or not} 
-\end{remark}
-
 
 \begin{remark}\label{NONDEGNEED REM}
 A degenerate dendrex $p \colon \Omega[T] \to N \mathcal{P}$
 will have an inner face which is non-degenerate unless the dendrex is completely degenerate, i.e. it is a composite
 $p \colon [n] \to [0] \to N \mathcal{P}$.
 \end{remark}
-
 
 
 \begin{remark}\label{PUSHOPPRRST REM}
@@ -5868,6 +5852,7 @@ $\langle p^a \rangle = \langle \left(\partial_r p\right)^a \rangle$.
 \end{remark}
 
 
+
 \begin{remark}\label{ELEMLABEL REM}
 If $\langle p \rangle \subseteq N \mathcal{P}$
 is elementary, the tree $T$ can be naturally regarded as a
@@ -5879,93 +5864,81 @@ By ({\color{blue} the alternating tree analog of})
 \cite[Prop. 5.49]{BP_geo}, there is hence a unique alternating tree $T^a$ together with a tall planar $B$-inert label map $T^a \to T$,
 and it then follows that
 $\langle \partial_{T^a} p \rangle = \langle p^a \rangle$.
+
+Crucially, note that we have just shown that if 
+$\langle p \rangle$ is elementary then
+$\langle p^a \rangle \subseteq \langle p \rangle$.
+%Moreover, the uniqueness in Remark \ref{PUSHOPPRRST REM}
+%implies that $\langle p \rangle$ is canonical iff
+%$\langle p^a \rangle = \langle p \rangle$.
 \end{remark}
 
 
 
-\begin{lemma}\label{CANCHAR LEM}
-A principal subpresheaf $\langle p \rangle$
+\begin{lemma}
+An elementary subpresheaf $\langle p \rangle$
 is canonical iff
-$\langle p \rangle = \langle p^a \rangle$
-for the alternating dendrex $p^a$ as in Remark \ref{PUSHOPPRRST REM}.
+for any elementary $\langle q \rangle$
+such that $\langle \partial_r p \rangle \subseteq \langle q \rangle$
+it is $\langle p \rangle \subseteq \langle q \rangle$.
 \end{lemma}
 
 
 \begin{proof}
-Consider first the ``only if'' direction. 
-Let $p \colon \Omega[T] \to N \mathcal{P}$
-be a non-degenerate representative of $\langle p \rangle$ and
-$T^a \to T$ as in Remark \ref{ELEMLABEL REM}.
-%That $p$ is not degenerate follows since any degeneracy in 
-%$\Omega_{\mathfrak{C}}$ has a section that is an inner face 
-%(this follows from \cite[Cor. 5.38]{Per_eds}).
-%
-Writing $T^a \to T' \to T$ for the 
-``degeneracy followed by inner face'' factorization, 
-$T'$ inherits a $\{\O,B\}$-labeling from $T^a$ and both maps in the factorization are tall planar $B$-inert label maps, 
-so that $\langle \partial_{T'} p \rangle$ is again elementary.
-But since $\langle p \rangle$ is canonical by assumption, 
-we have $\langle \partial_{T'} p \rangle = \langle p \rangle$, 
-so that it must be that $T^a \to T$ is a degeneracy map,
-i.e. that $p^a$
-is a degeneracy of $p$.
+Fix representatives
+$p \colon \Omega[T] \to N \mathcal{P}$,
+$q \colon \Omega[S] \to N \mathcal{P}$,
+$\partial_r p \colon \Omega[C] \to N \mathcal{P}$.
+
+For the ``only if'' direction, the assumption
+$\langle \partial_r p \rangle \subseteq \langle q \rangle$
+says that there is a map
+$C \to S$ such that $\partial_C q = \partial_r p$.
+Consider now the 
+``tall map followed by outer face'' factorization $C \to \bar{S} \to S$.
+Then $\bar{q}=\partial_{\bar{S}}q$ is again elementary since outer faces of elementary dendrices are elementary.
+Moreover, since $C \simeq \mathsf{lr}(\bar{S})$,
+it is hence 
+$\langle \partial_r p \rangle = 
+\langle \partial_C q \rangle =
+\langle \partial_r \bar{q} \rangle$.
+Since we are assuming $\langle p \rangle$ canonical,
+it is tautological from Remark \ref{PUSHOPPRRST REM} that
+$\langle p \rangle = 
+\langle \left(\partial_r p\right)^a \rangle = 
+\langle \left(\partial_r q\right)^a \rangle =
+\langle q^a \rangle$,
+and thus Remark \ref{ELEMLABEL REM}
+implies that 
+$\langle p \rangle = 
+\langle q^a \rangle \subseteq \langle q \rangle$, as desired.
 
 
 For the ``if'' direction,
-note first that the assumption $\langle p \rangle = \langle p^a \rangle$ guarantees that $\langle p \rangle$ is elementary.
-Now choose
-elementary $\langle q \rangle \subseteq \langle p\rangle$
-with $\langle \partial_r q \rangle = \langle \partial_r p \rangle$.
-By definition of $p^a,q^a$ it is then
-$\langle q^a \rangle = \langle p^a\rangle$, and since
-$\langle q \rangle$ is elementary it is
-$\langle q^a \rangle \subseteq \langle q \rangle$.
-But we then have
-$\langle p^a \rangle = \langle q^a \rangle \subseteq \langle q \rangle \subseteq \langle p \rangle$,
-so that the assumption 
-$\langle p \rangle = \langle p^a \rangle$
-implies $\langle q \rangle = \langle p \rangle$, as desired.
+suppose the representative $p$ is non-degenerate and let
+$T^a \to T$ be as in Remark \ref{ELEMLABEL REM}.
+Writing $T^a \to T' \to T$ for the 
+``degeneracy followed by inner face'' factorization, 
+$T'$ inherits a $\{\O,B\}$-labeling from $T^a$ and both maps in the factorization are tall planar $B$-inert label maps, 
+so that $p' = \partial_{T'} p$ is again elementary
+and 
+$\langle \partial_{r} p' \rangle =
+\langle \partial_{r} p \rangle $. 
+The assumption then implies it is 
+$\langle p \rangle \subseteq \langle p' \rangle$
+and thus 
+$\langle p \rangle = \langle q \rangle$.
+But since $p$ was assumed non-degenerate, this is only possible is the face map $T' \to T$ is an isomorphism, i.e. if
+$T_a \to T$ is a degeneracy, i.e. if
+$\langle p \rangle = \langle p^a \rangle$.
 \end{proof}
 
 
-{\color{red} HERE!}
-
-{\color{purple} redefine canonical subpresheaves 
-in terms of alternating dendrices}
-
-
-
-Combining Lemma \ref{CANCHAR LEM} with 
-Remark \ref{PUSHOPPRRST REM}
-yields the following.
-
-
-\begin{corollary}
-For each reduced principal subpresheaf 
-$\langle p \rangle$
-there exists a unique 
-canonical principal subpresheaf 
-$\langle p^c \rangle$
-such that
-$\langle \partial_r p^c \rangle = \langle p \rangle$.
-
-{\color{red} degeneracies generate the same presheaf as the thing they are degenerate on...}
-
-
-\end{corollary}
 
 
 
 
 {\color{red} HERE}
-
-\begin{remark}
-The inclusion
-$\langle \partial_r p \rangle \subseteq \langle p \rangle$ can almost always be realized by a inner face map unless $\partial_r p$ is a unit.
-\end{remark}
-
-
-
 
 
 
@@ -5989,10 +5962,6 @@ $T \simeq T^e - E$ for some $E \subseteq \Xi^{p^e}$.
 \end{lemma}
 
 
-
-\begin{remark}
-{\color{red} reduced subpresheaf can't correspond to a unit operation.}
-\end{remark}
 
 
 
@@ -6520,7 +6489,7 @@ thus establishing (Ch0.1) and finishing the proof.
 
 
 
-
+\iffalse%
 
 
 
@@ -11246,7 +11215,7 @@ is encoded by the diagram
 
 
 
-
+\fi%
 
 
 
