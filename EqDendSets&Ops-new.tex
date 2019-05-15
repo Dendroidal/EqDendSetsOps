@@ -2877,13 +2877,15 @@ the operad $\mathbb F_\Gamma[X]$ has the universal property that for all $\O \in
 \end{equation}
 
 Define $I_{\F,loc}$ and $J_{\F, loc}$ to be the sets
-\begin{align*}
-  \set{\mathbb F_\Gamma[\Gamma/\Gamma \cdot (A \xrightarrow{i} B)]}_{\Gamma, i}
-  \qquad \mbox{ and } \qquad
-  \set{\mathbb F_\Gamma[\Gamma/\Gamma \cdot (A \xrightarrow{j} B)]}_{\Gamma,j}
-\end{align*}
-where $\Gamma$ runs over all subgroups of $G \times \Sigma_n$ in $\F_n$,
+\begin{equation}
+      \label{FGAMMA_EQ}
+      \set{\mathbb F_\Gamma[\Gamma/\Gamma \cdot (A \xrightarrow{i} B)]}_{\Gamma, i}
+      \qquad \mbox{ and } \qquad
+      \set{\mathbb F_\Gamma[\Gamma/\Gamma \cdot (A \xrightarrow{j} B)]}_{\Gamma,j}
+\end{equation}
+where $\Gamma$ runs over all subgroups of $G \times \Sigma_n$ in $\F_n$, $n \geq 0$,
 and $i$ (resp. $j$) runs over all generating (trivial) cofibrations in $\V$.
+\todo[inline]{aren't these just $\Omega(C) \times X$? MAKE THIS CLEAR}
 
 The universal property makes the following immediate.
 \begin{corollary}[{cf. \cite[Remark 4.6]{Cav}, \cite[1.16]{CM13b}}]
@@ -5347,6 +5349,20 @@ produce a lifting problem against a map in (TA1) which has a solution, providing
             \]
 \end{proof}
 
+\begin{remark}
+      \label{TAUCOFIB_REM}
+      We note that $\tau \colon \mathsf{PreOp}^G \to \sOp^G$
+      sends the collection (TC1) and (TC2) surjectively to the collection of generating cofibrations, namely
+      \begin{gather*}
+            \tau\Big(\varnothing \to G/H \cdot \Omega[\eta]\Big) = \Big(\varnothing \to \Omega(G/H \cdot \eta)\Big),
+            \\
+            \tau\Big(\Omega[C] \otimes_\Fin (\partial \Delta[n] \to \Delta[n])\Big) =
+            \mathbb F_{\Gamma_C} \Big( \Gamma_C / \Gamma_C \cdot (\partial \Delta[n] \to \Delta[n]) \Big) = \Omega(C) \times \big(\partial \Delta[n] \to \Delta[n]\Big)
+      \end{gather*}
+      where $\Gamma_C$ is the graph subgroup of $G \times \Sigma_n$ such that $C \simeq G \cdot C_n / \Gamma$,
+      and $\mathbb F_\Gamma: \sSet^\Gamma \to \sOp^G$ is as in the discussion around \eqref{FGAMMA_EQ}.
+      Moreover, as $\tau$ sends (TC3) to isomorphisms, $\tau$ also preserves all cofibrations.
+\end{remark}
 
 The following results are adapted from \cite{JT07} (see Proposition 7.15 therein). 
 
@@ -5387,7 +5403,7 @@ and $G$ preserves fibrations between fibrant objects.
 
 
 \begin{lemma}
-	Let $A \to B$ be a tame cofibration in $\mathsf{PreOp}^G$, 
+	Let $A \to B$ be a tame cofibration between tame cofibrant objects in $\mathsf{PreOp}^G$, 
 	$\mathcal{O} \in \mathsf{sOp}^G$ a $\Sigma$-cofibrant 
 	$G$-operad,
 	and consider a pushout diagram in $\mathsf{sOp}^G$ of the form
@@ -5425,20 +5441,18 @@ is a weak equivalence.
 	and 2-out-of-3 hence implies that \eqref{UNITEQUIV EQ} is a weak equivalence.
 
 	The most interesting case is then (TC2), 
-	in which case it is well known \todo[inline]{well known?}
-        \todo{need that $\tau$ is left Quillen (proved below), and cofibrations out of $\Sigma$-cofibrant are $\Sigma$-cofibrations (clear)}
-        that
-	$\mathcal{O} \to \mathcal{P}$ is a $\Sigma$-cofibration and
-	each of the levels
-$(B \amalg_{A} N \mathcal{O})_n
-	\to 
-(N \mathcal{P})_n$
-for $n \geq 0$
-is an equivalence in $\mathsf{dSet}^G$ by (an iteration of)
-Proposition \ref{KEYPR PROP}, 
-showing that \eqref{UNITEQUIV EQ} is in fact a dendroidal equivalence, and thus also a complete equivalence.
-
-	We now turn to the case of $A \to B$ a general cofibration between cofibrant objects \todo{not the hypothesis in the statement}.
+	in which case it is straightforward that $\mathcal{O} \to \mathcal{P}$ is a $\Sigma$-cofibration
+        \todo[inline]{using the fact that $\tau$ preserves cofibrations and that cofibrations with $\Sigma$-cofibrant source are $\Sigma$-cofibrations - how hard is this last statement?}
+	and each of the levels
+        $(B \amalg_{A} N \mathcal{O})_n
+        \to 
+        (N \mathcal{P})_n$
+        for $n \geq 0$
+        is an equivalence in $\mathsf{dSet}^G$ by (an iteration of)
+        Proposition \ref{KEYPR PROP}, 
+        showing that \eqref{UNITEQUIV EQ} is in fact a dendroidal equivalence, and thus also a complete equivalence.
+        
+        We now turn to the case of $A \to B$ a general cofibration between cofibrant objects.
 	As usual, $A \to B$ is a retract of a transfinite composition of pushouts of generating cofibrations.
 	Since the conclusions of the result are invariant under retracts,
 	we are free to assume that $A \to B$ is a transfinite composite
@@ -5501,9 +5515,18 @@ But $A_{\beta} \to A_{\beta + 1}$ is assumed to be a pushout of a map in (TC1),(
 Setting $A = \emptyset $, $\mathcal{O}= \emptyset$ in the previous result yields the following.
 
 \begin{corollary}\label{KEYEQUIV COR}
-	If $B \in \mathsf{PreOp}^G$ is tame cofibrant, then 
-	$B \to N \tau B$ is a weak equivalence.
+      If $B \in \mathsf{PreOp}^G$ is tame cofibrant, then 
+      $B \to N \tau B$ is a weak equivalence.
 \end{corollary}
+
+\begin{corollary}
+      Cofibrations are tame cofibrations.
+\end{corollary}
+\begin{proof}
+      By Remark \ref{TAUCOFIB}, all generating cofibrations are of the form $\tau(A\to B)$ for $A \to B$ a tame cofibration,
+      and thus all
+      \todo[inline]{come back!}
+\end{proof}
 
 \begin{proposition}\label{PREQUIEQUIV PROP}
 The adjunction
