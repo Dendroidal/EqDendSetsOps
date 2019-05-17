@@ -862,18 +862,21 @@ is the standard map, which is clear.
 
 
 \begin{example}
-Letting $\mathcal{O} \in \mathsf{sOp}$ be a simplicial colored operad
-and $K \in \mathsf{sSet}$,
-one has a pointwise simplicial tensoring
-$\{K,\O\}_{\mathsf{F}} \in \mathsf{sOp}$
-given by
-$\{K,\O\}_{\mathsf{F}}(\ksi) = 
-\left(\O(\ksi)\right)^K$
-for each signature $\ksi$.
-
-$\{K,-\}_{\mathsf{F}}\colon \mathsf{sOp} \to \mathsf{sOp}$
-is then a fibered right adjoint which preserves pullback arrows,
-and thus the corresponding adjunction is also fibered.
+      \label{COTENS_EX}
+      Letting $\mathcal{O} \in \mathsf{sOp}$ be a simplicial colored operad
+      and $K \in \mathsf{sSet}$,
+      one has a pointwise simplicial cotensoring
+      $\{K,\O\}_{\mathsf{F}} \in \mathsf{sOp}$
+      given by
+      $\{K,\O\}_{\mathsf{F}}(\vect C) = 
+      \left(\O(\vect C)\right)^K$
+      for each signature $\vect C$.
+      %
+      $\{K,-\}_{\mathsf{F}}\colon \mathsf{sOp} \to \mathsf{sOp}$
+      is then a fibered right adjoint which preserves pullback arrows,
+      and thus the corresponding adjunction is also fibered.
+      
+      We warn that the tensoring left adjoint, denoted $(-) \odot_{\Fin} K: \sOp \to \sOp$, is in general \textit{not} levelwise.
 \end{example}
 
 
@@ -2251,12 +2254,12 @@ For full generality, we introduce the following terminology.
 
 Extending this discussion to the many-colored setting, we note that
 any $(G, \Sigma)$-family automatically extends to a family for the groupoid $\mathcal D = G \ltimes \Sigma_{\mathfrak C}^{op}$,
-by defining for any $\mathfrak C$-signature $C = (c_1,\dots,c_n;c_0)$ of length $n+1$,
+by defining for any $\mathfrak C$-signature $\vect C = (c_1,\dots,c_n;c_0)$ of length $n+1$,
 \begin{equation}
       \label{FAMC_DEF_EQ}
-      \F_C = \F_n \cap \Aut_{G \ltimes \Sigma_{\mathfrak C}}(C)
+      \F_C = \F_n \cap \Aut_{G \ltimes \Sigma_{\mathfrak C}}(\vect C)
 \end{equation}
-the subgroups $\Gamma \in \F_n$ such that $\Gamma \leq \Aut_{G \times \Sigma_n}(C)$.
+the subgroups $\Gamma \in \F_n$ such that $\Gamma \leq \Aut_{G \times \Sigma_n}(\vect C)$.
 Applying Proposition \ref{TRANS_MODEL_PROP} induces an $\F$-model structure on the category of $\mathfrak C$-symmetric sequences in $\V$.
 
 \begin{definition}
@@ -2946,13 +2949,10 @@ where $\1$ defined as in Definition \ref{PL_ES_DEFN}, and $\mathbb{G}$ is a gene
       \item Finally, we observe that for $\Gamma$ a graph subgroup,
             the left adjoint to the evaluation map $\Sym^{G, \mathfrak C}(\V)$ on trivial $\Gamma$-sets is easily understood,
             and hence we have that
-            $\mathbb F_\Gamma(\Gamma/\Gamma \cdot A) = \Omega(C) \cdot A$,
-            where $C = C_\Gamma$ is the $G$-corolla corresponding to $\Gamma$, and
-            \[
-                  \Op(\Set)^G \times \V \xrightarrow{(-) \cdot (-)} \longto \Op^G(\V),
-                  \qquad
-                  (\O \cdot A)(\vect C) = \O(\vect C) \cdot A.
-            \]
+            $\mathbb F_\Gamma(\Gamma/\Gamma \cdot A) = \Omega(C) \odot A$,
+            where $C = C_\Gamma$ is the $G$-corolla corresponding to $\Gamma$
+            and $\odot$ is the simplicial tensoring functor on $\sOp$ from Example \ref{COTENS_EX};
+            in this particular case, we note that this tensoring is levelwise, with $(\Omega(C) \odot A)(\vect C) = \Omega(C)(\vect C) \times A$.
       \end{enumerate}
 \end{example}
 
@@ -4747,10 +4747,11 @@ We begin with a brief overview of $G$-trees and equivariant dendroidal sets, who
 \begin{definition}
       The category $\Omega_G$ of \textit{$G$-trees} is the category of indecomposable forests with $G$-action.
       Equivalently, an object $T \in \Omega_G$ can be described as any of the following:
-      \begin{enumerate}
+      \begin{enumerate}[label = (\roman*)]
       \item A collection $T = (T_i)_{i \in R}$ of trees in $\Omega$, together with a compatible $G$-action on the whole system.
       \item A functor $T: G \ltimes R \to \Omega$ for $R = \mathbf R(T)$ the transitive $G$-set of \textit{roots} of $T$.
       \item An induction $T \simeq G \cdot_H T_e$ for some $T_e \in \Omega^H$ and $H \leq G$.
+      \item A quotient $T \simeq G \cdot U / \Gamma$ for some $U \in \Omega$ and graph subgroup $\Gamma \leq G \times \Aut(U)$.
             % \item The quotient $T \simeq (G \cdot T_e) / N$ for $N$ the graph of the homomorphism $H \to \Aut(T_e)$ encoding the $H$-action.
       \end{enumerate}
 \end{definition}
@@ -4822,8 +4823,8 @@ These two classes of maps form the basis of a model structure on $\dSet^G$.
       \item cofibrations are $G$-normal monomorphisms,
       \item fibrant objects are $G$-$\infty$-operads,
       \item fibrations between fibrant objects are precisely the maps $X \to Y$ such that the functors associated to each of the fixed-point homotopy categories $\tau j^{\**}(X^H \to Y^H)$ are categorical fibrations for all $H \leq G$.
-      \item weak equivalences are the smallest hypersaturated class\footnote{A class of maps is \textit{hypersaturated} if it is saturated and closed under 2-out-of-3.}
-            of maps containing the $G$-inner anodyne extensions and trivial fibrations.
+      \item weak equivalences are the smallest class of maps closed under 2-out-of-3 which
+            contains the $G$-inner anodyne extensions and trivial fibrations.
       \end{itemize}
 \end{theorem}
 
@@ -4843,12 +4844,235 @@ We will denote by $\mathsf{sOp}$ the category of \textit{colored simplicial oper
 and $\mathsf{sOp}^G$ the category of $G$-objects in $\sOp$.
 
 \begin{definition}
-      Let \todo[inline]{describe}
+      Describe.
 \end{definition}
 
-\begin{itemize}
-\item $\Sigma$-cofibration
-\end{itemize}
+
+
+\subsubsection{$\Sigma_G$-cofibrations}
+
+\begin{definition}
+      Given a $\mathfrak{C}$-signature $\vect C$, 
+      a subgroup 
+      $\Gamma \leq \mathsf{Aut}_{G \ltimes \Sigma_{\mathfrak{C}}^{op}}(\vect C)$
+      is called a \textit{$G$-graph subgroup} if
+      $\Gamma \cap \mathsf{Aut}_{\Sigma_{\mathfrak{C}}^{op}}(\vect C) = \**$;
+      i.e. if $\Gamma$ is a $G$-graph subgroup when consider as a subgroup of $G \times \Sigma_{|\vect C|}$.
+      
+      We write $\mathcal{F}^{\Gamma} = \{\mathcal{F}^{\Gamma}_C\}$
+      for the collection of families of $G$-graph subgroups.
+\end{definition}
+
+\begin{definition}
+      We say a map $F \colon X \to Y$ in $\Sym(\sSet)$ is a \textit{$\Sigma_G$-cofibration}
+      $F(\vect C)\colon \O(\vect C) \to \P(F_0(\vect C))$ is an $\mathcal F^\Gamma_{\vect C}$-cofibration in $\sSet^{\Aut(\vect C)}_{\F^\Gamma_{\vect  C}}$
+      for all signatures $\vect C$.
+      
+      We say a map $F \colon \O \to \P$ in $\sOp^G$ is a \textit{$\Sigma_G$-cofibration} if
+      the map on underlying symmetric sequences is.
+\end{definition}
+
+\begin{example}
+      All generating cofibrations of $\sOp^G$ are $\Sigma_G$-cofibrations,
+      as all subgroups of $G$-graph subgroups are again $G$-graph subgroups, and the genuine cofibrations in $\sSet^G_{gen}$ are the monomorphisms.
+\end{example}
+
+STUFF
+
+\begin{definition}
+      We generalize the constructions in \cite[6.13, 6.19, 6.37]{BP_geo}.
+      
+      Let $\mathcal F$, $\bar{\mathcal F}$ be $G$-graph families of $\Lambda \leq G \times \Sigma$ and $\bar\Lambda \leq G \times \bar \Sigma$, respectively.
+      We define the following four families:
+      \begin{enumerate}[label = (\roman*)]
+      \item $\mathcal \F \sqcap \bar{\mathcal F} = \pi^{\**}(\F) \cap \bar\pi^{\**}(\bar \F)$ of $\Lambda \times \bar \Lambda$,
+      \item $\mathcal F \sqcap_G \bar \F = \Delta^{\**}(\F \sqcap \bar\F)$ of $\Lambda \times_G^\lrcorner \bar\Lambda$,
+      \item $\F^{\ltimes n} = (i_e)_{\**}\big(\pi_{e,\Lambda}^{\**}(\F)\big)$ of $\Sigma_n \wr \Lambda$,
+      \item $\F^{\ltimes_G n} = (\Sigma_n \wr \Delta)^{\**}(\F^{\ltimes n})$  of $\Sigma_G \wr_G \Lambda$,
+      \end{enumerate}
+      where $\pi$, $\bar\pi$, $\Delta$, $\pi_{e, \Lambda}$, $i_e$, $\Sigma_n \wr \Delta$ are the natural maps below,
+      with $(-) \times_G^\lrcorner (-)$ denoting the fiber product over the projections $\Delta,\bar\Delta \to G$.
+      \[
+            \begin{tikzcd}
+                  \Lambda
+                  &
+                  \Lambda \times \bar \Lambda \arrow[r, "\bar\pi"] \arrow[l, "\pi"']
+                  &
+                  \bar\Lambda
+                  \\
+                  &
+                  \Lambda \times_G^\lrcorner \bar\Lambda \arrow[u, "\Delta"]
+            \end{tikzcd}
+      \]
+      \[
+            \Lambda \xleftarrow{\pi_{e,\Lambda}}
+            \Sigma_{\lambda_e} \wr \Lambda = (\Sigma_{\set{e}} \times \Lambda) \times \Sigma_{\underline{n} \setminus e} \wr \Lambda \xrightarrow{i_e}
+            \Sigma_n \wr \Lambda \xleftarrow{\Sigma_n \wr \Delta}
+            \Sigma_n \wr_G \Lambda = \Sigma_n \ltimes \Lambda^{\times_G^\lrcorner n}
+      \]
+\end{definition}
+
+\begin{proposition}[{cf. \cite[Prop. 6.40]{BP_geo}}]
+      \label{640_LEM}
+      We have left Quillen functors as below by \cite[Prop. 6.6, 6.14, 6.6]{BP_geo}.
+      \[
+            \V^{\Lambda}_\F \times \V^{\bar \Lambda}_{\bar \F} \longto
+            \V^{\Lambda \times \bar\Lambda}_{\pi^{\**}(\F)} \times \V^{\Lambda \times \bar\Lambda}_{\bar\pi^{\**}(\bar \F)} \xrightarrow{\otimes}
+            \V^{\Lambda \times \bar\Lambda}_{\F \sqcap \bar \F} \longto
+            \V^{\Lambda \times_G^\lrcorner \bar\Lambda}_{\F \sqcap_G \bar\F}.
+      \]
+\end{proposition}
+
+\begin{proposition}[{cf. \cite[Prop. 6.41]{BP_geo}}]
+      \label{641_LEM}
+      If $f$ is an $\F$ (trivial) cofibration in $\V^{\Lambda}_\F$, then $f^{\square n}$ is an $\F^{\ltimes_G n}$ (trivial) cofibration in $\V^{\Sigma_n \wr_G \Lambda}_{\F^{\ltimes_G n}}$.
+\end{proposition}
+\begin{proof}
+      We have a composite of left Quillen functors by \cite[Prop. 6.24, 6.6]{BP_geo}.
+      \[
+            \V^{\Lambda}_{\F} \longto \V^{\Sigma_n \wr \Lambda}_{\F^{\ltimes n}} \longto \V^{\Sigma_n \wr_G \Lambda}_{\F^{\ltimes_G n}}.
+      \]
+\end{proof}
+
+\todo[inline]{introduce $Aut(T)$ and colored-version  earlier}
+
+\begin{remark}[{cf. \cite[Remark 6.48]{BP_geo}}]
+      Let $T \in \Omega$. Then we have a grafting decomposition $T \simeq C \amalg (T_i)$ for $C \in \Sigma$ and $T_i \in \Omega$.
+      Letting $\lambda$ denote the partition $\boldsymbol{L}(C) = \lambda_1 \amalg \dots \amalg \lambda_k$ such that
+      $i$,$j$ are in the same class iff $T_i \simeq T_j$.
+      Picking representatives $i_j \in \lambda_j$, we thus have a decomposition
+      \[
+            \Aut(T) \simeq \Sigma_{|\lambda_1|} \wr \Aut(T_{i_1}) \times \dots \times \Sigma_{|\lambda_r|} \wr \Aut(T_{i_r}).
+      \]
+      
+      For $\vect T \in \Omega_{\mathfrak C}$, we have an analogous decomposition of $\vect T$ using a partition $\vect \lambda$,
+      and controlling for the repeated $G$-action, we have
+      \[
+            \Aut(\vect T) \simeq \big(\Sigma_{|\lambda_1} \wr_G \Aut(\vect T_{i_1}\big) \times_G^\lrcorner \dots \times_G^\lrcorner \big(\Sigma_{|\lambda_s} \wr_G \Aut(\vect T_{i_s}\big)
+            %\prod_{j=1}^s{}_G \Sigma_{|\lambda_j} \wr_G \Aut(\vect T_{i_j})
+      \]
+      where $(-) \times_G^\lrcorner (-)$ again denotes the fiber product over $G$. 
+\end{remark}
+
+\begin{remark}
+      For any $\vect T \in \Omega_{\mathfrak C}$ with underlying tree $T \in \Omega$,
+      we have a natural map $\phi: \Aut(\vect T) \to G \times \Aut(T)$.
+
+      Now, fix a $G$-graph family $\mathcal F = \set{\F_n}$.
+      Following \cite[Prop. 6.44, Lemma 6.49]{BP_geo}, for any $T \in \Omega$ and $\vect T \in \Omega_{\mathfrak C}$,
+      we define the following families of subgroups of $G \times \Aut(T)$ and $\Aut(\vect T)$, respectively,
+      using the grafting decomposition as above:
+      \begin{align*}
+        \F_T &= \pi_C^{\**}(\F_C) \cap \left( \F_{T_{i_1}}^{\ltimes_G |\lambda_1|} \sqcap_G \dots \sqcap_G \F_{T_{i_r}}^{\ltimes_G |\lambda_r|} \right),
+        \\
+        \F_{\vect T} &= \pi_{\vect C}^{\**}(\F_{\vect C}) \cap \left( \F_{\vect T_{i_1}}^{\ltimes_G |\lambda_1|} \sqcap_G \dots \sqcap_G \F_{\vect T_{i_s}}^{\ltimes_G |\lambda_s|} \right),
+      \end{align*}
+      with $\pi_C \colon G \times \Aut(T) \to G \times \Aut(C)$ and $\pi_{\vect C} \colon \Aut(\vect T) \to \Aut(\vect C)$.
+\end{remark}
+
+\begin{lemma}
+      \label{FVECTT_LEM}
+      $\F_{\vect T} = \phi^{\**}(\F_T)$.
+\end{lemma}
+\begin{proof}
+      First, $\Gamma \in \F_T \cap \Aut(\vect T)$ iff $\pi_C(\Gamma) \in \Aut(\vect C)$, as the following diagram commutes.
+      \[
+            \begin{tikzcd}
+                  \Aut(\vect T) \arrow[d] \arrow[r]
+                  &
+                  G \times \Aut(T) \arrow[d]
+                  \\
+                  \Aut(\vect C) \arrow[r]
+                  &
+                  G \times \Aut(C).
+            \end{tikzcd}
+      \]
+      
+      Second, \cite[Equation (6.51)]{BP_geo} says that $\Gamma \leq G \times \Aut(T)$ is in
+      $\left(\F_{T_{i_1}}^{\ltimes_G |\lambda_1|} \sqcap_G \dots \sqcap_G \F_{T_{i_r}}^{\ltimes_G |\lambda_r|} \right)$
+      iff for all $l \in \boldsymbol{L}(C)$,
+      \[
+            \pi_{G \times \Aut(T_l)}\Big(
+            \big(\Sigma_{{e} \subseteq \boldsymbol{L}(C)} \times (G \times \Aut(T_l)) \big) \times_G^\lrcorner
+            \big( \Sigma_{\lambda \setminus \set{l}} \wr_G (G \times \Aut(T_j))_{j \neq l} \big)
+            \Big) \in \F_{T_l},
+      \]
+      where $\lambda \setminus \set{l}$ is the induction partition on $\boldsymbol{L}(C) \setminus \set{l}$ and $\pi_{G \times \Aut(T_l)}$ is the observable projection;
+      similarly $\Gamma \leq \Aut(\vect T)$ is in 
+      $\left(\F_{\vect T_{i_1}}^{\ltimes_G |\vect \lambda_1|} \sqcap_G \dots \sqcap_G \F_{\vect T_{i_s}}^{\ltimes_G |\vect \lambda_s|} \right)$
+      iff for all $l \in \boldsymbol{L}(C)$,
+      \[
+            \pi_{G \times \Aut(T_l)}\Big(
+            \big(\Sigma_{{e} \subseteq \boldsymbol{L}(C)} \times \Aut(\vect T_l)) \big) \times_G^\lrcorner
+            \big( \Sigma_{\vect \lambda \setminus \set{l}} \wr_G (\Aut(\vect T_j))_{j \neq l} \big)
+            \Big) \in \F_{\vect T_l}.
+      \]
+      While the wreath products in the above parenthesized groups may differ due to $\vect \lambda \subseteq \lambda$,
+      the projections clearly commute with the maps $\Aut(\vect T_l) \to G \times \Aut(T_l)$. 
+
+      Finally, $\Gamma \in \F_{\vect T}$ must always be in $\Aut(\vect T)$.
+
+      The result follows.
+\end{proof}
+
+\begin{proposition}[{cf. \cite[Prop. 6.52]{BP_geo}}]
+      \label{BOXVT_PROP}
+      Suppose $f_s: A_s \to B_s$, $1 \leq s \leq l$, are level $\F$ (trivial) cofibrations in $\Sym(\V)$, i.e. $f_s(\vect C)$ is a (trivial) cofibration in $\V^{\Aut(\vect C)}_{\F_{\vect C}}$ for all signatures $\vect C$.
+      Then for any $\underline{l}$-labeled signature $\vect T \in \Omega^{\underline{l}}_{\mathfrak C}$, the map
+      \[
+            f^{\square V(T)} = \mathop{\square}\limits_{1 \leq r \leq l} \mathop{\square}\limits_{v \in \boldsymbol{V}_r(T)} f_r(\vect T_v)
+      \]
+      is a (trivial) cofibration in $\V^{\Aut_{\Omega_{\mathfrak C}}(\vect T)}_{\F_{\vect T}}$.
+\end{proposition}
+\begin{proof}
+      Using the same decomposition as before, we have
+      \[
+            f^{\square V(T)} = f_{r_C}(\vect C) \square \mathop{\mathlarger{\square}}\limits_{1 \leq i \leq s}\left(f^{\square V(\vect T_{i_j})}\right)^{\square |\vect \lambda_j|}.
+      \]
+      Lemmas \ref{640_LEM}, \ref{FVECTT_LEM} and \ref{RESGEN_LEM} combine to show that the composite
+      \[
+            \V^{\Aut(\vect C)}_{\F_{\vect C}} \times \prod_{i}{}_G \V^{\Sigma_{|\vect \lambda_i|} \wr_G \Aut(\vect T_i)}_{\F_{\vect T_i}^{\ltimes_G |\vect \lambda_i|}} \xrightarrow{\quad \otimes \quad}
+            \V^{\Aut(\vect T)}_{\F_{\vect T}}
+      \]
+      is left Quillen.
+      The result now follows from Lemma \ref{641} and the induction hypothesis.
+\end{proof}
+
+
+\begin{corollary}
+      If $f \colon \O \to \P$ is a cofibration such that $\O$ is $\Sigma_G$-cofibrant, then $f$ is a $\Sigma_G$-cofibration.
+\end{corollary}
+\begin{proof}
+      Using the filtration from Proposition \ref{FILTPUSHG PROP},
+      this follows from Proposition \ref{BOXVT_PROP}, Lemma \ref{RESGEN_LEM}, and the fact that all generating cofibrations in $\sOp^G$ are $\Sigma_G$-cofibrations between $\Sigma_G$-cofibrant objects.
+\end{proof}
+
+\begin{corollary}
+      If $\O \in \sOp^G$ cofibrant, then $\O$ $\Sigma_G$-cofibrant.
+\end{corollary}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsubsection{other stuff}
+
+\todo[inline]{where does this go?}
 
 \begin{definition}
       \label{OT_DEF}
@@ -5370,10 +5594,11 @@ produce a lifting problem against a map in (TA1) which has a solution, providing
             \tau\Big(\varnothing \to G/H \cdot \Omega[\eta]\Big) = \Big(\varnothing \to \Omega(G/H \cdot \eta)\Big),
             \\
             \tau\Big(\Omega[C] \otimes_\Fin (\partial \Delta[n] \to \Delta[n])\Big) =
-            \mathbb F_{\Gamma_C} \Big( \Gamma_C / \Gamma_C \cdot (\partial \Delta[n] \to \Delta[n]) \Big) = \Omega(C) \times \big(\partial \Delta[n] \to \Delta[n]\Big)
+            \mathbb F_{\Gamma_C} \Big( \Gamma_C / \Gamma_C \cdot (\partial \Delta[n] \to \Delta[n]) \Big) = \Omega(C) \cdot \big(\partial \Delta[n] \to \Delta[n]\Big)
       \end{gather*}
       where $\Gamma_C$ is the graph subgroup of $G \times \Sigma_n$ such that $C \simeq G \cdot C_n / \Gamma$,
-      and $\mathbb F_\Gamma: \sSet^\Gamma \to \sOp^G$ is as in the discussion around \eqref{FGAMMA_EQ}.
+      $\mathbb F_\Gamma: \sSet^\Gamma \to \sOp^G$ is as in the discussion around \eqref{FGAMMA_EQ},
+      and $(-) \cdot (-)$ indicates the fibered tensoring from {\color{red} source}.
       Moreover, as $\tau$ sends (TC3) to isomorphisms, $\tau$ also preserves all cofibrations.
 \end{remark}
 
@@ -6830,7 +7055,6 @@ $\mathsf{Lan}_{\Sigma_{\partial C} \to \Sigma_{\mathfrak{C}}}$
 
 
 \begin{definition}
-      \label{COR_GGRAPH_DEF}
 	Given a $\mathfrak{C}$-corolla $C$, 
 	a subgroup 
 	$\Gamma \leq \mathsf{Aut}_{G \ltimes \Sigma_{\mathfrak{C}}^{op}}(C)$
@@ -7706,7 +7930,7 @@ Before the proof, we list some technical results yielded from \cite{BP_edss} tha
             $X$ is horizontal Reedy fibrant and all vertex maps $X(m) \to X(0)$ are Kan equivalences in $\mathsf{sSet}$
             % 
       \item \label{DIAG_LBL}
-             If $X \in \mathsf{sSet}^{\Delta^{op}}$ is horizontal Reedy firant, then
+             If $X \in \mathsf{sSet}^{\Delta^{op}}$ is horizontal Reedy fibrant, then
              $X_n \to X_0$ and hence $X_0 \to \delta^{\**}X$ is a Kan equivalence in $\mathsf{Set}^{\Delta^{op}}$.
       \end{enumerate}
 \end{lemma}
@@ -7849,7 +8073,9 @@ More generally, similar model structures exist for any (weak) indexing system.
       A \textit{weak indexing system} is a sieve\footnote{
         A subcategory $\mathcal B \subseteq \mathcal C$ is a \textit{sieve} if for all maps $A \to B$ in $\mathcal C$
         with $B \in \mathcal B$, both $A$ and $f$ are in $\mathcal B$.}
-      $\Omega_\F \subseteq \Omega_G$.
+      $\Omega_\F \subseteq \Omega_G$
+      satisfying the following Segal condition:
+      come back!
 \end{definition}
 
 Unpacking, let $\Sigma_\F \subseteq \Sigma_G$ denote the image of $\Omega_\F$ under the functor $\mathsf{lr}$.
@@ -7872,7 +8098,17 @@ Additionally, a map is a \textit{trivial $\F$-fibration} (resp. \textit{$\F$-$\i
 \end{theorem}
 
 
+For $\sOp^G_\F$:
+\begin{enumerate}
+\item $\Omega(T)$ is $\F$-cofibrant iff $\Omega[T]$ is $\F$-tame cofibrant iff $\Omega(T)$ is $\Sigma_\F$-cofibrant iff $T \in \Sigma_\F$.
+\item all generating (trivial) $\F$-cofibrations are $\Sigma_\F$-cofibrations.
+\end{enumerate}
+
+
 \subsection{Changes to proofs}
+
+
+
 For COMUOTOHOM PROP: replace all instances of $\Omega_G$ with $\Omega_{\mathcal F}$ - in particular, $X \to Y$ is a simplicial equivalence in $\mathsf{sdSet}^G_{\mathcal F}$ iff $X(\Omega[T]) \to Y(\Omega[T])$ is a Kan equivalence for all $T \in \Omega_{\mathcal F}$. 
 
 
