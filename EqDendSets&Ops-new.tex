@@ -4884,11 +4884,14 @@ STUFF
       
       Let $\mathcal F$, $\bar{\mathcal F}$ be $G$-graph families of $\Lambda \leq G \times \Sigma$ and $\bar\Lambda \leq G \times \bar \Sigma$, respectively.
       We define the following four families:
-      \[
-            \mathcal \F \sqcap \bar{\mathcal F} = \pi^{\**}(\F) \cap \bar\pi^{\**}(\bar \F),
-            \qquad
-            \mathcal F \sqcap_G \bar \F = \Delta^{\**}(\F \sqcap \bar\F),
-      \]
+      \begin{enumerate}[label = (\roman*)]
+      \item $\mathcal \F \sqcap \bar{\mathcal F} = \pi^{\**}(\F) \cap \bar\pi^{\**}(\bar \F)$ of $\Lambda \times \bar \Lambda$,
+      \item $\mathcal F \sqcap_G \bar \F = \Delta^{\**}(\F \sqcap \bar\F)$ of $\Lambda \times_G^\lrcorner \bar\Lambda$,
+      \item $\F^{\ltimes n} = (i_e)_{\**}\big(\pi_{e,\Lambda}^{\**}(\F)\big)$ of $\Sigma_n \wr \Lambda$,
+      \item $\F^{\ltimes_G n} = (\Sigma_n \wr \Delta)^{\**}(\F^{\ltimes n})$  of $\Sigma_G \wr_G \Lambda$,
+      \end{enumerate}
+      where $\pi$, $\bar\pi$, $\Delta$, $\pi_{e, \Lambda}$, $i_e$, $\Sigma_n \wr \Delta$ are the natural maps below,
+      with $(-) \times_G^\lrcorner (-)$ denoting the fiber product over the projections $\Delta,\bar\Delta \to G$.
       \[
             \begin{tikzcd}
                   \Lambda
@@ -4898,30 +4901,25 @@ STUFF
                   \bar\Lambda
                   \\
                   &
-                  \Lambda \times_G \bar\Lambda \arrow[u, "\Delta"]
+                  \Lambda \times_G^\lrcorner \bar\Lambda \arrow[u, "\Delta"]
             \end{tikzcd}
-      \]
-      \[
-            \F^{\ltimes n} = (i_e)_{\**}\big(\pi_{e,\Lambda}^{\**}(\F)\big),
-            \qquad
-            \F^{\ltimes_G n} = \Delta^{\**}(\F^{\ltimes n}).
       \]
       \[
             \Lambda \xleftarrow{\pi_{e,\Lambda}}
             \Sigma_{\lambda_e} \wr \Lambda = (\Sigma_{\set{e}} \times \Lambda) \times \Sigma_{\underline{n} \setminus e} \wr \Lambda \xrightarrow{i_e}
-            \Sigma_n \wr \Lambda \xleftarrow{\Delta}
-            \Sigma_n \wr_G \Lambda = \Sigma_n \ltimes \Lambda^{\times_G n}
+            \Sigma_n \wr \Lambda \xleftarrow{\Sigma_n \wr \Delta}
+            \Sigma_n \wr_G \Lambda = \Sigma_n \ltimes \Lambda^{\times_G^\lrcorner n}
       \]
 \end{definition}
 
 \begin{proposition}[{cf. \cite[Prop. 6.40]{BP_geo}}]
       \label{640_LEM}
-      We have left Quillen functors as below by \cite[Prop. 6.6, 6.14, 6.6]{BP_geo}].
+      We have left Quillen functors as below by \cite[Prop. 6.6, 6.14, 6.6]{BP_geo}.
       \[
             \V^{\Lambda}_\F \times \V^{\bar \Lambda}_{\bar \F} \longto
             \V^{\Lambda \times \bar\Lambda}_{\pi^{\**}(\F)} \times \V^{\Lambda \times \bar\Lambda}_{\bar\pi^{\**}(\bar \F)} \xrightarrow{\otimes}
             \V^{\Lambda \times \bar\Lambda}_{\F \sqcap \bar \F} \longto
-            \V^{\Lambda \times_G \bar\Lambda}_{\F \sqcap_G \bar\F}.
+            \V^{\Lambda \times_G^\lrcorner \bar\Lambda}_{\F \sqcap_G \bar\F}.
       \]
 \end{proposition}
 
@@ -4943,13 +4941,17 @@ STUFF
       Letting $\lambda$ denote the partition $\boldsymbol{L}(C) = \lambda_1 \amalg \dots \amalg \lambda_k$ such that
       $i$,$j$ are in the same class iff $T_i \simeq T_j$.
       Picking representatives $i_j \in \lambda_j$, we thus have a decomposition
-      $\Aut(T) \simeq \prod_{j=1}^r \Sigma_{|\lambda_j|} \wr \Aut(T_{i_j})$.
-
+      \[
+            \Aut(T) \simeq \Sigma_{|\lambda_1|} \wr \Aut(T_{i_1}) \times \dots \times \Sigma_{|\lambda_r|} \wr \Aut(T_{i_r}).
+      \]
+      
       For $\vect T \in \Omega_{\mathfrak C}$, we have an analogous decomposition of $\vect T$ using a partition $\vect \lambda$,
       and controlling for the repeated $G$-action, we have
       \[
-            \Aut(\vect T) \simeq \prod_{j=1}^s{}_G \Sigma_{|lambda_j} \wr_G \Aut(\vect T_{i_j})
+            \Aut(\vect T) \simeq \big(\Sigma_{|\lambda_1} \wr_G \Aut(\vect T_{i_1}\big) \times_G^\lrcorner \dots \times_G^\lrcorner \big(\Sigma_{|\lambda_s} \wr_G \Aut(\vect T_{i_s}\big)
+            %\prod_{j=1}^s{}_G \Sigma_{|\lambda_j} \wr_G \Aut(\vect T_{i_j})
       \]
+      where $(-) \times_G^\lrcorner (-)$ again denotes the fiber product over $G$. 
 \end{remark}
 
 \begin{remark}
@@ -4958,14 +4960,14 @@ STUFF
 
       Now, fix a $G$-graph family $\mathcal F = \set{\F_n}$.
       Following \cite[Prop. 6.44, Lemma 6.49]{BP_geo}, for any $T \in \Omega$ and $\vect T \in \Omega_{\mathfrak C}$,
-      we define the following families of subgroups of $G \times \Aut(T)$ and $\Aut(\vect T)$, respectively:
-      using the grafting decomposition as above;
+      we define the following families of subgroups of $G \times \Aut(T)$ and $\Aut(\vect T)$, respectively,
+      using the grafting decomposition as above:
       \begin{align*}
-        \F_T &= \pi^{\**}(\F_C) \cap \left( \F_{T_{i_1}}^{\ltimes_G |\lambda_1|} \sqcap_G \dots \sqcap_G \F_{T_{i_r}}^{\ltimes_G |\lambda_r|} \right),
+        \F_T &= \pi_C^{\**}(\F_C) \cap \left( \F_{T_{i_1}}^{\ltimes_G |\lambda_1|} \sqcap_G \dots \sqcap_G \F_{T_{i_r}}^{\ltimes_G |\lambda_r|} \right),
         \\
-        \F_{\vect T} &= \pi^{\**}(\F_{\vect C}) \cap \left( \F_{\vect T_{i_1}}^{\ltimes_G |\lambda_1|} \sqcap_G \dots \sqcap_G \F_{\vect T_{i_s}}^{\ltimes_G |\lambda_s|} \right),
+        \F_{\vect T} &= \pi_{\vect C}^{\**}(\F_{\vect C}) \cap \left( \F_{\vect T_{i_1}}^{\ltimes_G |\lambda_1|} \sqcap_G \dots \sqcap_G \F_{\vect T_{i_s}}^{\ltimes_G |\lambda_s|} \right),
       \end{align*}
-      where $\pi$ denotes either map $G \times \Aut(T) \to G \times \Aut(C)$ or $\Aut(\vect T) \to \Aut(\vect C)$.
+      with $\pi_C \colon G \times \Aut(T) \to G \times \Aut(C)$ and $\pi_{\vect C} \colon \Aut(\vect T) \to \Aut(\vect C)$.
 \end{remark}
 
 \begin{lemma}
@@ -4973,7 +4975,7 @@ STUFF
       $\F_{\vect T} = \phi^{\**}(\F_T)$.
 \end{lemma}
 \begin{proof}
-      First, $\Gamma \in \F_T \cap \Aut(\vect T)$ iff $\pi_C(\Gamma) \in \Aut(\vect C)$.
+      First, $\Gamma \in \F_T \cap \Aut(\vect T)$ iff $\pi_C(\Gamma) \in \Aut(\vect C)$, as the following diagram commutes.
       \[
             \begin{tikzcd}
                   \Aut(\vect T) \arrow[d] \arrow[r]
@@ -4991,8 +4993,8 @@ STUFF
       iff for all $l \in \boldsymbol{L}(C)$,
       \[
             \pi_{G \times \Aut(T_l)}\Big(
-            \big(\Sigma_{{e} \subseteq \boldsymbol{L}(C)} \times (G \times \Aut(T_l)) \big) \times_G
-            \big( \Sigma_{\lambda \setminus \set{l}} \wr_G \prod_{j \neq l}{}_G G \times \Aut(T_j)\big)
+            \big(\Sigma_{{e} \subseteq \boldsymbol{L}(C)} \times (G \times \Aut(T_l)) \big) \times_G^\lrcorner
+            \big( \Sigma_{\lambda \setminus \set{l}} \wr_G (G \times \Aut(T_j))_{j \neq l} \big)
             \Big) \in \F_{T_l},
       \]
       where $\lambda \setminus \set{l}$ is the induction partition on $\boldsymbol{L}(C) \setminus \set{l}$ and $\pi_{G \times \Aut(T_l)}$ is the observable projection;
@@ -5001,8 +5003,8 @@ STUFF
       iff for all $l \in \boldsymbol{L}(C)$,
       \[
             \pi_{G \times \Aut(T_l)}\Big(
-            \big(\Sigma_{{e} \subseteq \boldsymbol{L}(C)} \times \Aut(\vect T_l)) \big) \times_G
-            \big( \Sigma_{\vect \lambda \setminus \set{l}} \wr_G \prod_{j \neq l}{}_G \Aut(\vect T_j)\big)
+            \big(\Sigma_{{e} \subseteq \boldsymbol{L}(C)} \times \Aut(\vect T_l)) \big) \times_G^\lrcorner
+            \big( \Sigma_{\vect \lambda \setminus \set{l}} \wr_G (\Aut(\vect T_j))_{j \neq l} \big)
             \Big) \in \F_{\vect T_l}.
       \]
       While the wreath products in the above parenthesized groups may differ due to $\vect \lambda \subseteq \lambda$,
@@ -5045,6 +5047,9 @@ STUFF
       this follows from Proposition \ref{BOXVT_PROP}, Lemma \ref{RESGEN_LEM}, and the fact that all generating cofibrations in $\sOp^G$ are $\Sigma_G$-cofibrations between $\Sigma_G$-cofibrant objects.
 \end{proof}
 
+\begin{corollary}
+      If $\O \in \sOp^G$ cofibrant, then $\O$ $\Sigma_G$-cofibrant.
+\end{corollary}
 
 
 
