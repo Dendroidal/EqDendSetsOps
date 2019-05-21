@@ -876,7 +876,7 @@ is the standard map, which is clear.
       is then a fibered right adjoint which preserves pullback arrows,
       and thus the corresponding adjunction is also fibered.
       
-      We warn that the tensoring left adjoint, denoted $(-) \odot_{\Fin} K: \sOp \to \sOp$, is in general \textit{not} levelwise.
+      We warn that the tensoring left adjoint, denoted $(-) \otimes_{\Fin} K: \sOp \to \sOp$, is in general \textit{not} levelwise.
 \end{example}
 
 
@@ -4932,7 +4932,7 @@ and $\mathsf{sOp}^G$ the category of $G$-objects in $\sOp$.
       $\Gamma \cap \mathsf{Aut}_{\Sigma_{\mathfrak{C}}^{op}}(\vect C) = \**$;
       i.e. if $\Gamma$ is a $G$-graph subgroup when consider as a subgroup of $G \times \Sigma_{|\vect C|}$.
       
-      We write $\mathcal{F}^{\Gamma} = \{\mathcal{F}^{\Gamma}_C\}$
+      We write $\mathcal{F}^{\Gamma} = \{\mathcal{F}^{\Gamma}_{\vect C}\}$
       for the collection of families of $G$-graph subgroups.
 
       A \textit{$G$-graph family} is any collection of subfamilies of $\F^\Gamma$.
@@ -5471,15 +5471,63 @@ More concisely, $X \otimes_{\mathsf{F}} K$ is defined by the pushout
 \end{tikzcd}
 \]
 where $\mathsf{sk}_{\eta}X$ is the 0-skeleton of $X$ in the equivariant dendroidal Reedy direction;
-explicitly, $\mathsf{sk}_{\eta}X(U) = X(\eta)$ if $U \in \Delta$ is a linear tree, and $\varnothing$ otherwise.
+explicitly, $\mathsf{sk}_{\eta}X(U) = X(\eta)$ if $U = [n]$ is a linear tree, and $\varnothing$ otherwise.
 \end{remark}
 
 
+
+
+\begin{lemma}
+      \label{TAUOTIMES_LEM}
+      For all $X \in \mathsf{PreOp}^G$ and $K \in \sSet$, $\tau(X \otimes_\Fin K) = \tau(X) \otimes_\Fin K$,
+      with the second $\otimes_\Fin$ defined as in Example \ref{COTENS_EX}.
+\end{lemma}
+\begin{proof}
+      We want to show the square of left adjoints on the left below commutes;
+      instead, we show the square of right adjoints on the right commutes,
+      \[
+            \begin{tikzcd}
+                  \mathsf{PreOp}^G \arrow[d, "\tau"'] \arrow[r, "{(-) \otimes_\Fin K}"]
+                  &
+                  \mathsf{PreOp}^G \arrow[d, "\tau"]
+                  & % ----------
+                  \mathsf{PreOp}^G
+                  &
+                  \mathsf{PreOp}^G \arrow[l, "\set{K,-}_\Fin"']
+                  \\
+                  \sOp^G \arrow[r, "\set{K,-}_\Fin"]
+                  &
+                  \sOp^G
+                  & %----------
+                  \sOp^G \arrow[u, "N"]
+                  &
+                  \sOp^G \arrow[l, "\set{K,-}_\Fin"'] \arrow[u, "N"']
+            \end{tikzcd}
+      \]
+      where $\set{K, X}_\Fin$ on $\mathsf{PreOp}^G$ is the right adjoint of $\otimes_\Fin$ defined as the pullback
+      \[
+            \begin{tikzcd}
+                  \set{K,Y}_\Fin \arrow[d] \arrow[r]
+                  &
+                  \mathsf{csk}_\eta Y \arrow[d]
+                  \\
+                  \Map(K, Y) \arrow[r]
+                  &
+                  \Map(K, \mathsf{csk}_\eta Y)
+            \end{tikzcd}
+      \]
+      and $\Map(K, Y) \in \mathsf{PreOp}^G$ is defined by $\Map(K,Y)(T) = \Map(K, Y(T))$.
+
+      We observe that $N\set{K,\O}(U)$ consists of a choice of $\mathfrak C_\O$-signatures $(\vect C_v)$ for each $v \in V(U)$ plus choices of maps $\phi_v \in \Map(K, \O(\vect C_v))$.
+      This differs from $\Map(K, N\O)$ precisely in that these choices of signatures are made universally for each $v \in V(U)$,
+      which is exactly the condition imposed by the pullback.
+\end{proof}
+      
 \begin{remark}
 For fixed $K \in \mathsf{sSet}$, the functor
 $(-) \otimes_{\mathsf{F}} K
 \colon \mathsf{PreOp}^G \to \mathsf{PreOp}^G$
-preserves all colimits (indeed, it is not hard to build the right adjoint explicitly).
+preserves all colimits. % (indeed, it is not hard to build the right adjoint explicitly).
 
 However, for a fixed $X \in \mathsf{PreOp}^G$,
 the functor 
@@ -5737,19 +5785,20 @@ produce a lifting problem against a map in (TA1) which has a solution, providing
             \]
 \end{proof}
 
+
 \begin{remark}
-      \label{TAUCOFIB_REM}
-      We note that $\tau \colon \mathsf{PreOp}^G \to \sOp^G$
-      sends the collection of arrows in (TC1) and (TC2) surjectively onto the collection of generating cofibrations, namely
+      \label{TAUCOFIB_REM}        
+      We note that by Lemma \ref{TAUOTIMES_LEM}, $\tau \colon \mathsf{PreOp}^G \to \sOp^G$
+      sends the collection of arrows in (TC1) and (TC2) surjectively onto the collection of generating cofibrations:
       \begin{gather*}
             \tau\Big(\varnothing \to G/H \cdot \Omega[\eta]\Big) = \Big(\varnothing \to \Omega(G/H \cdot \eta)\Big),
             \\
             \tau\Big(\Omega[C] \otimes_\Fin (\partial \Delta[n] \to \Delta[n])\Big) =
-            \mathbb F_{\Gamma_C} \Big( \Gamma_C / \Gamma_C \cdot (\partial \Delta[n] \to \Delta[n]) \Big) = \Omega(C) \cdot \big(\partial \Delta[n] \to \Delta[n]\Big)
+            \Omega(C) \otimes_\Fin \big(\partial \Delta[n] \to \Delta[n]\Big) =
+            \mathbb F_{\Gamma_C} \Big( \Gamma_C / \Gamma_C \cdot (\partial \Delta[n] \to \Delta[n]) \Big)
       \end{gather*}
-      where $\Gamma_C$ is the graph subgroup of $G \times \Sigma_n$ such that $C \simeq G \odot C_n / \Gamma$,
-      $\mathbb F_\Gamma: \sSet^\Gamma \to \sOp^G$ is as in the discussion around \eqref{FGAMMA_EQ},
-      and $(-) \odot (-)$ indicates the fibered tensoring from Example \ref{COTENS_EX}.
+      where $\Gamma_C$ is the graph subgroup of $G \times \Sigma_n$ such that $C \simeq G \cdot C_n / \Gamma$, and
+      $\mathbb F_\Gamma: \sSet^\Gamma \to \sOp^G$ is as in the discussion around \eqref{FGAMMA_EQ}.
       Moreover, as $\tau$ sends (TC3) to isomorphisms, $\tau$ also preserves all cofibrations.
 \end{remark}
 
