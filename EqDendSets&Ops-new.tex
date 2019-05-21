@@ -2191,6 +2191,12 @@ For completeness, we recall a main result of \cite{Ste16}, which transfers model
       \end{itemize}
 \end{theorem}      
 
+\begin{notation}
+      When $\F = \F_{all}$ is the set of all subgroups of $G$, we denote the model structure $\V^{G}_{\F_{all}}$ simply by $\V^G$,
+      and refer to it as the \textit{genuine} or \textit{fine} model structure on $\V^G$,
+      with genuine (trivial) (co)fibrations and genuine weak equivalences.
+\end{notation}
+
 This result formally extends to diagrams $\V^{\mathcal D}$ where $\mathcal D$ is a groupoid.
 \begin{definition}
       For any groupoid $\mathcal D$, a \textit{family} of subgroups of $\mathcal D$ is
@@ -2306,44 +2312,110 @@ where $\mathbb F^G_{\mathfrak C}$ is the fiber of the cartesian monad $\mathbb F
 described explicitly in \eqref{FGC_EQ}.
 
 This transfer will follow much in the same was as in \cite{BP_geo};
-we relegate the technical discussion of this monad $\mathbb F^G$ to Appendix \ref{MONAD_APDX}.
-
+we relegate the technical algebraic discussion of this monad $\mathbb F^G$ to Appendix \ref{MONAD_APDX}.
+% ------------------------------ homotopy stuff ------------------------------
+In the remainder of this section, we will make homotopical conclusions from that work.
+% We end this section by building the first step in our understanding of the homotopical nature of this filtration.
+% Again, the results from \cite{BP_geo} are sufficiently robust.
 
 \begin{definition}
-      We say $X \to Y \in \Sym^{G, \mathfrak C}(\V)$ is a \textit{level genuine cofibration} if for each $C \in G \ltimes \SC^{op}$,
-      $X(C) \to Y(C)$ is a genuine cofibration in $\V^{\Aut(C)}$;
+      We say $X \to Y \in \Sym^{G, \mathfrak C}(\V)$ is a \textit{level genuine (trivial) cofibration} if
+      for each $\mathfrak C$-signature $\vect C \in G \ltimes \SC$,
+      $X(\vect C) \to Y(\vect C)$ is a genuine (trivial) cofibration in $\V^{\Aut(\vect C)}$;
       we say $X$ is \textit{level genuine cofibrant} if $\varnothing \to X$ is a level genuine cofibration.
 \end{definition}
 
-% \begin{lemma}[{cf. \cite[5.73]{BP_geo}}] % EXMAINLEM LEM
-%       \label{EXMAINLEM LEM}
-%       Suppose $\mathcal{V}$ is a cofibrantly generated closed monoidal model category
-%       \todo{do we need to introduce monoidal model categories again? I wouldn't think so}
-%       with cellular fixed points and
-%       with cofibrant symmetric pushout powers (Defn \ref{CSPP_DEF}).
-      
-%       Let $\O \in \mathsf{Sym}^{G,\mathfrak C}(\mathcal{V})$
-%       be level genuine cofibrant
-%       and  
-%       $u: X \to Y$ in $\Sym^{G, \mathfrak C}(\V)$ a level genuine cofibration. 
-%       Then for each $T \in G \ltimes \Omega^a[k]^{op}$ and writing
-%       $C = \mathsf{lr}(T)$, the map	
-%       \begin{equation}\label{EXMAINLEM EQ}
-%             \left(
-%                   \bigotimes\limits_{v \in V^{ac}(T)}\P(T_v) \otimes
-%                   \underset{v \in V^{in}(T)}
-%                   {\mathlarger{\mathlarger{\mathlarger{\square}}}}
-%                   u(T_v)
-%             \right) 
-%             \mathop{\otimes}\limits_{\mathsf{Aut}(T)} \mathsf{Aut}(C).
-%       \end{equation}
-%       is a genuine cofibration in 
-%       $\mathcal{V}^{\mathsf{Aut}(C)}_{\text{gen}}$,
-%       which is trivial if $k \geq 1$ and $u$ is trivial.	
-% \end{lemma}
-% \begin{proof}
-%       This follows as in \cite{BP_geo}, as we may take the automorphism groups to live in the category $F \wr (G^{op} \ltimes \Sigma_{\mathfrak C}).$ 
-% \end{proof}
+\begin{lemma}
+      \label{RESGEN_LEM}
+      Suppose $(\V, \otimes)$ is a closed monoidal model category with cellular fixed points.
+      \begin{itemize}
+      \item{\cite[Prop. 6.6, 6.7]{BP_geo}} imply that for any group homomorphism $\phi: \Pi \to \bar \Pi$,
+            the induction and restriction functors on the genuine model structures are left Quillen.
+            \[
+                  \bar{\Pi} \cdot_{\Pi} (-) \colon \V^{\Pi}_{gen} \longto \V^{\bar \Pi}_{gen}
+                  \qquad
+                  \mathrm{res}^{\bar \Pi}_{\Pi} \colon \V^{\bar \Pi}_{gen} \longto \V^{\Pi}_{gen}
+            \]
+      \item {\cite[Equation (6.15)]{BP_geo}} implies that the monoidal product on $\V$ is in fact a Quillen bifunctor
+            \[
+                  \V^{\Pi}_{gen} \times \V^{\bar \Pi}_{gen} \xrightarrow{\otimes} \V^{\Pi \times \bar \Pi}_{gen}.
+            \]
+      \end{itemize}
+\end{lemma}
+
+To make our conclusions, we will need an additional hypothesis on $\V$.
+\begin{definition}[{\cite[Defn 6.16]{BP_geo}}]
+      \label{CSPP_DEF}
+      We say a symmetric monoidal model category $\V$ has \textit{cofibrant symmetric pushout powers} if
+      for all (trivial) cofibrations $f$, the pushout product power $f^{\square n}$
+      is a $\Sigma_n$-genuine (trivial) cofibration in $\V^{\Sigma_n}$. 
+\end{definition}
+
+One of the main results of Appendix \ref{MONAD_APDX} is Proposition \ref{FILTPUSHG PROP},
+which provides an explicit description of a filtration of free extensions of operads in $\sOp^G(\V)$.
+We now prove a key lemma about this filtration.
+\begin{lemma}[{cf. \cite[5.73]{BP_geo}}] % EXMAINLEM LEM
+      \label{EXMAINLEM LEM}
+      Suppose $\mathcal{V}$ is a cofibrantly generated closed monoidal model category
+      with cellular fixed points and
+      with cofibrant symmetric pushout powers.
+
+      Let $\mathfrak C$ be a $G$-set,
+      $\O \in \mathsf{Sym}^{G,\mathfrak C}(\mathcal{V})$
+      be level genuine cofibrant,
+      and  
+      $u: X \to Y$ in $\Sym^{G, \mathfrak C}(\V)$ a level genuine cofibration. 
+      Let $\vect U \in \Omega_{\mathfrak C}^a[k]^{op}$, and write $\vect C = \mathsf{lr}(\vect U)$ and $U \in \Omega^a[k]$ for the underlying tree of $\vect U$.
+      Then
+      \begin{equation}\label{EXMAINLEM EQ}
+            \left(
+                  \bigotimes\limits_{v \in \boldsymbol{V}^{ac}(U)}\O(\vect U_v) \otimes
+                  \underset{v \in \boldsymbol{V}^{in}(U)}
+                  {\mathlarger{\mathlarger{\mathlarger{\square}}}}
+                  u(\vect U_v)
+            \right) 
+            \mathop{\otimes}\limits_{\mathsf{Aut}({\vect U})} \mathsf{Aut}(\vect C).
+      \end{equation}
+      is a genuine cofibration in 
+      $\mathcal{V}^{\mathsf{Aut}(\vect C)}_{\text{gen}}$ which is trivial if $k \geq 1$ and $u$ is trivial,
+      where the automorphism groups are either
+      \begin{inparaenum}[(i)]
+      \item all taken in $G \ltimes \OC$, or
+      \item all taken in $\Omega_{\mathfrak C}$.
+      \end{inparaenum}
+\end{lemma}
+\begin{proof}
+      This follows as in \cite{BP_geo}:
+      Using Lemma \ref{RESGEN_LEM} and the maps
+      \[
+            \Aut(\vect C) \longleftarrow \Aut(\vect U) \longto
+            \Aut\Big((\vect U_v)_{v \in \boldsymbol{V}^{ac}(U)}\Big) \times \Aut\Big((\vect U_v)_{v \in \boldsymbol{V}^{in}(U)}\Big),
+      \]
+      it suffices to check that
+      \[
+            \bigotimes_{v \in \boldsymbol{V}^{ac}(U)} \O(\vect U_v) = \underset{v \in \boldsymbol{V}^{ac}(U)}{\mathlarger{\mathlarger{\mathlarger{\square}}}}(\varnothing \to \O)(\vect U_v),
+            \qquad
+            \underset{v \in \boldsymbol{V}^{in}(U)}{\mathlarger{\mathlarger{\mathlarger{\square}}}} u(\vect U_v)
+      \]
+      are $\Aut\Big((\vect U_v)_{v \in \boldsymbol{V}^{ac}(U)}\Big)$ and
+      $\Aut\Big((\vect U_v)_{v \in \boldsymbol{V}^{ac}(U)}\Big)$ genuine (trivial) cofibrations respectively, 
+      where the automorphism groups live in either
+      \begin{inparaenum}[(i)]
+      \item $\Fin \wr (G \ltimes \Sigma_{\mathfrak C})$ or
+      \item $\Fin \wr \Sigma_{\mathfrak C}$.
+      \end{inparaenum}
+      The result then follows using the product decomposition of automorphism groups in these categories,
+      Lemma \ref{RESGEN_LEM}, and \cite[Prop. 6.24]{BP_geo} with
+      \begin{inparaenum}[(a)]
+      \item $f$ either $\varnothing \to \O(\vect U_v)$ or $X(\vect U_v) \to Y(\vect U_v)$,
+      \item $\F$ the family of all subgroups, and
+      \item $G = \Aut(\vect U_v)$ in the respective categories.
+      \end{inparaenum}
+\end{proof}
+
+
+
+We may now prove our first main theorem.
 
 \begin{proof}[Proof of Theorem \ref{THM1_C}]
       We follow the proof \cite[Thm. I]{BP_geo}.
@@ -2482,8 +2554,8 @@ the cofibrancy of the unit is necessary so that the initial operad $\mathbb F(\v
 
 
 
-The following is immediate.
 \todo[inline]{the above are not in context, as they have no mention of the change-of-color monad work of Luis}
+
 \begin{corollary}
       \label{COLOR_CHANGE_Q_COR}
       The change of color adjunctions from \eqref{GC_CHANGE_EQ},
@@ -2919,7 +2991,7 @@ where $\1$ defined as in Definition \ref{PL_ES_DEFN}, and $\mathbb{G}$ is a gene
             For $H \leq G$, $\Gamma = H \leq G \times \Sigma_1$, $\mathbb F_{\Gamma}[1_\V] = G \cdot_H \mathbb A_H$.
             
       \item For higher arity operations,
-            if $\Gamma$ is a graph subgroup, corresponding to a map $G \geq H \xrightarrow{\alpha} \Sigma_n$, then
+            if $\Gamma$ happens to be a \textit{graph subgroup}, corresponding to a map $G \geq H \xrightarrow{\alpha} \Sigma_n$, then
             we have an identification $\mathfrak C_{\Gamma} \simeq G \cdot_H (A_+)$ where $A$ denotes $n$ equipped with the $H$-action provided by $\alpha$.
             Morevover, if $C = C_A \in \Sigma_G$ is the $G$-corolla (unique up to isomorphism) corresponding to the graph subgroup $\Gamma$, then
             $\Omega(C) = \mathbb F_{\Gamma}(1_\V)$.
@@ -2981,8 +3053,8 @@ where $\1$ defined as in Definition \ref{PL_ES_DEFN}, and $\mathbb{G}$ is a gene
 \end{proof}
 
 \begin{lemma}
-      \label{CAV_4.3}
       [{cf. \cite[1.20]{CM13b}, \cite[\S 4.3]{Cav}}]
+      \label{CAV_4.3}
       $F$ has right lifting against $J_{\F}$ iff $F$ is an $\F$-fibration.
 \end{lemma}
 \begin{proof}
@@ -3562,7 +3634,7 @@ Following the work of \cite{Cav, BM13}, we make the following definitions.
 \end{definition}
 
 \cite{Cav, BM13} proved the following comparison results,
-where the bottom arrows hold if $\V$ satisfies the written condition \footnote{The coherence condition will be discussed in \S \ref{DK_SEC}.}.
+where the bottom arrows hold if $\V$ satisfies the written condition\footnote{The coherence condition will be discussed in \S \ref{DK_SEC}.}.
 \[
       \begin{tikzcd}[column sep = large]
             \mbox{equivalent}
@@ -3950,7 +4022,7 @@ Then for all $0 \leq j \leq n$, we define $d_j$ and $D$ by
       \end{enumerate}
 \end{lemma}
 \begin{proof}
-      These all follow more-or-less immediately from the same straightforward calculation.
+      These all follow more-or-less immediately from the same straightforward calculation:
       Fixing $(h,\pi) \in \Aut(C)$ and $j \in \lambda$, we have
       \begin{equation}
             (k_{\pi(j)}^{-1} h k_j, \sigma_{\pi(j)}^{-1} \pi \sigma_j) \in \Aut_i(C),
@@ -4885,10 +4957,10 @@ STUFF
       Let $\mathcal F$, $\bar{\mathcal F}$ be $G$-graph families of $\Lambda \leq G \times \Sigma$ and $\bar\Lambda \leq G \times \bar \Sigma$, respectively.
       We define the following four families:
       \begin{enumerate}[label = (\roman*)]
-      \item $\mathcal \F \sqcap \bar{\mathcal F} = \pi^{\**}(\F) \cap \bar\pi^{\**}(\bar \F)$ of $\Lambda \times \bar \Lambda$,
-      \item $\mathcal F \sqcap_G \bar \F = \Delta^{\**}(\F \sqcap \bar\F)$ of $\Lambda \times_G^\lrcorner \bar\Lambda$,
-      \item $\F^{\ltimes n} = (i_e)_{\**}\big(\pi_{e,\Lambda}^{\**}(\F)\big)$ of $\Sigma_n \wr \Lambda$,
-      \item $\F^{\ltimes_G n} = (\Sigma_n \wr \Delta)^{\**}(\F^{\ltimes n})$  of $\Sigma_G \wr_G \Lambda$,
+      \item $\mathcal \F \sqcap \bar{\mathcal F} := \pi^{\**}(\F) \cap \bar\pi^{\**}(\bar \F)$ of $\Lambda \times \bar \Lambda$,
+      \item $\mathcal F \sqcap_G \bar \F := \Delta^{\**}(\F \sqcap \bar\F)$ of $\Lambda \times_G^\lrcorner \bar\Lambda$,
+      \item $\F^{\ltimes n} := (i_e)_{\**}\big(\pi_{e,\Lambda}^{\**}(\F)\big)$ of $\Sigma_n \wr \Lambda$,
+      \item $\F^{\ltimes_G n} := (\Sigma_n \wr \Delta)^{\**}(\F^{\ltimes n})$  of $\Sigma_G \wr_G \Lambda$,
       \end{enumerate}
       where $\pi$, $\bar\pi$, $\Delta$, $\pi_{e, \Lambda}$, $i_e$, $\Sigma_n \wr \Delta$ are the natural maps below,
       with $(-) \times_G^\lrcorner (-)$ denoting the fiber product over the projections $\Delta,\bar\Delta \to G$.
@@ -4938,9 +5010,9 @@ STUFF
 
 \begin{remark}[{cf. \cite[Remark 6.48]{BP_geo}}]
       Let $T \in \Omega$. Then we have a grafting decomposition $T \simeq C \amalg (T_i)$ for $C \in \Sigma$ and $T_i \in \Omega$.
-      Letting $\lambda$ denote the partition $\boldsymbol{L}(C) = \lambda_1 \amalg \dots \amalg \lambda_k$ such that
-      $i$,$j$ are in the same class iff $T_i \simeq T_j$.
-      Picking representatives $i_j \in \lambda_j$, we thus have a decomposition
+      If we let $\lambda$ denote the partition $\boldsymbol{L}(C) = \lambda_1 \amalg \dots \amalg \lambda_k$ such that
+      $i$,$j$ are in the same class iff $T_i \simeq T_j$,
+      and pick representatives $i_j \in \lambda_j$, we thus have a decomposition
       \[
             \Aut(T) \simeq \Sigma_{|\lambda_1|} \wr \Aut(T_{i_1}) \times \dots \times \Sigma_{|\lambda_r|} \wr \Aut(T_{i_r}).
       \]
@@ -4948,15 +5020,15 @@ STUFF
       For $\vect T \in \Omega_{\mathfrak C}$, we have an analogous decomposition of $\vect T$ using a partition $\vect \lambda$,
       and controlling for the repeated $G$-action, we have
       \[
-            \Aut(\vect T) \simeq \big(\Sigma_{|\lambda_1} \wr_G \Aut(\vect T_{i_1}\big) \times_G^\lrcorner \dots \times_G^\lrcorner \big(\Sigma_{|\lambda_s} \wr_G \Aut(\vect T_{i_s}\big)
+            \Aut(\vect T) \simeq \big(\Sigma_{|\lambda_1|} \wr_G \Aut(\vect T_{i_1}\big) \times_G^\lrcorner \dots \times_G^\lrcorner \big(\Sigma_{|\lambda_s|} \wr_G \Aut(\vect T_{i_s}\big)
             %\prod_{j=1}^s{}_G \Sigma_{|\lambda_j} \wr_G \Aut(\vect T_{i_j})
       \]
       where $(-) \times_G^\lrcorner (-)$ again denotes the fiber product over $G$. 
 \end{remark}
 
 \begin{remark}
-      For any $\vect T \in \Omega_{\mathfrak C}$ with underlying tree $T \in \Omega$,
-      we have a natural map $\phi: \Aut(\vect T) \to G \times \Aut(T)$.
+      For any $\vect T \in G \ltimes \Omega_{\mathfrak C}$ with underlying tree $T \in \Omega$,
+      we have a natural map $\phi: \Aut(\vect T) \to G \times \Aut(T)$ induced by the forgetful functor $G \ltimes \Omega_{\mathfrak C} \to G \times \Omega$.
 
       Now, fix a $G$-graph family $\mathcal F = \set{\F_n}$.
       Following \cite[Prop. 6.44, Lemma 6.49]{BP_geo}, for any $T \in \Omega$ and $\vect T \in \Omega_{\mathfrak C}$,
@@ -5056,7 +5128,7 @@ STUFF
 \end{proof}
 
 \begin{corollary}
-      If $\O \in \sOp^G$ cofibrant, then $\O$ $\Sigma_G$-cofibrant.
+      If $\O \in \sOp^G$ is cofibrant, then $\O$ is $\Sigma_G$-cofibrant.
 \end{corollary}
 
 
@@ -7492,11 +7564,11 @@ We have the following immediate corollary.
 
 Another corollary is the following key step.
 
-\begin{proposition}[{cf. \cite[Prop/ 4.9]{CM11}}]
+\begin{proposition}[{cf. \cite[Prop. 4.9]{CM11}}]
       $W_!: \dSet^G \to \sOp^G$ is left Quillen.
 \end{proposition}
 \begin{proof}
-      As we already know by Proposition \ref{W!_COF_PROP} that $W_!$ preserves cofibrations,
+      Since Proposition \ref{W!_COF_PROP} states that $W_!$ preserves cofibrations,
       it suffices by Corollary \ref{SIMPLQUILL COR} to show that $h c N$ preserves fibrations between fibrant objects.
       Suppose $f: \O \to \P$ is an $\F$-fibration between $\F$-fibrant operads in $\sOp^G$.
       Then Proposition \ref{W!_COF_PROP} also implies that $h c N (f)$ is an $\F$-inner-fibration between $\F$-$\infty$-operads.
@@ -7762,89 +7834,6 @@ For COMUOTOHOM PROP: replace all instances of $\Omega_G$ with $\Omega_{\mathcal 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newpage
-
-\section{In $\mathsf{dSet}_G$}
-
-\begin{definition}
-      Define the \textit{genuine operadic nerve} $N: \Op_G \to \dSet_G$ by
-      \begin{equation}
-            N\P(T) = \Hom_{\Op_G}(T, \P)
-      \end{equation}
-      where we think of $T$ as the operad $T \in \Op^G \into \Op_G$. 
-\end{definition}
-
-\begin{remark}
-      We note that $N\P \in (SCI)^{\boxslash !}$,
-      as $T \in \Op_G$ is a free $\mathbb F_G$-algebra on its vertices.
-\end{remark}
-
-\begin{remark}
-      We can rephrase the definition of being an $\mathbb F_G$-algebra in terms of $N\P$.
-      For $\P \in \Sym_G$ a $G$-symmetric sequence,
-      a genuine $G$-operad structure on $\P$ is given by:
-      \begin{itemize}
-      \item Composition Maps: $ $\\
-            maps 
-            $N\P(T) \to \P(\mathsf{lr}(T))$
-            for all $T \in \Omega_G$.
-      \item Naturality under restriction and conjugation: $ $\\
-            maps $N\P(T_1) \to N\P(T_0)$
-            for all quotient maps $T_0 \to T_1$ in $\Omega_{G,0}$,
-            such that the following commutes:
-            \begin{equation}
-                  \begin{tikzcd}
-                        N\P(T_1) \arrow[r] \arrow[d]
-                        &
-                        \P(\mathsf{lr}(T_1)) \arrow[d]
-                        \\
-                        N\P(T_0) \arrow[r]
-                        &
-                        \P(\mathsf{lr}(T_0)).
-                  \end{tikzcd}
-            \end{equation}
-      \item Associativity under $\mathbb F_G$: $ $\\
-            maps $N\P(T_1) \to N\P(T_0)$
-            for all planar tall maps $T_0 \to T_1$ in $\Omega_G^t$,
-            such that the analogus diagram (with the right vertical map the identity) commutes.\footnote{
-              As in \cite{BP_geo}, we note that ``associativity'' under $\mathbb F_G$ includes both
-              the usual notion of associativity of our composition maps,
-              but also unitality;
-              this is recorded here by the fact that degeneracies are always planar tall.}
-      \end{itemize}
-\end{remark}
-
-The above reflects the following result.
-
-\begin{proposition}
-      $\Op_G$ is equivalent to the subcategory of $\mathsf{dSet_G}$ spanned by those $X$ such that
-      \begin{enumerate}
-      \item $X(H/H) = \set{\**}$ for all $H \leq G$.
-      \item $X(T) \cong \otimes_{T_v \in V(T)}X(T_v)$. 
-      \end{enumerate}
-\end{proposition}
-\begin{proof}
-      The fact that $N\P \in (SCI_{\F})^{\boxslash !}$ is immediate, as remarked above.
-
-      For the reverse direction, we will follow the construction of the homotopy operad as in \cite[\S 6]{MW09},
-      replacing their use of inner horn inclusions with \textit{orbital} inner $G$-horn inclusions,
-      to show that any $X \in (OHI)^{\boxslash !}$ is in the image of $N$; 
-      the result will then follow from \cite[HYPER PROP]{BP_edss}.
-
-      In fact, interpreting all of their pictures are as \textit{orbital} representations of $G$-trees yields that,
-      for all $C \in \Sigma_G$
-      \begin{itemize}
-      \item $\sim_{G e}$ is an equivalence relation on $X(C)$ for all $Ge \in E_G(C)$.
-      \item The relations $\sim_{G e}$ and $\sim_{G e'}$ are equal for all $e,e'\in E(C)$.
-      \item $[h] \circ [f] = [h \circ f]$ yields a well-defined composition map.
-      \end{itemize}
-      \todo[inline]{naturality, associativity of composition}
-\end{proof}
-
-
-\newpage
-
-
-
 
 \section{Scratchwork}
 
@@ -11163,102 +11152,9 @@ $G^{op} \ltimes \OC^{n}
 
 
 
-% ------------------------------ homotopy stuff ------------------------------
-
-We end this section by building the first step in our understanding of the homotopical nature of this filtration.
-Again, the results from \cite{BP_geo} are sufficiently robust.
-
-\begin{lemma}
-      \label{RESGEN_LEM}
-      Suppose $(\V, \otimes)$ is a closed monoidal model category with cellular fixed points.
-      \begin{itemize}
-      \item{\cite[Prop. 6.6, 6.7]{BP_geo}} imply that for any group homomorphism $\phi: \Pi \to \bar \Pi$,
-            the induction and restriction functors on the genuine model structures are left Quillen.
-            \[
-                  \bar{\Pi} \cdot_{\Pi} (-) \colon \V^{\Pi}_{gen} \longto \V^{\bar \Pi}_{gen}
-                  \qquad
-                  \mathrm{res}^{\bar \Pi}_{\Pi} \colon \V^{\bar \Pi}_{gen} \longto \V^{\Pi}_{gen}
-            \]
-      \item {\cite[Equation (6.15)]{BP_geo}} implies that the monoidal product on $\V$ is in fact a Quillen bifunctor
-            \[
-                  \V^{\Pi}_{gen} \times \V^{\bar \Pi}_{gen} \xrightarrow{\otimes} \V^{\Pi \times \bar \Pi}_{gen}.
-            \]
-      \end{itemize}
-\end{lemma}
-
-\begin{definition}[{\cite[Defn 6.16]{BP_geo}}]
-      \label{CSPP_DEF}
-      We say a symmetric monoidal model category $\V$ has \textit{cofibrant symmetric pushout powers} if
-      for all (trivial) cofibrations $f$, the pushout product power $f^{\square n}$
-      is a $\Sigma_n$-genuine (trivial) cofibration in $\V^{\Sigma_n}$. 
-\end{definition}
-
-We now prove a key lemma about this filtration.
-Recall that a map $f: X \to Y$ in $\Sym^{G, \mathfrak C}(\V)$ is a \textit{level genuine (trivial) cofibration} if
-$f(\vect C)$ is a genuine trivial cofibration in $\V^{\Aut(\vect C)}_{gen}$ for all $\mathfrak C$-signatures $\vect C \in G \ltimes \Sigma_{\mathfrak C}$. 
-\begin{lemma}[{cf. \cite[5.73]{BP_geo}}] % EXMAINLEM LEM
-      \label{EXMAINLEM LEM}
-      Suppose $\mathcal{V}$ is a cofibrantly generated closed monoidal model category
-      with cellular fixed points and
-      with cofibrant symmetric pushout powers.
-
-      Let $\mathfrak C$ be a $G$-set,
-      $\O \in \mathsf{Sym}^{G,\mathfrak C}(\mathcal{V})$
-      be level genuine cofibrant,
-      and  
-      $u: X \to Y$ in $\Sym^{G, \mathfrak C}(\V)$ a level genuine cofibration. 
-      Let $\vect U \in \Omega_{\mathfrak C}^a[k]^{op}$, and write $\vect C = \mathsf{lr}(\vect U)$ and $U \in \Omega^a[k]$ for the underlying tree of $\vect U$.
-      Then
-      \begin{equation}\label{EXMAINLEM EQ}
-            \left(
-                  \bigotimes\limits_{v \in \boldsymbol{V}^{ac}(U)}\O(\vect U_v) \otimes
-                  \underset{v \in \boldsymbol{V}^{in}(U)}
-                  {\mathlarger{\mathlarger{\mathlarger{\square}}}}
-                  u(\vect U_v)
-            \right) 
-            \mathop{\otimes}\limits_{\mathsf{Aut}({\vect U})} \mathsf{Aut}(\vect C).
-      \end{equation}
-      is a genuine cofibration in 
-      $\mathcal{V}^{\mathsf{Aut}(\vect C)}_{\text{gen}}$ which is trivial if $k \geq 1$ and $u$ is trivial,
-      where the automorphism groups are either
-      \begin{inparaenum}[(i)]
-      \item all taken in $G \ltimes \OC$, or
-      \item all taken in $\Omega_{\mathfrak C}$.
-      \end{inparaenum}
-\end{lemma}
-\begin{proof}
-      This follows as in \cite{BP_geo}:
-      Using Lemma \ref{RESGEN_LEM} and the maps
-      \[
-            \Aut(\vect C) \longleftarrow \Aut(\vect U) \longto
-            \Aut\Big((\vect U_v)_{v \in \boldsymbol{V}^{ac}(U)}\Big) \times \Aut\Big((\vect U_v)_{v \in \boldsymbol{V}^{in}(U)}\Big),
-      \]
-      it suffices to check that
-      \[
-            \bigotimes_{v \in \boldsymbol{V}^{ac}(U)} \O(\vect U_v) = \underset{v \in \boldsymbol{V}^{ac}(U)}{\mathlarger{\mathlarger{\mathlarger{\square}}}}(\varnothing \to \O)(\vect U_v),
-            \qquad
-            \underset{v \in \boldsymbol{V}^{in}(U)}{\mathlarger{\mathlarger{\mathlarger{\square}}}} u(\vect U_v)
-      \]
-      are $\Aut\Big((\vect U_v)_{v \in \boldsymbol{V}^{ac}(U)}\Big)$ and
-      $\Aut\Big((\vect U_v)_{v \in \boldsymbol{V}^{ac}(U)}\Big)$ genuine (trivial) cofibrations respectively, 
-      where the automorphism groups live in either
-      \begin{inparaenum}[(i)]
-      \item $\Fin \wr (G \ltimes \Sigma_{\mathfrak C})$ or
-      \item $\Fin \wr \Sigma_{\mathfrak C}$.
-      \end{inparaenum}
-      The result then follows using the product decomposition of automorphism groups in these categories,
-      Lemma \ref{RESGEN_LEM}, and \cite[Prop. 6.24]{BP_geo} with
-      \begin{inparaenum}[(a)]
-      \item $f$ either $\varnothing \to \O(\vect U_v)$ or $X(\vect U_v) \to Y(\vect U_v)$,
-      \item $\F$ the family of all subgroups, and
-      \item $G = \Aut(\vect U_v)$ in the respective categories.
-      \end{inparaenum}
-\end{proof}
 
 
 
-
-come back!
 
 
 \subsubsection{Pushouts and change of color}
