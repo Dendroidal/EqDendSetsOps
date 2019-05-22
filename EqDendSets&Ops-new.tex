@@ -876,7 +876,7 @@ is the standard map, which is clear.
       is then a fibered right adjoint which preserves pullback arrows,
       and thus the corresponding adjunction is also fibered.
       
-      We warn that the tensoring left adjoint, denoted $(-) \odot_{\Fin} K: \sOp \to \sOp$, is in general \textit{not} levelwise.
+      We warn that the tensoring left adjoint, denoted $(-) \otimes_{\Fin} K: \sOp \to \sOp$, is in general \textit{not} levelwise.
 \end{example}
 
 
@@ -4932,7 +4932,7 @@ and $\mathsf{sOp}^G$ the category of $G$-objects in $\sOp$.
       $\Gamma \cap \mathsf{Aut}_{\Sigma_{\mathfrak{C}}^{op}}(\vect C) = \**$;
       i.e. if $\Gamma$ is a $G$-graph subgroup when consider as a subgroup of $G \times \Sigma_{|\vect C|}$.
       
-      We write $\mathcal{F}^{\Gamma} = \{\mathcal{F}^{\Gamma}_C\}$
+      We write $\mathcal{F}^{\Gamma} = \{\mathcal{F}^{\Gamma}_{\vect C}\}$
       for the collection of families of $G$-graph subgroups.
 
       A \textit{$G$-graph family} is any collection of subfamilies of $\F^\Gamma$.
@@ -5471,15 +5471,63 @@ More concisely, $X \otimes_{\mathsf{F}} K$ is defined by the pushout
 \end{tikzcd}
 \]
 where $\mathsf{sk}_{\eta}X$ is the 0-skeleton of $X$ in the equivariant dendroidal Reedy direction;
-explicitly, $\mathsf{sk}_{\eta}X(U) = X(\eta)$ if $U \in \Delta$ is a linear tree, and $\varnothing$ otherwise.
+explicitly, $\mathsf{sk}_{\eta}X(U) = X(\eta)$ if $U = [n]$ is a linear tree, and $\varnothing$ otherwise.
 \end{remark}
 
 
+
+
+\begin{lemma}
+      \label{TAUOTIMES_LEM}
+      For all $X \in \mathsf{PreOp}^G$ and $K \in \sSet$, $\tau(X \otimes_\Fin K) = \tau(X) \otimes_\Fin K$,
+      with the second $\otimes_\Fin$ defined as in Example \ref{COTENS_EX}.
+\end{lemma}
+\begin{proof}
+      We want to show the square of left adjoints on the left below commutes;
+      instead, we show the square of right adjoints on the right commutes,
+      \[
+            \begin{tikzcd}
+                  \mathsf{PreOp}^G \arrow[d, "\tau"'] \arrow[r, "{(-) \otimes_\Fin K}"]
+                  &
+                  \mathsf{PreOp}^G \arrow[d, "\tau"]
+                  & % ----------
+                  \mathsf{PreOp}^G
+                  &
+                  \mathsf{PreOp}^G \arrow[l, "\set{K,-}_\Fin"']
+                  \\
+                  \sOp^G \arrow[r, "\set{K,-}_\Fin"]
+                  &
+                  \sOp^G
+                  & %----------
+                  \sOp^G \arrow[u, "N"]
+                  &
+                  \sOp^G \arrow[l, "\set{K,-}_\Fin"'] \arrow[u, "N"']
+            \end{tikzcd}
+      \]
+      where $\set{K, X}_\Fin$ on $\mathsf{PreOp}^G$ is the right adjoint of $\otimes_\Fin$ defined as the pullback
+      \[
+            \begin{tikzcd}
+                  \set{K,Y}_\Fin \arrow[d] \arrow[r]
+                  &
+                  \mathsf{csk}_\eta Y \arrow[d]
+                  \\
+                  \Map(K, Y) \arrow[r]
+                  &
+                  \Map(K, \mathsf{csk}_\eta Y)
+            \end{tikzcd}
+      \]
+      and $\Map(K, Y) \in \mathsf{PreOp}^G$ is defined by $\Map(K,Y)(T) = \Map(K, Y(T))$.
+
+      We observe that $N\set{K,\O}(U)$ consists of a choice of $\mathfrak C_\O$-signatures $(\vect C_v)$ for each $v \in V(U)$ plus choices of maps $\phi_v \in \Map(K, \O(\vect C_v))$.
+      This differs from $\Map(K, N\O)$ precisely in that these choices of signatures are made universally for each $v \in V(U)$,
+      which is exactly the condition imposed by the pullback.
+\end{proof}
+      
 \begin{remark}
 For fixed $K \in \mathsf{sSet}$, the functor
 $(-) \otimes_{\mathsf{F}} K
 \colon \mathsf{PreOp}^G \to \mathsf{PreOp}^G$
-preserves all colimits (indeed, it is not hard to build the right adjoint explicitly).
+preserves all colimits. % (indeed, it is not hard to build the right adjoint explicitly).
 
 However, for a fixed $X \in \mathsf{PreOp}^G$,
 the functor 
@@ -5737,19 +5785,20 @@ produce a lifting problem against a map in (TA1) which has a solution, providing
             \]
 \end{proof}
 
+
 \begin{remark}
-      \label{TAUCOFIB_REM}
-      We note that $\tau \colon \mathsf{PreOp}^G \to \sOp^G$
-      sends the collection of arrows in (TC1) and (TC2) surjectively onto the collection of generating cofibrations, namely
+      \label{TAUCOFIB_REM}        
+      We note that by Lemma \ref{TAUOTIMES_LEM}, $\tau \colon \mathsf{PreOp}^G \to \sOp^G$
+      sends the collection of arrows in (TC1) and (TC2) surjectively onto the collection of generating cofibrations:
       \begin{gather*}
             \tau\Big(\varnothing \to G/H \cdot \Omega[\eta]\Big) = \Big(\varnothing \to \Omega(G/H \cdot \eta)\Big),
             \\
             \tau\Big(\Omega[C] \otimes_\Fin (\partial \Delta[n] \to \Delta[n])\Big) =
-            \mathbb F_{\Gamma_C} \Big( \Gamma_C / \Gamma_C \cdot (\partial \Delta[n] \to \Delta[n]) \Big) = \Omega(C) \cdot \big(\partial \Delta[n] \to \Delta[n]\Big)
+            \Omega(C) \otimes_\Fin \big(\partial \Delta[n] \to \Delta[n]\Big) =
+            \mathbb F_{\Gamma_C} \Big( \Gamma_C / \Gamma_C \cdot (\partial \Delta[n] \to \Delta[n]) \Big)
       \end{gather*}
-      where $\Gamma_C$ is the graph subgroup of $G \times \Sigma_n$ such that $C \simeq G \odot C_n / \Gamma$,
-      $\mathbb F_\Gamma: \sSet^\Gamma \to \sOp^G$ is as in the discussion around \eqref{FGAMMA_EQ},
-      and $(-) \odot (-)$ indicates the fibered tensoring from Example \ref{COTENS_EX}.
+      where $\Gamma_C$ is the graph subgroup of $G \times \Sigma_n$ such that $C \simeq G \cdot C_n / \Gamma$, and
+      $\mathbb F_\Gamma: \sSet^\Gamma \to \sOp^G$ is as in the discussion around \eqref{FGAMMA_EQ}.
       Moreover, as $\tau$ sends (TC3) to isomorphisms, $\tau$ also preserves all cofibrations.
 \end{remark}
 
@@ -6134,7 +6183,8 @@ $
 \Xi^{\langle y \rangle} =
 \left\{ \Xi^y \subseteq \boldsymbol{E}^{\mathsf{i}}(U^y)\right\}$,
 non-degenerate representative
-$y \colon \Omega[U^y] \to Y$, and a subface $V \hookrightarrow U^y$ denote
+$y \colon \Omega[U^y] \to Y$, and a subface $V \hookrightarrow U^y$,
+we write
 $\Xi^y_V = \Xi^y \cap \boldsymbol{E}^{\mathsf{i}}(V)$.
 
 We say
@@ -6154,16 +6204,16 @@ $\{\Xi^{\langle y \rangle}\}$ is $G$-equivariant, in the sense that
 $g \Xi^{\langle y \rangle} =
 \Xi^{g \langle y \rangle}$,
 i.e. $\Xi^y = \Xi^{gy}$;
-\item[(Ch1)] if $V \hookrightarrow U^y$ is an outer face and $\Xi^y_V = \emptyset$
+\item[(Ch1)] if $V \hookrightarrow U^y$ is an outer face and $\Xi^y_V = \emptyset$,
 then $\langle \partial_V y \rangle \subseteq X_{< \langle y \rangle}$;
 \item[(Ch2)] if $V \hookrightarrow U^y$ and
-$\langle \partial_{V-\Xi^y_V} y\rangle \subseteq X$
+$\langle \partial_{V-\Xi^y_V} y\rangle \subseteq X$,
 then
 $\langle \partial_V y\rangle \subseteq X_{< \langle y \rangle}$;
 \item[(Ch3)] if $\langle \bar{y} \rangle \not \geq \langle y \rangle$,
-$V \hookrightarrow U^y$
+$V \hookrightarrow U^y$,
 and
-$\langle \partial_{V-\Xi^y_V} y\rangle \subseteq \langle \bar{y} \rangle$
+$\langle \partial_{V-\Xi^y_V} y\rangle \subseteq \langle \bar{y} \rangle$,
 then
 $\langle \partial_V y\rangle \subseteq X_{< \langle y \rangle}$.
 \end{enumerate}
@@ -6172,7 +6222,7 @@ $\langle \partial_V y\rangle \subseteq X_{< \langle y \rangle}$.
 
 \begin{remark}\label{CH02 REM}
 In \cite[Rem. 3.7]{BP_edss} the role of each presheaf 
-$\langle y \rangle$ is played a special chosen representative,
+$\langle y \rangle$ is played by a special chosen representative,
 which we here denote by
 $y^{\mathsf{pl}} \in \langle y \rangle$. 
 The motivation for this is that in some key examples, such as in \cite[Ex. 3.9]{BP_edss}, one can choose preferred ``planar representatives'',
@@ -7208,10 +7258,10 @@ to prove the main theorem of this project, Theorem \ref{QE_THM}.
 We recall the adjunction in question.
 \todo[inline]{say more. come back once the paper is organized}
 
-To enrich $N: \dSet \rightleftarrows \Op$ from Definition \ref{OT_DEF} to a Quillen adjunction out of $\sOp$,
+To extend $\tau \colon \dSet \rightleftarrows \Op \colon N$ from Definition \ref{OT_DEF} to a Quillen adjunction out of $\sOp$,
 we need a topological enrichment of the inclusion $\Omega \into \Op$.
-We do this by constructing the free simplicial resolution \footnote{Also called the \textit{Godemont} resolution, c.f. \cite[\S 8.3]{BM06}.}
-of $\Omega(T)$ as an algebra in the category of \textit{pointed} $\mathbf E(T)$-colored symmetric sequences $\Sym^{\mathbf E(T)}_{+}(\Set)$.
+We do this by constructing the free simplicial resolution\footnote{Also called the \textit{Godemont} resolution, c.f. \cite[\S 8.3]{BM06}.}
+of $\Omega(T)$ as an algebra in the category of \textit{pointed} $\mathbf E(T)$-colored symmetric sequences $\Sym^{\mathbf E(T)}_{\eta}(\Set)$.
 We elaborate on that distinction now.
 
 \begin{definition}
@@ -7220,29 +7270,31 @@ We elaborate on that distinction now.
       \[
             \eta(\vect C) =
             \begin{cases}
-                  1_\V \qquad \qquad & \vect C = (x;x)
+                  1_\V \qquad \qquad & \vect C = (x;x) \mbox{ for some $x \in \mathfrak C$,}
                   \\
                   \varnothing & \mbox{else.}
             \end{cases}
       \]
       The category of \textit{pointed} $\mathfrak C$-colored symmetric sequences in $\V$ is the category
       \[
-            \Sym^{\mathfrak C}_+(\V) := \eta_{\mathfrak C} \downarrow \Sym^{\mathfrak C}(\V).
+            \Sym^{\mathfrak C}_\eta(\V) := \eta_{\mathfrak C} \downarrow \Sym^{\mathfrak C}(\V).
       \]
 \end{definition}
-We should think of pointed symmetric sequences as already having selected "identity" operations in any potential operadic structure.
-Indeed, the monad $\mathbb F^{\mathfrak C}$ factors
+
+The free operad monad $\mathbb F^{\mathfrak C}$ factors
 \begin{equation}
       \label{FC_FAC_EQ}
       \begin{tikzcd}
             \Sym^{\mathfrak C}(\V) \arrow[r, shift left, "{(-) \amalg \eta}"]
             &
-            \Sym^{\mathfrak C}_+(\V) \arrow[l, shift left] \arrow[r, shift left, "\mathbb F^{\mathfrak C}_+"]
+            \Sym^{\mathfrak C}_\eta(\V) \arrow[l, shift left] \arrow[r, shift left, "\mathbb F^{\mathfrak C}_\eta"]
             &
-            \Op^{\mathfrak C}(\V) \arrow[l, shift left]
+            \Op^{\mathfrak C}(\V) \arrow[l, shift left, "U_\eta"]
       \end{tikzcd}
 \end{equation}
-where $\mathbb F^{\mathfrak C}_+$ is defined on $X \in \Sym^{\mathfrak C}_+(\V)$ to be the pushout in $\Op^{\mathfrak C}(\V)$
+where the map $\eta_{\mathfrak C} \to U_\eta(\O)$ selects the identity operations for each color,
+$(-) \amalg \eta$ is the (levelwise) coproduct in $\Sym^{\mathfrak C}(\V)$,
+and $\mathbb F^{\mathfrak C}_\eta$ is defined on $X \in \Sym^{\mathfrak C}_\eta(\V)$ to be the pushout below computed in $\Op^{\mathfrak C}(\V)$.
 \[
       \begin{tikzcd}
             \mathbb F^{\mathfrak C} \eta_{\mathfrak C} \arrow[d] \arrow[r]
@@ -7251,28 +7303,28 @@ where $\mathbb F^{\mathfrak C}_+$ is defined on $X \in \Sym^{\mathfrak C}_+(\V)$
             \\
             \mathbb F^{\mathfrak C} X \arrow[r]
             &
-            \mathbb F^{\mathfrak C}_+ X.
+            \mathbb F^{\mathfrak C}_\eta X
       \end{tikzcd}
 \]
 
-The following observations are straightforward.
-\begin{lemma}
-      $\mathbb F^{\mathfrak C}_+$ is left adjoint to the forgetful functor $\Op^{\mathfrak C}(\V) \to \Sym^{\mathfrak C}_+(\V)$,
-      and \eqref{FC_FAC_EQ} is a factorization of the original free-forgetful adjunction for $\mathbb F^{\mathfrak C}$. 
-\end{lemma}
+% The following observations are straightforward.
+% \begin{lemma}
+%       $\mathbb F^{\mathfrak C}_\eta$ is left adjoint to the forgetful functor $\Op^{\mathfrak C}(\V) \to \Sym^{\mathfrak C}_\eta(\V)$,
+%       and \eqref{FC_FAC_EQ} is a factorization of the original free-forgetful adjunction for $\mathbb F^{\mathfrak C}$. 
+% \end{lemma}
 
 We can now make the following definition of the $W$-construction.
 
 \begin{definition}
       Given $T \in \Omega$, define $W(T)_\bullet \in \Op(\sSet) \subseteq (\Op^{\mathbf E(T)})^{\Delta^{op}}$ to be the bar construction
       \[
-            W(T)_n = \left( \mathbb F^{\mathbf E(T)}_+ \right)^{n+1} \left(\Omega(T)\right),
+            W(T)_n = \left( \mathbb F^{\mathbf E(T)}_\eta \right)^{n+1} \left(\Omega(T)\right),
       \]
       with the simplicial maps the monadic unit and monadic multiplication.
 \end{definition}
 
 We unpack this $\mathbf E(T)$-colored operad, culminating in \eqref{WT_EQ}.
-First, we consider $\mathbb F^{\mathbf E(T)} \Omega(T)$ and $\mathbb F^{\mathbf E(T)}_+ \Omega(T)$.
+First, we consider $\mathbb F^{\mathbf E(T)} \Omega(T)$ and $\mathbb F^{\mathbf E(T)}_\eta \Omega(T)$.
 We observe that $\mathbb F^{\mathbf E(T)} \Omega(T)(\vect C) = \varnothing$ iff $\Omega(T)(\vect C) = \varnothing$.
 Otherwise, if $C \xrightarrow{\phi} T$ is such that $\partial \phi = \vect C$, then
 \begin{equation}
@@ -7334,9 +7386,9 @@ If we also denote the unit map by $\eta$, we see that the image of the map
 \]
 corresponds to all factorizations from \eqref{FET_EQ} with $S_1$ a linear tree and $\phi$ (and hence $\psi_1$) a degeneracy.
 
-Thus in the pushout $\mathbb F^{\mathbf E(T)}_+\Omega(T)$, all the non-injective operations are identified, and we have
+Thus in the pushout $\mathbb F^{\mathbf E(T)}_\eta\Omega(T)$, all the non-injective operations are identified, and we have
 \begin{align*}
-  \mathbb F^{\mathbf E(T)}_+\Omega(T)(\vect C)
+  \mathbb F^{\mathbf E(T)}_\eta\Omega(T)(\vect C)
   & = \set{\mbox{factorizations $C \xrightarrow{\psi_0} S_1 \xrightarrow{\psi_1} T$ of $\phi$ with $\psi_1$ injective, $\psi_0$ tall}} \\
   & = \set{\mbox{inner faces $S$ of $T_{\phi(1 2 \dots n) \leq \phi(0)}$}} \\
   & = \set{\mbox{subsets $S \subseteq \mathbf E^i(T_{\phi(1 2 \dots n) \leq \phi(0)})$ of inner edges}}    
@@ -7356,9 +7408,9 @@ In a similar fashion,
               \\
               \mathbb F X \arrow[r]
               &
-              \mathbb F( \mathbb F_+ X) \arrow[r]
+              \mathbb F( \mathbb F_\eta X) \arrow[r]
               &
-              \mathbb F_+^2 X,
+              \mathbb F_\eta^2 X,
         \end{tikzcd}
   \]
 } % ---------------------------------------- OLIVE GREEN ----------------------------------------
@@ -7373,7 +7425,7 @@ In a similar fashion,
     \end{array}
   },
   \\
-  \left(\mathbb F^{\mathbf E(T)}_+ \right)^n \Omega(T)(\vect C)
+  \left(\mathbb F^{\mathbf E(T)}_\eta \right)^n \Omega(T)(\vect C)
   & = \set{
     \begin{array}{l}
       \mbox{factorizations $C \xrightarrow{\psi_0} S_1 \xrightarrow{\psi_1} S_2 \xrightarrow{\psi_2} \dots \xrightarrow{\psi_{n-1}} S_n \xrightarrow{\psi_n} T$}
