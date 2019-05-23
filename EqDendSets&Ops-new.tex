@@ -158,7 +158,7 @@ What we need:
 
 
 
-
+\iffalse%
 
 
 
@@ -7242,7 +7242,7 @@ one has that, writing $C \simeq G \cdot_H C_{\star}$ one has the alternative pus
 
 
 
-
+\fi%
 
 
 
@@ -7253,6 +7253,200 @@ one has that, writing $C \simeq G \cdot_H C_{\star}$ one has the alternative pus
 
 \section{The Quillen equivalence}
 \label{QE_SEC}
+
+
+\subsection{Amalgamating monads (to be renamed and reskined)}
+
+
+\begin{definition}\label{AMALGMON DEF}
+Suppose the category $\mathcal{C}$ has 
+two monads $P$ and $\bar{F}$,
+as well as a monad structure on the composite 
+$F = P \bar{F}$ such that
+\begin{enumerate}[label=(\roman*)]
+\item  $\eta_P \bar{F} \colon \bar{F} \Rightarrow P \bar{F} = F$
+is a monadic natural transformation
+\item  $P \eta_{\bar{F}} \colon P \Rightarrow P \bar{F} = F$
+is a monadic natural transformation
+\item the composite below is the identity
+\[
+\begin{tikzcd}
+	P \bar{F} \ar[Rightarrow]{r}{P \eta_{\bar{F}} \eta_P \bar{F}}
+&
+	P \bar{F} P \bar{F} \ar[equal]{r}
+&
+	FF  \ar[Rightarrow]{r}{\mu_F}
+&
+	F \ar[equal]{r}
+&
+	P \bar{F}
+\end{tikzcd}
+\]
+\end{enumerate}
+\end{definition}
+
+\begin{lemma}\label{MODSTRCOM LEM}
+The following diagrams commute
+\begin{equation}\label{MODSTRCOM EQ}
+\begin{tikzcd}
+	PP\bar{F} \ar[Rightarrow]{r}{P\eta_{\bar{F}}P \bar{F}} 
+	\ar[Rightarrow]{d}[swap]{\mu_P \bar{F}}
+&
+	P \bar{F} P \bar{F} \ar[equal]{r}
+&
+	FF \ar[Rightarrow]{d}{\mu_F}
+&%%
+	P \bar{F} \bar{F} \ar[Rightarrow]{r}{P \bar{F} \eta_{P} \bar{F}} 
+	\ar[Rightarrow]{d}[swap]{P \mu_{\bar{F}}}
+&
+	P \bar{F} P \bar{F} \ar[equal]{r}
+&
+	FF \ar[Rightarrow]{d}{\mu_F}
+\\
+	P \bar{F} \ar[equal]{rr} 
+&&
+	F
+&%%
+	P \bar{F} \ar[equal]{rr} 
+&&
+	F
+\end{tikzcd}
+\end{equation}
+
+\end{lemma}
+
+
+\begin{proof}
+The two claims are analogous, so we address only the first one.
+Now consider the following diagram,
+where the right square commutes since $F$ is a monad
+and the left square commutes since $P \Rightarrow F$ is monadic.
+\[
+\begin{tikzcd}
+	P P \bar{F} \ar[Rightarrow]{d}[swap]{\mu_P \bar{F}}
+	\ar[Rightarrow]{r}
+&
+	FFF \ar[Rightarrow]{d}[swap]{\mu_F F}
+	\ar[Rightarrow]{r}{F \mu_F}
+&
+	FF \ar[Rightarrow]{d}{\mu_F}
+\\
+	P \bar{F} \ar[Rightarrow]{r}
+&
+	FF \ar[Rightarrow]{r}[swap]{\mu_F}
+&
+	F
+\end{tikzcd}
+\]
+By condition (iii) in Definition \ref{AMALGMON DEF}
+the bottom composite is the identity and, similarly, the top composite is the top composite in the left diagram in \eqref{MODSTRCOM EQ},
+proving the result.
+\end{proof}
+
+
+
+
+\begin{remark}
+We define the twist map $\tau \colon \bar{F} P \Rightarrow P \bar{F}$ as the composite
+\[
+\begin{tikzcd}
+	\bar{F} P \ar[Rightarrow]{r}{\eta_P \bar{F} P \eta_{\bar{F}}}
+&
+	P \bar{F} P \bar{F} \ar[equal]{r}
+&
+	FF  \ar[Rightarrow]{r}{\mu_F}
+&
+	F \ar[equal]{r}
+&
+	P \bar{F}
+\end{tikzcd}
+\]
+\end{remark}
+
+
+
+
+
+\begin{proposition}\label{ALTMULT PROP}
+The multiplication
+$\mu_F \colon FF \Rightarrow F$ 
+can also be described as the composite
+\begin{equation}\label{ALTMULT EQ}
+\begin{tikzcd}
+	FF \ar[equal]{r}
+&
+	P \bar{F} P \bar{F} \ar[Rightarrow]{r}{P \tau \bar{F}}
+&
+	P P \bar{F} \bar{F}   \ar[Rightarrow]{r}{\mu_P \mu_{\bar{F}}}
+&
+	P \bar{F} \ar[equal]{r}
+&
+	F
+\end{tikzcd}
+\end{equation}
+\end{proposition}
+
+
+
+\begin{proof}
+Consider the following commutative diagram,
+where the top left square commutes by definition of the twist $\tau$,
+the remaining top squares commute by Lemma \ref{MODSTRCOM LEM},
+and the bottom rectangle commutes due to $F$ being a monad.
+\[
+\begin{tikzcd}
+	P \bar{F} P \bar{F} \ar[Rightarrow]{d} 
+	\ar[Rightarrow]{r}{P \tau \bar{F}}
+&
+	P P \bar{F} \bar{F}  \ar[Rightarrow]{r}{\mu_P \bar{F} \bar{F}} \ar[Rightarrow]{d}
+&
+	P \bar{F} \bar{F} \ar[Rightarrow]{r}{P \mu_{\bar{F}}}
+	\ar[Rightarrow]{d}
+&
+	P \bar{F} \ar[equal]{d}
+\\
+	FFFF \ar[Rightarrow]{r}{F \mu_F F}
+	\ar[Rightarrow]{d}[swap]{\mu_F \mu_F}
+&
+	FFF \ar[Rightarrow]{r}{\mu_F F}
+&
+	FF \ar[Rightarrow]{r}{\mu_F}
+&
+	F \ar[equal]{d}
+\\
+	FF \ar[Rightarrow]{rrr}{\mu_F}
+&&&
+	F
+\end{tikzcd}
+\]
+Condition (iii) in Definition \ref{AMALGMON DEF}
+now says that the left vertical composite is the identity,
+so that the left bottom composite is $\mu_F$,
+while the top composite is 
+\eqref{ALT MULT}, as intended.
+\end{proof}
+
+
+
+{\color{red} HERE}
+
+
+
+\begin{remark}
+Proposition \ref{ALTMULT PROP}
+says that the monoidal structure on $F = P \bar{F}$
+is completly determined by the monoidal structures on $P$, $\bar{F}$ and the twist map.
+In other words, given monads $P$, $\bar{F}$ and a twist map as in 
+Remark \ref{TWISTMAP REM}, one should be able to build a monad structure on $F = P \bar{F}$
+with multiplication given as in \eqref{ALTMULT EQ}.
+\end{remark}
+
+
+
+
+
+
+\newpage
 
 In this section, we synthesize the above results as well as the results of the related papers \cite{BP_geo,BP_edss,Per_eds},
 to prove the main theorem of this project, Theorem \ref{QE_THM}.
@@ -7814,6 +8008,12 @@ Before the proof, we list some technical results yielded from \cite{BP_edss} tha
       Since by Proposition \ref{W!_COF_PROP} it is left Quillen,
       the result follows.
 \end{proof}
+
+
+
+
+\iffalse%
+
 
 
 \section{Indexing system analogue results}
@@ -11801,7 +12001,7 @@ is encoded by the diagram
 
 
 
-
+\fi
 
 
 
