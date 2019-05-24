@@ -7470,14 +7470,13 @@ the following diagrams commute
 \end{enumerate}
 \end{proposition}
 
-{\color{red} HERE}
 
 \begin{proof}
-Consider the following commutative diagram,
-where the top left square commutes by definition of the twist $\tau$,
-the remaining top squares commute by definition of the action multiplication,
-and the bottom rectangle commutes due to $F$ being a monad.
-\[
+Note first that (iii) is simply 
+a rephrasing of Lemma \ref{MODSTRCOMRE LEM}(i) 
+(included for the sake of Remark {\color{red} add}.
+(i) and (ii) will follow from the following diagrams.
+\begin{equation}\label{ALTMPR EQ}
 \begin{tikzcd}
 	P \bar{F} P \bar{F} \ar[Rightarrow]{d} 
 	\ar[Rightarrow]{r}{P \tau \bar{F}}
@@ -7488,6 +7487,12 @@ and the bottom rectangle commutes due to $F$ being a monad.
 	\ar[Rightarrow]{d}
 &
 	F \ar[equal]{d}
+&&%
+	\bar{F} P P \ar[Rightarrow]{rr}{\tau P}
+	\ar[Rightarrow]{rd}{}
+	\ar[Rightarrow]{dd}[swap]{\bar{F} \mu}
+&&
+	F P \ar[Rightarrow]{d}
 \\
 	FFFF \ar[Rightarrow]{r}{F \mu F}
 	\ar[Rightarrow]{d}[swap]{\mu \mu}
@@ -7497,88 +7502,45 @@ and the bottom rectangle commutes due to $F$ being a monad.
 	FF \ar[Rightarrow]{r}{\mu}
 &
 	F \ar[equal]{d}
-\\
-	FF \ar[Rightarrow]{rrr}{\mu}
-&&&
-	F
-\end{tikzcd}
-\]
-Condition (iii) in Definition \ref{AMALGMON DEF}
-now says that the left vertical composite is the identity,
-so that the left bottom composite is $\mu_F$,
-while by Lemma \ref{MODSTRCOMRE LEM}(iii) the top composite is 
-\eqref{ALTMULT EQ}, as intended.
-\end{proof}
-
-
-{\color{red} HERE}
-
-{\color{red} HERE}
-
-
-\begin{lemma}
-The following diagrams commute
-\begin{equation}\label{DOUBLETWIST EQ}
-\begin{tikzcd}
-	\bar{F} P P \ar[Rightarrow]{r}{\tau P} 
-	\ar[Rightarrow]{d}[swap]{\bar{F} \mu}
-&
-	P \bar{F} P \ar[Rightarrow]{r}{P\tau}
-&
-	P P \bar{F} \ar[Rightarrow]{d}{\mu \bar{F}}
-&%%
-	\bar{F} \bar{F} P  \ar[Rightarrow]{r}{\bar{F} \tau}
-	\ar[Rightarrow]{d}[swap]{\mu P}
-&
-	\bar{F} P \bar{F}  \ar[Rightarrow]{r}{\tau \bar{F}}
-&
-	P \bar{F} \bar{F} \ar[Rightarrow]{d}{P \mu}
-\\
-	\bar{F} P \ar[Rightarrow]{rr}{\tau} 
-&&
-	P \bar{F}
-&%%
-	\bar{F} P \ar[Rightarrow]{rr}{\tau} 
-&&
-	P \bar{F}
-\end{tikzcd}
-\end{equation}
-\end{lemma}
-
-
-\begin{proof}
-The two claims are analogous, so we address only the first one.
-Now consider the following diagram, where the top section commutes by definition of $\tau$, the bottom left square commutes since 
-$P \Rightarrow F$ is monadic,
-and the bottom right square commutes since $F$ is a monad.
-\[
-\begin{tikzcd}
-	\bar{F} P P \ar[Rightarrow]{rr}{\tau P}
-	\ar[Rightarrow]{rd}{}
-	\ar[Rightarrow]{dd}[swap]{\bar{F} \mu}
-&&
-	F P \ar[Rightarrow]{d}
-\\
+&&%
 &
 	FFF \ar[Rightarrow]{d}[swap]{F \mu}
 	\ar[Rightarrow]{r}{\mu F}
 &
 	FF \ar[Rightarrow]{d}{\mu}
 \\
+	FF \ar[Rightarrow]{rrr}{\mu}
+&&&
+	F
+&&%
 	\bar{F} P \ar[Rightarrow]{r}
 &
 	FF \ar[Rightarrow]{r}[swap]{\mu}
 &
 	F
 \end{tikzcd}
-\]
-The bottom composite matched the bottom composite of the left diagram in 
-\eqref{DOUBLETWIST EQ} by definition of $\tau$,
-while the top right (outer) composite matches the 
-top right composite of the left diagram in 
-\eqref{DOUBLETWIST EQ}
-by the first half of Lemma \ref{MODSTRCOM2 LEM}.
+\end{equation}
+For (i), consider the left diagram in \eqref{ALTMPR EQ}, where the top left square commutes by definition of the twist $\tau$,
+the remaining top squares commute by definition of the action multiplication,
+and the bottom rectangle commutes due to $F$ being a monad.
+Definition \ref{AMALGMON DEF}(iii)
+then says that the left vertical composite therein is the identity,
+while by Lemma \ref{MODSTRCOMRE LEM}(iv) the top composite is 
+\eqref{ALTMULT EQ}, so (i) follows.
+
+For (ii), by symmetry it suffices to show the first half.
+Consider now the right diagram in \eqref{ALTMPR EQ},
+where the top right section commutes by definition of $\tau$,
+the bottom left section commutes since $P \Rightarrow F$ is a monad map,
+and the bottom right square commutes since $F$ is monad.
+But now the bottom composite therein is $\tau$ by definition
+while, by Lemma \ref{MODSTRCOMRE LEM}(iii),
+the top right outer composite from $\bar{F}PP$ to $F$ matches the top right outer composite in (the left side of) \eqref{DOUBLETWIST EQ},
+so (ii) follows.
 \end{proof}
+
+
+
 
 {\color{red} HERE}
 
@@ -7640,69 +7602,6 @@ We define the twist map $\tau \colon \bar{F} P \Rightarrow P \bar{F}$ as the com
 
 
 
-\begin{proposition}\label{ALTMULT PROP}
-\begin{enumerate}[label=(\roman*)]
-\item
-the multiplication
-$\mu \colon FF \Rightarrow F$ 
-can also be described as the composite
-\begin{equation}\label{ALTMULT EQ}
-\begin{tikzcd}
-	FF \ar[equal]{r}
-&
-	P \bar{F} P \bar{F} \ar[Rightarrow]{r}{P \tau \bar{F}}
-&
-	P P \bar{F} \bar{F}   \ar[Rightarrow]{r}{\mu_P \mu_{\bar{F}}}
-&
-	P \bar{F} \ar[equal]{r}
-&
-	F
-\end{tikzcd}
-\end{equation}
-\end{enumerate}
-\end{proposition}
-
-
-
-\begin{proof}
-Consider the following commutative diagram,
-where the top left square commutes by definition of the twist $\tau$,
-the remaining top squares commute by Lemma \ref{MODSTRCOM LEM},
-and the bottom rectangle commutes due to $F$ being a monad.
-\[
-\begin{tikzcd}
-	P \bar{F} P \bar{F} \ar[Rightarrow]{d} 
-	\ar[Rightarrow]{r}{P \tau \bar{F}}
-&
-	P P \bar{F} \bar{F}  \ar[Rightarrow]{r}{\mu_P \bar{F} \bar{F}} \ar[Rightarrow]{d}
-&
-	P \bar{F} \bar{F} \ar[Rightarrow]{r}{P \mu_{\bar{F}}}
-	\ar[Rightarrow]{d}
-&
-	P \bar{F} \ar[equal]{d}
-\\
-	FFFF \ar[Rightarrow]{r}{F \mu_F F}
-	\ar[Rightarrow]{d}[swap]{\mu_F \mu_F}
-&
-	FFF \ar[Rightarrow]{r}{\mu_F F}
-&
-	FF \ar[Rightarrow]{r}{\mu_F}
-&
-	F \ar[equal]{d}
-\\
-	FF \ar[Rightarrow]{rrr}{\mu_F}
-&&&
-	F
-\end{tikzcd}
-\]
-Condition (iii) in Definition \ref{AMALGMON DEF}
-now says that the left vertical composite is the identity,
-so that the left bottom composite is $\mu_F$,
-while the top composite is 
-\eqref{ALTMULT EQ}, as intended.
-\end{proof}
-
-
 
 
 \begin{remark}
@@ -7718,72 +7617,6 @@ with multiplication given as in \eqref{ALTMULT EQ}.
 
 
 
-
-\begin{lemma}
-The following diagrams commute
-\begin{equation}\label{DOUBLETWIST EQ}
-\begin{tikzcd}
-	\bar{F} P P \ar[Rightarrow]{r}{\tau P} 
-	\ar[Rightarrow]{d}[swap]{\bar{F} \mu_P}
-&
-	P \bar{F} P \ar[Rightarrow]{r}{P\tau}
-&
-	P P \bar{F} \ar[Rightarrow]{d}{\mu_P \bar{F}}
-&%%
-	\bar{F} \bar{F} P  \ar[Rightarrow]{r}{\bar{F} \tau}
-	\ar[Rightarrow]{d}[swap]{\mu_{\bar{F}} P}
-&
-	\bar{F} P \bar{F}  \ar[Rightarrow]{r}{\tau \bar{F}}
-&
-	P \bar{F} \bar{F} \ar[Rightarrow]{d}{P \mu_{\bar{F}}}
-\\
-	\bar{F} P \ar[Rightarrow]{rr}{\tau} 
-&&
-	P \bar{F}
-&%%
-	\bar{F} P \ar[Rightarrow]{rr}{\tau} 
-&&
-	P \bar{F}
-\end{tikzcd}
-\end{equation}
-\end{lemma}
-
-
-\begin{proof}
-The two claims are analogous, so we address only the first one.
-Now consider the following diagram, where the top section commutes by definition of $\tau$, the bottom left square commutes since 
-$P \Rightarrow F$ is monadic,
-and the bottom right square commutes since $F$ is a monad.
-\[
-\begin{tikzcd}
-	&
-	P \bar{F} P \ar[equal]{r}
-	&
-	F P \ar[Rightarrow]{d}
-\\
-	\bar{F} P P  \ar[Rightarrow]{d}[swap]{\bar{F} \mu_P}
-	\ar[Rightarrow]{r}
-	\ar[Rightarrow]{ru}{\tau P}
-&
-	FFF \ar[Rightarrow]{d}[swap]{F \mu_F}
-	\ar[Rightarrow]{r}{\mu_F F}
-&
-	FF \ar[Rightarrow]{d}{\mu_F}
-\\
-	\bar{F} P \ar[Rightarrow]{r}
-&
-	FF \ar[Rightarrow]{r}[swap]{\mu_F}
-&
-	F
-\end{tikzcd}
-\]
-The bottom composite matched the bottom composite of the left diagram in 
-\eqref{DOUBLETWIST EQ} by definition of $\tau$,
-while the top right (outer) composite matches the 
-top right composite of the left diagram in 
-\eqref{DOUBLETWIST EQ}
-by the first half of Lemma \ref{MODSTRCOM2 LEM}.
-\end{proof}
 
 
 \begin{remark}
