@@ -7310,7 +7310,7 @@ Therefore, to avoid ambiguity, we always write the
 source of a $\mu$ labeled map as a composite of two functors and the target as a single functor
 (for example, this means we write 
 $\mu\colon FF \Rightarrow F$ for the multiplication of $F$,
-but \emph{never} write that multiplication as $\mu \colon P \bar{F} P \bar{F} \Rightarrow P \bar{F}$);
+but \emph{never} write this multiplication as $\mu \colon P \bar{F} P \bar{F} \Rightarrow P \bar{F}$);
 \item we write $\eta$ for either of the units 
 $I \Rightarrow P$,
 $I \Rightarrow \bar{F}$,
@@ -7559,7 +7559,7 @@ the following diagrams commute
 \begin{proof}
 Note first that (iii) is simply 
 a rephrasing of Lemma \ref{MODSTRCOMRE LEM}(i) 
-(included for the sake of Remark {\color{red} add}.
+(included for the sake of Remark {\color{red} add}).
 (i) and (ii) will follow from the following diagrams.
 \begin{equation}\label{ALTMPR EQ}
 \begin{tikzcd}
@@ -7626,10 +7626,90 @@ so (ii) follows.
 
 
 
+\begin{proposition}
+Let $P,\bar{F}$ be monads on $\mathcal{C}$ as in Definition \ref{AMALGMON DEF}.
+
+Then for each $\bar{F}$-algebra 
+$X \in \mathsf{Alg}_{\bar{F}}(\mathcal{C})$
+with multiplication 
+$\bar{F}X \xrightarrow{m} X$
+one has an $\bar{F}$-algebra structure on $PX$ given by
+$\bar{F}P X \xrightarrow{\tau_X} P \bar{F} X \xrightarrow{Pm} X$.
+
+Moreover, the underlying functor and monad strucutre of $P$
+lift to a monad $\mathsf{Alg}_{\bar{F}}(\mathcal{C})$.
+\end{proposition}
+
+
+\begin{proof}
+Write $m_P$ for the prescribed $\bar{F}$-algebra structure on $PX$.
+
+To check associativity of $m_P$, consider the left diagram in 
+\eqref{CHECKMON EQ} below, which commutes by the second half of Proposition \ref{ALTMULT EQ} and because $X$ is a $\bar{F}$-algebra.
+Associativity is the claim that the composites 
+$\bar{F} \bar{F} P X \xrightarrow{\bar{F} m_P} \bar{F} PX
+\xrightarrow{m_P} PX$
+and
+$\bar{F} \bar{F} P X \xrightarrow{\mu_{PX}} \bar{F} PX
+\xrightarrow{m_P} PX$
+coincide.
+But the second composite is the left bottom composite in \eqref{CHECKMON EQ}
+while the first composite is 
+\[
+\bar{F} \bar{F} P X \xrightarrow{\bar{F} \tau_X}
+\bar{F} P \bar{F} X \xrightarrow{\bar{F}P m}
+\bar{F} P X \xrightarrow{\tau_X}
+P \bar{F} X \xrightarrow{Pm}
+PX
+\]
+which matches the top right composite in \eqref{CHECKMON EQ},
+so associativity follows. Unitality of $m_P$ follows similarly using the second half of Lemma \ref{ALTMULT PROP}(iii).
+
+For the moreover claim, that $P$ sends algebra maps to algebra maps follows from naturality of $\tau$, so it remains only to show that,
+when applied to $\bar{F}$-algebras, the natural transformations 
+$\mu \colon PP \Rightarrow P$ and $\eta \colon I \Rightarrow P$
+consist of $\bar{F}$-algebra maps.
+For $\mu \colon PP \Rightarrow P$ this follows from the right diagram in 
+\eqref{CHECKMON EQ}, which commutes by the first half of Proposition \ref{ALTMULT PROP}(ii), while the $\eta \colon I \Rightarrow P$
+case follows similarly using the first half of 
+Proposition \ref{ALTMULT PROP}(iii).
+\begin{equation}\label{CHECKMON EQ}
+\begin{tikzcd}[column sep = 1.55em]
+	\bar{F} \bar{F} P X \ar{r}{\bar{F}\tau_X} \ar{d}[swap]{\mu_{PX}}
+&
+	\bar{F} P \bar{F} X \ar{r}{\tau_{\bar{F}X}}
+&
+	P \bar{F} \bar{F} X \ar{r}{P\bar{F}m} \ar{d}[swap]{P\mu_X}
+&
+	P \bar{F} X \ar{d}{Pm}
+&%
+	\bar{F} P P X \ar{r}{\tau_{PX}} \ar{d}[swap]{\mu_{PX}}
+&
+	P \bar{F} P X \ar{r}{P \tau_{X}}
+&
+	P P \bar{F} X \ar{r}{P Pm} \ar{d}[swap]{\mu_{\bar{F}X}}
+&
+	PP X \ar{d}{\mu_X}
+\\
+	\bar{F} P X \ar{rr}{\tau_X}
+&&
+	P \bar{F} X \ar{r}{Pm}
+&
+	PX
+&%
+	\bar{F} P X \ar{rr}{\tau_X}
+&&
+	P \bar{F} X \ar{r}{Pm}
+&
+	PX
+\end{tikzcd}
+\end{equation}
+\end{proof}
+
+
+
 
 {\color{red} HERE}
-
-
 
 
 
@@ -7646,21 +7726,6 @@ with multiplication given as in \eqref{ALTMULT EQ}.
 
 
 
-
-
-
-\begin{remark}
-The right side of \eqref{DOUBLETWIST EQ}
-implies that $P$ can also be regarded as an 
-endofunctor of $\mathsf{Alg}_{\bar{F}}(\mathcal{C})$
-({\color{blue} when is comes to compatibility with multiplication}).
-
-Similarly, the left side of \eqref{DOUBLETWIST EQ}
-implies that $PP \to P$ is still a map of endofunctors of  
-$\mathsf{Alg}_{\bar{F}}(\mathcal{C})$.
-\end{remark}
-
-
 {\color{red} HERE}
 
 \begin{remark}
@@ -7669,6 +7734,13 @@ are the only requirements needed for
 the multiplication prescribed by \eqref{ALTMULT EQ}
 to be associative.
 \end{remark}
+
+
+
+
+
+
+
 
 
 \newpage
@@ -7722,6 +7794,15 @@ commutes.
 \end{proposition}
 
 
+
+\begin{remark}
+By definition the left functor $P$, top functor $\bar{F}$, 
+and diagonal functor $F=P\bar{F}$
+in \eqref{COMULEFTADJ EQ} are monadic 
+(i.e. they identify their target as the category of algebras over the source for the adjunction monad).
+But then by Beck's monadicity theorem \cite[VI.7 Thm. 1]{McL},
+it is immediate that the right functor $P$ and bottom functor $F^r$ in \eqref{COMULEFTADJ EQ} are likewise monadic.
+\end{remark}
 
 
 
