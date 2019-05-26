@@ -7746,36 +7746,56 @@ $PZ \rightarrow FZ \xrightarrow{m}Z$.
 
 
 \begin{proof}
-Using the isomorphisms
-$\mathsf{Alg}_{\bar{F}}(\bar{F}X,Y) \simeq \mathcal{C}(X,Y) \simeq \mathsf{Alg}_{F}(FX,Y)$
-
-
+Note first that, for $X\in \mathcal{C}$ and $Y \in \mathsf{Alg}_F$,
+the natural isomorphisms
+$\mathsf{Alg}_{\bar{F}}(\bar{F}X,Y) 
+\simeq \mathcal{C}(X,Y)
+ \simeq \mathsf{Alg}_{F}(FX,Y)$
+show that the left adjoint sends free $\bar{F}$-algebras
+$\bar{F} X$ to $FX = P \bar{F}X$,
+and similarly for free maps.
+Moreover, the maps 
+$\mathsf{Alg}_{\bar{F}}(\bar{F}X,Y)
+\to
+\mathsf{Alg}_{\bar{F}}(\bar{F}\bar{F}X,Y)$
+and
+$\mathsf{Alg}_{F}(FX,Y)
+\to
+\mathsf{Alg}_{F}(F\bar{F}X,Y)$
+induced by the multiplications
+$\mu \bar{F} \bar{F} \Rightarrow \bar{F}$,
+$\mu F \bar{F} \Rightarrow F$
+are adjoint to the two composites below.
+Here the left maps are induced by the functors $\bar{F}$ and $F$, the middle maps are induced by $\bar{F} \Rightarrow F$ (so that the square commutes by naturality) and the right map by the algebra action $FY \to Y$.
 \[
-coeq \left(
-FFX 
-\underset{dog}{\overset{cat}{\rightrightarrows}}
-FX
- \right)
- \left(
- \begin{tikzcd}
- FFX \ar[shift right=.3em]{r} \ar[shift left=.3em]{r} & FX
- \end{tikzcd}
- \right)
+\begin{tikzcd}[row sep=0]
+	&
+	\C(\bar{F}X,\bar{F}Y) \ar{rd}
+\\
+	\C(X,Y) \ar{ru} \ar{rd}
+&&
+	\C(\bar{F}X,FY) \ar{r}
+&
+	\C(\bar{F}X,Y)
+\\
+&
+	\C(FX,FY) \ar{ru}
+\end{tikzcd}
 \]
+In other words, the left adjoint sends
+$\bar{F}\bar{F}X \xrightarrow{\mu_X}\bar{F}X$
+to 
+$F\bar{F}X \xrightarrow{\mu_X} FX$.
 
+Since any $\bar{F}$-algebra $X$ with multiplication
+$\bar{F}X \xrightarrow{m} X$
+is canonically described as the coequalizer
+$X = coeq \left( \bar{F} \bar{F} X \overset{\mu}{\underset{\bar{F}m}{\rightrightarrows}} \bar{F} X\right)$
+we have that the left adjoint applied to $X$ gives
 \[
 coeq 
  \left(
- \begin{tikzcd}[column sep=10pt]
- FFX \ar[shift right=.3em]{r}[swap]{cat} \ar[shift left=.3em]{r}{dog} & FX
- \end{tikzcd}
- \right)
-\]
-
-\[
-coeq 
- \left(
- \begin{tikzcd}[column sep=10pt]
+ \begin{tikzcd}[column sep=8pt]
 	F \bar{F} X
 	\ar[shift left=.3em]{r}{\mu}
 	\ar[shift right=.3em]{r}[swap]{Fm} &
@@ -7808,6 +7828,60 @@ coeq
 =
 PX
 \]
+which proves (i).
+
+{\color{red} HERE}
+
+To check (ii),(iii),(iv), we consider the diagrams
+\[
+\begin{tikzcd}
+	FF\bar{F} X
+	\ar[shift left=.3em]{d}{F\mu}
+	\ar[shift right=.3em]{d}[swap]{FFm}
+	\ar{r}{\mu\bar{F}}
+&
+	F\bar{F}X
+	\ar[shift left=.3em]{d}{\mu}
+	\ar[shift right=.3em]{d}[swap]{Fm}
+&%
+	\bar{F} \bar{F} X
+	\ar[shift left=.3em]{d}{\mu}
+	\ar[shift right=.3em]{d}[swap]{\bar{F}m}
+	\ar{r}
+&
+	F \bar{F} X
+	\ar[shift left=.3em]{d}{\mu}
+	\ar[shift right=.3em]{d}[swap]{Fm}
+&%
+	F \bar{F} Y
+	\ar[shift left=.3em]{d}{\mu}
+	\ar[shift right=.3em]{d}[swap]{Fm}
+	\ar{r}
+&
+	FF Y
+	\ar[shift left=.3em]{d}{\mu}
+	\ar[shift right=.3em]{d}[swap]{Fm}
+\\
+	F F X
+	\ar{r}{\mu}
+&
+	FX
+&%
+	\bar{F}X \ar{r}
+&
+	F X
+&%
+	F Y \ar{r}
+&
+	F Y
+\end{tikzcd}
+\]
+
+
+{\color{red} HERE}
+
+
+
 
 
 For (ii), get
@@ -7892,9 +7966,118 @@ For (ii), get
 
 
 
-
 {\color{red} HERE}
 
+\begin{proposition}
+If $T \Rightarrow F$ is a monad map,
+the forgetful functor
+$U \colon \mathsf{Alg}_F \to \mathsf{Alg}_T$
+is the right adjoint in an adjunction such that
+\begin{enumerate}[label=(\roman*)]
+\item on a $T$-algebra $X$ with multiplication $TX \rightarrow{m} X$,
+the left adjoint is given by the coequalizer of $F$-algebras
+\begin{equation}\label{LEFTADJFOR EQ}
+coeq \left( F T X 
+\overset{\mu}{\underset{Fm}{\rightrightarrows}}
+F X\right)
+\end{equation}
+\item the adjunction unit
+is the natural map (induced by $T \Rightarrow F$)
+\[
+T \simeq coeq \left( T T X 
+\overset{\mu}{\underset{Tm}{\rightrightarrows}}
+T X\right)
+	\to
+coeq \left( F T X 
+\overset{\mu}{\underset{Fm}{\rightrightarrows}}
+F X\right)
+\]
+\item 
+the adjunction counit, on a $F$-algebra $Y$ with multiplication 
+$FY \xrightarrow{m} Y$, is the natural map (induced by $m$)
+\[
+coeq \left( F T Y 
+\overset{\mu}{\underset{Fm}{\rightrightarrows}}
+F Y\right)
+\to
+Y
+\]
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Since existence of the left adjoint is equivalent to the representability
+of the functors
+$\mathsf{Alg}_F \xrightarrow{\mathsf{Alg}_T(X,U(-))} \mathsf{Set}$
+ for each $X \in \mathsf{Alg}_T$
+and, for $A\in \mathcal{C}$ and $Y \in \mathsf{Alg}_F$,
+one has natural isomorphisms
+\begin{equation}\label{ALGADJ EQ}
+\mathsf{Alg}_{T}(TA,Y) 
+\simeq \mathcal{C}(A,Y)
+ \simeq \mathsf{Alg}_{F}(FA,Y)
+\end{equation}
+one has that the left adjoint of $U$ can be defined
+to send the free $T$-algebra
+$T A$ to the free $F$-algebra $FA$
+and likewise for free maps.
+%
+Moreover, the maps 
+$\mathsf{Alg}_{T}(TA,Y)
+\to
+\mathsf{Alg}_{T}(TTA,Y)$
+and
+$\mathsf{Alg}_{F}(FA,Y)
+\to
+\mathsf{Alg}_{F}(FTA,Y)$
+induced by the multiplications
+$\mu \colon TT \Rightarrow T$,
+$\mu \colon F T \Rightarrow F$
+correspond via \eqref{ALGADJ EQ}
+to the two horizontal composites in \eqref{MUCOMPADJ EQ} below.
+Here the left maps are induced by functoriality of $T$ and $F$, the middle maps by $\bar{F} \Rightarrow F$ (so that the square commutes by naturality) and the right map by the algebra action $FY \to Y$.
+\begin{equation}\label{MUCOMPADJ EQ}
+\begin{tikzcd}[row sep=0]
+	&
+	\C(TX,TY) \ar{rd}
+\\
+	\C(X,Y) \ar{ru} \ar{rd}
+&&
+	\C(TX,FY) \ar{r}
+&
+	\C(TX,Y)
+\\
+&
+	\C(FX,FY) \ar{ru}
+\end{tikzcd}
+\end{equation}
+We have thus shown that the left adjoint sends the 
+(non-free) map of free algebras
+$TTX \xrightarrow{\mu}TX$
+to 
+$FTX \xrightarrow{\mu} FX$.
+
+
+But now recalling that any $T$-algebra $X$ with multiplication
+$TX \xrightarrow{m} X$
+is canonically described as the coequalizer
+$X = coeq \left( T T X \overset{\mu}{\underset{T m}{\rightrightarrows}} T X\right)$,
+it follows that
+\eqref{LEFTADJFOR EQ}
+indeed represents $\mathsf{Alg}_T(X,U(-))$, which proves (i).
+
+Lastly, for (ii) and (iii), we have that the adjunction naturally identifies the maps below
+\[
+X =
+ coeq \left( T T X \overset{\mu}{\underset{T m}{\rightrightarrows}} T X\right) \to UY
+\qquad
+coeq \left( F T X \overset{\mu}{\underset{F m}{\rightrightarrows}} F X\right) \to Y
+\]
+so (ii) and (iii) follow, respectively by choosing the 
+the right map to be the identity on \eqref{LEFTADJFOR EQ}
+and
+left map to be the identity on $UY$.
+\end{proof}
 
 
 
