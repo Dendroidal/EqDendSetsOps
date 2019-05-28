@@ -7258,18 +7258,18 @@ one has that, writing $C \simeq G \cdot_H C_{\star}$ one has the alternative pus
 
 
 \begin{definition}\label{AMALGMON DEF}
-Suppose the category $\mathcal{C}$ has 
-two monads $P$ and $\bar{F}$,
-as well as a monad structure on the composite 
+Let $P$ and $\bar{F}$ be two monads on the same category $\mathcal{C}$.
+We say \emph{$P$ and $\bar{F}$ can be combined} if there exists 
+a monad structure on the composite 
 $F = P \bar{F}$ such that
 \begin{enumerate}[label=(\roman*)]
-\item  $\eta_P \bar{F} \colon \bar{F} \Rightarrow P \bar{F} = F$
-is a monadic natural transformation
-\item  $P \eta_{\bar{F}} \colon P \Rightarrow P \bar{F} = F$
-is a monadic natural transformation
+\item $P \eta_{\bar{F}} \colon P \Rightarrow P \bar{F} = F$
+is a map of monads
+\item $\eta_P \bar{F} \colon \bar{F} \Rightarrow P \bar{F} = F$
+is a map of monads
 \item the composite below is the identity
 \[
-\begin{tikzcd}
+\begin{tikzcd}[column sep=3em]
 	P \bar{F} \ar[Rightarrow]{r}{P \eta_{\bar{F}} \eta_P \bar{F}}
 &
 	P \bar{F} P \bar{F} \ar[equal]{r}
@@ -7284,151 +7284,811 @@ is a monadic natural transformation
 \end{enumerate}
 \end{definition}
 
-\begin{lemma}\label{MODSTRCOM LEM}
-The following diagrams commute
-\begin{equation}\label{MODSTRCOM EQ}
-\begin{tikzcd}
-	PP\bar{F} \ar[Rightarrow]{r}{P\eta_{\bar{F}}P \bar{F}} 
-	\ar[Rightarrow]{d}[swap]{\mu_P \bar{F}}
-&
-	P \bar{F} P \bar{F} \ar[equal]{r}
-&
-	FF \ar[Rightarrow]{d}{\mu_F}
-&%%
-	P \bar{F} \bar{F} \ar[Rightarrow]{r}{P \bar{F} \eta_{P} \bar{F}} 
-	\ar[Rightarrow]{d}[swap]{P \mu_{\bar{F}}}
-&
-	P \bar{F} P \bar{F} \ar[equal]{r}
-&
-	FF \ar[Rightarrow]{d}{\mu_F}
-\\
-	P \bar{F} \ar[equal]{rr} 
-&&
-	F
-&%%
-	P \bar{F} \ar[equal]{rr} 
-&&
-	F
-\end{tikzcd}
-\end{equation}
 
-\end{lemma}
+\begin{remark}\label{SHORTCONV REM}
+To ease notation, in our diagrams we will follow the following conventions:
+\begin{itemize}
+\item by default, unlabeled maps
+% of the form
+$P \Rightarrow F$, $\bar{F} \Rightarrow F$ refer to the maps in
+Definition \ref{AMALGMON DEF}(i)(ii);
+\item we write $\mu$ to denote any of the monad multiplications
+$PP \Rightarrow P$,
+$\bar{F}\bar{F} \Rightarrow \bar{F}$,
+$FF \Rightarrow F$,
+as well as for the left/right action multiplications
+$PF \Rightarrow F$,
+$FP \Rightarrow F$,
+$\bar{F} F \Rightarrow F$,
+$F \bar{F} \Rightarrow F$
+induced by Definition \ref{AMALGMON DEF}(i)(ii)
+(recall that, by definition,
+$PF \Rightarrow F$ is the composite
+$PF \Rightarrow FF \overset{\mu}{\Rightarrow} F$,
+and similarly for the other action multiplications).
 
-
-\begin{proof}
-The two claims are analogous, so we address only the first one.
-Now consider the following diagram,
-where the right square commutes since $F$ is a monad
-and the left square commutes since $P \Rightarrow F$ is monadic.
-\[
-\begin{tikzcd}
-	P P \bar{F} \ar[Rightarrow]{d}[swap]{\mu_P \bar{F}}
-	\ar[Rightarrow]{r}
-&
-	FFF \ar[Rightarrow]{d}[swap]{\mu_F F}
-	\ar[Rightarrow]{r}{F \mu_F}
-&
-	FF \ar[Rightarrow]{d}{\mu_F}
-\\
-	P \bar{F} \ar[Rightarrow]{r}
-&
-	FF \ar[Rightarrow]{r}[swap]{\mu_F}
-&
-	F
-\end{tikzcd}
-\]
-By condition (iii) in Definition \ref{AMALGMON DEF}
-the bottom composite is the identity and, similarly, the top composite is the top composite in the left diagram in \eqref{MODSTRCOM EQ},
-proving the result.
-\end{proof}
-
-
-
-
-\begin{remark}\label{TWISTMAP REM}
-We define the twist map $\tau \colon \bar{F} P \Rightarrow P \bar{F}$ as the composite
-\[
-\begin{tikzcd}
-	\bar{F} P \ar[Rightarrow]{r}{\eta_P \bar{F} P \eta_{\bar{F}}}
-&
-	P \bar{F} P \bar{F} \ar[equal]{r}
-&
-	FF  \ar[Rightarrow]{r}{\mu_F}
-&
-	F \ar[equal]{r}
-&
-	P \bar{F}
-\end{tikzcd}
-\]
+Therefore, to avoid ambiguity, we always write the 
+source of a $\mu$ labeled map as a composite of two functors and the target as a single functor
+(for example, this means we write 
+$\mu\colon FF \Rightarrow F$ for the multiplication of $F$,
+but \emph{never} write this multiplication as $\mu \colon P \bar{F} P \bar{F} \Rightarrow P \bar{F}$);
+\item we write $\eta$ for either of the units 
+$I \Rightarrow P$,
+$I \Rightarrow \bar{F}$,
+$I \Rightarrow F$.
+\end{itemize}
+Note that, following these conventions, 
+Definition \ref{AMALGMON DEF}(iii)
+says that 
+$P\bar{F} \Rightarrow FF \overset{\mu}{\Rightarrow} F$
+is the identity.
 \end{remark}
 
 
-
-
-
-\begin{proposition}\label{ALTMULT PROP}
-The multiplication
-$\mu_F \colon FF \Rightarrow F$ 
-can also be described as the composite
-\begin{equation}\label{ALTMULT EQ}
+\begin{definition}\label{TWISTMAP DEF}
+Given $P,\bar{F},F$ as in Definition \ref{AMALGMON DEF}, 
+the twist map $\tau \colon \bar{F} P \Rightarrow P \bar{F}$ is the composite
+\[
 \begin{tikzcd}
-	FF \ar[equal]{r}
+	\bar{F} P \ar[Rightarrow]{r}{}
 &
-	P \bar{F} P \bar{F} \ar[Rightarrow]{r}{P \tau \bar{F}}
+	FF  \ar[Rightarrow]{r}{\mu}
 &
-	P P \bar{F} \bar{F}   \ar[Rightarrow]{r}{\mu_P \mu_{\bar{F}}}
-&
-	P \bar{F} \ar[equal]{r}
-&
-	F
+	F 
 \end{tikzcd}
-\end{equation}
-\end{proposition}
+\]
+We note that in our diagrams $\tau$ is written as either
+$\tau \colon \bar{F} P \Rightarrow P \bar{F}$ or as
+$\tau \colon \bar{F} P \Rightarrow F$.
+\end{definition}
+
+
+\begin{lemma}\label{MODSTRCOMRE LEM}
+\begin{enumerate}[label=(\roman*)]
+\item the monad maps
+$P \Rightarrow F$ and 
+$\bar{F} \Rightarrow F$ coincide with the composites
+\[
+\begin{tikzcd}
+	P \ar[Rightarrow]{r}{\eta P} &
+	\bar{F} P \ar[Rightarrow]{r}{\tau} &
+	F 
+&
+	\bar{F} \ar[Rightarrow]{r}{\bar{F} \eta} &
+	\bar{F} P \ar[Rightarrow]{r}{\tau} &
+	F 
+\end{tikzcd}
+\]
+\item
+the multiplications $\mu \colon PF \Rightarrow F$ and
+$\mu \colon F\bar{F} \Rightarrow F$
+are also given by
+\[
+\begin{tikzcd}
+	PP\bar{F} \ar[Rightarrow]{r}{\mu \bar{F}} &
+	P \bar{F} 
+&
+	P \bar{F} \bar{F} \ar[Rightarrow]{r}{P \mu} &
+	P \bar{F} 
+\end{tikzcd}
+\]
+\item
+the multiplications
+$\mu \colon F P \Rightarrow F$ and
+$\mu \colon \bar{F} F \Rightarrow F$ are also given by the composites
+\[
+\begin{tikzcd}
+	P\bar{F} P \ar[Rightarrow]{r}{P \tau} &
+	P F \ar[Rightarrow]{r}{\mu} &
+	F 
+&
+	\bar{F} P \bar{F} \ar[Rightarrow]{r}{\tau \bar{F}} &
+	F \bar{F} \ar[Rightarrow]{r}{\mu} &
+	F  
+\end{tikzcd}
+\]
+\item the following composites both coincide with $\mu\mu \colon PP\bar{F}\bar{F} \Rightarrow P \bar{F}$
+\[
+\begin{tikzcd}
+	P F \bar{F} \ar[Rightarrow]{r}{\mu \bar{F}} &
+	F \bar{F} \ar[Rightarrow]{r}{\mu} &
+	F 
+%&
+%	PP\bar{F}\bar{F} \ar[Rightarrow]{r}{\mu \mu} &
+%	P \bar{F}  
+&
+	P F \bar{F} \ar[Rightarrow]{r}{P \mu} &
+	\bar{F} F \ar[Rightarrow]{r}{\mu} &
+	F 
+\end{tikzcd}
+\]
+\end{enumerate}
+\end{lemma}
 
 
 
 \begin{proof}
-Consider the following commutative diagram,
-where the top left square commutes by definition of the twist $\tau$,
-the remaining top squares commute by Lemma \ref{MODSTRCOM LEM},
-and the bottom rectangle commutes due to $F$ being a monad.
+Since all of (i),(ii),(iii) are symmetric, we show only the first half of each. (i),(ii),(iii) will follow from the following diagrams.
+\begin{equation}\label{MODSTRCOMRE EQ}
+\begin{tikzcd}[column sep=1.9em]
+	P \ar[Rightarrow]{d}
+	\ar[Rightarrow]{r}{\eta P}
+&
+	\bar{F}P \ar[Rightarrow]{d} \ar[Rightarrow]{rd}{\tau}
+&
+&%
+	P P \bar{F} \ar[Rightarrow]{d}[swap]{\mu \bar{F}}
+	\ar[Rightarrow]{r}
+&
+	FFF \ar[Rightarrow]{d}[swap]{\mu F}
+	\ar[Rightarrow]{r}{F \mu}
+&
+	FF \ar[Rightarrow]{d}{\mu}
+&%
+	P \bar{F} P  \ar[Rightarrow]{d}[swap]{P \tau}
+	\ar[Rightarrow]{r}
+&
+	FFF \ar[Rightarrow]{d}[swap]{F \mu}
+	\ar[Rightarrow]{r}{\mu F}
+&
+	FF \ar[Rightarrow]{d}{\mu}
+\\
+	F \ar[Rightarrow]{r}[swap]{\eta F}
+&
+	FF \ar[Rightarrow]{r}[swap]{\mu}
+&
+	F
+&%
+	P \bar{F} \ar[Rightarrow]{r}
+&
+	FF \ar[Rightarrow]{r}[swap]{\mu}
+&
+	F
+&%
+	P F \ar[Rightarrow]{r}
+&
+	FF \ar[Rightarrow]{r}[swap]{\mu}
+&
+	F
+\end{tikzcd}
+\end{equation}
+For (i), consider the left diagram in \eqref{MODSTRCOMRE EQ},
+where the square commutes since
+$\bar{F} \to P$ is a monad map (more precisely, it is thus compatible with monad units) and the triangle commutes by definition of $\tau$.
+Since the bottom composite is the identity (due to $F$ being a monad), (i) follows.
+
+For (ii), consider the center diagram in \eqref{MODSTRCOMRE EQ},
+whose left (resp. right) half commutes since
+$P \Rightarrow F$ is a monad map (resp. $F$ is a monad).
+But by Definition \ref{AMALGMON DEF}(iii), the lower composite therein
+is the identity and the top composite is the natural map
+$PF \Rightarrow FF$, so (ii) follows.
+
+For (iii), consider the right diagram in \eqref{MODSTRCOMRE EQ},
+whose left (resp. right) half commutes by definition of $\tau$
+(resp. since $F$ is a monad).
+The bottom composite therein is the multiplication
+$\mu \colon F \bar{F} \Rightarrow F$
+while, by Definition \ref{AMALGMON DEF}(iii), the top composite is
+the natural map $FP \Rightarrow FF$, so (iii) follows.
+
+
+For (iv), part (i) allows us to rewrite 
+the two composites as
 \[
+\begin{tikzcd}
+	PP\bar{F}\bar{F} \ar[Rightarrow]{r}{\mu \bar{F}\bar{F}} &
+	P \bar{F} \bar{F} \ar[Rightarrow]{r}{P\mu} &
+	P \bar{F}
+&
+	PP\bar{F}\bar{F} \ar[Rightarrow]{r}{PP \mu } &
+	P P \bar{F} \ar[Rightarrow]{r}{\mu \bar{F}} &
+	P \bar{F}
+\end{tikzcd}
+\]
+which are both $\mu\mu\colon PP\bar{F}\bar{F} \Rightarrow P \bar{F}$.
+\end{proof}
+
+
+\begin{proposition}\label{ALTMULT PROP}
+\begin{enumerate}[label=(\roman*)]
+\item
+the multiplication
+$\mu \colon FF \Rightarrow F$ 
+can also be described as the composite
+\begin{equation}\label{ALTMULT EQ}
+\begin{tikzcd}
+	P \bar{F} P \bar{F} \ar[Rightarrow]{r}{P \tau \bar{F}}
+&
+	P P \bar{F} \bar{F}   \ar[Rightarrow]{r}{\mu \mu}
+&
+	P \bar{F} 
+\end{tikzcd}
+\end{equation}
+\item
+the following diagrams commute
+\begin{equation}\label{DOUBLETWIST EQ}
+\begin{tikzcd}
+	\bar{F} P P \ar[Rightarrow]{r}{\tau P} 
+	\ar[Rightarrow]{d}[swap]{\bar{F} \mu}
+&
+	P \bar{F} P \ar[Rightarrow]{r}{P\tau}
+&
+	P P \bar{F} \ar[Rightarrow]{d}{\mu \bar{F}}
+&%%
+	\bar{F} \bar{F} P  \ar[Rightarrow]{r}{\bar{F} \tau}
+	\ar[Rightarrow]{d}[swap]{\mu P}
+&
+	\bar{F} P \bar{F}  \ar[Rightarrow]{r}{\tau \bar{F}}
+&
+	P \bar{F} \bar{F} \ar[Rightarrow]{d}{P \mu}
+\\
+	\bar{F} P \ar[Rightarrow]{rr}{\tau} 
+&&
+	P \bar{F}
+&%%
+	\bar{F} P \ar[Rightarrow]{rr}{\tau} 
+&&
+	P \bar{F}
+\end{tikzcd}
+\end{equation}
+\item
+the following diagrams commute
+\begin{equation}\label{UNITTWIST EQ}
+\begin{tikzcd}
+	\bar{F} \ar[Rightarrow]{d}[swap]{\bar{F} \eta}
+	\ar[Rightarrow]{rd}{\eta \bar{F}}
+&
+&%%
+	P \ar[Rightarrow]{d}[swap]{\eta P}
+	\ar[Rightarrow]{rd}{P \eta}
+&
+\\
+	\bar{F} P \ar[Rightarrow]{r}{\tau} 
+&
+	P \bar{F}
+&%%
+	\bar{F} P \ar[Rightarrow]{r}{\tau} 
+&
+	P \bar{F}
+\end{tikzcd}
+\end{equation}
+\end{enumerate}
+\end{proposition}
+
+
+\begin{proof}
+Note first that (iii) is simply 
+a rephrasing of Lemma \ref{MODSTRCOMRE LEM}(i) 
+(included for the sake of Remark {\color{red} add}).
+(i) and (ii) will follow from the following diagrams.
+\begin{equation}\label{ALTMPR EQ}
 \begin{tikzcd}
 	P \bar{F} P \bar{F} \ar[Rightarrow]{d} 
 	\ar[Rightarrow]{r}{P \tau \bar{F}}
 &
-	P P \bar{F} \bar{F}  \ar[Rightarrow]{r}{\mu_P \bar{F} \bar{F}} \ar[Rightarrow]{d}
+	P F \bar{F}  \ar[Rightarrow]{r}{\mu \bar{F}} \ar[Rightarrow]{d}
 &
-	P \bar{F} \bar{F} \ar[Rightarrow]{r}{P \mu_{\bar{F}}}
+	F \bar{F} \ar[Rightarrow]{r}{\mu}
 	\ar[Rightarrow]{d}
 &
-	P \bar{F} \ar[equal]{d}
+	F \ar[equal]{d}
+&&%
+	\bar{F} P P \ar[Rightarrow]{rr}{\tau P}
+	\ar[Rightarrow]{rd}{}
+	\ar[Rightarrow]{dd}[swap]{\bar{F} \mu}
+&&
+	F P \ar[Rightarrow]{d}
 \\
-	FFFF \ar[Rightarrow]{r}{F \mu_F F}
-	\ar[Rightarrow]{d}[swap]{\mu_F \mu_F}
+	FFFF \ar[Rightarrow]{r}{F \mu F}
+	\ar[Rightarrow]{d}[swap]{\mu \mu}
 &
-	FFF \ar[Rightarrow]{r}{\mu_F F}
+	FFF \ar[Rightarrow]{r}{\mu F}
 &
-	FF \ar[Rightarrow]{r}{\mu_F}
+	FF \ar[Rightarrow]{r}{\mu}
 &
 	F \ar[equal]{d}
+&&%
+&
+	FFF \ar[Rightarrow]{d}[swap]{F \mu}
+	\ar[Rightarrow]{r}{\mu F}
+&
+	FF \ar[Rightarrow]{d}{\mu}
 \\
-	FF \ar[Rightarrow]{rrr}{\mu_F}
+	FF \ar[Rightarrow]{rrr}{\mu}
 &&&
 	F
+&&%
+	\bar{F} P \ar[Rightarrow]{r}
+&
+	FF \ar[Rightarrow]{r}[swap]{\mu}
+&
+	F
 \end{tikzcd}
-\]
-Condition (iii) in Definition \ref{AMALGMON DEF}
-now says that the left vertical composite is the identity,
-so that the left bottom composite is $\mu_F$,
-while the top composite is 
-\eqref{ALTMULT EQ}, as intended.
+\end{equation}
+For (i), consider the left diagram in \eqref{ALTMPR EQ}, where the top left square commutes by definition of the twist $\tau$,
+the remaining top squares commute by definition of the action multiplication,
+and the bottom rectangle commutes due to $F$ being a monad.
+Definition \ref{AMALGMON DEF}(iii)
+then says that the left vertical composite therein is the identity,
+while by Lemma \ref{MODSTRCOMRE LEM}(iv) the top composite is 
+\eqref{ALTMULT EQ}, so (i) follows.
+
+For (ii), by symmetry it suffices to show the first half.
+Consider now the right diagram in \eqref{ALTMPR EQ},
+where the top right section commutes by definition of $\tau$,
+the bottom left section commutes since $P \Rightarrow F$ is a monad map,
+and the bottom right square commutes since $F$ is monad.
+But now the bottom composite therein is $\tau$ by definition
+while, by Lemma \ref{MODSTRCOMRE LEM}(iii),
+the top right outer composite from $\bar{F}PP$ to $F$ matches the top right outer composite in (the left side of) \eqref{DOUBLETWIST EQ},
+so (ii) follows.
 \end{proof}
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+\begin{proposition}
+Let $P,\bar{F}$ be monads on $\mathcal{C}$ as in Definition \ref{AMALGMON DEF}.
+
+Then for each $\bar{F}$-algebra 
+$X \in \mathsf{Alg}_{\bar{F}}(\mathcal{C})$
+with multiplication 
+$\bar{F}X \xrightarrow{m} X$
+one has an $\bar{F}$-algebra structure on $PX$ given by
+$\bar{F}P X \xrightarrow{\tau_X} P \bar{F} X \xrightarrow{Pm} X$.
+
+Moreover, the underlying functor and monad strucutre of $P$
+lift to a monad $\mathsf{Alg}_{\bar{F}}(\mathcal{C})$.
+\end{proposition}
+
+
+\begin{proof}
+Write $m_P$ for the prescribed $\bar{F}$-algebra structure on $PX$.
+
+To check associativity of $m_P$, consider the left diagram in 
+\eqref{CHECKMON EQ} below, which commutes by the second half of Proposition \ref{ALTMULT EQ} and because $X$ is a $\bar{F}$-algebra.
+Associativity is the claim that the composites 
+$\bar{F} \bar{F} P X \xrightarrow{\bar{F} m_P} \bar{F} PX
+\xrightarrow{m_P} PX$
+and
+$\bar{F} \bar{F} P X \xrightarrow{\mu_{PX}} \bar{F} PX
+\xrightarrow{m_P} PX$
+coincide.
+But the second composite is the left bottom composite in \eqref{CHECKMON EQ}
+while the first composite is 
+\[
+\bar{F} \bar{F} P X \xrightarrow{\bar{F} \tau_X}
+\bar{F} P \bar{F} X \xrightarrow{\bar{F}P m}
+\bar{F} P X \xrightarrow{\tau_X}
+P \bar{F} X \xrightarrow{Pm}
+PX
+\]
+which matches the top right composite in \eqref{CHECKMON EQ},
+so associativity follows. Unitality of $m_P$ follows similarly using the second half of Lemma \ref{ALTMULT PROP}(iii).
+
+For the moreover claim, that $P$ sends algebra maps to algebra maps follows from naturality of $\tau$, so it remains only to show that,
+when applied to $\bar{F}$-algebras, the natural transformations 
+$\mu \colon PP \Rightarrow P$ and $\eta \colon I \Rightarrow P$
+consist of $\bar{F}$-algebra maps.
+For $\mu \colon PP \Rightarrow P$ this follows from the right diagram in 
+\eqref{CHECKMON EQ}, which commutes by the first half of Proposition \ref{ALTMULT PROP}(ii), while the $\eta \colon I \Rightarrow P$
+case follows similarly using the first half of 
+Proposition \ref{ALTMULT PROP}(iii).
+\begin{equation}\label{CHECKMON EQ}
+\begin{tikzcd}[column sep = 1.55em]
+	\bar{F} \bar{F} P X \ar{r}{\bar{F}\tau_X} \ar{d}[swap]{\mu_{PX}}
+&
+	\bar{F} P \bar{F} X \ar{r}{\tau_{\bar{F}X}}
+&
+	P \bar{F} \bar{F} X \ar{r}{P\bar{F}m} \ar{d}[swap]{P\mu_X}
+&
+	P \bar{F} X \ar{d}{Pm}
+&%
+	\bar{F} P P X \ar{r}{\tau_{PX}} \ar{d}[swap]{\mu_{PX}}
+&
+	P \bar{F} P X \ar{r}{P \tau_{X}}
+&
+	P P \bar{F} X \ar{r}{P Pm} \ar{d}[swap]{\mu_{\bar{F}X}}
+&
+	PP X \ar{d}{\mu_X}
+\\
+	\bar{F} P X \ar{rr}{\tau_X}
+&&
+	P \bar{F} X \ar{r}{Pm}
+&
+	PX
+&%
+	\bar{F} P X \ar{rr}{\tau_X}
+&&
+	P \bar{F} X \ar{r}{Pm}
+&
+	PX
+\end{tikzcd}
+\end{equation}
+\end{proof}
+
+
+
+
+{\color{red} HERE}
+
+\begin{proposition}
+There is an adjunction
+$\mathsf{Alg}_{\bar{F}} \rightleftarrows \mathsf{Alg}_{F}$
+where
+\begin{enumerate}[label=(\roman*)]
+\item the left adjoint is given by $P$ on both objects and arrows, 
+i.e. for any map $f \colon X \to Y$ of $\bar{F}$-algebras, the left adjoint gives
+$Pf \colon Px \to PY$;
+\item if the $\bar{F}$-algebra $X$ has multiplication
+$\bar{F}X \xrightarrow{m} X$
+then the $F$-algebra $PX$ has multiplication
+$FPX = P\bar{F}P X \xrightarrow{P\tau_X}
+PP\bar{F}X \xrightarrow{\mu_{\bar{F}X}} P\bar{F} X
+\xrightarrow{Pm} X$;
+\item the adjunction unit is given by $\eta \colon I \Rightarrow P$;
+\item the adjunction counit, on a $F$-algebra $Z$ with multiplication
+$FZ \xrightarrow{m} Z$,
+is given by
+$PZ \rightarrow FZ \xrightarrow{m}Z$.
+\end{enumerate}
+\end{proposition}
+
+
+\begin{proof}
+Note first that, for $X\in \mathcal{C}$ and $Y \in \mathsf{Alg}_F$,
+the natural isomorphisms
+$\mathsf{Alg}_{\bar{F}}(\bar{F}X,Y) 
+\simeq \mathcal{C}(X,Y)
+ \simeq \mathsf{Alg}_{F}(FX,Y)$
+show that the left adjoint sends free $\bar{F}$-algebras
+$\bar{F} X$ to $FX = P \bar{F}X$,
+and similarly for free maps.
+Moreover, the maps 
+$\mathsf{Alg}_{\bar{F}}(\bar{F}X,Y)
+\to
+\mathsf{Alg}_{\bar{F}}(\bar{F}\bar{F}X,Y)$
+and
+$\mathsf{Alg}_{F}(FX,Y)
+\to
+\mathsf{Alg}_{F}(F\bar{F}X,Y)$
+induced by the multiplications
+$\mu \bar{F} \bar{F} \Rightarrow \bar{F}$,
+$\mu F \bar{F} \Rightarrow F$
+are adjoint to the two composites below.
+Here the left maps are induced by the functors $\bar{F}$ and $F$, the middle maps are induced by $\bar{F} \Rightarrow F$ (so that the square commutes by naturality) and the right map by the algebra action $FY \to Y$.
+\[
+\begin{tikzcd}[row sep=0]
+	&
+	\C(\bar{F}X,\bar{F}Y) \ar{rd}
+\\
+	\C(X,Y) \ar{ru} \ar{rd}
+&&
+	\C(\bar{F}X,FY) \ar{r}
+&
+	\C(\bar{F}X,Y)
+\\
+&
+	\C(FX,FY) \ar{ru}
+\end{tikzcd}
+\]
+In other words, the left adjoint sends
+$\bar{F}\bar{F}X \xrightarrow{\mu_X}\bar{F}X$
+to 
+$F\bar{F}X \xrightarrow{\mu_X} FX$.
+
+Since any $\bar{F}$-algebra $X$ with multiplication
+$\bar{F}X \xrightarrow{m} X$
+is canonically described as the coequalizer
+$X = coeq \left( \bar{F} \bar{F} X \overset{\mu}{\underset{\bar{F}m}{\rightrightarrows}} \bar{F} X\right)$
+we have that the left adjoint applied to $X$ gives
+\[
+coeq 
+ \left(
+ \begin{tikzcd}[column sep=8pt]
+	F \bar{F} X
+	\ar[shift left=.3em]{r}{\mu}
+	\ar[shift right=.3em]{r}[swap]{Fm} &
+	FX
+ \end{tikzcd}
+ \right)
+=
+coeq 
+ \left(
+ \begin{tikzcd}[column sep=14pt]
+	P \bar{F} \bar{F} X
+	\ar[shift left=.3em]{r}{P\mu}
+	\ar[shift right=.3em]{r}[swap]{P \bar{F}m} &
+	P \bar{F} X
+ \end{tikzcd}
+ \right)
+=
+P
+\left(
+coeq
+\left(
+ \begin{tikzcd}[column sep=14pt]
+	\bar{F} \bar{F} X
+	\ar[shift left=.3em]{r}{\mu}
+	\ar[shift right=.3em]{r}[swap]{\bar{F}m} &
+	\bar{F} X
+ \end{tikzcd}
+\right)
+\right)
+=
+PX
+\]
+which proves (i).
+
+{\color{red} HERE}
+
+To check (ii),(iii),(iv), we consider the diagrams
+\[
+\begin{tikzcd}
+	FF\bar{F} X
+	\ar[shift left=.3em]{d}{F\mu}
+	\ar[shift right=.3em]{d}[swap]{FFm}
+	\ar{r}{\mu\bar{F}}
+&
+	F\bar{F}X
+	\ar[shift left=.3em]{d}{\mu}
+	\ar[shift right=.3em]{d}[swap]{Fm}
+&%
+	\bar{F} \bar{F} X
+	\ar[shift left=.3em]{d}{\mu}
+	\ar[shift right=.3em]{d}[swap]{\bar{F}m}
+	\ar{r}
+&
+	F \bar{F} X
+	\ar[shift left=.3em]{d}{\mu}
+	\ar[shift right=.3em]{d}[swap]{Fm}
+&%
+	F \bar{F} Y
+	\ar[shift left=.3em]{d}{\mu}
+	\ar[shift right=.3em]{d}[swap]{Fm}
+	\ar{r}
+&
+	FF Y
+	\ar[shift left=.3em]{d}{\mu}
+	\ar[shift right=.3em]{d}[swap]{Fm}
+\\
+	F F X
+	\ar{r}{\mu}
+&
+	FX
+&%
+	\bar{F}X \ar{r}
+&
+	F X
+&%
+	F Y \ar{r}
+&
+	F Y
+\end{tikzcd}
+\]
+
+
+{\color{red} HERE}
+
+
+
+
+
+For (ii), get
+\[
+\begin{tikzcd}
+	FP\bar{F}\bar{F} X
+	\ar[shift left=.3em]{d}{\mu}
+	\ar[shift right=.3em]{d}[swap]{\bar{F}m}
+	\ar{r}{\mu\bar{F}\bar{F}}
+&
+	F\bar{F}\bar{F}X
+	\ar[shift left=.3em]{d}{\mu}
+	\ar[shift right=.3em]{d}[swap]{\bar{F}m}
+	\ar[equal]{r}
+&
+	P \bar{F}\bar{F}\bar{F}X
+	\ar[shift left=.3em]{d}{\mu}
+	\ar[shift right=.3em]{d}[swap]{\bar{F}m}
+&
+	P \bar{F} \bar{F} X
+	\ar[shift left=.3em]{d}{\mu}
+	\ar[shift right=.3em]{d}[swap]{\bar{F}m}
+\\
+	FP\bar{F} X
+	\ar{r}{\mu\bar{F}}
+&
+	F\bar{F}X
+	\ar[equal]{r}
+&
+	P \bar{F}\bar{F}X
+&
+	P \bar{F} X
+\\ %SECOND
+	\bar{F}\bar{F} X
+	\ar[shift left=.3em]{d}{\mu}
+	\ar[shift right=.3em]{d}[swap]{\bar{F}m}
+	\ar{r}{\mu\bar{F}\bar{F}}
+&
+	P \bar{F}\bar{F}X
+	\ar[shift left=.3em]{d}{\mu}
+	\ar[shift right=.3em]{d}[swap]{\bar{F}m}
+\\
+	\bar{F} X
+	\ar{r}{\mu\bar{F}}
+&
+	P\bar{F}X
+\\ %THIRD
+	P\bar{F} \bar{F} Y
+	\ar[shift left=.3em]{d}{\mu}
+	\ar[shift right=.3em]{d}[swap]{\bar{F}m}
+	\ar{r}{\mu\bar{F}\bar{F}}
+&
+	PFFY
+	\ar[shift left=.3em]{d}{\mu}
+	\ar[shift right=.3em]{d}[swap]{\bar{F}m}
+	\ar[equal]{r}
+&
+	FFFY
+	\ar[shift left=.3em]{d}{\mu}
+	\ar[shift right=.3em]{d}[swap]{\bar{F}m}
+&
+	FFY
+	\ar[shift left=.3em]{d}{\mu}
+	\ar[shift right=.3em]{d}[swap]{\bar{F}m}
+\\
+	P\bar{F} Y
+	\ar{r}{\mu\bar{F}}
+&
+	PFY
+	\ar[equal]{r}
+&
+	FFY
+&
+	FY
+\end{tikzcd}
+\]
+
+
+%$\xLongrightarrow{abc}$
+
+\end{proof}
+
+
+
+{\color{red} HERE}
+
+\begin{proposition}
+If $T \Rightarrow F$ is a monad map,
+the forgetful functor
+$U \colon \mathsf{Alg}_F \to \mathsf{Alg}_T$
+is the right adjoint in an adjunction such that
+\begin{enumerate}[label=(\roman*)]
+\item on a $T$-algebra $X$ with multiplication $TX \rightarrow{m} X$,
+the left adjoint is given by the coequalizer of $F$-algebras
+\begin{equation}\label{LEFTADJFOR EQ}
+coeq \left( F T X 
+\overset{\mu}{\underset{Fm}{\rightrightarrows}}
+F X\right)
+\end{equation}
+\item the adjunction unit
+is the natural map (induced by $T \Rightarrow F$)
+\[
+T \simeq coeq \left( T T X 
+\overset{\mu}{\underset{Tm}{\rightrightarrows}}
+T X\right)
+	\to
+coeq \left( F T X 
+\overset{\mu}{\underset{Fm}{\rightrightarrows}}
+F X\right)
+\]
+\item 
+the adjunction counit, on a $F$-algebra $Y$ with multiplication 
+$FY \xrightarrow{m} Y$, is the natural map (induced by $m$)
+\[
+coeq \left( F T Y 
+\overset{\mu}{\underset{Fm}{\rightrightarrows}}
+F Y\right)
+\to
+Y
+\]
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Since existence of the left adjoint is equivalent to the representability
+of the functors
+$\mathsf{Alg}_F \xrightarrow{\mathsf{Alg}_T(X,U(-))} \mathsf{Set}$
+ for each $X \in \mathsf{Alg}_T$
+and, for $A\in \mathcal{C}$ and $Y \in \mathsf{Alg}_F$,
+one has natural isomorphisms
+\begin{equation}\label{ALGADJ EQ}
+\mathsf{Alg}_{T}(TA,Y) 
+\simeq \mathcal{C}(A,Y)
+ \simeq \mathsf{Alg}_{F}(FA,Y)
+\end{equation}
+one has that the left adjoint of $U$ can be defined
+to send the free $T$-algebra
+$T A$ to the free $F$-algebra $FA$
+and likewise for free maps.
+%
+Moreover, the maps 
+$\mathsf{Alg}_{T}(TA,Y)
+\to
+\mathsf{Alg}_{T}(TTA,Y)$
+and
+$\mathsf{Alg}_{F}(FA,Y)
+\to
+\mathsf{Alg}_{F}(FTA,Y)$
+induced by the multiplications
+$\mu \colon TT \Rightarrow T$,
+$\mu \colon F T \Rightarrow F$
+correspond via \eqref{ALGADJ EQ}
+to the two horizontal composites in \eqref{MUCOMPADJ EQ} below.
+Here the left maps are induced by functoriality of $T$ and $F$, the middle maps by $\bar{F} \Rightarrow F$ (so that the square commutes by naturality) and the right map by the algebra action $FY \to Y$.
+\begin{equation}\label{MUCOMPADJ EQ}
+\begin{tikzcd}[row sep=0]
+	&
+	\C(TX,TY) \ar{rd}
+\\
+	\C(X,Y) \ar{ru} \ar{rd}
+&&
+	\C(TX,FY) \ar{r}
+&
+	\C(TX,Y)
+\\
+&
+	\C(FX,FY) \ar{ru}
+\end{tikzcd}
+\end{equation}
+We have thus shown that the left adjoint sends the 
+(non-free) map of free algebras
+$TTX \xrightarrow{\mu}TX$
+to 
+$FTX \xrightarrow{\mu} FX$.
+
+
+But now recalling that any $T$-algebra $X$ with multiplication
+$TX \xrightarrow{m} X$
+is canonically described as the coequalizer
+$X = coeq \left( T T X \overset{\mu}{\underset{T m}{\rightrightarrows}} T X\right)$,
+it follows that
+\eqref{LEFTADJFOR EQ}
+indeed represents $\mathsf{Alg}_T(X,U(-))$, which proves (i).
+
+Lastly, for (ii) and (iii), we have that the adjunction naturally identifies the maps below
+\[
+X =
+ coeq \left( T T X \overset{\mu}{\underset{T m}{\rightrightarrows}} T X\right) \to UY
+\qquad
+coeq \left( F T X \overset{\mu}{\underset{F m}{\rightrightarrows}} F X\right) \to Y
+\]
+so (ii) and (iii) follow, respectively by choosing the 
+the right map to be the identity on \eqref{LEFTADJFOR EQ}
+and
+left map to be the identity on $UY$.
+\end{proof}
+
+
+
 \begin{remark}
+Proposition \ref{ALTMULT PROP}(i)
+shows that the multiplication 
+
+{\color{red} HERE}
+
+
 Proposition \ref{ALTMULT PROP}
 says that the monoidal structure on $F = P \bar{F}$
 is completely determined by the monoidal structures on $P$, $\bar{F}$ and the twist map.
@@ -7440,152 +8100,6 @@ with multiplication given as in \eqref{ALTMULT EQ}.
 
 
 
-
-\begin{lemma}\label{MODSTRCOM2 LEM}
-The following diagrams commute
-\begin{equation}\label{MODSTRCOM2 EQ}
-\begin{tikzcd}
-	P\bar{F}P \ar[Rightarrow]{r}{P \bar{F} P\eta_{\bar{F}}} 
-	\ar[Rightarrow]{d}[swap]{P \tau}
-&
-	P \bar{F} P \bar{F} \ar[equal]{r}
-&
-	FF \ar[Rightarrow]{d}{\mu_F}
-&%%
-	\bar{F} P \bar{F} \ar[Rightarrow]{r}{\eta_{P} \bar{F} P \bar{F}} 
-	\ar[Rightarrow]{d}[swap]{\tau \bar{F}}
-&
-	P \bar{F} P \bar{F} \ar[equal]{r}
-&
-	FF \ar[Rightarrow]{d}{\mu_F}
-\\
-	P P \bar{F} \ar[Rightarrow]{r}{\mu_P \bar{F}} 
-&
-	P \bar{F} \ar[equal]{r} 
-&
-	F
-&%%
-	\bar{F} \bar{F} P \ar[Rightarrow]{r}{\mu_{\bar{F}}P} 
-&
-	\bar{F} P \ar[equal]{r}
-&
-	F
-\end{tikzcd}
-\end{equation}
-\end{lemma}
-
-
-
-\begin{proof}
-The two claims are analogous, so we address only the first one.
-Now consider the following diagram,
-where the right square commutes since $F$ is a monad
-and the left square commutes by definition of $\tau$.
-\[
-\begin{tikzcd}
-	P \bar{F} P  \ar[Rightarrow]{d}[swap]{P \tau}
-	\ar[Rightarrow]{r}
-&
-	FFF \ar[Rightarrow]{d}[swap]{F \mu_F}
-	\ar[Rightarrow]{r}{\mu_F F}
-&
-	FF \ar[Rightarrow]{d}{\mu_F}
-\\
-	P F \ar[Rightarrow]{r}
-&
-	FF \ar[Rightarrow]{r}[swap]{\mu_F}
-&
-	F
-\end{tikzcd}
-\]
-By condition (iii) in Definition \ref{AMALGMON DEF}
-the top composite matches the top composite of the
-left diagram in \eqref{MODSTRCOM2 EQ}
-while the bottom composite matches the bottom composite of the left diagram \eqref{MODSTRCOM2 EQ}
-by the (first half) of Lemma \ref{MODSTRCOM LEM}. 
-\end{proof}
-
-
-
-\begin{lemma}
-The following diagrams commute
-\begin{equation}\label{DOUBLETWIST EQ}
-\begin{tikzcd}
-	\bar{F} P P \ar[Rightarrow]{r}{\tau P} 
-	\ar[Rightarrow]{d}[swap]{\bar{F} \mu_P}
-&
-	P \bar{F} P \ar[Rightarrow]{r}{P\tau}
-&
-	P P \bar{F} \ar[Rightarrow]{d}{\mu_P \bar{F}}
-&%%
-	\bar{F} \bar{F} P  \ar[Rightarrow]{r}{\bar{F} \tau}
-	\ar[Rightarrow]{d}[swap]{\mu_{\bar{F}} P}
-&
-	\bar{F} P \bar{F}  \ar[Rightarrow]{r}{\tau \bar{F}}
-&
-	P \bar{F} \bar{F} \ar[Rightarrow]{d}{P \mu_{\bar{F}}}
-\\
-	\bar{F} P \ar[Rightarrow]{rr}{\tau} 
-&&
-	P \bar{F}
-&%%
-	\bar{F} P \ar[Rightarrow]{rr}{\tau} 
-&&
-	P \bar{F}
-\end{tikzcd}
-\end{equation}
-\end{lemma}
-
-
-\begin{proof}
-The two claims are analogous, so we address only the first one.
-Now consider the following diagram, where the top section commutes by definition of $\tau$, the bottom left square commutes since 
-$P \Rightarrow F$ is monadic,
-and the bottom right square commutes since $F$ is a monad.
-\[
-\begin{tikzcd}
-	&
-	P \bar{F} P \ar[equal]{r}
-	&
-	F P \ar[Rightarrow]{d}
-\\
-	\bar{F} P P  \ar[Rightarrow]{d}[swap]{\bar{F} \mu_P}
-	\ar[Rightarrow]{r}
-	\ar[Rightarrow]{ru}{\tau P}
-&
-	FFF \ar[Rightarrow]{d}[swap]{F \mu_F}
-	\ar[Rightarrow]{r}{\mu_F F}
-&
-	FF \ar[Rightarrow]{d}{\mu_F}
-\\
-	\bar{F} P \ar[Rightarrow]{r}
-&
-	FF \ar[Rightarrow]{r}[swap]{\mu_F}
-&
-	F
-\end{tikzcd}
-\]
-The bottom composite matched the bottom composite of the left diagram in 
-\eqref{DOUBLETWIST EQ} by definition of $\tau$,
-while the top right (outer) composite matches the 
-top right composite of the left diagram in 
-\eqref{DOUBLETWIST EQ}
-by the first half of Lemma \ref{MODSTRCOM2 LEM}.
-\end{proof}
-
-
-\begin{remark}
-The right side of \eqref{DOUBLETWIST EQ}
-implies that $P$ can also be regarded as an 
-endofunctor of $\mathsf{Alg}_{\bar{F}}(\mathcal{C})$
-({\color{blue} when is comes to compatibility with multiplication}).
-
-Similarly, the left side of \eqref{DOUBLETWIST EQ}
-implies that $PP \to P$ is still a map of endofunctors of  
-$\mathsf{Alg}_{\bar{F}}(\mathcal{C})$.
-\end{remark}
-
-
 {\color{red} HERE}
 
 \begin{remark}
@@ -7594,6 +8108,125 @@ are the only requirements needed for
 the multiplication prescribed by \eqref{ALTMULT EQ}
 to be associative.
 \end{remark}
+
+
+
+
+\cite[Prop. 5.6.11]{Rie17}
+
+
+\vskip 15pt
+
+
+\textbf{Notes to self}
+
+\begin{itemize}
+\item while 
+$
+\check{coeq} \left( F T X 
+\overset{\mu}{\underset{Fm}{\rightrightarrows}}
+F X\right)
+$
+from \eqref{LEFTADJFOR EQ}
+is always a monad on $\mathsf{Alg}_T$,
+it is hard to say anything interesting in general, since the colimit is taken in algebras. 
+Indeed, the monad structure is then given by
+\begin{equation}\label{ALGMONABS EQ}
+\check{coeq}
+\left(
+FT
+\check{coeq} \left( F T X 
+\overset{\mu}{\underset{Fm}{\rightrightarrows}}
+F X\right)
+\overset{\mu}{\underset{Fm}{\rightrightarrows}}
+F\check{coeq} \left( F T X 
+\overset{\mu}{\underset{Fm}{\rightrightarrows}}
+F X\right)
+\right)
+\to
+\check{coeq} \left( F T X 
+\overset{\mu}{\underset{Fm}{\rightrightarrows}}
+F X\right)
+\end{equation}
+where the overall map is determined by the 
+$F$-algebra structure on 
+$\check{coeq} \left( F T X 
+\overset{\mu}{\underset{Fm}{\rightrightarrows}}
+F X\right)$,
+which we can not really describe in a workable way.
+\item if $F$ and $T$ are known to preserve reflexive coequalizers,
+so that reflexive coequalizers in $\mathsf{Alg}_T,\mathsf{Alg}_F$
+are created by the forgetful functors to $\mathcal{C}$,
+then all coequalizers in
+\eqref{ALGMONABS EQ} are underlying coequalizers in 
+$\mathcal{C}$
+and, moreover, one is free to move all $F,T$ functors in the source inside the innermost coequalizers. But the source then becomes a two-fold reflexive coequalizer, which can hence be computed via the single diagonal reflexive coequalizer.
+Altogether, \eqref{ALGMONABS EQ} becomes
+the map between the vertical coequalizers of
+\[
+\begin{tikzcd}[column sep =40pt]
+	FTFT X
+	\ar[shift left=.3em]{d}{\mu\mu}
+	\ar[shift right=.3em]{d}[swap]{F\mu m}
+	\ar{r}{\mu FT \circ \mu T}
+&
+	FTX
+	\ar[shift left=.3em]{d}{\mu}
+	\ar[shift right=.3em]{d}[swap]{F m}
+\\
+	FF X
+	\ar{r}{\mu}
+&
+	F X
+\end{tikzcd}
+\]
+\item 
+if $P,\bar{F}$ are as in Definition \ref{AMALGMON DEF}
+and $F=P\bar{F}$, $T=\bar{F}$,
+then \eqref{ALGMONABS EQ} becomes simply
+\[
+PPX \xrightarrow{\mu} PX
+\]
+for the monad structure on $P$, regardless of whether the functors are known to preserve reflexive coequalizers 
+(this is because 
+$
+\check{coeq} \left( F T X 
+\overset{\mu}{\underset{Fm}{\rightrightarrows}}
+F X\right)
+$
+then becomes split after forgetting to $\mathcal{C}$)
+
+\item 
+if $P,\bar{F}$ are as in Definition \ref{AMALGMON DEF}
+and $F=P\bar{F}$, $T=P$,
+then the monad \eqref{ALGMONABS EQ}
+restricts to the Klesli category 
+$\mathsf{Kl}_P$
+where it is given by $\bar{F}$ on objects
+and on a map
+$A \xrightarrow{f} P B$ it is given by
+$\bar{F} A \xrightarrow{\bar{F}f} \bar{F} P B \xrightarrow{\tau} P \bar{F} B$, so that in particular the first half
+Proposition \ref{ALTMULT PROP} (iii) say $\bar{F}$ preserves free arrows, and is described by $\bar{F}$ on them (which in particular gives unitality of $\bar{F}$).
+Similarly, the first half of Proposition \ref{ALTMULT PROP}(ii)
+show that $\bar{F}$ is compatible with composition in
+$\mathsf{Kl}_P$.
+Lastly, the second halves of Proposition \ref{ALTMULT PROP}(ii)(iii) show that the unit and multiplication of $\bar{F}$, regarded as free maps in
+$\mathsf{Kl}_P$, do define natural transformations in the Kleisli category.
+\end{itemize}
+
+
+
+\begin{proposition}
+\[
+F_r^{\circ 2} X=
+\check{coeq}
+\left(
+P \bar{F} \bar{F} P X \rightrightarrows P \bar{F} \bar{F} X
+\right)
+\]
+
+{\color{red} What does this formula look like for operads?}
+\end{proposition}
 
 
 \newpage
@@ -7647,6 +8280,15 @@ commutes.
 \end{proposition}
 
 
+
+\begin{remark}
+By definition the left functor $P$, top functor $\bar{F}$, 
+and diagonal functor $F=P\bar{F}$
+in \eqref{COMULEFTADJ EQ} are monadic 
+(i.e. they identify their target as the category of algebras over the source for the adjunction monad).
+But then by Beck's monadicity theorem \cite[VI.7 Thm. 1]{McL},
+it is immediate that the right functor $P$ and bottom functor $F^r$ in \eqref{COMULEFTADJ EQ} are likewise monadic.
+\end{remark}
 
 
 
