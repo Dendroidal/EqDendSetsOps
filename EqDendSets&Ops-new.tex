@@ -95,6 +95,10 @@ cf.  }
 \newcommand{\J}{\mathbb J}
 \renewcommand{\1}{\eta}%{\ensuremath{\mathbb{id}}}
 
+\newcommand{\Alg}{\mathsf{Alg}}
+\newcommand{\Kl}{\mathsf{Kl}}
+
+
 % lazy shortcuts
 
 \newcommand{\SC}{\Sigma_{\mathfrak C}}
@@ -7667,11 +7671,12 @@ so (ii) follows.
 \begin{remark}
 Letting $T$ be a monad on the category $\mathcal{C}$,
 recall that the Kleisli category
-$\mathsf{Kl}_T$ is the category with the same objects as $\mathcal{C}$,
+$\mathsf{Kl}_T$ is the category with:
+the same objects as $\mathcal{C}$;
 arrows from $A$ to $B$,
 which we denote $A \rightsquigarrow B$,
-the underlying arrows $A \to TB$ in $\mathcal{C}$,
-annd composition
+the underlying arrows $A \to TB$ in $\mathcal{C}$;
+composition
 $A \rightsquigarrow B \rightsquigarrow C$
 of underlying maps 
 $A \xrightarrow{f} TB$,
@@ -7681,8 +7686,8 @@ $A \xrightarrow{f} TB \xrightarrow{Tg} TTB \xrightarrow{\mu} TB$.
 Moreover, there is then a canonical fully faithful inclusion
 \[
 \begin{tikzcd}[row sep = 0pt]
-	\mathsf{Kl}_T \ar[hookrightarrow]{r}{\iota} &
-	\mathsf{Alg}_T
+	\Kl_T \ar[hookrightarrow]{r}{\iota} &
+	\Alg_T
 \\
 	A \ar[mapsto]{r} &
 	TA
@@ -7693,16 +7698,25 @@ Moreover, there is then a canonical fully faithful inclusion
 \]
 which identifies $\mathsf{Kl}_T$ with the full subcategory of
 $\mathsf{Alg}_T$ spanned by the free algebras.
+
+Moreover, we say an arrow
+$A \rightsquigarrow B$ in $\mathsf{Kl}_F$ is a 
+\emph{free arrow}
+if the underlying map has a factorization
+$A \xrightarrow{f} B \xrightarrow{\eta} TB$.
+This is equivalent to its image under $\iota$
+being the free map
+$TA \xrightarrow{Tf} TB$.
+Note that the unit arrow $A \rightsquigarrow A$ in $\Kl_T$
+is the free arrow $A \xrightarrow{=} A \xrightarrow{\eta} TA$.
 \end{remark}
 
 
-{\color{blue} HERE}
 
 
 \begin{remark}
-Let $\psi \colon T \to F$ be a map of monads.
-
-One then has a natural forgetul functor 
+Given a map of monads $\psi \colon T \to F$
+one has a well known forgetul functor 
 $\mathsf{Alg}_F \xrightarrow{\psi^{\**}} \mathsf{Alg}_T$
 sending a $F$-monad $Y$ with multiplication
 $FY \xrightarrow{m} Y$
@@ -7719,7 +7733,54 @@ to the map $\psi_!A \rightsquigarrow \psi_!B$
 given by the underlying composite
 $A \xrightarrow{f} TB \xrightarrow{\psi B} FB$.
 
-One then has a (non-commutative) square
+To check $\psi_!$ respects composition of arrows, let
+$A \rightsquigarrow B$,
+$B \rightsquigarrow C$
+be maps in $\Kl_T$ with
+underlying maps
+$A \xrightarrow{f} TB$,
+$B \xrightarrow{f} TC$.
+Then $\psi_!$ of the composite 
+$A \rightsquigarrow B \rightsquigarrow C$
+is given by the top right composite in \eqref{CHECKFUN EQ}
+while the composite of 
+$\psi_!A \rightsquigarrow \psi_! B$,
+$\psi_! B \rightsquigarrow \psi_! C$
+is given by the bottom  left composite in \eqref{CHECKFUN EQ}.
+\begin{equation}\label{CHECKFUN EQ}
+\begin{tikzcd}[column sep = 1.55em]
+	A \ar{r}{f} 
+&
+	TB \ar{r}{Tg} \ar{d}[swap]{\psi}
+&
+	TTC \ar{rr}{\mu}  \ar{d}[swap]{\psi T}
+&&
+	TC X \ar{d}{\psi}
+\\
+&
+	FB \ar{r}{Fg}
+&
+	FTB \ar{r}{F\psi}
+&
+	FFC \ar{r}{\mu}
+&
+	FC
+\end{tikzcd}
+\end{equation}
+Lastly, note that $\psi_!$ maps the free arrow 
+$A \xrightarrow{f} B \xrightarrow{\eta} TB$
+to the free arrow
+$A \xrightarrow{f} B \xrightarrow{\eta} FB$,
+so that in particular it preserves unit arrows.
+\end{remark}
+
+
+
+{\color{blue} HERE}
+
+
+\begin{remark}
+The maps in the previous remarks fit into a (non-commutative) square
 \begin{equation}\label{PARTADJ EQ}
 \begin{tikzcd}
 	\mathsf{Kl}_{T} \ar{r}{\psi_!} \ar[hookrightarrow]{d}[swap]{\iota}&
