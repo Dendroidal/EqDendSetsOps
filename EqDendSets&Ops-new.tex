@@ -95,6 +95,10 @@ cf.  }
 \newcommand{\J}{\mathbb J}
 \renewcommand{\1}{\eta}%{\ensuremath{\mathbb{id}}}
 
+\newcommand{\Alg}{\mathsf{Alg}}
+\newcommand{\Kl}{\mathsf{Kl}}
+
+
 % lazy shortcuts
 
 \newcommand{\SC}{\Sigma_{\mathfrak C}}
@@ -7664,14 +7668,15 @@ so (ii) follows.
 
 
 
-\begin{remark}
+\begin{remark}\label{KLEISLIDEF REM}
 Letting $T$ be a monad on the category $\mathcal{C}$,
 recall that the Kleisli category
-$\mathsf{Kl}_T$ is the category with the same objects as $\mathcal{C}$,
+$\mathsf{Kl}_T$ is the category with:
+the same objects as $\mathcal{C}$;
 arrows from $A$ to $B$,
 which we denote $A \rightsquigarrow B$,
-the underlying arrows $A \to TB$ in $\mathcal{C}$,
-annd composition
+the underlying arrows $A \to TB$ in $\mathcal{C}$;
+composition
 $A \rightsquigarrow B \rightsquigarrow C$
 of underlying maps 
 $A \xrightarrow{f} TB$,
@@ -7681,8 +7686,8 @@ $A \xrightarrow{f} TB \xrightarrow{Tg} TTB \xrightarrow{\mu} TB$.
 Moreover, there is then a canonical fully faithful inclusion
 \[
 \begin{tikzcd}[row sep = 0pt]
-	\mathsf{Kl}_T \ar[hookrightarrow]{r}{\iota} &
-	\mathsf{Alg}_T
+	\Kl_T \ar[hookrightarrow]{r}{\iota} &
+	\Alg_T
 \\
 	A \ar[mapsto]{r} &
 	TA
@@ -7693,22 +7698,32 @@ Moreover, there is then a canonical fully faithful inclusion
 \]
 which identifies $\mathsf{Kl}_T$ with the full subcategory of
 $\mathsf{Alg}_T$ spanned by the free algebras.
+
+Moreover, we say an arrow
+$A \rightsquigarrow B$ in $\mathsf{Kl}_F$ is a 
+\emph{free arrow}
+if the underlying map has a factorization
+$A \xrightarrow{f} B \xrightarrow{\eta} TB$.
+This is equivalent to its image under $\iota$
+being the free map
+$TA \xrightarrow{Tf} TB$.
+Note that free arrows provide a canonical functor
+$\C \to \Kl_T$ and that the unit arrow $A \rightsquigarrow A$ in $\Kl_T$
+is the free arrow $A \xrightarrow{=} A \xrightarrow{\eta} TA$.
 \end{remark}
 
 
-{\color{blue} HERE}
 
 
-\begin{remark}
-Let $\psi \colon T \to F$ be a map of monads.
-
-One then has a natural forgetul functor 
+\begin{remark}\label{KLEISLIPUSH REM}
+Given a map of monads $\psi \colon T \to F$
+one has a well known forgetul functor 
 $\mathsf{Alg}_F \xrightarrow{\psi^{\**}} \mathsf{Alg}_T$
 sending a $F$-monad $Y$ with multiplication
 $FY \xrightarrow{m} Y$
 to a $T$-monad with the same underlying object $Y$
 and multiplication given by
-$TY \xrightarrow{\psi Y} FY \xrightarrow{m} Y$.
+$TY \xrightarrow{\psi} FY \xrightarrow{m} Y$.
 
 Similarly, on Kleisli categories there is a functor
 $\mathsf{Kl}_T \xrightarrow{\psi_!} \mathsf{Kl}_F$
@@ -7717,39 +7732,324 @@ and sending the map $A \rightsquigarrow B$
 given by the underlying map $A \xrightarrow{f} TB$
 to the map $\psi_!A \rightsquigarrow \psi_!B$
 given by the underlying composite
-$A \xrightarrow{f} TB \xrightarrow{\psi B} FB$.
+$A \xrightarrow{f} TB \xrightarrow{\psi} FB$.
 
-One then has a (non-commutative) square
+To check $\psi_!$ respects composition of arrows, let
+$A \rightsquigarrow B$,
+$B \rightsquigarrow C$
+be maps in $\Kl_T$ with
+underlying maps
+$A \xrightarrow{f} TB$,
+$B \xrightarrow{f} TC$.
+Then $\psi_!$ of the composite 
+$A \rightsquigarrow B \rightsquigarrow C$
+is given by the top right composite in \eqref{CHECKFUN EQ}
+while the composite of 
+$\psi_!A \rightsquigarrow \psi_! B$,
+$\psi_! B \rightsquigarrow \psi_! C$
+is given by the bottom  left composite in \eqref{CHECKFUN EQ}.
+\begin{equation}\label{CHECKFUN EQ}
+\begin{tikzcd}[column sep = 1.55em]
+	A \ar{r}{f} 
+&
+	TB \ar{r}{Tg} \ar{d}[swap]{\psi}
+&
+	TTC \ar{rr}{\mu}  \ar{d}[swap]{\psi T}
+&&
+	TC \ar{d}{\psi}
+\\
+&
+	FB \ar{r}{Fg}
+&
+	FTB \ar{r}{F\psi}
+&
+	FFC \ar{r}{\mu}
+&
+	FC
+\end{tikzcd}
+\end{equation}
+Lastly, note that $\psi_!$ maps the free arrow 
+$A \xrightarrow{f} B \xrightarrow{\eta} TB$
+to the free arrow
+$A \xrightarrow{f} B \xrightarrow{\eta} FB$,
+so that in particular it preserves unit arrows.
+\end{remark}
+
+
+
+
+\begin{proposition}
+The functors in Remarks \ref{KLEISLIDEF REM} and \ref{KLEISLIPUSH REM}
+fit into a (non-commutative) square
 \begin{equation}\label{PARTADJ EQ}
 \begin{tikzcd}
 	\mathsf{Kl}_{T} \ar{r}{\psi_!} \ar[hookrightarrow]{d}[swap]{\iota}&
 	\mathsf{Kl}_{F} \ar[hookrightarrow]{d}{\iota}
 \\
 	\mathsf{Alg}_{T} &
+	\mathsf{Alg}_{F}  \ar{l}{\psi^{\**}}.
+\end{tikzcd}
+\end{equation}
+and there are isomorphisms as below, natural in $A \in \mathsf{Kl}_T$, $Y \in \mathsf{Alg}_F$.
+\begin{equation}\label{PARTADJISO EQ}
+	\mathsf{Alg}_T(\iota A, \psi^{\**} Y) \simeq
+	\mathsf{Alg}_F(\iota \psi_! A,Y)
+\end{equation}
+\end{proposition}
+Informally, this result says that
+$\psi_!$ is a ``partial left adjoint'' to $\psi^{\**}$
+along the fully-faithful inclusion 
+$\mathsf{Kl}_T \overset{\iota}{\hookrightarrow} \mathsf{Alg}_T$,
+motivating our choice of notation.
+
+
+\begin{proof}
+The isomorphisms \eqref{PARTADJISO EQ} are the composites of the isomorphisms
+\begin{equation}\label{PARTADJPROOF EQ}
+	\mathsf{Alg}_T(T A, \psi^{\**} Y) \simeq
+	\mathcal{C}(A,Y) \simeq
+	\mathsf{Alg}_F(FA,Y),
+\end{equation}
+so it remains to show naturality.
+Naturality with respect to $Y \in \Alg_F$ is clear.
+However, naturality with respect to $A \in \Kl_T$
+requires care, since a priori \eqref{PARTADJPROOF EQ}
+is only functorial with respect to free maps.
+But now note that 
+$\varphi \colon FA \to Y$
+and 
+$\bar{\varphi} \colon TA \to \psi^{\**} Y$
+are identified precisely if the two composites
+$A \to Y$ in the left diagram below coincide (morever, both triangles therein commute, with commutativity of the right triangle
+inherited from commutatity of the full diagram, due $TA$ being free $T$-algebra).
+Given an arrow $\bar{A} \rightsquigarrow A$ in $\Kl_T$
+given by an underlying map $\bar{A} \xrightarrow{f} TA$, 
+we must then show that the two outer composites
+$\bar{A} \to Y$ in the rightmost diagram coincide.
+\begin{equation}\label{ADJOINTCORR EQ}
+\begin{tikzcd}[column sep = 1.55em]
+	A \ar{r}{\eta} \ar{rd}[swap]{\eta}
+&
+	T A \ar{r}{\bar{\varphi}} \ar{d}[swap]{\psi}
+&
+	Y 
+&&%%
+	\bar{A} \ar{r}{\eta} \ar{rd}[swap]{\eta}
+&
+	T \bar{A} \ar{r}{\iota f} \ar{d}[swap]{\psi}
+&
+	T A \ar{r}{\bar{\varphi}} \ar{d}[swap]{\psi}
+&
+	Y 
+\\
+&
+	FA \ar{ru}[swap]{\varphi}
+&
+&&%%
+&
+	F \bar{A} \ar{r}[swap]{\iota (\psi_! f)}
+&
+	FA \ar{ru}[swap]{\varphi}
+&
+\end{tikzcd}
+\end{equation}
+It hence suffices to check that the two composites
+$\bar{A} \to FA$ in that diagram coincide and, after unpacking definitions, this follows from the commutativity of the following diagram.
+\begin{equation}
+\begin{tikzcd}[column sep = 1.55em]
+	\bar{A} \ar{r}{\eta} \ar{rd}[swap]{\eta} 
+&
+	T\bar{A} \ar{r}{Tf} \ar{d}[swap]{\psi}
+&
+	TTA \ar{rr}{\mu}  \ar{d}[swap]{\psi T}
+&&
+	TA \ar{d}{\psi}
+\\
+&
+	F \bar{A} \ar{r}{Ff}
+&
+	FTA \ar{r}{F\psi}
+&
+	FFA \ar{r}{\mu}
+&
+	FA
+\end{tikzcd}
+\end{equation}
+\end{proof}
+
+
+
+\begin{proposition}\label{PARTADJP PROP}
+Let $P,\bar{F}$ and $F = P \bar{F}$ be as in 
+Definition \ref{AMALGMON DEF},
+and write $\psi = P\eta \colon P \Rightarrow P \bar{F} = F$.
+
+Then there is a functor
+$\psi^{\**} \colon \Kl_F \to \Kl_P$
+given on objects by
+$\psi^{\**}A = \bar{F} A$
+and sending the arrow
+$A \rightsquigarrow B$
+with underlying arrow 
+$A \xrightarrow{f} FB$
+to the arrow 
+$\bar{A} \rightsquigarrow \bar{B}$
+with underlying arrow the composite
+$\bar{A} \xrightarrow{\bar{F}f} \bar{F} FB
+=
+\bar{F}P \bar{F} B \xrightarrow{\tau \bar{F}}
+P \bar{F} \bar{F} B \xrightarrow{P \mu}
+P\bar{F}B$
+or, equivalently (cf. Lemma \ref{MODSTRCOMRE LEM}(iii)(ii)),
+$\bar{A} \xrightarrow{\bar{F}f} \bar{F} FB
+\xrightarrow{\mu} FB = P\bar{F}B$.
+
+Moreover, in the diagram
+\begin{equation}\label{PARTADJP EQ}
+\begin{tikzcd}
+	\mathsf{Kl}_{P} 
+	\ar[shift left=0.25em]{r}{\psi_!} 
+	\ar[hookrightarrow]{d}[swap]{\iota}
+&
+	\mathsf{Kl}_{F} 
+	\ar[shift left=0.25em]{l}{\psi^{\**}}
+	\ar[hookrightarrow]{d}{\iota}
+\\
+	\mathsf{Alg}_{P} &
 	\mathsf{Alg}_{F}  \ar{l}{\psi^{\**}}
 \end{tikzcd}
 \end{equation}
-where the vertical maps $\iota$ are the standard fully-faithful inclusions.
-The notation $\psi_!$ is motivated by the fact that 
-$\psi_!$ provides a partial left adjoint to $\psi^{\**}$
-along the subcategory
-$\mathsf{Kl}_T \overset{\iota}{\hookrightarrow} \mathsf{Alg}_T$,
-i.e.
-one has isomorphisms
-\[
-	\mathsf{Alg}_T(\iota A, \psi^{\**} Y) =
-	\mathsf{Alg}_T(T A, \psi^{\**} Y) \simeq
-	\mathcal{C}(A,Y) \simeq
-	\mathsf{Alg}_F(FA,Y) =
-	\mathsf{Alg}_F(\iota \psi_! A,Y)
-\]
-which are natural in $A \in \mathsf{Kl}_T$, $Y \in \mathsf{Alg}_F$
-(note that the interesting claim is that this is natural on all maps in $\mathsf{Kl}_T$).
-\end{remark}
+one has that:
+\begin{enumerate}[label=(\roman*)]
+\item the top horizontal maps are adjoint,
+with adjuntion unit
+$A \rightsquigarrow \psi^{\**} \psi_! A$
+for $A \in \Kl_P$
+and counit
+$\psi_! \psi^{\**} B \rightsquigarrow B$
+for $B \in \Kl_F$
+given by 
+\begin{equation}\label{UNITCOUNIT EQ}
+	A \xrightarrow{\eta} 
+	\bar{F} A \xrightarrow{\eta \bar{F}}
+	P \bar{F} A
+\qquad
+	\bar{F} B \xrightarrow{\eta \bar{F}}
+	P \bar{F} B =
+	F B
+\end{equation}
+\item the composites
+$
+	\mathsf{Kl}_F \xrightarrow{\psi^{\**}} 
+	\mathsf{Kl}_P \xrightarrow{\iota} 
+	\mathsf{Alg}_P
+$
+and
+$
+	\mathsf{Kl}_F \xrightarrow{\iota}
+	\mathsf{Alg}_F  \xrightarrow{\psi^{\**}} 
+	\mathsf{Alg}_P
+$
+coincide.
+\end{enumerate}
+\end{proposition}
+
+
+
+\begin{proof}
+We first address (ii).
+On objects,
+after unpacking notation
+$\psi^{\**} \iota B$
+is the $P$-algebra
+$F B$ with multiplication
+$PFB \rightarrow FFB \xrightarrow{\mu} B$
+while 
+$ \iota \psi^{\**} B$
+is the $P$-algebra
+$P \bar{F} B $
+with multiplication
+$P P \bar{F} B \xrightarrow{\mu \bar{F}} P \bar{F} B$,
+and these coincide by Lemma \ref{MODSTRCOMRE LEM}(ii).
+On a map
+$B \rightsquigarrow \bar{B}$
+with underlying arrow $B \xrightarrow{f} F \bar{B}$,
+applying $\psi^{\**} \iota$
+gives the map
+$F B \xrightarrow{F f} FF\bar{B} \xrightarrow{\mu} F \bar{B}$
+while applying $\iota \psi^{\**}$
+gives the map
+$P \bar{F} B \xrightarrow{P \bar{F} f} 
+P \bar{F} F \bar{B} = P \bar{F} P \bar{F} \bar{B}
+\xrightarrow{P \tau \bar{F}}
+P P \bar{F} \bar{F} \bar{B}
+\xrightarrow{PP \mu}
+P P \bar{F} \bar{B} 
+\xrightarrow{\mu \bar{F}} P\bar{F} \bar{B}$,
+and these coincide by 
+Proposition \ref{ALTMULT PROP}(i).
+
+
+We now address the remaining claims. 
+Recalling that the $\iota$ functors are fully faithful,
+$\psi^{\**} \colon \Kl_F \to \Kl_P$
+can be thought of as a restriction of
+$\psi^{\**} \colon \Alg_F \to \Alg_P$. 
+Hence, the implicit claim that $\psi^{\**} \colon \Kl_F \to \Kl_P$
+is a functor is inherited from 
+$\psi^{\**} \colon \Alg_F \to \Alg_P$ being a functor.
+And, similarly, the adjunction claim in (i)
+is inherited from the ``partial adjunction'' claim in 
+Proposition \ref{PARTADJP PROP}.
+
+
+Lastly, to describe the unit 
+(resp. counit)
+we must find the adjoint
+to 
+$\psi_! A \xrightarrow{=} \psi_! A$
+(resp. $\psi^{\**} B \xrightarrow{=} \psi^{\**} B$)
+which corresponds under $\iota$ to the identity
+$FA = FA$
+(resp. $P\bar{F} B = FB$).
+By the string of identifications 
+\eqref{PARTADJPROOF EQ}
+the adjoint is given 
+by the top (resp. bottom) composite on the left
+(resp. diagram) below
+(cf. \eqref{ADJOINTCORR EQ}).
+\begin{equation}
+\begin{tikzcd}[column sep = 1.55em]
+	A \ar{r}{\eta} \ar{rd}[swap]{\eta}
+&
+	P A \ar[dashed]{r}{\psi} \ar{d}[swap]{\psi}
+&
+	FA
+&&%%
+	\bar{F} B \ar{r}{\eta} \ar{rd}[swap]{\eta}
+&
+	P \bar{F} B \ar[equal]{r} \ar{d}[swap]{\psi}
+&
+	F B 
+\\
+&
+	FA \ar[equal]{ru}
+&
+&&%%
+&
+	F\bar{F} B \ar[dashed]{ru}[swap]{\mu}
+&
+\end{tikzcd}
+\end{equation}
+That these composites match the maps in
+\eqref{UNITCOUNIT EQ}
+follows since $\psi\colon P \Rightarrow F$ is a map of monads. 
+\end{proof}
 
 
 
 {\color{blue} HERE}
+
 
 
 
@@ -8092,7 +8392,7 @@ the forgetful functor
 $U \colon \mathsf{Alg}_F \to \mathsf{Alg}_T$
 is the right adjoint in an adjunction such that
 \begin{enumerate}[label=(\roman*)]
-\item on a $T$-algebra $X$ with multiplication $TX \rightarrow{m} X$,
+\item on a $T$-algebra $X$ with multiplication $TX \xrightarrow{m} X$,
 the left adjoint is given by the coequalizer of $F$-algebras
 \begin{equation}\label{LEFTADJFOR EQ}
 coeq \left( F T X 
@@ -8196,15 +8496,10 @@ the right map to be the identity on \eqref{LEFTADJFOR EQ} and
 left map to be the identity on $UY$.
 \end{proof}
 
-
-
-\begin{remark}
-Proposition \ref{ALTMULT PROP}(i)
-shows that the multiplication 
-
 {\color{red} HERE}
 
 
+\begin{remark}
 Proposition \ref{ALTMULT PROP}
 says that the monoidal structure on $F = P \bar{F}$
 is completely determined by the monoidal structures on $P$, $\bar{F}$ and the twist map.
