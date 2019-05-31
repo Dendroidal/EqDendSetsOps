@@ -135,7 +135,7 @@ cf.  }
 
 
 
-\begin{proposition}
+\begin{proposition}\label{GENMONS PROP}
 If $T \Rightarrow F$ is a monad map,
 the forgetful functor
 $U \colon \mathsf{Alg}_F \to \mathsf{Alg}_T$
@@ -447,6 +447,112 @@ Proposition \ref{ALTMULT PROP}(iii).
 \end{tikzcd}
 \end{equation}
 \end{proof}
+
+
+
+
+
+\begin{proposition}
+There is an adjunction
+$\mathsf{Alg}_{\bar{F}} \rightleftarrows \mathsf{Alg}_{F}$
+where
+\begin{enumerate}[label=(\roman*)]
+\item the left adjoint is given by $P$ on both objects and arrows, 
+i.e. for any map $f \colon X \to Y$ of $\bar{F}$-algebras, the left adjoint gives
+$Pf \colon Px \to PY$;
+\item if the $\bar{F}$-algebra $X$ has multiplication
+$\bar{F}X \xrightarrow{m} X$
+then the $F$-algebra $PX$ has multiplication
+$FPX = P\bar{F}P X \xrightarrow{P\tau_X}
+PP\bar{F}X \xrightarrow{\mu_{\bar{F}X}} P\bar{F} X
+\xrightarrow{Pm} X$;
+\item the adjunction unit is given by $\eta \colon I \Rightarrow P$;
+\item the adjunction counit, on a $F$-algebra $Z$ with multiplication
+$FZ \xrightarrow{m} Z$,
+is given by
+$PZ \rightarrow FZ \xrightarrow{m}Z$.
+\end{enumerate}
+\end{proposition}
+
+
+\begin{proof}
+We have already shown elsewhere that,
+on a $\bar{F}$-algebra with multiplication 
+$\bar{F}X \xrightarrow{m} X$,
+the left adjoint must be given by
+the coequalizer
+\begin{equation}\label{FBARFCOEQ EQ}
+coeq 
+ \left(
+ \begin{tikzcd}[column sep=8pt]
+	F \bar{F} X
+	\ar[shift left=.3em]{r}{\mu}
+	\ar[shift right=.3em]{r}[swap]{Fm} &
+	FX
+ \end{tikzcd}
+ \right)
+=
+coeq 
+ \left(
+ \begin{tikzcd}[column sep=14pt]
+	P \bar{F} \bar{F} X
+	\ar[shift left=.3em]{r}{P\mu}
+	\ar[shift right=.3em]{r}[swap]{P \bar{F}m} &
+	P \bar{F} X
+ \end{tikzcd}
+ \right)
+\end{equation}
+if it exists.
+But the coequalizer 
+$coeq \left( \bar{F} \bar{F} X \overset{\mu}{\underset{\bar{F}m}{\rightrightarrows}} \bar{F} X\right)$
+is split after forgetting to $\mathcal{C}$,
+and hence so is the coequalizer above, which is just obtained by applying $P$ throughout.
+
+But since forgetting to $\mathcal{C}$
+creates coequalizers that become split upon forgetting,
+it follows that \eqref{FBARFCOEQ EQ} must indeed be $PX$
+with some $F$-algebra structure, so (i) follows.
+
+For (ii), writing $m_F$ for the yet unknown $F$-algebra structure on $PX$, note that the diagram below must commute
+(due to the creation claim concerning the coequalizer)
+\begin{equation}
+\begin{tikzcd}[column sep = 1.55em]
+	FPX 	\ar{r} 
+&
+	FFX 	\ar{r}{FPm} \ar{d}[swap]{\mu}
+&
+	FPX   \ar{d}{m_F}
+\\
+&
+	P \bar{F} X \ar{r}[swap]{P\mu}
+&
+	P \bar{F} X
+\end{tikzcd}
+\end{equation}
+and (ii) follows.
+
+(iii) is immediate from the corresponding part of Proposition \ref{GENMONS PROP}.
+
+For (iv), this follows since the bottom right triangle in the diagram below must commute (here $m_{\bar{F}}$ is the $\bar{F}$-algebra structure obtained by restricting the $F$-algebra structure).
+\begin{equation}
+\begin{tikzcd}[column sep = 3em]
+	PY \ar{r}{P\eta} \ar{rd}[swap]{P\eta}
+&
+	PFX 	\ar{r}{Pm} 
+&
+	P Y   \ar{d}
+\\
+&
+	P \bar{F} Y \ar{r}[swap]{m} \ar{u}
+	\ar{ru}[swap]{P m_{\bar{F}}}
+&
+	Y
+\end{tikzcd}
+\end{equation}
+\end{proof}
+
+
+
 
 
 
