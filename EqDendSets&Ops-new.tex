@@ -7904,32 +7904,77 @@ $\bar{A} \to FA$ in that diagram coincide and, after unpacking definitions, this
 
 
 
-\begin{remark}
-Recall that the existence of 
-a left adjoint to 
+\begin{remark}\label{ALGLEFTEX REM}
+Recall that the existence of a left adjoint $\psi_!$ to 
 $\psi^{\**} \colon \Alg_F \to \Alg_T$
-is equivalent to the representability
-of the functors 
+is equivalent to the representability of the functors 
 $\Alg_T(X,\psi^{\**}(-))\colon \Alg_{F} \to \mathsf{Set}$
 for each $X \in \Alg_T$,
 so that Proposition \ref{PARTADJ PROP} implies that these functors are representable whenever $X \simeq FA$ is free.
 
-But hence since any $X \in \Alg_T$
+Hence, since any $X \in \Alg_T$
 with multiplication $m \colon TX \to X$
-is canonically described by a coequalizer of free $T$-algebras
+is canonically described by the coequalizer % of free $T$-algebras
 $coeq \left( T T X 
 \overset{\mu}{\underset{Fm}{\rightrightarrows}}
 T X\right)$
-it follows that a left adjoint to
-$\psi^{\**} \colon \Alg_F \to \Alg_T$
+it follows that the left adjoint 
+$\psi_! \colon \Alg_F \to \Alg_T$
 exists iff the coequalizers 
 $coeq \left( F T X 
 \overset{\mu}{\underset{Fm}{\rightrightarrows}}
 F X\right)
 $
-of $F$-algebras exist for all $X \in \Alg_T$.
+of $F$-algebras exist for all $X \in \Alg_T$, in which case it is
+$\psi_!(X)=coeq \left( F T X 
+\overset{\mu}{\underset{Fm}{\rightrightarrows}}
+F X\right)$.
 \end{remark}
 
+
+
+
+\begin{remark}\label{ADJSRMON REM}
+Beck's monadicity theorem (cf. \cite[VI.7 Thm. 1]{McL},\cite[Thm. 5.5.1]{Ri17})
+characterizes monadic adjunctions $L\colon \mathcal{C} \rightleftarrows \mathcal{D}\colon R$
+as those where $R$ creates $R$-split coequalizers. 
+
+Hence, should the adjunction 
+$\psi_! \colon \Alg_T \rightleftarrows \Alg_F \colon \psi^{\**}$
+in Remark \ref{ALGLEFTEX REM} exist,
+it readily follows from Beck's theorem that this adjunction is monadic
+(since in 
+$\mathcal{C} \rightleftarrows
+\mathsf{Alg}_T \rightleftarrows
+\Alg_F$
+both the left and total adjunctions are monadic).
+However, since $\psi_!$ is defined using coequalizers of $F$-algebras,
+it is in general not possible to give a simple description of the adjunction monad
+$F_T = \psi^{\**} \psi_!$.
+%
+%Nonetheless, should $T,F$ preserve reflexive coequalizers in $\mathcal{C}$,
+%one has that reflexive coequalizers in algebras
+%are underlying coequalizers in $\mathcal{C}$
+%\cite[Thm. 5.6.5]{Ri17}.
+%Therefore, by manipulating the coequalizers one can show that the multiplication for $F_T$ the induced map on vertical coequalizers for the diagram
+%\[
+%\begin{tikzcd}[column sep =40pt]
+%	FTFT X
+%	\ar[shift left=.3em]{d}{\mu\mu}
+%	\ar[shift right=.3em]{d}[swap]{F\mu m}
+%	\ar{r}{\mu FT \circ \mu T}
+%&
+%	FTX
+%	\ar[shift left=.3em]{d}{\mu}
+%	\ar[shift right=.3em]{d}[swap]{F m}
+%\\
+%	FF X
+%	\ar{r}{\mu}
+%&
+%	F X
+%\end{tikzcd}
+%\]
+\end{remark}
 
 
 
@@ -7948,15 +7993,15 @@ $A \rightsquigarrow B$
 with underlying arrow 
 $A \xrightarrow{f} FB$
 to the arrow 
-$\bar{A} \rightsquigarrow \bar{B}$
+$\bar{F} A \rightsquigarrow \bar{F} B$
 with underlying arrow the composite
-$\bar{A} \xrightarrow{\bar{F}f} \bar{F} FB
+$\bar{F} A \xrightarrow{\bar{F}f} \bar{F} FB
 =
 \bar{F}P \bar{F} B \xrightarrow{\tau \bar{F}}
 P \bar{F} \bar{F} B \xrightarrow{P \mu}
 P\bar{F}B$
 or, equivalently (cf. Lemma \ref{MODSTRCOMRE LEM}(iii)(ii)),
-$\bar{A} \xrightarrow{\bar{F}f} \bar{F} FB
+$\bar{F} A \xrightarrow{\bar{F}f} \bar{F} FB
 \xrightarrow{\mu} FB = P\bar{F}B$.
 
 Moreover, in the diagram
@@ -8143,10 +8188,85 @@ $\Kl_P$ for the monad $\psi^{\**} \psi_!$.
 \end{remark}
 
 
+\begin{remark}
+Should $\psi^{\**}\colon \Alg_F \to \Alg_P$ admit a left adjoint, 
+one has that in the diagram
+\begin{equation}\label{PARTADJDB EQ}
+\begin{tikzcd}
+	\mathsf{Kl}_{P} 
+	\ar[shift left=0.25em]{r}{\psi_!} 
+	\ar[hookrightarrow]{d}[swap]{\iota}
+&
+	\mathsf{Kl}_{F} 
+	\ar[shift left=0.25em]{l}{\psi^{\**}}
+	\ar[hookrightarrow]{d}{\iota}
+\\
+	\mathsf{Alg}_{P} 
+	\ar[shift left=0.25em]{r}{\psi_!} &
+	\mathsf{Alg}_{F}
+	\ar[shift left=0.25em]{l}{\psi^{\**}}
+\end{tikzcd}
+\end{equation}
+both functors in the bottom adjunction
+extend the functors in the top adjunction.
+As such, the monad
+$F_T = \psi^{\**} \psi_!$ on $\Alg_P$
+extends the monad $\psi^{\**} \psi_!$ on $\Kl_P$ which, 
+following \ref{MONALGP REM}, can be thought of as the monad $\bar{F}$.
+
+As noted in Remark \ref{ADJSRMON REM}, the monad $F_T$ is in general hard to describe. 
+Nonetheless, should $P,F$ preserve reflexive coequalizers in $\mathcal{C}$,
+one has that reflexive coequalizers in algebras
+are underlying coequalizers in $\mathcal{C}$
+\cite[Thm. 5.6.5]{Ri17}
+and thus preserved by both functors in the bottom adjunction, and hence also by $F_T$.
+It thus follows that $F_TF_TX$
+can be described as the left vertical coequalizer
+in the diagram below 
+(where the two squares coincide, 
+with the right square included to more easily describe the vertical maps) 
+\[
+\begin{tikzcd}[column sep =40pt]
+	P \bar{F}\bar{F} P X
+	\ar[shift left=.3em]{d}{}
+	\ar[shift right=.3em]{d}[swap]{}
+	\ar{r}{P\mu P}
+&
+	P \bar{F} P X
+	\ar[shift left=.3em]{d}{}
+	\ar[shift right=.3em]{d}[swap]{}
+&%
+	F\bar{F} P X
+	\ar[shift left=.3em]{d}{F\bar{F} m}
+	\ar[shift right=.3em]{d}[swap]{\mu\bar{F} \circ F\tau}
+	\ar{r}{\mu P}
+&
+	F P X
+	\ar[shift left=.3em]{d}{F m}
+	\ar[shift right=.3em]{d}[swap]{\mu}
+\\
+	P \bar{F}\bar{F} X
+	\ar{r}{P\mu}
+&
+	P \bar{F} X
+&%
+	F\bar{F} X
+	\ar{r}{\mu}
+&
+	F X
+\end{tikzcd}
+\]
+while the multiplication $F_TF_TX \to F_TX$
+is the induced is the induced map on the vertical coequalizers.
+\end{remark}
+
+
+{\color{red} What does this formula look like for operads?}
+
 
 \begin{remark}
 Proposition \ref{PARTADJP PROP} 
-admit a complementary result by interchanging the roles of $P$ and $\bar{F}$ and the roles of Kleisli categories and algebra categories.
+admits a complementary result by interchanging the roles of $P$ and $\bar{F}$ and the roles of Kleisli categories and algebra categories.
 
 Explicitly, one has a functor
 $\psi_!\colon \Alg_{\bar{F}} \to \Alg_F$
@@ -8182,132 +8302,11 @@ $\psi^{\**} \psi_!$ on $\Alg_{\bar{F}}$ has the same underlying functor, unit an
 \end{remark}
 
 
-{\color{red} HERE}
-
-
-\newpage
 
 
 
 
-\cite[Prop. 5.6.11]{Ri17}
 
-
-\vskip 15pt
-
-
-\textbf{Notes to self}
-
-\begin{itemize}
-\item while 
-$
-\check{coeq} \left( F T X 
-\overset{\mu}{\underset{Fm}{\rightrightarrows}}
-F X\right)
-$
-from \eqref{LEFTADJFOR EQ}
-is always a monad on $\mathsf{Alg}_T$,
-it is hard to say anything interesting in general, since the colimit is taken in algebras. 
-Indeed, the monad structure is then given by
-\begin{equation}\label{ALGMONABS EQ}
-\check{coeq}
-\left(
-FT
-\check{coeq} \left( F T X 
-\overset{\mu}{\underset{Fm}{\rightrightarrows}}
-F X\right)
-\overset{\mu}{\underset{Fm}{\rightrightarrows}}
-F\check{coeq} \left( F T X 
-\overset{\mu}{\underset{Fm}{\rightrightarrows}}
-F X\right)
-\right)
-\to
-\check{coeq} \left( F T X 
-\overset{\mu}{\underset{Fm}{\rightrightarrows}}
-F X\right)
-\end{equation}
-where the overall map is determined by the 
-$F$-algebra structure on 
-$\check{coeq} \left( F T X 
-\overset{\mu}{\underset{Fm}{\rightrightarrows}}
-F X\right)$,
-which we can not really describe in a workable way.
-\item if $F$ and $T$ are known to preserve reflexive coequalizers,
-so that reflexive coequalizers in $\mathsf{Alg}_T,\mathsf{Alg}_F$
-are created by the forgetful functors to $\mathcal{C}$,
-then all coequalizers in
-\eqref{ALGMONABS EQ} are underlying coequalizers in 
-$\mathcal{C}$
-and, moreover, one is free to move all $F,T$ functors in the source inside the innermost coequalizers. But the source then becomes a two-fold reflexive coequalizer, which can hence be computed via the single diagonal reflexive coequalizer.
-Altogether, \eqref{ALGMONABS EQ} becomes
-the map between the vertical coequalizers of
-\[
-\begin{tikzcd}[column sep =40pt]
-	FTFT X
-	\ar[shift left=.3em]{d}{\mu\mu}
-	\ar[shift right=.3em]{d}[swap]{F\mu m}
-	\ar{r}{\mu FT \circ \mu T}
-&
-	FTX
-	\ar[shift left=.3em]{d}{\mu}
-	\ar[shift right=.3em]{d}[swap]{F m}
-\\
-	FF X
-	\ar{r}{\mu}
-&
-	F X
-\end{tikzcd}
-\]
-\end{itemize}
-
-
-
-\begin{proposition}
-\[
-F_r^{\circ 2} X=
-\check{coeq}
-\left(
-P \bar{F} \bar{F} P X \rightrightarrows P \bar{F} \bar{F} X
-\right)
-\]
-
-{\color{red} What does this formula look like for operads?}
-\end{proposition}
-
-
-
-
-One thus has the following diagram of left adjoints between algebra categories.
-\begin{equation}\label{COMULEFTADJ EQ}
-\begin{tikzcd}
-	\mathcal{C} \ar{r}{\bar{F}} \ar{d}[swap]{P} &
-	\mathsf{Alg}_{\bar{F}}(\mathcal{C}) \ar{d}{P}
-\\
-	\mathsf{Alg}_{P}(\mathcal{C}) \ar{r}{F^r}
-&
-	\mathsf{Alg}_{F}(\mathcal{C})
-\end{tikzcd}
-\end{equation}
-The functor $F^r$ (in fact monad), which has not yet been described, is computed by the coequalizer
-$F^r(Y) = coeq \left(FP(Y) \rightrightarrows F(Y) \right)
-= coeq \left(P\bar{F}P(Y) \rightrightarrows P\bar{F}(Y) \right)
-$
-
-\begin{proposition}
-The square \eqref{COMULEFTADJ EQ} commutes, yielding
-$F^r P \simeq P \bar{F}$.
-\end{proposition}
-
-
-
-\begin{remark}
-By definition the left functor $P$, top functor $\bar{F}$, 
-and diagonal functor $F=P\bar{F}$
-in \eqref{COMULEFTADJ EQ} are monadic 
-(i.e. they identify their target as the category of algebras over the source for the adjunction monad).
-But then by Beck's monadicity theorem \cite[VI.7 Thm. 1]{McL},
-it is immediate that the right functor $P$ and bottom functor $F^r$ in \eqref{COMULEFTADJ EQ} are likewise monadic.
-\end{remark}
 
 
 
