@@ -1,0 +1,572 @@
+\documentclass[a4paper,10pt
+%,draft
+%, final
+]{article}%
+
+\pdfcompresslevel=0
+\pdfobjcompresslevel=0
+
+\usepackage[hidelinks]{hyperref}
+\hypersetup{
+  % colorlinks,
+  final,
+  pdftitle={Equivariant Dendroidal Segal Spaces},
+  pdfauthor={Bonventre, P. and Pereira, L. A.},
+  % pdfsubject={Your subject here},
+  % pdfkeywords={keyword1, keyword2},
+  linktoc=page
+}
+%\usepackage[open=false]{bookmark}
+
+\input{commands.tex}%
+
+
+%-------- Tikz ---------------------------
+
+\usepackage{tikz}%
+\usetikzlibrary{matrix,arrows,decorations.pathmorphing,
+cd,patterns,calc}
+\tikzset{%
+  treenode/.style = {shape=rectangle, rounded corners,%
+                     draw, align=center,%
+                     top color=white, bottom color=blue!20},%
+  root/.style     = {treenode, font=\Large, bottom color=red!30},%
+  env/.style      = {treenode, font=\ttfamily\normalsize},%
+  dummy/.style    = {circle,draw,inner sep=0pt,minimum size=2mm}%
+}%
+
+\usetikzlibrary[decorations.pathreplacing]
+
+
+
+% ---- Commands on draft --------
+
+\usepackage{ifdraft}
+\ifdraft{
+  \color[RGB]{63,63,63}
+  % \pagecolor[rgb]{0.5,0.5,0.5}
+  \pagecolor[RGB]{220,220,204}
+  % \color[rgb]{1,1,1}
+}
+
+
+\usepackage[draft]{showkeys}
+\usepackage{todonotes}%[obeyDraft]
+
+
+% ----- Labels Changed? --------
+
+\makeatletter
+
+\def\@testdef #1#2#3{%
+  \def\reserved@a{#3}\expandafter \ifx \csname #1@#2\endcsname
+  \reserved@a  \else
+  \typeout{^^Jlabel #2 changed:^^J%
+    \meaning\reserved@a^^J%
+    \expandafter\meaning\csname #1@#2\endcsname^^J}%
+  \@tempswatrue \fi}
+
+\makeatother
+
+
+% ---- Commands --------
+
+% new symbols
+
+\newcommand{\mycircled}[2][none]{%
+  \mathbin{
+    \tikz[baseline=(a.base)]\node[draw,circle,inner sep=-1.5pt, outer sep=0pt,fill=#1](a){\ensuremath #2\strut};
+cf.  }
+}
+\newcommand{\owr}{\mycircled{\wr}}
+
+% replace symbols
+
+\renewcommand{\hat}{\widehat}
+
+% random
+
+\renewcommand{\F}{\mathcal F}
+\newcommand{\Q}{\mathcal Q}
+
+\newcommand{\lltimes}{\underline{\ltimes}}
+
+
+% detecting $\V$-categories:
+
+\newcommand{\I}{\mathbb I}
+\newcommand{\J}{\mathbb J}
+\renewcommand{\1}{\eta}%{\ensuremath{\mathbb{id}}}
+
+% lazy shortcuts
+
+\newcommand{\SC}{\Sigma_{\mathfrak C}}
+\newcommand{\OC}{\Omega_{\mathfrak C}}
+
+\newcommand{\UV}{\underline{\mathcal V}}
+\newcommand{\UC}{\underline{\mathfrak C}}
+
+
+% ---- Title --------
+
+\title{Equivariant Segal operads, simplicial operads, and dendroidal sets}
+
+\author{Peter Bonventre, Lu\'is A. Pereira}%
+
+\date{\today}
+
+
+% ---- Document body --------
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+      Things and stuff
+\end{abstract}
+
+\tableofcontents
+
+
+
+\section{Adjunctions between algebras over monads}
+
+
+
+
+\begin{proposition}\label{GENMONS PROP}
+If $T \Rightarrow F$ is a monad map,
+the forgetful functor
+$U \colon \mathsf{Alg}_F \to \mathsf{Alg}_T$
+is the right adjoint in an adjunction such that
+\begin{enumerate}[label=(\roman*)]
+\item on a $T$-algebra $X$ with multiplication $TX \xrightarrow{m} X$,
+the left adjoint is given by the coequalizer of $F$-algebras
+\begin{equation}\label{LEFTADJFOR EQ}
+coeq \left( F T X 
+\overset{\mu}{\underset{Fm}{\rightrightarrows}}
+F X\right)
+\end{equation}
+\item the adjunction unit
+is the natural map (induced by $T \Rightarrow F$)
+\[
+T \simeq coeq \left( T T X 
+\overset{\mu}{\underset{Tm}{\rightrightarrows}}
+T X\right)
+	\to
+coeq \left( F T X 
+\overset{\mu}{\underset{Fm}{\rightrightarrows}}
+F X\right)
+\]
+\item 
+the adjunction counit, on a $F$-algebra $Y$ with multiplication 
+$FY \xrightarrow{m} Y$, is the natural map (induced by $m$)
+\[
+coeq \left( F T Y 
+\overset{\mu}{\underset{Fm}{\rightrightarrows}}
+F Y\right)
+\to
+Y
+\]
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Since existence of the left adjoint is equivalent to the representability
+of the functors
+$\mathsf{Alg}_F \xrightarrow{\mathsf{Alg}_T(X,U(-))} \mathsf{Set}$
+ for each $X \in \mathsf{Alg}_T$
+and, for $A\in \mathcal{C}$ and $Y \in \mathsf{Alg}_F$,
+one has natural isomorphisms
+\begin{equation}\label{ALGADJ EQ}
+\mathsf{Alg}_{T}(TA,Y) 
+\simeq \mathcal{C}(A,Y)
+ \simeq \mathsf{Alg}_{F}(FA,Y)
+\end{equation}
+one has that the left adjoint of $U$ can be defined
+to send the free $T$-algebra
+$T A$ to the free $F$-algebra $FA$
+and likewise for free maps.
+%
+Moreover, the maps 
+$\mathsf{Alg}_{T}(TA,Y)
+\to
+\mathsf{Alg}_{T}(TTA,Y)$
+and
+$\mathsf{Alg}_{F}(FA,Y)
+\to
+\mathsf{Alg}_{F}(FTA,Y)$
+induced by the multiplications
+$\mu \colon TT \Rightarrow T$,
+$\mu \colon F T \Rightarrow F$
+correspond via \eqref{ALGADJ EQ}
+to the two horizontal composites in \eqref{MUCOMPADJ EQ} below.
+Here the left maps are induced by functoriality of $T$ and $F$, the middle maps by $\bar{F} \Rightarrow F$ (so that the square commutes by naturality) and the right map by the algebra action $FY \to Y$.
+\begin{equation}\label{MUCOMPADJ EQ}
+\begin{tikzcd}[row sep=0]
+	&
+	\C(TX,TY) \ar{rd}
+\\
+	\C(X,Y) \ar{ru} \ar{rd}
+&&
+	\C(TX,FY) \ar{r}
+&
+	\C(TX,Y)
+\\
+&
+	\C(FX,FY) \ar{ru}
+\end{tikzcd}
+\end{equation}
+We have thus shown that the left adjoint sends the 
+(non-free) map of free algebras
+$TTX \xrightarrow{\mu}TX$
+to 
+$FTX \xrightarrow{\mu} FX$.
+
+
+But now recalling that any $T$-algebra $X$ with multiplication
+$TX \xrightarrow{m} X$
+is canonically described as the coequalizer
+$X = coeq \left( T T X \overset{\mu}{\underset{T m}{\rightrightarrows}} T X\right)$,
+it follows that
+\eqref{LEFTADJFOR EQ}
+indeed represents $\mathsf{Alg}_T(X,U(-))$, which proves (i).
+
+Lastly, for (ii) and (iii), we have that the adjunction naturally identifies the maps below
+\[
+X =
+ coeq \left( T T X \overset{\mu}{\underset{T m}{\rightrightarrows}} T X\right) \to UY
+\qquad
+coeq \left( F T X \overset{\mu}{\underset{F m}{\rightrightarrows}} F X\right) \to Y
+\]
+so (ii) and (iii) follow, respectively by choosing 
+the right map to be the identity on \eqref{LEFTADJFOR EQ} and
+left map to be the identity on $UY$.
+\end{proof}
+
+
+
+
+
+
+
+\begin{definition}
+Let $\iota \colon K \to L$ be a fully faithful inclusion.
+An $\iota$-absolute colimit is a cone 
+$I^+ \xrightarrow{c} L$ which:
+\begin{itemize}
+\item $c$ is a colimit cone in $L$;
+\item the restriction
+$c|_I$ is in $K$;
+\item 
+\[
+L(\iota(-),c(+)) \simeq colim_{i\in I} L(\iota(-),c_i)
+= colim_{i\in I} K(-,c_i)
+\]
+\end{itemize}
+\end{definition}
+
+
+\begin{remark}
+If $l \in L$ is given by an $\iota$-absolute colimit 
+$l \simeq colim_i{k_i}$ then 
+\[\left(\mathsf{Lan}_{\iota}F\right)(l) = 
+\int^{k\in K} F(k) \cdot L(\iota(k),l)=
+\int^{k\in K} F(k) \cdot \left(colim_i K(k,k_i) \right)
+=
+\colim_i \left( \int^{k\in K} F(k) \cdot K(k,k_i) \right)
+=
+\colim_i F(k_i)
+\]
+In other words, $\iota$-absolute coequalizers have the property that they are preserved by the left Kan extension along $\iota$ of any functor from $\iota$.
+\[
+\begin{tikzcd}
+	K \ar{r}{F} \ar{d}[swap]{\iota} &
+	\mathcal{C}
+\\
+	L \ar{ru}[swap]{\mathsf{Lan}_{\iota} F}
+\end{tikzcd}
+\]
+Note that this remark also allows for the case where $\iota$ is the identity, in which case we recover the notion of absolute coequalizer and the familiar fact that absolute coequalizers are preserved by any functor.
+\end{remark}
+
+
+\begin{remark}
+For any $l\in L$ which can be described by an $\iota$-absolute colimit
+it follows from the previous remark that $\left(\mathsf{Lan}_{\iota} \iota\right)(l)=l$
+\[
+\begin{tikzcd}
+	K \ar{r}{\iota} \ar{d}[swap]{\iota} &
+	L
+\\
+	L \ar{ru}[swap]{\mathsf{Lan}_{\iota} \iota}
+\end{tikzcd}
+\]
+\end{remark}
+
+
+\begin{example}
+The previous remark can easily fail for colimits of diagrams in $K$ that are not absolute.
+For instance, let $C_2 = \mathbb{Z}_{/2}$ be the field
+with two elements and $K = \{C_2\}$ the subcategory containing only the $1$-dimensional vector space.
+
+Then $\left(\mathsf{Lan}_{\iota}\iota \right)(C_2 \oplus C_2)
+= \colim_{\left(C_2 \to C_2 \oplus C_2\right) \in K \downarrow C_2 \oplus C_2} C_2$
+Analizing the category $K \downarrow C_2 \oplus C_2$
+we get that this is the colimit
+\[
+\begin{tikzcd}
+	& C_2 \ar{rd}{0} \ar{d}{0} \ar{ld}[swap]{0}&
+\\
+C_2 & C_2 & C_2
+\end{tikzcd}
+\]
+which is $C_2\oplus C_2 \oplus \oplus C_2$.
+
+More generally, 
+$\left(\mathsf{Lan}_{\iota}\iota \right)(C_2^{\oplus n}) = C_2^{\oplus 2^n-1}$, the number of non-zero points of $C_2^{\oplus n}$
+(or, with an eye to the case of a general field, the number of directions).
+\end{example}
+
+
+
+
+\begin{remark}
+For each $X \in \mathsf{Alg}_{T}$
+there is a canonical reflexive coequalizer
+$coeq\left(TTX \rightrightarrows {TX}\right) \simeq X$.
+
+Moreover, this coequalizer has the property of being
+$\iota$-absolute,
+meaning that it induces ``partial Yoneda'' isomorphisms
+\[
+coeq \left(
+\mathsf{Kl}_T(-,TX) \rightrightarrows
+\mathsf{Kl}_T(-,X)
+\right)
+=
+coeq \left(
+\mathsf{Alg}_T(\iota(-),TTX) \rightrightarrows
+\mathsf{Alg}_T(\iota(-),TX)
+\right)
+\simeq
+\mathsf{Alg}_T(\iota(-),X)
+\]
+Indeed, these are repackaging of the isomorphism
+\[
+coeq \left(
+\mathcal{C}(-,TTX) \rightrightarrows
+\mathcal{C}(-,TX)
+\right)
+\simeq
+\mathcal{C}(-,X)
+\]
+which exists since the canonical coequalizer becomes split upon forgetting to $\mathcal{C}$.
+\end{remark}
+
+
+
+
+\begin{proposition}
+Let $P,\bar{F}$ be monads on $\mathcal{C}$ as in Definition \ref{AMALGMON DEF}.
+
+Then for each $\bar{F}$-algebra 
+$X \in \mathsf{Alg}_{\bar{F}}(\mathcal{C})$
+with multiplication 
+$\bar{F}X \xrightarrow{m} X$
+one has an $\bar{F}$-algebra structure on $PX$ given by
+$\bar{F}P X \xrightarrow{\tau_X} P \bar{F} X \xrightarrow{Pm} X$.
+
+Moreover, the underlying functor and monad strucutre of $P$
+lift to a monad $\mathsf{Alg}_{\bar{F}}(\mathcal{C})$.
+\end{proposition}
+
+
+\begin{proof}
+Write $m_P$ for the prescribed $\bar{F}$-algebra structure on $PX$.
+
+To check associativity of $m_P$, consider the left diagram in 
+\eqref{CHECKMON EQ} below, which commutes by the second half of Proposition \ref{ALTMULT EQ} and because $X$ is a $\bar{F}$-algebra.
+Associativity is the claim that the composites 
+$\bar{F} \bar{F} P X \xrightarrow{\bar{F} m_P} \bar{F} PX
+\xrightarrow{m_P} PX$
+and
+$\bar{F} \bar{F} P X \xrightarrow{\mu_{PX}} \bar{F} PX
+\xrightarrow{m_P} PX$
+coincide.
+But the second composite is the left bottom composite in \eqref{CHECKMON EQ}
+while the first composite is 
+\[
+\bar{F} \bar{F} P X \xrightarrow{\bar{F} \tau_X}
+\bar{F} P \bar{F} X \xrightarrow{\bar{F}P m}
+\bar{F} P X \xrightarrow{\tau_X}
+P \bar{F} X \xrightarrow{Pm}
+PX
+\]
+which matches the top right composite in \eqref{CHECKMON EQ},
+so associativity follows. Unitality of $m_P$ follows similarly using the second half of Lemma \ref{ALTMULT PROP}(iii).
+
+For the moreover claim, that $P$ sends algebra maps to algebra maps follows from naturality of $\tau$, so it remains only to show that,
+when applied to $\bar{F}$-algebras, the natural transformations 
+$\mu \colon PP \Rightarrow P$ and $\eta \colon I \Rightarrow P$
+consist of $\bar{F}$-algebra maps.
+For $\mu \colon PP \Rightarrow P$ this follows from the right diagram in 
+\eqref{CHECKMON EQ}, which commutes by the first half of Proposition \ref{ALTMULT PROP}(ii), while the $\eta \colon I \Rightarrow P$
+case follows similarly using the first half of 
+Proposition \ref{ALTMULT PROP}(iii).
+\begin{equation}\label{CHECKMON EQ}
+\begin{tikzcd}[column sep = 1.55em]
+	\bar{F} \bar{F} P X \ar{r}{\bar{F}\tau_X} \ar{d}[swap]{\mu_{PX}}
+&
+	\bar{F} P \bar{F} X \ar{r}{\tau_{\bar{F}X}}
+&
+	P \bar{F} \bar{F} X \ar{r}{P\bar{F}m} \ar{d}[swap]{P\mu_X}
+&
+	P \bar{F} X \ar{d}{Pm}
+&%
+	\bar{F} P P X \ar{r}{\tau_{PX}} \ar{d}[swap]{\mu_{PX}}
+&
+	P \bar{F} P X \ar{r}{P \tau_{X}}
+&
+	P P \bar{F} X \ar{r}{P Pm} \ar{d}[swap]{\mu_{\bar{F}X}}
+&
+	PP X \ar{d}{\mu_X}
+\\
+	\bar{F} P X \ar{rr}{\tau_X}
+&&
+	P \bar{F} X \ar{r}{Pm}
+&
+	PX
+&%
+	\bar{F} P X \ar{rr}{\tau_X}
+&&
+	P \bar{F} X \ar{r}{Pm}
+&
+	PX
+\end{tikzcd}
+\end{equation}
+\end{proof}
+
+
+
+
+
+\begin{proposition}
+There is an adjunction
+$\mathsf{Alg}_{\bar{F}} \rightleftarrows \mathsf{Alg}_{F}$
+where
+\begin{enumerate}[label=(\roman*)]
+\item the left adjoint is given by $P$ on both objects and arrows, 
+i.e. for any map $f \colon X \to Y$ of $\bar{F}$-algebras, the left adjoint gives
+$Pf \colon Px \to PY$;
+\item if the $\bar{F}$-algebra $X$ has multiplication
+$\bar{F}X \xrightarrow{m} X$
+then the $F$-algebra $PX$ has multiplication
+$FPX = P\bar{F}P X \xrightarrow{P\tau_X}
+PP\bar{F}X \xrightarrow{\mu_{\bar{F}X}} P\bar{F} X
+\xrightarrow{Pm} X$;
+\item the adjunction unit is given by $\eta \colon I \Rightarrow P$;
+\item the adjunction counit, on a $F$-algebra $Z$ with multiplication
+$FZ \xrightarrow{m} Z$,
+is given by
+$PZ \rightarrow FZ \xrightarrow{m}Z$.
+\end{enumerate}
+\end{proposition}
+
+
+\begin{proof}
+We have already shown elsewhere that,
+on a $\bar{F}$-algebra with multiplication 
+$\bar{F}X \xrightarrow{m} X$,
+the left adjoint must be given by
+the coequalizer
+\begin{equation}\label{FBARFCOEQ EQ}
+coeq 
+ \left(
+ \begin{tikzcd}[column sep=8pt]
+	F \bar{F} X
+	\ar[shift left=.3em]{r}{\mu}
+	\ar[shift right=.3em]{r}[swap]{Fm} &
+	FX
+ \end{tikzcd}
+ \right)
+=
+coeq 
+ \left(
+ \begin{tikzcd}[column sep=14pt]
+	P \bar{F} \bar{F} X
+	\ar[shift left=.3em]{r}{P\mu}
+	\ar[shift right=.3em]{r}[swap]{P \bar{F}m} &
+	P \bar{F} X
+ \end{tikzcd}
+ \right)
+\end{equation}
+if it exists.
+But the coequalizer 
+$coeq \left( \bar{F} \bar{F} X \overset{\mu}{\underset{\bar{F}m}{\rightrightarrows}} \bar{F} X\right)$
+is split after forgetting to $\mathcal{C}$,
+and hence so is the coequalizer above, which is just obtained by applying $P$ throughout.
+
+But since forgetting to $\mathcal{C}$
+creates coequalizers that become split upon forgetting,
+it follows that \eqref{FBARFCOEQ EQ} must indeed be $PX$
+with some $F$-algebra structure, so (i) follows.
+
+For (ii), writing $m_F$ for the yet unknown $F$-algebra structure on $PX$, note that the diagram below must commute
+(due to the creation claim concerning the coequalizer)
+\begin{equation}
+\begin{tikzcd}[column sep = 1.55em]
+	FPX 	\ar{r} 
+&
+	FFX 	\ar{r}{FPm} \ar{d}[swap]{\mu}
+&
+	FPX   \ar{d}{m_F}
+\\
+&
+	P \bar{F} X \ar{r}[swap]{P\mu}
+&
+	P \bar{F} X
+\end{tikzcd}
+\end{equation}
+and (ii) follows.
+
+(iii) is immediate from the corresponding part of Proposition \ref{GENMONS PROP}.
+
+For (iv), this follows since the bottom right triangle in the diagram below must commute (here $m_{\bar{F}}$ is the $\bar{F}$-algebra structure obtained by restricting the $F$-algebra structure).
+\begin{equation}
+\begin{tikzcd}[column sep = 3em]
+	PY \ar{r}{P\eta} \ar{rd}[swap]{P\eta}
+&
+	PFX 	\ar{r}{Pm} 
+&
+	P Y   \ar{d}
+\\
+&
+	P \bar{F} Y \ar{r}[swap]{m} \ar{u}
+	\ar{ru}[swap]{P m_{\bar{F}}}
+&
+	Y
+\end{tikzcd}
+\end{equation}
+\end{proof}
+
+
+
+
+
+
+
+
+\bibliography{biblio-new}{}
+\bibliographystyle{amsalpha2}
+
+
+
+\end{document}
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
