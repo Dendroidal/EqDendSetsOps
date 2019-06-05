@@ -5334,10 +5334,47 @@ We recall some definitions from \cite[\S4,5]{BP_edss}.
       The category of \textit{preoperads} $\mathsf{PreOp}^G$ is the full subcategory of $\mathsf{sdSet}^G$ of those $X$ such that
       $X(\eta)$ is a discrete simplicial set.
 
-      There is a natural adjuction
+      There is a natural pair of adjunctions
       \[
-            \gamma^{\**} \colon \mathsf{PreOp}^G \rightleftarrows \mathsf{sdSet}^G \colon \gamma_{\**}.
+            \begin{tikzcd}[column sep =5em]
+                  \mathsf{PreOp}^G \ar{r}[swap]{\gamma^{\**}} 
+                  &
+                  \mathsf{sdSet}^G
+                  \ar[bend right]{l}[swap,midway]{\gamma_{!}}
+                  \ar[bend left]{l}{\gamma_{\**}}
+            \end{tikzcd}
       \]
+      described by
+      $\gamma_{!}X (U) = X(U)$ if $U \not \in \Delta$
+      while $\gamma_{!}X ([n])$ for $[n] \in \Delta$ is given by the pushout on the left below; 
+      $\gamma_{\**}X(U)$ is given by the pullback on the right below.
+      \begin{equation}\label{GAMMASTAR_EQ}
+            \begin{tikzcd}
+                  X(\eta) \ar{r} \ar{d} \arrow[dr, phantom, "\ulcorner", very near start]  &
+                  \pi_0 X(\eta) \ar{d}
+                  && 
+                  \gamma_{\**}X(U) \ar{r} \ar{d} & X(U) \ar{d}
+                  \\
+                  X([n]) \ar{r} & \gamma_! X([n]) 
+                  &&
+                  \prod_{\boldsymbol{E}(U)} X_0(\eta) \ar{r} &
+                  \prod_{\boldsymbol{E}(U)} X(\eta)
+                  \arrow[lu, phantom, "\lrcorner", very near start]
+            \end{tikzcd}
+      \end{equation}
+
+      Moreover, following \cite[Remark 4.33]{BP_edss}, % GAMMASH REM
+      we have that any monomorphism $A \to B$ in $\mathsf{sdSet}^G$
+      such that $A(\eta) \to B(\eta)$ is an isomorphism
+      induces a pushout square
+      \begin{equation}\label{GAMMASH EQ}
+            \begin{tikzcd}
+                  A \ar{r} \ar{d} \arrow[dr, phantom, "\ulcorner", very near start]&
+                  \gamma^{\**}\gamma_! A \ar{d}
+                  \\
+                  B \ar{r} & \gamma^{\**}\gamma_! B 
+            \end{tikzcd}
+      \end{equation}
 \end{definition}
 
 
@@ -5490,7 +5527,7 @@ is defined by the following pushout when $T=[n]$ is linear.
 \end{definition}
 
 \begin{remark}
-More concisely, $X \otimes_{\mathsf{F}} K$ is defined by the pushout
+More concisely, $X \otimes_{\mathsf{F}} K$ is defined by the pushout in $\mathsf{sdSet}^G$
 \[
 \begin{tikzcd}
 	\left(\mathsf{sk}_{\eta}X \right) \times K \ar{r} \ar{d} \arrow[dr, phantom, "\ulcorner", very near start]  &
@@ -5588,7 +5625,7 @@ In practice, this means that some standard arguments concerning tensor products 
 \begin{remark}\label{COLORTENSGAM REM}
 Let $X \to Y$ be any map in $\mathsf{PreOp}^G$
 which is the identity on colors and 
-$K \in \mathsf{sSet}$. Then the squares below are pushout squares.
+$K \in \mathsf{sSet}$. Then the squares below are pushout squares in $\mathsf{sdSet}^G$.
 Moreover, whenever $K$ is connected the rightmost horizontal maps are isomorphisms.
 \[
 \begin{tikzcd}
@@ -5659,6 +5696,7 @@ is a tame cofibration.
 
 
 \begin{theorem}
+      \label{TAMEMS_THM}
 	There is a model structure on 
 	$\mathsf{PreOp}^G$,
 	called the \textbf{tame model structure},
@@ -5689,8 +5727,57 @@ $\left( Sc[T] \to \Omega[T] \right)
 	\end{itemize}
 \end{theorem}
 
-
+We first have a short lemma.
+\begin{lemma}
+      \label{TAMECOFCOF_LEM}
+      Tame cofibrations and anodyne maps are normal cofibrations and trivial cofibrations in $\mathsf{PreOp}^G$, respectively.
+\end{lemma}
 \begin{proof}
+      $(TC2)$ and $(TC3)$ with $n = 0$, and $(TC1)$ and $(TA1)$ for all $n$, are immediate.
+      $(TC2)$ and $(TC3)$ with $n \geq 2$, and $(TA2)$ for all $n$, follow by Equation \eqref{GAMMASH EQ} and Remark \ref{COLORTENSGAM REM}.
+      $(TC2)$ with $n = 1$ follows since $\Omega[C] \otimes_\Fin \Delta[1]$ is $G$-normal by \eqref{GAMMASH EQ}, and by hand we see that the map $\Omega[C] \otimes_{\Fin}(\partial \Delta[1] \to \Delta[1])$ is monic.
+      For $(TC3)$ with $n=1$, consider the pair of diagrams below, with $K \to L$ in $\sSet$.
+      \[
+            \begin{tikzcd}
+                  Sc[T] \times K \arrow[d] \arrow[r]
+                  &
+                  \Omega[T] \times K \arrow[d]
+                  & % ----------
+                  Sc[T] \times K \arrow[r] \arrow[d]
+                  &
+                  \Omega[T] \times K \arrow[d]
+                  \\
+                  Sc[T] \otimes_\Fin K \arrow[r] \arrow[d]
+                  &
+                  \Omega[T] \otimes_\Fin K \arrow[d]
+                  & % ----------
+                  Sc[T] \times L \arrow[r] \arrow[d]
+                  &
+                  Q^\times \arrow[r] \arrow[d]
+                  &
+                  \Omega[T] \times L \arrow[d]
+                  \\
+                  Sc[T] \otimes_\Fin L \arrow[r]
+                  &
+                  Q^\otimes
+                  & % ----------
+                  Sc[T] \otimes_\Fin L \arrow[r]
+                  &
+                  Q^\otimes \arrow[r, "{(TC3)}"]
+                  &
+                  \Omega[T] \otimes_\Fin L.
+            \end{tikzcd}
+      \]
+      Using Remark \ref{COLORTENSGAM REM}, we see that all three squares on the left are pushouts (with the bottom square a pushout by definition).
+      This rectangle may be factored as on the right with the bottom-left square a pushout (and the top square a pushout by definition),
+      and when $L$ is connected, the bottom rectange is a pushout using Remark \ref{COLORTENSGAM REM} and Equation \eqref{GAMMASH EQ}.
+      We conclude that the rightmost square is also a pushout.
+      But when $K \to L$ is $\partial \Delta[n] \to \Delta[n]$ for $n \geq 1$,
+      the top horizontal map is simply $(\partial \Delta[n] \to \Delta[n]) \square (Sc[T] \to \Omega[T])$,
+      and hence the bottom horizontal map $(TC3)$ is a G-normal monomorphism that is also a simplicial equivalence, hence a trivial cofibration.
+\end{proof}
+
+\begin{proof}[Proof of Theorem \ref{TAMEMS_THM}]
 	The existence of the model structure will follow by applying J. Smith's theorem \cite[Thm. 1.7]{Bek00}. Conditions c0 and c2 therein are inherited from $\mathsf{sdSet}^G$
 	and the technical ``solution set condition'' c3 follows from
 	\cite[Prop. 1.15]{Bek00} since weak equivalences are accessible, being the preimage by $\gamma^{\**}$ if the weak equivalences in 
@@ -5790,6 +5877,18 @@ produce a lifting problem against a map in (TA1) which has a solution, providing
 
 {\color{red} To show that maps in (TA3) are normal cofibrations one can use a pushout of projective cofibrant cubes argument.}
 
+
+\begin{theorem}
+      The identity map is a left Quillen equivalence from the tame model structure to the normal model structure on $\mathsf{PreOp}^G$.
+\end{theorem}
+\begin{proof}
+      We argue by Corollary \ref{SIMPLQUILL COR}.
+      Lemma \ref{TAMECOFCOF_LEM} says that the left adjoint preserves cofibrations and anodyne maps.
+      The standard adjunction argument then implies that the right adjoint preserves fibrations between fibrant objects.
+\end{proof}
+
+
+\subsection{Comparison with $\sOp^G$}
 
 \begin{lemma}
       \label{OMEGATTAME_LEM}
