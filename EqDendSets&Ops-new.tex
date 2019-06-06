@@ -7399,1031 +7399,6 @@ one has that, writing $C \simeq G \cdot_H C_{\star}$ one has the alternative pus
 
 
 
-\subsection{Amalgamating monads (to be renamed and reskined)}
-
-
-\begin{definition}\label{AMALGMON DEF}
-Let $P$ and $\bar{F}$ be two monads on the same category $\mathcal{C}$.
-We say \emph{$P$ and $\bar{F}$ can be combined} if there exists 
-a monad structure on the composite 
-$F = P \bar{F}$ such that
-\begin{enumerate}[label=(\roman*)]
-\item $P \eta_{\bar{F}} \colon P \Rightarrow P \bar{F} = F$
-is a map of monads
-\item $\eta_P \bar{F} \colon \bar{F} \Rightarrow P \bar{F} = F$
-is a map of monads
-\item the composite below is the identity
-\[
-\begin{tikzcd}[column sep=3em]
-	P \bar{F} \ar[Rightarrow]{r}{P \eta_{\bar{F}} \eta_P \bar{F}}
-&
-	P \bar{F} P \bar{F} \ar[equal]{r}
-&
-	FF  \ar[Rightarrow]{r}{\mu_F}
-&
-	F \ar[equal]{r}
-&
-	P \bar{F}
-\end{tikzcd}
-\]
-\end{enumerate}
-\end{definition}
-
-
-\begin{remark}\label{SHORTCONV REM}
-To ease notation, in our diagrams we will follow the following conventions:
-\begin{itemize}
-\item by default, unlabeled maps
-% of the form
-$P \Rightarrow F$, $\bar{F} \Rightarrow F$ refer to the maps in
-Definition \ref{AMALGMON DEF}(i)(ii);
-\item we write $\mu$ to denote any of the monad multiplications
-$PP \Rightarrow P$,
-$\bar{F}\bar{F} \Rightarrow \bar{F}$,
-$FF \Rightarrow F$,
-as well as for the left/right action multiplications
-$PF \Rightarrow F$,
-$FP \Rightarrow F$,
-$\bar{F} F \Rightarrow F$,
-$F \bar{F} \Rightarrow F$
-induced by Definition \ref{AMALGMON DEF}(i)(ii)
-(recall that, by definition,
-$PF \Rightarrow F$ is the composite
-$PF \Rightarrow FF \overset{\mu}{\Rightarrow} F$,
-and similarly for the other action multiplications).
-
-Therefore, to avoid ambiguity, we always write the 
-source of a $\mu$ labeled map as a composite of two functors and the target as a single functor
-(for example, this means we write 
-$\mu\colon FF \Rightarrow F$ for the multiplication of $F$,
-but \emph{never} write this multiplication as $\mu \colon P \bar{F} P \bar{F} \Rightarrow P \bar{F}$);
-\item we write $\eta$ for either of the units 
-$I \Rightarrow P$,
-$I \Rightarrow \bar{F}$,
-$I \Rightarrow F$.
-\end{itemize}
-Note that, following these conventions, 
-Definition \ref{AMALGMON DEF}(iii)
-says that 
-$P\bar{F} \Rightarrow FF \overset{\mu}{\Rightarrow} F$
-is the identity.
-\end{remark}
-
-
-\begin{definition}\label{TWISTMAP DEF}
-Given $P,\bar{F},F$ as in Definition \ref{AMALGMON DEF}, 
-the twist map $\tau \colon \bar{F} P \Rightarrow P \bar{F}$ is the composite
-\[
-\begin{tikzcd}
-	\bar{F} P \ar[Rightarrow]{r}{}
-&
-	FF  \ar[Rightarrow]{r}{\mu}
-&
-	F 
-\end{tikzcd}
-\]
-We note that in our diagrams $\tau$ is written as either
-$\tau \colon \bar{F} P \Rightarrow P \bar{F}$ or as
-$\tau \colon \bar{F} P \Rightarrow F$.
-\end{definition}
-
-
-\begin{lemma}\label{MODSTRCOMRE LEM}
-\begin{enumerate}[label=(\roman*)]
-\item the monad maps
-$P \Rightarrow F$ and 
-$\bar{F} \Rightarrow F$ coincide with the composites
-\[
-\begin{tikzcd}
-	P \ar[Rightarrow]{r}{\eta P} &
-	\bar{F} P \ar[Rightarrow]{r}{\tau} &
-	F 
-&
-	\bar{F} \ar[Rightarrow]{r}{\bar{F} \eta} &
-	\bar{F} P \ar[Rightarrow]{r}{\tau} &
-	F 
-\end{tikzcd}
-\]
-\item
-the multiplications $\mu \colon PF \Rightarrow F$ and
-$\mu \colon F\bar{F} \Rightarrow F$
-are also given by
-\[
-\begin{tikzcd}
-	PP\bar{F} \ar[Rightarrow]{r}{\mu \bar{F}} &
-	P \bar{F} 
-&
-	P \bar{F} \bar{F} \ar[Rightarrow]{r}{P \mu} &
-	P \bar{F} 
-\end{tikzcd}
-\]
-\item
-the multiplications
-$\mu \colon F P \Rightarrow F$ and
-$\mu \colon \bar{F} F \Rightarrow F$ are also given by the composites
-\[
-\begin{tikzcd}
-	P\bar{F} P \ar[Rightarrow]{r}{P \tau} &
-	P F \ar[Rightarrow]{r}{\mu} &
-	F 
-&
-	\bar{F} P \bar{F} \ar[Rightarrow]{r}{\tau \bar{F}} &
-	F \bar{F} \ar[Rightarrow]{r}{\mu} &
-	F  
-\end{tikzcd}
-\]
-\item the following composites both coincide with $\mu\mu \colon PP\bar{F}\bar{F} \Rightarrow P \bar{F}$
-\[
-\begin{tikzcd}
-	P F \bar{F} \ar[Rightarrow]{r}{\mu \bar{F}} &
-	F \bar{F} \ar[Rightarrow]{r}{\mu} &
-	F 
-%&
-%	PP\bar{F}\bar{F} \ar[Rightarrow]{r}{\mu \mu} &
-%	P \bar{F}  
-&
-	P F \bar{F} \ar[Rightarrow]{r}{P \mu} &
-	\bar{F} F \ar[Rightarrow]{r}{\mu} &
-	F 
-\end{tikzcd}
-\]
-\end{enumerate}
-\end{lemma}
-
-
-
-\begin{proof}
-Since all of (i),(ii),(iii) are symmetric, we show only the first half of each. (i),(ii),(iii) will follow from the following diagrams.
-\begin{equation}\label{MODSTRCOMRE EQ}
-\begin{tikzcd}[column sep=1.9em]
-	P \ar[Rightarrow]{d}
-	\ar[Rightarrow]{r}{\eta P}
-&
-	\bar{F}P \ar[Rightarrow]{d} \ar[Rightarrow]{rd}{\tau}
-&
-&%
-	P P \bar{F} \ar[Rightarrow]{d}[swap]{\mu \bar{F}}
-	\ar[Rightarrow]{r}
-&
-	FFF \ar[Rightarrow]{d}[swap]{\mu F}
-	\ar[Rightarrow]{r}{F \mu}
-&
-	FF \ar[Rightarrow]{d}{\mu}
-&%
-	P \bar{F} P  \ar[Rightarrow]{d}[swap]{P \tau}
-	\ar[Rightarrow]{r}
-&
-	FFF \ar[Rightarrow]{d}[swap]{F \mu}
-	\ar[Rightarrow]{r}{\mu F}
-&
-	FF \ar[Rightarrow]{d}{\mu}
-\\
-	F \ar[Rightarrow]{r}[swap]{\eta F}
-&
-	FF \ar[Rightarrow]{r}[swap]{\mu}
-&
-	F
-&%
-	P \bar{F} \ar[Rightarrow]{r}
-&
-	FF \ar[Rightarrow]{r}[swap]{\mu}
-&
-	F
-&%
-	P F \ar[Rightarrow]{r}
-&
-	FF \ar[Rightarrow]{r}[swap]{\mu}
-&
-	F
-\end{tikzcd}
-\end{equation}
-For (i), consider the left diagram in \eqref{MODSTRCOMRE EQ},
-where the square commutes since
-$\bar{F} \to P$ is a monad map (more precisely, it is thus compatible with monad units) and the triangle commutes by definition of $\tau$.
-Since the bottom composite is the identity (due to $F$ being a monad), (i) follows.
-
-For (ii), consider the center diagram in \eqref{MODSTRCOMRE EQ},
-whose left (resp. right) half commutes since
-$P \Rightarrow F$ is a monad map (resp. $F$ is a monad).
-But by Definition \ref{AMALGMON DEF}(iii), the lower composite therein
-is the identity and the top composite is the natural map
-$PF \Rightarrow FF$, so (ii) follows.
-
-For (iii), consider the right diagram in \eqref{MODSTRCOMRE EQ},
-whose left (resp. right) half commutes by definition of $\tau$
-(resp. since $F$ is a monad).
-The bottom composite therein is the multiplication
-$\mu \colon F \bar{F} \Rightarrow F$
-while, by Definition \ref{AMALGMON DEF}(iii), the top composite is
-the natural map $FP \Rightarrow FF$, so (iii) follows.
-
-
-For (iv), part (i) allows us to rewrite 
-the two composites as
-\[
-\begin{tikzcd}
-	PP\bar{F}\bar{F} \ar[Rightarrow]{r}{\mu \bar{F}\bar{F}} &
-	P \bar{F} \bar{F} \ar[Rightarrow]{r}{P\mu} &
-	P \bar{F}
-&
-	PP\bar{F}\bar{F} \ar[Rightarrow]{r}{PP \mu } &
-	P P \bar{F} \ar[Rightarrow]{r}{\mu \bar{F}} &
-	P \bar{F}
-\end{tikzcd}
-\]
-which are both $\mu\mu\colon PP\bar{F}\bar{F} \Rightarrow P \bar{F}$.
-\end{proof}
-
-
-\begin{proposition}\label{ALTMULT PROP}
-\begin{enumerate}[label=(\roman*)]
-\item
-the multiplication
-$\mu \colon FF \Rightarrow F$ 
-can also be described as the composite
-\begin{equation}\label{ALTMULT EQ}
-\begin{tikzcd}
-	P \bar{F} P \bar{F} \ar[Rightarrow]{r}{P \tau \bar{F}}
-&
-	P P \bar{F} \bar{F}   \ar[Rightarrow]{r}{\mu \mu}
-&
-	P \bar{F} 
-\end{tikzcd}
-\end{equation}
-\item
-the following diagrams commute
-\begin{equation}\label{DOUBLETWIST EQ}
-\begin{tikzcd}
-	\bar{F} P P \ar[Rightarrow]{r}{\tau P} 
-	\ar[Rightarrow]{d}[swap]{\bar{F} \mu}
-&
-	P \bar{F} P \ar[Rightarrow]{r}{P\tau}
-&
-	P P \bar{F} \ar[Rightarrow]{d}{\mu \bar{F}}
-&%%
-	\bar{F} \bar{F} P  \ar[Rightarrow]{r}{\bar{F} \tau}
-	\ar[Rightarrow]{d}[swap]{\mu P}
-&
-	\bar{F} P \bar{F}  \ar[Rightarrow]{r}{\tau \bar{F}}
-&
-	P \bar{F} \bar{F} \ar[Rightarrow]{d}{P \mu}
-\\
-	\bar{F} P \ar[Rightarrow]{rr}{\tau} 
-&&
-	P \bar{F}
-&%%
-	\bar{F} P \ar[Rightarrow]{rr}{\tau} 
-&&
-	P \bar{F}
-\end{tikzcd}
-\end{equation}
-\item
-the following diagrams commute
-\begin{equation}\label{UNITTWIST EQ}
-\begin{tikzcd}
-	\bar{F} \ar[Rightarrow]{d}[swap]{\bar{F} \eta}
-	\ar[Rightarrow]{rd}{\eta \bar{F}}
-&
-&%%
-	P \ar[Rightarrow]{d}[swap]{\eta P}
-	\ar[Rightarrow]{rd}{P \eta}
-&
-\\
-	\bar{F} P \ar[Rightarrow]{r}{\tau} 
-&
-	P \bar{F}
-&%%
-	\bar{F} P \ar[Rightarrow]{r}{\tau} 
-&
-	P \bar{F}
-\end{tikzcd}
-\end{equation}
-\end{enumerate}
-\end{proposition}
-
-
-\begin{proof}
-Note first that (iii) is simply 
-a rephrasing of Lemma \ref{MODSTRCOMRE LEM}(i), which we include here
-for the sake of Remark \ref{ALTMULT REM}.
-(i) and (ii) will follow from the following diagrams.
-\begin{equation}\label{ALTMPR EQ}
-\begin{tikzcd}
-	P \bar{F} P \bar{F} \ar[Rightarrow]{d} 
-	\ar[Rightarrow]{r}{P \tau \bar{F}}
-&
-	P F \bar{F}  \ar[Rightarrow]{r}{\mu \bar{F}} \ar[Rightarrow]{d}
-&
-	F \bar{F} \ar[Rightarrow]{r}{\mu}
-	\ar[Rightarrow]{d}
-&
-	F \ar[equal]{d}
-&&%
-	\bar{F} P P \ar[Rightarrow]{rr}{\tau P}
-	\ar[Rightarrow]{rd}{}
-	\ar[Rightarrow]{dd}[swap]{\bar{F} \mu}
-&&
-	F P \ar[Rightarrow]{d}
-\\
-	FFFF \ar[Rightarrow]{r}{F \mu F}
-	\ar[Rightarrow]{d}[swap]{\mu \mu}
-&
-	FFF \ar[Rightarrow]{r}{\mu F}
-&
-	FF \ar[Rightarrow]{r}{\mu}
-&
-	F \ar[equal]{d}
-&&%
-&
-	FFF \ar[Rightarrow]{d}[swap]{F \mu}
-	\ar[Rightarrow]{r}{\mu F}
-&
-	FF \ar[Rightarrow]{d}{\mu}
-\\
-	FF \ar[Rightarrow]{rrr}{\mu}
-&&&
-	F
-&&%
-	\bar{F} P \ar[Rightarrow]{r}
-&
-	FF \ar[Rightarrow]{r}[swap]{\mu}
-&
-	F
-\end{tikzcd}
-\end{equation}
-For (i), consider the left diagram in \eqref{ALTMPR EQ}, where the top left square commutes by definition of the twist $\tau$,
-the remaining top squares commute by definition of the action multiplication,
-and the bottom rectangle commutes due to $F$ being a monad.
-Definition \ref{AMALGMON DEF}(iii)
-then says that the left vertical composite therein is the identity,
-while by Lemma \ref{MODSTRCOMRE LEM}(iv) the top composite is 
-\eqref{ALTMULT EQ}, so (i) follows.
-
-For (ii), by symmetry it suffices to show the first half.
-Consider now the right diagram in \eqref{ALTMPR EQ},
-where the top right section commutes by definition of $\tau$,
-the bottom left section commutes since $P \Rightarrow F$ is a monad map,
-and the bottom right square commutes since $F$ is monad.
-But now the bottom composite therein is $\tau$ by definition
-while, by Lemma \ref{MODSTRCOMRE LEM}(iii),
-the top right outer composite from $\bar{F}PP$ to $F$ matches the top right outer composite in (the left side of) \eqref{DOUBLETWIST EQ},
-so (ii) follows.
-\end{proof}
-
-
-
-\begin{remark}\label{ALTMULT REM}
-\eqref{ALTMULT EQ} shows that the monad structure on $F=P\bar{F}$ is determined by monoidal structures on $P$ and $\bar{F}$ together with  the twist map $\tau$.
-Moreover, \eqref{DOUBLETWIST EQ} and \eqref{UNITTWIST EQ} provide necessary conditions on $P,\bar{F},\tau$
-for the formula \eqref{ALTMULT EQ}
-to describe a monoidal structure on $F=P\bar{F}$
-that satisfies the conditions in 
-Definition \ref{AMALGMON DEF}.
-In fact, the conditions \eqref{DOUBLETWIST EQ}, \eqref{UNITTWIST EQ}
-turn out to also be sufficient.
-Indeed, it is not hard to check 
-that \eqref{DOUBLETWIST EQ} implies that either of the two iterated multiplications
-$FFF \Rightarrow F$ induced by \eqref{ALTMULT EQ}
-match the map 
-$P\bar{F} P\bar{F} P \bar{F} \Rightarrow 
-PPP \bar{F} \bar{F} \bar{F} \Rightarrow P \bar{F}$,
-where the first map is a (unique) combination of twists $\tau$
-and the second map is given by the iterated multiplications for $P,\bar{F}$.
-Similarly, \eqref{UNITTWIST EQ} implies that the maps
-$P \Rightarrow F$, $\bar{F} \Rightarrow F$
-are maps of monads.
-\end{remark}
-
-
-
-
-
-\begin{remark}\label{KLEISLIDEF REM}
-Letting $T$ be a monad on the category $\mathcal{C}$,
-recall that the Kleisli category
-$\mathsf{Kl}_T$ is the category with:
-the same objects as $\mathcal{C}$;
-arrows from $A$ to $B$,
-which we denote $A \rightsquigarrow B$,
-the underlying arrows $A \to TB$ in $\mathcal{C}$;
-composition
-$A \rightsquigarrow B \rightsquigarrow C$
-of underlying maps 
-$A \xrightarrow{f} TB$,
-$B \xrightarrow{g} TC$
-given by the composite
-$A \xrightarrow{f} TB \xrightarrow{Tg} TTB \xrightarrow{\mu} TB$.
-Moreover, there is then a canonical fully faithful inclusion
-\[
-\begin{tikzcd}[row sep = 0pt]
-	\Kl_T \ar[hookrightarrow]{r}{\iota} &
-	\Alg_T
-\\
-	A \ar[mapsto]{r} &
-	TA
-\\
-	(A \xrightarrow{f} TB) \ar[mapsto]{r} &
-	(TA \xrightarrow{Tf} TTB \xrightarrow{\mu} TB) 
-\end{tikzcd} 
-\]
-which identifies $\mathsf{Kl}_T$ with the full subcategory of
-$\mathsf{Alg}_T$ spanned by the free algebras.
-
-Moreover, we say an arrow
-$A \rightsquigarrow B$ in $\mathsf{Kl}_F$ is a 
-\emph{free arrow}
-if the underlying map has a factorization
-$A \xrightarrow{f} B \xrightarrow{\eta} TB$.
-This is equivalent to its image under $\iota$
-being the free map
-$TA \xrightarrow{Tf} TB$.
-Note that free arrows provide a canonical functor
-$\C \to \Kl_T$ and that the unit arrow $A \rightsquigarrow A$ in $\Kl_T$
-is the free arrow $A \xrightarrow{=} A \xrightarrow{\eta} TA$.
-\end{remark}
-
-
-
-
-\begin{remark}\label{KLEISLIPUSH REM}
-Given a map of monads $\psi \colon T \to F$
-one has a well known forgetul functor 
-$\mathsf{Alg}_F \xrightarrow{\psi^{\**}} \mathsf{Alg}_T$
-sending a $F$-monad $Y$ with multiplication
-$FY \xrightarrow{m} Y$
-to a $T$-monad with the same underlying object $Y$
-and multiplication given by
-$TY \xrightarrow{\psi} FY \xrightarrow{m} Y$.
-
-Similarly, on Kleisli categories there is a functor
-$\mathsf{Kl}_T \xrightarrow{\psi_!} \mathsf{Kl}_F$
-which is given by the identity on objects 
-and sending the map $A \rightsquigarrow B$
-given by the underlying map $A \xrightarrow{f} TB$
-to the map $\psi_!A \rightsquigarrow \psi_!B$
-given by the underlying composite
-$A \xrightarrow{f} TB \xrightarrow{\psi} FB$.
-
-To check $\psi_!$ respects composition of arrows, let
-$A \rightsquigarrow B$,
-$B \rightsquigarrow C$
-be maps in $\Kl_T$ with
-underlying maps
-$A \xrightarrow{f} TB$,
-$B \xrightarrow{f} TC$.
-Then $\psi_!$ of the composite 
-$A \rightsquigarrow B \rightsquigarrow C$
-is given by the top right composite in \eqref{CHECKFUN EQ}
-while the composite of 
-$\psi_!A \rightsquigarrow \psi_! B$,
-$\psi_! B \rightsquigarrow \psi_! C$
-is given by the bottom  left composite in \eqref{CHECKFUN EQ}.
-\begin{equation}\label{CHECKFUN EQ}
-\begin{tikzcd}[column sep = 1.55em]
-	A \ar{r}{f} 
-&
-	TB \ar{r}{Tg} \ar{d}[swap]{\psi}
-&
-	TTC \ar{rr}{\mu}  \ar{d}[swap]{\psi T}
-&&
-	TC \ar{d}{\psi}
-\\
-&
-	FB \ar{r}{Fg}
-&
-	FTB \ar{r}{F\psi}
-&
-	FFC \ar{r}{\mu}
-&
-	FC
-\end{tikzcd}
-\end{equation}
-Lastly, note that $\psi_!$ maps the free arrow 
-$A \xrightarrow{f} B \xrightarrow{\eta} TB$
-to the free arrow
-$A \xrightarrow{f} B \xrightarrow{\eta} FB$,
-so that in particular it preserves unit arrows.
-\end{remark}
-
-
-
-
-\begin{proposition}\label{PARTADJ PROP}
-The functors in Remarks \ref{KLEISLIDEF REM} and \ref{KLEISLIPUSH REM}
-fit into a (non-commutative) square
-\begin{equation}\label{PARTADJ EQ}
-\begin{tikzcd}
-	\mathsf{Kl}_{T} \ar{r}{\psi_!} \ar[hookrightarrow]{d}[swap]{\iota}&
-	\mathsf{Kl}_{F} \ar[hookrightarrow]{d}{\iota}
-\\
-	\mathsf{Alg}_{T} &
-	\mathsf{Alg}_{F}  \ar{l}{\psi^{\**}}.
-\end{tikzcd}
-\end{equation}
-and there are isomorphisms as below, natural in $A \in \mathsf{Kl}_T$, $Y \in \mathsf{Alg}_F$.
-\begin{equation}\label{PARTADJISO EQ}
-	\mathsf{Alg}_T(\iota A, \psi^{\**} Y) \simeq
-	\mathsf{Alg}_F(\iota \psi_! A,Y)
-\end{equation}
-\end{proposition}
-Informally, this result says that
-$\psi_!$ is a ``partial left adjoint'' to $\psi^{\**}$
-along the fully-faithful inclusion 
-$\mathsf{Kl}_T \overset{\iota}{\hookrightarrow} \mathsf{Alg}_T$,
-motivating our choice of notation.
-
-
-\begin{proof}
-The isomorphisms \eqref{PARTADJISO EQ} are the composites of the isomorphisms
-\begin{equation}\label{PARTADJPROOF EQ}
-	\mathsf{Alg}_T(T A, \psi^{\**} Y) \simeq
-	\mathcal{C}(A,Y) \simeq
-	\mathsf{Alg}_F(FA,Y),
-\end{equation}
-so it remains to show naturality.
-Naturality with respect to $Y \in \Alg_F$ is clear.
-However, naturality with respect to $A \in \Kl_T$
-requires care, since a priori \eqref{PARTADJPROOF EQ}
-is only functorial with respect to free maps.
-But now note that 
-$\varphi \colon FA \to Y$
-and 
-$\bar{\varphi} \colon TA \to \psi^{\**} Y$
-are identified precisely if the two composites
-$A \to Y$ in the left diagram below coincide (morever, both triangles therein commute, with commutativity of the right triangle
-inherited from commutatity of the full diagram, due $TA$ being free $T$-algebra).
-Given an arrow $\bar{A} \rightsquigarrow A$ in $\Kl_T$
-given by an underlying map $\bar{A} \xrightarrow{f} TA$, 
-we must then show that the two outer composites
-$\bar{A} \to Y$ in the rightmost diagram coincide.
-\begin{equation}\label{ADJOINTCORR EQ}
-\begin{tikzcd}[column sep = 1.55em]
-	A \ar{r}{\eta} \ar{rd}[swap]{\eta}
-&
-	T A \ar{r}{\bar{\varphi}} \ar{d}[swap]{\psi}
-&
-	Y 
-&&%%
-	\bar{A} \ar{r}{\eta} \ar{rd}[swap]{\eta}
-&
-	T \bar{A} \ar{r}{\iota f} \ar{d}[swap]{\psi}
-&
-	T A \ar{r}{\bar{\varphi}} \ar{d}[swap]{\psi}
-&
-	Y 
-\\
-&
-	FA \ar{ru}[swap]{\varphi}
-&
-&&%%
-&
-	F \bar{A} \ar{r}[swap]{\iota (\psi_! f)}
-&
-	FA \ar{ru}[swap]{\varphi}
-&
-\end{tikzcd}
-\end{equation}
-It hence suffices to check that the two composites
-$\bar{A} \to FA$ in that diagram coincide and, after unpacking definitions, this follows from the commutativity of the following diagram.
-\begin{equation}
-\begin{tikzcd}[column sep = 1.55em]
-	\bar{A} \ar{r}{\eta} \ar{rd}[swap]{\eta} 
-&
-	T\bar{A} \ar{r}{Tf} \ar{d}[swap]{\psi}
-&
-	TTA \ar{rr}{\mu}  \ar{d}[swap]{\psi T}
-&&
-	TA \ar{d}{\psi}
-\\
-&
-	F \bar{A} \ar{r}{Ff}
-&
-	FTA \ar{r}{F\psi}
-&
-	FFA \ar{r}{\mu}
-&
-	FA
-\end{tikzcd}
-\end{equation}
-\end{proof}
-
-
-
-\begin{remark}\label{ALGLEFTEX REM}
-Recall that the existence of a left adjoint $\psi_!$ to 
-$\psi^{\**} \colon \Alg_F \to \Alg_T$
-is equivalent to the representability of the functors 
-$\Alg_T(X,\psi^{\**}(-))\colon \Alg_{F} \to \mathsf{Set}$
-for each $X \in \Alg_T$,
-so that Proposition \ref{PARTADJ PROP} implies that these functors are representable whenever $X \simeq FA$ is free.
-
-Hence, since any $X \in \Alg_T$
-with multiplication $m \colon TX \to X$
-is canonically described by the coequalizer % of free $T$-algebras
-$coeq \left( T T X 
-\overset{\mu}{\underset{Fm}{\rightrightarrows}}
-T X\right)$
-it follows that the left adjoint 
-$\psi_! \colon \Alg_F \to \Alg_T$
-exists iff the coequalizers 
-$coeq \left( F T X 
-\overset{\mu}{\underset{Fm}{\rightrightarrows}}
-F X\right)
-$
-of $F$-algebras exist for all $X \in \Alg_T$, in which case it is
-$\psi_!(X)=coeq \left( F T X 
-\overset{\mu}{\underset{Fm}{\rightrightarrows}}
-F X\right)$.
-\end{remark}
-
-
-
-
-\begin{remark}\label{ADJSRMON REM}
-Beck's monadicity theorem (cf. \cite[VI.7 Thm. 1]{McL},\cite[Thm. 5.5.1]{Ri17})
-characterizes monadic adjunctions $L\colon \mathcal{C} \rightleftarrows \mathcal{D}\colon R$
-as those where $R$ creates $R$-split coequalizers. 
-
-Hence, should the adjunction 
-$\psi_! \colon \Alg_T \rightleftarrows \Alg_F \colon \psi^{\**}$
-in Remark \ref{ALGLEFTEX REM} exist,
-it readily follows from Beck's theorem that this adjunction is monadic
-(since in 
-$\mathcal{C} \rightleftarrows
-\mathsf{Alg}_T \rightleftarrows
-\Alg_F$
-both the left and total adjunctions are monadic).
-However, since $\psi_!$ is defined using coequalizers of $F$-algebras,
-it is in general not possible to give a simple description of the adjunction monad
-$F_T = \psi^{\**} \psi_!$.
-%
-%Nonetheless, should $T,F$ preserve reflexive coequalizers in $\mathcal{C}$,
-%one has that reflexive coequalizers in algebras
-%are underlying coequalizers in $\mathcal{C}$
-%\cite[Thm. 5.6.5]{Ri17}.
-%Therefore, by manipulating the coequalizers one can show that the multiplication for $F_T$ the induced map on vertical coequalizers for the diagram
-%\[
-%\begin{tikzcd}[column sep =40pt]
-%	FTFT X
-%	\ar[shift left=.3em]{d}{\mu\mu}
-%	\ar[shift right=.3em]{d}[swap]{F\mu m}
-%	\ar{r}{\mu FT \circ \mu T}
-%&
-%	FTX
-%	\ar[shift left=.3em]{d}{\mu}
-%	\ar[shift right=.3em]{d}[swap]{F m}
-%\\
-%	FF X
-%	\ar{r}{\mu}
-%&
-%	F X
-%\end{tikzcd}
-%\]
-\end{remark}
-
-
-
-
-\begin{proposition}\label{PARTADJP PROP}
-Let $P,\bar{F}$ and $F = P \bar{F}$ be as in 
-Definition \ref{AMALGMON DEF},
-and write $\psi = P\eta \colon P \Rightarrow P \bar{F} = F$.
-
-Then there is a functor
-$\psi^{\**} \colon \Kl_F \to \Kl_P$
-given on objects by
-$\psi^{\**}A = \bar{F} A$
-and sending the arrow
-$A \rightsquigarrow B$
-with underlying arrow 
-$A \xrightarrow{f} FB$
-to the arrow 
-$\bar{F} A \rightsquigarrow \bar{F} B$
-with underlying arrow the composite
-$\bar{F} A \xrightarrow{\bar{F}f} \bar{F} FB
-=
-\bar{F}P \bar{F} B \xrightarrow{\tau \bar{F}}
-P \bar{F} \bar{F} B \xrightarrow{P \mu}
-P\bar{F}B$
-or, equivalently (cf. Lemma \ref{MODSTRCOMRE LEM}(iii)(ii)),
-$\bar{F} A \xrightarrow{\bar{F}f} \bar{F} FB
-\xrightarrow{\mu} FB = P\bar{F}B$.
-
-Moreover, in the diagram
-\begin{equation}\label{PARTADJP EQ}
-\begin{tikzcd}
-	\mathsf{Kl}_{P} 
-	\ar[shift left=0.25em]{r}{\psi_!} 
-	\ar[hookrightarrow]{d}[swap]{\iota}
-&
-	\mathsf{Kl}_{F} 
-	\ar[shift left=0.25em]{l}{\psi^{\**}}
-	\ar[hookrightarrow]{d}{\iota}
-\\
-	\mathsf{Alg}_{P} &
-	\mathsf{Alg}_{F}  \ar{l}{\psi^{\**}}
-\end{tikzcd}
-\end{equation}
-one has that:
-\begin{enumerate}[label=(\roman*)]
-\item the top horizontal maps are adjoint,
-with adjuntion unit
-$A \rightsquigarrow \psi^{\**} \psi_! A$
-for $A \in \Kl_P$
-and counit
-$\psi_! \psi^{\**} B \rightsquigarrow B$
-for $B \in \Kl_F$
-given by 
-\begin{equation}\label{UNITCOUNIT EQ}
-	A \xrightarrow{\eta} 
-	\bar{F} A \xrightarrow{\eta \bar{F}}
-	P \bar{F} A
-\qquad
-	\bar{F} B \xrightarrow{\eta \bar{F}}
-	P \bar{F} B =
-	F B
-\end{equation}
-\item the composites
-$
-	\mathsf{Kl}_F \xrightarrow{\psi^{\**}} 
-	\mathsf{Kl}_P \xrightarrow{\iota} 
-	\mathsf{Alg}_P
-$
-and
-$
-	\mathsf{Kl}_F \xrightarrow{\iota}
-	\mathsf{Alg}_F  \xrightarrow{\psi^{\**}} 
-	\mathsf{Alg}_P
-$
-coincide.
-\end{enumerate}
-\end{proposition}
-
-
-
-\begin{proof}
-We first address (ii).
-On objects,
-after unpacking notation
-$\psi^{\**} \iota B$
-is the $P$-algebra
-$F B$ with multiplication
-$PFB \rightarrow FFB \xrightarrow{\mu} B$
-while 
-$ \iota \psi^{\**} B$
-is the $P$-algebra
-$P \bar{F} B $
-with multiplication
-$P P \bar{F} B \xrightarrow{\mu \bar{F}} P \bar{F} B$,
-and these coincide by Lemma \ref{MODSTRCOMRE LEM}(ii).
-On a map
-$B \rightsquigarrow \bar{B}$
-with underlying arrow $B \xrightarrow{f} F \bar{B}$,
-applying $\psi^{\**} \iota$
-gives the map
-$F B \xrightarrow{F f} FF\bar{B} \xrightarrow{\mu} F \bar{B}$
-while applying $\iota \psi^{\**}$
-gives the map
-$P \bar{F} B \xrightarrow{P \bar{F} f} 
-P \bar{F} F \bar{B} = P \bar{F} P \bar{F} \bar{B}
-\xrightarrow{P \tau \bar{F}}
-P P \bar{F} \bar{F} \bar{B}
-\xrightarrow{PP \mu}
-P P \bar{F} \bar{B} 
-\xrightarrow{\mu \bar{F}} P\bar{F} \bar{B}$,
-and these coincide by 
-Proposition \ref{ALTMULT PROP}(i).
-
-
-We now address the remaining claims. 
-Recalling that the $\iota$ functors are fully faithful,
-$\psi^{\**} \colon \Kl_F \to \Kl_P$
-can be thought of as a restriction of
-$\psi^{\**} \colon \Alg_F \to \Alg_P$. 
-Hence, the implicit claim that $\psi^{\**} \colon \Kl_F \to \Kl_P$
-is a functor is inherited from 
-$\psi^{\**} \colon \Alg_F \to \Alg_P$ being a functor.
-And, similarly, the adjunction claim in (i)
-is inherited from the ``partial adjunction'' claim in 
-Proposition \ref{PARTADJP PROP}.
-
-
-Lastly, to describe the unit 
-(resp. counit)
-we must find the adjoint
-to 
-$\psi_! A \xrightarrow{=} \psi_! A$
-(resp. $\psi^{\**} B \xrightarrow{=} \psi^{\**} B$)
-which corresponds under $\iota$ to the identity
-$FA = FA$
-(resp. $P\bar{F} B = FB$).
-By the string of identifications 
-\eqref{PARTADJPROOF EQ}
-the adjoint is given 
-by the top (resp. bottom) composite on the left
-(resp. diagram) below
-(cf. \eqref{ADJOINTCORR EQ}).
-\begin{equation}
-\begin{tikzcd}[column sep = 1.55em]
-	A \ar{r}{\eta} \ar{rd}[swap]{\eta}
-&
-	P A \ar[dashed]{r}{\psi} \ar{d}[swap]{\psi}
-&
-	FA
-&&%%
-	\bar{F} B \ar{r}{\eta} \ar{rd}[swap]{\eta}
-&
-	P \bar{F} B \ar[equal]{r} \ar{d}[swap]{\psi}
-&
-	F B 
-\\
-&
-	FA \ar[equal]{ru}
-&
-&&%%
-&
-	F\bar{F} B \ar[dashed]{ru}[swap]{\mu}
-&
-\end{tikzcd}
-\end{equation}
-That these composites match the maps in
-\eqref{UNITCOUNIT EQ}
-follows since $\psi\colon P \Rightarrow F$ is a map of monads. 
-\end{proof}
-
-
-
-\begin{remark}\label{MONALGP REM}
-By Proposition \ref{PARTADJP PROP}
-on has an adjunction monad $\psi^{\**} \psi_!$
-on $\Kl_P$ which is given on objects by $\bar{F}$.
-Moreover the first half of
-\eqref{UNITCOUNIT EQ} shows that the unit
-$I \to \psi^{\**} \psi_!$
-consists of the free arrows on the unit $I \Rightarrow \bar{F}$
-while, 
-by applying the definition of $\psi^{\**}$ to the second half of
-\eqref{UNITCOUNIT EQ}
-gives that the monad multiplication
-$\psi^{\**} \psi_!\psi^{\**} \psi_! \Rightarrow \psi^{\**} \psi_!$
-is given by the left right composite below.
-But hence, by the top right composite, 
-this monad multiplication consists of the free arrows on
-the monad multiplication $\bar{F} \bar{F} \Rightarrow \bar{F}$. 
-\begin{equation}
-\begin{tikzcd}[column sep = 1.55em]
-	\bar{F} \bar{F} A \ar{d}[swap]{\bar{F}\eta \bar{F}}
-	\ar[equal]{r} 
-&
-	\bar{F} \bar{F} A 
-	\ar{r}{\mu} \ar{d}[swap]{\eta \bar{F} \bar{F}}
-&
-	\bar{F} A   \ar{d}[swap]{\eta \bar{F}}
-\\
-	\bar{F} P \bar{F} A \ar{r}[swap]{\tau \bar{F}}
-&
-	P \bar{F} \bar{F} A \ar{r}[swap]{P\mu}
-&
-	P \bar{F} A
-\end{tikzcd}
-\end{equation}
-As an aside, we note that one can further check that the top adjunction in \eqref{PARTADJ EQ} is a Kleisli adjunction, i.e.
-that it identifies $\Kl_F$ as the Kleisli category over 
-$\Kl_P$ for the monad $\psi^{\**} \psi_!$.
-\end{remark}
-
-
-\begin{remark}
-Should $\psi^{\**}\colon \Alg_F \to \Alg_P$ admit a left adjoint, 
-one has that in the diagram
-\begin{equation}\label{PARTADJDB EQ}
-\begin{tikzcd}
-	\mathsf{Kl}_{P} 
-	\ar[shift left=0.25em]{r}{\psi_!} 
-	\ar[hookrightarrow]{d}[swap]{\iota}
-&
-	\mathsf{Kl}_{F} 
-	\ar[shift left=0.25em]{l}{\psi^{\**}}
-	\ar[hookrightarrow]{d}{\iota}
-\\
-	\mathsf{Alg}_{P} 
-	\ar[shift left=0.25em]{r}{\psi_!} &
-	\mathsf{Alg}_{F}
-	\ar[shift left=0.25em]{l}{\psi^{\**}}
-\end{tikzcd}
-\end{equation}
-both functors in the bottom adjunction
-extend the functors in the top adjunction.
-As such, the monad
-$F_T = \psi^{\**} \psi_!$ on $\Alg_P$
-extends the monad $\psi^{\**} \psi_!$ on $\Kl_P$ which, 
-following \ref{MONALGP REM}, can be thought of as the monad $\bar{F}$.
-
-As noted in Remark \ref{ADJSRMON REM}, the monad $F_T$ is in general hard to describe. 
-Nonetheless, should $P,F$ preserve reflexive coequalizers in $\mathcal{C}$,
-one has that reflexive coequalizers in algebras
-are underlying coequalizers in $\mathcal{C}$
-\cite[Thm. 5.6.5]{Ri17}
-and thus preserved by both functors in the bottom adjunction, and hence also by $F_T$.
-It thus follows that $F_TF_TX$
-can be described as the left vertical coequalizer in the diagram below 
-(where the two squares coincide, 
-with the right square included to more easily describe the vertical maps) 
-\begin{equation}\label{FRMONDES EQ}
-\begin{tikzcd}[column sep =40pt]
-	P \bar{F}\bar{F} P X
-	\ar[shift left=.3em]{d}{}
-	\ar[shift right=.3em]{d}[swap]{}
-	\ar{r}{P\mu P}
-&
-	P \bar{F} P X
-	\ar[shift left=.3em]{d}{}
-	\ar[shift right=.3em]{d}[swap]{}
-&%
-	F\bar{F} P X
-	\ar[shift left=.3em]{d}{F\bar{F} m}
-	\ar[shift right=.3em]{d}[swap]{\mu\bar{F} \circ F\tau}
-	\ar{r}{\mu P}
-&
-	F P X
-	\ar[shift left=.3em]{d}{F m}
-	\ar[shift right=.3em]{d}[swap]{\mu}
-\\
-	P \bar{F}\bar{F} X
-	\ar{r}{P\mu}
-&
-	P \bar{F} X
-&%
-	F\bar{F} X
-	\ar{r}{\mu}
-&
-	F X
-\end{tikzcd}
-\end{equation}
-while the multiplication $F_TF_TX \to F_TX$
-is the induced is the induced map on the vertical coequalizers.
-\end{remark}
-
-
-
-%\begin{remark}
-%When applied to the example of operads, 
-%the right coequalizer in \eqref{FRMONDES EQ}
-%(together with realization of categories)
-%shows that 
-%\[F_r X = \mathsf{Lan}_{(T \in \Omega^{0,r})^{op}}
-%\left(\bigotimes_{v \in V(T)} X(T_v)\right)
-%\]
-%where $\Omega^{0,r}$ is the category of trees and degeneracies.
-%Similarly, the left coequalizer shows that
-%\[
-%F_rF_r X = \mathsf{Lan}_{((T_0 \hookrightarrow T_1) \in \Omega^{1,r})^{op}}
-%\left(\bigotimes_{v \in V(T_{1})} X(T_{1,v})\right)
-%\]
-%$\Omega^{0,r}$ is the category whose objects are inner planar face maps $T_0 \hookrightarrow T_1$
-%and whose morphisms are degeneracies between them.
-%\end{remark}
-
-
-\begin{remark}
-Proposition \ref{PARTADJP PROP} 
-admits a complementary result by interchanging the roles of $P$ and $\bar{F}$ and the roles of Kleisli categories and algebra categories.
-
-Explicitly, one has a functor
-$\psi_!\colon \Alg_{\bar{F}} \to \Alg_F$
-which: sends an $\bar{F}$-algebra $X$
-with multiplication $\bar{F} X \xrightarrow{m} X$
-to $PX$ with $F$-algebra multiplication given by
-$FPX \xrightarrow{\mu} FX=P\bar{F}X \xrightarrow{Pm} PX$;
-sends an arrow
-$X \xrightarrow{f} Y$
-to $PX \xrightarrow{Pf} PY$.
-
-Then in the square below one has that the bottom horizontal maps are adjoint and that
-$\iota \psi_! = \psi_!\iota$.
-\begin{equation}\label{PARTADJBARF EQ}
-\begin{tikzcd}
-	\mathsf{Kl}_{\bar{F}} 
-	\ar[shift left=0.25em]{r}{\psi_!} 
-	\ar[hookrightarrow]{d}[swap]{\iota}
-&
-	\mathsf{Kl}_{F} 
-	\ar[hookrightarrow]{d}{\iota}
-\\
-	\mathsf{Alg}_{\bar{F}} 
-	\ar[shift left=0.25em]{r}{\psi_!} 
-&
-	\mathsf{Alg}_{F}  
-	\ar[shift left=0.25em]{l}{\psi^{\**}}
-\end{tikzcd}
-\end{equation}
-Moreover, in analogy to Remark \ref{MONALGP REM}
-one can check that the adjunction monad
-$\psi^{\**} \psi_!$ on $\Alg_{\bar{F}}$ has the same underlying functor, unit and multiplication as the monad $P$.
-\end{remark}
-
-
-
 
 \subsubsection{Applying this to the main case}
 
@@ -9646,723 +8621,6 @@ $X \to X \amalg \upsilon_{\**}\bar{Z} \to Y$
 where the first map simply adds colors and the second map is an isomorphism on colors.
 But clearly the first map is built out of (C1) maps, and the fact that the second map is built out of (C2),(C3) maps follows since the color fixed maps having the RLP against (C2),(C3) are precisely the maps which induce set isomorphisms on all signatures, i.e., the isomorphisms in the fixed point subcategory.
 \end{remark}
-
-
-
-
-\subsection{The homotopy genuine equivariant operad}
-
-
-Our goal in this section is to build,
-for each $G$-$\infty$-operad $X \in \mathsf{dSet}^G$,
-the associated homotopy genuine equivariant operad
-$\mathsf{ho} (X)$,
-which we will describe as an object in
-$\mathsf{dSet}_G$
-satisfying a strict Segal condition.
-
-
-We start with some notation. 
-Given a multiset $I$ of edges of a tree $T \in \Omega$
-(formally, $I$ is a function 
-$I \colon \boldsymbol{E}(T) \to \mathbb{N}_0$),
-we write $\sigma^I T \in \Omega$
-for the tree obtained by degenerating $T$ once for each edge in $I$.
-More explicitly, $\sigma^I T$ is the unique tree such that there is a planar degeneracy
-$\pi \colon \sigma^I T \to T$
-such that $|\pi^{-1}(e)| = I(e) + 1$.
-Moreover,
-note that if $T\in \Omega_G$ is a $G$-tree, 
-then $\sigma^{I} T \in \Omega_{G}$
-can be defined if $I$ is $G$-equivariant
-(formally, this means that the multiset $I$ is a composite
-$\boldsymbol{E}(T) \to \boldsymbol{E}_G(T)
-\to \mathbb{N}_0$).
-
-Our main interest will be in degeneracies of $G$-corollas. Recall that, up to isomorphism, 
-a $G$-corolla $C \in \Sigma_G$ is determined the number $0 \leq k$ of leaf orbits
-and isotropy subgroups
-$H_i \leq H_0 \leq G$ for $0 \leq i \leq k$,
-where $H_0$ is the isotropy of a (chosen) root edge.
-Pictorially, such a $G$-corolla has the orbital representation given on the left below,
-but in this section we will find it more convenient to label edge orbits using coset notation as on the right below,
-so that $[e_i] = G e_i$ denotes the $G$-orbit of $e_i$.
-\[
-\begin{tikzpicture}
-[grow=up,auto,level distance=2.3em,every node/.style = {font=\footnotesize},dummy/.style={circle,draw,inner sep=0pt,minimum size=1.75mm}]
-	\node at (0,0) [font=\normalsize]{$C$}
-		child{node [dummy] {}
-			child{
-			edge from parent node [swap,near end] {$G/H_k$} node [name=Kn] {}}
-			child{
-			edge from parent node [near end] {$G/H_1$}
-node [name=Kone,swap] {}}
-		edge from parent node [swap] {$G/H_0$}
-		};
-		\draw [dotted,thick] (Kone) -- (Kn) ;
-	\node at (5,0) [font=\normalsize]{$C$}
-		child{node [dummy] {}
-			child{
-			edge from parent node [swap,near end] {$[e_k]$} node [name=Kn] {}}
-			child{
-			edge from parent node [near end] {$[e_1]$}
-node [name=Kone,swap] {}}
-		edge from parent node [swap] {$[e_0]$}
-		};
-		\draw [dotted,thick] (Kone) -- (Kn) ;
-\end{tikzpicture}
-\]
-We will then abbreviate $\sigma^i C = \sigma^{[e_i]} C$, and write $e_i$, $e_i'$ for the two edges of $\sigma^i C $ that degenerate the edge $e_i$ of $C$,
-with $e_i$ denoting the inner edge and $e'_i$ the outer
-edge.
-\[
-\begin{tikzpicture}
-[grow=up,auto,level distance=3em,
-every node/.style = {font=\footnotesize},
-dummy/.style={circle,draw,inner sep=0pt,minimum size=1.75mm}]
-	\node at (0,0) [font=\normalsize]{$\sigma^0 C$}
-		child{node [dummy] {}
-			child{node [dummy] {}
-				child{
-				edge from parent node [swap,near end] {$[e_k]$} node [name=Kn] {}}
-				child{
-				edge from parent node [near end] {$[e_1]$}
-node [name=Kone,swap] {}}
-			edge from parent node [swap] {$[e_0]$}}
-		edge from parent node [swap] {$[e'_0]$}
-		};
-		\draw [dotted,thick] (Kone) -- (Kn) ;
-	\node at (5,0) [font=\normalsize]{$\sigma^i C$}
-		child{node [dummy] {}
-			child{
-			edge from parent node [swap,near end] {$[e_k]$} node [near start,inner sep=1pt,name=Kn] {}}
-			child[level distance=3.4em]{node [dummy] {}
-				child[level distance=2.7em]{
-				edge from parent node [swap] {$[e'_i]$}
-}
-			edge from parent node [near end,swap] {$[e_i]$}
-node [near start,inner sep=1pt,name=Kone,swap] {}
-node [near start,inner sep=1pt,name=Kone1] {}}
-			child{
-			edge from parent node [near end] {$[e_1]$}
-node [swap] {}
-node [near start,inner sep=1pt,name=Kn1,swap]{}}
-		edge from parent node [swap] {$[e_0]$}
-		};
-		\draw [dotted,thick] (Kone) -- (Kn) ;
-		\draw [dotted,thick] (Kone1) -- (Kn1) ;
-\end{tikzpicture}
-\]
-$\sigma^i C$ then has an orbital inner face
-$\sigma^i C - [e_i]$ obtained by removing $[e_i]$
-as well as an orbital outer face obtained by removing $e'_i$,
-which we denote $\sigma^i C - [e'_i]$.
-Moreover, note that we have natural identifications
-$C = \sigma^i C - [e_i]$,
-$C = \sigma^i C - [e'_i]$.
-
-In what follows, we will find it convenient to simplify notation by denoting maps $\Omega[T] \to X$,
-where $T \in \Omega_G$ and $X \in \mathsf{dSet}^G$,
-simply as $T \to X$.
-
-
-\begin{definition}
-	Let $X \in \mathsf{dSet}^G$ be a $G$-$\infty$-operad and $C$ a $G$-corolla with edge orbits
-	$[e_0],\cdots,[e_k]$.
-	
-	Given two operations 
-	$f,g\colon C \rightrightarrows X$,
-	we write $f \sim_i g$ if there exists a map
-	$H \colon \sigma^i C \to X$ such that
-\begin{itemize}
-\item $f$ equals the restriction $H|_{\sigma^i C-[e'_i]}$;
-\item $g$ equals the restriction $H|_{\sigma^i C-[e_i]}$;
-\item the restriction $H|_{\sigma^i [e_i]}$
-is the degeneracy $\sigma^i [e_i] \to [e_i] \to C \to X$.
-\end{itemize}
-\end{definition}
-
-
-\begin{remark}\label{HOMOTBOUND REM}
-	Note that if $f \sim_i g$ then it must be
-	$f|_{\partial C} = g|_{\partial C}$.
-\end{remark}
-
-
-\begin{example}\label{EQUIVSIM EX}
-	Let $G = \mathbb{Z}_{/2} = \{\pm 1\}$
-	and consider the $G$-corolla with orbital and expanded representations as given on the left below.
-\[
-\begin{tikzpicture}
-[grow=up,auto,level distance=2.3em,every node/.style = {font=\footnotesize},dummy/.style={circle,draw,inner sep=0pt,minimum size=1.75mm}]
-	\node at (0,0) [font=\normalsize]{$C$}
-		child{node [dummy] {}
-			child{
-			edge from parent node [swap] {$G \cdot e$}
-node [name=Kone,swap] {}}
-		edge from parent node [swap] {$G/G \cdot r$}
-		};
-	\node at (3,0) [font=\normalsize]{$C$}
-		child{node [dummy] {}
-			child{
-			edge from parent node [swap,near end] {$-e$} node [name=Kn] {}}
-			child{
-			edge from parent node [near end] {$e$}
-node [name=Kone,swap] {}}
-		edge from parent node [swap] {$r$}
-		};
-	\node at (7,0) [font=\normalsize]{$\sigma^{\{e,-e\}} C$}
-		child{node [dummy] {}
-			child{node [dummy] {}
-				child{
-				edge from parent node [swap] {$G \cdot e'$}
-node [swap] {}}
-			edge from parent node [swap] {$G \cdot e$}
-node [swap] {}}
-		edge from parent node [swap] {$G/G \cdot r$}
-		};
-	\node at (10,0) [font=\normalsize]{$\sigma^{\{e,-e\}} C$}
-		child{node [dummy] {}
-			child{node [dummy] {}
-				child{
-				edge from parent node [swap] {$-e'$} node {}}
-			edge from parent node [swap,near end] {$-e$} node {}}
-			child{node [dummy] {}
-				child{
-				edge from parent node {$e'$}
-node [swap] {}}
-			edge from parent node [near end] {$e$}
-node [swap] {}}
-		edge from parent node [swap] {$r$}
-		};
-\end{tikzpicture}
-\]
-$C$ then has a single leaf $G$-edge orbit $[e] = G \cdot e$, so that for
-$f,g \colon C \to X$ it is
-$f \sim_1 g$
-if there exists a 
-$H \colon \sigma^{\{e,-e\}}C \to X$
-such that 
-\begin{equation}\label{EQUIVHOMOT EQ}
-	f = H|_{\sigma^{\{e,-e\}}C - \{e',-e'\}}
-\qquad
-	g = H|_{\sigma^{\{e,-e\}}C - \{e,-e\}}
-\qquad
-	H_{\sigma^e e}, H|_{\sigma^{-e}-e} \text{ are degenerate}.
-\end{equation}
-It is worthwhile to compare this equivariant relation with the relations obtained if one forgets the $G$-actions. Indeed, while \eqref{EQUIVHOMOT EQ} implicitly assumes that all of $f,g,H$ are $G$-equivariant,
-by omitting that assumption one can reinterpret 
-\eqref{EQUIVHOMOT EQ}
-as defining a relation
-$f \sim_{[e]} g$ between not necessarily $G$-equivariant maps $f,g \colon C \to X$.
-
-A priori, $\sim_{[e]}$ relation differs from the 
-non-equivariant 
-$\sim_{e}$ and $\sim_{-e}$
-relations obtained by regarding $C$ as a non-equivariant corolla.
-However, for $f,g,H$ as in \eqref{EQUIVHOMOT EQ} one has
-\begin{equation}\label{EQUIVSIM EQ}
-f = H|_{\sigma^{\{e,-e\}}C - \{e',-e'\}}
-\sim_e H|_{\sigma^{\{e,-e\}}C - \{e,-e'\}}
-\sim_{-e} H|_{\sigma^{\{e,-e\}}C - \{e,-e\}} =g
-\end{equation}
-so that, by Lemma \ref{EQUIVI LEM}(b) below one has that
-$f \sim_{[e]} g$ in fact implies
-$f \sim_{e} g$. Moreover, the converse statement follows immediately by using degeneracies.
-
-More generally, similar considerations show that the $\sim$ relations are compatible with restricting the $G$-actions.
-\end{example}
-
-
-\begin{lemma}\label{EQUIVI LEM}
-	Let $X \in \mathsf{dSet}^G$ be a $G$-$\infty$-operad and $C$ a $G$-corolla with edge orbits
-	$[e_0],\cdots,[e_k]$. Then:
-\begin{itemize}
-	\item[(a)] each of the relations $\sim_i$ is an equivalence relation;
-	\item[(b)] all the equivalence relations $\sim_i$ coincide.
-\end{itemize}
-\end{lemma}
-
-\begin{proof}
-	We first address (a). 
-	
-	For the reflexive condition, one can take $H$ to be the degeneracy
-	$\sigma^i C \xrightarrow{\sigma^i} C \xrightarrow{f} X$.
-	
-	For the symmetry and transitive conditions, consider the tree
-	$\sigma^{ii} C$, which degenerates $[e_i]$ twice.
-\[
-\begin{tikzpicture}
-[grow=up,auto,level distance=3em,
-every node/.style = {font=\footnotesize},
-dummy/.style={circle,draw,inner sep=0pt,minimum size=1.75mm}]
-	\node at (0,0) [font=\normalsize]{$\sigma^{ii} C$}
-		child{node [dummy] {}
-			child{
-			edge from parent node [swap,near end] {$[e_k]$} node [near start,inner sep=1pt,name=Kn] {}}
-			child[level distance=3.4em]{node [dummy] {}
-				child[level distance=2.7em]{node [dummy] {}
-					child[level distance=2.7em]{
-					edge from parent node [swap] {$[e''_i]$}
-}
-				edge from parent node [swap] {$[e'_i]$}
-}
-			edge from parent node [near end,swap] {$[e_i]$}
-node [near start,inner sep=1pt,name=Kone,swap] {}
-node [near start,inner sep=1pt,name=Kone1] {}}
-			child{
-			edge from parent node [near end] {$[e_1]$}
-node [swap] {}
-node [near start,inner sep=1pt,name=Kn1,swap]{}}
-		edge from parent node [swap] {$[e_0]$}
-		};
-		\draw [dotted,thick] (Kone) -- (Kn) ;
-		\draw [dotted,thick] (Kone1) -- (Kn1) ;
-\end{tikzpicture}
-\]
-Suppose $f \sim_i g$, and let 
-$H \colon \sigma^{i} C \to X$ be the associated homotopy.
-Define a map 
-$\bar{H} \colon \Lambda^{[e_i]}_o[\sigma^{ii} C] \to X$ by
-\[
-	\bar{H}|_{\sigma^{ii}C - [e''_i]} = H,
-		\qquad
-	\bar{H}|_{\sigma^{ii}C - [e'_i]} = f \circ \sigma^i,
-		\qquad
-	\bar{H}|_{\sigma^{ii} [e_i]} = 
-	f|_{[e_i]} \circ \sigma^{ii} =
-	g|_{[e_i]} \circ \sigma^{ii}.
-\]
-Since the orbital inner horn inclusion
-$\bar{H} \colon \Lambda^{[e_i]}_o[\sigma^{ii} C] \to \Omega[C]$
-is $G$-inner anodyne,
-$\bar{H}$ admits an extension $\widetilde{H} \colon \sigma^{ii}C \to X$.
-The restriction $\bar{H}|_{\sigma^{ii}C - [e_i]}$ then provides the homotopy exhibiting $g \sim_i f$, and symmetry of $\sim_i$ follows.
-
-Next, suppose $f \sim_i g$ and $g \sim_i h$, and let 
-$H \colon \sigma^{i} C \to X$ and
-$K \colon \sigma^{i} C \to X$ be be the associated homotopies.
-Define a map 
-$\bar{H} \colon \Lambda^{[e'_i]}_o[\sigma^{ii} C] \to X$ by
-\[
-	\bar{H}|_{\sigma^{ii}C - [e''_i]} = H,
-		\qquad
-	\bar{H}|_{\sigma^{ii}C - [e_i]} = K,
-		\qquad
-	\bar{H}|_{\sigma^{ii} [e_i]} = 
-	f|_{[e_i]} \circ \sigma^{ii} =
-	g|_{[e_i]} \circ \sigma^{ii} =
-	h|_{[e_i]} \circ \sigma^{ii}.
-\]
-$\bar{H}$ again admits an extension $\widetilde{H} \colon \sigma^{ii}C \to X$, and the restriction $\bar{H}|_{\sigma^{ii}C - [e'_i]}$
-provides the homotopy exhibiting $f \sim_i g$, so that transitivity of $\sim_i$.
-
-We next turn to (b). Consider the tree $\sigma^{ij} C$ which degenerates $C$ once along each of $[e_i]$ and $[e_j]$.
-\[
-\begin{tikzpicture}
-[grow=up,auto,level distance=2.75em,
-every node/.style = {font=\footnotesize},
-dummy/.style={circle,draw,inner sep=0pt,minimum size=1.75mm}]
-	\node at (0,0) [font=\normalsize]{$\sigma^{ij} C$}
-		child{node [dummy] {}
-			child{
-			edge from parent node [swap,near end] {$[e_k]$} node [near start,inner sep=1pt,name=Kn] {}}
-			child[level distance=3.4em,sibling distance=2em]{node [dummy] {}
-				child[level distance=2.7em]{
-				edge from parent node [swap] {$[e'_j]$}
-}
-			edge from parent node [very near end,swap] {$[e_j]$}
-node [near start,inner sep=1pt,name=Kone,swap] {}
-node [inner sep=1pt,name=Kn2] {}}
-			child[level distance=3.4em,sibling distance=2em]{node [dummy] {}
-				child[level distance=2.7em]{
-				edge from parent node {$[e'_i]$}
-}
-			edge from parent node [very near end] {$[e_i]$}
-node [inner sep=1pt,name=Kone2,swap] {}
-node [near start,inner sep=1pt,name=Kone1] {}}
-			child{
-			edge from parent node [near end] {$[e_1]$}
-node [swap] {}
-node [near start,inner sep=1pt,name=Kn1,swap]{}}
-		edge from parent node [swap] {$[e_0]$}
-		};
-		\draw [dotted,thick] (Kn) -- (Kone) ;
-		\draw [dotted,thick] (Kone1) -- (Kn1) ;
-		\draw [dotted,thick] (Kone2) -- (Kn2) ;
-\end{tikzpicture}
-\]
-Suppose $f \sim_i g$ with $H \colon \sigma^{i} C \to X$ the associated homotopy.
-Define a map 
-$\bar{H} \colon \Lambda^{[e_i]}_o[\sigma^{ij} C] \to X$ by
-\[
-	\bar{H}|_{\sigma^{ij}C - [e'_j]} = H,
-		\qquad
-	\bar{H}|_{\sigma^{ij}C - [e_j]} = f \circ \sigma^i,
-		\qquad
-	\bar{H}|_{\sigma^{ij}C - [e'_i]} = f \circ \sigma^j.
-\]
-Yet again, $\bar{H}$ admits an extension $\widetilde{H} \colon \sigma^{ij}C \to X$, and the restriction $\bar{H}|_{\sigma^{ij}C - [e_i]}$
-provides a homotopy exhibiting $g \sim_j f$. (b) now follows.
-\end{proof}
-
-In light of Lemma \ref{EQUIVI LEM},
-given $f,g \rightrightarrows C \to X$ with 
-$C$ a $G$-corolla and $X$ a $G$-$\infty$-operad,
-we will henceforth write $f \sim g$ whenever $f \sim_i g$ for some (and thus all) $i$.
-We now extend the $\sim$ relation.
-
-\begin{definition}\label{XTENDSIM DEF}
-	Let $T \in \Omega_G$ be a $G$-tree
-	and $X \in \mathsf{dSet}^G$ be a 
-	$G$-$\infty$-operad.
-	
-	Given dendrices $x,y\colon T \to X$ we write
-	$x \sim y$ if there are equivalences of restrictions
-	$x|_{T_v} \sim y|_{T_v}$ for all $G$-vertices
-	$v \in \boldsymbol{V}_G(T)$.
-	
-	Further, we define $\mathsf{ho}(X)(T) = X(T)/\sim$.
-\end{definition}
-
-\begin{proposition}
-Let $X \in \mathsf{dSet}^G$ be a $G$-$\infty$-operad. Then the assignment 
-		$T \mapsto \mathsf{ho}(X)(T)$
-		is a contravariant functor in $T \in \Omega_G$, i.e.
-		$\mathsf{ho}(X)\in \mathsf{dSet}_G$.
-\end{proposition}
-
-
-\begin{proof}
-	It suffices to show that the $\sim$ equivalence relations are compatible with the generating classes of maps in $\Omega_G$, namely
-	degeneracies, inner faces, outer faces, and quotient maps.
-	
-	The cases of degeneracies and outer faces are obvious. In the case of quotients, 
-	since any quotient $\bar{T} \to T$ of $G$-trees induces quotients on $G$-vertices, it suffices to consider the case of a quotient
-	$\bar{C} \xrightarrow{\pi} C$ of $G$-corollas.
-	But it is then straightforward to check that if a homotopy exhibiting $f \sim_0 g$ also induces a homotopy exhibiting 
-	$f \circ \pi \sim_0 g \circ \pi$
-	(notably, the same needs not be true for the relations $f \sim_i g$ when $0<i$, 
-	in which case the exhibiting homotopy 
-	may instead exhibit a string of relations 
-	$f \circ \pi \sim \cdots \sim g \circ \pi$
-	as in \eqref{EQUIVSIM EQ}).
-
-It remains to address the most interesting case,
-that inner faces. Since inner faces can be factored as composites of inner faces that collapse a singe inner edge orbit,
-it suffices to consider the case of faces
-$D \to T$ where $T$ has a single edge edge orbit.
-I.e. we can assume that there are $G$-corollas
-$C_1$, $C_2$ such that 
-$T = C_1 \amalg_{[e_i]} C_2$ and
-$D = T - [e_i]$, as illustrated below.
-\[
-\begin{tikzpicture}
-[grow=up,auto,level distance=3em,
-every node/.style = {font=\footnotesize},
-dummy/.style={circle,draw,inner sep=0pt,minimum size=1.75mm}]
-	\node at (0,0) [font=\normalsize]{$C_1$}
-		child{node [dummy] {}
-			child{
-			edge from parent node [swap,near end] {} node [near start,inner sep=1pt,name=Kn] {}}
-			child[level distance=3.4em]{node {}
-			edge from parent node [near end,swap] {$[e_i]$}
-node [near start,inner sep=1pt,name=Kone,swap] {}
-node [near start,inner sep=1pt,name=Kone1] {}}
-			child{
-			edge from parent node [near end] {}
-node [swap] {}
-node [near start,inner sep=1pt,name=Kn1,swap]{}}
-		edge from parent node [swap] {$[e_0]$}
-		};
-		\draw [dotted,thick] (Kone) -- (Kn) ;
-		\draw [dotted,thick] (Kone1) -- (Kn1) ;
-	\node at (4,0) [font=\normalsize]{$C_2$}
-		child{node [dummy] {}
-			child{
-			edge from parent node [swap,near end] {} node [name=Kn] {}}
-			child{
-			edge from parent node [near end] {}
-node [name=Kone,swap] {}}
-		edge from parent node [swap] {$[e_i]$}
-		};
-		\draw [dotted,thick] (Kone) -- (Kn) ;
-	\node at (9,0) [font=\normalsize]{$T$}
-		child{node [dummy] {}
-			child{
-			edge from parent node [swap,near end] {} node [near start,inner sep=1pt,name=Kn] {}}
-			child[level distance=3.4em]{node [dummy] {}
-				child{
-				edge from parent node [swap,near end] {} node [name=Kn2] {}}
-				child{
-				edge from parent node [near end] {}
-node [name=Kone2,swap] {}}
-			edge from parent node [near end,swap] {$[e_i]$}
-node [near start,inner sep=1pt,name=Kone,swap] {}
-node [near start,inner sep=1pt,name=Kone1] {}}
-			child{
-			edge from parent node [near end] {}
-node [swap] {}
-node [near start,inner sep=1pt,name=Kn1,swap]{}}
-		edge from parent node [swap] {$[e_0]$}
-		};
-		\draw [dotted,thick] (Kone) -- (Kn) ;
-		\draw [dotted,thick] (Kone1) -- (Kn1) ;
-		\draw [dotted,thick] (Kone2) -- (Kn2) ;
-\end{tikzpicture}
-\]
-The claim is now that if
-$x,y \colon T \to X$ are such that
-$x|_{C_1} \sim y|_{C_1}$ and
-$x|_{C_2} \sim y|_{C_2}$
-then it is also 
-$x|_{D} \sim y|_{D}$.
-This will follow from the next two claims:
-\begin{itemize}
-\item[(i)] if $x,y \colon T \to X$ are such that
-$x|_{C_1} = y|_{C_1}$ and
-$x|_{C_2} = y|_{C_2}$
-then $x|_{D} \sim y|_{D}$;
-\item[(ii)]
-given $x \colon T \to X$, $f\colon C_1 \to X$ and
-$g \colon C_2 \to X$ such that
-$f \sim x|_{C_1}$, $g \sim x|_{C_2}$,
-there exists
-$y \colon T \to X$ such that
-$y|_{C_1} = f$, $y|_{C_2} = g$ and
-$y|_D = x|_D$.
-\end{itemize}
-To show (i) and (ii), consider the degeneracies
-$\sigma^0 T$ and $\sigma^i T$ pictured below.
-\[
-\begin{tikzpicture}
-[grow=up,auto,level distance=3em,
-every node/.style = {font=\footnotesize},
-dummy/.style={circle,draw,inner sep=0pt,minimum size=1.75mm}]
-	\node at (0,0) [font=\normalsize]{$\sigma^0 T$}
-		child{node [dummy] {}
-		child{node [dummy] {}
-			child{
-			edge from parent node [swap,near end] {} node [near start,inner sep=1pt,name=Kn] {}}
-			child[level distance=3.4em]{node [dummy] {}
-				child{
-				edge from parent node [swap,near end] {} node [name=Kn2] {}}
-				child{
-				edge from parent node [near end] {}
-node [name=Kone2,swap] {}}
-			edge from parent node [near end,swap] {$[e_i]$}
-node [near start,inner sep=1pt,name=Kone,swap] {}
-node [near start,inner sep=1pt,name=Kone1] {}}
-			child{
-			edge from parent node [near end] {}
-node [swap] {}
-node [near start,inner sep=1pt,name=Kn1,swap]{}}
-		edge from parent node [swap] {$[e_0]$}}
-		edge from parent node [swap] {$[e'_0]$}
-		};
-		\draw [dotted,thick] (Kone) -- (Kn) ;
-		\draw [dotted,thick] (Kone1) -- (Kn1) ;
-		\draw [dotted,thick] (Kone2) -- (Kn2) ;
-	\node at (6,0) [font=\normalsize]{$\sigma^i T$}
-		child{node [dummy] {}
-			child{
-			edge from parent node [swap,near end] {} node [near start,inner sep=1pt,name=Kn] {}}
-			child[level distance=3.4em]{node [dummy] {}
-			child{node [dummy] {}
-				child{
-				edge from parent node [swap,near end] {} node [name=Kn2] {}}
-				child{
-				edge from parent node [near end] {}
-node [name=Kone2,swap] {}}
-			edge from parent node [swap] {$[e'_i]$}}
-			edge from parent node [near end,swap] {$[e_i]$}
-node [near start,inner sep=1pt,name=Kone,swap] {}
-node [near start,inner sep=1pt,name=Kone1] {}}
-			child{
-			edge from parent node [near end] {}
-node [swap] {}
-node [near start,inner sep=1pt,name=Kn1,swap]{}}
-		edge from parent node [swap] {$[e_0]$}
-		};
-		\draw [dotted,thick] (Kone) -- (Kn) ;
-		\draw [dotted,thick] (Kone1) -- (Kn1) ;
-		\draw [dotted,thick] (Kone2) -- (Kn2) ;
-\end{tikzpicture}
-\]
-Given $x,y$ as in (i), one can now build a map
-$H \colon \Lambda_o^{[e_i]}[\sigma^0 T] \to X$ by
-\[
-	H|_{\sigma^0 T - [e_0]} = x,
-\qquad
-	H|_{\sigma^0 T - [e'_0]} = y,
-\qquad
-	H|_{\sigma^0 C_1} = 
-	x|_{C_1} \circ \sigma^0 = 
-	y|_{C_1} \circ \sigma^0.
-\]
-Letting $\widetilde{H}\colon \sigma^0 T \to X$
-be an extension of $H$,
-the restriction $H|_{\sigma^0 T - [e_i]}$
-provides the desired homotopy 
-$x|_{D} \sim y|_{D}$, showing (i).
-
-
-Lastly, let $x,f,g$ be as in (ii), 
-and let
-$K \colon \sigma^i C_1 \to X$ exhibit the relation
-$f \sim_i x|_{C_1}$
-and 
-$ \bar{K} \colon \sigma^i C_2 \to X$
-exhibit the relation
-$x|_{C_2} \sim_i g$ (note the reversed order).
-Now build the map
-$H \colon \Lambda_o^{[e'_i]}[\sigma^i T] \to X$ by
-\[
-	H|_{\sigma^i T - [e_i]} = x,
-\qquad
-	H|_{\sigma^i C_1} = K,
-\qquad
-	H|_{\sigma^i C_2} = \bar{K}.
-\]
-Again letting 
-$\widetilde{H} \colon \sigma^i T \to X$,
-the restriction 
-$\widetilde{H}|_{\sigma^i T - [e'_i]}$
-provides the required $y \colon T \to X$,
-showing (ii) and finishing the proof.
-\end{proof}
-
-
-\begin{corollary}\label{HOOPUNIV COR}
-Let $X \in \mathsf{dSet}^G$ be a $G$-$\infty$-operad. Then
-	\begin{itemize}
-	\item[(a)] $\mathsf{ho}(X)\in \mathsf{dSet}_G$ is a genuine equivariant operad, i.e. it satisfies the strict right lifting condition against the Segal core inclusions
-	$Sc[T] \to \Omega[T]$ for $T \in \Omega_G$;
-	\item[(b)] the quotient map
-	$\upsilon_{\**}X \to \mathsf{ho}(X)$ is the universal map from $\upsilon_{\**}X$ to a genuine equivariant operad.
-	\end{itemize}
-\end{corollary}
-
-\begin{proof}
-	Note first that by Remark \ref{HOMOTBOUND REM}
-	any map 	$Sc[T] \to \mathsf{ho}(X)$ admits a factorization 
-	$Sc[T] \to \upsilon_{\**}X \xrightarrow{q} \mathsf{ho}(X)$.
-	
-	The right lifting property for $\mathsf{ho}(X)$
-	against the maps $Sc[T] \to \Omega[T]$
-	is then automatic from the lifting property for $X$.
-
-	For strictness,	
-	note that Definition \ref{XTENDSIM DEF}
-	can be reinterpreted as saying that
-	$x,y \colon \Omega[T] \rightrightarrows X$
-	give rise to the same point of 
-	$\mathsf{ho}(X)$, i.e. 
-	the composites 
-	$\Omega[T] \rightrightarrows X \xrightarrow{q}
-	\mathsf{ho}(X)$ coincide, 
-	iff the composites 
-	$Sc[T] \to \Omega[T] \rightrightarrows X \xrightarrow{q}
-	\mathsf{ho}(X)$ coincide, showing strictness, and thus (a).
-		
-	For (b), since $\mathsf{ho}(X)$ is a quotient of
-	$\upsilon_{\**} X$, it suffices to show that any map
-	from $F \colon \upsilon_{\**}X \to Y$ with $Y$ a genuine equivariant operad must also enforce the $\sim$ relation.
-	For a $G$-corolla $C$ and
-	$f,g\colon C \to X$ such that 
-	$H \colon \sigma^i C \to X$ exhibits
-	$f \sim_i g$, 
-	the strict lifting condition for $Y$
-	shows that the maps
-	$F\circ H \colon \sigma^i C \to Y$,
-	$f \circ \sigma^i \colon \sigma^i C \to Y$
-	must coincide, and thus that
-	$F(f)=F(g)$.
-	The further claim that $F$ respects equivalences
-	of general dendrices $x,y\colon T \rightrightarrows X$
-	is immediate from Definition \ref{XTENDSIM DEF}.
-\end{proof}
-
-
-
-{\color{red} HERE}
-
-The following is the analogue of \cite[Prop. 4.8]{CM13b}.
-
-\begin{proposition}
-Let $\mathcal{O} \in \mathsf{sOp}^G$
-be a fibrant. 
-Then there is a natural isomorphism of genuine equivariant operads
-\begin{equation}\label{HOOPID EQ}
-ho(hcN(\mathcal{O})) \xrightarrow{\simeq}
-\pi_0 \left( \upsilon_{\**} N\mathcal{O} \right).
-\end{equation}
-\end{proposition}
-
-
-\begin{proof}
-The existence of the map in \eqref{HOOPID EQ}
-will be an application of
-Corollary \ref{HOOPUNIV COR}(b).
-
-Firstly,
-note that we have the following, naturally in $T \in \Omega_G$.
-\[
-\upsilon_{\**}hcN(\O)(T)
-\simeq
-\mathsf{sOp}^G(W_!\Omega[T],\O)
-\simeq
-\mathsf{sdSet}^G(N W_!\Omega[T],N \O)
-\simeq 
-\mathsf{sdSet}_G(\upsilon_{\**}N W_!\Omega[T],\upsilon_{\**}N \O)
-\]
-there the second identification uses the fact that 
-$N\colon \mathsf{Op} \to \mathsf{dSet}$
-is a fully faithful inclusion.
-But now one has a map
-\begin{align*}
-	\mathsf{sdSet}_G(\upsilon_{\**}N W_!\Omega[T],\upsilon_{\**}N \O)
-\to  &
-	\mathsf{sdSet}_G(\upsilon_{\**}N W_!\Omega[T],\pi_0\upsilon_{\**}N \O)
-\simeq
-	\mathsf{dSet}_G(\pi_0 \upsilon_{\**}  N W_!\Omega[T],\pi_0\upsilon_{\**}N \O)
-\\
-\simeq &
-	\mathsf{dSet}_G(\pi_0\upsilon_{\**} N W_!\Omega[T],\pi_0\upsilon_{\**}N \O)
-	\simeq
-	\mathsf{dSet}_G(\upsilon_{\**}\Omega[T]],\pi_0\upsilon_{\**}N \O)
-	=
-	(\pi_0\upsilon_{\**}N \O)(T)
-\end{align*}
-so altogether we obtain a map
-$\upsilon_{\**}hcN(\O) \to \pi_0 \upsilon_{\**} N \O$
-and hence, by Corollary \ref{HOOPUNIV COR},
-the desired map 
-\[ho(hcN(\O)) \to \pi_0 \upsilon_{\**} N \O\]
-Moreover, both of these are quotients of $\upsilon_{\**}hcN(\O)$,
-so to prove that the map is an isomorphism one needs only show that any two operations $f,g\colon C \rightrightarrows hcN \O$ of $\upsilon_{\**}hcN(\O)$
-that are identified in 
-$\pi_0 \upsilon_{\**} N \O$
-were already identified in 
-$ho(hcN(\O))$.
-But this now follows immediately from the pushout from Proposition \ref{WLEFTQPUSH PEOP}
-\[
-\begin{tikzcd}
-	\Omega(C) \otimes_{\mathsf{F}}
-	\partial \Delta[1]
-	\ar{r} \ar{d}
-&
-	W_! \left(\partial \Omega[C \star \eta]\right) 
-	\ar{d}
-\\
-	\Omega(C) \otimes_{\mathsf{F}}
-	\Delta[1]
-	\ar{r}
-&
-	W(C \star \eta)
-\end{tikzcd}
-\]
-\end{proof}
 
 
 
@@ -13289,6 +11547,1756 @@ is encoded by the diagram
 ]
 \end{tikzcd}
 \]
+
+
+
+
+
+
+
+\subsection{Amalgamating monads (to be renamed and reskined)}
+
+
+\begin{definition}\label{AMALGMON DEF}
+Let $P$ and $\bar{F}$ be two monads on the same category $\mathcal{C}$.
+We say \emph{$P$ and $\bar{F}$ can be combined} if there exists 
+a monad structure on the composite 
+$F = P \bar{F}$ such that
+\begin{enumerate}[label=(\roman*)]
+\item $P \eta_{\bar{F}} \colon P \Rightarrow P \bar{F} = F$
+is a map of monads
+\item $\eta_P \bar{F} \colon \bar{F} \Rightarrow P \bar{F} = F$
+is a map of monads
+\item the composite below is the identity
+\[
+\begin{tikzcd}[column sep=3em]
+	P \bar{F} \ar[Rightarrow]{r}{P \eta_{\bar{F}} \eta_P \bar{F}}
+&
+	P \bar{F} P \bar{F} \ar[equal]{r}
+&
+	FF  \ar[Rightarrow]{r}{\mu_F}
+&
+	F \ar[equal]{r}
+&
+	P \bar{F}
+\end{tikzcd}
+\]
+\end{enumerate}
+\end{definition}
+
+
+\begin{remark}\label{SHORTCONV REM}
+To ease notation, in our diagrams we will follow the following conventions:
+\begin{itemize}
+\item by default, unlabeled maps
+% of the form
+$P \Rightarrow F$, $\bar{F} \Rightarrow F$ refer to the maps in
+Definition \ref{AMALGMON DEF}(i)(ii);
+\item we write $\mu$ to denote any of the monad multiplications
+$PP \Rightarrow P$,
+$\bar{F}\bar{F} \Rightarrow \bar{F}$,
+$FF \Rightarrow F$,
+as well as for the left/right action multiplications
+$PF \Rightarrow F$,
+$FP \Rightarrow F$,
+$\bar{F} F \Rightarrow F$,
+$F \bar{F} \Rightarrow F$
+induced by Definition \ref{AMALGMON DEF}(i)(ii)
+(recall that, by definition,
+$PF \Rightarrow F$ is the composite
+$PF \Rightarrow FF \overset{\mu}{\Rightarrow} F$,
+and similarly for the other action multiplications).
+
+Therefore, to avoid ambiguity, we always write the 
+source of a $\mu$ labeled map as a composite of two functors and the target as a single functor
+(for example, this means we write 
+$\mu\colon FF \Rightarrow F$ for the multiplication of $F$,
+but \emph{never} write this multiplication as $\mu \colon P \bar{F} P \bar{F} \Rightarrow P \bar{F}$);
+\item we write $\eta$ for either of the units 
+$I \Rightarrow P$,
+$I \Rightarrow \bar{F}$,
+$I \Rightarrow F$.
+\end{itemize}
+Note that, following these conventions, 
+Definition \ref{AMALGMON DEF}(iii)
+says that 
+$P\bar{F} \Rightarrow FF \overset{\mu}{\Rightarrow} F$
+is the identity.
+\end{remark}
+
+
+\begin{definition}\label{TWISTMAP DEF}
+Given $P,\bar{F},F$ as in Definition \ref{AMALGMON DEF}, 
+the twist map $\tau \colon \bar{F} P \Rightarrow P \bar{F}$ is the composite
+\[
+\begin{tikzcd}
+	\bar{F} P \ar[Rightarrow]{r}{}
+&
+	FF  \ar[Rightarrow]{r}{\mu}
+&
+	F 
+\end{tikzcd}
+\]
+We note that in our diagrams $\tau$ is written as either
+$\tau \colon \bar{F} P \Rightarrow P \bar{F}$ or as
+$\tau \colon \bar{F} P \Rightarrow F$.
+\end{definition}
+
+
+\begin{lemma}\label{MODSTRCOMRE LEM}
+\begin{enumerate}[label=(\roman*)]
+\item the monad maps
+$P \Rightarrow F$ and 
+$\bar{F} \Rightarrow F$ coincide with the composites
+\[
+\begin{tikzcd}
+	P \ar[Rightarrow]{r}{\eta P} &
+	\bar{F} P \ar[Rightarrow]{r}{\tau} &
+	F 
+&
+	\bar{F} \ar[Rightarrow]{r}{\bar{F} \eta} &
+	\bar{F} P \ar[Rightarrow]{r}{\tau} &
+	F 
+\end{tikzcd}
+\]
+\item
+the multiplications $\mu \colon PF \Rightarrow F$ and
+$\mu \colon F\bar{F} \Rightarrow F$
+are also given by
+\[
+\begin{tikzcd}
+	PP\bar{F} \ar[Rightarrow]{r}{\mu \bar{F}} &
+	P \bar{F} 
+&
+	P \bar{F} \bar{F} \ar[Rightarrow]{r}{P \mu} &
+	P \bar{F} 
+\end{tikzcd}
+\]
+\item
+the multiplications
+$\mu \colon F P \Rightarrow F$ and
+$\mu \colon \bar{F} F \Rightarrow F$ are also given by the composites
+\[
+\begin{tikzcd}
+	P\bar{F} P \ar[Rightarrow]{r}{P \tau} &
+	P F \ar[Rightarrow]{r}{\mu} &
+	F 
+&
+	\bar{F} P \bar{F} \ar[Rightarrow]{r}{\tau \bar{F}} &
+	F \bar{F} \ar[Rightarrow]{r}{\mu} &
+	F  
+\end{tikzcd}
+\]
+\item the following composites both coincide with $\mu\mu \colon PP\bar{F}\bar{F} \Rightarrow P \bar{F}$
+\[
+\begin{tikzcd}
+	P F \bar{F} \ar[Rightarrow]{r}{\mu \bar{F}} &
+	F \bar{F} \ar[Rightarrow]{r}{\mu} &
+	F 
+%&
+%	PP\bar{F}\bar{F} \ar[Rightarrow]{r}{\mu \mu} &
+%	P \bar{F}  
+&
+	P F \bar{F} \ar[Rightarrow]{r}{P \mu} &
+	\bar{F} F \ar[Rightarrow]{r}{\mu} &
+	F 
+\end{tikzcd}
+\]
+\end{enumerate}
+\end{lemma}
+
+
+
+\begin{proof}
+Since all of (i),(ii),(iii) are symmetric, we show only the first half of each. (i),(ii),(iii) will follow from the following diagrams.
+\begin{equation}\label{MODSTRCOMRE EQ}
+\begin{tikzcd}[column sep=1.9em]
+	P \ar[Rightarrow]{d}
+	\ar[Rightarrow]{r}{\eta P}
+&
+	\bar{F}P \ar[Rightarrow]{d} \ar[Rightarrow]{rd}{\tau}
+&
+&%
+	P P \bar{F} \ar[Rightarrow]{d}[swap]{\mu \bar{F}}
+	\ar[Rightarrow]{r}
+&
+	FFF \ar[Rightarrow]{d}[swap]{\mu F}
+	\ar[Rightarrow]{r}{F \mu}
+&
+	FF \ar[Rightarrow]{d}{\mu}
+&%
+	P \bar{F} P  \ar[Rightarrow]{d}[swap]{P \tau}
+	\ar[Rightarrow]{r}
+&
+	FFF \ar[Rightarrow]{d}[swap]{F \mu}
+	\ar[Rightarrow]{r}{\mu F}
+&
+	FF \ar[Rightarrow]{d}{\mu}
+\\
+	F \ar[Rightarrow]{r}[swap]{\eta F}
+&
+	FF \ar[Rightarrow]{r}[swap]{\mu}
+&
+	F
+&%
+	P \bar{F} \ar[Rightarrow]{r}
+&
+	FF \ar[Rightarrow]{r}[swap]{\mu}
+&
+	F
+&%
+	P F \ar[Rightarrow]{r}
+&
+	FF \ar[Rightarrow]{r}[swap]{\mu}
+&
+	F
+\end{tikzcd}
+\end{equation}
+For (i), consider the left diagram in \eqref{MODSTRCOMRE EQ},
+where the square commutes since
+$\bar{F} \to P$ is a monad map (more precisely, it is thus compatible with monad units) and the triangle commutes by definition of $\tau$.
+Since the bottom composite is the identity (due to $F$ being a monad), (i) follows.
+
+For (ii), consider the center diagram in \eqref{MODSTRCOMRE EQ},
+whose left (resp. right) half commutes since
+$P \Rightarrow F$ is a monad map (resp. $F$ is a monad).
+But by Definition \ref{AMALGMON DEF}(iii), the lower composite therein
+is the identity and the top composite is the natural map
+$PF \Rightarrow FF$, so (ii) follows.
+
+For (iii), consider the right diagram in \eqref{MODSTRCOMRE EQ},
+whose left (resp. right) half commutes by definition of $\tau$
+(resp. since $F$ is a monad).
+The bottom composite therein is the multiplication
+$\mu \colon F \bar{F} \Rightarrow F$
+while, by Definition \ref{AMALGMON DEF}(iii), the top composite is
+the natural map $FP \Rightarrow FF$, so (iii) follows.
+
+
+For (iv), part (i) allows us to rewrite 
+the two composites as
+\[
+\begin{tikzcd}
+	PP\bar{F}\bar{F} \ar[Rightarrow]{r}{\mu \bar{F}\bar{F}} &
+	P \bar{F} \bar{F} \ar[Rightarrow]{r}{P\mu} &
+	P \bar{F}
+&
+	PP\bar{F}\bar{F} \ar[Rightarrow]{r}{PP \mu } &
+	P P \bar{F} \ar[Rightarrow]{r}{\mu \bar{F}} &
+	P \bar{F}
+\end{tikzcd}
+\]
+which are both $\mu\mu\colon PP\bar{F}\bar{F} \Rightarrow P \bar{F}$.
+\end{proof}
+
+
+\begin{proposition}\label{ALTMULT PROP}
+\begin{enumerate}[label=(\roman*)]
+\item
+the multiplication
+$\mu \colon FF \Rightarrow F$ 
+can also be described as the composite
+\begin{equation}\label{ALTMULT EQ}
+\begin{tikzcd}
+	P \bar{F} P \bar{F} \ar[Rightarrow]{r}{P \tau \bar{F}}
+&
+	P P \bar{F} \bar{F}   \ar[Rightarrow]{r}{\mu \mu}
+&
+	P \bar{F} 
+\end{tikzcd}
+\end{equation}
+\item
+the following diagrams commute
+\begin{equation}\label{DOUBLETWIST EQ}
+\begin{tikzcd}
+	\bar{F} P P \ar[Rightarrow]{r}{\tau P} 
+	\ar[Rightarrow]{d}[swap]{\bar{F} \mu}
+&
+	P \bar{F} P \ar[Rightarrow]{r}{P\tau}
+&
+	P P \bar{F} \ar[Rightarrow]{d}{\mu \bar{F}}
+&%%
+	\bar{F} \bar{F} P  \ar[Rightarrow]{r}{\bar{F} \tau}
+	\ar[Rightarrow]{d}[swap]{\mu P}
+&
+	\bar{F} P \bar{F}  \ar[Rightarrow]{r}{\tau \bar{F}}
+&
+	P \bar{F} \bar{F} \ar[Rightarrow]{d}{P \mu}
+\\
+	\bar{F} P \ar[Rightarrow]{rr}{\tau} 
+&&
+	P \bar{F}
+&%%
+	\bar{F} P \ar[Rightarrow]{rr}{\tau} 
+&&
+	P \bar{F}
+\end{tikzcd}
+\end{equation}
+\item
+the following diagrams commute
+\begin{equation}\label{UNITTWIST EQ}
+\begin{tikzcd}
+	\bar{F} \ar[Rightarrow]{d}[swap]{\bar{F} \eta}
+	\ar[Rightarrow]{rd}{\eta \bar{F}}
+&
+&%%
+	P \ar[Rightarrow]{d}[swap]{\eta P}
+	\ar[Rightarrow]{rd}{P \eta}
+&
+\\
+	\bar{F} P \ar[Rightarrow]{r}{\tau} 
+&
+	P \bar{F}
+&%%
+	\bar{F} P \ar[Rightarrow]{r}{\tau} 
+&
+	P \bar{F}
+\end{tikzcd}
+\end{equation}
+\end{enumerate}
+\end{proposition}
+
+
+\begin{proof}
+Note first that (iii) is simply 
+a rephrasing of Lemma \ref{MODSTRCOMRE LEM}(i), which we include here
+for the sake of Remark \ref{ALTMULT REM}.
+(i) and (ii) will follow from the following diagrams.
+\begin{equation}\label{ALTMPR EQ}
+\begin{tikzcd}
+	P \bar{F} P \bar{F} \ar[Rightarrow]{d} 
+	\ar[Rightarrow]{r}{P \tau \bar{F}}
+&
+	P F \bar{F}  \ar[Rightarrow]{r}{\mu \bar{F}} \ar[Rightarrow]{d}
+&
+	F \bar{F} \ar[Rightarrow]{r}{\mu}
+	\ar[Rightarrow]{d}
+&
+	F \ar[equal]{d}
+&&%
+	\bar{F} P P \ar[Rightarrow]{rr}{\tau P}
+	\ar[Rightarrow]{rd}{}
+	\ar[Rightarrow]{dd}[swap]{\bar{F} \mu}
+&&
+	F P \ar[Rightarrow]{d}
+\\
+	FFFF \ar[Rightarrow]{r}{F \mu F}
+	\ar[Rightarrow]{d}[swap]{\mu \mu}
+&
+	FFF \ar[Rightarrow]{r}{\mu F}
+&
+	FF \ar[Rightarrow]{r}{\mu}
+&
+	F \ar[equal]{d}
+&&%
+&
+	FFF \ar[Rightarrow]{d}[swap]{F \mu}
+	\ar[Rightarrow]{r}{\mu F}
+&
+	FF \ar[Rightarrow]{d}{\mu}
+\\
+	FF \ar[Rightarrow]{rrr}{\mu}
+&&&
+	F
+&&%
+	\bar{F} P \ar[Rightarrow]{r}
+&
+	FF \ar[Rightarrow]{r}[swap]{\mu}
+&
+	F
+\end{tikzcd}
+\end{equation}
+For (i), consider the left diagram in \eqref{ALTMPR EQ}, where the top left square commutes by definition of the twist $\tau$,
+the remaining top squares commute by definition of the action multiplication,
+and the bottom rectangle commutes due to $F$ being a monad.
+Definition \ref{AMALGMON DEF}(iii)
+then says that the left vertical composite therein is the identity,
+while by Lemma \ref{MODSTRCOMRE LEM}(iv) the top composite is 
+\eqref{ALTMULT EQ}, so (i) follows.
+
+For (ii), by symmetry it suffices to show the first half.
+Consider now the right diagram in \eqref{ALTMPR EQ},
+where the top right section commutes by definition of $\tau$,
+the bottom left section commutes since $P \Rightarrow F$ is a monad map,
+and the bottom right square commutes since $F$ is monad.
+But now the bottom composite therein is $\tau$ by definition
+while, by Lemma \ref{MODSTRCOMRE LEM}(iii),
+the top right outer composite from $\bar{F}PP$ to $F$ matches the top right outer composite in (the left side of) \eqref{DOUBLETWIST EQ},
+so (ii) follows.
+\end{proof}
+
+
+
+\begin{remark}\label{ALTMULT REM}
+\eqref{ALTMULT EQ} shows that the monad structure on $F=P\bar{F}$ is determined by monoidal structures on $P$ and $\bar{F}$ together with  the twist map $\tau$.
+Moreover, \eqref{DOUBLETWIST EQ} and \eqref{UNITTWIST EQ} provide necessary conditions on $P,\bar{F},\tau$
+for the formula \eqref{ALTMULT EQ}
+to describe a monoidal structure on $F=P\bar{F}$
+that satisfies the conditions in 
+Definition \ref{AMALGMON DEF}.
+In fact, the conditions \eqref{DOUBLETWIST EQ}, \eqref{UNITTWIST EQ}
+turn out to also be sufficient.
+Indeed, it is not hard to check 
+that \eqref{DOUBLETWIST EQ} implies that either of the two iterated multiplications
+$FFF \Rightarrow F$ induced by \eqref{ALTMULT EQ}
+match the map 
+$P\bar{F} P\bar{F} P \bar{F} \Rightarrow 
+PPP \bar{F} \bar{F} \bar{F} \Rightarrow P \bar{F}$,
+where the first map is a (unique) combination of twists $\tau$
+and the second map is given by the iterated multiplications for $P,\bar{F}$.
+Similarly, \eqref{UNITTWIST EQ} implies that the maps
+$P \Rightarrow F$, $\bar{F} \Rightarrow F$
+are maps of monads.
+\end{remark}
+
+
+
+
+
+\begin{remark}\label{KLEISLIDEF REM}
+Letting $T$ be a monad on the category $\mathcal{C}$,
+recall that the Kleisli category
+$\mathsf{Kl}_T$ is the category with:
+the same objects as $\mathcal{C}$;
+arrows from $A$ to $B$,
+which we denote $A \rightsquigarrow B$,
+the underlying arrows $A \to TB$ in $\mathcal{C}$;
+composition
+$A \rightsquigarrow B \rightsquigarrow C$
+of underlying maps 
+$A \xrightarrow{f} TB$,
+$B \xrightarrow{g} TC$
+given by the composite
+$A \xrightarrow{f} TB \xrightarrow{Tg} TTB \xrightarrow{\mu} TB$.
+Moreover, there is then a canonical fully faithful inclusion
+\[
+\begin{tikzcd}[row sep = 0pt]
+	\Kl_T \ar[hookrightarrow]{r}{\iota} &
+	\Alg_T
+\\
+	A \ar[mapsto]{r} &
+	TA
+\\
+	(A \xrightarrow{f} TB) \ar[mapsto]{r} &
+	(TA \xrightarrow{Tf} TTB \xrightarrow{\mu} TB) 
+\end{tikzcd} 
+\]
+which identifies $\mathsf{Kl}_T$ with the full subcategory of
+$\mathsf{Alg}_T$ spanned by the free algebras.
+
+Moreover, we say an arrow
+$A \rightsquigarrow B$ in $\mathsf{Kl}_F$ is a 
+\emph{free arrow}
+if the underlying map has a factorization
+$A \xrightarrow{f} B \xrightarrow{\eta} TB$.
+This is equivalent to its image under $\iota$
+being the free map
+$TA \xrightarrow{Tf} TB$.
+Note that free arrows provide a canonical functor
+$\C \to \Kl_T$ and that the unit arrow $A \rightsquigarrow A$ in $\Kl_T$
+is the free arrow $A \xrightarrow{=} A \xrightarrow{\eta} TA$.
+\end{remark}
+
+
+
+
+\begin{remark}\label{KLEISLIPUSH REM}
+Given a map of monads $\psi \colon T \to F$
+one has a well known forgetul functor 
+$\mathsf{Alg}_F \xrightarrow{\psi^{\**}} \mathsf{Alg}_T$
+sending a $F$-monad $Y$ with multiplication
+$FY \xrightarrow{m} Y$
+to a $T$-monad with the same underlying object $Y$
+and multiplication given by
+$TY \xrightarrow{\psi} FY \xrightarrow{m} Y$.
+
+Similarly, on Kleisli categories there is a functor
+$\mathsf{Kl}_T \xrightarrow{\psi_!} \mathsf{Kl}_F$
+which is given by the identity on objects 
+and sending the map $A \rightsquigarrow B$
+given by the underlying map $A \xrightarrow{f} TB$
+to the map $\psi_!A \rightsquigarrow \psi_!B$
+given by the underlying composite
+$A \xrightarrow{f} TB \xrightarrow{\psi} FB$.
+
+To check $\psi_!$ respects composition of arrows, let
+$A \rightsquigarrow B$,
+$B \rightsquigarrow C$
+be maps in $\Kl_T$ with
+underlying maps
+$A \xrightarrow{f} TB$,
+$B \xrightarrow{f} TC$.
+Then $\psi_!$ of the composite 
+$A \rightsquigarrow B \rightsquigarrow C$
+is given by the top right composite in \eqref{CHECKFUN EQ}
+while the composite of 
+$\psi_!A \rightsquigarrow \psi_! B$,
+$\psi_! B \rightsquigarrow \psi_! C$
+is given by the bottom  left composite in \eqref{CHECKFUN EQ}.
+\begin{equation}\label{CHECKFUN EQ}
+\begin{tikzcd}[column sep = 1.55em]
+	A \ar{r}{f} 
+&
+	TB \ar{r}{Tg} \ar{d}[swap]{\psi}
+&
+	TTC \ar{rr}{\mu}  \ar{d}[swap]{\psi T}
+&&
+	TC \ar{d}{\psi}
+\\
+&
+	FB \ar{r}{Fg}
+&
+	FTB \ar{r}{F\psi}
+&
+	FFC \ar{r}{\mu}
+&
+	FC
+\end{tikzcd}
+\end{equation}
+Lastly, note that $\psi_!$ maps the free arrow 
+$A \xrightarrow{f} B \xrightarrow{\eta} TB$
+to the free arrow
+$A \xrightarrow{f} B \xrightarrow{\eta} FB$,
+so that in particular it preserves unit arrows.
+\end{remark}
+
+
+
+
+\begin{proposition}\label{PARTADJ PROP}
+The functors in Remarks \ref{KLEISLIDEF REM} and \ref{KLEISLIPUSH REM}
+fit into a (non-commutative) square
+\begin{equation}\label{PARTADJ EQ}
+\begin{tikzcd}
+	\mathsf{Kl}_{T} \ar{r}{\psi_!} \ar[hookrightarrow]{d}[swap]{\iota}&
+	\mathsf{Kl}_{F} \ar[hookrightarrow]{d}{\iota}
+\\
+	\mathsf{Alg}_{T} &
+	\mathsf{Alg}_{F}  \ar{l}{\psi^{\**}}.
+\end{tikzcd}
+\end{equation}
+and there are isomorphisms as below, natural in $A \in \mathsf{Kl}_T$, $Y \in \mathsf{Alg}_F$.
+\begin{equation}\label{PARTADJISO EQ}
+	\mathsf{Alg}_T(\iota A, \psi^{\**} Y) \simeq
+	\mathsf{Alg}_F(\iota \psi_! A,Y)
+\end{equation}
+\end{proposition}
+Informally, this result says that
+$\psi_!$ is a ``partial left adjoint'' to $\psi^{\**}$
+along the fully-faithful inclusion 
+$\mathsf{Kl}_T \overset{\iota}{\hookrightarrow} \mathsf{Alg}_T$,
+motivating our choice of notation.
+
+
+\begin{proof}
+The isomorphisms \eqref{PARTADJISO EQ} are the composites of the isomorphisms
+\begin{equation}\label{PARTADJPROOF EQ}
+	\mathsf{Alg}_T(T A, \psi^{\**} Y) \simeq
+	\mathcal{C}(A,Y) \simeq
+	\mathsf{Alg}_F(FA,Y),
+\end{equation}
+so it remains to show naturality.
+Naturality with respect to $Y \in \Alg_F$ is clear.
+However, naturality with respect to $A \in \Kl_T$
+requires care, since a priori \eqref{PARTADJPROOF EQ}
+is only functorial with respect to free maps.
+But now note that 
+$\varphi \colon FA \to Y$
+and 
+$\bar{\varphi} \colon TA \to \psi^{\**} Y$
+are identified precisely if the two composites
+$A \to Y$ in the left diagram below coincide (morever, both triangles therein commute, with commutativity of the right triangle
+inherited from commutatity of the full diagram, due $TA$ being free $T$-algebra).
+Given an arrow $\bar{A} \rightsquigarrow A$ in $\Kl_T$
+given by an underlying map $\bar{A} \xrightarrow{f} TA$, 
+we must then show that the two outer composites
+$\bar{A} \to Y$ in the rightmost diagram coincide.
+\begin{equation}\label{ADJOINTCORR EQ}
+\begin{tikzcd}[column sep = 1.55em]
+	A \ar{r}{\eta} \ar{rd}[swap]{\eta}
+&
+	T A \ar{r}{\bar{\varphi}} \ar{d}[swap]{\psi}
+&
+	Y 
+&&%%
+	\bar{A} \ar{r}{\eta} \ar{rd}[swap]{\eta}
+&
+	T \bar{A} \ar{r}{\iota f} \ar{d}[swap]{\psi}
+&
+	T A \ar{r}{\bar{\varphi}} \ar{d}[swap]{\psi}
+&
+	Y 
+\\
+&
+	FA \ar{ru}[swap]{\varphi}
+&
+&&%%
+&
+	F \bar{A} \ar{r}[swap]{\iota (\psi_! f)}
+&
+	FA \ar{ru}[swap]{\varphi}
+&
+\end{tikzcd}
+\end{equation}
+It hence suffices to check that the two composites
+$\bar{A} \to FA$ in that diagram coincide and, after unpacking definitions, this follows from the commutativity of the following diagram.
+\begin{equation}
+\begin{tikzcd}[column sep = 1.55em]
+	\bar{A} \ar{r}{\eta} \ar{rd}[swap]{\eta} 
+&
+	T\bar{A} \ar{r}{Tf} \ar{d}[swap]{\psi}
+&
+	TTA \ar{rr}{\mu}  \ar{d}[swap]{\psi T}
+&&
+	TA \ar{d}{\psi}
+\\
+&
+	F \bar{A} \ar{r}{Ff}
+&
+	FTA \ar{r}{F\psi}
+&
+	FFA \ar{r}{\mu}
+&
+	FA
+\end{tikzcd}
+\end{equation}
+\end{proof}
+
+
+
+\begin{remark}\label{ALGLEFTEX REM}
+Recall that the existence of a left adjoint $\psi_!$ to 
+$\psi^{\**} \colon \Alg_F \to \Alg_T$
+is equivalent to the representability of the functors 
+$\Alg_T(X,\psi^{\**}(-))\colon \Alg_{F} \to \mathsf{Set}$
+for each $X \in \Alg_T$,
+so that Proposition \ref{PARTADJ PROP} implies that these functors are representable whenever $X \simeq FA$ is free.
+
+Hence, since any $X \in \Alg_T$
+with multiplication $m \colon TX \to X$
+is canonically described by the coequalizer % of free $T$-algebras
+$coeq \left( T T X 
+\overset{\mu}{\underset{Fm}{\rightrightarrows}}
+T X\right)$
+it follows that the left adjoint 
+$\psi_! \colon \Alg_F \to \Alg_T$
+exists iff the coequalizers 
+$coeq \left( F T X 
+\overset{\mu}{\underset{Fm}{\rightrightarrows}}
+F X\right)
+$
+of $F$-algebras exist for all $X \in \Alg_T$, in which case it is
+$\psi_!(X)=coeq \left( F T X 
+\overset{\mu}{\underset{Fm}{\rightrightarrows}}
+F X\right)$.
+\end{remark}
+
+
+
+
+\begin{remark}\label{ADJSRMON REM}
+Beck's monadicity theorem (cf. \cite[VI.7 Thm. 1]{McL},\cite[Thm. 5.5.1]{Ri17})
+characterizes monadic adjunctions $L\colon \mathcal{C} \rightleftarrows \mathcal{D}\colon R$
+as those where $R$ creates $R$-split coequalizers. 
+
+Hence, should the adjunction 
+$\psi_! \colon \Alg_T \rightleftarrows \Alg_F \colon \psi^{\**}$
+in Remark \ref{ALGLEFTEX REM} exist,
+it readily follows from Beck's theorem that this adjunction is monadic
+(since in 
+$\mathcal{C} \rightleftarrows
+\mathsf{Alg}_T \rightleftarrows
+\Alg_F$
+both the left and total adjunctions are monadic).
+However, since $\psi_!$ is defined using coequalizers of $F$-algebras,
+it is in general not possible to give a simple description of the adjunction monad
+$F_T = \psi^{\**} \psi_!$.
+%
+%Nonetheless, should $T,F$ preserve reflexive coequalizers in $\mathcal{C}$,
+%one has that reflexive coequalizers in algebras
+%are underlying coequalizers in $\mathcal{C}$
+%\cite[Thm. 5.6.5]{Ri17}.
+%Therefore, by manipulating the coequalizers one can show that the multiplication for $F_T$ the induced map on vertical coequalizers for the diagram
+%\[
+%\begin{tikzcd}[column sep =40pt]
+%	FTFT X
+%	\ar[shift left=.3em]{d}{\mu\mu}
+%	\ar[shift right=.3em]{d}[swap]{F\mu m}
+%	\ar{r}{\mu FT \circ \mu T}
+%&
+%	FTX
+%	\ar[shift left=.3em]{d}{\mu}
+%	\ar[shift right=.3em]{d}[swap]{F m}
+%\\
+%	FF X
+%	\ar{r}{\mu}
+%&
+%	F X
+%\end{tikzcd}
+%\]
+\end{remark}
+
+
+
+
+\begin{proposition}\label{PARTADJP PROP}
+Let $P,\bar{F}$ and $F = P \bar{F}$ be as in 
+Definition \ref{AMALGMON DEF},
+and write $\psi = P\eta \colon P \Rightarrow P \bar{F} = F$.
+
+Then there is a functor
+$\psi^{\**} \colon \Kl_F \to \Kl_P$
+given on objects by
+$\psi^{\**}A = \bar{F} A$
+and sending the arrow
+$A \rightsquigarrow B$
+with underlying arrow 
+$A \xrightarrow{f} FB$
+to the arrow 
+$\bar{F} A \rightsquigarrow \bar{F} B$
+with underlying arrow the composite
+$\bar{F} A \xrightarrow{\bar{F}f} \bar{F} FB
+=
+\bar{F}P \bar{F} B \xrightarrow{\tau \bar{F}}
+P \bar{F} \bar{F} B \xrightarrow{P \mu}
+P\bar{F}B$
+or, equivalently (cf. Lemma \ref{MODSTRCOMRE LEM}(iii)(ii)),
+$\bar{F} A \xrightarrow{\bar{F}f} \bar{F} FB
+\xrightarrow{\mu} FB = P\bar{F}B$.
+
+Moreover, in the diagram
+\begin{equation}\label{PARTADJP EQ}
+\begin{tikzcd}
+	\mathsf{Kl}_{P} 
+	\ar[shift left=0.25em]{r}{\psi_!} 
+	\ar[hookrightarrow]{d}[swap]{\iota}
+&
+	\mathsf{Kl}_{F} 
+	\ar[shift left=0.25em]{l}{\psi^{\**}}
+	\ar[hookrightarrow]{d}{\iota}
+\\
+	\mathsf{Alg}_{P} &
+	\mathsf{Alg}_{F}  \ar{l}{\psi^{\**}}
+\end{tikzcd}
+\end{equation}
+one has that:
+\begin{enumerate}[label=(\roman*)]
+\item the top horizontal maps are adjoint,
+with adjuntion unit
+$A \rightsquigarrow \psi^{\**} \psi_! A$
+for $A \in \Kl_P$
+and counit
+$\psi_! \psi^{\**} B \rightsquigarrow B$
+for $B \in \Kl_F$
+given by 
+\begin{equation}\label{UNITCOUNIT EQ}
+	A \xrightarrow{\eta} 
+	\bar{F} A \xrightarrow{\eta \bar{F}}
+	P \bar{F} A
+\qquad
+	\bar{F} B \xrightarrow{\eta \bar{F}}
+	P \bar{F} B =
+	F B
+\end{equation}
+\item the composites
+$
+	\mathsf{Kl}_F \xrightarrow{\psi^{\**}} 
+	\mathsf{Kl}_P \xrightarrow{\iota} 
+	\mathsf{Alg}_P
+$
+and
+$
+	\mathsf{Kl}_F \xrightarrow{\iota}
+	\mathsf{Alg}_F  \xrightarrow{\psi^{\**}} 
+	\mathsf{Alg}_P
+$
+coincide.
+\end{enumerate}
+\end{proposition}
+
+
+
+\begin{proof}
+We first address (ii).
+On objects,
+after unpacking notation
+$\psi^{\**} \iota B$
+is the $P$-algebra
+$F B$ with multiplication
+$PFB \rightarrow FFB \xrightarrow{\mu} B$
+while 
+$ \iota \psi^{\**} B$
+is the $P$-algebra
+$P \bar{F} B $
+with multiplication
+$P P \bar{F} B \xrightarrow{\mu \bar{F}} P \bar{F} B$,
+and these coincide by Lemma \ref{MODSTRCOMRE LEM}(ii).
+On a map
+$B \rightsquigarrow \bar{B}$
+with underlying arrow $B \xrightarrow{f} F \bar{B}$,
+applying $\psi^{\**} \iota$
+gives the map
+$F B \xrightarrow{F f} FF\bar{B} \xrightarrow{\mu} F \bar{B}$
+while applying $\iota \psi^{\**}$
+gives the map
+$P \bar{F} B \xrightarrow{P \bar{F} f} 
+P \bar{F} F \bar{B} = P \bar{F} P \bar{F} \bar{B}
+\xrightarrow{P \tau \bar{F}}
+P P \bar{F} \bar{F} \bar{B}
+\xrightarrow{PP \mu}
+P P \bar{F} \bar{B} 
+\xrightarrow{\mu \bar{F}} P\bar{F} \bar{B}$,
+and these coincide by 
+Proposition \ref{ALTMULT PROP}(i).
+
+
+We now address the remaining claims. 
+Recalling that the $\iota$ functors are fully faithful,
+$\psi^{\**} \colon \Kl_F \to \Kl_P$
+can be thought of as a restriction of
+$\psi^{\**} \colon \Alg_F \to \Alg_P$. 
+Hence, the implicit claim that $\psi^{\**} \colon \Kl_F \to \Kl_P$
+is a functor is inherited from 
+$\psi^{\**} \colon \Alg_F \to \Alg_P$ being a functor.
+And, similarly, the adjunction claim in (i)
+is inherited from the ``partial adjunction'' claim in 
+Proposition \ref{PARTADJP PROP}.
+
+
+Lastly, to describe the unit 
+(resp. counit)
+we must find the adjoint
+to 
+$\psi_! A \xrightarrow{=} \psi_! A$
+(resp. $\psi^{\**} B \xrightarrow{=} \psi^{\**} B$)
+which corresponds under $\iota$ to the identity
+$FA = FA$
+(resp. $P\bar{F} B = FB$).
+By the string of identifications 
+\eqref{PARTADJPROOF EQ}
+the adjoint is given 
+by the top (resp. bottom) composite on the left
+(resp. diagram) below
+(cf. \eqref{ADJOINTCORR EQ}).
+\begin{equation}
+\begin{tikzcd}[column sep = 1.55em]
+	A \ar{r}{\eta} \ar{rd}[swap]{\eta}
+&
+	P A \ar[dashed]{r}{\psi} \ar{d}[swap]{\psi}
+&
+	FA
+&&%%
+	\bar{F} B \ar{r}{\eta} \ar{rd}[swap]{\eta}
+&
+	P \bar{F} B \ar[equal]{r} \ar{d}[swap]{\psi}
+&
+	F B 
+\\
+&
+	FA \ar[equal]{ru}
+&
+&&%%
+&
+	F\bar{F} B \ar[dashed]{ru}[swap]{\mu}
+&
+\end{tikzcd}
+\end{equation}
+That these composites match the maps in
+\eqref{UNITCOUNIT EQ}
+follows since $\psi\colon P \Rightarrow F$ is a map of monads. 
+\end{proof}
+
+
+
+\begin{remark}\label{MONALGP REM}
+By Proposition \ref{PARTADJP PROP}
+on has an adjunction monad $\psi^{\**} \psi_!$
+on $\Kl_P$ which is given on objects by $\bar{F}$.
+Moreover the first half of
+\eqref{UNITCOUNIT EQ} shows that the unit
+$I \to \psi^{\**} \psi_!$
+consists of the free arrows on the unit $I \Rightarrow \bar{F}$
+while, 
+by applying the definition of $\psi^{\**}$ to the second half of
+\eqref{UNITCOUNIT EQ}
+gives that the monad multiplication
+$\psi^{\**} \psi_!\psi^{\**} \psi_! \Rightarrow \psi^{\**} \psi_!$
+is given by the left right composite below.
+But hence, by the top right composite, 
+this monad multiplication consists of the free arrows on
+the monad multiplication $\bar{F} \bar{F} \Rightarrow \bar{F}$. 
+\begin{equation}
+\begin{tikzcd}[column sep = 1.55em]
+	\bar{F} \bar{F} A \ar{d}[swap]{\bar{F}\eta \bar{F}}
+	\ar[equal]{r} 
+&
+	\bar{F} \bar{F} A 
+	\ar{r}{\mu} \ar{d}[swap]{\eta \bar{F} \bar{F}}
+&
+	\bar{F} A   \ar{d}[swap]{\eta \bar{F}}
+\\
+	\bar{F} P \bar{F} A \ar{r}[swap]{\tau \bar{F}}
+&
+	P \bar{F} \bar{F} A \ar{r}[swap]{P\mu}
+&
+	P \bar{F} A
+\end{tikzcd}
+\end{equation}
+As an aside, we note that one can further check that the top adjunction in \eqref{PARTADJ EQ} is a Kleisli adjunction, i.e.
+that it identifies $\Kl_F$ as the Kleisli category over 
+$\Kl_P$ for the monad $\psi^{\**} \psi_!$.
+\end{remark}
+
+
+\begin{remark}
+Should $\psi^{\**}\colon \Alg_F \to \Alg_P$ admit a left adjoint, 
+one has that in the diagram
+\begin{equation}\label{PARTADJDB EQ}
+\begin{tikzcd}
+	\mathsf{Kl}_{P} 
+	\ar[shift left=0.25em]{r}{\psi_!} 
+	\ar[hookrightarrow]{d}[swap]{\iota}
+&
+	\mathsf{Kl}_{F} 
+	\ar[shift left=0.25em]{l}{\psi^{\**}}
+	\ar[hookrightarrow]{d}{\iota}
+\\
+	\mathsf{Alg}_{P} 
+	\ar[shift left=0.25em]{r}{\psi_!} &
+	\mathsf{Alg}_{F}
+	\ar[shift left=0.25em]{l}{\psi^{\**}}
+\end{tikzcd}
+\end{equation}
+both functors in the bottom adjunction
+extend the functors in the top adjunction.
+As such, the monad
+$F_T = \psi^{\**} \psi_!$ on $\Alg_P$
+extends the monad $\psi^{\**} \psi_!$ on $\Kl_P$ which, 
+following \ref{MONALGP REM}, can be thought of as the monad $\bar{F}$.
+
+As noted in Remark \ref{ADJSRMON REM}, the monad $F_T$ is in general hard to describe. 
+Nonetheless, should $P,F$ preserve reflexive coequalizers in $\mathcal{C}$,
+one has that reflexive coequalizers in algebras
+are underlying coequalizers in $\mathcal{C}$
+\cite[Thm. 5.6.5]{Ri17}
+and thus preserved by both functors in the bottom adjunction, and hence also by $F_T$.
+It thus follows that $F_TF_TX$
+can be described as the left vertical coequalizer in the diagram below 
+(where the two squares coincide, 
+with the right square included to more easily describe the vertical maps) 
+\begin{equation}\label{FRMONDES EQ}
+\begin{tikzcd}[column sep =40pt]
+	P \bar{F}\bar{F} P X
+	\ar[shift left=.3em]{d}{}
+	\ar[shift right=.3em]{d}[swap]{}
+	\ar{r}{P\mu P}
+&
+	P \bar{F} P X
+	\ar[shift left=.3em]{d}{}
+	\ar[shift right=.3em]{d}[swap]{}
+&%
+	F\bar{F} P X
+	\ar[shift left=.3em]{d}{F\bar{F} m}
+	\ar[shift right=.3em]{d}[swap]{\mu\bar{F} \circ F\tau}
+	\ar{r}{\mu P}
+&
+	F P X
+	\ar[shift left=.3em]{d}{F m}
+	\ar[shift right=.3em]{d}[swap]{\mu}
+\\
+	P \bar{F}\bar{F} X
+	\ar{r}{P\mu}
+&
+	P \bar{F} X
+&%
+	F\bar{F} X
+	\ar{r}{\mu}
+&
+	F X
+\end{tikzcd}
+\end{equation}
+while the multiplication $F_TF_TX \to F_TX$
+is the induced is the induced map on the vertical coequalizers.
+\end{remark}
+
+
+
+%\begin{remark}
+%When applied to the example of operads, 
+%the right coequalizer in \eqref{FRMONDES EQ}
+%(together with realization of categories)
+%shows that 
+%\[F_r X = \mathsf{Lan}_{(T \in \Omega^{0,r})^{op}}
+%\left(\bigotimes_{v \in V(T)} X(T_v)\right)
+%\]
+%where $\Omega^{0,r}$ is the category of trees and degeneracies.
+%Similarly, the left coequalizer shows that
+%\[
+%F_rF_r X = \mathsf{Lan}_{((T_0 \hookrightarrow T_1) \in \Omega^{1,r})^{op}}
+%\left(\bigotimes_{v \in V(T_{1})} X(T_{1,v})\right)
+%\]
+%$\Omega^{0,r}$ is the category whose objects are inner planar face maps $T_0 \hookrightarrow T_1$
+%and whose morphisms are degeneracies between them.
+%\end{remark}
+
+
+\begin{remark}
+Proposition \ref{PARTADJP PROP} 
+admits a complementary result by interchanging the roles of $P$ and $\bar{F}$ and the roles of Kleisli categories and algebra categories.
+
+Explicitly, one has a functor
+$\psi_!\colon \Alg_{\bar{F}} \to \Alg_F$
+which: sends an $\bar{F}$-algebra $X$
+with multiplication $\bar{F} X \xrightarrow{m} X$
+to $PX$ with $F$-algebra multiplication given by
+$FPX \xrightarrow{\mu} FX=P\bar{F}X \xrightarrow{Pm} PX$;
+sends an arrow
+$X \xrightarrow{f} Y$
+to $PX \xrightarrow{Pf} PY$.
+
+Then in the square below one has that the bottom horizontal maps are adjoint and that
+$\iota \psi_! = \psi_!\iota$.
+\begin{equation}\label{PARTADJBARF EQ}
+\begin{tikzcd}
+	\mathsf{Kl}_{\bar{F}} 
+	\ar[shift left=0.25em]{r}{\psi_!} 
+	\ar[hookrightarrow]{d}[swap]{\iota}
+&
+	\mathsf{Kl}_{F} 
+	\ar[hookrightarrow]{d}{\iota}
+\\
+	\mathsf{Alg}_{\bar{F}} 
+	\ar[shift left=0.25em]{r}{\psi_!} 
+&
+	\mathsf{Alg}_{F}  
+	\ar[shift left=0.25em]{l}{\psi^{\**}}
+\end{tikzcd}
+\end{equation}
+Moreover, in analogy to Remark \ref{MONALGP REM}
+one can check that the adjunction monad
+$\psi^{\**} \psi_!$ on $\Alg_{\bar{F}}$ has the same underlying functor, unit and multiplication as the monad $P$.
+\end{remark}
+
+
+
+
+
+
+
+\subsection{The homotopy genuine equivariant operad}
+
+
+Our goal in this section is to build,
+for each $G$-$\infty$-operad $X \in \mathsf{dSet}^G$,
+the associated homotopy genuine equivariant operad
+$\mathsf{ho} (X)$,
+which we will describe as an object in
+$\mathsf{dSet}_G$
+satisfying a strict Segal condition.
+
+
+We start with some notation. 
+Given a multiset $I$ of edges of a tree $T \in \Omega$
+(formally, $I$ is a function 
+$I \colon \boldsymbol{E}(T) \to \mathbb{N}_0$),
+we write $\sigma^I T \in \Omega$
+for the tree obtained by degenerating $T$ once for each edge in $I$.
+More explicitly, $\sigma^I T$ is the unique tree such that there is a planar degeneracy
+$\pi \colon \sigma^I T \to T$
+such that $|\pi^{-1}(e)| = I(e) + 1$.
+Moreover,
+note that if $T\in \Omega_G$ is a $G$-tree, 
+then $\sigma^{I} T \in \Omega_{G}$
+can be defined if $I$ is $G$-equivariant
+(formally, this means that the multiset $I$ is a composite
+$\boldsymbol{E}(T) \to \boldsymbol{E}_G(T)
+\to \mathbb{N}_0$).
+
+Our main interest will be in degeneracies of $G$-corollas. Recall that, up to isomorphism, 
+a $G$-corolla $C \in \Sigma_G$ is determined the number $0 \leq k$ of leaf orbits
+and isotropy subgroups
+$H_i \leq H_0 \leq G$ for $0 \leq i \leq k$,
+where $H_0$ is the isotropy of a (chosen) root edge.
+Pictorially, such a $G$-corolla has the orbital representation given on the left below,
+but in this section we will find it more convenient to label edge orbits using coset notation as on the right below,
+so that $[e_i] = G e_i$ denotes the $G$-orbit of $e_i$.
+\[
+\begin{tikzpicture}
+[grow=up,auto,level distance=2.3em,every node/.style = {font=\footnotesize},dummy/.style={circle,draw,inner sep=0pt,minimum size=1.75mm}]
+	\node at (0,0) [font=\normalsize]{$C$}
+		child{node [dummy] {}
+			child{
+			edge from parent node [swap,near end] {$G/H_k$} node [name=Kn] {}}
+			child{
+			edge from parent node [near end] {$G/H_1$}
+node [name=Kone,swap] {}}
+		edge from parent node [swap] {$G/H_0$}
+		};
+		\draw [dotted,thick] (Kone) -- (Kn) ;
+	\node at (5,0) [font=\normalsize]{$C$}
+		child{node [dummy] {}
+			child{
+			edge from parent node [swap,near end] {$[e_k]$} node [name=Kn] {}}
+			child{
+			edge from parent node [near end] {$[e_1]$}
+node [name=Kone,swap] {}}
+		edge from parent node [swap] {$[e_0]$}
+		};
+		\draw [dotted,thick] (Kone) -- (Kn) ;
+\end{tikzpicture}
+\]
+We will then abbreviate $\sigma^i C = \sigma^{[e_i]} C$, and write $e_i$, $e_i'$ for the two edges of $\sigma^i C $ that degenerate the edge $e_i$ of $C$,
+with $e_i$ denoting the inner edge and $e'_i$ the outer
+edge.
+\[
+\begin{tikzpicture}
+[grow=up,auto,level distance=3em,
+every node/.style = {font=\footnotesize},
+dummy/.style={circle,draw,inner sep=0pt,minimum size=1.75mm}]
+	\node at (0,0) [font=\normalsize]{$\sigma^0 C$}
+		child{node [dummy] {}
+			child{node [dummy] {}
+				child{
+				edge from parent node [swap,near end] {$[e_k]$} node [name=Kn] {}}
+				child{
+				edge from parent node [near end] {$[e_1]$}
+node [name=Kone,swap] {}}
+			edge from parent node [swap] {$[e_0]$}}
+		edge from parent node [swap] {$[e'_0]$}
+		};
+		\draw [dotted,thick] (Kone) -- (Kn) ;
+	\node at (5,0) [font=\normalsize]{$\sigma^i C$}
+		child{node [dummy] {}
+			child{
+			edge from parent node [swap,near end] {$[e_k]$} node [near start,inner sep=1pt,name=Kn] {}}
+			child[level distance=3.4em]{node [dummy] {}
+				child[level distance=2.7em]{
+				edge from parent node [swap] {$[e'_i]$}
+}
+			edge from parent node [near end,swap] {$[e_i]$}
+node [near start,inner sep=1pt,name=Kone,swap] {}
+node [near start,inner sep=1pt,name=Kone1] {}}
+			child{
+			edge from parent node [near end] {$[e_1]$}
+node [swap] {}
+node [near start,inner sep=1pt,name=Kn1,swap]{}}
+		edge from parent node [swap] {$[e_0]$}
+		};
+		\draw [dotted,thick] (Kone) -- (Kn) ;
+		\draw [dotted,thick] (Kone1) -- (Kn1) ;
+\end{tikzpicture}
+\]
+$\sigma^i C$ then has an orbital inner face
+$\sigma^i C - [e_i]$ obtained by removing $[e_i]$
+as well as an orbital outer face obtained by removing $e'_i$,
+which we denote $\sigma^i C - [e'_i]$.
+Moreover, note that we have natural identifications
+$C = \sigma^i C - [e_i]$,
+$C = \sigma^i C - [e'_i]$.
+
+In what follows, we will find it convenient to simplify notation by denoting maps $\Omega[T] \to X$,
+where $T \in \Omega_G$ and $X \in \mathsf{dSet}^G$,
+simply as $T \to X$.
+
+
+\begin{definition}
+	Let $X \in \mathsf{dSet}^G$ be a $G$-$\infty$-operad and $C$ a $G$-corolla with edge orbits
+	$[e_0],\cdots,[e_k]$.
+	
+	Given two operations 
+	$f,g\colon C \rightrightarrows X$,
+	we write $f \sim_i g$ if there exists a map
+	$H \colon \sigma^i C \to X$ such that
+\begin{itemize}
+\item $f$ equals the restriction $H|_{\sigma^i C-[e'_i]}$;
+\item $g$ equals the restriction $H|_{\sigma^i C-[e_i]}$;
+\item the restriction $H|_{\sigma^i [e_i]}$
+is the degeneracy $\sigma^i [e_i] \to [e_i] \to C \to X$.
+\end{itemize}
+\end{definition}
+
+
+\begin{remark}\label{HOMOTBOUND REM}
+	Note that if $f \sim_i g$ then it must be
+	$f|_{\partial C} = g|_{\partial C}$.
+\end{remark}
+
+
+\begin{example}\label{EQUIVSIM EX}
+	Let $G = \mathbb{Z}_{/2} = \{\pm 1\}$
+	and consider the $G$-corolla with orbital and expanded representations as given on the left below.
+\[
+\begin{tikzpicture}
+[grow=up,auto,level distance=2.3em,every node/.style = {font=\footnotesize},dummy/.style={circle,draw,inner sep=0pt,minimum size=1.75mm}]
+	\node at (0,0) [font=\normalsize]{$C$}
+		child{node [dummy] {}
+			child{
+			edge from parent node [swap] {$G \cdot e$}
+node [name=Kone,swap] {}}
+		edge from parent node [swap] {$G/G \cdot r$}
+		};
+	\node at (3,0) [font=\normalsize]{$C$}
+		child{node [dummy] {}
+			child{
+			edge from parent node [swap,near end] {$-e$} node [name=Kn] {}}
+			child{
+			edge from parent node [near end] {$e$}
+node [name=Kone,swap] {}}
+		edge from parent node [swap] {$r$}
+		};
+	\node at (7,0) [font=\normalsize]{$\sigma^{\{e,-e\}} C$}
+		child{node [dummy] {}
+			child{node [dummy] {}
+				child{
+				edge from parent node [swap] {$G \cdot e'$}
+node [swap] {}}
+			edge from parent node [swap] {$G \cdot e$}
+node [swap] {}}
+		edge from parent node [swap] {$G/G \cdot r$}
+		};
+	\node at (10,0) [font=\normalsize]{$\sigma^{\{e,-e\}} C$}
+		child{node [dummy] {}
+			child{node [dummy] {}
+				child{
+				edge from parent node [swap] {$-e'$} node {}}
+			edge from parent node [swap,near end] {$-e$} node {}}
+			child{node [dummy] {}
+				child{
+				edge from parent node {$e'$}
+node [swap] {}}
+			edge from parent node [near end] {$e$}
+node [swap] {}}
+		edge from parent node [swap] {$r$}
+		};
+\end{tikzpicture}
+\]
+$C$ then has a single leaf $G$-edge orbit $[e] = G \cdot e$, so that for
+$f,g \colon C \to X$ it is
+$f \sim_1 g$
+if there exists a 
+$H \colon \sigma^{\{e,-e\}}C \to X$
+such that 
+\begin{equation}\label{EQUIVHOMOT EQ}
+	f = H|_{\sigma^{\{e,-e\}}C - \{e',-e'\}}
+\qquad
+	g = H|_{\sigma^{\{e,-e\}}C - \{e,-e\}}
+\qquad
+	H_{\sigma^e e}, H|_{\sigma^{-e}-e} \text{ are degenerate}.
+\end{equation}
+It is worthwhile to compare this equivariant relation with the relations obtained if one forgets the $G$-actions. Indeed, while \eqref{EQUIVHOMOT EQ} implicitly assumes that all of $f,g,H$ are $G$-equivariant,
+by omitting that assumption one can reinterpret 
+\eqref{EQUIVHOMOT EQ}
+as defining a relation
+$f \sim_{[e]} g$ between not necessarily $G$-equivariant maps $f,g \colon C \to X$.
+
+A priori, $\sim_{[e]}$ relation differs from the 
+non-equivariant 
+$\sim_{e}$ and $\sim_{-e}$
+relations obtained by regarding $C$ as a non-equivariant corolla.
+However, for $f,g,H$ as in \eqref{EQUIVHOMOT EQ} one has
+\begin{equation}\label{EQUIVSIM EQ}
+f = H|_{\sigma^{\{e,-e\}}C - \{e',-e'\}}
+\sim_e H|_{\sigma^{\{e,-e\}}C - \{e,-e'\}}
+\sim_{-e} H|_{\sigma^{\{e,-e\}}C - \{e,-e\}} =g
+\end{equation}
+so that, by Lemma \ref{EQUIVI LEM}(b) below one has that
+$f \sim_{[e]} g$ in fact implies
+$f \sim_{e} g$. Moreover, the converse statement follows immediately by using degeneracies.
+
+More generally, similar considerations show that the $\sim$ relations are compatible with restricting the $G$-actions.
+\end{example}
+
+
+\begin{lemma}\label{EQUIVI LEM}
+	Let $X \in \mathsf{dSet}^G$ be a $G$-$\infty$-operad and $C$ a $G$-corolla with edge orbits
+	$[e_0],\cdots,[e_k]$. Then:
+\begin{itemize}
+	\item[(a)] each of the relations $\sim_i$ is an equivalence relation;
+	\item[(b)] all the equivalence relations $\sim_i$ coincide.
+\end{itemize}
+\end{lemma}
+
+\begin{proof}
+	We first address (a). 
+	
+	For the reflexive condition, one can take $H$ to be the degeneracy
+	$\sigma^i C \xrightarrow{\sigma^i} C \xrightarrow{f} X$.
+	
+	For the symmetry and transitive conditions, consider the tree
+	$\sigma^{ii} C$, which degenerates $[e_i]$ twice.
+\[
+\begin{tikzpicture}
+[grow=up,auto,level distance=3em,
+every node/.style = {font=\footnotesize},
+dummy/.style={circle,draw,inner sep=0pt,minimum size=1.75mm}]
+	\node at (0,0) [font=\normalsize]{$\sigma^{ii} C$}
+		child{node [dummy] {}
+			child{
+			edge from parent node [swap,near end] {$[e_k]$} node [near start,inner sep=1pt,name=Kn] {}}
+			child[level distance=3.4em]{node [dummy] {}
+				child[level distance=2.7em]{node [dummy] {}
+					child[level distance=2.7em]{
+					edge from parent node [swap] {$[e''_i]$}
+}
+				edge from parent node [swap] {$[e'_i]$}
+}
+			edge from parent node [near end,swap] {$[e_i]$}
+node [near start,inner sep=1pt,name=Kone,swap] {}
+node [near start,inner sep=1pt,name=Kone1] {}}
+			child{
+			edge from parent node [near end] {$[e_1]$}
+node [swap] {}
+node [near start,inner sep=1pt,name=Kn1,swap]{}}
+		edge from parent node [swap] {$[e_0]$}
+		};
+		\draw [dotted,thick] (Kone) -- (Kn) ;
+		\draw [dotted,thick] (Kone1) -- (Kn1) ;
+\end{tikzpicture}
+\]
+Suppose $f \sim_i g$, and let 
+$H \colon \sigma^{i} C \to X$ be the associated homotopy.
+Define a map 
+$\bar{H} \colon \Lambda^{[e_i]}_o[\sigma^{ii} C] \to X$ by
+\[
+	\bar{H}|_{\sigma^{ii}C - [e''_i]} = H,
+		\qquad
+	\bar{H}|_{\sigma^{ii}C - [e'_i]} = f \circ \sigma^i,
+		\qquad
+	\bar{H}|_{\sigma^{ii} [e_i]} = 
+	f|_{[e_i]} \circ \sigma^{ii} =
+	g|_{[e_i]} \circ \sigma^{ii}.
+\]
+Since the orbital inner horn inclusion
+$\bar{H} \colon \Lambda^{[e_i]}_o[\sigma^{ii} C] \to \Omega[C]$
+is $G$-inner anodyne,
+$\bar{H}$ admits an extension $\widetilde{H} \colon \sigma^{ii}C \to X$.
+The restriction $\bar{H}|_{\sigma^{ii}C - [e_i]}$ then provides the homotopy exhibiting $g \sim_i f$, and symmetry of $\sim_i$ follows.
+
+Next, suppose $f \sim_i g$ and $g \sim_i h$, and let 
+$H \colon \sigma^{i} C \to X$ and
+$K \colon \sigma^{i} C \to X$ be be the associated homotopies.
+Define a map 
+$\bar{H} \colon \Lambda^{[e'_i]}_o[\sigma^{ii} C] \to X$ by
+\[
+	\bar{H}|_{\sigma^{ii}C - [e''_i]} = H,
+		\qquad
+	\bar{H}|_{\sigma^{ii}C - [e_i]} = K,
+		\qquad
+	\bar{H}|_{\sigma^{ii} [e_i]} = 
+	f|_{[e_i]} \circ \sigma^{ii} =
+	g|_{[e_i]} \circ \sigma^{ii} =
+	h|_{[e_i]} \circ \sigma^{ii}.
+\]
+$\bar{H}$ again admits an extension $\widetilde{H} \colon \sigma^{ii}C \to X$, and the restriction $\bar{H}|_{\sigma^{ii}C - [e'_i]}$
+provides the homotopy exhibiting $f \sim_i g$, so that transitivity of $\sim_i$.
+
+We next turn to (b). Consider the tree $\sigma^{ij} C$ which degenerates $C$ once along each of $[e_i]$ and $[e_j]$.
+\[
+\begin{tikzpicture}
+[grow=up,auto,level distance=2.75em,
+every node/.style = {font=\footnotesize},
+dummy/.style={circle,draw,inner sep=0pt,minimum size=1.75mm}]
+	\node at (0,0) [font=\normalsize]{$\sigma^{ij} C$}
+		child{node [dummy] {}
+			child{
+			edge from parent node [swap,near end] {$[e_k]$} node [near start,inner sep=1pt,name=Kn] {}}
+			child[level distance=3.4em,sibling distance=2em]{node [dummy] {}
+				child[level distance=2.7em]{
+				edge from parent node [swap] {$[e'_j]$}
+}
+			edge from parent node [very near end,swap] {$[e_j]$}
+node [near start,inner sep=1pt,name=Kone,swap] {}
+node [inner sep=1pt,name=Kn2] {}}
+			child[level distance=3.4em,sibling distance=2em]{node [dummy] {}
+				child[level distance=2.7em]{
+				edge from parent node {$[e'_i]$}
+}
+			edge from parent node [very near end] {$[e_i]$}
+node [inner sep=1pt,name=Kone2,swap] {}
+node [near start,inner sep=1pt,name=Kone1] {}}
+			child{
+			edge from parent node [near end] {$[e_1]$}
+node [swap] {}
+node [near start,inner sep=1pt,name=Kn1,swap]{}}
+		edge from parent node [swap] {$[e_0]$}
+		};
+		\draw [dotted,thick] (Kn) -- (Kone) ;
+		\draw [dotted,thick] (Kone1) -- (Kn1) ;
+		\draw [dotted,thick] (Kone2) -- (Kn2) ;
+\end{tikzpicture}
+\]
+Suppose $f \sim_i g$ with $H \colon \sigma^{i} C \to X$ the associated homotopy.
+Define a map 
+$\bar{H} \colon \Lambda^{[e_i]}_o[\sigma^{ij} C] \to X$ by
+\[
+	\bar{H}|_{\sigma^{ij}C - [e'_j]} = H,
+		\qquad
+	\bar{H}|_{\sigma^{ij}C - [e_j]} = f \circ \sigma^i,
+		\qquad
+	\bar{H}|_{\sigma^{ij}C - [e'_i]} = f \circ \sigma^j.
+\]
+Yet again, $\bar{H}$ admits an extension $\widetilde{H} \colon \sigma^{ij}C \to X$, and the restriction $\bar{H}|_{\sigma^{ij}C - [e_i]}$
+provides a homotopy exhibiting $g \sim_j f$. (b) now follows.
+\end{proof}
+
+In light of Lemma \ref{EQUIVI LEM},
+given $f,g \rightrightarrows C \to X$ with 
+$C$ a $G$-corolla and $X$ a $G$-$\infty$-operad,
+we will henceforth write $f \sim g$ whenever $f \sim_i g$ for some (and thus all) $i$.
+We now extend the $\sim$ relation.
+
+\begin{definition}\label{XTENDSIM DEF}
+	Let $T \in \Omega_G$ be a $G$-tree
+	and $X \in \mathsf{dSet}^G$ be a 
+	$G$-$\infty$-operad.
+	
+	Given dendrices $x,y\colon T \to X$ we write
+	$x \sim y$ if there are equivalences of restrictions
+	$x|_{T_v} \sim y|_{T_v}$ for all $G$-vertices
+	$v \in \boldsymbol{V}_G(T)$.
+	
+	Further, we define $\mathsf{ho}(X)(T) = X(T)/\sim$.
+\end{definition}
+
+\begin{proposition}
+Let $X \in \mathsf{dSet}^G$ be a $G$-$\infty$-operad. Then the assignment 
+		$T \mapsto \mathsf{ho}(X)(T)$
+		is a contravariant functor in $T \in \Omega_G$, i.e.
+		$\mathsf{ho}(X)\in \mathsf{dSet}_G$.
+\end{proposition}
+
+
+\begin{proof}
+	It suffices to show that the $\sim$ equivalence relations are compatible with the generating classes of maps in $\Omega_G$, namely
+	degeneracies, inner faces, outer faces, and quotient maps.
+	
+	The cases of degeneracies and outer faces are obvious. In the case of quotients, 
+	since any quotient $\bar{T} \to T$ of $G$-trees induces quotients on $G$-vertices, it suffices to consider the case of a quotient
+	$\bar{C} \xrightarrow{\pi} C$ of $G$-corollas.
+	But it is then straightforward to check that if a homotopy exhibiting $f \sim_0 g$ also induces a homotopy exhibiting 
+	$f \circ \pi \sim_0 g \circ \pi$
+	(notably, the same needs not be true for the relations $f \sim_i g$ when $0<i$, 
+	in which case the exhibiting homotopy 
+	may instead exhibit a string of relations 
+	$f \circ \pi \sim \cdots \sim g \circ \pi$
+	as in \eqref{EQUIVSIM EQ}).
+
+It remains to address the most interesting case,
+that inner faces. Since inner faces can be factored as composites of inner faces that collapse a singe inner edge orbit,
+it suffices to consider the case of faces
+$D \to T$ where $T$ has a single edge edge orbit.
+I.e. we can assume that there are $G$-corollas
+$C_1$, $C_2$ such that 
+$T = C_1 \amalg_{[e_i]} C_2$ and
+$D = T - [e_i]$, as illustrated below.
+\[
+\begin{tikzpicture}
+[grow=up,auto,level distance=3em,
+every node/.style = {font=\footnotesize},
+dummy/.style={circle,draw,inner sep=0pt,minimum size=1.75mm}]
+	\node at (0,0) [font=\normalsize]{$C_1$}
+		child{node [dummy] {}
+			child{
+			edge from parent node [swap,near end] {} node [near start,inner sep=1pt,name=Kn] {}}
+			child[level distance=3.4em]{node {}
+			edge from parent node [near end,swap] {$[e_i]$}
+node [near start,inner sep=1pt,name=Kone,swap] {}
+node [near start,inner sep=1pt,name=Kone1] {}}
+			child{
+			edge from parent node [near end] {}
+node [swap] {}
+node [near start,inner sep=1pt,name=Kn1,swap]{}}
+		edge from parent node [swap] {$[e_0]$}
+		};
+		\draw [dotted,thick] (Kone) -- (Kn) ;
+		\draw [dotted,thick] (Kone1) -- (Kn1) ;
+	\node at (4,0) [font=\normalsize]{$C_2$}
+		child{node [dummy] {}
+			child{
+			edge from parent node [swap,near end] {} node [name=Kn] {}}
+			child{
+			edge from parent node [near end] {}
+node [name=Kone,swap] {}}
+		edge from parent node [swap] {$[e_i]$}
+		};
+		\draw [dotted,thick] (Kone) -- (Kn) ;
+	\node at (9,0) [font=\normalsize]{$T$}
+		child{node [dummy] {}
+			child{
+			edge from parent node [swap,near end] {} node [near start,inner sep=1pt,name=Kn] {}}
+			child[level distance=3.4em]{node [dummy] {}
+				child{
+				edge from parent node [swap,near end] {} node [name=Kn2] {}}
+				child{
+				edge from parent node [near end] {}
+node [name=Kone2,swap] {}}
+			edge from parent node [near end,swap] {$[e_i]$}
+node [near start,inner sep=1pt,name=Kone,swap] {}
+node [near start,inner sep=1pt,name=Kone1] {}}
+			child{
+			edge from parent node [near end] {}
+node [swap] {}
+node [near start,inner sep=1pt,name=Kn1,swap]{}}
+		edge from parent node [swap] {$[e_0]$}
+		};
+		\draw [dotted,thick] (Kone) -- (Kn) ;
+		\draw [dotted,thick] (Kone1) -- (Kn1) ;
+		\draw [dotted,thick] (Kone2) -- (Kn2) ;
+\end{tikzpicture}
+\]
+The claim is now that if
+$x,y \colon T \to X$ are such that
+$x|_{C_1} \sim y|_{C_1}$ and
+$x|_{C_2} \sim y|_{C_2}$
+then it is also 
+$x|_{D} \sim y|_{D}$.
+This will follow from the next two claims:
+\begin{itemize}
+\item[(i)] if $x,y \colon T \to X$ are such that
+$x|_{C_1} = y|_{C_1}$ and
+$x|_{C_2} = y|_{C_2}$
+then $x|_{D} \sim y|_{D}$;
+\item[(ii)]
+given $x \colon T \to X$, $f\colon C_1 \to X$ and
+$g \colon C_2 \to X$ such that
+$f \sim x|_{C_1}$, $g \sim x|_{C_2}$,
+there exists
+$y \colon T \to X$ such that
+$y|_{C_1} = f$, $y|_{C_2} = g$ and
+$y|_D = x|_D$.
+\end{itemize}
+To show (i) and (ii), consider the degeneracies
+$\sigma^0 T$ and $\sigma^i T$ pictured below.
+\[
+\begin{tikzpicture}
+[grow=up,auto,level distance=3em,
+every node/.style = {font=\footnotesize},
+dummy/.style={circle,draw,inner sep=0pt,minimum size=1.75mm}]
+	\node at (0,0) [font=\normalsize]{$\sigma^0 T$}
+		child{node [dummy] {}
+		child{node [dummy] {}
+			child{
+			edge from parent node [swap,near end] {} node [near start,inner sep=1pt,name=Kn] {}}
+			child[level distance=3.4em]{node [dummy] {}
+				child{
+				edge from parent node [swap,near end] {} node [name=Kn2] {}}
+				child{
+				edge from parent node [near end] {}
+node [name=Kone2,swap] {}}
+			edge from parent node [near end,swap] {$[e_i]$}
+node [near start,inner sep=1pt,name=Kone,swap] {}
+node [near start,inner sep=1pt,name=Kone1] {}}
+			child{
+			edge from parent node [near end] {}
+node [swap] {}
+node [near start,inner sep=1pt,name=Kn1,swap]{}}
+		edge from parent node [swap] {$[e_0]$}}
+		edge from parent node [swap] {$[e'_0]$}
+		};
+		\draw [dotted,thick] (Kone) -- (Kn) ;
+		\draw [dotted,thick] (Kone1) -- (Kn1) ;
+		\draw [dotted,thick] (Kone2) -- (Kn2) ;
+	\node at (6,0) [font=\normalsize]{$\sigma^i T$}
+		child{node [dummy] {}
+			child{
+			edge from parent node [swap,near end] {} node [near start,inner sep=1pt,name=Kn] {}}
+			child[level distance=3.4em]{node [dummy] {}
+			child{node [dummy] {}
+				child{
+				edge from parent node [swap,near end] {} node [name=Kn2] {}}
+				child{
+				edge from parent node [near end] {}
+node [name=Kone2,swap] {}}
+			edge from parent node [swap] {$[e'_i]$}}
+			edge from parent node [near end,swap] {$[e_i]$}
+node [near start,inner sep=1pt,name=Kone,swap] {}
+node [near start,inner sep=1pt,name=Kone1] {}}
+			child{
+			edge from parent node [near end] {}
+node [swap] {}
+node [near start,inner sep=1pt,name=Kn1,swap]{}}
+		edge from parent node [swap] {$[e_0]$}
+		};
+		\draw [dotted,thick] (Kone) -- (Kn) ;
+		\draw [dotted,thick] (Kone1) -- (Kn1) ;
+		\draw [dotted,thick] (Kone2) -- (Kn2) ;
+\end{tikzpicture}
+\]
+Given $x,y$ as in (i), one can now build a map
+$H \colon \Lambda_o^{[e_i]}[\sigma^0 T] \to X$ by
+\[
+	H|_{\sigma^0 T - [e_0]} = x,
+\qquad
+	H|_{\sigma^0 T - [e'_0]} = y,
+\qquad
+	H|_{\sigma^0 C_1} = 
+	x|_{C_1} \circ \sigma^0 = 
+	y|_{C_1} \circ \sigma^0.
+\]
+Letting $\widetilde{H}\colon \sigma^0 T \to X$
+be an extension of $H$,
+the restriction $H|_{\sigma^0 T - [e_i]}$
+provides the desired homotopy 
+$x|_{D} \sim y|_{D}$, showing (i).
+
+
+Lastly, let $x,f,g$ be as in (ii), 
+and let
+$K \colon \sigma^i C_1 \to X$ exhibit the relation
+$f \sim_i x|_{C_1}$
+and 
+$ \bar{K} \colon \sigma^i C_2 \to X$
+exhibit the relation
+$x|_{C_2} \sim_i g$ (note the reversed order).
+Now build the map
+$H \colon \Lambda_o^{[e'_i]}[\sigma^i T] \to X$ by
+\[
+	H|_{\sigma^i T - [e_i]} = x,
+\qquad
+	H|_{\sigma^i C_1} = K,
+\qquad
+	H|_{\sigma^i C_2} = \bar{K}.
+\]
+Again letting 
+$\widetilde{H} \colon \sigma^i T \to X$,
+the restriction 
+$\widetilde{H}|_{\sigma^i T - [e'_i]}$
+provides the required $y \colon T \to X$,
+showing (ii) and finishing the proof.
+\end{proof}
+
+
+\begin{corollary}\label{HOOPUNIV COR}
+Let $X \in \mathsf{dSet}^G$ be a $G$-$\infty$-operad. Then
+	\begin{itemize}
+	\item[(a)] $\mathsf{ho}(X)\in \mathsf{dSet}_G$ is a genuine equivariant operad, i.e. it satisfies the strict right lifting condition against the Segal core inclusions
+	$Sc[T] \to \Omega[T]$ for $T \in \Omega_G$;
+	\item[(b)] the quotient map
+	$\upsilon_{\**}X \to \mathsf{ho}(X)$ is the universal map from $\upsilon_{\**}X$ to a genuine equivariant operad.
+	\end{itemize}
+\end{corollary}
+
+\begin{proof}
+	Note first that by Remark \ref{HOMOTBOUND REM}
+	any map 	$Sc[T] \to \mathsf{ho}(X)$ admits a factorization 
+	$Sc[T] \to \upsilon_{\**}X \xrightarrow{q} \mathsf{ho}(X)$.
+	
+	The right lifting property for $\mathsf{ho}(X)$
+	against the maps $Sc[T] \to \Omega[T]$
+	is then automatic from the lifting property for $X$.
+
+	For strictness,	
+	note that Definition \ref{XTENDSIM DEF}
+	can be reinterpreted as saying that
+	$x,y \colon \Omega[T] \rightrightarrows X$
+	give rise to the same point of 
+	$\mathsf{ho}(X)$, i.e. 
+	the composites 
+	$\Omega[T] \rightrightarrows X \xrightarrow{q}
+	\mathsf{ho}(X)$ coincide, 
+	iff the composites 
+	$Sc[T] \to \Omega[T] \rightrightarrows X \xrightarrow{q}
+	\mathsf{ho}(X)$ coincide, showing strictness, and thus (a).
+		
+	For (b), since $\mathsf{ho}(X)$ is a quotient of
+	$\upsilon_{\**} X$, it suffices to show that any map
+	from $F \colon \upsilon_{\**}X \to Y$ with $Y$ a genuine equivariant operad must also enforce the $\sim$ relation.
+	For a $G$-corolla $C$ and
+	$f,g\colon C \to X$ such that 
+	$H \colon \sigma^i C \to X$ exhibits
+	$f \sim_i g$, 
+	the strict lifting condition for $Y$
+	shows that the maps
+	$F\circ H \colon \sigma^i C \to Y$,
+	$f \circ \sigma^i \colon \sigma^i C \to Y$
+	must coincide, and thus that
+	$F(f)=F(g)$.
+	The further claim that $F$ respects equivalences
+	of general dendrices $x,y\colon T \rightrightarrows X$
+	is immediate from Definition \ref{XTENDSIM DEF}.
+\end{proof}
+
+
+
+{\color{red} HERE}
+
+The following is the analogue of \cite[Prop. 4.8]{CM13b}.
+
+\begin{proposition}
+Let $\mathcal{O} \in \mathsf{sOp}^G$
+be a fibrant. 
+Then there is a natural isomorphism of genuine equivariant operads
+\begin{equation}\label{HOOPID EQ}
+ho(hcN(\mathcal{O})) \xrightarrow{\simeq}
+\pi_0 \left( \upsilon_{\**} N\mathcal{O} \right).
+\end{equation}
+\end{proposition}
+
+
+\begin{proof}
+The existence of the map in \eqref{HOOPID EQ}
+will be an application of
+Corollary \ref{HOOPUNIV COR}(b).
+
+Firstly,
+note that we have the following, naturally in $T \in \Omega_G$.
+\[
+\upsilon_{\**}hcN(\O)(T)
+\simeq
+\mathsf{sOp}^G(W_!\Omega[T],\O)
+\simeq
+\mathsf{sdSet}^G(N W_!\Omega[T],N \O)
+\simeq 
+\mathsf{sdSet}_G(\upsilon_{\**}N W_!\Omega[T],\upsilon_{\**}N \O)
+\]
+there the second identification uses the fact that 
+$N\colon \mathsf{Op} \to \mathsf{dSet}$
+is a fully faithful inclusion.
+But now one has a map
+\begin{align*}
+	\mathsf{sdSet}_G(\upsilon_{\**}N W_!\Omega[T],\upsilon_{\**}N \O)
+\to  &
+	\mathsf{sdSet}_G(\upsilon_{\**}N W_!\Omega[T],\pi_0\upsilon_{\**}N \O)
+\simeq
+	\mathsf{dSet}_G(\pi_0 \upsilon_{\**}  N W_!\Omega[T],\pi_0\upsilon_{\**}N \O)
+\\
+\simeq &
+	\mathsf{dSet}_G(\pi_0\upsilon_{\**} N W_!\Omega[T],\pi_0\upsilon_{\**}N \O)
+	\simeq
+	\mathsf{dSet}_G(\upsilon_{\**}\Omega[T]],\pi_0\upsilon_{\**}N \O)
+	=
+	(\pi_0\upsilon_{\**}N \O)(T)
+\end{align*}
+so altogether we obtain a map
+$\upsilon_{\**}hcN(\O) \to \pi_0 \upsilon_{\**} N \O$
+and hence, by Corollary \ref{HOOPUNIV COR},
+the desired map 
+\[ho(hcN(\O)) \to \pi_0 \upsilon_{\**} N \O\]
+Moreover, both of these are quotients of $\upsilon_{\**}hcN(\O)$,
+so to prove that the map is an isomorphism one needs only show that any two operations $f,g\colon C \rightrightarrows hcN \O$ of $\upsilon_{\**}hcN(\O)$
+that are identified in 
+$\pi_0 \upsilon_{\**} N \O$
+were already identified in 
+$ho(hcN(\O))$.
+But this now follows immediately from the pushout from Proposition \ref{WLEFTQPUSH PEOP}
+\[
+\begin{tikzcd}
+	\Omega(C) \otimes_{\mathsf{F}}
+	\partial \Delta[1]
+	\ar{r} \ar{d}
+&
+	W_! \left(\partial \Omega[C \star \eta]\right) 
+	\ar{d}
+\\
+	\Omega(C) \otimes_{\mathsf{F}}
+	\Delta[1]
+	\ar{r}
+&
+	W(C \star \eta)
+\end{tikzcd}
+\]
+\end{proof}
+
 
 
 
