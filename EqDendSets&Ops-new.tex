@@ -39,8 +39,8 @@ cd,patterns,calc}
 
 \usepackage{ifdraft}
 \ifdraft{
-% \color[RGB]{63,63,63}
-% \pagecolor[RGB]{220,220,204}
+  \color[RGB]{63,63,63}
+  \pagecolor[RGB]{220,220,204}
   \usepackage{showkeys}
 }
 {
@@ -866,6 +866,7 @@ is the standard map, which is clear.
 
 \begin{example}
       \label{COTENS_EX}
+      \todo[inline]{This works for any $\V$, not just $\V = \sSet$}
       Letting $\mathcal{O} \in \mathsf{sOp}$ be a simplicial colored operad
       and $K \in \mathsf{sSet}$,
       one has a pointwise simplicial cotensoring
@@ -2307,15 +2308,62 @@ Applying Proposition \ref{TRANS_MODEL_PROP} induces an $\F$-model structure on t
 %       This follows from \cite[Prop 6.24]{BP_geo} analogously as \cite[Lemma 5.72]{BP_geo} did.
 % \end{proof}
 
-As in \cite{BP_geo}, we will transfer this model structure along the free-forgetful adjunction
-\[
-      \Op^{G, \mathfrak C}_\F(\V) \leftrightarrows \Sym^{G, \mathfrak C}_\F: \mathbb F^G_{\mathfrak C}
-\]
-where $\mathbb F^G_{\mathfrak C}$ is the fiber of the cartesian monad $\mathbb F^G$ over $\mathfrak C$,
-described explicitly in \eqref{FGC_EQ}.
-
+As in \cite{BP_geo}, we will transfer this model structure along the composite free-forgetful adjunction
+\begin{equation}
+      \label{OPAUTAJD_EQ}
+      \begin{tikzcd}
+            \displaystyle{\prod_{\vect C \in G \ltimes \Sigma_{\mathfrak C}} \V^{\Aut(\vect C)}}
+            \arrow[r, shift left, "{\Sigma_{\mathfrak C}[-]}"]
+            &
+            \Sym^{G, \mathfrak C}(\V) \arrow[r, shift left, "\mathbb F"] \arrow[l, shift left]
+            &
+            \Op^{G, \mathfrak C}(\V) \arrow[l, shift left]
+      \end{tikzcd}
+\end{equation}
+where
+$\prod \V^{\Aut(\vect C)}$, $\Sym^{G, \mathfrak C}(\V)$ are endowed with the $\F$-model strucutre,
+and $\mathbb F$ denotes the $\mathfrak C$-fiber $\mathbb F^{G, \mathfrak C}$ of the free operad monad from Definition \ref{COLORMON DEF}, \eqref{FGC_EQ}, in Appendix \ref{MONAD_APDX}.
 This transfer will follow much in the same was as in \cite{BP_geo};
-we relegate the technical algebraic discussion of this monad $\mathbb F^G$ to Appendix \ref{MONAD_APDX}.
+we relegate most of the technical algebraic discussion of this monad $\mathbb F$ to Appendix \ref{MONAD_APDX}.
+
+\begin{notation}
+      \label{FD_NOT}
+      For all $\mathfrak C$-signatures $\vect D \in G \ltimes \Sigma_{\mathfrak C}$, we let $\Sigma_{\mathfrak C}[-,\vect D]$ denote the composite
+      \begin{equation}
+            \label{FREESIGMA_EQ}
+            \Sigma_{\mathfrak C}[-, \vect D] \colon
+            \V^{\Aut(\vect D)} \longto \prod_{\vect C \in G \ltimes \Sigma_{\mathfrak C}} \V^{\Aut(\vect C)}_{gen} \longto \Sym^{G, \mathfrak C}(\V),
+            \qquad
+            \Sigma_{\mathfrak C}[K, \vect D](-) = \Hom_{\Sigma_{\mathfrak C}}(-, \vect D) \cdot_\Gamma K.
+      \end{equation}
+      Let $\mathbb F_{\vect D} = \mathbb F \circ \Sigma_{\mathfrak C}[-,\vect D]$ denote the composite of left adjoints.
+      %
+      % ------------------------------ explicit description of first left adjoint ------------------------------
+      % Let $C_\Gamma[X]$ denote the $(G,\mathfrak C_\Gamma)$-symmetric sequence, defined on any signature $C \in G \ltimes \Sigma_{\mathfrak C_\Gamma}^{op}$ to be
+      % \begin{equation}
+      %       C_\Gamma[X](C) =
+      %       \left(\coprod_{(g,\sigma).C_0 = C} (g,\sigma)^{\**}X \right)_{/ H},
+      %       %       \begin{cases}
+      %       %             (g,\sigma)^{\**} X \qquad \qquad & C = (g,\sigma).C_0
+      %       %             \\
+      %       %             \varnothing & \mbox{otherwise,}
+      %       %       \end{cases}
+      % \end{equation}
+      % where the right $H$-action on the disjoint union (when it is non-empty) is defined as follows:
+      % Fix some $(g_0, \sigma_0)$ such that $(g_0,\sigma_0).C_0 = C$.
+      % Then any other such $(g,\sigma)$ is of the form $(g_0 h, \sigma \phi_h)$ where $\Gamma = \Gamma(\phi)$ for $\phi: H \to \Sigma_n$.
+      % The disjoint union can thus be indexed by $H$,
+      % and given $\bar h \in H$ and $(h,a) \in (g_0h,\sigma\phi_h)^{\**}X \subseteq \amalg (g,\sigma)^{\**}X$, we define the right action
+      % \[
+      %       (h,a) \cdot \bar h = \left( \bar h^{-1} h, \left(h^{-1} \bar h h, \phi_h^{-1} \phi_{\bar h} \phi_h\right) \cdot a \right).
+      % \]
+      % It is straightforward to check that this commutes with the (left) diagonal action of $\Aut(C)$ on the coproduct,
+      % does not depend on the choice of $g_0$, 
+      % and furthermore is natural in $C$.
+      % ----------------------------------------------------------------------------------------------------
+\end{notation}
+
+
 % ------------------------------ homotopy stuff ------------------------------
 In the remainder of this section, we will make homotopical conclusions from that work.
 % We end this section by building the first step in our understanding of the homotopical nature of this filtration.
@@ -2423,31 +2471,23 @@ We may now prove our first main theorem.
 \begin{proof}[Proof of Theorem \ref{THM1_C}]
       We follow the proof \cite[Thm. I]{BP_geo}.
 
-      First, we build a ``projective genuine'' model structure, transferred across the composite adjunction below,
-      where $\mathbb F$ denotes $\mathbb F^{G, \mathfrak C}$. 
-      \[
-            \begin{tikzcd}
-                  \displaystyle{\prod_{\vect C \in G \ltimes \Sigma_{\mathfrak C}} \V^{\Aut(\vect C)}_{gen}}
-                  \arrow[r, shift left]
-                  &
-                  \Sym^{G, \mathfrak C}(\V) \arrow[r, shift left, "\mathbb F"] \arrow[l, shift left]
-                  &
-                  \Op^{G, \mathfrak C}(\V) \arrow[l, shift left]
-            \end{tikzcd}
-      \]
+      First, we build a ``projective genuine'' model structure, transferred across the composite adjunction \eqref{OPAUTAJD_EQ}
+      with $\prod \V^{\Aut(\vect C)}_{gen}$ given the levelwise genuine model structure.
+      come back!
+      
       By \cite[Thm. 11.3.2]{Hir03} or \cite[Thm. 2.2.2]{WY18}, it suffices to consider pushouts of the form
       \[
             \begin{tikzcd}
-                  \mathbb F\left(\Hom_{G \ltimes \Sigma_{\mathfrak C}}(-, \vect D)/H \cdot A\right) \arrow[r] \arrow[d]
+                  \mathbb F_{\vect D}[\Aut(\vect D)/\Gamma \cdot K] = \mathbb F\left(\Hom_{G \ltimes \Sigma_{\mathfrak C}}(-, \vect D)/\Gamma \cdot K\right) \arrow[r] \arrow[d]
                   &
                   \O \arrow[d]
                   \\
-                  \mathbb F\left(\Hom_{G \ltimes \Sigma_{\mathfrak C}}(-, \vect D)/H \cdot B\right) \arrow[r]
+                  \mathbb F_{\vect D}[\Aut(\vect D)/\Gamma \cdot L] = \mathbb F\left(\Hom_{G \ltimes \Sigma_{\mathfrak C}}(-, \vect D)/\Gamma \cdot L\right) \arrow[r]
                   &
                   \O[u]
             \end{tikzcd}
       \]
-      for $\vect D \in G \ltimes \Sigma_{\mathfrak C}$, $H \leq \Aut(\vect D)$, and $u \colon A \to B$ a generating (trivial) cofibration in $\V$.
+      for $\vect D \in G \ltimes \Sigma_{\mathfrak C}$, $\Gamma \leq \Aut(\vect D)$, and $u \colon K \to L$ a generating (trivial) cofibration in $\V$.
       Proposition \ref{FILTPUSHG PROP} and Lemma \ref{EXMAINLEM LEM} combine to then say that
       $\O(\vect C) \to \O[u](\vect C)$ is a genuine (trivial) cofibration in $\V^{\Aut(C)}_{gen}$ for all $\vect C \in G \ltimes \Sigma_{\mathfrak C}$
       whenever $\O$ is level genuine cofibrant.
@@ -2667,9 +2707,8 @@ As usual, we let $1_\V$ and $\varnothing$ denote the unit object and initial obj
       with $\I(0,0) = \I(0,1) = \I(1,0) = \I(1,1) = 1_\V$.
 \item Let $\mathbb A$ be the $\V$-category that detects arrows: it has objects $\set{0,1}$,
       with $\mathbb A(0,0) = \mathbb A(0,1) = \mathbb A(1,1) = 1_\V$, and $\mathbb A(1,0) = \varnothing$.
-\item Let $\1$ be the $\V$-category that detects objects: it has a single object $\set{\**}$, with $\1(\**, \**) = 1_\V$
-      \footnote{
-        This notation matches the fact that this category is equal to the image of the ``stick'' tree $\eta \in \Omega$.}.
+\item Let $\1 = \Omega(\eta)$ be the $\V$-category that detects objects: it has a single object $\set{\**}$, with $\1(\**, \**) = 1_\V$.
+      % \footnote{This notation matches the fact that this category is equal to the image of the ``stick'' tree $\eta \in \Omega$.}.
 \end{itemize}
 %\end{definition}
 
@@ -2910,54 +2949,18 @@ and define the $G$-set of colors $\mathfrak C_\Gamma$ and $\mathfrak C_\Gamma$-s
       \qquad
       C_0 = ([[e,e],1],[[e,e],2],\dots,[[e,e],n];[[e,e],0]).
 \]
-% Let $C_0$ denote the $\mathfrak C_\Gamma$-signature $([[e,e],1],[[e,e],2],\dots,[[e,e],n];[[e,e],0])$.
-
-We have a pair of composable free-forgetful adjunctions
-\[
-      \begin{tikzcd}
-            \V^\Gamma \arrow[r, shift left]
-            &
-            \Sym^{G, \mathfrak C_\Gamma}(\V) \arrow[l, shift left, "ev_{C_0}"] \arrow[r, shift left, "\mathbb F^G_{\mathfrak C_\Gamma}"]
-            &
-            \Op^{G, \mathfrak C_\Gamma}(\V) \arrow[l, shift left]
-      \end{tikzcd}
-\]
-where we note that $\Aut_{G \ltimes \Sigma_{\mathfrak C_\Gamma}}(C_0)$ is precisely $\Gamma$.
-Let $\mathbb F_\Gamma$ denote the composite of left adjoints.
-% ----------------------------------------------------------------------------------------------------
-% ------------------------------ explicit description of first left adjoint ------------------------------
-% Let $C_\Gamma[X]$ denote the $(G,\mathfrak C_\Gamma)$-symmetric sequence, defined on any signature $C \in G \ltimes \Sigma_{\mathfrak C_\Gamma}^{op}$ to be
-% \begin{equation}
-%       C_\Gamma[X](C) =
-%       \left(\coprod_{(g,\sigma).C_0 = C} (g,\sigma)^{\**}X \right)_{/ H},
-%       % \begin{cases}
-%       %       (g,\sigma)^{\**} X \qquad \qquad & C = (g,\sigma).C_0
-%       %       \\
-%       %       \varnothing & \mbox{otherwise,}
-%       % \end{cases}
-% \end{equation}
-% where the right $H$-action on the disjoint union (when it is non-empty) is defined as follows:
-% Fix some $(g_0, \sigma_0)$ such that $(g_0,\sigma_0).C_0 = C$.
-% Then any other such $(g,\sigma)$ is of the form $(g_0 h, \sigma \phi_h)$ where $\Gamma = \Gamma(\phi)$ for $\phi: H \to \Sigma_n$.
-% The disjoint union can thus be indexed by $H$,
-% and given $\bar h \in H$ and $(h,a) \in (g_0h,\sigma\phi_h)^{\**}X \subseteq \amalg (g,\sigma)^{\**}X$, we define the right action
-% \[
-%       (h,a) \cdot \bar h = \left( \bar h^{-1} h, \left(h^{-1} \bar h h, \phi_h^{-1} \phi_{\bar h} \phi_h\right) \cdot a \right).
-% \]
-% It is straightforward to check that this commutes with the (left) diagonal action of $\Aut(C)$ on the coproduct,
-% does not depend on the choice of $g_0$, 
-% and furthermore is natural in $C$.
-% ----------------------------------------------------------------------------------------------------
-It is then straightforward that for each $X \in \V^\Gamma$,
-the operad $\mathbb F_\Gamma[X]$ has the universal property that for all $\O \in \Op^G(\V)$,
+Noting that $\Aut_{G \ltimes \Sigma_{\mathfrak C_\Gamma}}(C_0)$ is precisely $\Gamma$,
+following Notation \ref{FD_NOT} let $\mathbb F_\Gamma = \mathbb F_{C_0}$.
+It is then straightforward that for each $K \in \V^\Gamma$,
+the operad $\mathbb F_\Gamma[K]$ has the universal property that for all $\O \in \Op^G(\V)$,
 \begin{equation}
-      \Hom_{\Op^G(\V)}(\mathbb F_\Gamma[X], \O) = \mathop\coprod\limits_{C \in (\mathfrak C_{\O}^{\times n+1})^\Gamma}\Hom_{\V^\Gamma}(X, \O(C)).
+      \Hom_{\Op^G(\V)}(\mathbb F_\Gamma[K], \O) = \mathop\coprod\limits_{C \in (\mathfrak C_{\O}^{\times n+1})^\Gamma}\Hom_{\V^\Gamma}(K, \O(C)).
 \end{equation}
 
 Define $I_{\F,loc}$ and $J_{\F, loc}$ to be the sets
 \begin{equation}
       \label{FGAMMA_EQ}
-      \set{\mathbb F_\Gamma[\Gamma/\Gamma \cdot (A \xrightarrow{i} B)]}_{\Gamma, i}
+      \set{\mathbb F_\Gamma[\Gamma/\Gamma \cdot (K \xrightarrow{i} L)]}_{\Gamma, i}
       \qquad \mbox{ and } \qquad
       \set{\mathbb F_\Gamma[\Gamma/\Gamma \cdot (A \xrightarrow{j} B)]}_{\Gamma,j}
 \end{equation}
@@ -2983,27 +2986,41 @@ where $\1$ defined as in Definition \ref{PL_ES_DEFN}, and $\mathbb{G}$ is a gene
 \begin{example}
       We unpack these definitions with several examples.
       \begin{enumerate}[label = (\roman*)]
-      \item With $n = 0$, we see $\mathbb F_H(\**) = G/H \cdot \eta$ is cofibrant for all $H \leq G$
-      \item When $G = \**$ and $n=1$, so $\Gamma = \**$ and $\mathfrak C_\Gamma = \set{0,1}$, we have
+      \item With $n = 0$, we see $\mathbb F_H[\varnothing] = G/H \cdot \Omega(\eta)$ is cofibrant for all $H \in \mathcal F_0$.
+      \item When $G = \**$ and $n=1$, $\Gamma = \**$ and $\mathfrak C_\Gamma = \set{0,1}$, and moreover
             \[
-                  \mathbb F_{\Gamma}[1_\V] = \mathbb A^{op}, \qquad \mathbb F_{\Gamma}[\varnothing] = \eta \amalg \eta.
+                  \mathbb F_{\Gamma}[1_\V] = \mathbb A^{op} = \Omega(C_1),
+                  \qquad
+                  \mathbb F_{\Gamma}[\varnothing] = \set{0,1} \cdot \Omega(\eta).
             \]
-            More generally, for $G$ finite, $\Gamma = G \leq G \times \Sigma_1$, $\mathfrak C_\Gamma = \set{0,1}$,
-            $\mathbb A_G := \mathbb F_{\Gamma}[1_\V]$ again has only one non-trivial hom object, namely
-            $\mathbb A_G = G \cdot 1_\V$.
-            For $H \leq G$, $\Gamma = H \leq G \times \Sigma_1$, $\mathbb F_{\Gamma}[1_\V] = G \cdot_H \mathbb A_H$.
-            
+            More generally, for $G$ finite, $\Gamma = H \leq G \leq G \times \Sigma_1$, $\mathfrak C_\Gamma = G/H \cdot \set{0,1}$,
+            $\mathbb F_{\Gamma}[1_\V] = \Omega(G/H \cdot C_1)$
+            has a single orbit of non-trivial hom objects.
+            % \[
+            %       \mathbb A_H^{op}((gH,1); (gH,0)) = G/H \cdot 1_\V.
+            % \]
       \item For higher arity operations,
-            if $\Gamma$ happens to be a \textit{graph subgroup}, corresponding to a map $G \geq H \xrightarrow{\alpha} \Sigma_n$, then
+            if $\Gamma \leq G \times \Sigma_n$ is a \textit{graph subgroup}, i.e. the graph of a homomorphism $G \geq H \xrightarrow{\alpha} \Sigma_n$, then
             we have an identification $\mathfrak C_{\Gamma} \simeq G \cdot_H (A_+)$ where $A$ denotes $n$ equipped with the $H$-action provided by $\alpha$.
             Morevover, if $C = C_A \in \Sigma_G$ is the $G$-corolla (unique up to isomorphism) corresponding to the graph subgroup $\Gamma$, then
-            $\Omega(C) = \mathbb F_{\Gamma}(1_\V)$.
-            In particular, $\Omega(C) \in \Op^G(\V)$ is cofibrant for all $C \in \Sigma_G$ via the following factorization.
             \[
-                  \varnothing \to \partial\Omega(C) \xrightarrow{\mathbb F_{\Gamma_C}(\varnothing \to \**)} \Omega(C).
+                  \mathbb F_\Gamma[\varnothing] = \partial\Omega(C) = \coprod_{Ge \in \boldsymbol{E}_G(C)} Ge \cdot \Omega(\eta),
+                  \qquad
+                  \mathbb F_{\Gamma}[1_\V] = \Omega(C),
+                  \qquad
+                  \mathbb F_\Gamma[\Gamma/\Gamma \cdot K] = \Omega(C) \otimes_\Fin K,
+            \]
+            with $K \in \V$ and $\otimes_\Fin$ denotes the $\V$-tensoring from Example \ref{COTENS_EX};
+            in this case, we note that the tensoring is levelwise, with
+            $(\Omega(C) \otimes_\Fin K)(\vect C) = \Omega(C)(\vect C) \otimes K$.            
+            
+            In particular, we conclude that $\Omega(C) \in \Op^G(\V)$ is cofibrant for all $C \in \Sigma_G$ via the following factorization.
+            \[
+                  \varnothing \to \partial\Omega(C) \xrightarrow{\mathbb F_{\Gamma}(\varnothing \to 1_\V)} \Omega(C).
             \]
             \todo[inline]{connect to Definition \ref{OT_DEF}}
-      \item Similarly, $\Omega(T) \in \Op^G(\V)$ is cofibrant for all $T \in \Omega_G$, as we have a pushout in $\Op^G(\V)$
+      \item Similarly, $\Omega(T) \in \Op^G(\V)$ is cofibrant for all $T \in \Omega_G$, as
+            the grafting decompositions $T = C \coprod_{\boldsymbol{E}_G(C)} (T_{Ge})$ induces the following pushout in $\Op^G(\V)$.
             \[
                   \begin{tikzcd}
                         \displaystyle{
@@ -3018,18 +3035,21 @@ where $\1$ defined as in Definition \ref{PL_ES_DEFN}, and $\mathbb{G}$ is a gene
                         &
                         \Omega(T)
                   \end{tikzcd}
-            \]
-            for all grafting decompositions $T = C \coprod_{\boldsymbol{E}_G(C)} (T_{Ge})$.
+            \]            
             \todo[inline]{$\Omega(T)$ is $\mathcal F$-cofibrant iff $T \in \Omega_{\mathcal F}$}
-      \item Finally, we observe that for $\Gamma$ a graph subgroup,
-            the left adjoint to the evaluation map $\Sym^{G, \mathfrak C}(\V)$ on trivial $\Gamma$-sets is easily understood,
-            and hence we have that
-            $\mathbb F_\Gamma(\Gamma/\Gamma \cdot A) = \Omega(C) \odot A$,
-            where $C = C_\Gamma$ is the $G$-corolla corresponding to $\Gamma$
-            and $\odot$ is the simplicial tensoring functor on $\sOp$ from Example \ref{COTENS_EX};
-            in this particular case, we note that this tensoring is levelwise, with $(\Omega(C) \odot A)(\vect C) = \Omega(C)(\vect C) \times A$.
       \end{enumerate}
 \end{example}
+
+\begin{remark}
+      In the case where $\V = \sSet$ equipped with the Kan model structure and $\F = \F^\Gamma$ is the $(G, \Sigma)$-family of graph subgroups,
+      generating cofibrations and trivial cofibrations are given by
+      \[
+            \Omega(C) \otimes_\Fin(\partial \Delta[n] \to \Delta[n]),
+            \qquad
+            \Omega(C) \otimes_\Fin(\Lambda^i[n] \to \Delta[n]),
+      \]
+      for $C \in \Sigma_G$ and $0 \leq i \leq n$.
+\end{remark}
 
 
 \begin{lemma}
