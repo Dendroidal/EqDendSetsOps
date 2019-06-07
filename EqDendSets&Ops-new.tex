@@ -39,7 +39,7 @@ cd,patterns,calc}
 \usepackage{ifdraft}
 \ifdraft{
   \color[RGB]{63,63,63}
-  \pagecolor[RGB]{220,220,204}
+%  \pagecolor[RGB]{220,220,204}
   \usepackage{showkeys}
   \usepackage{geometry}
   \usepackage{todonotes}
@@ -1438,188 +1438,6 @@ Fix a closed symmetric monoidal category $(\V, \otimes)$.
 
 \subsection{Equivariant colored operads}
 
-Fix a finite group $G$.
-
-\begin{convention}
-      \label{G_CONV}
-      We make the following conventions throughout the rest of the paper.
-      \begin{itemize} %{enumerate}[label = (\roman*)]
-      \item We equip $G$ with a fixed total order.
-      \item All $G$-objects will be \textit{left} $G$-objects,
-            and we let $BG$ denote the category which encodes left actions.            
-      \end{itemize}
-\end{convention}
-
-% \begin{remark}
-%       \label{G_GR_REM}
-%       For any (left) $G$-set $A$, the opposite of the Grothendieck construction $(G \ltimes A)^{op}$
-%       on the functor characterizing the $G$-action 
-%       \begin{equation}
-%             G^{op} \longto \Set, \qquad \qquad \** \longmapsto A
-%       \end{equation}
-%       is equal to the \textit{translation category}, often denoted $B_A G$,
-%       where objects are elements of $A$, and arrows $g: a \to b$ with  $b = g a$.
-%       Dually, the standard Grothendieck construction $G \ltimes A$ has arrows
-%       $g: a \to b$ with $a = g b$.
-      
-%       Moreover, if $A$ has a (left) action by $G \times \Sigma$ for another group $\Sigma$, then
-%       iterating either type of Grothendieck construction above is associative and commutative.
-% \end{remark}
-
-\begin{notation}
-      [{cf. \cite{BP_geo}}]
-      Let $\mathsf F^G$ denote the category of finite ordered $G$-sets (see Notation \ref{F_WR_NOT} for our convention on $\mathsf F$).
-      Moreover, let $\mathsf O_G \into \mathsf F^G$ denote the full subcategory of \textit{transitive} $G$-sets.
-      In particular, we note that the orbits $G/H$ are well-defined
-      (using the chosen total order on $G$
-      and the ``minimal representative'' total order on $G/H$).
-\end{notation}
-
-\begin{definition}
-      The category $\Op^G(\V)$ of  \textit{$G$-colored operads} in $\V$ is the category of
-      (left) $G$-objects in $\Op(\V)$.
-\end{definition}
-
-% Unpacking this definition, we see $\O \in \Op^G(\V)$ consists of the following data:
-% \begin{enumerate}[label = (\arabic*)]
-%       \setcounter{enumi}{-1}
-% \item A $G$-set $\mathfrak C$ of colors.
-% \item For each signature $\xi$ of $\mathfrak C$, an object $\O(\xi) \in \V$.
-% \item where $G$ acts on $\mathfrak C^{\times n+1}$ diagonally (across all $n+1$ coordinates), and $\Sigma_n$ acts on the first $n$.
-% \item For each $c \in \mathfrak C$, a \textit{unit} $1_c \in \O(c;c)^{G_c}$.
-% \item For compatible signatures $\xi$, $\xi_1$, $\ldots$, $\xi_n$, \textit{composition maps}
-%       \begin{equation}
-%             \O(\xi) \otimes \O(\xi_1) \otimes \ldots \otimes \O(\xi_n) \to \O(\xi \circ (\xi_i)),
-%       \end{equation}
-% \end{enumerate}
-% such that composition is
-% compatible with the $G$-action on each component as well as the appropriate actions of $\Sigma$,
-% and is unital and associative. 
-
-We would like to unpack this definition, and first do so in general.
-
-% -------------------- Equivariant Grothendieck Constructions --------------------
-
-Suppose $E = (\mathcal D^{op} \ltimes \mathcal C_{(-)})^{op}$ is the contravariant Grothendieck construction on the functor
-\begin{equation}
-      % \begin{tikzcd}[row sep = tiny]
-      %       \mathcal D^{op} \arrow[r]
-      %       &
-      %       \mathsf{Cat}
-      %       \\
-      %       d \arrow[r, mapsto]
-      %       &
-      %       \mathcal C_{d}.
-      % \end{tikzcd}
-      \mathcal D^{op} \longto \Cat,
-      \qquad \qquad
-      d \longmapsto \mathcal C_d.
-\end{equation}
-
-A (left) $G$-action on an element $(d,c_d)$ is given by compatible maps
-$d \xrightarrow{g} d$ and
-$c_d \xrightarrow{g_c} g^{\**}c_d$
-(with the $g_c$ compatible in the sense that
-\begin{equation}
-      \begin{tikzcd}
-            c_d \arrow[r, "g_c"] \arrow[dr, "(h g)_c"']
-            &
-            g^{\**} c_d \arrow[d, "g^{\**} h_c"]
-            \\
-            &
-            (h g)^{\**} c_d
-      \end{tikzcd}
-\end{equation}
-commutes),
-and $G$-maps between such objects
-are pairs of maps $(d \xrightarrow{f} d, c_d \xrightarrow{f_c} f^{\**}c_{d'})$ which commute with the action.
-
-Equivalently, and more concretely,
-an object in $E^G$ is given by a pair $(d, \underline{c}_d)$ where
-$d \in \mathcal D^G$ and
-$\underline{c}_d$ is a $G/e$-indexed diagram
-% \footnote{
-%   We recall that $(G \ltimes (G/e))^{op} = B_{G/e} G$.}
-$E G := G \ltimes (G/e) \to \mathcal C_d$,
-such that $\underline{c}_d(g) = g_{d}^{\**}\underline{c}_d(e)$.
-A $G$-map in this context is given by a pair $(f, \Phi_c)$ where
-$f: d \to d'$ in $\mathcal D^G$ and
-$\Phi: \underline{c}_d \Rightarrow f^{\**}\underline{c}_{d'}: E G \to \mathcal C_d$
-(where we note that $f^{\**}\underline{c}_{d'}$ is a functor since $f$ is a $G$-map).
-
-Put another way, we have the following.
-\begin{lemma}
-      \label{G_GR_LEM}
-      The category of $G$-objects
-      $\left(\mathcal D^{op} \ltimes \mathcal C_{(-)}\right)^{op,G}$
-      is given by the Grothendieck construction on the functor
-      \begin{equation}
-            % \begin{tikzcd}[row sep = tiny]
-            %       \mathcal D^{G,op} \arrow[r]
-            %       &
-            %       \Cat
-            %       \\
-            %       d \arrow[r, mapsto]
-            %       &
-            %       \Fun^{G^{op}}(E G^{op}, \mathcal C_d)
-            % \end{tikzcd}
-            \mathcal D^{G,op} \longrightarrow \Cat,
-            \qquad \qquad
-            d \longmapsto \Fun^{G^{op}}(E G, \mathcal C_d)
-      \end{equation}
-      where $\Fun^{G^{op}}$ denotes the category of $G^{op}$-functors and $G^{op}$-natural transformations.
-\end{lemma}
-\begin{proof}
-      We observe that $EG$ has a natural $G^{op}$-action via the \textit{right} action of $G$ on $G/e$,
-      and $\mathcal C_d$ has a $G^{op}$ action induced by the (left) $G$-action on $d$.
-      The rest follows by unpacking definitions.
-      {\color{OliveGreen}
-        A map $\underline{c}: EG \to \mathcal C_d$ gives elements $c_g$ and maps $(g,h): c_g \to c_{hg}$ such that
-        $(g, kh) = (hg, k) \circ (g, h)$.
-        $x \in G^{op}$ acts on $EG$ by sending $g$ to $g x$ and the map $(g,h)$ to $(g x,h)$,
-        and on $\mathcal C_d$ by sending $c$ to $x^{\**}c$ and $f$ to $x^{\**}f$.
-        Equivariance implies that $c_x = x^{\**}c_e$ and $(x,g) = x^{\**}(e,g)$, finishing the proof.
-      }
-\end{proof}
-
-% ----------------------------------------------------------------------
-
-We apply this result to both $\Sym(\V) = (\mathsf F^{op} \ltimes \Sym^{(-)}(\V))^{op}$ and $\Op(\V) = (\mathsf F^{op} \ltimes \Op^{(-)}(\V))^{op}$.
-
-\begin{definition}
-      For the category $E = \Sym^G(\V) = (\Sym(\V))^G$ of \textit{$G$-symmetric sequences},
-      we note that, for any $G$-set $\mathfrak C$, we have
-      \begin{equation}
-            (E G \times \Sigma_{\mathfrak C}^{op})/G \simeq G \ltimes \Sigma_{\mathfrak C}^{op},
-      \end{equation}
-{\color{red} Note(Luis): Since the chirality of the actions don't match, one should probably replace 
-$(E G \times \Sigma_{\mathfrak C}^{op})/G$ with
-$E G \times_G \Sigma_{\mathfrak C}^{op}$ 
-}
-
-      where $\Sigma_{\mathfrak C}$ inherits a $G$-action from the action on $\mathfrak C$;
-      we refer to this later category
-      \begin{equation}
-            G \ltimes \Sigma_{\mathfrak C}^{op} = \coprod_{n \geq 0}(G \times \Sigma_n^{op}) \ltimes \mathfrak C^{\times n+1}
-      \end{equation}
-      as the \textit{$(G, \mathfrak C)$-symmetric category},
-      and the category $\Sym^{G, \mathfrak C}(\V)$ of functors $X: G \ltimes \Sigma_{\mathfrak C} ^{op}\to \V$
-      the category of \textit{$(G, \mathfrak C)$-symmetric sequences}.
-      % 
-      Then, by adjunction and Lemma \ref{G_GR_LEM}, we have that
-      $\Sym^G(\V)$ is isomorphic to the Grothendieck construction on the functor
-      \begin{equation}
-            \mathsf F^{G,op} \longrightarrow \Cat,
-            \qquad
-            \qquad
-            \mathfrak C \longmapsto \Sym^{G, \mathfrak C}(\V).
-      \end{equation}
-\end{definition}
-
-\begin{remark}
-      When $G = \set{e}$ and $\mathfrak C = \set{*}$, $G \ltimes \Sigma_{\mathfrak C}^{op} = \Sigma^{op}$.
-\end{remark}
-
 
 \begin{example}
       Now, for $E = \Op(\V)$,
@@ -1664,12 +1482,6 @@ $E G \times_G \Sigma_{\mathfrak C}^{op}$
             composition maps $\O(\ksi) \otimes \bigotimes_i \O(\ksi_i) \to \O(\ksi \circ (\ksi_i))$
             which are unital, assocative, $G$-equivariant, and approriately $\Sigma$-equivariant.
       \end{enumerate}
-      
-      From Lemma \ref{G_GR_LEM}, we can see that
-      maps of $G$-operads $\O \to \P$ are given by a pair $(f, F)$ where
-      $f: \mathfrak C(\O) \to \mathfrak C(\P)$ is a map of $G$-sets, and
-      $F: \O \to f^{\**}\P$ is a map in $\Op^{\mathfrak C(\O)}(\V)$ that commutes with the $G$-action
-      (or, equivalently, so that the $g^{\**}F$ assemble into a map of $G$-indexed diagrams).
 \end{example}
 
 As in \eqref{C_CHANGE_EQ}, we in fact have a pair of adjoints
@@ -1690,26 +1502,14 @@ where again only the right adjoint commutes with $\mathsf{fgt}$.
 Each $\Op^{G, \mathfrak C}(\V) \subseteq \Op^G(\V)$
 is hence the subcategory of $\mathfrak C$-colored operads and maps which are the identity on colors.
 
-\begin{lemma}
-      $\Op^G(\V)$ is isomorphic to the Grothendieck construction on the functor
-      \begin{equation}
-            % \begin{tikzcd}[row sep = tiny]
-            %       \mathsf (F^G)^{op} \arrow[r] & \mathsf{Cat}
-            %       \\
-            %       \mathfrak C \arrow[r, mapsto] & \Op^{G,\mathfrak C}(\V).
-            % \end{tikzcd}
-            \mathsf F^{G,op} \longto \Cat,
-            \qquad \qquad
-            \mathfrak C \longmapsto \Op^{G, \mathfrak C}(\V).
-      \end{equation}
-\end{lemma}
+
 
 
 \begin{remark}
       \label{COLOR_SQ_REM}
       We record the following straightforward observations.
       If we are given a map $F: \O_1 \to \O_2$ that is color-fixed,
-      and a square in $\Op^G(\V)$ as in the middle of \ref{COLOR_SQ_EQ}, then
+      and a square in $\Op^G(\V)$ as in the middle of \eqref{COLOR_SQ_EQ}, then
       \begin{enumerate}[label = (\roman*)]
       \item the square in the middle commutes iff the square on the right commutes iff the square on the left commutes, and
       \item the square in the middle is a pushout in $\Op^G(\V)$ iff
@@ -1774,9 +1574,135 @@ is hence the subcategory of $\mathfrak C$-colored operads and maps which are the
 
 
 
+\newpage
+
+
+
+\subsection{Equivariant homotopy theory}
+
+
+
+\begin{definition}\label{FAMGROUPOID DEF}
+Let $\G$ be a groupoid.
+A family of subgroups of $\G$
+is a collection 
+$\mathcal{F} = \left\{\mathcal{F}_x | x\in \G\right\}$
+where each $\F_x$ is itself a collection of subgroups
+$H \leq Aut(x)$ and such that:
+\begin{itemize}
+\item if $H \in \F_x$ and $K \leq H$ then $K \in \mathcal{F}_x$;
+\item if $H \in \mathcal{F}_x$
+then for any arrow $x \xrightarrow{g} x'$
+it is $H^g=g H g^{-1} \in \mathcal{F}_{x'}$.
+\end{itemize}
+\end{definition}
+
+
+
+\begin{remark}
+If $\G$ has a single object, i.e. if $\G$ is a group $G$ regarded as a category with a single object, Definition \ref{FAMGROUPOID DEF} recovers the usual definition of a family of subgroups of $G$ as a collection of subgroups $H\leq G$ closed under inclusion and conjugation.
+
+Moreover, if $\F$ is a family of subgroups of $\G$, each $\F_x$ is a family of subgroups of $Aut(x)$ in the usual sense. 
+In fact, $\mathcal{F}$ is completely determined by a choice of families
+$\F_x$ for $x$ ranging over a set of representatives of the isomorphism classes/components of $\G$.
+\end{remark}
+
+
+\begin{remark}
+One allows for some (or even all) of the $\F_x$ to be empty.
+\end{remark}
+
+
+
+\begin{remark}
+The families of subgroups $\F$ of a groupoid $\G$ 
+form a poset (in fact lattice) under inclusion,
+which we denote $\mathsf{Fam}_{\G}$. 
+
+Given any map of groupoids $\phi\colon \G \to \bar{\G}$
+one obtains a pullback functor
+$\phi^{\**} \colon \mathsf{Fam}_{\bar{\G}} \to \mathsf{Fam}_{\G}$
+defined by
+\[
+\left(\phi^{\**} \bar{\F} \right)_{x}
+=
+\left\{H \leq Aut(x)| \phi(H) \in \bar{\F}_{\phi(x)}\right\}.
+\]
+In fact, one further has adjunctions
+\[
+	\phi_! \colon
+	\mathsf{Fam}_{\G}
+	\rightleftarrows
+	\mathsf{Fam}_{\bar{\G}}
+	\colon \phi^{\**}
+\qquad
+	\phi^{\**} \colon
+	\mathsf{Fam}_{\bar{\G}}
+	\rightleftarrows
+	\mathsf{Fam}_{\G}
+	\colon \phi_{\**}
+\]
+where $\phi_!, \phi_{\**}$ are defined by
+\[
+	\left(\phi_! \F\right)_{\bar{x}}	=
+	\left\{\bar{g}\phi(H)\bar{g}^{-1}|
+	x\in \G,H\in\F_x,\bar{g}\colon \phi(x) \to \bar{x}
+	\right\}
+\]
+\[
+	\left(\phi_{\**} \F\right)_{\bar{x}}	=
+	\left\{\bar{H} \leq Aut(\bar{x})|
+	\forall_{x \in \G, \bar{g} \colon \bar{x} \to \phi(x) }
+	\exists_{H \in \F_x}
+	\bar{g} 	\bar{H} \bar{g}^{-1} = \phi(H) 
+	\right\}
+\]
+\end{remark}
+
+The relevance of the previous remark is given by the following result.
+
+\begin{proposition}
+Let $\phi \colon \G \to \bar{\G}$
+be a map of groupoids and
+$\F,\bar{\F}$ families of subgroups of $\G,\bar{\G}$.
+Then the adjunctions
+\[
+	\phi_! \colon \V^{\G}_{\F}
+	\rightleftarrows
+	\V^{\bar{\G}}_{\bar{\F}} \colon \phi^{\**}
+\qquad
+	\phi^{\**} \colon \V^{\bar{\G}}_{\bar{\F}} 
+	\rightleftarrows
+	\V^{\G}_{\F} \colon \phi_{\**}
+\]
+are Quillen adjunctions iff
+$\F \subseteq \phi^{\**} \bar{\F}$
+in the first case and 
+$\phi^{\**} \bar{\F} \subseteq \F$
+in the second case.
+\end{proposition}
+
+
+
+{\color{red} HERE}
+
+
+\begin{definition}
+
+Given a family of subgroups $\mathcal{F}$ in $G \times \Sigma$,
+one defines a family
+$\mathcal{F}_{\mathfrak{C}}$
+for any $\mathfrak{C} \in \mathsf{F}^G$
+via $\mathcal{F}_{\mathfrak{C}} = \pi^{\**}_{\mathfrak{C}}(\mathcal{F})$
+for $\pi_{\mathfrak{C}} \colon G \ltimes \Sigma_{\mathfrak{C}} \to G \times \Sigma$
+the canonical map.
+\end{definition}
+
+{\color{red} HERE}
+
 
  
-\subsection{The homotopy theory of operads with a fixed color $G$-set}
+\subsection{Homotopy theory of operads with a fixed color $G$-set}
 \label{MSC_SEC}
 
 We begin our analysis of the homotopy theory of equivariant colored operads by
@@ -1805,11 +1731,10 @@ we require that the fixed point functors interact properly with the underlying m
       \end{enumerate}
 \end{definition}
 
-\begin{remark}
-      \label{LEVEL_COF_REM}
-      An immediate consequence of cellularity (cf. the proof of \cite[Prop. 6.3(i)]{BP_geo})
-      is that for any genuine (trivial) cofibration $f \in \V^G_{gen}$,
-      the map $f^H$ is a (trivial) cofibration in $\V$ for all $H \leq G$.
+\begin{remark}\label{LEVEL_COF_REM}
+	An immediate consequence of $\V$ having cellular fixed points (cf. the proof of \cite[Prop. 6.3(i)]{BP_geo})
+	is that for any genuine (trivial) cofibration $f \in \V^G_{gen}$,
+	the map $f^H$ is a (trivial) cofibration in $\V$ for all $H \leq G$.
 \end{remark}
 
 
@@ -1834,7 +1759,7 @@ This result formally extends to diagrams $\V^{\mathcal D}$ where $\mathcal D$ is
 \begin{definition}
       For any groupoid $\mathcal D$, a \textit{family} of subgroups of $\mathcal D$ is
       a collection $\F = \set{\F_d}$ of families of subgroups $\F_d$ of $\Aut(d)$ for all $d \in \mathcal D$,
-      such that for any map $\alpha: d \to d'$, $\alpha^{\**}\F_{d'} \subseteq \F_d$ (or equivalently, equality).
+      such that for any map $\alpha: d \to d'$, $\alpha^{\**}\F_{d'} = \F_d$.
 \end{definition}
 
 \begin{proposition}\label{TRANS_MODEL_PROP}
@@ -6746,21 +6671,6 @@ Corollary \ref{ISODIFCL COR}.
 \subsection{Previous discussion (to be refactored)}
 
 
-Given a set $\mathfrak{C}$ of colors,
-write $\Sigma_{\mathfrak{C}}$ for the groupoid of corollas with edges labeled by colors in $\mathfrak{C}$.
-
-If, in addition, $\mathfrak{C}$ is a $G$-set, 
-we write $G \ltimes \Sigma_{\mathfrak{C}}^{op}$ for the larger groupoid obtained via the associated Grothendieck construction.
-
-
-
-Writing
-$\mathsf{Sym}^{G,\mathfrak{C}} = 
-\mathsf{Set}^{G \ltimes \Sigma_{\mathfrak{C}}^{op}}$,
-we have a natural monad $\mathbb{F}$ on
-$\mathsf{Sym}^{G,\mathfrak{C}}$
-whose algebra category we denote by 
-$\mathsf{Op}^{G,\mathfrak{C}}$.
 
 
 \begin{notation}

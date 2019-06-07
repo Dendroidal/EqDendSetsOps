@@ -130,6 +130,355 @@ cf.  }
 
 
 
+
+\subsection{Equivariant colored operads}
+
+Fix a finite group $G$.
+
+\begin{convention}
+      \label{G_CONV}
+      We make the following conventions throughout the rest of the paper.
+      \begin{itemize} %{enumerate}[label = (\roman*)]
+      \item We equip $G$ with a fixed total order.
+      \item All $G$-objects will be \textit{left} $G$-objects,
+            and we let $BG$ denote the category which encodes left actions.            
+      \end{itemize}
+\end{convention}
+
+% \begin{remark}
+%       \label{G_GR_REM}
+%       For any (left) $G$-set $A$, the opposite of the Grothendieck construction $(G \ltimes A)^{op}$
+%       on the functor characterizing the $G$-action 
+%       \begin{equation}
+%             G^{op} \longto \Set, \qquad \qquad \** \longmapsto A
+%       \end{equation}
+%       is equal to the \textit{translation category}, often denoted $B_A G$,
+%       where objects are elements of $A$, and arrows $g: a \to b$ with  $b = g a$.
+%       Dually, the standard Grothendieck construction $G \ltimes A$ has arrows
+%       $g: a \to b$ with $a = g b$.
+      
+%       Moreover, if $A$ has a (left) action by $G \times \Sigma$ for another group $\Sigma$, then
+%       iterating either type of Grothendieck construction above is associative and commutative.
+% \end{remark}
+
+\begin{notation}
+      [{cf. \cite{BP_geo}}]
+      Let $\mathsf F^G$ denote the category of finite ordered $G$-sets (see Notation \ref{F_WR_NOT} for our convention on $\mathsf F$).
+      Moreover, let $\mathsf O_G \into \mathsf F^G$ denote the full subcategory of \textit{transitive} $G$-sets.
+      In particular, we note that the orbits $G/H$ are well-defined
+      (using the chosen total order on $G$
+      and the ``minimal representative'' total order on $G/H$).
+\end{notation}
+
+\begin{definition}
+      The category $\Op^G(\V)$ of  \textit{$G$-colored operads} in $\V$ is the category of
+      (left) $G$-objects in $\Op(\V)$.
+\end{definition}
+
+% Unpacking this definition, we see $\O \in \Op^G(\V)$ consists of the following data:
+% \begin{enumerate}[label = (\arabic*)]
+%       \setcounter{enumi}{-1}
+% \item A $G$-set $\mathfrak C$ of colors.
+% \item For each signature $\xi$ of $\mathfrak C$, an object $\O(\xi) \in \V$.
+% \item where $G$ acts on $\mathfrak C^{\times n+1}$ diagonally (across all $n+1$ coordinates), and $\Sigma_n$ acts on the first $n$.
+% \item For each $c \in \mathfrak C$, a \textit{unit} $1_c \in \O(c;c)^{G_c}$.
+% \item For compatible signatures $\xi$, $\xi_1$, $\ldots$, $\xi_n$, \textit{composition maps}
+%       \begin{equation}
+%             \O(\xi) \otimes \O(\xi_1) \otimes \ldots \otimes \O(\xi_n) \to \O(\xi \circ (\xi_i)),
+%       \end{equation}
+% \end{enumerate}
+% such that composition is
+% compatible with the $G$-action on each component as well as the appropriate actions of $\Sigma$,
+% and is unital and associative. 
+
+We would like to unpack this definition, and first do so in general.
+
+% -------------------- Equivariant Grothendieck Constructions --------------------
+
+Suppose $E = (\mathcal D^{op} \ltimes \mathcal C_{(-)})^{op}$ is the contravariant Grothendieck construction on the functor
+\begin{equation}
+      % \begin{tikzcd}[row sep = tiny]
+      %       \mathcal D^{op} \arrow[r]
+      %       &
+      %       \mathsf{Cat}
+      %       \\
+      %       d \arrow[r, mapsto]
+      %       &
+      %       \mathcal C_{d}.
+      % \end{tikzcd}
+      \mathcal D^{op} \longto \Cat,
+      \qquad \qquad
+      d \longmapsto \mathcal C_d.
+\end{equation}
+
+A (left) $G$-action on an element $(d,c_d)$ is given by compatible maps
+$d \xrightarrow{g} d$ and
+$c_d \xrightarrow{g_c} g^{\**}c_d$
+(with the $g_c$ compatible in the sense that
+\begin{equation}
+      \begin{tikzcd}
+            c_d \arrow[r, "g_c"] \arrow[dr, "(h g)_c"']
+            &
+            g^{\**} c_d \arrow[d, "g^{\**} h_c"]
+            \\
+            &
+            (h g)^{\**} c_d
+      \end{tikzcd}
+\end{equation}
+commutes),
+and $G$-maps between such objects
+are pairs of maps $(d \xrightarrow{f} d, c_d \xrightarrow{f_c} f^{\**}c_{d'})$ which commute with the action.
+
+Equivalently, and more concretely,
+an object in $E^G$ is given by a pair $(d, \underline{c}_d)$ where
+$d \in \mathcal D^G$ and
+$\underline{c}_d$ is a $G/e$-indexed diagram
+% \footnote{
+%   We recall that $(G \ltimes (G/e))^{op} = B_{G/e} G$.}
+$E G := G \ltimes (G/e) \to \mathcal C_d$,
+such that $\underline{c}_d(g) = g_{d}^{\**}\underline{c}_d(e)$.
+A $G$-map in this context is given by a pair $(f, \Phi_c)$ where
+$f: d \to d'$ in $\mathcal D^G$ and
+$\Phi: \underline{c}_d \Rightarrow f^{\**}\underline{c}_{d'}: E G \to \mathcal C_d$
+(where we note that $f^{\**}\underline{c}_{d'}$ is a functor since $f$ is a $G$-map).
+
+Put another way, we have the following.
+\begin{lemma}
+      \label{G_GR_LEM}
+      The category of $G$-objects
+      $\left(\mathcal D^{op} \ltimes \mathcal C_{(-)}\right)^{op,G}$
+      is given by the Grothendieck construction on the functor
+      \begin{equation}
+            % \begin{tikzcd}[row sep = tiny]
+            %       \mathcal D^{G,op} \arrow[r]
+            %       &
+            %       \Cat
+            %       \\
+            %       d \arrow[r, mapsto]
+            %       &
+            %       \Fun^{G^{op}}(E G^{op}, \mathcal C_d)
+            % \end{tikzcd}
+            \mathcal D^{G,op} \longrightarrow \Cat,
+            \qquad \qquad
+            d \longmapsto \Fun^{G^{op}}(E G, \mathcal C_d)
+      \end{equation}
+      where $\Fun^{G^{op}}$ denotes the category of $G^{op}$-functors and $G^{op}$-natural transformations.
+\end{lemma}
+\begin{proof}
+      We observe that $EG$ has a natural $G^{op}$-action via the \textit{right} action of $G$ on $G/e$,
+      and $\mathcal C_d$ has a $G^{op}$ action induced by the (left) $G$-action on $d$.
+      The rest follows by unpacking definitions.
+      {\color{OliveGreen}
+        A map $\underline{c}: EG \to \mathcal C_d$ gives elements $c_g$ and maps $(g,h): c_g \to c_{hg}$ such that
+        $(g, kh) = (hg, k) \circ (g, h)$.
+        $x \in G^{op}$ acts on $EG$ by sending $g$ to $g x$ and the map $(g,h)$ to $(g x,h)$,
+        and on $\mathcal C_d$ by sending $c$ to $x^{\**}c$ and $f$ to $x^{\**}f$.
+        Equivariance implies that $c_x = x^{\**}c_e$ and $(x,g) = x^{\**}(e,g)$, finishing the proof.
+      }
+\end{proof}
+
+% ----------------------------------------------------------------------
+
+We apply this result to both $\Sym(\V) = (\mathsf F^{op} \ltimes \Sym^{(-)}(\V))^{op}$ and $\Op(\V) = (\mathsf F^{op} \ltimes \Op^{(-)}(\V))^{op}$.
+
+\begin{definition}
+      For the category $E = \Sym^G(\V) = (\Sym(\V))^G$ of \textit{$G$-symmetric sequences},
+      we note that, for any $G$-set $\mathfrak C$, we have
+      \begin{equation}
+            (E G \times \Sigma_{\mathfrak C}^{op})/G \simeq G \ltimes \Sigma_{\mathfrak C}^{op},
+      \end{equation}
+{\color{red} Note(Luis): Since the chirality of the actions don't match, one should probably replace 
+$(E G \times \Sigma_{\mathfrak C}^{op})/G$ with
+$E G \times_G \Sigma_{\mathfrak C}^{op}$ 
+}
+
+      where $\Sigma_{\mathfrak C}$ inherits a $G$-action from the action on $\mathfrak C$;
+      we refer to this later category
+      \begin{equation}
+            G \ltimes \Sigma_{\mathfrak C}^{op} = \coprod_{n \geq 0}(G \times \Sigma_n^{op}) \ltimes \mathfrak C^{\times n+1}
+      \end{equation}
+      as the \textit{$(G, \mathfrak C)$-symmetric category},
+      and the category $\Sym^{G, \mathfrak C}(\V)$ of functors $X: G \ltimes \Sigma_{\mathfrak C} ^{op}\to \V$
+      the category of \textit{$(G, \mathfrak C)$-symmetric sequences}.
+      % 
+      Then, by adjunction and Lemma \ref{G_GR_LEM}, we have that
+      $\Sym^G(\V)$ is isomorphic to the Grothendieck construction on the functor
+      \begin{equation}
+            \mathsf F^{G,op} \longrightarrow \Cat,
+            \qquad
+            \qquad
+            \mathfrak C \longmapsto \Sym^{G, \mathfrak C}(\V).
+      \end{equation}
+\end{definition}
+
+\begin{remark}
+      When $G = \set{e}$ and $\mathfrak C = \set{*}$, $G \ltimes \Sigma_{\mathfrak C}^{op} = \Sigma^{op}$.
+\end{remark}
+
+
+
+
+
+
+\begin{example}
+      Now, for $E = \Op(\V)$,
+      we see that an object $\O \in \Op^G(\V)$ consists of
+      a $G$-set $\mathfrak C = \mathfrak C_\O$ of colors, and a compatible $G/e$-indexed diagram of $\mathfrak C$-colored operads;
+      in particular, $\O$ has an underlying object in $\Sym^G(\V)$
+      (i.e., satisfying items $(0)$ through $(2)$ below)
+      by composition with the forgetful functor $\Op^{\mathfrak C}(\V) \to \Sym^{\mathfrak C}(\V)$.
+      % 
+      Explicitly, an object $\O \in \Fun^{G^{op}}(E G, \Op^{\mathfrak C}(\V)) =: \Op^{G, \mathfrak C}(\V)$
+      is given by the following data:
+      \begin{enumerate}[label = (\arabic*), start = 0]
+      \item A $G$-set $\mathfrak C = \mathfrak C_{\O}$ of colors.
+      \item For each $\mathfrak C$-signature $\ksi$, an object $\O(\ksi) \in \V$.
+      \item \label{SACTION_LBL}
+            For all signatures $\ksi \in \mathfrak C^{\times n + 1}$ and $\sigma \in \Sigma_n$,
+            maps $\O(\ksi) \to \O(\sigma \cdot \ksi)$
+            which are unital and associative.
+      \item \label{GUNIT_LBL} 
+            For each $c \in \mathfrak{C}$, a \textit{unit} $1_c \in \O(c;c)$.
+      \item \label{COMP_LBL}
+            For all compatible signatures $\ksi, \ksi_1,\dots, \ksi_n$,
+            \textit{composition maps} $\O(\ksi) \otimes \O(\ksi_1) \otimes \dots \otimes \O(\ksi_n) \to \O(\ksi \circ (\ksi_i))$
+            which are unital, associative, and appropriately $\Sigma$-equivariant
+      \item \label{GACTION_LBL}
+            For all $g \in G$, maps $\O(\ksi) \to g^{\**}\O(\ksi) = \O(g \cdot \ksi)$
+            (with $G$ acting on $\mathfrak C^{\times n+1}$ diagonally)
+            which are unital and associative, and which commute with the composition maps
+            (note that if $\ksi, (\ksi_i)$ are compatible, then so are $g \ksi, (g \ksi_i)$).
+      \end{enumerate}
+      Synthesizing, we may combine \ref{SACTION_LBL} and \ref{GACTION_LBL} into
+      \begin{enumerate}
+      \item[($2'$)] For all signatures $\xi \in \mathfrak C^{\times n+1}$ and $(g,\sigma) \in G\times \Sigma_n$, maps
+            $\O(\xi) \to \O((g,\sigma)\cdot \xi)$
+            which are unital and associative.
+      \end{enumerate}
+      
+      and replace \ref{GUNIT_LBL} and \ref{COMP_LBL} with
+      \begin{enumerate}
+      \item[($3'$)] For each $c \in \mathfrak C$, a $G_c$-fixed unit $1_c \in \O(c;c)^{G_c}$.
+      \item[($4'$)] For all compatible signatures $\ksi, (\ksi_i)$,
+            composition maps $\O(\ksi) \otimes \bigotimes_i \O(\ksi_i) \to \O(\ksi \circ (\ksi_i))$
+            which are unital, assocative, $G$-equivariant, and approriately $\Sigma$-equivariant.
+      \end{enumerate}
+      
+      From Lemma \ref{G_GR_LEM}, we can see that
+      maps of $G$-operads $\O \to \P$ are given by a pair $(f, F)$ where
+      $f: \mathfrak C(\O) \to \mathfrak C(\P)$ is a map of $G$-sets, and
+      $F: \O \to f^{\**}\P$ is a map in $\Op^{\mathfrak C(\O)}(\V)$ that commutes with the $G$-action
+      (or, equivalently, so that the $g^{\**}F$ assemble into a map of $G$-indexed diagrams).
+\end{example}
+
+As in \eqref{C_CHANGE_EQ}, we in fact have a pair of adjoints
+\begin{equation}
+      \label{GC_CHANGE_EQ}
+      \begin{tikzcd}
+            \Op^{G, \mathfrak C'}(\V) \arrow[r, shift right, "F^{\**}"'] \arrow[d, "\mathsf{fgt}"']
+            &
+            \Op^{G, \mathfrak C}(\V) \arrow[l, shift right, "F_!"'] \arrow[d, "\mathsf{fgt}"]
+            \\
+            \Sym^{G, \mathfrak C'}(\V) \arrow[r, shift right, "F^{\**}"']
+            &
+            \Sym^{G, \mathfrak C}(\V) \arrow[l, shift right, "F_{!!}"'].
+      \end{tikzcd}
+\end{equation}
+where again only the right adjoint commutes with $\mathsf{fgt}$. 
+%
+Each $\Op^{G, \mathfrak C}(\V) \subseteq \Op^G(\V)$
+is hence the subcategory of $\mathfrak C$-colored operads and maps which are the identity on colors.
+
+\begin{lemma}
+      $\Op^G(\V)$ is isomorphic to the Grothendieck construction on the functor
+      \begin{equation}
+            % \begin{tikzcd}[row sep = tiny]
+            %       \mathsf (F^G)^{op} \arrow[r] & \mathsf{Cat}
+            %       \\
+            %       \mathfrak C \arrow[r, mapsto] & \Op^{G,\mathfrak C}(\V).
+            % \end{tikzcd}
+            \mathsf F^{G,op} \longto \Cat,
+            \qquad \qquad
+            \mathfrak C \longmapsto \Op^{G, \mathfrak C}(\V).
+      \end{equation}
+\end{lemma}
+
+
+\begin{remark}
+      \label{COLOR_SQ_REM}
+      We record the following straightforward observations.
+      If we are given a map $F: \O_1 \to \O_2$ that is color-fixed,
+      and a square in $\Op^G(\V)$ as in the middle of \ref{COLOR_SQ_EQ}, then
+      \begin{enumerate}[label = (\roman*)]
+      \item the square in the middle commutes iff the square on the right commutes iff the square on the left commutes, and
+      \item the square in the middle is a pushout in $\Op^G(\V)$ iff
+            the square on the left is a pushout in $\Op^{G, \mathfrak C_{\P_1}}(\V)$.
+      \end{enumerate}
+      % a commuting square (resp. lifting diagram, pullback, pushout) as in the middle below is
+      % equivalent to such squares on the left and right.
+      \begin{equation}
+            \label{COLOR_SQ_EQ}
+            \begin{tikzcd}
+                  a_! \O_1 \arrow[d, "a_! F"'] \arrow[r, "a"]
+                  &
+                  \P_1 \arrow[d, "p"]
+                  &&
+                  \O_1 \arrow[d, "F"'] \arrow[r, "a"]
+                  &
+                  \P_1 \arrow[d, "p"]
+                  &&
+                  \O_1 \arrow[d, "F"'] \arrow[r, "a"]
+                  &
+                  a^{\**} \P_1 \arrow[d]
+                  \\
+                  a_! \O_2 \arrow[r]
+                  &
+                  \P_2
+                  &&
+                  \O_2 \arrow[r]
+                  &
+                  \P
+                  &&
+                  \O_2 \arrow[r]
+                  &
+                  a^{\**} p^{\**} \P
+            \end{tikzcd}
+      \end{equation}
+\end{remark}
+
+\begin{remark}
+      We also have a inclusion-forgetful adjunction
+      \begin{equation}
+            \label{JSTAR_CAT_EQ}
+            \begin{tikzcd}
+                  \Op^{G, \mathfrak C}(\V) \arrow[r, shift right, "j^{\**}"'] \arrow[d, "{(-)^H}"']
+                  &
+                  \Cat^{G, \mathfrak C}(\V) \arrow[l, shift right, "j_!"'] \arrow[d, "{(-)^H}"']
+                  \\
+                  \Op^{\mathfrak C^H}(\V)  \arrow[r, shift right, "j^{\**}"']
+                  &
+                  \Cat^{\mathfrak C^H}(\V) \arrow[l, shift right, "j_!"']
+            \end{tikzcd}
+      \end{equation}
+      such that $j^{\**}$ commutes with taking $H$-fixed points.
+\end{remark}
+
+
+\begin{remark}
+	Unlike in the single-colored case, $\Op^G(\V)$ does \textit{not} coincide with the category of colored operads in $\V^G$.
+	Indeed, objects in $\Op(\V^G)$ have a fixed $G$-set of colors,
+        and each level $\O(\xi)$ has an action by the full group $G$
+	(though only a partial action by $\Sigma_{|\xi|}$).
+\end{remark}
+
+
+
+
+
+
+
+
+
 \subsection{Colored trees and a monadic description of equivariant operads}
 \label{COMEGA_SEC}
 
