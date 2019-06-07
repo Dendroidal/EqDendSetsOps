@@ -1,0 +1,260 @@
+\documentclass[a4paper,10pt
+%,draft
+%, final
+]{article}%
+
+\pdfcompresslevel=0
+\pdfobjcompresslevel=0
+
+\usepackage[hidelinks]{hyperref}
+\hypersetup{
+  % colorlinks,
+  final,
+  pdftitle={Equivariant Dendroidal Segal Spaces},
+  pdfauthor={Bonventre, P. and Pereira, L. A.},
+  % pdfsubject={Your subject here},
+  % pdfkeywords={keyword1, keyword2},
+  linktoc=page
+}
+%\usepackage[open=false]{bookmark}
+
+\input{commands.tex}%
+
+
+%-------- Tikz ---------------------------
+
+\usepackage{tikz}%
+\usetikzlibrary{matrix,arrows,decorations.pathmorphing,
+cd,patterns,calc}
+\tikzset{%
+  treenode/.style = {shape=rectangle, rounded corners,%
+                     draw, align=center,%
+                     top color=white, bottom color=blue!20},%
+  root/.style     = {treenode, font=\Large, bottom color=red!30},%
+  env/.style      = {treenode, font=\ttfamily\normalsize},%
+  dummy/.style    = {circle,draw,inner sep=0pt,minimum size=2mm}%
+}%
+
+\usetikzlibrary[decorations.pathreplacing]
+
+
+
+% ---- Commands on draft --------
+
+\usepackage{ifdraft}
+\ifdraft{
+  \color[RGB]{63,63,63}
+  % \pagecolor[rgb]{0.5,0.5,0.5}
+  \pagecolor[RGB]{220,220,204}
+  % \color[rgb]{1,1,1}
+}
+
+
+\usepackage[draft]{showkeys}
+\usepackage{todonotes}%[obeyDraft]
+
+
+% ----- Labels Changed? --------
+
+\makeatletter
+
+\def\@testdef #1#2#3{%
+  \def\reserved@a{#3}\expandafter \ifx \csname #1@#2\endcsname
+  \reserved@a  \else
+  \typeout{^^Jlabel #2 changed:^^J%
+    \meaning\reserved@a^^J%
+    \expandafter\meaning\csname #1@#2\endcsname^^J}%
+  \@tempswatrue \fi}
+
+\makeatother
+
+
+% ---- Commands --------
+
+% new symbols
+
+\newcommand{\mycircled}[2][none]{%
+  \mathbin{
+    \tikz[baseline=(a.base)]\node[draw,circle,inner sep=-1.5pt, outer sep=0pt,fill=#1](a){\ensuremath #2\strut};
+cf.  }
+}
+\newcommand{\owr}{\mycircled{\wr}}
+
+% replace symbols
+
+\renewcommand{\hat}{\widehat}
+
+% random
+
+\renewcommand{\F}{\mathcal F}
+\newcommand{\Q}{\mathcal Q}
+
+\newcommand{\lltimes}{\underline{\ltimes}}
+
+
+% detecting $\V$-categories:
+
+\newcommand{\I}{\mathbb I}
+\newcommand{\J}{\mathbb J}
+\renewcommand{\1}{\eta}%{\ensuremath{\mathbb{id}}}
+
+% lazy shortcuts
+
+\newcommand{\SC}{\Sigma_{\mathfrak C}}
+\newcommand{\OC}{\Omega_{\mathfrak C}}
+
+\newcommand{\UV}{\underline{\mathcal V}}
+\newcommand{\UC}{\underline{\mathfrak C}}
+
+
+% ---- Title --------
+
+\title{Equivariant Segal operads, simplicial operads, and dendroidal sets}
+
+\author{Peter Bonventre, Lu\'is A. Pereira}%
+
+\date{\today}
+
+
+% ---- Document body --------
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+      Things and stuff
+\end{abstract}
+
+\tableofcontents
+
+
+
+\subsection{Notes on the canonical model structure on $\mathsf{Op}_G$}
+
+The following are some notes on the canonical model structure on the category $\mathsf{Op}_G$
+of genuine equivariant operads of sets,
+adapting \cite[Thm. 1.2]{CM13b}
+(and motivated by trying to understand the analogue of 
+\cite[Thm. 6.14]{CM13b}).
+
+
+In the result below we intrinsically describe a genuine equivariant operad via its nerve, i.e. we regard
+$\mathsf{Op}_G \subset \mathsf{dSet}_G$
+as the subcategory of objects satisfying the strict Segal condition.
+
+Moreover, we write
+$\iota^{\**} \colon \mathsf{dSet} \to \mathsf{sSet}$
+for the standard forgetful functor.
+
+Using the abbreviation 
+$\Omega_G[T] = \upsilon_{\**} \Omega[T]$ for $T \in \Omega_G$
+and similarly writing 
+$\partial \Omega_G[T] = \upsilon_{\**} \partial \Omega[T]$,
+a signature on a genuine equivariant operad $X$
+is then a point 
+$\xi \in 
+\mathsf{dSet}_G\left(\partial \Omega_G[C],X\right)$
+for some corolla
+$C \in \Sigma_G$
+and we define the mapping set $X(\xi)$
+to be the fiber
+\[
+\begin{tikzcd}[column sep=50pt]
+	X(\xi) \ar{r} \ar{d}&
+	X(C) \ar{d}
+\\
+	\** 
+	\ar{r}[swap]{\xi} &
+	\mathsf{dSet}_G\left(\partial \Omega_G[C],X\right)
+\end{tikzcd}
+\]
+
+
+
+\begin{theorem}
+The category $\mathsf{Op}_G$ has a model structure such that a map
+$f \colon X \to Y$ is
+\begin{itemize}
+\item a cofibration if it is injective on objects, i.e. 
+the maps 
+$X(G/H\cdot \eta) \to Y(G/H\cdot \eta),H\leq G$
+are all monomorphisms, and, furthermore, the squares
+\begin{equation}\label{EXTRACOND EQ}
+\begin{tikzcd}[column sep=50pt]
+	X(G/H\cdot \eta) \ar{r} \ar{d}&
+	X(G \cdot \eta)^H \ar{d}
+\\
+	Y(G/H\cdot \eta)
+	\ar{r} &
+	Y(G \cdot \eta)^H
+\end{tikzcd}
+\end{equation}
+are pushout squares.
+\item a weak equivalence if it is fully faithful,
+i.e. the maps $X(\xi) \to Y(f(\xi))$ are isomorphisms for all signatures $\xi$,
+and essentially surjective, i.e. the maps
+$\iota^{\**}(X^H) \to \iota^{\**}(Y^H), H \leq G$
+are fully faithful maps of (nerves of) categories
+\item a fibration if the maps
+$\iota^{\**}(X^H) \to \iota^{\**}(Y^H)$
+are isofibrations, i.e. if they have the right lifting property against the map
+$\{0\} \to J$,
+where $J$ is the free standing isomorphism category 
+(equivalently, the contractible groupoid on two points).
+\end{itemize}
+Moreover, the generating cofibrations are given by the maps of the form
+\begin{itemize}
+\item[(C1)] $\emptyset \to G/H \cdot \eta$ for $H \leq G$;
+\item[(C2)] $\Omega_G(C) \otimes_{\mathsf{F}^G} (\emptyset \to \**)$
+for $G \in \Sigma_G$;
+\item[(C3)] $\Omega_G(C) \otimes_{\mathsf{F}^G} (\** \amalg \** \to \**)$
+for $G \in \Sigma_G$;
+\end{itemize}
+while the generating trivial cofibrations are given by the maps
+
+$G/H \cdot (\{0\} \to J)$ for $H\leq G$.
+\end{theorem}
+
+
+\begin{remark}
+Because the objects of a genuine equivariant operad are a coefficient system of \emph{sets},
+the cofibration condition can be restated as saying that there is a decomposition of coefficient systems
+\[
+Y(G/\bullet \cdot \eta) \simeq 
+X(G/\bullet \cdot \eta) \amalg Z(G/\bullet \cdot \eta)
+\]
+such that $Z(G/\bullet \cdot \eta) \simeq \upsilon_{\**} \bar{Z}$ for some $G$-set $\bar{Z}$.
+\end{remark}
+
+
+\begin{remark}
+To see that the generating cofibrations indeed generate the claimed cofibrations, note first that the given cofibrations are closed under saturation, 
+and it is straightforward to check that the generating cofibrations satisfy the given cofibration condition.
+
+Moreover, given any map $X \to Y$ satisfying the cofibration condition,
+one can for a factorization
+$X \to X \amalg \upsilon_{\**}\bar{Z} \to Y$
+where the first map simply adds colors and the second map is an isomorphism on colors.
+But clearly the first map is built out of (C1) maps, and the fact that the second map is built out of (C2),(C3) maps follows since the color fixed maps having the RLP against (C2),(C3) are precisely the maps which induce set isomorphisms on all signatures, i.e., the isomorphisms in the fixed point subcategory.
+\end{remark}
+
+
+
+
+
+
+
+
+\bibliography{biblio-new}{}
+\bibliographystyle{amsalpha2}
+
+
+
+\end{document}
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

@@ -40,7 +40,7 @@ cd,patterns,calc}
 \usepackage{ifdraft}
 \ifdraft{
   \color[RGB]{63,63,63}
-  \pagecolor[RGB]{220,220,204}
+%  \pagecolor[RGB]{220,220,204}
   \usepackage{showkeys}
 }
 {
@@ -1354,8 +1354,7 @@ Fix a closed symmetric monoidal category $(\V, \otimes)$.
 
 \begin{definition}
       A \textit{$\mathfrak C$-colored operad} in $\V$ 
-      is a $\mathfrak C$-symmetric sequence $\O$ along with appropriate composition laws \footnote{
-        (Colored) operads are also known as \textit{symmetric multicategories}.}.
+      is a $\mathfrak C$-symmetric sequence $\O$ along with appropriate composition laws.
       Explicitly, this consists of the following data:
       \begin{itemize} %{enumerate}[label = (\arabic*)]
       \item An object $\O(\ksi) \in \V$ for each signature $\ksi$.
@@ -1385,7 +1384,6 @@ Fix a closed symmetric monoidal category $(\V, \otimes)$.
 \begin{remark}
       There is a natural monad $\mathbb F^{\mathfrak C}$ on $\Sym^{\mathfrak C}(\V)$ such that
       the category of $\mathbb F^{\mathfrak C}$-algebras is precisely $\Op^{\mathfrak C}(\V)$.
-      This monad will be explored more (especially in the equivariant context) in Section \ref{COMEGA_SEC}.
 \end{remark}
 
 \begin{definition}
@@ -1411,19 +1409,6 @@ Fix a closed symmetric monoidal category $(\V, \otimes)$.
       \end{equation}
       where we highlight that $F^{\**}$ commutes with $\mathsf{fgt}$, but the left adjoint does not.
 
-      We let $\Sym(\V) = \left(\mathsf F^{op} \ltimes \Sym^{(-)}(\V)\right)^{op}$ and $\Op(\V) = \left(\mathsf F^{op} \ltimes \Op^{(-)}(\V)\right)^{op}$
-      denote the categories of
-      \textit{(colored) symmetric sequences} and \textit{(colored) operads}
-      defined by the Grothendieck constructions on the functors
-      \begin{align*}
-        \mathsf F^{op} \longrightarrow \Cat,
-        \qquad \qquad
-        &
-          \mathfrak C \longmapsto \Sym^{\mathfrak C}(\V)
-          \mbox{ or }
-          \mathfrak C \longmapsto \Op^{\mathfrak C}(\V).
-      \end{align*}
-      
       Explicitly, a map of sequences (resp. operads) $X \to Y$ is given by a map of colors
       $F: \mathfrak C(X) \to \mathfrak C(Y)$
       and a map of $\mathfrak C(X)$-colored sequences (operads)
@@ -1433,7 +1418,7 @@ Fix a closed symmetric monoidal category $(\V, \otimes)$.
 
 \subsection{Equivariant colored operads}
 
-Now and forever, fix a finite group $G$.
+Fix a finite group $G$.
 
 \begin{convention}
       \label{G_CONV}
@@ -1768,382 +1753,6 @@ is hence the subcategory of $\mathfrak C$-colored operads and maps which are the
 \end{remark}
 
 
-
-\subsection{Colored trees and a monadic description of equivariant operads}
-\label{COMEGA_SEC}
-
-\todo[inline]{merge with Luis / provide more introduction to these categories}
-
-We would like a more algebraic description of equivariant colored operads.
-To do so, we investigate $\SC$ and $G \ltimes \Sigma_{\mathfrak C}^{op}$ and related categories,
-leading to a monad on $\Sym^{\G, \mathfrak C}(\V)$ which defines $\Op^{G, \mathfrak C}(\V)$.
-
-% \begin{remark}
-%       As a warning, recall Convention \ref{G_CONV} about the chirality of the action of groups and their associated categories.
-% \end{remark}
-
-\begin{remark}
-      For much of this section, $\mathsf F$ will often denote not just $\mathsf F$ itself, but also any of the subcategories
-      $\Sigma$, $\mathsf F_i$, or $\mathsf F_s$.
-      We will specify precisely when one of the categories is needed.
-\end{remark}
-
-\begin{definition}
-      Given a category $\mathcal C$ over $\mathsf F$, let $\mathcal C_{\mathfrak C}$ denote the pullback
-      \begin{equation}
-            \begin{tikzcd}
-                  \mathcal C_{\mathfrak C} \arrow[r] \arrow[d]
-                  &
-                  \mathsf F \wr \mathfrak C \arrow[d]
-                  \\
-                  \mathcal C \arrow[r]
-                  &
-                  \mathsf F
-            \end{tikzcd}
-      \end{equation}
-\end{definition}
-
-\begin{remark}
-      We observe that the above definition does not conflict with our notation $\Sigma_{\mathfrak C}$ from the previous section,
-      as $\SC$ is isomorphic to the pullback on the left below,
-      where $E: \Sigma \to \mathsf F$ sends $\underline{n}$ to $\underline{n+1}$.
-      % and the second arrow is the diagonal functor from Remark \ref{WR_DIAG_REM}. 
-      \begin{equation}
-            \label{COMEGA_B_EQ}
-            \begin{tikzcd}
-                  \SC \arrow[r, "E"] \arrow[d]
-                  &
-                  \mathsf F \wr \mathfrak C \arrow[d]
-                  & %
-                  \OC \arrow[d] \arrow[r, "E"]
-                  &
-                  \mathsf F \wr \mathfrak C \arrow[d]
-                  & %
-                  G^{op} \ltimes \OC \arrow[d] \arrow[r, "E"]
-                  &
-                  G^{op} \ltimes (\mathsf F \wr \mathfrak C) \arrow[d] \arrow[r]
-                  &
-                  \mathsf F \wr (G^{op} \ltimes \mathfrak C) \arrow[d]
-                  \\
-                  \Sigma \arrow[r, "E"]
-                  &
-                  \mathsf F
-                  & %
-                  \Omega \arrow[r, "E"]
-                  &
-                  \mathsf F
-                  & %
-                  G^{op} \times \Omega \arrow[r, "E"]
-                  &
-                  G^{op} \times \mathsf F \arrow[r]
-                  &
-                  \mathsf F \wr G^{op}
-            \end{tikzcd}
-      \end{equation}
-\end{remark}
-
-\begin{definition}
-      Let $\Omega_{\mathfrak C}$ denote the middle pullback in \eqref{COMEGA_B_EQ},
-      where $E: \Omega \to \mathsf F$ sends a tree $U$ to its set $E(U)$ of edges.
-      We note that $G^{op} \ltimes \OC$ is given by the right pullback,
-      as $G^{op} \ltimes (-)$ preserves pullbacks and the rightmost square is a pullback
-      by Lemmas \ref{GL_PULL_LEM} and \ref{GD_PULL_LEM},
-      and a similar pair of squares yields $G^{op} \ltimes \SC$. 
-
-      We have a natural inclusion of categories $\Sigma_{\mathfrak C} \into \Omega_{\mathfrak C}$,
-      and as such we will called elements of these categories
-      \textit{colored corollas} and \textit{colored trees},
-      and denote them by $(U,\mathfrak c)$, where $\mathfrak c: E(U) \to \mathfrak C$ is a map of sets,
-      or just by $U$ if there is no confusion.
-\end{definition}
-
-Unpacking definitions (cf. Remark \ref{G_GR_REM}), we see that a map $(U, \mathfrak c) \to (V, \mathfrak d)$ in $G^{op} \ltimes \Omega_{\mathfrak C}$
-is given by
-a map $f: U \to V$ in $\Omega$ and an element $g\in G$,
-such that $\mathfrak c(f(e)) = g.\mathfrak d(e)$ for all $e \in E(V)$.
-\begin{equation}
-      \begin{tikzcd}
-            E(U) \arrow[d, "\mathfrak c"'] \arrow[r, "f"]
-            &
-            E(V) \arrow[d, "\mathfrak d"]
-            \\
-            \mathfrak C \arrow[r, "g"] 
-            &
-            \mathfrak C
-      \end{tikzcd}
-\end{equation}
-
-In particular, we have maps of the form
-\begin{equation}
-      g = (id, g): g^{\**} U \to U
-      % (U, E(U) \xrightarrow{\mathfrak c} \mathfrak C \xrightarrow{g \cdot} \mathfrak C)
-      % \to
-      % (U, E(U) \xrightarrow{\mathfrak c} \mathfrak C).
-\end{equation}
-
-
-
-Now, many of the natural functors around $\Omega$ and $\Sigma$ have generalizations to the colored setting,
-which can be built through a straightforward use of the universal property of pullbacks.
-
-\begin{definition}
-      We have natural \textit{vertex} functors
-      \begin{equation}
-            \OC \to \Sigma \wr \SC,
-            \qquad
-            % G \ltimes \OC^{op} =
-            % (G^{op} \ltimes \OC)^{op} \xrightarrow{V}
-            % (G^{op} \ltimes (\Sigma \wr \SC))^{op} \to
-            % (\Sigma \wr (G^{op} \ltimes \SC))^{op} =
-            % (\Sigma \wr (G \ltimes \SC^{op})^{op})^{op},
-            G^{op} \ltimes \OC \to G^{op} \ltimes (\Sigma \wr \SC) \to \Sigma \wr (G^{op} \wr \SC),
-      \end{equation}
-      as colorings of a tree restrict to colorings of each vertex corolla.
-
-      Similarly, there is a \textit{leaf-root} functor
-      $\mathsf{lr}: G \ltimes \Omega_{\mathfrak C}^{op} \to G \ltimes \Sigma_{\mathfrak C}^{op}$,
-      where the coloring of $\mathsf{lr}(T)$ is a restrict of the coloring of $T$.
-\end{definition}
-
-\begin{remark}
-      Equivalently, the first map is given by $\pi_{\mathfrak C}^{\**}$ applied to the original vertex functor
-      $V: \Omega \to \Sigma \wr \Sigma$;
-      see {\color{red} LATER SECTIONS}).
-\end{remark}
-
-With these definitions in place, we make the following definition.
-
-\begin{definition}
-      Given $X \in \Sym^{G, \mathfrak C}$, let $\mathbb F^{\mathfrak C} X$ denote the left Kan extension below.
-      \begin{equation} 
-            \begin{tikzcd}
-                  G \ltimes \Omega_{\mathfrak C}^{op}
-                  \arrow[d, "\mathsf{lr}"']
-                  \arrow[r, "V"]
-                  &
-                  (\Sigma \wr (G \ltimes \Sigma_{\mathfrak C}^{op})^{op})^{op} \arrow[r, "\Sigma \wr X"]
-                  \arrow[dl, Rightarrow]
-                  &
-                  (\Sigma \wr \V^{op})^{op} \arrow[r, "\otimes"]
-                  &
-                  \V
-                  \\
-                  G \ltimes \Sigma_{\mathfrak C}^{op} \arrow[urrr, "\Lan = \mathbb F^{\mathfrak C} X"']
-            \end{tikzcd}
-      \end{equation}
-\end{definition}
-
-\begin{theorem}
-      \label{FC_MONAD_PROP}
-      For all $G$-sets $\mathfrak C$,
-      $\mathbb F^{\mathfrak C}$ is a monad on $\Sym^{G, \mathfrak C}(\V)$,
-      with category of algebras $\Op^{G, \mathfrak C}(\V)$.
-\end{theorem}
-
-A complete analysis of this functor, including the proof of Theorem \ref{FC_MONAD_PROP},
-can be found in Appendix \ref{MONAD_APDX}.
-
-To end this section, we show that this definition is consistent,
-in that when $\mathfrak C = \**$, this is isomorphic to the free single-colored operad monad from \cite[{Eq. (4.1)}]{BP_geo}:
-
-% Note that when $\mathfrak C = \set{\**}$, we have
-% $G \ltimes \Omega_{\mathfrak C} = \Omega \times G$ and 
-% $G \ltimes \Sigma_{\mathfrak C} = \Sigma \times G$.
-
-
-\begin{notation}[\cite{BP_geo}]
-      Let $\mathbb F'$ denote the \textit{free single-colored operad monad} on $\V$, given by the left Kan extension of the following diagram.
-      \begin{equation}
-            \begin{tikzcd}
-                  \Omega^{op}
-                  \arrow[d, "\mathsf{lr}"']
-                  \arrow[r, "V"]
-                  &
-                  (\Sigma \wr \Sigma)^{op} \arrow[r, "X"]
-                  \arrow[dl, Rightarrow]
-                  &
-                  (\Sigma \wr \V^{op})^{op} \arrow[r, "\otimes"]
-                  &
-                  \V
-                  \\
-                  \Sigma^{op} \arrow[urrr, "\Lan = \mathbb F' X"']
-            \end{tikzcd}
-      \end{equation}
-\end{notation}
-
-First, one lemma.
-
-\begin{notation}
-      Given a functor $X : \C \to \mathsf{Fun}(\mathcal D, \V)$,
-      let $\tilde X$ denote the adjoint $\tilde X: \C \times \mathcal D \to \V$.
-\end{notation}
-
-\begin{lemma}
-      \label{SPAN_LAN_LEM}
-      Conisder the two spans below.
-      \begin{equation}
-            \begin{tikzcd}
-                  \C \arrow[d, "p"] \arrow[r, "X"]
-                  &
-                  \mathsf{Fun}(\mathcal D, \V)
-                  &&
-                  \C \times \mathcal D \arrow[d, "p \times \mathsf{id}"] \arrow[r, "\tilde X"]
-                  &
-                  \V
-                  \\
-                  \mathcal E
-                  &
-                  &&
-                  \mathcal E \times \mathcal D
-            \end{tikzcd}
-      \end{equation}
-      
-      Then $\Lan_p X$ is adjoint to $\Lan_{p \times \mathsf{id}} \tilde X$. 
-\end{lemma}
-\begin{proof}
-      Using the pointwise description of the Kan extension, we have
-      \begin{align}
-        \widetilde{\Lan_p X}(e,d)
-        &= (\Lan_p X(e))(d)
-          = \left(
-          \colim\limits_{\substack{ \C \downarrow e \\ p(c) \to e}} X(c)
-        \right)(d)
-        = \colim\limits_{\substack{ \C \downarrow e \\ p(c) \to e}}(X(c)(d))
-        = \colim\limits_{\substack{ \C \downarrow e \\ p(c) \to e}}(\tilde X(c,d))\\
-        &= \colim\limits_{\substack{ \C \times \set{d} \downarrow (e,d) \\ p(c) \to e}}(\tilde X(c,d))
-        \cong \colim\limits_{\substack{ \C \times \mathcal D \downarrow (e,d) \\ (p(c),d') \to (e,d)}}(\tilde X(c,d'))
-        = \Lan_{p \times \mathsf{id}}\tilde X(c,d),
-      \end{align}
-      where the isomorphism holds by a straightforward finality argument.
-      On maps, a similar argument holds.
-\end{proof}
-
-\begin{proposition}
-      \label{TEST_PROP}
-      $\mathbb F^{\set{\**}}$ is a monad, and moreover
-      the category of $\mathbb F^{\set{\**}}$-algebras in $\mathsf{Fun}(G \times \Sigma^{op}, \V)$ is equivalent to
-      the category of $\mathbb F'$-algebras in $\mathsf{Fun}(\Sigma^{op}, \V^G)$.
-\end{proposition}
-\begin{proof}
-      Let $\tau: \tilde X \mapsto X$ denote the isomorphism of categories
-      $\mathsf{Fun}(G \times \Sigma^{op}, \V) \xrightarrow{\tau} \mathsf{Fun}(\Sigma^{op}, \V^G)$.
-      Then $\mathbb F^{\set{\**}} = \tau^{-1} \mathbb F' \tau$ by \ref{SPAN_LAN_LEM}, and so
-      $\mathbb F^{\set{\**}}$ is in fact a monad, and
-      the isomorphism lifts to an isomorphism on the category of algebras.
-\end{proof}
-
-
-
-
-
-% \subsection{Monad - placeholder subsection}
-
-% \todo[inline]{merge with Luis work}
-
-% We define the monad on $\mathsf{WSpan}^r_{\Cat \downarrow^r \mathsf F}(\Sigma^{op}, \V)$.
-% \begin{definition}
-%       Let $\mathcal A$ be in this category. This consists of the data of a category $\mathcal A$ and the following diagram.
-%       \begin{equation}
-%             \begin{tikzcd}
-%                   |[alias = U]| \Sigma \arrow[dr, "E"']
-%                   &
-%                   \mathcal A \arrow[d, "\epsilon"'{name = V}, ""{name = D}] \arrow[l, "\lambda"'] \arrow[r]
-%                   &
-%                   |[alias = C]| \V \arrow[dl, "\varnothing"]
-%                   \\
-%                   & \mathsf F
-%                   \arrow[Rightarrow, from = U, to = V, "\alpha"]
-%                   \arrow[Rightarrow, from = C, to = D, "\beta"']
-%             \end{tikzcd}
-%       \end{equation}
-%       Then we define $N(\mathcal A)$ to be the span given by the pullback
-%       \begin{equation}
-%             \begin{tikzcd}
-%                   \Omega \wr \mathcal A \arrow[r] \arrow[d]
-%                   &
-%                   \mathsf F \wr \mathcal A \arrow[d] \arrow[r]
-%                   &
-%                   \mathsf F \wr \V \arrow[r, "\otimes"]
-%                   &
-%                   \V
-%                   \\
-%                   \Omega \arrow[d] \arrow[r, "V"]
-%                   &
-%                   \mathsf F \wr \Sigma
-%                   \\
-%                   \Sigma
-%             \end{tikzcd}
-%       \end{equation}
-%       with the map over $\mathsf F$ given by the pushout in $\Fun(\Omega \wr \mathcal A, \mathsf F)$ of the natural transformations
-%       \begin{equation}
-%             E(T) \Leftarrow \coprod_{v \in V(T)} (\lambda(a_v)+1) \Rightarrow \coprod_{v \in V(T)}\epsilon(a_v)
-%       \end{equation}
-%       on the objects $(T, (a_v)) \in \Omega \wr \mathcal A$,
-%       where the maps between these functors are given by the following diagram
-%       (and in particular, we have a map $\lambda(a_v) + 1 \to E(T_v)$).
-%       \begin{equation}
-%             \begin{tikzcd}
-%                   \Omega \wr \mathcal A \arrow[r, equal] \arrow[d, equal]
-%                   &
-%                   \Omega \wr \mathcal A \arrow[d] \arrow[r, "V"]
-%                   &
-%                   \mathsf F \wr \mathcal A \arrow[d, "\lambda"] \arrow[r, "\epsilon"]
-%                   &
-%                   \mathsf F \wr \mathsf F \arrow[r, "\amalg"] \arrow[d, equal]
-%                   &
-%                   \mathsf F \arrow[d, equal]
-%                   \\
-%                   \Omega \wr \mathcal A \arrow[d, equal] \arrow[r, "\lambda"]
-%                   &
-%                   \Omega \wr \Sigma \arrow[d, equal] \arrow[r, "V"]
-%                   &
-%                   \mathsf F \wr \Sigma \arrow[r, "{(-)+1}"] \arrow[ur, Rightarrow, "\alpha"] \arrow[drr, Rightarrow] 
-%                   &
-%                   \mathsf F \wr \mathsf F \arrow[r, "\amalg"]
-%                   &
-%                   \mathsf F \arrow[d, equal]
-%                   \\
-%                   \Omega \wr \mathcal A \arrow[r, "\lambda"]
-%                   &
-%                   \Omega \wr \Sigma \arrow[r, "\simeq"]
-%                   &
-%                   \Omega \arrow[rr, "E"] \arrow[u, "V"]
-%                   &&
-%                   \mathsf F
-%             \end{tikzcd}
-%       \end{equation}
-      
-%       \todo[inline]{come back: check that this gives maps over $\mathsf F$}
-% \end{definition}
-
-% \begin{lemma}
-%       $\Omega \wr \mathcal A$ is the strict 2-pullback in $\Cat \downarrow^r \mathsf F$.
-% \end{lemma}
-% \begin{proof}
-%       This follows immediately from Remark \ref{SPANLIM REM}.
-% \end{proof}
-
-% \begin{proposition}
-%       $N$ is a monad on $\mathsf{WSpan}^r_{\Cat \downarrow^r \mathsf F}(\Sigma^{op}, \V)$.
-% \end{proposition}
-% \begin{proof}
-%       \todo[inline]{come back}
-% \end{proof}
-
-
-
-% % \begin{proof}
-% %       This follows from the work in {\color{red} LATER SECTIONS}:
-% %       in particular, $\mathbb F^{\mathfrak C} = \Lan \circ N^{\mathfrak C} \circ \iota$,
-% %       where $N^{\mathfrak C}$ is the operation on spans...
-% %       The fact that all the necessarily diagrams, as shown in \cite{BP_geo}, commute/agree follows by breaking those diagrams in half:
-% %       the left sides never mention $\V$, and we can show that the generalized diagrams commute/agree by applying $\pi^{\**}$ to the diagrams in \cite{BP_geo},
-% %       where $\pi: \mathsf F \wr (G \ltimes \mathfrak C) \to \mathsf F$,
-% %       and using the fact that this is a functor which preserves standard limits;
-% %       the right sides only deal with the permutative structure of our underlying category $\V$.
-% %       These are connected by trivially commuting information about our $(G, \mathfrak C)$-symmetric sequence $X$.
-% %       \todo[inline]{come back: this doesn't actually say anything yet.}
-% % \end{proof}
 
 
  
@@ -8513,118 +8122,6 @@ and finishing the proof.
 
 
 
-\subsection{Notes on the model structure on $\mathsf{Op}_G$}
-
-The following are some notes on the canonical model structure on the category $\mathsf{Op}_G$
-of genuine equivariant operads of sets,
-adapting \cite[Thm. 1.2]{CM13b}
-(and motivated by trying to understand the analogue of 
-\cite[Thm. 6.14]{CM13b}).
-
-
-In the result below we intrinsically describe a genuine equivariant operad via its nerve, i.e. we regard
-$\mathsf{Op}_G \subset \mathsf{dSet}_G$
-as the subcategory of objects satisfying the strict Segal condition.
-
-Moreover, we write
-$\iota^{\**} \colon \mathsf{dSet} \to \mathsf{sSet}$
-for the standard forgetful functor.
-
-Using the abbreviation 
-$\Omega_G[T] = \upsilon_{\**} \Omega[T]$ for $T \in \Omega_G$
-and similarly writing 
-$\partial \Omega_G[T] = \upsilon_{\**} \partial \Omega[T]$,
-a signature on a genuine equivariant operad $X$
-is then a point 
-$\xi \in 
-\mathsf{dSet}_G\left(\partial \Omega_G[C],X\right)$
-for some corolla
-$C \in \Sigma_G$
-and we define the mapping set $X(\xi)$
-to be the fiber
-\[
-\begin{tikzcd}[column sep=50pt]
-	X(\xi) \ar{r} \ar{d}&
-	X(C) \ar{d}
-\\
-	\** 
-	\ar{r}[swap]{\xi} &
-	\mathsf{dSet}_G\left(\partial \Omega_G[C],X\right)
-\end{tikzcd}
-\]
-
-
-
-\begin{theorem}
-The category $\mathsf{Op}_G$ has a model structure such that a map
-$f \colon X \to Y$ is
-\begin{itemize}
-\item a cofibration if it is injective on objects, i.e. 
-the maps 
-$X(G/H\cdot \eta) \to Y(G/H\cdot \eta),H\leq G$
-are all monomorphisms, and, furthermore, the squares
-\begin{equation}\label{EXTRACOND EQ}
-\begin{tikzcd}[column sep=50pt]
-	X(G/H\cdot \eta) \ar{r} \ar{d}&
-	X(G \cdot \eta)^H \ar{d}
-\\
-	Y(G/H\cdot \eta)
-	\ar{r} &
-	Y(G \cdot \eta)^H
-\end{tikzcd}
-\end{equation}
-are pushout squares.
-\item a weak equivalence if it is fully faithful,
-i.e. the maps $X(\xi) \to Y(f(\xi))$ are isomorphisms for all signatures $\xi$,
-and essentially surjective, i.e. the maps
-$\iota^{\**}(X^H) \to \iota^{\**}(Y^H), H \leq G$
-are fully faithful maps of (nerves of) categories
-\item a fibration if the maps
-$\iota^{\**}(X^H) \to \iota^{\**}(Y^H)$
-are isofibrations, i.e. if they have the right lifting property against the map
-$\{0\} \to J$,
-where $J$ is the free standing isomorphism category 
-(equivalently, the contractible groupoid on two points).
-\end{itemize}
-Moreover, the generating cofibrations are given by the maps of the form
-\begin{itemize}
-\item[(C1)] $\emptyset \to G/H \cdot \eta$ for $H \leq G$;
-\item[(C2)] $\Omega_G(C) \otimes_{\mathsf{F}^G} (\emptyset \to \**)$
-for $G \in \Sigma_G$;
-\item[(C3)] $\Omega_G(C) \otimes_{\mathsf{F}^G} (\** \amalg \** \to \**)$
-for $G \in \Sigma_G$;
-\end{itemize}
-while the generating trivial cofibrations are given by the maps
-
-$G/H \cdot (\{0\} \to J)$ for $H\leq G$.
-\end{theorem}
-
-
-\begin{remark}
-Because the objects of a genuine equivariant operad are a coefficient system of \emph{sets},
-the cofibration condition can be restated as saying that there is a decomposition of coefficient systems
-\[
-Y(G/\bullet \cdot \eta) \simeq 
-X(G/\bullet \cdot \eta) \amalg Z(G/\bullet \cdot \eta)
-\]
-such that $Z(G/\bullet \cdot \eta) \simeq \upsilon_{\**} \bar{Z}$ for some $G$-set $\bar{Z}$.
-\end{remark}
-
-
-\begin{remark}
-To see that the generating cofibrations indeed generate the claimed cofibrations, note first that the given cofibrations are closed under saturation, 
-and it is straightforward to check that the generating cofibrations satisfy the given cofibration condition.
-
-Moreover, given any map $X \to Y$ satisfying the cofibration condition,
-one can for a factorization
-$X \to X \amalg \upsilon_{\**}\bar{Z} \to Y$
-where the first map simply adds colors and the second map is an isomorphism on colors.
-But clearly the first map is built out of (C1) maps, and the fact that the second map is built out of (C2),(C3) maps follows since the color fixed maps having the RLP against (C2),(C3) are precisely the maps which induce set isomorphisms on all signatures, i.e., the isomorphisms in the fixed point subcategory.
-\end{remark}
-
-
-
-
 
 
 \newpage
@@ -11554,7 +11051,7 @@ is encoded by the diagram
 
 
 
-\subsection{Amalgamating monads (to be renamed and reskined)}
+\section{Amalgamating monads (to be renamed and reskined)}
 
 
 \begin{definition}\label{AMALGMON DEF}
@@ -12583,7 +12080,7 @@ $\psi^{\**} \psi_!$ on $\Alg_{\bar{F}}$ has the same underlying functor, unit an
 
 
 
-\subsection{The homotopy genuine equivariant operad}
+\section{The homotopy genuine equivariant operad}
 
 
 Our goal in this section is to build,
