@@ -8175,15 +8175,21 @@ and finishing the proof.
 \label{MONAD_APDX}
 
 
-Our main goal in this appendix is to establish some necessary technical results concerning the category $\mathsf{Op}(\mathcal{V})$ of colored operads.
+Our main goal in this appendix is to establish some necessary technical results concerning the category $\mathsf{Op}(\mathcal{V})$ of colored operads,
+building off the work from \cite{BP_geo}.
+We begin by establishing technical definitions and relations which are the key constituents of the monad in \S \ref{CSTRINGS_SEC} and \S \ref{WRACONST SEC}.
+In \S \ref{NONEQMON SEC}, we construct the monad describing colored operads $\Op(\V)$, as well as provide a useful filtration on free extensions of operads.
+In \S \ref{EQMON_SEC}, we upgrade these discussions to the equivariant case.
+
+\todo[inline]{come back}
 
 
 
 \subsection{Colored strings}
+\label{CSTRINGS_SEC}
 
 
-
-Throughout we will let $\Omega$ denote the dendroidal category of trees.
+Throughout we will let $\Omega$ denote the dendroidal category of trees, introduced in \cite{MW07}.
 Further, given a tree $T\in \Omega$ we will write 
 $E(T)$ for the underlying set of edges.
 
@@ -8197,16 +8203,16 @@ such that $\mathfrak{c}_T = \mathfrak{c}_{T'} f$.
 
 A map in $\Omega_{\mathfrak{C}}$ is the called \textit{planar/tall} if the underlying map of trees is.
 
-The category $\Omega_{\mathfrak{C}}^n$ of planar strings has as objects strings $T_0 \to T_1 \to \cdots \to T_n$ of maps that are planar and tall and arrows a tuple of compatible isomorphisms of strings.
+The category $\Omega_{\mathfrak{C}}^n$ of \textit{planar strings} has as objects strings $T_0 \to T_1 \to \cdots \to T_n$ of maps that are planar and tall, and as arrows a tuple of compatible isomorphisms.
 \end{definition}
 
 
-The key functors discusses in \cite{BP_geo} then immediately extend to the strings
+The key functors discussed in \cite[\S 3.4]{BP_geo} then immediately extend to the strings
 $\Omega_{\mathfrak{C}}^n$. Namely, one has simplicial operators
 \[
 d_i \colon \Omega_{\mathfrak{C}}^n \to \Omega_{\mathfrak{C}}^{n-1},
-\quad 0 \leq i \leq n
-\qquad
+\quad 0 \leq i \leq n;
+\qquad \qquad
 s_j \colon \Omega_{\mathfrak{C}}^{n} \to \Omega_{\mathfrak{C}}^{n+1},
 \quad -1 \leq j \leq n
 \]
@@ -8224,7 +8230,7 @@ $f_{\**} \colon \Omega^n_{\mathfrak{C}} \to \Omega^n_{\mathfrak{D}}$.
 
 
 
-These operators satisfy a number of compatibilities. Firstly, the $d^i$, $s^j$ operators satisfy the usual simplicial identities, 
+These operators satisfy a number of compatibilities (cf. \cite[Prop. 3.90]{BP_geo}). Firstly, the $d^i$, $s^j$ operators satisfy the usual simplicial identities, 
 and the $\boldsymbol{V}^k$ operators are ``additive'' in the sense that
 the composite
 \begin{equation}\label{VKADD EQ}
@@ -8236,8 +8242,9 @@ the composite
 equals $\boldsymbol{V}^{k+l+1}$.
 The next results list the compatibilities between $d^i$, $s^j$ and $\boldsymbol{V}^k$ operators.
 
-\begin{proposition}\label{CATDIAG PROP}
-One has the following diagrams in the $2$-category
+\begin{proposition}
+      \label{CATDIAG PROP}
+      One has the following diagrams in the $2$-category
 $\mathsf{Cat}$.
 \begin{itemize}
 \item[(i)]
@@ -8245,19 +8252,19 @@ For $0\leq i < k \leq n$ there are $2$-isomorphisms $\pi_{i,k}$ and for $-1 \leq
 \begin{equation}
 \begin{tikzcd}[row sep = tiny, column sep = 35pt]
 	\Omega_{\mathfrak{C}}^n
-	\arrow{dr}[swap,name=U]{}{V^k} \arrow{dd}[swap]{d^i} &
+	\arrow{dr}[swap,name=U]{}{\boldsymbol{V}^k} \arrow{dd}[swap]{d^i} &
 &
 	\Omega_{\mathfrak{C}}^n
-	\arrow{dr}{V^k} \arrow{dd}[swap]{s^j} &
+	\arrow{dr}{\boldsymbol{V}^k} \arrow{dd}[swap]{s^j} &
 \\
 	& \Sigma \wr \Omega_{\mathfrak{C}}^{n-k-1}
 &
 	& \Sigma \wr \Omega_{\mathfrak{C}}^{n-k-1}
 \\
 	|[alias=V]|
-	\Omega_{\mathfrak{C}}^{n-1} \arrow{ur}[swap]{V^{k-1}} &
+	\Omega_{\mathfrak{C}}^{n-1} \arrow{ur}[swap]{\boldsymbol{V}^{k-1}} &
 &
-	\Omega_{\mathfrak{C}}^{n+1} \arrow{ur}[swap]{V^{k+1}} &
+	\Omega_{\mathfrak{C}}^{n+1} \arrow{ur}[swap]{\boldsymbol{V}^{k+1}} &
 \arrow[Leftrightarrow, from=V, to=U,shorten >=0.15cm,shorten <=0.15cm
 ,swap,"\pi_{i,k}"
 ]
@@ -8269,19 +8276,19 @@ there are commutative diagrams
 \begin{equation}
 \begin{tikzcd}[row sep = 10pt, column sep = 35pt]
 	\Omega^n_{\mathfrak{C}}
-	\arrow{r}[swap,name=U]{}{V^k} \arrow{dd}[swap]{d^i} &
+	\arrow{r}[swap,name=U]{}{\boldsymbol{V}^k} \arrow{dd}[swap]{d^i} &
 	\Sigma \wr \Omega^{n-k-1}_{\mathfrak{C}} \ar{dd}{d^{i-k-1}}
 &
 	\Omega^n_{\mathfrak{C}}
-	\arrow{r}{V^k} \arrow{dd}[swap]{s^j} &
+	\arrow{r}{\boldsymbol{V}^k} \arrow{dd}[swap]{s^j} &
 	\Sigma \wr \Omega^{n-k-1}_{\mathfrak{C}} \ar{dd}{s^{j-k-1}}
 \\
 \\
 	|[alias=V]|
-	\Omega^{n-1}_{\mathfrak{C}} \arrow{r}[swap]{V^{k}} &
+	\Omega^{n-1}_{\mathfrak{C}} \arrow{r}[swap]{\boldsymbol{V}^{k}} &
 	\Sigma \wr \Omega^{n-k-2}_{\mathfrak{C}}
 &
-	\Omega^{n+1}_{\mathfrak{C}} \arrow{r}[swap]{V^{k}} &
+	\Omega^{n+1}_{\mathfrak{C}} \arrow{r}[swap]{\boldsymbol{V}^{k}} &
 	\Sigma \wr \Omega^{n-k}_{\mathfrak{C}}
 \end{tikzcd}
 \end{equation}
@@ -8362,19 +8369,19 @@ For $0 \leq i < k $ and $-1 \leq l \leq n-k-1$
 \begin{equation}
 \begin{tikzcd}[row sep = 20pt, column sep = 25pt]
 	|[alias=V]|
-	\Omega_{\mathfrak{C}}^{n} \ar{r}{V^{k}}[swap,name=UU]{} \arrow{d}[swap]{d^i}&
+	\Omega_{\mathfrak{C}}^{n} \ar{r}{\boldsymbol{V}^{k}}[swap,name=UU]{} \arrow{d}[swap]{d^i}&
 	\Sigma \wr \Omega_{\mathfrak{C}}^{n-k-1} \ar{r}{V^l} &
 	\Sigma^{\wr 2} \wr \Omega^{n-k-l-2}_{\mathfrak{C}} \ar{r}{\sigma^0} &
 	\Sigma \wr \Omega^{n-k-l-2}_{\mathfrak{C}}
 &
-	\Omega^{n}_{\mathfrak{C}} \ar{r}{V^{k+l+1}}[swap,name=UUU]{} \arrow{d}[swap]{d^i}&
+	\Omega^{n}_{\mathfrak{C}} \ar{r}{\boldsymbol{V}^{k+l+1}}[swap,name=UUU]{} \arrow{d}[swap]{d^i}&
 	\Sigma \wr \Omega^{n-k-l-2}_{\mathfrak{C}} &
 \\
 	|[alias=VV]|
-	\Omega^{n-1}_{\mathfrak{C}} \arrow{ur}[swap]{V^{k-1}} & & &
+	\Omega^{n-1}_{\mathfrak{C}} \arrow{ur}[swap]{\boldsymbol{V}^{k-1}} & & &
 &
 	|[alias=VVV]|
-	\Omega^{n-1}_{\mathfrak{C}} \arrow{ur}[swap]{V^{k+l}} &
+	\Omega^{n-1}_{\mathfrak{C}} \arrow{ur}[swap]{\boldsymbol{V}^{k+l}} &
 \arrow[Leftrightarrow, from=VV, to=UU,shorten >=0.05cm,shorten <=0.05cm
 ,swap,"\pi"
 ]
@@ -8388,21 +8395,21 @@ For $0 \leq i < k $ and $-1 \leq l \leq n-k-1$
 For $-1 \leq k < i < k + l + 1 \leq n$
 \begin{equation}
 \begin{tikzcd}[row sep = 20pt, column sep = 25pt]
-	\Omega^n_{\mathfrak{C}} \ar{r}{V^k} \ar{d}[swap]{d^i} &
+	\Omega^n_{\mathfrak{C}} \ar{r}{\boldsymbol{V}^k} \ar{d}[swap]{d^i} &
 	|[alias=V]|
-	\Sigma \wr \Omega^{n-k-1}_{\mathfrak{C}} \ar{r}{V^{l}}[swap,name=UU]{} \arrow{d}[swap]{d^{i-k-1}} &
+	\Sigma \wr \Omega^{n-k-1}_{\mathfrak{C}} \ar{r}{\boldsymbol{V}^{l}}[swap,name=UU]{} \arrow{d}[swap]{d^{i-k-1}} &
 	\Sigma^{\wr 2} \wr \Omega^{n-k-l-2}_{\mathfrak{C}} \ar{r}{\sigma^0} &
 	\Sigma \wr \Omega^{n-k-l-2}_{\mathfrak{C}}
 &
-	\Omega^{n}_{\mathfrak{C}} \ar{r}{V^{k+l+1}}[swap,name=UUU]{} \arrow{d}[swap]{d^i}&
+	\Omega^{n}_{\mathfrak{C}} \ar{r}{\boldsymbol{V}^{k+l+1}}[swap,name=UUU]{} \arrow{d}[swap]{d^i}&
 	\Sigma \wr \Omega^{n-k-l-2}_{\mathfrak{C}} &
 \\
-	\Omega^{n-1}_{\mathfrak{C}} \ar{r}{V^k} &
+	\Omega^{n-1}_{\mathfrak{C}} \ar{r}{\boldsymbol{V}^k} &
 	|[alias=VV]|
-	\Sigma \wr \Omega^{n-1}_{\mathfrak{C}} \arrow{ur}[swap]{V^{l-1}} & &
+	\Sigma \wr \Omega^{n-1}_{\mathfrak{C}} \arrow{ur}[swap]{\boldsymbol{V}^{l-1}} & &
 &
 	|[alias=VVV]|
-	\Omega^{n-1}_{\mathfrak{C}} \arrow{ur}[swap]{V^{k+l}} &
+	\Omega^{n-1}_{\mathfrak{C}} \arrow{ur}[swap]{\boldsymbol{V}^{k+l}} &
 \arrow[Leftrightarrow, from=VV, to=UU,shorten >=0.05cm,shorten <=0.05cm
 ,swap,"\pi"
 ]
@@ -8416,24 +8423,24 @@ For $0 \leq i < i' < k \leq n$
 \begin{equation}
 \begin{tikzcd}[row sep = 20pt, column sep = 35pt]
 	\Omega^n_{\mathfrak{C}}
-	\arrow{dr}[swap,name=U]{}{V^k} \arrow{d}[swap]{d^{i'}} &
+	\arrow{dr}[swap,name=U]{}{\boldsymbol{V}^k} \arrow{d}[swap]{d^{i'}} &
 &
 	\Omega^n_{\mathfrak{C}}
-	\arrow{dr}[swap,name=UUU]{}{V^k} \arrow{d}[swap]{d^i} &
+	\arrow{dr}[swap,name=UUU]{}{\boldsymbol{V}^k} \arrow{d}[swap]{d^i} &
 \\
 	|[alias=V]|
-	\Omega^{n-1}_{\mathfrak{C}} \ar{r}[near start,swap]{V^{k-1}}[swap,name=UU]{} \arrow{d}[swap]{d^i}&
+	\Omega^{n-1}_{\mathfrak{C}} \ar{r}[near start,swap]{\boldsymbol{V}^{k-1}}[swap,name=UU]{} \arrow{d}[swap]{d^i}&
 	\Sigma \wr \Omega^{n-k-1}_{\mathfrak{C}}
 &
 	|[alias=VVV]|
-	\Omega^{n-1}_{\mathfrak{C}} \ar{r}[near start, swap]{V^{k-1}}[swap,name=UUUU]{} \ar{d}[swap]{d^{i'-1}} &
+	\Omega^{n-1}_{\mathfrak{C}} \ar{r}[near start, swap]{\boldsymbol{V}^{k-1}}[swap,name=UUUU]{} \ar{d}[swap]{d^{i'-1}} &
 	\Sigma \wr \Omega^{n-k-1}_{\mathfrak{C}}
 \\
 	|[alias=VV]|
-	\Omega^{n-2}_{\mathfrak{C}} \arrow{ur}[swap]{V^{k-2}} &
+	\Omega^{n-2}_{\mathfrak{C}} \arrow{ur}[swap]{\boldsymbol{V}^{k-2}} &
 &
 	|[alias=VVVV]|
-	\Omega^{n-2}_{\mathfrak{C}} \arrow{ur}[swap]{V^{k-2}} &
+	\Omega^{n-2}_{\mathfrak{C}} \arrow{ur}[swap]{\boldsymbol{V}^{k-2}} &
 \arrow[Leftrightarrow, from=V, to=U,shorten >=0.05cm,shorten <=0.05cm
 ,swap,"\pi"
 ]
@@ -8453,25 +8460,25 @@ For $0 \leq i < k < i' \leq n$
 \begin{equation}
 \begin{tikzcd}[row sep = 20pt, column sep = 35pt]
 	\Omega^n_{\mathfrak{C}}
-	\arrow{r}[swap,name=U]{}{V^k} \arrow{d}[swap]{d^{i'}} &
+	\arrow{r}[swap,name=U]{}{\boldsymbol{V}^k} \arrow{d}[swap]{d^{i'}} &
 	\Sigma \wr \Omega^{n-k-1}_{\mathfrak{C}} \ar{d}{d^{i'-k-1}}
 &
 	\Omega^n_{\mathfrak{C}}
-	\arrow{dr}[swap,name=UUU]{}{V^k} \arrow{d}[swap]{d^i} &
+	\arrow{dr}[swap,name=UUU]{}{\boldsymbol{V}^k} \arrow{d}[swap]{d^i} &
 \\
 	|[alias=V]|
-	\Omega^{n-1}_{\mathfrak{C}} \ar{r}{V^{k}}[swap,name=UU]{} \arrow{d}[swap]{d^i}&
+	\Omega^{n-1}_{\mathfrak{C}} \ar{r}{\boldsymbol{V}^{k}}[swap,name=UU]{} \arrow{d}[swap]{d^i}&
 	\Sigma \wr \Omega^{n-k-2}_{\mathfrak{C}}
 &
 	|[alias=VVV]|
-	\Omega^{n-1}_{\mathfrak{C}} \ar{r}[near start, swap]{V^{k-1}}[swap,name=UUUU]{} \ar{d}[swap]{d^{i'-1}} &
+	\Omega^{n-1}_{\mathfrak{C}} \ar{r}[near start, swap]{\boldsymbol{V}^{k-1}}[swap,name=UUUU]{} \ar{d}[swap]{d^{i'-1}} &
 	\Sigma \wr \Omega^{n-k-1}_{\mathfrak{C}} \ar{d}{d^{i'-k-1}}
 \\
 	|[alias=VV]|
-	\Omega^{n-2}_{\mathfrak{C}} \arrow{ur}[swap]{V^{k-1}} &
+	\Omega^{n-2}_{\mathfrak{C}} \arrow{ur}[swap]{\boldsymbol{V}^{k-1}} &
 &
 	|[alias=VVVV]|
-	\Omega^{n-2}_{\mathfrak{C}} \ar{r}[swap]{V^{k-1}} &
+	\Omega^{n-2}_{\mathfrak{C}} \ar{r}[swap]{\boldsymbol{V}^{k-1}} &
 	\Sigma \wr \Omega^{n-k-2}_{\mathfrak{C}}
 \arrow[Leftrightarrow, from=VV, to=UU,shorten >=0.05cm,shorten <=0.05cm
 ,swap,"\pi"
@@ -8488,24 +8495,24 @@ $-1 \leq j < i \leq k \leq n$
 \begin{equation}
 \begin{tikzcd}[row sep = 20pt, column sep = 35pt]
 	\Omega^{n}_{\mathfrak{C}}
-	\arrow{dr}[swap,name=U]{}{V^{k}} \arrow{d}[swap]{s^j} &
+	\arrow{dr}[swap,name=U]{}{\boldsymbol{V}^{k}} \arrow{d}[swap]{s^j} &
 &
 	\Omega^{n}_{\mathfrak{C}}
-	\arrow{dr}[swap,name=UUU]{}{V^{k}} \arrow{d}[swap]{d^{i-1}} &
+	\arrow{dr}[swap,name=UUU]{}{\boldsymbol{V}^{k}} \arrow{d}[swap]{d^{i-1}} &
 \\
 	|[alias=V]|
-	\Omega^{n+1}_{\mathfrak{C}} \ar{r}{V^{k+1}}[swap,name=UU]{} \arrow{d}[swap]{d^i}&
+	\Omega^{n+1}_{\mathfrak{C}} \ar{r}{\boldsymbol{V}^{k+1}}[swap,name=UU]{} \arrow{d}[swap]{d^i}&
 	\Sigma \wr \Omega^{n-k-1}
 &
 	|[alias=VVV]|
-	\Omega^{n-1}_{\mathfrak{C}} \ar{r}[near start, swap]{V^{k-1}}[swap,name=UUUU]{} \ar{d}[swap]{s^j} &
+	\Omega^{n-1}_{\mathfrak{C}} \ar{r}[near start, swap]{\boldsymbol{V}^{k-1}}[swap,name=UUUU]{} \ar{d}[swap]{s^j} &
 	\Sigma \wr \Omega^{n-k-1}
 \\
 	|[alias=VV]|
-	\Omega^{n}_{\mathfrak{C}} \arrow{ur}[swap]{V^{k}} &
+	\Omega^{n}_{\mathfrak{C}} \arrow{ur}[swap]{\boldsymbol{V}^{k}} &
 &
 	|[alias=VVVV]|
-	\Omega^{n}_{\mathfrak{C}} \arrow{ur}[swap]{V^{k}} &
+	\Omega^{n}_{\mathfrak{C}} \arrow{ur}[swap]{\boldsymbol{V}^{k}} &
 \arrow[Leftrightarrow, from=VV, to=UU,shorten >=0.25cm,shorten <=0.05cm
 ,swap,"\pi"
 ]
@@ -8520,23 +8527,23 @@ $0 \leq j = i \leq k \leq n$
 \begin{equation}
 \begin{tikzcd}[row sep = 20pt, column sep = 35pt]
 	\Omega^n_{\mathfrak{C}}
-	\arrow{dr}[swap,name=U]{}{V^k} \arrow{d}[swap]{s^j} &
+	\arrow{dr}[swap,name=U]{}{\boldsymbol{V}^k} \arrow{d}[swap]{s^j} &
 &
 	\Omega^n_{\mathfrak{C}}
-	\arrow{dr}[swap,name=UUU]{}{V^k} \arrow[equal]{dd} &
+	\arrow{dr}[swap,name=UUU]{}{\boldsymbol{V}^k} \arrow[equal]{dd} &
 \\
 	|[alias=V]|
-	\Omega^{n+1}_{\mathfrak{C}} \ar{r}{V^{k+1}}[swap,name=UU]{} \arrow{d}[swap]{d^i}&
+	\Omega^{n+1}_{\mathfrak{C}} \ar{r}{\boldsymbol{V}^{k+1}}[swap,name=UU]{} \arrow{d}[swap]{d^i}&
 	\Sigma \wr \Omega^{n-k-1}_{\mathfrak{C}}
 &
 	&
 	\Sigma \wr \Omega^{n-k-1}_{\mathfrak{C}}
 \\
 	|[alias=VV]|
-	\Omega^{n}_{\mathfrak{C}} \arrow{ur}[swap]{V^k} &
+	\Omega^{n}_{\mathfrak{C}} \arrow{ur}[swap]{\boldsymbol{V}^k} &
 &
 	|[alias=VVVV]|
-	\Omega^{n}_{\mathfrak{C}} \arrow{ur}[swap]{V^k} &
+	\Omega^{n}_{\mathfrak{C}} \arrow{ur}[swap]{\boldsymbol{V}^k} &
 \arrow[Leftrightarrow, from=VV, to=UU,shorten >=0.25cm,shorten <=0.05cm
 ,swap,"\pi"
 ]
@@ -8547,24 +8554,24 @@ For $0\leq i < j \leq k \leq n$
 \begin{equation}
 \begin{tikzcd}[row sep = 20pt, column sep = 35pt]
 	\Omega^n_{\mathfrak{C}}
-	\arrow{dr}[swap,name=U]{}{V^k} \arrow{d}[swap]{s^j} &
+	\arrow{dr}[swap,name=U]{}{\boldsymbol{V}^k} \arrow{d}[swap]{s^j} &
 &
 	\Omega^n_{\mathfrak{C}}
-	\arrow{dr}[swap,name=UUU]{}{V^k} \arrow{d}[swap]{d^{i}} &
+	\arrow{dr}[swap,name=UUU]{}{\boldsymbol{V}^k} \arrow{d}[swap]{d^{i}} &
 \\
 	|[alias=V]|
-	\Omega^{n+1}_{\mathfrak{C}} \ar{r}{V^{k+1}}[swap,name=UU]{} \arrow{d}[swap]{d^i}&
+	\Omega^{n+1}_{\mathfrak{C}} \ar{r}{\boldsymbol{V}^{k+1}}[swap,name=UU]{} \arrow{d}[swap]{d^i}&
 	\Sigma \wr \Omega^{n-k-1}_{\mathfrak{C}}
 &
 	|[alias=VVV]|
-	\Omega^{n-1}_{\mathfrak{C}} \ar{r}[near start, swap]{V^{k-1}}[swap,name=UUUU]{} \ar{d}[swap]{s^{j-1}} &
+	\Omega^{n-1}_{\mathfrak{C}} \ar{r}[near start, swap]{\boldsymbol{V}^{k-1}}[swap,name=UUUU]{} \ar{d}[swap]{s^{j-1}} &
 	\Sigma \wr \Omega^{n-k-1}_{\mathfrak{C}}
 \\
 	|[alias=VV]|
-	\Omega^{n}_{\mathfrak{C}} \arrow{ur}[swap]{V^k} &
+	\Omega^{n}_{\mathfrak{C}} \arrow{ur}[swap]{\boldsymbol{V}^k} &
 &
 	|[alias=VVVV]|
-	\Omega^{n}_{\mathfrak{C}} \arrow{ur}[swap]{V^k} &
+	\Omega^{n}_{\mathfrak{C}} \arrow{ur}[swap]{\boldsymbol{V}^k} &
 \arrow[Leftrightarrow, from=VV, to=UU,shorten >=0.25cm,shorten <=0.05cm
 ,swap,"\pi"
 ]
@@ -8578,25 +8585,25 @@ For $0 \leq i < k \leq j \leq n$
 \begin{equation}
 \begin{tikzcd}[row sep = 20pt, column sep = 35pt]
 	\Omega^n_{\mathfrak{C}}
-	\arrow{r}[swap,name=U]{}{V^k} \arrow{d}[swap]{s^j} &
+	\arrow{r}[swap,name=U]{}{\boldsymbol{V}^k} \arrow{d}[swap]{s^j} &
 	\Sigma \wr \Omega^{n-k-1}_{\mathfrak{C}} \ar{d}{s^{j-k-1}}
 &
 	\Omega^n_{\mathfrak{C}}
-	\arrow{dr}[swap,name=UUU]{}{V^k} \arrow{d}[swap]{d^i} &
+	\arrow{dr}[swap,name=UUU]{}{\boldsymbol{V}^k} \arrow{d}[swap]{d^i} &
 \\
 	|[alias=V]|
-	\Omega^{n+1}_{\mathfrak{C}} \ar{r}{V^{k}}[swap,name=UU]{} \arrow{d}[swap]{d^i}&
+	\Omega^{n+1}_{\mathfrak{C}} \ar{r}{\boldsymbol{V}^{k}}[swap,name=UU]{} \arrow{d}[swap]{d^i}&
 	\Sigma \wr \Omega^{n-k}_{\mathfrak{C}}
 &
 	|[alias=VVV]|
-	\Omega^{n-1}_{\mathfrak{C}} \ar{r}[near start, swap]{V^{k-1}}[swap,name=UUUU]{} \ar{d}[swap]{s^{j-1}} &
+	\Omega^{n-1}_{\mathfrak{C}} \ar{r}[near start, swap]{\boldsymbol{V}^{k-1}}[swap,name=UUUU]{} \ar{d}[swap]{s^{j-1}} &
 	\Sigma \wr \Omega^{n-k-1}_{\mathfrak{C}} \ar{d}{s^{j-k-1}}
 \\
 	|[alias=VV]|
-	\Omega^{n}_{\mathfrak{C}} \arrow{ur}[swap]{V^{k-1}} &
+	\Omega^{n}_{\mathfrak{C}} \arrow{ur}[swap]{\boldsymbol{V}^{k-1}} &
 &
 	|[alias=VVVV]|
-	\Omega^{n}_{\mathfrak{C}} \ar{r}[swap]{V^{k-1}} &
+	\Omega^{n}_{\mathfrak{C}} \ar{r}[swap]{\boldsymbol{V}^{k-1}} &
 	\Sigma \wr \Omega^{n-k}_{\mathfrak{C}}
 \arrow[Leftrightarrow, from=VV, to=UU,shorten >=0.05cm,shorten <=0.05cm
 ,swap,"\pi"
@@ -8615,7 +8622,6 @@ For $0 \leq i < k \leq j \leq n$
 \subsection{The $(-)\wr A$ construction}\label{WRACONST SEC}
 
 
-
 One of the key ideas used in \cite{BP_geo} when describing the monad on spans was the use of categories 
 $\Omega^n \wr A$ defined by pullbacks diagrams of the form
 \begin{equation}\label{WRASAMPLE EQ}
@@ -8631,7 +8637,9 @@ Moreover, these categories are related by analogues of the operators $d^i$, $s^j
 which satisfy all the analogues of the compatibilities 
 listed in Propositions \ref{CATDIAG PROP} and \ref{CATDIAG2 PROP}.
 
-In \cite{BP_geo} these analogue operators were built via a somewhat adhoc method, but here we will prefer a more systematic approach which regards the $(-) \wr A$ construction as a sort of $2$-categorical pullback functor. We first introduce the relevant $2$-categories.
+In \cite{BP_geo} these analogue operators were built via a somewhat adhoc method, but here we will prefer a more systematic approach which regards the $(-) \wr A$ construction as an extension and refinement of the pullback operation in $\Cat$.
+% sort of $2$-categorical pullback functor.
+We first introduce relevant $2$-categories.
 
 
 \begin{definition}
@@ -8645,7 +8653,7 @@ We write $\mathsf{Cat}\downarrow^r_{\mathcal{B}} \mathcal{E}$ for the $2$-catego
 	to
 	$F' \colon \mathcal{C}' \to \mathcal{E}$
 	is a pair $(f,\phi)$
-	formed by a functor $f\colon \mathcal{C} \to \mathcal{C}'$ and a natural transformation $\phi \colon F' f \Rightarrow F$ consisting of pullback arrows over $\mathcal{B}$
+	formed by a functor $f\colon \mathcal{C} \to \mathcal{C}'$ and a natural transformation $\phi \colon F' f \Rightarrow F$ consisting of pullback arrows\footnote{Recall that the data of a split Grothendieck fibration includes a chosen and fixed system of cartesian morphisms we call \textit{pullback} arrows.} over $\mathcal{B}$
 		\begin{equation}
 		\begin{tikzcd}[row sep = tiny, column sep = 35pt]
 			\mathcal{C} \arrow{dr}[name=U]{F} \arrow{dd}[swap]{f}
@@ -8759,12 +8767,16 @@ $\rho \bar{\phi} = \phi \pi$.
 %\end{equation}
 Alternatively, one has the explicit formula
 \[
-\pi^{\**} (f,\phi)=
+\rho^{\**} (f,\phi)=
 \left(
 	\left( f \pi,
 	\left( \phi \pi \right)^{\**} E_1 \right),
 	\left( \phi \pi \right)^{\**} E_1 \Rightarrow E_1
-\right)
+  \right)
+  ,
+  \qquad
+  \bar f(c,e) = (f(c), \phi_c^{\**}(e)),
+  \quad \bar \phi_{c,e} \colon \phi_c^{\**}(e) \to e.
 \]
 
 %writing 
@@ -8877,7 +8889,7 @@ construction from \eqref{WRASAMPLE EQ}.
 First, note that using the functor
 $\boldsymbol{V}^n \colon \Omega^n_{\mathfrak{C}} \to \Sigma \wr \Sigma_{\mathfrak{C}}$
 the categories 
-$\Omega^n_{\mathfrak{C}}$ are extended to an object in
+$\Omega^n_{\mathfrak{C}}$ may be considered as objects in
 $\mathsf{Cat} \downarrow^r_{\Sigma} \Sigma \wr \Sigma_{\mathfrak{C}}$.
 Hence, given a functor $A \to \Sigma_{\mathfrak{C}}$
 we define 
@@ -8906,7 +8918,7 @@ we first note that the $\Sigma \wr (-)$ operation can be extended to a $2$-endof
 	\mathsf{Cat} \downarrow^r_{\Sigma} \Sigma \wr A
 \\
 	\mathcal{C} \to \Sigma \wr A \ar[mapsto]{r} &
-	\Sigma \wr \mathcal{C} \to \Sigma^{\wr 2} \wr A \to \Sigma \wr A 
+	\Sigma \wr \mathcal{C} \to \Sigma^{\wr 2} \wr A \xrightarrow{\sigma^{0}} \Sigma \wr A 
 \end{tikzcd}
 \]
 from which it follows that one has natural identifications
@@ -9031,9 +9043,9 @@ and then applying the pullback functor $(-) \wr B$.
 
 
 
-Next, note that thanks to the composite functors 
+Next, note that using the composite functors 
 $\Omega^n_{\mathfrak{C}} \wr A \to \Omega^n_{\mathfrak{C}} 
-\xrightarrow{d^{0,\cdots,n}} \Sigma_{\mathfrak{C}}$
+\xrightarrow{d^{0,\cdots,n}} \Sigma_{\mathfrak{C}}$,
 one can regard the $\Omega_{\mathfrak{C}}^n \wr (-)$ constructions
 as endofunctors on the regular $1$-overcategory
 $\mathsf{Cat} \downarrow \Sigma_{\mathfrak{C}}$.
@@ -9092,7 +9104,7 @@ s^j \wr \Omega^l \wr A \simeq d^j \wr A
 	\Sigma \wr \Sigma_{\mathfrak{C}}
 \end{tikzcd}
 \]
-while associativity follows from the obvious extension of the diagram above.
+while associativity follows from the obvious extension of the above diagram.
 
 For the additional identifications, 
 those identifications concerning $d^i$ and $\pi_{i,k}$
@@ -9112,10 +9124,10 @@ follow from obvious analogues of these diagrams.
 \\
 	&
 	|[alias=TD]|
-	\Omega^{k+l}_{\mathfrak{C}} \wr A \ar{rru} \ar{dd} &&
+	\Omega^{k+l}_{\mathfrak{C}} \wr A \ar{rru} &&
 &
 	&
-	\Omega^{k+l}_{\mathfrak{C}} \wr A \ar{rr} \ar{dd} &&
+	\Omega^{k+l}_{\mathfrak{C}} \wr A \arrow[rr, crossing over] &&
 	\Sigma \wr \Omega^{l-1}_{\mathfrak{C}} \wr A 	 \ar{dd}
 \\
 	\Omega^{k+l+1}_{\mathfrak{C}} \ar{rrr}[name=MT,swap]{} \ar{rd}[swap]{d^i} \ar{dd} &&&
@@ -9126,10 +9138,10 @@ follow from obvious analogues of these diagrams.
 \\
 	&
 	|[alias=MD]|
-	\Omega^{k+l}_{\mathfrak{C}} \ar{rru} \ar{dd} &&
+	\Omega^{k+l}_{\mathfrak{C}} \ar{rru} \arrow[uu, leftarrow, crossing over] &&
 &
 	&
-	\Omega^{k+l}_{\mathfrak{C}} \ar{rr} \ar{dd} &&
+	\Omega^{k+l}_{\mathfrak{C}} \arrow[rr, crossing over] \arrow[uu, leftarrow, crossing over] &&
 	\Sigma \wr \Omega^{l-1}_{\mathfrak{C}} \ar{dd}
 \\
 	\Omega^{k}_{\mathfrak{C}} \ar{rrr}[name=DT,swap]{} \ar{rd}[swap]{d^i} &&&
@@ -9140,10 +9152,10 @@ follow from obvious analogues of these diagrams.
 \\
 	&
 	|[alias=DD]|
-	\Omega^{k-1}_{\mathfrak{C}} \ar{rru} &&
+	\Omega^{k-1}_{\mathfrak{C}} \ar{rru} \arrow[uu, leftarrow, crossing over] &&
 &
 	&
-	\Omega^{k}_{\mathfrak{C}} \ar{rr} &&
+	\Omega^{k}_{\mathfrak{C}} \ar{rr} \arrow[uu, leftarrow, crossing over] &&
 	\Sigma \wr \Sigma_{\mathfrak{C}} 
 \arrow[Leftrightarrow, from=TT, to=TD,shorten >=0.05cm,shorten <=0.05cm,
 "\pi_{i}"
@@ -9166,7 +9178,7 @@ follow from obvious analogues of these diagrams.
 \subsubsection{The non-equivariant monad on colored spans}
 
 Our task in this section is to provide a suitable description of
-$\mathsf{Op}(\mathcal{V})$.
+the catgory of colored operads $\mathsf{Op}(\mathcal{V})$.
 We will mimic the approach used in \cite{BP_geo},
 by first building a monad on a suitable category of spans, which is then transferred to $\mathsf{Sym}(\mathcal{V})$ along the Kan extension adjunction.
 
@@ -9179,7 +9191,8 @@ The category $\mathsf{WSpan}^l(\Sigma_{\bullet}^{op},\mathcal{V})$ has
 and a span $\Sigma^{op}_{\mathfrak{C}} \leftarrow A^{op} \rightarrow \mathcal{V}$
 \item morphisms given by a choice of a map of colors
 $f \colon \mathfrak{C} \to \mathfrak{D}$
-together with the data in the following diagram
+such that the square on the left below commuites, plus a natural transformation as written.
+% together with the data in the following diagram
 \begin{equation}\label{COLORSPANMAP EQ}
 \begin{tikzcd}[column sep = 20pt]
 	\Sigma_{\mathfrak{C}}^{op}
@@ -9270,7 +9283,7 @@ to the (opposite of the) composite span in
 	\Sigma \wr \mathcal{V}^{op} \ar{r}{\otimes} &
 	\mathcal{V}^{op}
 \\
-	\Omega^0_{\mathfrak{C}} \ar{r}{\boldsymbol{V}^0} \ar{d} &
+	\Omega^0_{\mathfrak{C}} \ar{r}{\boldsymbol{V}^0} \arrow[d, "\mathsf{lr}"'] &
 	\Sigma \wr \Sigma_{\mathfrak{C}} 
 \\
 	\Sigma_{\mathfrak{C}}
@@ -9306,7 +9319,8 @@ N$ given by the diagram
 ]
 \end{tikzcd}
 \end{equation}
-and the unit
+(where we are using Proposition \ref{ASSOCIDS PROP} to identify the top span as $NN(A)$),
+and unit
 $\eta \colon id \Rightarrow N$ given by
 \begin{equation}\label{NMONIDTR EQ}
 \begin{tikzcd}
@@ -9455,7 +9469,7 @@ We will now use the adjunction
 \]
 from Remark \ref{LANADJ REM} to induce a monad on 
 $\mathsf{Sym}(\mathcal{V})$.
-To do so, we will verify the conditions in \cite[Proposition 2.27]{BP_geo},
+To do so, we will verify the conditions in \cite[Proposition 2.26]{BP_geo}, % MONADADJ PROP
 stating that the natural transformations
 \[
 	\mathsf{Lan} \iota \xrightarrow{\epsilon} id
@@ -9494,7 +9508,7 @@ is a left Kan extension diagram then so is the composite of the rightmost diagra
 \end{lemma}
 
 
-The following is a variation of \cite[Lemma 4.28]{BP_geo}
+The following is a variation of \cite[Lemma 4.28]{BP_geo} % LANPULLCOMA LEM
 \begin{lemma}\label{LANPULLCOMA LEM}
 	Suppose that $\mathcal{V}$ is complete. If the rightmost triangle in 
 \[
@@ -9586,7 +9600,7 @@ $\mathbb{F} = \mathsf{Lan} N \iota$ with multiplication and unit given by
 
 
 \subsection{Pushouts of operads}
-
+\label{PUSHOUT_SEC}
 
 
 Our goal in this section will be to understand free operad extensions, i.e. pushouts of the form 
@@ -9610,7 +9624,7 @@ on \eqref{OU EQ} with respect to change of colors.
 More explicitly, this will mean that our work in this section will be natural with regard to commutative diagrams
 \begin{equation}\label{COLORCHNAT EQ}
 	\begin{tikzcd}
-		\mathbb X \arrow[r, "u"',swap] \arrow[d]
+		X \arrow[r, "u"',swap] \arrow[d]
 	&
 		Y \arrow[d]
 &
@@ -9637,7 +9651,7 @@ we will produce a filtration
 \end{equation}
 of the underlying symmetric sequences, i.e. with 
 $\mathcal{O}_i \in \mathsf{Sym}(\mathcal{V})$
-(all maps in \eqref{FILT EQ} will, again, be the identity on colors).
+(and all maps in \eqref{FILT EQ} will, again, be the identity on colors).
 
 
 Writing $\amalg_{\mathsf{F}}$ and $\mathbin{\check\amalg}_{\mathsf{F}}$
@@ -9679,10 +9693,13 @@ can be computed in $\mathsf{Sym}(\mathcal{V})$
 rather than in $\mathsf{Op}(\mathcal{V})$.
 
 
-Noting that $N \left(N^{\circ n} \iota \O \amalg_{\mathsf{F}} \iota X^{\amalg_{\mathsf{F}} 2l +1}\amalg_{\mathsf{F}} \iota Y \right)$ denotes a certain span
+By construction,
+$N \left(N^{\circ n} \iota \O \amalg_{\mathsf{F}} \iota X^{\amalg_{\mathsf{F}} 2l +1}\amalg_{\mathsf{F}} \iota Y \right)$
+denotes a certain span
 $\Sigma_{\mathfrak{C}}^{op} \leftarrow 
 \left(\Omega^{n,\lambda_l}_{\mathfrak{C}}\right)^{op} \to \mathcal{V}$,
-we will then apply (the natural analogue of)
+and, once we have properly identified $\Omega_{\mathfrak C}^{n, \lambda_l}$,
+we can then apply (the natural analogue of)
 \cite[Prop. 5.37]{BP_geo}
 along each simplicial direction
 to convert the last line of \eqref{OU EQ1}
@@ -9743,14 +9760,16 @@ such that
 $\varphi_{r}, r>s$ are $\lambda_i$-inert label maps.
 
 Arrows in $\Omega_{\mathfrak C}^{n,s,\lambda}$
-are isomorphisms $\left(\pi_r \colon T_r \to T'_r\right)$
+are tuples of isomorphisms $\left(\pi_r \colon T_r \to T'_r\right)$
 such that $\pi_r,r \geq s$ are label maps.
 
-Further, for any $s<0$ of $n<s'$ we write
+Further, for any $s<0$ or $n<s'$, we write
 \[
-\Omega_{\mathfrak{C}}^{n,s,\lambda} = \Omega_{\mathfrak{C}}^{n,-1,\lambda}
+      \Omega_{\mathfrak C}^{n,\lambda} = \Omega_{\mathfrak C}^{n,0,\lambda},
+      \qquad
+\Omega_{\mathfrak{C}}^{n,s,\lambda} = \Omega_{\mathfrak{C}}^{n,-1,\lambda},
 \qquad
-\Omega_{\mathfrak{C}}^{n,s',\lambda} = \Omega_{\mathfrak{C}}^{n}
+\Omega_{\mathfrak{C}}^{n,s',\lambda} = \Omega_{\mathfrak{C}}^{n}.
 \]
 \end{definition}
 
@@ -9765,7 +9784,7 @@ there are natural functors
 \Omega_{\mathfrak{C}}^{n,s,\lambda'} \xrightarrow{g_{\**}} \Omega_{\mathfrak{C}}^{n,s,\lambda}.
 \]
 Second, by keeping track of labels on vertices,
- the usual functors relating the categories 
+the usual functors from \S \ref{CSTRINGS_SEC} relating the categories 
 $\Omega^n_{\mathfrak{C}}$ extend to the categories
 $\Omega_{\mathfrak{C}}^{n,s,\lambda}$. Indeed, for 
 $k \leq n$
@@ -9773,7 +9792,7 @@ and
 $f \colon \mathfrak{C} \to \mathfrak{D}$ a map of colors
 one has functors
 \begin{equation}\label{FGTLABEL EQ}
-\Omega_{\mathfrak{C}}^{n,s,\lambda} \xrightarrow{V^k} \Sigma \wr\Omega_{\mathfrak{C}}^{n-k-1,s-k-1,\lambda},
+\Omega_{\mathfrak{C}}^{n,s,\lambda} \xrightarrow{\boldsymbol{V}^k} \Sigma \wr\Omega_{\mathfrak{C}}^{n-k-1,s-k-1,\lambda},
 \qquad
 \Omega_{\mathfrak{C}}^{n,s,\lambda} \xrightarrow{f_{\**}} \Omega_{\mathfrak{D}}^{n,s,\lambda}.
 \end{equation}
@@ -9810,14 +9829,14 @@ generalize to natural isomorphisms
 \begin{equation}
 \begin{tikzcd}[row sep = tiny, column sep = 35pt]
 	\Omega_{\mathfrak{C}}^{n,s,\lambda}
-	\arrow{r}{V^k} \arrow{dd}[swap]{d^i} &
+	\arrow{r}{\boldsymbol{V}^k} \arrow{dd}[swap]{d^i} &
 	|[alias=U]|
 	 \Sigma \wr \Omega_{\mathfrak{C}}^{n-k-1,s-k-1,\lambda}
 	 \ar[equal]{dd}{}
 \\
 \\
 	|[alias=V]|
-	\Omega_{\mathfrak{C}}^{n-1,d_i(s),\lambda} \arrow{r}[swap]{V^{k-1}} &
+	\Omega_{\mathfrak{C}}^{n-1,d_i(s),\lambda} \arrow{r}[swap]{\boldsymbol{V}^{k-1}} &
 	 \Sigma \wr \Omega_{\mathfrak{C}}^{n-k-1,d_i(s)-k,\lambda}
 \arrow[Leftrightarrow, from=V, to=U,shorten >=0.15cm,shorten <=0.15cm
 ,swap,"\pi_{i,k}"
@@ -9875,7 +9894,7 @@ $\Sigma \wr \amalg_j A_j \to \Sigma \wr \Sigma_{\mathfrak{C}}^{\amalg l}$.
  
 In particular, for all $-1\leq s \leq n$, this defines categories
 $\Omega^{n,s,\lambda}_{\mathfrak{C}} \wr (A_j)$ via pullbacks
-(note that the $s \leq n$ restriction guarantees that the target of the lower $\boldsymbol{V}^n$ is indeed $\Sigma \wr \Sigma_{\mathfrak{C}}^{\amalg l}$) 
+(note that the $s \leq n$ restriction guarantees that the target of the lower $\boldsymbol{V}^n$ is indeed $\Sigma \wr \Sigma_{\mathfrak{C}}^{\amalg l}$).
 \begin{equation}\label{WRAJSAMPLE EQ}
 \begin{tikzcd}
 	\Omega^{n,s,\lambda}_{\mathfrak{C}} \wr (A_j) \ar{r}{\boldsymbol{V}^n} \ar{d} &
@@ -9885,7 +9904,7 @@ $\Omega^{n,s,\lambda}_{\mathfrak{C}} \wr (A_j)$ via pullbacks
 	\Sigma \wr \Sigma_{\mathfrak{C}}^{\amalg l}
 \end{tikzcd}
 \end{equation}
-along with analogues of $d_i$ (for $i<n$), $s_j$, $V^k$, $\pi_{i,k}$
+along with analogues of $d_i$ (for $i<n$), $s_j$, $\boldsymbol{V}^k$, $\pi_{i,k}$
 and of the forgetful functors in \eqref{FGTLABEL EQ}
 (cf. the discussion following \eqref{WRADEF EQ}).
 \end{definition}
@@ -9973,7 +9992,7 @@ This follows by repeating the argument in the proof of Proposition \ref{SPANPIEC
 
 
  
-Thanks to the composite functors
+Using the composite functors
 $\Omega_{\mathfrak{C}}^{n,s,\lambda} \wr (A_j)
 \to \Omega_{\mathfrak{C}}^{n,s,\lambda} 
 \to \Omega^{-1,0}_{\mathfrak{C}} = \Sigma_{\mathfrak{C}}$,
@@ -9984,6 +10003,7 @@ $\left(\mathsf{Cat}\downarrow \Sigma_{\mathfrak{C}}\right)^{\times l}
 \to \mathsf{Cat}\downarrow \Sigma_{\mathfrak{C}}$
 
 \begin{corollary}[{cf. \cite[Cor. 5.32]{BP_geo}}]
+      \label{LABIDEN_COR}
 Let $-1 \leq k, -1 \leq s \leq n$.
 There are natural identifications
 \[
@@ -10069,26 +10089,54 @@ Much as in Proposition \ref{ASSOCIDS PROP}, this follows by noting that all squa
 \end{proof}
 
 \subsubsection{Filtration of free extensions}
+\label{EQMON_SEC}
 
-
-We now return to discussing
-\eqref{OU EQ1}.
-The preceeding discussion shows that
-({\color{blue} $N_{n,l}^{(\O,X,Y)}$ notation undiscussed})
-\begin{equation}\label{1STRED EQ}
-\O[u] \simeq
-\mathop{\colim}\limits_{(\Delta \times \Delta)^{op}}
-\left(
-	\mathsf{Lan}_{\left(\Omega_{\mathfrak C}^{n,\lambda_l} \to \Sigma_{\mathfrak C}\right)^{op}} N_{n,l}^{(\O,X,Y)}
-\right)
-\end{equation}
-where $\lambda_l$ is the partition on 
+We now return to discussing free extensions \eqref{OU EQ}.
+%
+Let $\lambda_l$ denote the partition on 
 \[
 \langle \langle l \rangle \rangle
 =
 \{-\infty,-l,\cdots,-1,0,1,\cdots,+\infty\}
 \]
-such that $\left(\lambda_l\right)_a = \{-\infty\}$.
+such that $\left(\lambda_l\right)_a = \{-\infty\}$,
+and define $N_{n,l}^{(\O,X,Y)}$ to be the opposite of the composite
+\[
+      \Omega_{\mathfrak C}^{n,0,\lambda_l} \xrightarrow{(\boldsymbol{V}^0)^{\circ n}}
+      \Sigma^{\wr n} \wr \coprod_{\langle \langle l \rangle \rangle} \Sigma_{\mathfrak C} \xrightarrow{(\O,X,\dots,X,Y)}
+      \Sigma^{\wr n} \wr \V^{op} \xrightarrow{\otimes}
+      \V^{op}.
+\]
+Corollary \ref{LABIDEN_COR} implies that
+$N \left(N^{\circ n} \iota \O \amalg_{\mathsf{F}} \iota X^{\amalg_{\mathsf{F}} 2l +1}\amalg_{\mathsf{F}} \iota Y \right)$
+is the span
+$\Sigma_{\mathfrak C}^{op} \xleftarrow{\mathsf{lr}} (\Omega_{\mathfrak C}^{n,0,\lambda_l})^{op} \xrightarrow{N_{n,l}^{(\O,X,Y)}} \V$,
+and hence following \eqref{OU EQ1} we conclude that
+\begin{equation}\label{1STRED EQ}
+\O[u] \simeq
+\mathop{\colim}\limits_{(\Delta \times \Delta)^{op}}
+\left(
+	\mathsf{Lan}_{\left(\Omega_{\mathfrak C}^{n,\lambda_l} \to \Sigma_{\mathfrak C}\right)^{op}} N_{n,l}^{(\O,X,Y)}
+\right).
+\end{equation}
+
+
+% The preceeding discussion shows that
+% ({\color{blue} $N_{n,l}^{(\O,X,Y)}$ notation undiscussed})
+% \begin{equation}\label{1STRED EQ}
+% \O[u] \simeq
+% \mathop{\colim}\limits_{(\Delta \times \Delta)^{op}}
+% \left(
+% 	\mathsf{Lan}_{\left(\Omega_{\mathfrak C}^{n,\lambda_l} \to \Sigma_{\mathfrak C}\right)^{op}} N_{n,l}^{(\O,X,Y)}
+% \right)
+% \end{equation}
+% where $\lambda_l$ is the partition on 
+% \[
+% \langle \langle l \rangle \rangle
+% =
+% \{-\infty,-l,\cdots,-1,0,1,\cdots,+\infty\}
+% \]
+% such that $\left(\lambda_l\right)_a = \{-\infty\}$.
 Moreover, the simplicial operators in the $l$ direction are described by antisymmetric functions $\langle \langle l \rangle \rangle
  \to \langle \langle l' \rangle \rangle
 $
@@ -10140,41 +10188,52 @@ $\Omega^{t,\lambda_0}$.
 \end{proof}
 
 
-(The natural analogue of) \cite[Prop 5.37]{BP_geo}
-applied to 
+We note that the proof of \cite[Prop 5.37]{BP_geo} % RANTRANS PROP
+holds when replacing $\Omega_G$ with $\Omega_{\mathfrak C}$,
+and we thus 
+apply it
 \eqref{1STRED EQ}
 (note that the ``natural transformation component of differential operators are isomorphisms for the $n$ direction follows from \eqref{NMONMULTTR EQ} and \eqref{NMONIDTR EQ}''
-while in the $l$ direction it follows since the associate maps of tuples (cf. Proposition \ref{SPANPIECEJ PROP}) are the identity in each coordinate) now yields
+while in the $l$ direction it follows since the associate maps of tuples (cf. Proposition \ref{SPANPIECEJ PROP}) are the identity in each coordinate)
+to yield
 \begin{equation}\label{2NDRED EQ}
 \O[u] \simeq
 	\mathsf{Lan}_{\left(\Omega_{\mathfrak C}^{e} \to
 	\Sigma_{\mathfrak C}\right)^{op}} N^{(\O,X,Y)}
 \end{equation}
 
-We can explain how the desired filtration 
-\eqref{FILT EQ} is obtained:
-after replacing  
-$\Omega_{\mathfrak C}^{e}$
-in \eqref{2NDRED EQ}
-with a suitable subcategory 
-$\widehat{\Omega}_{\mathfrak C}^{e}$,
-the filtration will follow from a filtration 
+The desired filtration \eqref{FILT EQ} will now be obtained by
+first replacing $\Omega_{\mathfrak C}^e$ in \eqref{2NDRED EQ} with a suitable subcategory $\widehat{\Omega}_{\mathfrak C}^{e}$,
+and then producing a filtration
 $\widehat{\Omega}_{\mathfrak C}^{e}[\leq k]$
 of 
 $\widehat{\Omega}_{\mathfrak C}^{e}$ itself.
 
+% We can explain how the desired filtration 
+% \eqref{FILT EQ} is obtained:
+% after replacing  
+% $\Omega_{\mathfrak C}^{e}$
+% in \eqref{2NDRED EQ}
+% with a suitable subcategory 
+% $\widehat{\Omega}_{\mathfrak C}^{e}$,
+% the filtration will follow from a filtration 
+% $\widehat{\Omega}_{\mathfrak C}^{e}[\leq k]$
+% of 
+% $\widehat{\Omega}_{\mathfrak C}^{e}$ itself.
+
 
 \begin{definition}
+      Let
 $\widehat{\Omega}_{\mathfrak C}^{e} \hookrightarrow \Omega_{\mathfrak C}^{e}$
-is the full subcategory of those labeled trees whose underlying tree is alternating, active nodes are labeled by $\O$ 
+denote the full subcategory of those labeled trees whose underlying tree is alternating, active nodes are labeled by $\O$ 
 and passive nodes are labeled by $X$ or $Y$.
 
-Moreover, writing $|T| = |V^X(T)|+ |V^Y(T)|$,
+Moreover, writing $|T| = |V^X(T)|+ |V^Y(T)|$, we let
 \begin{enumerate}[label=(\roman*)]
 \item $\widehat{\Omega}_{\mathfrak C}^{e}[\leq k]$ (resp. $\widehat{\Omega}_{\mathfrak C}^{e}[k]$)
-is the full subcategory of those $T$ with $|T| \leq k$ ($|T|=k$);
+denote the full subcategory of those $T$ with $|T| \leq k$ ($|T|=k$);
 \item $\widehat{\Omega}_{\mathfrak C}^{e}[\leq k \setminus Y]$ (resp. $\widehat{\Omega}_{\mathfrak C}^{e}[k \setminus Y]$)
-is the further subcategory of those $T$ with $|T|_Y \neq k$.
+denote the further subcategory of those $T$ with $|T|_Y \neq k$.
 \end{enumerate}
 Subcategories $\OC^a[\leq k], \OC^a[k]$ of $\OC^a$ are defined similarly.
 \end{definition}
@@ -10535,6 +10594,7 @@ has a description
     % =: \colim_{n,l} \mathsf{Lan} \hat N_{n,l}^{(\O,X,Y)},
 \end{align*}
 where the partition $\lambda^a_l$ in the fourth line is the active partition with $\left(\lambda^a_l\right)_a = \{1,\cdots,l\}$
+\todo[inline]{shouldn't this be everything in $\langle \langle l \rangle \rangle$?}
 and, similarly to Proposition \ref{EXTENTREE PROP},
 the double realization
 $\OC^p \simeq |\Omega_{\mathfrak C}^{n,\lambda^a_l}|$
