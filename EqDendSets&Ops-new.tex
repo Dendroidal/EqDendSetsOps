@@ -1,6 +1,5 @@
 \documentclass[a4paper,10pt
 ,draft
-%, final
 ]{article}%
 
 \pdfcompresslevel=0
@@ -40,15 +39,18 @@ cd,patterns,calc}
 \usepackage{ifdraft}
 \ifdraft{
   \color[RGB]{63,63,63}
-%  \pagecolor[RGB]{220,220,204}
+  \pagecolor[RGB]{220,220,204}
   \usepackage{showkeys}
+  \usepackage{geometry}
+  \usepackage{todonotes}
 }
 {
   \usepackage[notref]{showkeys}
+  \usepackage[margin=1in]{geometry}
+  \usepackage[disable]{todonotes}
+  \usepackage[fontsize=12pt]{scrextend}
 }
 
-
-\usepackage{todonotes}
 
 
 % ----- Labels Changed? --------
@@ -260,14 +262,25 @@ Here, homotopical essential surjectivity is defined on the underlying categories
       \item satisfies the coherence axiom.
       \end{enumerate}
 \end{theorem}
+\begin{proof}
+      [Proof Outline]
+      This result is proved in two steps \S \ref{MS_SEC}:
+      First, Theorem \ref{MODEL_THM} establishes the existance of a certain $\F$-(semi)-model structure on $\Op^G(\V)$,
+      where essential surjectivity is instead defined using a cofibrant replacement of the $\V$-category detecting isomorphisms
+      (see Definition \ref{PL_ES_DEFN} and Remark \ref{ESS_SUR_REM}).
+      Second,
+      Propositions \ref{WE_ARE_DK_PROP} and \ref{COH_DK_ARE_WE_PROP},
+      combined with Proposition \ref{SSET_COH_PROP} and Corollary \ref{PTSSETCOH_COR},
+      imply that when $\V$ satisfies the coherence axiom,
+      to two notions of essential surjectivity agree.
+\end{proof}
 
-This result is proved (in stages) in \S \ref{MS_SEC}.
 
-There is a second possible notion of ``homotopically essentially surjective'':
-we say that a map $F: \O \to \P$ is essentially surjective if any object in $\P$ is ``equivalent'' to an object in the image of $F$,
-where equivalence is defined used a cofibrant replacement of the $\V$-category detecting isomorphisms (see Definition \ref{PL_ES_DEFN} and Remark \ref{ESS_SUR_REM}).
-In the case where $\V$ does not satisfy the coherence axiom, then this notion is potentially \textit{stronger} than the notion used above.
-This case is covered in Theorem \ref{MODEL_THM}.
+% There is a second possible notion of ``homotopically essentially surjective'':
+% we say that a map $F: \O \to \P$ is essentially surjective if any object in $\P$ is ``equivalent'' to an object in the image of $F$,
+% where equivalence is defined used a cofibrant replacement of the $\V$-category detecting isomorphisms (see Definition \ref{PL_ES_DEFN} and Remark \ref{ESS_SUR_REM}).
+% In the case where $\V$ does not satisfy the coherence axiom, then this notion is potentially \textit{stronger} than the notion used above.
+% This case is covered in Theorem \ref{MODEL_THM}.
 
 
 \todo[inline]{come back}
@@ -1946,7 +1959,7 @@ we relegate most of the technical algebraic discussion of this monad $\mathbb F$
       \begin{equation}
             \label{FREESIGMA_EQ}
             \Sigma_{\mathfrak C}[-, \vect D] \colon
-            \V^{\Aut(\vect D)} \longto \prod_{\vect C \in G \ltimes \Sigma_{\mathfrak C}} \V^{\Aut(\vect C)}_{gen} \longto \Sym^{G, \mathfrak C}(\V),
+            \V^{\Aut(\vect D)} \longto \prod_{\vect C \in G \ltimes \Sigma_{\mathfrak C}} \V^{\Aut(\vect C)} \longto \Sym^{G, \mathfrak C}(\V),
             \qquad
             \Sigma_{\mathfrak C}[K, \vect D](-) = \Hom_{\Sigma_{\mathfrak C}}(-, \vect D) \cdot_\Gamma K.
       \end{equation}
@@ -2251,6 +2264,9 @@ i.e. on each fiber of $\Op^G(\V) \to \Fin^G$.
 We will now generalize and synthesize \cite{BM13}, \cite{Cav}, and \cite{CM13b} to assemble these
 into a single model structure on the full category of $G$-operads $\Op^G(\V)$ with varying colors.
 
+Our main examples of interest will be $(\V, \otimes) = (\sSet, \times)$ or $(\sSet_{\**}, \wedge)$.
+We specify to these cases in Section \ref{SSETMS_SEC}.
+
 
 % \begin{definition}
 %       We say $\V$ \textit{admits (semi)-transfer for categories/operads} if for any set $\mathfrak C$,
@@ -2322,7 +2338,7 @@ We recall and extend the following definitions from \cite{BM13}.
 \begin{definition}
       A {\em $\V$-interval} is a cofibrant object $\J$ in $\Cat^{\set{0,1}}(\V)$ (with the transfered model structure)
       for which there exists a weak equivalence $\J \to \I_f$.
-      A set $\mathcal{G}$ of $\V$-intervals is {\em generating} if all $\V$-intervals $\J$ can be obtained
+      A set $\mathscr{G}$ of $\V$-intervals is \textit{generating} if all $\V$-intervals $\J$ can be obtained
       as a retract of a trivial extension of an element in $\mathcal{G}$ in $\Cat^{\set{0,1}}(\V)$:
       \begin{equation}
             \begin{tikzcd}
@@ -2345,9 +2361,14 @@ We recall and extend the following definitions from \cite{BM13}.
       % But then we have a lift $Y_c \to X_c'$, and a lift $X_c' \to X_f$, yielding our weak equivalence $A \to X_f$.      
 \end{remark}
 
-\begin{remark}
-      The prototypical example of a $\V$-interval is $J = N(0 \leftrightarrows 1) \in \sSet$ the nerve of the walking isomorphism; see the proof of Proposition \ref{SSET_COH_PROP}.
-\end{remark}
+% \begin{remark}
+%       The prototypical example of a $\V$-interval is $W_!J$ where $J = N(0 \leftrightarrows 1) = N \I \in \sSet$ is the nerve of the walking isomorphism.
+%       In particular, in $\Cat^{\set{0,1}}(\sSet)$,
+%       $W_!(\set{0,1} \to J)$ is a cofibration and
+%       the derived counit $W_!J \to \I = \I_f$ is a weak equivalence.
+
+%       Moreover, the set of $\sSet$-intervals with countably-many simplicies are generating \cite[Lemmas 4.2,4.3]{Ber07b}.
+% \end{remark}
 
 Morally, $\V$-intervals detect ``homotopical isomorphisms'' in any $\V$-cat $\mathcal C$; cf. Definition \ref{EQUIV_DEF} below.
 Additionally, we use these $\V$-intervals to define homotopical analogues of isofibrations and surjective maps of $\V$-categories.
@@ -2583,27 +2604,23 @@ Now, define
       \label{IFJF_EQ}
       I_{\F}:= I_{\F, loc} \mathbin{\cup} \set{\varnothing \to G/H \cdot \1}_{H \in \F_1},
       \qquad \qquad
-      J_{\F} := J_{\F, loc} \mathbin{\cup} \set{G/H \cdot (\1 \to \J)}_{H \in \F_1,\ \J\in\mathbb{G}}
+      J_{\F} := J_{\F, loc} \mathbin{\cup} \set{G/H \cdot (\1 \to \J)}_{H \in \F_1,\ \J\in\mathscr{G}}
 \end{equation}
-where $\1$ defined as in Definition \ref{PL_ES_DEFN}, and $\mathbb{G}$ is a generating set of $\V$-intervals. 
+where $\1$ defined as in Definition \ref{PL_ES_DEFN}, and $\mathscr{G}$ is a generating set of $\V$-intervals. 
 
 
 \begin{example}
+      \label{FREEOP_EX}
       We unpack these definitions with several examples.
       \begin{enumerate}[label = (\roman*)]
       \item With $n = 0$, we see $\mathbb F_H[\varnothing] = G/H \cdot \Omega(\eta)$ is cofibrant for all $H \in \mathcal F_0$.
-      \item When $G = \**$ and $n=1$, $\Gamma = \**$ and $\mathfrak C_\Gamma = \set{0,1}$, and moreover
+      \item With $n = 1$ and $\Gamma = H \leq G \simeq G \times \Sigma_1$, $\mathfrak C_\Gamma = G/H \cdot \set{0,1}$, and
             \[
-                  \mathbb F_{\Gamma}[1_\V] = \mathbb A^{op} = \Omega(C_1),
+                  \mathbb F_{\Gamma}[\varnothing] = G/H \cdot (\set{0,1} \cdot \Omega(\eta)),
                   \qquad
-                  \mathbb F_{\Gamma}[\varnothing] = \set{0,1} \cdot \Omega(\eta).
+                  \mathbb F_{\Gamma}[1_\V] = G/H \cdot \mathbb A^{op} = \Omega(G/H \cdot C_1).
             \]
-            More generally, for $G$ finite, $\Gamma = H \leq G \leq G \times \Sigma_1$, $\mathfrak C_\Gamma = G/H \cdot \set{0,1}$,
-            $\mathbb F_{\Gamma}[1_\V] = \Omega(G/H \cdot C_1)$
-            has a single orbit of non-trivial hom objects.
-            % \[
-            %       \mathbb A_H^{op}((gH,1); (gH,0)) = G/H \cdot 1_\V.
-            % \]
+            with two orbits of objects and a single orbit of non-trivial hom-objects in the latter case.
       \item For higher arity operations,
             if $\Gamma \leq G \times \Sigma_n$ is a \textit{graph subgroup}, i.e. the graph of a homomorphism $G \geq H \xrightarrow{\alpha} \Sigma_n$, then
             we have an identification $\mathfrak C_{\Gamma} \simeq G \cdot_H (A_+)$ where $A$ denotes $n$ equipped with the $H$-action provided by $\alpha$.
@@ -2645,16 +2662,20 @@ where $\1$ defined as in Definition \ref{PL_ES_DEFN}, and $\mathbb{G}$ is a gene
       \end{enumerate}
 \end{example}
 
-\begin{remark}
-      In the case where $\V = \sSet$ equipped with the Kan model structure and $\F = \F^\Gamma$ is the $(G, \Sigma)$-family of graph subgroups,
-      generating cofibrations and trivial cofibrations are given by
-      \[
-            \Omega(C) \otimes_\Fin(\partial \Delta[n] \to \Delta[n]),
-            \qquad
-            \Omega(C) \otimes_\Fin(\Lambda^i[n] \to \Delta[n]),
-      \]
-      for $C \in \Sigma_G$ and $0 \leq i \leq n$.
-\end{remark}
+% \begin{remark}
+%       In the case where $\V = \sSet$ equipped with the Kan model structure and $\F = \F^\Gamma$ is the $(G, \Sigma)$-family of graph subgroups,
+%       generating cofibrations and trivial cofibrations are given by
+%       \begin{gather*}
+%             \Omega(C) \otimes_\Fin(\partial \Delta[n] \to \Delta[n]),
+%             \qquad
+%             G/H \cdot (\varnothing \to \Omega(\eta)
+%             \\
+%             \Omega(C) \otimes_\Fin(\Lambda^i[n] \to \Delta[n]),
+%             \qquad
+%             G/H \cdot (\Omega(\eta) \to \mathbb J)
+%       \end{gather*}
+%       for $C \in \Sigma_G$, $0 \leq i \leq n$, $H \leq G$, and $\mathbb J$ is a $\sSet$-interval.
+% \end{remark}
 
 
 \begin{lemma}
@@ -4106,6 +4127,7 @@ To complete the proof of Theorem \ref{INTRO_MODEL_THM},
 we need to recognize our weak $\F$-equivalences slightly differently.
 
 \begin{definition}
+      \label{DKEQUIV_DEF}
       We say $F: \O \to \P$ in $\Op^G(\V)$ is called \textit{$\pi_0$-essentially surjective} if
       $j^{\**}\pi_0(F^H)$ is essentially surjective for all $H \leq G$.
       
@@ -4239,17 +4261,59 @@ This requires another condition on $\V$, namely that the homotopy equivalences a
       while right properness and Lemma \ref{RIGHTPROPER_LEM} imply these are actual $H$-equivalences.
 \end{proof}
 
-We note that this is a \textit{non-equivariant} condition on $\V$.
-It has been proven in the literature for many categories:
-\begin{itemize}      
-\item The notion originated with Boardman-Vogt, who showed it holds for compactly-generated weak Hausdorff spaces $(\Top, \times)$ \cite[Lem. 4.16]{BV73};
-\item Using a generalization of this argument, Berger-Moerdijk showed it holds for any category $\V$ which satisfies transfer for operads, is right proper, and has a cofibrant unit \cite[Prop. 2.24]{BM13}.
-\item As recreated in Proposition \ref{SSET_COH_PROP} below, Joyal showed it holds for $(\sSet, \times)$ with the Quillen model structure;
-\item This axiom is also a consequence of Lurie's \textit{invertibility hypothesis} \cite[A.3.2.12]{Lur09} by an argument of Berger-Moerdijk \cite[Rem. 2.19]{BM13}.
-      This adds the example of $\sSet$ with the Joyal model structure, among others \cite[A.3.2.23]{Lur09}.
-\end{itemize}
+\begin{remark}
+      \label{FIB_ISOFIB_REM}
+      When $\V$ satisfies the coherence condition, we also have an additional nice description of fibrations:
+      A map $F: \O \to \P$ in $\Op^G_\F(\V)$ is a fibration iff
+      $F$ is a local $\F$-fibration such that
+      $j^{\**}\pi_0(F^H)$ is an isofibration of 1-categories.
+      Indeed, the arguments in \cite[Propositions 2.3 and 2.5]{Ber07b} extend as written to the general case,
+      notationally replacing $\mathcal H$ with an arbitrary $\V$-interval $\mathbb J$ and
+      $\mathscr F$ with $\mathbb A$.
+\end{remark}
 
-We prove it here for simplicial sets and pointed simplicial sets.
+
+\begin{remark}
+      \label{COH_EX_REM}
+      We note that the coherence condition is a \textit{non-equivariant} assumption on $\V$.
+      It has been proven in the literature for many categories:
+      \begin{enumerate}[label = (\roman*)]
+      \item The notion originated with Boardman-Vogt, who showed it holds for compactly-generated weak Hausdorff spaces $(\Top, \times)$ \cite[Lem. 4.16]{BV73}.
+      \item Using a generalization of this argument, Berger-Moerdijk showed it holds for any category $\V$ which satisfies transfer for operads, is right proper, and has a cofibrant unit \cite[Prop. 2.24]{BM13}.
+      \item As recreated in Proposition \ref{SSET_COH_PROP} below, Joyal showed it holds for $(\sSet, \times)$ with the Quillen model structure.
+      \item This axiom is also a consequence of Lurie's \textit{invertibility hypothesis} \cite[A.3.2.12]{Lur09} by an argument of Berger-Moerdijk \cite[Rem. 2.19]{BM13}.
+            This adds the example of $\sSet$ with the Joyal model structure, among others \cite[A.3.2.23]{Lur09}.
+      \end{enumerate}
+\end{remark}
+
+\subsection{Equivariant operads of simplicial sets and spaces}
+\label{SSETMS_SEC}
+
+We interpret the previous sections in the case where our enriching category is $\sSet$, $\sSet_{\**}$, or $\Top$.
+
+First, we identify some definitions.
+\begin{enumerate}[label = (\roman*)]
+\item $\eta = [0] = \**$, $\mathbb A = [1]$, while $\mathbb I = \tilde [1]$ is the walking isomorphism category; all are discrete.
+\item  The prototypical example of a $\sSet$-interval is $W_!J$ where $J = N(0 \leftrightarrows 1) = N \I \in \sSet$ is the nerve of the walking isomorphism.
+      In particular, in $\Cat^{\set{0,1}}(\sSet)$,
+      $W_!(\set{0,1} \to J)$ is a cofibration and
+      the derived counit $W_!J \to \I = \I_f$ is a weak equivalence.
+\item The set $\mathscr G$ of $\sSet$-intervals with countably-many simplicies are generating by \cite[Lemmas 4.2,4.3]{Ber07b}.
+\item The descriptions of equivariant Dwyer-Kan equivalences and fibrations from Definition \ref{DKEQUIV_DEF} and Remark \ref{FIB_ISOFIB_REM} generalize the similarly-named non-equivariant notions.
+\item Following Example \ref{FREEOP_EX}, we see that
+      when $\F = \F^\Gamma$ is the is the $(G, \Sigma)$-family of graph subgroups,
+      generating cofibrations and trivial cofibrations of $\Op^G_{\F^\Gamma}(\sSet)$ are, respectively, 
+      \begin{gather*}
+            \set{\Omega(C) \otimes_\Fin(\partial \Delta[n] \to \Delta[n])}_{C \in \Sigma_G, n \geq 0} \bigcup 
+            \set{G/H \cdot (\varnothing \to \Omega(\eta))}_{H \leq G}
+            \stepcounter{equation}\tag{\theequation}\label{SSETGENCOF_EQ}
+            \\
+            \set{\Omega(C) \otimes_\Fin(\Lambda^i[n] \to \Delta[n])}_{C \in \Sigma_G, 0 \leq i \leq n} \bigcup
+            \set{G/H \cdot (\Omega(\eta) \to \mathbb J)}_{H \leq G, \mathbb J \in \mathscr G}.
+      \end{gather*}     
+\end{enumerate}    
+
+Finally, we prove the coherence condition for simplicial sets and pointed simplicial sets.
 \begin{proposition}
       [{cf. \cite[\S 1]{Joy02}}]
       \label{SSET_COH_PROP}
@@ -4265,14 +4329,15 @@ We prove it here for simplicial sets and pointed simplicial sets.
       Since $\Delta[1] \to J = N \I$ is anodyne by \cite[Corollary 1.6]{Joy02} or \cite[Lemma 0.15]{Rie}, 
       $\tilde \alpha$ factors through $J$,
       so the adjoint $\alpha$ factors through $W_!J$.
-      The result then follows since $W_!J$ is a $\sSet$-interval:
-      $W_!J$ is cofibrant in $\sCat^{\set{0,1}}$ as we have a factorization $\set{0,1} \to \Delta[1] \to J$ and $W_!$ is left Quillen,
-      and the counit of the Quillen equivalence % $W_!\colon \sSet \rightleftarrows \sCat \ \colon \! h c N$
-      yields a weak equivalence $W_!J \xrightarrow{\simeq} [\tilde 1] = \mathbb I = \mathbb I_f$ in $\Cat^{\set{0,1}}(\sSet)$.
-      % This weak equivalence also holds sinceSince $J$ is contractible (as it models $S^\infty$), we're done.
+      The result then follows since $W_!J$ is a $\sSet$-interval.
+      % $W_!J$ is cofibrant in $\sCat^{\set{0,1}}$ as we have a factorization $\set{0,1} \to \Delta[1] \to J$ and $W_!$ is left Quillen,
+      % and the counit of the Quillen equivalence % $W_!\colon \sSet \rightleftarrows \sCat \ \colon \! h c N$
+      % yields a weak equivalence $W_!J \xrightarrow{\simeq} [\tilde 1] = \mathbb I = \mathbb I_f$ in $\Cat^{\set{0,1}}(\sSet)$.
+      % %This weak equivalence also holds since $J$ is contractible (as it models $S^\infty$), we're done.
 \end{proof}
 
 \todo[inline]{do we need Lemmas \ref{INTER_LEM} and \ref{WJ EX}? Or, for that matter, \ref{SSET_COH_PROP}? This is basically a recreation of the cited results using minimal new terminology.}
+
 
 % In Appendix \ref{PT_SEC}, we prove Proposition \ref{PT_MODEL_COR}, of which the following is a special case.
 \begin{corollary}
@@ -4300,47 +4365,24 @@ We prove it here for simplicial sets and pointed simplicial sets.
       and then an easy adjunction argument finishes the proof.
 \end{proof}
 
-We now have collected all the remaining pieces to prove Theorem \ref{INTRO_MODEL_THM} from Theorem \ref{MODEL_THM}.
 
-\begin{proof}
-      [Proof of Theorem \ref{INTRO_MODEL_THM}]
-      Propositions \ref{WE_ARE_DK_PROP} and \ref{COH_DK_ARE_WE_PROP},
-      combined with Proposition \ref{SSET_COH_PROP} and Corollary \ref{PTSSETCOH_COR},
-      imply that when $\V$ satisfies the coherence axiom, 
-      the $\F$-(semi)-model structures from Theorem \ref{MODEL_THM} are in fact the $\F$-Dwyer-Kan model structures.
-\end{proof}
-
-
+%We now have collected all the remaining pieces to prove Theorem \ref{INTRO_MODEL_THM} from Theorem \ref{MODEL_THM}.
+% \begin{proof}
+%       [Proof of Theorem \ref{INTRO_MODEL_THM}]
+%       Propositions \ref{WE_ARE_DK_PROP} and \ref{COH_DK_ARE_WE_PROP},
+%       combined with Proposition \ref{SSET_COH_PROP} and Corollary \ref{PTSSETCOH_COR},
+%       imply that when $\V$ satisfies the coherence axiom, 
+%       the $\F$-(semi)-model structures from Theorem \ref{MODEL_THM} are in fact the $\F$-Dwyer-Kan model structures.
+% \end{proof}
 
 
-\begin{remark}
-      \label{FIB_ISOFIB_REM}
-      When $\V$ satisfies the coherence condition, we also have an additional nice description of fibrations:
-      A map $F: \O \to \P$ in $\Op^G_\F(\V)$ is a fibration iff
-      $F$ is a local $\F$-fibration such that
-      $j^{\**}\pi_0(F^H)$ is an isofibration of 1-categories.
-      Indeed, the arguments in \cite[Propositions 2.3 and 2.5]{Ber07b} extend almost as written to the general case,
-      notationally replacing $\mathcal H$ with an arbitrary $\V$-interval $\mathbb J$ and
-      $\mathscr F$ with $\mathbb A$.
-\end{remark}
 
 
-% \begin{example}
-%       Explicitly, when $(\V,\otimes) = (\sSet, \times)$, we get the above description using the quintessential model of an interval object.
-%       Let $W_!$ denotes the left adjoint to the homotopy coherent nerve
-%       $N_{hc}: \sCat \to \sSet$,
-%       and we note that $W_! J$ is a $\sSet$-interval, where $J$ is the nerve of the walking isomorphism $J = N \tilde{[1]}$, by Example \ref{WJ EX}.
-      
-%       Thus a map $f \in \sOp$ being path-lifting implies in particular that $h c N(f)$ has the right lifting property against $\** \to N \tilde{[1]}$,
-%       and since $\tau \circ h c N(-) \simeq \pi_0$ by \cite[Prop. 4.8]{CM11}
-%       \todo[inline]{this only works for fibrant objects - does that kill this argument?}
-%       this implies that $\pi_0(f)$ has the right lifting property against $\** \to \tilde{[1]}$;
-%       that is, $f$ being path-lifting implies $j^{\**}\pi_0(f)$ is an isofibration of categories.    
-% \end{example}
 
 
+We have similarly nice results for $V = \Top$.
 \begin{example}
-      The category $\Top$ of compactly-generated weak-Hausdorff spaces satisfies all the hypotheses of our Theorem.
+      The category $\Top$ of compactly-generated weak-Hausdorff spaces satisfies all the hypotheses of Theorem \ref{INTRO_MODEL_THM}.
       Indeed, $(\Top, \times)$:
       \begin{enumerate}[label = (\roman*)]\itemsep-4pt
       \item is cofibrantly generated (e.g. \cite{Pia91});
@@ -4358,70 +4400,70 @@ We now have collected all the remaining pieces to prove Theorem \ref{INTRO_MODEL
 \end{example}
 
 
-% ----------------------------------------------------------------------------------------------------
-{\color{OliveGreen} % ---------------------------------------- OLIVE GREEN --------------------
-  \begin{example}
-        Possible examples:
-        \begin{itemize}
-        \item $\Gamma$-spaces?
-        \item dg-modules with the projective model structure?
-        \item simplicial modules over a ring? \cite[\S 3.1.15]{Rez96}, \cite[Example 4.23]{Cav}
-        \end{itemize}
-  \end{example}
+% % ----------------------------------------------------------------------------------------------------
+% {\color{OliveGreen} % ---------------------------------------- OLIVE GREEN --------------------
+%   \begin{example}
+%         Possible examples:
+%         \begin{itemize}
+%         \item $\Gamma$-spaces?
+%         \item dg-modules with the projective model structure?
+%         \item simplicial modules over a ring? \cite[\S 3.1.15]{Rez96}, \cite[Example 4.23]{Cav}
+%         \end{itemize}
+%   \end{example}
 
-  % \begin{example}
-  %       $R$ a commutative ring containing the rational numbers,
-  %       $\mathcal A$ the abelian category of projective $R$-modules,
-  %       and consider $Ch(\mathcal A)$ with projective model strucutre:
+%   % \begin{example}
+%   %       $R$ a commutative ring containing the rational numbers,
+%   %       $\mathcal A$ the abelian category of projective $R$-modules,
+%   %       and consider $Ch(\mathcal A)$ with projective model strucutre:
 
-  %       \begin{itemize}
-  %       \item cellularity in \cite{Ste16},
-  %       \item cofibrant symmetric pushout powers implied by ``freely powered'', proved in \cite[Prop 7.1.4/7]{Lur},
-  %       \item right proper?
-  %       \item generating set of intervals?
-  %       \item cofibrant unit?            
-  %       \end{itemize}
+%   %       \begin{itemize}
+%   %       \item cellularity in \cite{Ste16},
+%   %       \item cofibrant symmetric pushout powers implied by ``freely powered'', proved in \cite[Prop 7.1.4/7]{Lur},
+%   %       \item right proper?
+%   %       \item generating set of intervals?
+%   %       \item cofibrant unit?            
+%   %       \end{itemize}
 
-  %       More generally, $\mathcal C$ locally presentable quasi-abelian category,
-  %       $R$ a commutative monoid object in $\mathcal C$ containing the rational numbers,
-  %       and consider $dg_R(\mathcal C)$ with the projective model structure \cite[Prop 2.12]{Wal15};
-  %       this also satisfies cofibrant symmetric pushout powers by \cite[Prop 3.4]{Wal15}.
-  % \end{example}
+%   %       More generally, $\mathcal C$ locally presentable quasi-abelian category,
+%   %       $R$ a commutative monoid object in $\mathcal C$ containing the rational numbers,
+%   %       and consider $dg_R(\mathcal C)$ with the projective model structure \cite[Prop 2.12]{Wal15};
+%   %       this also satisfies cofibrant symmetric pushout powers by \cite[Prop 3.4]{Wal15}.
+%   % \end{example}
 
-  \begin{example}
-        Non-examples:
-        \begin{itemize}
-        \item $\Set$, $\Cat$, (none are cellular)
-        \item $\mathsf{Ch}$ (only weakly cellular - can we do something with this?)
-        \item any model for $(\infty,1)$-cats (none are right proper)
-        \end{itemize}
-  \end{example}
+%   \begin{example}
+%         Non-examples:
+%         \begin{itemize}
+%         \item $\Set$, $\Cat$, (none are cellular)
+%         \item $\mathsf{Ch}$ (only weakly cellular - can we do something with this?)
+%         \item any model for $(\infty,1)$-cats (none are right proper)
+%         \end{itemize}
+%   \end{example}
 
-  \begin{remark}
-        We say one note about the choice of conditions. There are several notions which have a similar form to
-        ``cofibrant symmetric pushout powers'' and play a similar role in transferring model structures:
-        freely powered of Lurie,
-        the commutative monoid axiom of White-Yau,
-        symmetric h-monodial of Pavlov-Scholbach,
-        and the cofibration hypothesis of Mandell-May-Schwede-Shipley,
-        to name just a few.
+%   \begin{remark}
+%         We say one note about the choice of conditions. There are several notions which have a similar form to
+%         ``cofibrant symmetric pushout powers'' and play a similar role in transferring model structures:
+%         freely powered of Lurie,
+%         the commutative monoid axiom of White-Yau,
+%         symmetric h-monodial of Pavlov-Scholbach,
+%         and the cofibration hypothesis of Mandell-May-Schwede-Shipley,
+%         to name just a few.
 
-        It is straightforward to check that cofibrant symmetric pushout powers is a (much) weaker condition than freely powered,
-        but slightly stronger than the commutative monoid axiom.
-        % The first is obvious.
-        % The second follows since the adjunction
-        % \[
-        %       G/G \cdot (-): \V \leftrightarrows \V^G: (-)/G
-        % \]
-        % is Quillen, as for all $A \in \V$ and $H \leq G$, $(G/H \cdot A)/G \cong A$
-        % (see also \cite[Lemma 4.5.4.11]{Lur})
+%         It is straightforward to check that cofibrant symmetric pushout powers is a (much) weaker condition than freely powered,
+%         but slightly stronger than the commutative monoid axiom.
+%         % The first is obvious.
+%         % The second follows since the adjunction
+%         % \[
+%         %       G/G \cdot (-): \V \leftrightarrows \V^G: (-)/G
+%         % \]
+%         % is Quillen, as for all $A \in \V$ and $H \leq G$, $(G/H \cdot A)/G \cong A$
+%         % (see also \cite[Lemma 4.5.4.11]{Lur})
 
-        \todo[inline]{connection to the others?}
-  \end{remark}
+%         \todo[inline]{connection to the others?}
+%   \end{remark}
 
-  \todo[inline]{how much of \cite{WY18} extends via this arrangement?}
+%   \todo[inline]{how much of \cite{WY18} extends via this arrangement?}
 
-} % ---------------------------------------- OLIVE GREEN ----------------------------------------
+% } % ---------------------------------------- OLIVE GREEN ----------------------------------------
 
 
 
@@ -5550,16 +5592,16 @@ produce a lifting problem against a map in (TA1) which has a solution, providing
 \begin{remark}
       \label{TAUCOFIB_REM}        
       We note that by Lemma \ref{TAUOTIMES_LEM}, $\tau \colon \mathsf{PreOp}^G \to \sOp^G$
-      sends the collection of arrows in (TC1) and (TC2) surjectively onto the collection of generating cofibrations:
+      sends the collection of arrows in (TC1) and (TC2) surjectively onto the collection of generating cofibrations \eqref{SSETGENCOF_EQ}:
       \begin{gather*}
             \tau\Big(\varnothing \to G/H \cdot \Omega[\eta]\Big) = \Big(\varnothing \to \Omega(G/H \cdot \eta)\Big),
             \\
             \tau\Big(\Omega[C] \otimes_\Fin (\partial \Delta[n] \to \Delta[n])\Big) =
-            \Omega(C) \otimes_\Fin \big(\partial \Delta[n] \to \Delta[n]\Big) =
-            \mathbb F_{\Gamma_C} \Big( \Gamma_C / \Gamma_C \cdot (\partial \Delta[n] \to \Delta[n]) \Big)
+            \Omega(C) \otimes_\Fin \big(\partial \Delta[n] \to \Delta[n]\Big).
+            % = \mathbb F_{\Gamma_C} \Big( \Gamma_C / \Gamma_C \cdot (\partial \Delta[n] \to \Delta[n]) \Big)
       \end{gather*}
-      where $\Gamma_C$ is the graph subgroup of $G \times \Sigma_n$ such that $C \simeq G \cdot C_n / \Gamma$, and
-      $\mathbb F_\Gamma: \sSet^\Gamma \to \sOp^G$ is as in the discussion around \eqref{FGAMMA_EQ}.
+      % where $\Gamma_C$ is the graph subgroup of $G \times \Sigma_n$ such that $C \simeq G \cdot C_n / \Gamma$, and
+      % $\mathbb F_\Gamma: \sSet^\Gamma \to \sOp^G$ is as in the discussion around \eqref{FGAMMA_EQ}.
       Moreover, as $\tau$ sends (TC3) to isomorphisms, $\tau$ also preserves all cofibrations.
 \end{remark}
 
