@@ -1614,6 +1614,50 @@ One allows for some (or even all) of the $\F_x$ to be empty.
 
 
 
+The following definition is adapted from \cite{Ste16}.
+
+\begin{definition}\label{CELLFP_DEF}
+We say $\V$ has \textit{cellular fixed points} if
+for all finite groups $G$ and subgroups $H, K \leq G$ one has that:
+	\begin{enumerate}[label = (\roman*)]
+	\item $(-)^H \colon \V^G \to \V$ preserves direct colimits of diagrams in $\V^G$ where each underlying arrow in $\V$ is a cofibration;
+      \item $(-)^H \colon \V^G \to \V$ preserves pushouts where one leg is $(G/K) \cdot f$, for $f$ a cofibration in $\V$.
+      \item for each object $X \in \V$, the natural map $(G/K)^H \cdot X \to ((G/K) \cdot X)^H$ is an isomorphism.
+      \end{enumerate}
+\end{definition}
+
+
+
+For any groupoid $\G$ there is an equivalence of categories
+$\G \simeq \coprod_{[x] \in ob(\G)/\simeq} Aut(x)$,
+where $ob(\G)/\simeq$
+denotes isomorphism classes of objects,
+and thus also equivalences
+$\V^{\G} \simeq \prod_{[x] \in ob(\G)/\simeq} \V^{Aut(x)}$,
+so that \cite[Thm. 2.10]{Ste16}
+immediately implies the following.
+
+
+\begin{theorem}\label{FMODEL THM}
+	If $\V$ is a cofibrantly generated model category with cellular fixed points, $\G$ is a groupoid and $\F$ a family of subgroups on $\G$,
+	then $\mathcal{V}^{\G}$ has a model structure where a map
+	$A \to B$ in $\mathcal{V}^{\G}$ is a 
+	weak equivalence (resp. fibration) if the maps
+	$A(x)^H \to B(x)^H$
+	are weak equivalences (fibrations) in $\V$
+	for all $x \in \G$, $H \in \F_x$.
+\end{theorem}      
+
+We refer to the model structure on $\V^{\G}$
+in the result above as the $\F$-model structure, 
+and denote it $\V^{\G}_{\F}$.
+
+Moreover, if $\F = \F_{all}$ is the collection of all subgroups of $G$, we denote the model structure $\V^{G}_{\F_{all}}$ simply by $\V^G$,
+and refer to it as the \textit{genuine} or \textit{fine} model structure on $\V^G$,
+with genuine (trivial) (co)fibrations and genuine weak equivalences.
+
+
+
 \begin{remark}
 The families of subgroups $\F$ of a groupoid $\G$ 
 form a poset (in fact lattice) under inclusion,
@@ -1628,35 +1672,38 @@ defined by
 =
 \left\{H \leq Aut(x)| \phi(H) \in \bar{\F}_{\phi(x)}\right\}.
 \]
-In fact, one further has adjunctions
-\[
-	\phi_! \colon
-	\mathsf{Fam}_{\G}
-	\rightleftarrows
-	\mathsf{Fam}_{\bar{\G}}
-	\colon \phi^{\**}
-\qquad
-	\phi^{\**} \colon
-	\mathsf{Fam}_{\bar{\G}}
-	\rightleftarrows
-	\mathsf{Fam}_{\G}
-	\colon \phi_{\**}
-\]
-where $\phi_!, \phi_{\**}$ are defined by
-\[
-	\left(\phi_! \F\right)_{\bar{x}}	=
-	\left\{\bar{g}\phi(H)\bar{g}^{-1}|
-	x\in \G,H\in\F_x,\bar{g}\colon \phi(x) \to \bar{x}
-	\right\}
-\]
-\[
-	\left(\phi_{\**} \F\right)_{\bar{x}}	=
-	\left\{\bar{H} \leq Aut(\bar{x})|
-	\forall_{x \in \G, \bar{g} \colon \bar{x} \to \phi(x) }
-	\exists_{H \in \F_x}
-	\bar{g} 	\bar{H} \bar{g}^{-1} = \phi(H) 
-	\right\}
-\]
+(in fact, since $\phi^{\**}$ preserves arbitrary unions and intersection of families and 
+$\mathsf{Fam}_{\bar{\G}}$
+is a complete lattice, $\phi^{\**}$ admits both a left and a right adjoint).
+%In fact, one further has adjunctions
+%\[
+%	\phi_! \colon
+%	\mathsf{Fam}_{\G}
+%	\rightleftarrows
+%	\mathsf{Fam}_{\bar{\G}}
+%	\colon \phi^{\**}
+%\qquad
+%	\phi^{\**} \colon
+%	\mathsf{Fam}_{\bar{\G}}
+%	\rightleftarrows
+%	\mathsf{Fam}_{\G}
+%	\colon \phi_{\**}
+%\]
+%where $\phi_!, \phi_{\**}$ are defined by
+%\[
+%	\left(\phi_! \F\right)_{\bar{x}}	=
+%	\left\{\bar{g}\phi(H)\bar{g}^{-1}|
+%	x\in \G,H\in\F_x,\bar{g}\colon \phi(x) \to \bar{x}
+%	\right\}
+%\]
+%\[
+%	\left(\phi_{\**} \F\right)_{\bar{x}}	=
+%	\left\{\bar{H} \leq Aut(\bar{x})|
+%	\forall_{x \in \G, \bar{g} \colon \bar{x} \to \phi(x) }
+%	\exists_{H \in \F_x}
+%	\bar{g} 	\bar{H} \bar{g}^{-1} = \phi(H) 
+%	\right\}
+%\]
 \end{remark}
 
 The relevance of the previous remark is given by the following result.
@@ -1675,7 +1722,7 @@ Then the adjunctions
 	\rightleftarrows
 	\V^{\G}_{\F} \colon \phi_{\**}
 \]
-are Quillen adjunctions iff
+are Quillen adjunctions provided
 $\F \subseteq \phi^{\**} \bar{\F}$
 in the first case and 
 $\phi^{\**} \bar{\F} \subseteq \F$
@@ -1685,19 +1732,7 @@ in the second case.
 
 
 
-{\color{red} HERE}
 
-The following comes from \cite{Ste16}.
-
-\begin{definition}\label{CELLFP_DEF}
-We say $\V$ has \textit{cellular fixed points} if
-for all finite groups $G$ and subgroups $H, K \leq G$ one has that:
-	\begin{enumerate}[label = (\roman*)]
-	\item $(-)^H \colon \V^G \to \V$ preserves direct colimits of diagrams in $\V^G$ where each underlying arrow in $\V$ is a cofibration;
-      \item $(-)^H \colon \V^G \to \V$ preserves pushouts where one leg is $(G/K) \cdot f$, for $f$ a cofibration in $\V$.
-      \item for each object $X \in \V$, the natural map $(G/K)^H \cdot X \to ((G/K) \cdot X)^H$ is an isomorphism.
-      \end{enumerate}
-\end{definition}
 
 {\color{red} HERE}
 
@@ -1717,30 +1752,7 @@ the canonical map.
 \subsection{Homotopy theory of operads with a fixed color $G$-set}
 \label{MSC_SEC}
 
-We begin our analysis of the homotopy theory of equivariant colored operads by
-considering the subcategories $\Op^{G, \mathfrak C}(\V) \subseteq \Op^G(\V)$
-where the $G$-set of colors is fixed, and all maps are the identity on $\mathfrak C$.
-The main result of this section is Theorem \ref{THM1_C}, which states that
-the model structure on $\Op^{G, \mathfrak C}(\V)$ is transferred from $\Sym^{G, \mathfrak C}(\V)$.
 
-\begin{definition}
-      Given an adjunction $U: \mathcal C \leftrightarrows \mathcal M :F$ where $\mathcal M$ is a model category,
-      the \textit{transferred model structure} on $\mathcal C$, if it exists, is such that
-      an arrow $f \in \mathcal C$ is a weak equivalence or fibration iff $U(f)$ is so in $\mathcal M$.
-\end{definition}
-
-
-Following \cite{Ste16, BP_geo}, in order to produce appropriate equivariant theories,
-we require that the fixed point functors interact properly with the underlying model structures.
-\begin{definition}\label{CELLFP_DEF}
-      We say $\V$ has \textit{cellular fixed points} if
-      for all finite groups $G$ and subgroups $H, K \leq G$ one has that:
-      \begin{enumerate}[label = (\roman*)]
-      \item $(-)^H$ preserves direct colimits of diagrams in $\V^G$ where each underlying arrow in $\V$ is a cofibration;
-      \item $(-)^H$ preserves pushouts where one leg is $(G/K) \cdot f$, for $f$ a cofibration in $\V$.
-      \item for each object $X \in \V$, the natural map $(G/K)^H \cdot X \to ((G/K) \cdot X)^H$ is an isomorphism.
-      \end{enumerate}
-\end{definition}
 
 \begin{remark}\label{LEVEL_COF_REM}
 	An immediate consequence of $\V$ having cellular fixed points (cf. the proof of \cite[Prop. 6.3(i)]{BP_geo})
@@ -1749,33 +1761,18 @@ we require that the fixed point functors interact properly with the underlying m
 \end{remark}
 
 
-For completeness, we recall a main result of \cite{Ste16}, which transfers model structures along several adjuctions.
-\begin{theorem}[{\cite[Thm. 2.10]{Ste16}}]
-      Let $\V$ be cofibrantly generated model category with cellular fixed points, $\F$ any family of subgroups of $G$ containing the trivial subgroup, and $\mathsf O_\F$ the full subcategory of $\mathsf O_G$ spanned by the $G/H$ with $H \in \F$.
-      Then
-      \begin{itemize}
-      \item the projective model structure on $\V^{\mathsf O_\F^{op}}$ exists;
-      \item the $\F$-model structure on $\V^G$ exists, where an arrow $f \in \V$ is a weak equivalence or fibration iff each $f^H$ is in $\V$ for each $H \in \F$; and
-      \item the inclusion $\V^G \xrightarrow{i_{\**}} \V^{\mathsf O_F^{op}}$, $i_{\**}X(G/H) = X^H$ is a right Quillen equivalence.
-      \end{itemize}
-\end{theorem}      
-
-\begin{notation}
-      When $\F = \F_{all}$ is the set of all subgroups of $G$, we denote the model structure $\V^{G}_{\F_{all}}$ simply by $\V^G$,
-      and refer to it as the \textit{genuine} or \textit{fine} model structure on $\V^G$,
-      with genuine (trivial) (co)fibrations and genuine weak equivalences.
-\end{notation}
+%For completeness, we recall a main result of \cite{Ste16}, which transfers model structures along several adjuctions.
+%\begin{theorem}[{\cite[Thm. 2.10]{Ste16}}]
+%      Let $\V$ be cofibrantly generated model category with cellular fixed points, $\F$ any family of subgroups of $G$ containing the trivial subgroup, and $\mathsf O_\F$ the full subcategory of $\mathsf O_G$ spanned by the $G/H$ with $H \in \F$.
+%      Then
+%      \begin{itemize}
+%      \item the projective model structure on $\V^{\mathsf O_\F^{op}}$ exists;
+%      \item the $\F$-model structure on $\V^G$ exists, where an arrow $f \in \V$ is a weak equivalence or fibration iff each $f^H$ is in $\V$ for each $H \in \F$; and
+%      \item the inclusion $\V^G \xrightarrow{i_{\**}} \V^{\mathsf O_F^{op}}$, $i_{\**}X(G/H) = X^H$ is a right Quillen equivalence.
+%      \end{itemize}
+%\end{theorem}      
 
 
-
-\begin{proposition}\label{TRANS_MODEL_PROP}
-      Let $\V$ be a cofibrantly generated model category with cellular fixed points, $\mathcal D$ a groupoid, and $\F$ a family of subgroups of $\mathcal D$.
-      Then the category of diagrams $\V^{\mathcal D}$ has an \textit{$\F$-model structure} $\V^\G_\F$, where
-      a map $f: X \to Y$ is a
-      weak equivalence (resp. fibration) iff $f(d): X(d) \to Y(d)$ is so in $\V^{\mathsf{Aut}(d)}_{\F_d}$ for each $d \in \mathcal D$.
-
-      Moreover, if $X \in \V^{\mathcal D}$ is cofibrant, it is also levelwise cofibrant.
-\end{proposition}
 
 
 
@@ -1818,7 +1815,7 @@ by defining for any $\mathfrak C$-signature $\vect C = (c_1,\dots,c_n;c_0)$ of l
       \F_C = \F_n \cap \Aut_{G \ltimes \Sigma_{\mathfrak C}}(\vect C)
 \end{equation}
 the subgroups $\Gamma \in \F_n$ such that $\Gamma \leq \Aut_{G \times \Sigma_n}(\vect C)$.
-Applying Proposition \ref{TRANS_MODEL_PROP} induces an $\F$-model structure on the category of $\mathfrak C$-symmetric sequences in $\V$.
+Applying Theorem \ref{FMODEL THM} induces an $\F$-model structure on the category of $\mathfrak C$-symmetric sequences in $\V$.
 
 \begin{definition}
       Let $\V$ be a cofibrantly generated model category with cellular fixed points,
