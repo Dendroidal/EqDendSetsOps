@@ -39,7 +39,7 @@ cd,patterns,calc}
 \usepackage{ifdraft}
 \ifdraft{
   \color[RGB]{63,63,63}
-  \pagecolor[RGB]{220,220,204}
+%  \pagecolor[RGB]{220,220,204}
   \usepackage{showkeys}
   \usepackage{geometry}
   \usepackage{todonotes}
@@ -1438,191 +1438,9 @@ Fix a closed symmetric monoidal category $(\V, \otimes)$.
 
 \subsection{Equivariant colored operads}
 
-Fix a finite group $G$.
-
-\begin{convention}
-      \label{G_CONV}
-      We make the following conventions throughout the rest of the paper.
-      \begin{itemize} %{enumerate}[label = (\roman*)]
-      \item We equip $G$ with a fixed total order.
-      \item All $G$-objects will be \textit{left} $G$-objects,
-            and we let $BG$ denote the category which encodes left actions.            
-      \end{itemize}
-\end{convention}
-
-% \begin{remark}
-%       \label{G_GR_REM}
-%       For any (left) $G$-set $A$, the opposite of the Grothendieck construction $(G \ltimes A)^{op}$
-%       on the functor characterizing the $G$-action 
-%       \begin{equation}
-%             G^{op} \longto \Set, \qquad \qquad \** \longmapsto A
-%       \end{equation}
-%       is equal to the \textit{translation category}, often denoted $B_A G$,
-%       where objects are elements of $A$, and arrows $g: a \to b$ with  $b = g a$.
-%       Dually, the standard Grothendieck construction $G \ltimes A$ has arrows
-%       $g: a \to b$ with $a = g b$.
-      
-%       Moreover, if $A$ has a (left) action by $G \times \Sigma$ for another group $\Sigma$, then
-%       iterating either type of Grothendieck construction above is associative and commutative.
-% \end{remark}
-
-\begin{notation}
-      [{cf. \cite{BP_geo}}]
-      Let $\mathsf F^G$ denote the category of finite ordered $G$-sets (see Notation \ref{F_WR_NOT} for our convention on $\mathsf F$).
-      Moreover, let $\mathsf O_G \into \mathsf F^G$ denote the full subcategory of \textit{transitive} $G$-sets.
-      In particular, we note that the orbits $G/H$ are well-defined
-      (using the chosen total order on $G$
-      and the ``minimal representative'' total order on $G/H$).
-\end{notation}
-
-\begin{definition}
-      The category $\Op^G(\V)$ of  \textit{$G$-colored operads} in $\V$ is the category of
-      (left) $G$-objects in $\Op(\V)$.
-\end{definition}
-
-% Unpacking this definition, we see $\O \in \Op^G(\V)$ consists of the following data:
-% \begin{enumerate}[label = (\arabic*)]
-%       \setcounter{enumi}{-1}
-% \item A $G$-set $\mathfrak C$ of colors.
-% \item For each signature $\xi$ of $\mathfrak C$, an object $\O(\xi) \in \V$.
-% \item where $G$ acts on $\mathfrak C^{\times n+1}$ diagonally (across all $n+1$ coordinates), and $\Sigma_n$ acts on the first $n$.
-% \item For each $c \in \mathfrak C$, a \textit{unit} $1_c \in \O(c;c)^{G_c}$.
-% \item For compatible signatures $\xi$, $\xi_1$, $\ldots$, $\xi_n$, \textit{composition maps}
-%       \begin{equation}
-%             \O(\xi) \otimes \O(\xi_1) \otimes \ldots \otimes \O(\xi_n) \to \O(\xi \circ (\xi_i)),
-%       \end{equation}
-% \end{enumerate}
-% such that composition is
-% compatible with the $G$-action on each component as well as the appropriate actions of $\Sigma$,
-% and is unital and associative. 
-
-We would like to unpack this definition, and first do so in general.
-
-% -------------------- Equivariant Grothendieck Constructions --------------------
-
-Suppose $E = (\mathcal D^{op} \ltimes \mathcal C_{(-)})^{op}$ is the contravariant Grothendieck construction on the functor
-\begin{equation}
-      % \begin{tikzcd}[row sep = tiny]
-      %       \mathcal D^{op} \arrow[r]
-      %       &
-      %       \mathsf{Cat}
-      %       \\
-      %       d \arrow[r, mapsto]
-      %       &
-      %       \mathcal C_{d}.
-      % \end{tikzcd}
-      \mathcal D^{op} \longto \Cat,
-      \qquad \qquad
-      d \longmapsto \mathcal C_d.
-\end{equation}
-
-A (left) $G$-action on an element $(d,c_d)$ is given by compatible maps
-$d \xrightarrow{g} d$ and
-$c_d \xrightarrow{g_c} g^{\**}c_d$
-(with the $g_c$ compatible in the sense that
-\begin{equation}
-      \begin{tikzcd}
-            c_d \arrow[r, "g_c"] \arrow[dr, "(h g)_c"']
-            &
-            g^{\**} c_d \arrow[d, "g^{\**} h_c"]
-            \\
-            &
-            (h g)^{\**} c_d
-      \end{tikzcd}
-\end{equation}
-commutes),
-and $G$-maps between such objects
-are pairs of maps $(d \xrightarrow{f} d, c_d \xrightarrow{f_c} f^{\**}c_{d'})$ which commute with the action.
-
-Equivalently, and more concretely,
-an object in $E^G$ is given by a pair $(d, \underline{c}_d)$ where
-$d \in \mathcal D^G$ and
-$\underline{c}_d$ is a $G/e$-indexed diagram
-% \footnote{
-%   We recall that $(G \ltimes (G/e))^{op} = B_{G/e} G$.}
-$E G := G \ltimes (G/e) \to \mathcal C_d$,
-such that $\underline{c}_d(g) = g_{d}^{\**}\underline{c}_d(e)$.
-A $G$-map in this context is given by a pair $(f, \Phi_c)$ where
-$f: d \to d'$ in $\mathcal D^G$ and
-$\Phi: \underline{c}_d \Rightarrow f^{\**}\underline{c}_{d'}: E G \to \mathcal C_d$
-(where we note that $f^{\**}\underline{c}_{d'}$ is a functor since $f$ is a $G$-map).
-
-Put another way, we have the following.
-\begin{lemma}
-      \label{G_GR_LEM}
-      The category of $G$-objects
-      $\left(\mathcal D^{op} \ltimes \mathcal C_{(-)}\right)^{op,G}$
-      is given by the Grothendieck construction on the functor
-      \begin{equation}
-            % \begin{tikzcd}[row sep = tiny]
-            %       \mathcal D^{G,op} \arrow[r]
-            %       &
-            %       \Cat
-            %       \\
-            %       d \arrow[r, mapsto]
-            %       &
-            %       \Fun^{G^{op}}(E G^{op}, \mathcal C_d)
-            % \end{tikzcd}
-            \mathcal D^{G,op} \longrightarrow \Cat,
-            \qquad \qquad
-            d \longmapsto \Fun^{G^{op}}(E G, \mathcal C_d)
-      \end{equation}
-      where $\Fun^{G^{op}}$ denotes the category of $G^{op}$-functors and $G^{op}$-natural transformations.
-\end{lemma}
-\begin{proof}
-      We observe that $EG$ has a natural $G^{op}$-action via the \textit{right} action of $G$ on $G/e$,
-      and $\mathcal C_d$ has a $G^{op}$ action induced by the (left) $G$-action on $d$.
-      The rest follows by unpacking definitions.
-      {\color{OliveGreen}
-        A map $\underline{c}: EG \to \mathcal C_d$ gives elements $c_g$ and maps $(g,h): c_g \to c_{hg}$ such that
-        $(g, kh) = (hg, k) \circ (g, h)$.
-        $x \in G^{op}$ acts on $EG$ by sending $g$ to $g x$ and the map $(g,h)$ to $(g x,h)$,
-        and on $\mathcal C_d$ by sending $c$ to $x^{\**}c$ and $f$ to $x^{\**}f$.
-        Equivariance implies that $c_x = x^{\**}c_e$ and $(x,g) = x^{\**}(e,g)$, finishing the proof.
-      }
-\end{proof}
-
-% ----------------------------------------------------------------------
-
-We apply this result to both $\Sym(\V) = (\mathsf F^{op} \ltimes \Sym^{(-)}(\V))^{op}$ and $\Op(\V) = (\mathsf F^{op} \ltimes \Op^{(-)}(\V))^{op}$.
-
-\begin{definition}
-      For the category $E = \Sym^G(\V) = (\Sym(\V))^G$ of \textit{$G$-symmetric sequences},
-      we note that, for any $G$-set $\mathfrak C$, we have
-      \begin{equation}
-            (E G \times \Sigma_{\mathfrak C}^{op})/G \simeq G \ltimes \Sigma_{\mathfrak C}^{op},
-      \end{equation}
-{\color{red} Note(Luis): Since the chirality of the actions don't match, one should probably replace 
-$(E G \times \Sigma_{\mathfrak C}^{op})/G$ with
-$E G \times_G \Sigma_{\mathfrak C}^{op}$ 
-}
-
-      where $\Sigma_{\mathfrak C}$ inherits a $G$-action from the action on $\mathfrak C$;
-      we refer to this later category
-      \begin{equation}
-            G \ltimes \Sigma_{\mathfrak C}^{op} = \coprod_{n \geq 0}(G \times \Sigma_n^{op}) \ltimes \mathfrak C^{\times n+1}
-      \end{equation}
-      as the \textit{$(G, \mathfrak C)$-symmetric category},
-      and the category $\Sym^{G, \mathfrak C}(\V)$ of functors $X: G \ltimes \Sigma_{\mathfrak C} ^{op}\to \V$
-      the category of \textit{$(G, \mathfrak C)$-symmetric sequences}.
-      % 
-      Then, by adjunction and Lemma \ref{G_GR_LEM}, we have that
-      $\Sym^G(\V)$ is isomorphic to the Grothendieck construction on the functor
-      \begin{equation}
-            \mathsf F^{G,op} \longrightarrow \Cat,
-            \qquad
-            \qquad
-            \mathfrak C \longmapsto \Sym^{G, \mathfrak C}(\V).
-      \end{equation}
-\end{definition}
-
-\begin{remark}
-      When $G = \set{e}$ and $\mathfrak C = \set{*}$, $G \ltimes \Sigma_{\mathfrak C}^{op} = \Sigma^{op}$.
-\end{remark}
-
 
 \begin{example}
-      Now, for $E = \Op(\V)$,
+      Now, for $\Op(\V)$,
       we see that an object $\O \in \Op^G(\V)$ consists of
       a $G$-set $\mathfrak C = \mathfrak C_\O$ of colors, and a compatible $G/e$-indexed diagram of $\mathfrak C$-colored operads;
       in particular, $\O$ has an underlying object in $\Sym^G(\V)$
@@ -1664,12 +1482,6 @@ $E G \times_G \Sigma_{\mathfrak C}^{op}$
             composition maps $\O(\ksi) \otimes \bigotimes_i \O(\ksi_i) \to \O(\ksi \circ (\ksi_i))$
             which are unital, assocative, $G$-equivariant, and approriately $\Sigma$-equivariant.
       \end{enumerate}
-      
-      From Lemma \ref{G_GR_LEM}, we can see that
-      maps of $G$-operads $\O \to \P$ are given by a pair $(f, F)$ where
-      $f: \mathfrak C(\O) \to \mathfrak C(\P)$ is a map of $G$-sets, and
-      $F: \O \to f^{\**}\P$ is a map in $\Op^{\mathfrak C(\O)}(\V)$ that commutes with the $G$-action
-      (or, equivalently, so that the $g^{\**}F$ assemble into a map of $G$-indexed diagrams).
 \end{example}
 
 As in \eqref{C_CHANGE_EQ}, we in fact have a pair of adjoints
@@ -1682,7 +1494,7 @@ As in \eqref{C_CHANGE_EQ}, we in fact have a pair of adjoints
             \\
             \Sym^{G, \mathfrak C'}(\V) \arrow[r, shift right, "F^{\**}"']
             &
-            \Sym^{G, \mathfrak C}(\V) \arrow[l, shift right, "F_{!!}"'].
+            \Sym^{G, \mathfrak C}(\V) \arrow[l, shift right, "\check{F}_{!}"'].
       \end{tikzcd}
 \end{equation}
 where again only the right adjoint commutes with $\mathsf{fgt}$. 
@@ -1690,26 +1502,14 @@ where again only the right adjoint commutes with $\mathsf{fgt}$.
 Each $\Op^{G, \mathfrak C}(\V) \subseteq \Op^G(\V)$
 is hence the subcategory of $\mathfrak C$-colored operads and maps which are the identity on colors.
 
-\begin{lemma}
-      $\Op^G(\V)$ is isomorphic to the Grothendieck construction on the functor
-      \begin{equation}
-            % \begin{tikzcd}[row sep = tiny]
-            %       \mathsf (F^G)^{op} \arrow[r] & \mathsf{Cat}
-            %       \\
-            %       \mathfrak C \arrow[r, mapsto] & \Op^{G,\mathfrak C}(\V).
-            % \end{tikzcd}
-            \mathsf F^{G,op} \longto \Cat,
-            \qquad \qquad
-            \mathfrak C \longmapsto \Op^{G, \mathfrak C}(\V).
-      \end{equation}
-\end{lemma}
+
 
 
 \begin{remark}
       \label{COLOR_SQ_REM}
       We record the following straightforward observations.
       If we are given a map $F: \O_1 \to \O_2$ that is color-fixed,
-      and a square in $\Op^G(\V)$ as in the middle of \ref{COLOR_SQ_EQ}, then
+      and a square in $\Op^G(\V)$ as in the middle of \eqref{COLOR_SQ_EQ}, then
       \begin{enumerate}[label = (\roman*)]
       \item the square in the middle commutes iff the square on the right commutes iff the square on the left commutes, and
       \item the square in the middle is a pushout in $\Op^G(\V)$ iff
@@ -1774,131 +1574,379 @@ is hence the subcategory of $\mathfrak C$-colored operads and maps which are the
 
 
 
+\newpage
 
- 
-\subsection{The homotopy theory of operads with a fixed color $G$-set}
-\label{MSC_SEC}
 
-We begin our analysis of the homotopy theory of equivariant colored operads by
-considering the subcategories $\Op^{G, \mathfrak C}(\V) \subseteq \Op^G(\V)$
-where the $G$-set of colors is fixed, and all maps are the identity on $\mathfrak C$.
-The main result of this section is Theorem \ref{THM1_C}, which states that
-the model structure on $\Op^{G, \mathfrak C}(\V)$ is transferred from $\Sym^{G, \mathfrak C}(\V)$.
 
-\begin{definition}
-      Given an adjunction $U: \mathcal C \leftrightarrows \mathcal M :F$ where $\mathcal M$ is a model category,
-      the \textit{transferred model structure} on $\mathcal C$, if it exists, is such that
-      an arrow $f \in \mathcal C$ is a weak equivalence or fibration iff $U(f)$ is so in $\mathcal M$.
+\subsection{Equivariant homotopy theory}
+
+
+
+\begin{definition}\label{FAMGROUPOID DEF}
+Let $\G$ be a groupoid.
+A family of subgroups of $\G$
+is a collection 
+$\mathcal{F} = \left\{\mathcal{F}_x | x\in \G\right\}$
+where each $\F_x$ is itself a collection of subgroups
+$H \leq Aut(x)$ and such that:
+\begin{itemize}
+\item if $H \in \F_x$ and $K \leq H$ then $K \in \mathcal{F}_x$;
+\item if $H \in \mathcal{F}_x$
+then for any arrow $x \xrightarrow{g} x'$
+it is $H^g=g H g^{-1} \in \mathcal{F}_{x'}$.
+\end{itemize}
 \end{definition}
 
 
-Following \cite{Ste16, BP_geo}, in order to produce appropriate equivariant theories,
-we require that the fixed point functors interact properly with the underlying model structures.
-\begin{definition}
-      \label{CELLFP_DEF}
-      We say $\V$ has \textit{cellular fixed points} if
-      for all finite groups $G$ and subgroups $H, K \leq G$ one has that:
-      \begin{enumerate}[label = (\roman*)]
-      \item $(-)^H$ preserves direct colimits of diagrams in $\V^G$ where each underlying arrow in $\V$ is a cofibration;
-      \item $(-)^H$ preserves pushouts where one leg is $(G/K) \cdot f$, for $f$ a cofibration in $\V$.
+
+\begin{remark}
+If $\G$ has a single object, i.e. if $\G$ is a group $G$ regarded as a category with a single object, Definition \ref{FAMGROUPOID DEF} recovers the usual definition of a family of subgroups of $G$ as a collection of subgroups $H\leq G$ closed under inclusion and conjugation.
+
+Moreover, if $\F$ is a family of subgroups of $\G$, each $\F_x$ is a family of subgroups of $Aut(x)$ in the usual sense. 
+In fact, $\mathcal{F}$ is completely determined by a choice of families
+$\F_x$ for $x$ ranging over a set of representatives of the isomorphism classes/components of $\G$.
+\end{remark}
+
+
+\begin{remark}
+One allows for some (or even all) of the $\F_x$ to be empty.
+\end{remark}
+
+
+
+The following definition is adapted from \cite{Ste16}.
+
+\begin{definition}\label{CELLFP_DEF}
+We say $\V$ has \textit{cellular fixed points} if
+for all finite groups $G$ and subgroups $H, K \leq G$ one has that:
+	\begin{enumerate}[label = (\roman*)]
+	\item $(-)^H \colon \V^G \to \V$ preserves direct colimits of diagrams in $\V^G$ where each underlying arrow in $\V$ is a cofibration;
+      \item $(-)^H \colon \V^G \to \V$ preserves pushouts where one leg is $(G/K) \cdot f$, for $f$ a cofibration in $\V$.
       \item for each object $X \in \V$, the natural map $(G/K)^H \cdot X \to ((G/K) \cdot X)^H$ is an isomorphism.
       \end{enumerate}
 \end{definition}
 
-\begin{remark}
-      \label{LEVEL_COF_REM}
-      An immediate consequence of cellularity (cf. the proof of \cite[Prop. 6.3(i)]{BP_geo})
-      is that for any genuine (trivial) cofibration $f \in \V^G_{gen}$,
-      the map $f^H$ is a (trivial) cofibration in $\V$ for all $H \leq G$.
+
+\begin{remark}\label{LEVEL_COF_REM}
+	A consequence of $\V$ having cellular fixed points (cf. the proof of \cite[Prop. 6.3(i)]{BP_geo})
+	is that for any genuine (trivial) cofibration $f \in \V^G_{gen}$,
+	the map $f^H$ is a (trivial) cofibration in $\V$ for all $H \leq G$.
+	{\color{blue} (Luis: this might need cofibrant generation as well)}
 \end{remark}
 
 
-For completeness, we recall a main result of \cite{Ste16}, which transfers model structures along several adjuctions.
-\begin{theorem}[{\cite[Thm. 2.10]{Ste16}}]
-      Let $\V$ be cofibrantly generated model category with cellular fixed points, $\F$ any family of subgroups of $G$ containing the trivial subgroup, and $\mathsf O_\F$ the full subcategory of $\mathsf O_G$ spanned by the $G/H$ with $H \in \F$.
-      Then
-      \begin{itemize}
-      \item the projective model structure on $\V^{\mathsf O_\F^{op}}$ exists;
-      \item the $\F$-model structure on $\V^G$ exists, where an arrow $f \in \V$ is a weak equivalence or fibration iff each $f^H$ is in $\V$ for each $H \in \F$; and
-      \item the inclusion $\V^G \xrightarrow{i_{\**}} \V^{\mathsf O_F^{op}}$, $i_{\**}X(G/H) = X^H$ is a right Quillen equivalence.
-      \end{itemize}
+
+For any groupoid $\G$ there is an equivalence of categories
+$\G \simeq \coprod_{[x] \in ob(\G)/\simeq} Aut(x)$,
+where $ob(\G)/\simeq$
+denotes isomorphism classes of objects,
+and thus also equivalences
+$\V^{\G} \simeq \prod_{[x] \in ob(\G)/\simeq} \V^{Aut(x)}$,
+so that \cite[Thm. 2.10]{Ste16}
+immediately implies the following.
+
+
+\begin{theorem}\label{FMODEL THM}
+	If $\V$ is a cofibrantly generated model category with cellular fixed points, $\G$ is a groupoid and $\F$ a family of subgroups on $\G$,
+	then $\mathcal{V}^{\G}$ has a model structure where a map
+	$A \to B$ in $\mathcal{V}^{\G}$ is a 
+	weak equivalence (resp. fibration) if the maps
+	$A(x)^H \to B(x)^H$
+	are weak equivalences (fibrations) in $\V$
+	for all $x \in \G$, $H \in \F_x$.
 \end{theorem}      
 
-\begin{notation}
-      When $\F = \F_{all}$ is the set of all subgroups of $G$, we denote the model structure $\V^{G}_{\F_{all}}$ simply by $\V^G$,
-      and refer to it as the \textit{genuine} or \textit{fine} model structure on $\V^G$,
-      with genuine (trivial) (co)fibrations and genuine weak equivalences.
+We refer to the model structure on $\V^{\G}$
+in the result above as the $\F$-model structure, 
+and denote it $\V^{\G}_{\F}$.
+
+Moreover, if $\F = \F_{all}$ is the collection of all subgroups of $G$, we denote the model structure $\V^{G}_{\F_{all}}$ simply by $\V^G$,
+and refer to it as the \textit{genuine} or \textit{fine} model structure on $\V^G$,
+with genuine (trivial) (co)fibrations and genuine weak equivalences.
+
+
+
+\begin{remark}
+The families of subgroups $\F$ of a groupoid $\G$ 
+form a poset (in fact lattice) under inclusion,
+which we denote $\mathsf{Fam}_{\G}$. 
+
+Given any map of groupoids $\phi\colon \G \to \bar{\G}$
+one obtains a pullback functor
+$\phi^{\**} \colon \mathsf{Fam}_{\bar{\G}} \to \mathsf{Fam}_{\G}$
+defined by
+\[
+\left(\phi^{\**} \bar{\F} \right)_{x}
+=
+\left\{H \leq Aut(x)| \phi(H) \in \bar{\F}_{\phi(x)}\right\}.
+\]
+(in fact, since $\phi^{\**}$ preserves arbitrary unions and intersection of families and 
+$\mathsf{Fam}_{\bar{\G}}$
+is a complete lattice, $\phi^{\**}$ admits both a left and a right adjoint).
+%In fact, one further has adjunctions
+%\[
+%	\phi_! \colon
+%	\mathsf{Fam}_{\G}
+%	\rightleftarrows
+%	\mathsf{Fam}_{\bar{\G}}
+%	\colon \phi^{\**}
+%\qquad
+%	\phi^{\**} \colon
+%	\mathsf{Fam}_{\bar{\G}}
+%	\rightleftarrows
+%	\mathsf{Fam}_{\G}
+%	\colon \phi_{\**}
+%\]
+%where $\phi_!, \phi_{\**}$ are defined by
+%\[
+%	\left(\phi_! \F\right)_{\bar{x}}	=
+%	\left\{\bar{g}\phi(H)\bar{g}^{-1}|
+%	x\in \G,H\in\F_x,\bar{g}\colon \phi(x) \to \bar{x}
+%	\right\}
+%\]
+%\[
+%	\left(\phi_{\**} \F\right)_{\bar{x}}	=
+%	\left\{\bar{H} \leq Aut(\bar{x})|
+%	\forall_{x \in \G, \bar{g} \colon \bar{x} \to \phi(x) }
+%	\exists_{H \in \F_x}
+%	\bar{g} 	\bar{H} \bar{g}^{-1} = \phi(H) 
+%	\right\}
+%\]
+\end{remark}
+
+The relevance of the previous remark is given by the following result.
+
+\begin{proposition}
+Let $\phi \colon \G \to \bar{\G}$
+be a map of groupoids and
+$\F,\bar{\F}$ families of subgroups of $\G,\bar{\G}$.
+Then the adjunctions
+\[
+	\phi_! \colon \V^{\G}_{\F}
+	\rightleftarrows
+	\V^{\bar{\G}}_{\bar{\F}} \colon \phi^{\**}
+\qquad
+	\phi^{\**} \colon \V^{\bar{\G}}_{\bar{\F}} 
+	\rightleftarrows
+	\V^{\G}_{\F} \colon \phi_{\**}
+\]
+are Quillen adjunctions provided
+$\F \subseteq \phi^{\**} \bar{\F}$
+in the first case and 
+$\phi^{\**} \bar{\F} \subseteq \F$
+in the second case.
+\end{proposition}
+
+
+Our main example of interest will be given by the groupoids of the form
+$G \ltimes \Sigma^{op}_{\mathfrak{C}}$ for 
+$\mathfrak{C} \in \mathsf{F}^G$.
+Moreover, our choice of families will be such that the
+change of colors $f\colon \mathfrak{C} \to \mathfrak{D}$ 
+induce Quillen adjunctions.
+
+
+\begin{definition}\label{GSFAM_DEF}
+A \emph{$(G,\Sigma)$-family} is a family of subgroups $\mathcal{F}$ in $G \times \Sigma^{op}$.
+
+Moreover, given a $(G,\Sigma)$-family $\F$
+one defines a family
+$\mathcal{F}_{\mathfrak{C}}$ in
+$G \ltimes \Sigma^{op}_{\mathfrak{C}}$
+for each $\mathfrak{C} \in \mathsf{F}^G$
+via $\mathcal{F}_{\mathfrak{C}} = \pi^{\**}_{\mathfrak{C}}(\mathcal{F})$
+for $\pi_{\mathfrak{C}} \colon G \ltimes \Sigma_{\mathfrak{C}}^{op} \to G \times \Sigma^{op}$
+the canonical forgetful functor.
+\end{definition}
+
+
+
+\begin{remark}
+A $(G,\Sigma)$-family $\F$
+is determined by a collection of families
+$\F_n$ of the groups $G\times \Sigma_n^{op}$ for each $n \geq 0$.
+\end{remark}
+
+
+
+\begin{notation}\label{HASUNIT NOT}
+If $\F_1$ consists of all the subgroups 
+$H \leq G \simeq G \times \Sigma_1^{op}$, 
+we say that \textit{$\F$ has units}.
 \end{notation}
 
-This result formally extends to diagrams $\V^{\mathcal D}$ where $\mathcal D$ is a groupoid.
-\begin{definition}
-      For any groupoid $\mathcal D$, a \textit{family} of subgroups of $\mathcal D$ is
-      a collection $\F = \set{\F_d}$ of families of subgroups $\F_d$ of $\Aut(d)$ for all $d \in \mathcal D$,
-      such that for any map $\alpha: d \to d'$, $\alpha^{\**}\F_{d'} \subseteq \F_d$ (or equivalently, equality).
-\end{definition}
 
-\begin{proposition}\label{TRANS_MODEL_PROP}
-      Let $\V$ be a cofibrantly generated model category with cellular fixed points, $\mathcal D$ a groupoid, and $\F$ a family of subgroups of $\mathcal D$.
-      Then the category of diagrams $\V^{\mathcal D}$ has an \textit{$\F$-model structure} $\V^\G_\F$, where
-      a map $f: X \to Y$ is a
-      weak equivalence (resp. fibration) iff $f(d): X(d) \to Y(d)$ is so in $\V^{\mathsf{Aut}(d)}_{\F_d}$ for each $d \in \mathcal D$.
 
-      Moreover, if $X \in \V^{\mathcal D}$ is cofibrant, it is also levelwise cofibrant.
-\end{proposition}
-\begin{proof}
-      This is the model structure transferred along the adjunction
-      \begin{equation}
-            \begin{tikzcd}
-                  \V^{\mathcal D} \leftrightarrows
-                  \mathop{\prod}\limits_{d \in \mathcal D}\V^{\mathsf{Aut}(d)}_{\F_d}
-            \end{tikzcd}
-      \end{equation}
-      which exists by a straightforward exercise adapting and combining the proofs of
-      \cite[Thm 11.6.1]{Hir03} and \cite[Prop 2.6]{Ste16};
-      the generating (trivial) cofibrations are given by
-      \begin{equation}
-            I^{\mathcal D}_\F = \sets{\mathcal D(d,-) \cdot_{\mathcal D(d,d)} \mathcal D(d,d)/H \cdot i}{d \in \mathcal D, i \in I, H \in \F_d}
-      \end{equation}
-      where $I$ is the set of generating (trivial) cofibrations in $\V$.
-\end{proof}
-
-We note that for any $G$-operad with $\mathfrak C = \set{\**}$, each level $\O(n)$ has a left action by $G \times \Sigma_n$.
-In the homotopy theory of $G$-operads, as indicated in \cite{BH15} and the main result of \cite{BP_geo}, it is
-necessary to consider the homotopy type of various fixed point spaces.
-% for particular subgroups of $G \times \Sigma_n$.
-% not all of them, and not just the subgroups of $G$, but instead the graph subgroups.
-For full generality, we introduce the following terminology.
-
-\begin{definition}
-      \label{GSFAM_DEF}
-      A \textit{$(G, \Sigma)$-family} is a collection $\F = \set{\F_n}_{n \geq 0}$ of families $\F_n$ of subgroups of $G \times \Sigma_n$.
-      We say $\F$ \textit{has units} if $H \in \F_1$ for all $H \leq G$. \footnote{
-        As in \cite{BP_geo} and \cite{BH15}, one often restricts to \textit{$G$-graph families}; see Definition \ref{GRAPHSUB_DEF}.}. %\ref{COR_GGRAPH_DEF}
-      
-\end{definition}
-
-% % ------------------------------ we don't need $G$-graph systems here... everything in this part works for any $(G,\Sigma)$-family ------------------------------
-% {\color{OliveGreen} % ------------------------------ OLIVE GREEN ------------------------------
-  
-%   \begin{definition}
-%         \label{GGRAPHFAM_DEF}
-%         A subgroup $\Gamma \leq G \times \Sigma_n$ is called a \textit{graph subgroup} if $\Gamma \cap \Sigma_n = \**$;
-%         equivalently, if $\Gamma$ is the graph $\Gamma(\phi)$ of a homomorphism $G \leq H \xrightarrow{\phi} \Sigma_n$.
-        
-%         A \textit{$G$-graph system} is a collection $\F = \set{\F_n}_{n \geq 0}$ of families $\F_n$ of graph subgroups of $G \times \Sigma_n$, one family for each $n$.
-%         The maximum example will be denoted $\mathrm{Gr} = \set{\mathrm{Gr}_n}$, with $\mathrm{Gr}_n$ the entire collection of graph subgroups of $G \times \Sigma_n$.
-%   \end{definition}
-% } % ------------------------------------------------------------------------------------------------
-
-Extending this discussion to the many-colored setting, we note that
-any $(G, \Sigma)$-family automatically extends to a family for the groupoid $\mathcal D = G \ltimes \Sigma_{\mathfrak C}^{op}$,
-by defining for any $\mathfrak C$-signature $\vect C = (c_1,\dots,c_n;c_0)$ of length $n+1$,
-\begin{equation}
-      \label{FAMC_DEF_EQ}
-      \F_C = \F_n \cap \Aut_{G \ltimes \Sigma_{\mathfrak C}}(\vect C)
+\begin{remark}
+The functors
+$\pi_{\mathfrak{C}} \colon
+G \ltimes \Sigma_{\mathfrak{C}}^{op} \to
+G \times \Sigma^{op}$
+are faithful and can thus be regarded as inclusions.
+Hence, letting $\vect{C} \in \Sigma_{\mathfrak{C}}$ be a
+$\mathfrak{C}$-colored corolla with $n$ leaves,
+one has that
+$\F_{\mathfrak{C}} = \{\F_{\vect{C}}\}$ where
+\begin{equation}\label{FAMC_DEF_EQ}
+	\F_{\vect{C}} = \F_n \cap \Aut_{G \ltimes \Sigma_{\mathfrak C}^{op}}(\vect C).
 \end{equation}
-the subgroups $\Gamma \in \F_n$ such that $\Gamma \leq \Aut_{G \times \Sigma_n}(\vect C)$.
-Applying Proposition \ref{TRANS_MODEL_PROP} induces an $\F$-model structure on the category of $\mathfrak C$-symmetric sequences in $\V$.
+\end{remark}
+
+
+We will consider three main examples of $(G,\Sigma)$-families.
+
+First, there is the family $\F^{all}$ of all subgroups of $G \times \Sigma^{op}$
+(in which case the $\F^{all}_{\mathfrak{C}}$ are also the families of all subgroups), which is useful for technical purposes.
+
+Secondly, there is the family of $\F^{\Gamma}$
+of $G$-graph subgroups (further discussed in Definition \ref{GRAPHSUB_DEF}), where $\F^{\Gamma}_n$
+consists of the subgroups
+$\Gamma \leq G \times \Sigma_n^{op}$
+such that $\Gamma \cap \Sigma_n^{op} = \**$.
+We note that the elements of $\Gamma$
+have the form $(h,\phi(h)^{-1})$
+for $h$ ranging over some subgroup $H \leq G$
+and $\phi \colon H \to \Sigma_n$
+a homomorphism,
+motivating the ``graph subgroup'' terminology.
+
+Lastly, there are the indexing systems of Blumberg and Hill,
+which are certain special subfamilies of $\F^{\Gamma}$,
+and are explored in \S \ref{INDSYS SEC}.
+
+
+
+\begin{example}
+Let $G = \mathbb{Z}_{/2} = \{\pm 1\}$ and 
+$\mathfrak{C} = \{\mathfrak{a}, -\mathfrak{a}, \mathfrak{b}\}$ where we implicitly have
+$-\mathfrak{b} = \mathfrak{b}$.
+Consider the two $\mathfrak{C}$-corollas 
+$\vect{C},\vect{D} \in \Sigma_{\mathfrak{C}}$ below.
+\begin{equation}
+	\begin{tikzpicture}[auto,grow=up, level distance = 2.2em,
+	every node/.style={font=\scriptsize,inner sep = 2pt}]%
+		\tikzstyle{level 2}=[sibling distance=3em]%
+			\node at (0,0) [font = \normalsize] {$\vect{C}$}%	
+				child{node [dummy] {}%
+					child{node {}%
+					edge from parent node [swap] {$-\mathfrak{a}$}}%
+					child[level distance = 2.9em]{node {}%
+					edge from parent node [swap,	near end] {$\mathfrak{b}$}}%
+					child[level distance = 2.9em]{node {}%
+					edge from parent node [near end] {$\mathfrak{b}$}}%
+					child{node {}%
+					edge from parent node  {$\mathfrak{a}$}}%
+				edge from parent node [swap] {$\mathfrak{b}$}};%
+			\node at (7,0) [font = \normalsize] {$\vect{D}$}%	
+				child{node [dummy] {}%
+					child{node {}%
+					edge from parent node [swap] {$-\mathfrak{a}$}}%
+					child[level distance = 2.9em]{node {}%
+					edge from parent node [swap,	near end] {$-\mathfrak{a}$}}%
+					child[level distance = 2.9em]{node {}%
+					edge from parent node [near end] {$\mathfrak{a}$}}%
+					child{node {}%
+					edge from parent node  {$\mathfrak{a}$}}%
+				edge from parent node [swap] {$\mathfrak{b}$}};%
+	\end{tikzpicture}%
+\end{equation}%
+The non-trivial $G$-graph subgroups of
+$\F^{\Gamma}_{\vect{C}}$,
+$\F^{\Gamma}_{\vect{D}}$
+then correspond to the possible $\mathbb{Z}_{/2}$-actions on the underlying trees $C,D$ which are compatible with the action on labels
+(in the sense that the composites
+$E(C) \xrightarrow{-1} E(C) \to \mathfrak{C}$
+and 
+$E(C) \to \mathfrak{C} \xrightarrow{-1} \mathfrak{C}$ coincide).
+In this particular case, both 
+$\F^{\Gamma}_{\vect{C}}$,
+$\F^{\Gamma}_{\vect{D}}$
+have exactly two non-trivial groups,
+which correspond to the $\mathbb{Z}_{/2}$-actions on the underlying corollas depicted below.
+\begin{equation}
+	\begin{tikzpicture}[auto,grow=up, level distance = 2.2em,
+	every node/.style={font=\scriptsize,inner sep = 2pt}]%
+		\tikzstyle{level 2}=[sibling distance=3em]%
+			\node at (-1.6,0) [font = \normalsize] {$C_1$}%	
+				child{node [dummy] {}%
+					child{node {}%
+					edge from parent node [swap] {$-a$}}%
+					child[level distance = 2.9em]{node {}%
+					edge from parent node [swap,	near end] {$c\phantom{b}$}}%
+					child[level distance = 2.9em]{node {}%
+					edge from parent node [near end] {$b$}}%
+					child{node {}%
+					edge from parent node  {$a$}}%
+				edge from parent node [swap] {$r$}};%
+			\node at (1.6,0) [font = \normalsize] {$C_2$}%	
+				child{node [dummy] {}%
+					child{node {}%
+					edge from parent node [swap] {$-a$}}%
+					child[level distance = 2.9em]{node {}%
+					edge from parent node [swap,	near end] {$-b$}}%
+					child[level distance = 2.9em]{node {}%
+					edge from parent node [near end] {$b$}}%
+					child{node {}%
+					edge from parent node  {$a$}}%
+				edge from parent node [swap] {$r$}};%
+			\node at (5.4,0) [font = \normalsize] {$D_1$}%	
+				child{node [dummy] {}%
+					child{node {}%
+					edge from parent node [swap] {$-a$}}%
+					child[level distance = 2.9em]{node {}%
+					edge from parent node [swap,	near end] {$-b$}}%
+					child[level distance = 2.9em]{node {}%
+					edge from parent node [near end] {$b$}}%
+					child{node {}%
+					edge from parent node  {$a$}}%
+				edge from parent node [swap] {$r$}};%
+			\node at (8.6,0) [font = \normalsize] {$D_2$}%	
+				child{node [dummy] {}%
+					child{node {}%
+					edge from parent node [swap] {$-b$}}%
+					child[level distance = 2.9em]{node {}%
+					edge from parent node [swap,	near end] {$-a$}}%
+					child[level distance = 2.9em]{node {}%
+					edge from parent node [near end] {$b$}}%
+					child{node {}%
+					edge from parent node  {$a$}}%
+				edge from parent node [swap] {$r$}};%
+	\end{tikzpicture}%
+\end{equation}%
+\end{example}
+
+
+{\color{red} HERE}
+
+
+
+ 
+\subsection{Homotopy theory of operads with a fixed color $G$-set}
+\label{MSC_SEC}
+
+
+
+
+
+
+%For completeness, we recall a main result of \cite{Ste16}, which transfers model structures along several adjuctions.
+%\begin{theorem}[{\cite[Thm. 2.10]{Ste16}}]
+%      Let $\V$ be cofibrantly generated model category with cellular fixed points, $\F$ any family of subgroups of $G$ containing the trivial subgroup, and $\mathsf O_\F$ the full subcategory of $\mathsf O_G$ spanned by the $G/H$ with $H \in \F$.
+%      Then
+%      \begin{itemize}
+%      \item the projective model structure on $\V^{\mathsf O_\F^{op}}$ exists;
+%      \item the $\F$-model structure on $\V^G$ exists, where an arrow $f \in \V$ is a weak equivalence or fibration iff each $f^H$ is in $\V$ for each $H \in \F$; and
+%      \item the inclusion $\V^G \xrightarrow{i_{\**}} \V^{\mathsf O_F^{op}}$, $i_{\**}X(G/H) = X^H$ is a right Quillen equivalence.
+%      \end{itemize}
+%\end{theorem}      
+
+
+
+
+
+
+
+Applying Theorem \ref{FMODEL THM} induces an $\F$-model structure on the category of $\mathfrak C$-symmetric sequences in $\V$.
 
 \begin{definition}
       Let $\V$ be a cofibrantly generated model category with cellular fixed points,
@@ -6746,42 +6794,6 @@ Corollary \ref{ISODIFCL COR}.
 \subsection{Previous discussion (to be refactored)}
 
 
-Given a set $\mathfrak{C}$ of colors,
-write $\Sigma_{\mathfrak{C}}$ for the groupoid of corollas with edges labeled by colors in $\mathfrak{C}$.
-
-If, in addition, $\mathfrak{C}$ is a $G$-set, 
-we write $G \ltimes \Sigma_{\mathfrak{C}}^{op}$ for the larger groupoid obtained via the associated Grothendieck construction.
-
-
-
-Writing
-$\mathsf{Sym}^{G,\mathfrak{C}} = 
-\mathsf{Set}^{G \ltimes \Sigma_{\mathfrak{C}}^{op}}$,
-we have a natural monad $\mathbb{F}$ on
-$\mathsf{Sym}^{G,\mathfrak{C}}$
-whose algebra category we denote by 
-$\mathsf{Op}^{G,\mathfrak{C}}$.
-
-
-\begin{notation}
-	Given a $G$-equivariant function 
-	$f \colon \mathfrak{C} \to \mathfrak{D}$
-	we write
-\[
-	f_{!} \colon 
-	\mathsf{Sym}^{G,\mathfrak{C}}
-	\rightleftarrows
-	\mathsf{Sym}^{G,\mathfrak{D}}
-	\colon f^{\**}
-\qquad
-	\check{f}_{!} \colon 
-	\mathsf{Op}^{G,\mathfrak{C}}
-	\rightleftarrows
-	\mathsf{Op}^{G,\mathfrak{D}}
-	\colon f^{\**}
-\]
-for the standard adjunctions (note the need to distinguish notations for the left adjoints).
-\end{notation}
 
 
 \begin{example}\label{GCORMPA EX}
@@ -6896,96 +6908,6 @@ of objects in $\mathsf{Set}^{H \ltimes \Sigma_{\mathfrak{C}}}$ and therefore an 
 of objects in $\mathsf{Set}^{G \ltimes \Sigma_{\mathfrak{C}}}$.
 \end{inparaenum}
 \end{remark}
-
-
-\begin{example}
-Let $G = \mathbb{Z}_{/2} = \{\pm 1\}$ and 
-$\mathfrak{C} = \{\mathfrak{a}, -\mathfrak{a}, \mathfrak{b}\}$ where we implicitly have
-$-\mathfrak{b} = \mathfrak{b}$.
-Consider the two $\mathfrak{C}$-corollas 
-$C,D \in \Sigma_{\mathfrak{C}}$ below.
-\begin{equation}
-	\begin{tikzpicture}[auto,grow=up, level distance = 2.2em,
-	every node/.style={font=\scriptsize,inner sep = 2pt}]%
-		\tikzstyle{level 2}=[sibling distance=3em]%
-			\node at (0,0) [font = \normalsize] {$C$}%	
-				child{node [dummy] {}%
-					child{node {}%
-					edge from parent node [swap] {$-\mathfrak{a}$}}%
-					child[level distance = 2.9em]{node {}%
-					edge from parent node [swap,	near end] {$\mathfrak{b}$}}%
-					child[level distance = 2.9em]{node {}%
-					edge from parent node [near end] {$\mathfrak{b}$}}%
-					child{node {}%
-					edge from parent node  {$\mathfrak{a}$}}%
-				edge from parent node [swap] {$\mathfrak{b}$}};%
-			\node at (7,0) [font = \normalsize] {$D$}%	
-				child{node [dummy] {}%
-					child{node {}%
-					edge from parent node [swap] {$-\mathfrak{a}$}}%
-					child[level distance = 2.9em]{node {}%
-					edge from parent node [swap,	near end] {$-\mathfrak{a}$}}%
-					child[level distance = 2.9em]{node {}%
-					edge from parent node [near end] {$\mathfrak{a}$}}%
-					child{node {}%
-					edge from parent node  {$\mathfrak{a}$}}%
-				edge from parent node [swap] {$\mathfrak{b}$}};%
-	\end{tikzpicture}%
-\end{equation}%
-Each of $C,D$ admit exactly two non-trivial $G$-graph subgroups,
-which are encoded by the $\mathbb{Z}_{/2}$-actions on the underlying corollas depicted below.
-\begin{equation}
-	\begin{tikzpicture}[auto,grow=up, level distance = 2.2em,
-	every node/.style={font=\scriptsize,inner sep = 2pt}]%
-		\tikzstyle{level 2}=[sibling distance=3em]%
-			\node at (-1.6,0) [font = \normalsize] {$C_1$}%	
-				child{node [dummy] {}%
-					child{node {}%
-					edge from parent node [swap] {$-a$}}%
-					child[level distance = 2.9em]{node {}%
-					edge from parent node [swap,	near end] {$c\phantom{b}$}}%
-					child[level distance = 2.9em]{node {}%
-					edge from parent node [near end] {$b$}}%
-					child{node {}%
-					edge from parent node  {$a$}}%
-				edge from parent node [swap] {$r$}};%
-			\node at (1.6,0) [font = \normalsize] {$C_2$}%	
-				child{node [dummy] {}%
-					child{node {}%
-					edge from parent node [swap] {$-a$}}%
-					child[level distance = 2.9em]{node {}%
-					edge from parent node [swap,	near end] {$-b$}}%
-					child[level distance = 2.9em]{node {}%
-					edge from parent node [near end] {$b$}}%
-					child{node {}%
-					edge from parent node  {$a$}}%
-				edge from parent node [swap] {$r$}};%
-			\node at (5.4,0) [font = \normalsize] {$D_1$}%	
-				child{node [dummy] {}%
-					child{node {}%
-					edge from parent node [swap] {$-a$}}%
-					child[level distance = 2.9em]{node {}%
-					edge from parent node [swap,	near end] {$-b$}}%
-					child[level distance = 2.9em]{node {}%
-					edge from parent node [near end] {$b$}}%
-					child{node {}%
-					edge from parent node  {$a$}}%
-				edge from parent node [swap] {$r$}};%
-			\node at (8.6,0) [font = \normalsize] {$D_2$}%	
-				child{node [dummy] {}%
-					child{node {}%
-					edge from parent node [swap] {$-b$}}%
-					child[level distance = 2.9em]{node {}%
-					edge from parent node [swap,	near end] {$-a$}}%
-					child[level distance = 2.9em]{node {}%
-					edge from parent node [near end] {$b$}}%
-					child{node {}%
-					edge from parent node  {$a$}}%
-				edge from parent node [swap] {$r$}};%
-	\end{tikzpicture}%
-\end{equation}%
-
-\end{example}
 
 
 
@@ -7745,7 +7667,7 @@ Before the proof, we list some technical results yielded from \cite{BP_edss} tha
 
 
 
-\section{Indexing system analogue results}
+\section{Indexing system analogue results}\label{INDSYS SEC}
 
 As in \cite[\S 6]{BP_edss} and \cite[\S 9]{Per18}, we dedicate our final section to 
 outlining the variations of the main results from Sections \ref{TAME_SEC} and \ref{QE_SEC} to
