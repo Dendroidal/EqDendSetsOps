@@ -1440,7 +1440,7 @@ Fix a closed symmetric monoidal category $(\V, \otimes)$.
 
 
 \begin{example}
-      Now, for $E = \Op(\V)$,
+      Now, for $\Op(\V)$,
       we see that an object $\O \in \Op^G(\V)$ consists of
       a $G$-set $\mathfrak C = \mathfrak C_\O$ of colors, and a compatible $G/e$-indexed diagram of $\mathfrak C$-colored operads;
       in particular, $\O$ has an underlying object in $\Sym^G(\V)$
@@ -1494,7 +1494,7 @@ As in \eqref{C_CHANGE_EQ}, we in fact have a pair of adjoints
             \\
             \Sym^{G, \mathfrak C'}(\V) \arrow[r, shift right, "F^{\**}"']
             &
-            \Sym^{G, \mathfrak C}(\V) \arrow[l, shift right, "F_{!!}"'].
+            \Sym^{G, \mathfrak C}(\V) \arrow[l, shift right, "\check{F}_{!}"'].
       \end{tikzcd}
 \end{equation}
 where again only the right adjoint commutes with $\mathsf{fgt}$. 
@@ -1627,6 +1627,14 @@ for all finite groups $G$ and subgroups $H, K \leq G$ one has that:
 \end{definition}
 
 
+\begin{remark}\label{LEVEL_COF_REM}
+	A consequence of $\V$ having cellular fixed points (cf. the proof of \cite[Prop. 6.3(i)]{BP_geo})
+	is that for any genuine (trivial) cofibration $f \in \V^G_{gen}$,
+	the map $f^H$ is a (trivial) cofibration in $\V$ for all $H \leq G$.
+	{\color{blue} (Luis: this might need cofibrant generation as well)}
+\end{remark}
+
+
 
 For any groupoid $\G$ there is an equivalence of categories
 $\G \simeq \coprod_{[x] \in ob(\G)/\simeq} Aut(x)$,
@@ -1730,22 +1738,186 @@ in the second case.
 \end{proposition}
 
 
+Our main example of interest will be given by the groupoids of the form
+$G \ltimes \Sigma^{op}_{\mathfrak{C}}$ for 
+$\mathfrak{C} \in \mathsf{F}^G$.
+Moreover, our choice of families will be such that the
+change of colors $f\colon \mathfrak{C} \to \mathfrak{D}$ 
+induce Quillen adjunctions.
 
 
+\begin{definition}\label{GSFAM_DEF}
+A \emph{$(G,\Sigma)$-family} is a family of subgroups $\mathcal{F}$ in $G \times \Sigma^{op}$.
+
+Moreover, given a $(G,\Sigma)$-family $\F$
+one defines a family
+$\mathcal{F}_{\mathfrak{C}}$ in
+$G \ltimes \Sigma^{op}_{\mathfrak{C}}$
+for each $\mathfrak{C} \in \mathsf{F}^G$
+via $\mathcal{F}_{\mathfrak{C}} = \pi^{\**}_{\mathfrak{C}}(\mathcal{F})$
+for $\pi_{\mathfrak{C}} \colon G \ltimes \Sigma_{\mathfrak{C}}^{op} \to G \times \Sigma^{op}$
+the canonical forgetful functor.
+\end{definition}
+
+
+
+\begin{remark}
+A $(G,\Sigma)$-family $\F$
+is determined by a collection of families
+$\F_n$ of the groups $G\times \Sigma_n^{op}$ for each $n \geq 0$.
+\end{remark}
+
+
+
+\begin{notation}\label{HASUNIT NOT}
+If $\F_1$ consists of all the subgroups 
+$H \leq G \simeq G \times \Sigma_1^{op}$, 
+we say that \textit{$\F$ has units}.
+\end{notation}
+
+
+
+\begin{remark}
+The functors
+$\pi_{\mathfrak{C}} \colon
+G \ltimes \Sigma_{\mathfrak{C}}^{op} \to
+G \times \Sigma^{op}$
+are faithful and can thus be regarded as inclusions.
+Hence, letting $\vect{C} \in \Sigma_{\mathfrak{C}}$ be a
+$\mathfrak{C}$-colored corolla with $n$ leaves,
+one has that
+$\F_{\mathfrak{C}} = \{\F_{\vect{C}}\}$ where
+\begin{equation}\label{FAMC_DEF_EQ}
+	\F_{\vect{C}} = \F_n \cap \Aut_{G \ltimes \Sigma_{\mathfrak C}^{op}}(\vect C).
+\end{equation}
+\end{remark}
+
+
+We will consider three main examples of $(G,\Sigma)$-families.
+
+First, there is the family $\F^{all}$ of all subgroups of $G \times \Sigma^{op}$
+(in which case the $\F^{all}_{\mathfrak{C}}$ are also the families of all subgroups), which is useful for technical purposes.
+
+Secondly, there is the family of $\F^{\Gamma}$
+of $G$-graph subgroups (further discussed in Definition \ref{GRAPHSUB_DEF}), where $\F^{\Gamma}_n$
+consists of the subgroups
+$\Gamma \leq G \times \Sigma_n^{op}$
+such that $\Gamma \cap \Sigma_n^{op} = \**$.
+We note that the elements of $\Gamma$
+have the form $(h,\phi(h)^{-1})$
+for $h$ ranging over some subgroup $H \leq G$
+and $\phi \colon H \to \Sigma_n$
+a homomorphism,
+motivating the ``graph subgroup'' terminology.
+
+Lastly, there are the indexing systems of Blumberg and Hill,
+which are certain special subfamilies of $\F^{\Gamma}$,
+and are explored in \S \ref{INDSYS SEC}.
+
+
+
+\begin{example}
+Let $G = \mathbb{Z}_{/2} = \{\pm 1\}$ and 
+$\mathfrak{C} = \{\mathfrak{a}, -\mathfrak{a}, \mathfrak{b}\}$ where we implicitly have
+$-\mathfrak{b} = \mathfrak{b}$.
+Consider the two $\mathfrak{C}$-corollas 
+$\vect{C},\vect{D} \in \Sigma_{\mathfrak{C}}$ below.
+\begin{equation}
+	\begin{tikzpicture}[auto,grow=up, level distance = 2.2em,
+	every node/.style={font=\scriptsize,inner sep = 2pt}]%
+		\tikzstyle{level 2}=[sibling distance=3em]%
+			\node at (0,0) [font = \normalsize] {$\vect{C}$}%	
+				child{node [dummy] {}%
+					child{node {}%
+					edge from parent node [swap] {$-\mathfrak{a}$}}%
+					child[level distance = 2.9em]{node {}%
+					edge from parent node [swap,	near end] {$\mathfrak{b}$}}%
+					child[level distance = 2.9em]{node {}%
+					edge from parent node [near end] {$\mathfrak{b}$}}%
+					child{node {}%
+					edge from parent node  {$\mathfrak{a}$}}%
+				edge from parent node [swap] {$\mathfrak{b}$}};%
+			\node at (7,0) [font = \normalsize] {$\vect{D}$}%	
+				child{node [dummy] {}%
+					child{node {}%
+					edge from parent node [swap] {$-\mathfrak{a}$}}%
+					child[level distance = 2.9em]{node {}%
+					edge from parent node [swap,	near end] {$-\mathfrak{a}$}}%
+					child[level distance = 2.9em]{node {}%
+					edge from parent node [near end] {$\mathfrak{a}$}}%
+					child{node {}%
+					edge from parent node  {$\mathfrak{a}$}}%
+				edge from parent node [swap] {$\mathfrak{b}$}};%
+	\end{tikzpicture}%
+\end{equation}%
+The non-trivial $G$-graph subgroups of
+$\F^{\Gamma}_{\vect{C}}$,
+$\F^{\Gamma}_{\vect{D}}$
+then correspond to the possible $\mathbb{Z}_{/2}$-actions on the underlying trees $C,D$ which are compatible with the action on labels
+(in the sense that the composites
+$E(C) \xrightarrow{-1} E(C) \to \mathfrak{C}$
+and 
+$E(C) \to \mathfrak{C} \xrightarrow{-1} \mathfrak{C}$ coincide).
+In this particular case, both 
+$\F^{\Gamma}_{\vect{C}}$,
+$\F^{\Gamma}_{\vect{D}}$
+have exactly two non-trivial groups,
+which correspond to the $\mathbb{Z}_{/2}$-actions on the underlying corollas depicted below.
+\begin{equation}
+	\begin{tikzpicture}[auto,grow=up, level distance = 2.2em,
+	every node/.style={font=\scriptsize,inner sep = 2pt}]%
+		\tikzstyle{level 2}=[sibling distance=3em]%
+			\node at (-1.6,0) [font = \normalsize] {$C_1$}%	
+				child{node [dummy] {}%
+					child{node {}%
+					edge from parent node [swap] {$-a$}}%
+					child[level distance = 2.9em]{node {}%
+					edge from parent node [swap,	near end] {$c\phantom{b}$}}%
+					child[level distance = 2.9em]{node {}%
+					edge from parent node [near end] {$b$}}%
+					child{node {}%
+					edge from parent node  {$a$}}%
+				edge from parent node [swap] {$r$}};%
+			\node at (1.6,0) [font = \normalsize] {$C_2$}%	
+				child{node [dummy] {}%
+					child{node {}%
+					edge from parent node [swap] {$-a$}}%
+					child[level distance = 2.9em]{node {}%
+					edge from parent node [swap,	near end] {$-b$}}%
+					child[level distance = 2.9em]{node {}%
+					edge from parent node [near end] {$b$}}%
+					child{node {}%
+					edge from parent node  {$a$}}%
+				edge from parent node [swap] {$r$}};%
+			\node at (5.4,0) [font = \normalsize] {$D_1$}%	
+				child{node [dummy] {}%
+					child{node {}%
+					edge from parent node [swap] {$-a$}}%
+					child[level distance = 2.9em]{node {}%
+					edge from parent node [swap,	near end] {$-b$}}%
+					child[level distance = 2.9em]{node {}%
+					edge from parent node [near end] {$b$}}%
+					child{node {}%
+					edge from parent node  {$a$}}%
+				edge from parent node [swap] {$r$}};%
+			\node at (8.6,0) [font = \normalsize] {$D_2$}%	
+				child{node [dummy] {}%
+					child{node {}%
+					edge from parent node [swap] {$-b$}}%
+					child[level distance = 2.9em]{node {}%
+					edge from parent node [swap,	near end] {$-a$}}%
+					child[level distance = 2.9em]{node {}%
+					edge from parent node [near end] {$b$}}%
+					child{node {}%
+					edge from parent node  {$a$}}%
+				edge from parent node [swap] {$r$}};%
+	\end{tikzpicture}%
+\end{equation}%
+\end{example}
 
 
 {\color{red} HERE}
 
-
-\begin{definition}
-Given a family of subgroups $\mathcal{F}$ in $G \times \Sigma$,
-one defines a family
-$\mathcal{F}_{\mathfrak{C}}$
-for any $\mathfrak{C} \in \mathsf{F}^G$
-via $\mathcal{F}_{\mathfrak{C}} = \pi^{\**}_{\mathfrak{C}}(\mathcal{F})$
-for $\pi_{\mathfrak{C}} \colon G \ltimes \Sigma_{\mathfrak{C}} \to G \times \Sigma$
-the canonical map.
-\end{definition}
 
 
  
@@ -1754,11 +1926,7 @@ the canonical map.
 
 
 
-\begin{remark}\label{LEVEL_COF_REM}
-	An immediate consequence of $\V$ having cellular fixed points (cf. the proof of \cite[Prop. 6.3(i)]{BP_geo})
-	is that for any genuine (trivial) cofibration $f \in \V^G_{gen}$,
-	the map $f^H$ is a (trivial) cofibration in $\V$ for all $H \leq G$.
-\end{remark}
+
 
 
 %For completeness, we recall a main result of \cite{Ste16}, which transfers model structures along several adjuctions.
@@ -1776,45 +1944,8 @@ the canonical map.
 
 
 
-{\color{purple} HERE}
 
 
-We note that for any $G$-operad with $\mathfrak C = \set{\**}$, each level $\O(n)$ has a left action by $G \times \Sigma_n$.
-In the homotopy theory of $G$-operads, as indicated in \cite{BH15} and the main result of \cite{BP_geo}, it is
-necessary to consider the homotopy type of various fixed point spaces.
-% for particular subgroups of $G \times \Sigma_n$.
-% not all of them, and not just the subgroups of $G$, but instead the graph subgroups.
-For full generality, we introduce the following terminology.
-
-\begin{definition}
-      \label{GSFAM_DEF}
-      A \textit{$(G, \Sigma)$-family} is a collection $\F = \set{\F_n}_{n \geq 0}$ of families $\F_n$ of subgroups of $G \times \Sigma_n$.
-      We say $\F$ \textit{has units} if $H \in \F_1$ for all $H \leq G$. \footnote{
-        As in \cite{BP_geo} and \cite{BH15}, one often restricts to \textit{$G$-graph families}; see Definition \ref{GRAPHSUB_DEF}.}. %\ref{COR_GGRAPH_DEF}
-      
-\end{definition}
-
-% % ------------------------------ we don't need $G$-graph systems here... everything in this part works for any $(G,\Sigma)$-family ------------------------------
-% {\color{OliveGreen} % ------------------------------ OLIVE GREEN ------------------------------
-  
-%   \begin{definition}
-%         \label{GGRAPHFAM_DEF}
-%         A subgroup $\Gamma \leq G \times \Sigma_n$ is called a \textit{graph subgroup} if $\Gamma \cap \Sigma_n = \**$;
-%         equivalently, if $\Gamma$ is the graph $\Gamma(\phi)$ of a homomorphism $G \leq H \xrightarrow{\phi} \Sigma_n$.
-        
-%         A \textit{$G$-graph system} is a collection $\F = \set{\F_n}_{n \geq 0}$ of families $\F_n$ of graph subgroups of $G \times \Sigma_n$, one family for each $n$.
-%         The maximum example will be denoted $\mathrm{Gr} = \set{\mathrm{Gr}_n}$, with $\mathrm{Gr}_n$ the entire collection of graph subgroups of $G \times \Sigma_n$.
-%   \end{definition}
-% } % ------------------------------------------------------------------------------------------------
-
-Extending this discussion to the many-colored setting, we note that
-any $(G, \Sigma)$-family automatically extends to a family for the groupoid $\mathcal D = G \ltimes \Sigma_{\mathfrak C}^{op}$,
-by defining for any $\mathfrak C$-signature $\vect C = (c_1,\dots,c_n;c_0)$ of length $n+1$,
-\begin{equation}
-      \label{FAMC_DEF_EQ}
-      \F_C = \F_n \cap \Aut_{G \ltimes \Sigma_{\mathfrak C}}(\vect C)
-\end{equation}
-the subgroups $\Gamma \in \F_n$ such that $\Gamma \leq \Aut_{G \times \Sigma_n}(\vect C)$.
 Applying Theorem \ref{FMODEL THM} induces an $\F$-model structure on the category of $\mathfrak C$-symmetric sequences in $\V$.
 
 \begin{definition}
@@ -6665,27 +6796,6 @@ Corollary \ref{ISODIFCL COR}.
 
 
 
-\begin{notation}
-	Given a $G$-equivariant function 
-	$f \colon \mathfrak{C} \to \mathfrak{D}$
-	we write
-\[
-	f_{!} \colon 
-	\mathsf{Sym}^{G,\mathfrak{C}}
-	\rightleftarrows
-	\mathsf{Sym}^{G,\mathfrak{D}}
-	\colon f^{\**}
-\qquad
-	\check{f}_{!} \colon 
-	\mathsf{Op}^{G,\mathfrak{C}}
-	\rightleftarrows
-	\mathsf{Op}^{G,\mathfrak{D}}
-	\colon f^{\**}
-\]
-for the standard adjunctions (note the need to distinguish notations for the left adjoints).
-\end{notation}
-
-
 \begin{example}\label{GCORMPA EX}
 Given a $G$-corolla $C \in \Sigma_G$, we write $\partial C$ for the set of edges of $C$, which is naturally identified with the set of objects of the associated $G$-operad
 $\Omega(C) \in \mathsf{Op}^G$.
@@ -6798,96 +6908,6 @@ of objects in $\mathsf{Set}^{H \ltimes \Sigma_{\mathfrak{C}}}$ and therefore an 
 of objects in $\mathsf{Set}^{G \ltimes \Sigma_{\mathfrak{C}}}$.
 \end{inparaenum}
 \end{remark}
-
-
-\begin{example}
-Let $G = \mathbb{Z}_{/2} = \{\pm 1\}$ and 
-$\mathfrak{C} = \{\mathfrak{a}, -\mathfrak{a}, \mathfrak{b}\}$ where we implicitly have
-$-\mathfrak{b} = \mathfrak{b}$.
-Consider the two $\mathfrak{C}$-corollas 
-$C,D \in \Sigma_{\mathfrak{C}}$ below.
-\begin{equation}
-	\begin{tikzpicture}[auto,grow=up, level distance = 2.2em,
-	every node/.style={font=\scriptsize,inner sep = 2pt}]%
-		\tikzstyle{level 2}=[sibling distance=3em]%
-			\node at (0,0) [font = \normalsize] {$C$}%	
-				child{node [dummy] {}%
-					child{node {}%
-					edge from parent node [swap] {$-\mathfrak{a}$}}%
-					child[level distance = 2.9em]{node {}%
-					edge from parent node [swap,	near end] {$\mathfrak{b}$}}%
-					child[level distance = 2.9em]{node {}%
-					edge from parent node [near end] {$\mathfrak{b}$}}%
-					child{node {}%
-					edge from parent node  {$\mathfrak{a}$}}%
-				edge from parent node [swap] {$\mathfrak{b}$}};%
-			\node at (7,0) [font = \normalsize] {$D$}%	
-				child{node [dummy] {}%
-					child{node {}%
-					edge from parent node [swap] {$-\mathfrak{a}$}}%
-					child[level distance = 2.9em]{node {}%
-					edge from parent node [swap,	near end] {$-\mathfrak{a}$}}%
-					child[level distance = 2.9em]{node {}%
-					edge from parent node [near end] {$\mathfrak{a}$}}%
-					child{node {}%
-					edge from parent node  {$\mathfrak{a}$}}%
-				edge from parent node [swap] {$\mathfrak{b}$}};%
-	\end{tikzpicture}%
-\end{equation}%
-Each of $C,D$ admit exactly two non-trivial $G$-graph subgroups,
-which are encoded by the $\mathbb{Z}_{/2}$-actions on the underlying corollas depicted below.
-\begin{equation}
-	\begin{tikzpicture}[auto,grow=up, level distance = 2.2em,
-	every node/.style={font=\scriptsize,inner sep = 2pt}]%
-		\tikzstyle{level 2}=[sibling distance=3em]%
-			\node at (-1.6,0) [font = \normalsize] {$C_1$}%	
-				child{node [dummy] {}%
-					child{node {}%
-					edge from parent node [swap] {$-a$}}%
-					child[level distance = 2.9em]{node {}%
-					edge from parent node [swap,	near end] {$c\phantom{b}$}}%
-					child[level distance = 2.9em]{node {}%
-					edge from parent node [near end] {$b$}}%
-					child{node {}%
-					edge from parent node  {$a$}}%
-				edge from parent node [swap] {$r$}};%
-			\node at (1.6,0) [font = \normalsize] {$C_2$}%	
-				child{node [dummy] {}%
-					child{node {}%
-					edge from parent node [swap] {$-a$}}%
-					child[level distance = 2.9em]{node {}%
-					edge from parent node [swap,	near end] {$-b$}}%
-					child[level distance = 2.9em]{node {}%
-					edge from parent node [near end] {$b$}}%
-					child{node {}%
-					edge from parent node  {$a$}}%
-				edge from parent node [swap] {$r$}};%
-			\node at (5.4,0) [font = \normalsize] {$D_1$}%	
-				child{node [dummy] {}%
-					child{node {}%
-					edge from parent node [swap] {$-a$}}%
-					child[level distance = 2.9em]{node {}%
-					edge from parent node [swap,	near end] {$-b$}}%
-					child[level distance = 2.9em]{node {}%
-					edge from parent node [near end] {$b$}}%
-					child{node {}%
-					edge from parent node  {$a$}}%
-				edge from parent node [swap] {$r$}};%
-			\node at (8.6,0) [font = \normalsize] {$D_2$}%	
-				child{node [dummy] {}%
-					child{node {}%
-					edge from parent node [swap] {$-b$}}%
-					child[level distance = 2.9em]{node {}%
-					edge from parent node [swap,	near end] {$-a$}}%
-					child[level distance = 2.9em]{node {}%
-					edge from parent node [near end] {$b$}}%
-					child{node {}%
-					edge from parent node  {$a$}}%
-				edge from parent node [swap] {$r$}};%
-	\end{tikzpicture}%
-\end{equation}%
-
-\end{example}
 
 
 
@@ -7647,7 +7667,7 @@ Before the proof, we list some technical results yielded from \cite{BP_edss} tha
 
 
 
-\section{Indexing system analogue results}
+\section{Indexing system analogue results}\label{INDSYS SEC}
 
 As in \cite[\S 6]{BP_edss} and \cite[\S 9]{Per18}, we dedicate our final section to 
 outlining the variations of the main results from Sections \ref{TAME_SEC} and \ref{QE_SEC} to
