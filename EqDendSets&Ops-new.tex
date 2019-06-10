@@ -39,7 +39,7 @@ cd,patterns,calc}
 \usepackage{ifdraft}
 \ifdraft{
   \color[RGB]{63,63,63}
-%  \pagecolor[RGB]{220,220,204}
+  \pagecolor[RGB]{220,220,204}
   \usepackage{showkeys}
   \usepackage{geometry}
   \usepackage{todonotes}
@@ -343,87 +343,6 @@ Here, homotopical essential surjectivity is defined on the underlying categories
 
 
 
-% -------------------- Translation Categories --------------------
-
-\begin{example}
-      \label{G_GR_REM}
-      Given a group $G$, let $BG$ denote the category which encodes \textit{left} $G$-actions (so $h \circ g = h g$).
-      For any left $G$-set $A$, the \textit{translation category} or \textit{action groupoid}
-      has object set $A$
-      and morphism set all pairs $(g,a): a \to g.a$ for all $(g,a) \in G \times A$
-      (equivalently, $\Hom(a,b) = \sets{g \in G}{b = g.a}$).
-      %
-      More generally, if $\mathcal C$ is a left $G$-category, the \textit{translation category}
-      has object set $\mathrm{Ob}(\mathcal C)$
-      and morphism set all tuples $(g,a,b,f)$ with $g \in G$, $a,b\in \mathcal C$, and $f: g.a \to b$.
-      %
-      These are both isomorphic to the Grothendieck construction $BG \ltimes \mathcal C$
-      on the functor $BG \to \Cat$ defining the $G$-action on $\mathcal C$.
-      We will mildly abuse notation and denote these categories by simply $G \ltimes \mathcal C$
-      \footnote{
-        The action groupoid for a $G$-set $A$ is often denoted $B_A G$, generalizing the notation for the category $B G = B_{\**} G$.}.
-      
-      Further, we note that if $\mathcal C$ has an action by other groups $\Sigma$ which commute with the action by $G$,
-      then the iterated Grothendieck constructions above are associative and commutative.
-\end{example}
-
-\begin{remark}
-      \label{GOP_REM}
-      If $\mathcal C$ is a left $G$-category, then we write
-      $G^{op} \ltimes \mathcal C$ to denote the Grothendieck construction on the functor
-      $BG^{op} \xrightarrow{(-)^{-1}} BG \xrightarrow{\mathcal C} \Cat$.
-
-      Moreover, as $\mathcal C^{op}$ is also a left $G$-category, it is easy to check that
-      $(G \ltimes \mathcal C)^{op} \simeq G^{op} \ltimes \mathcal C^{op}$,
-      using the above convention.
-\end{remark}
-
-
-
-% -------------------- OTHER STUFF --------------------
-
-
-% First, we record a basic result.
-
-% \begin{lemma}
-%       \label{PB_GR_LEM}
-%       If $\mathcal C \to \mathcal D$ is a Grothendieck fibration, then the pullback
-%       \begin{equation}
-%             \begin{tikzcd}
-%                   \mathcal A \arrow[d] \arrow[r]
-%                   &
-%                   \mathcal C \arrow[d]
-%                   \\
-%                   \mathcal B \arrow[r, "F"]
-%                   &
-%                   \mathcal D
-%             \end{tikzcd}
-%       \end{equation}
-%       is isomorphic to the Grothendieck construction on
-%       \begin{equation}
-%             \label{PB_GR_EQ}
-%             % \begin{tikzcd}[row sep = tiny]
-%             %       \mathcal B^{op} \arrow[r]
-%             %       &
-%             %       \mathsf{Cat}
-%             %       \\
-%             %       b \arrow[r, mapsto]
-%             %       &
-%             %       \mathcal C_{F(b)},
-%             % \end{tikzcd}
-%             \mathcal B^{op} \longto \Cat,
-%             \qquad \qquad
-%             b \longmapsto \mathcal C_{F(b)},
-%       \end{equation}
-%       where $\mathcal C_{d}$ is the fiber over $d \in \mathcal D$.
-% \end{lemma}
-% \begin{proof}
-%       The fact that the map \eqref{PB_GR_EQ} is a functor follows from $\mathcal C \to \mathcal D$ being a fibration;
-%       the rest follows by unpacking definitions.
-% \end{proof}
-
-
-
 % -------------------- Wreath Products --------------------
 
 Now, recall the notation $\mathsf F \wr \mathcal C$ for a category $\mathcal C$ from \cite{BP_geo}.
@@ -496,229 +415,6 @@ Now, recall the notation $\mathsf F \wr \mathcal C$ for a category $\mathcal C$ 
       denoted by $(i,\phi): (k_1,X_1) \to (k_2,X_2)$, with composition defined in the natural way.      
 \end{definition}
 
-
-
-The following lemmas have straightforward proofs.
-
-\begin{lemma}
-      \label{GD_PULL_LEM}
-      For any functor $\mathcal C \to \mathcal D$ of $G$-categories, the squares below are Cartesian.
-      \begin{equation}
-            \begin{tikzcd}
-                  \mathcal C \arrow[d] \arrow[r]
-                  &
-                  G \ltimes \mathcal C \arrow[d]
-                  &&
-                  G \ltimes (\Sigma \wr \mathcal C) \arrow[d] \arrow[r]
-                  &
-                  \Sigma \wr (G \ltimes \mathcal C) \arrow[d]
-                  \\
-                  \mathcal D \arrow[r]
-                  &
-                  G \ltimes \mathcal D
-                  &&
-                  G \ltimes (\Sigma \wr \mathcal D) \arrow[r]
-                  &
-                  \Sigma \wr (G \ltimes \mathcal D)
-            \end{tikzcd}
-      \end{equation}
-      Moreover, the square on the left lifts Kan extensions.
-\end{lemma}
-
-\begin{lemma}
-      \label{GL_PULL_LEM}
-      The functor $G \ltimes (-): \Cat^{G} \to \mathsf{Fib}(G)$ preserves pullbacks and coproducts.
-\end{lemma}
-
-\begin{lemma}
-      \label{GL_GR_LEM}
-      $G \ltimes (-)$ preserves Grothendieck fibrations, and in fact the fibers remain constant.
-\end{lemma}
-\begin{proof}
-      A straightforward diagram chase shows that if $f$ is a Cartesian arrow in $\mathcal E$ over $\mathcal B$,
-      then for any $g\in G$, $f \circ g$ is a Cartesian arrow in $G \ltimes \mathcal E$ over $G \ltimes \mathcal B$.
-      The result follows immediately.
-\end{proof}
-
-\begin{lemma}
-      \label{GL_RANINIT_LEM}
-      $G \ltimes (-)$ preserves Ran-initiality:
-      if $\mathcal C \to \mathcal D$ is a functor of $G$-categories over another $G$-category $\mathcal E$
-      which is Ran-initial, then so is $G \ltimes \mathcal C \to G \ltimes \mathcal D$ over $G \ltimes \mathcal E$.
-\end{lemma}
-\begin{proof} 
-      This follows from the unique description of any arrow in $G \ltimes \mathcal E$ as an element of $G$ plus an arrow in $\mathcal E$. 
-\end{proof}
-
-\begin{remark}
-      For $G$-categories $\mathcal C$ and $\mathcal D$, we have equivalences of categories
-      \begin{equation}
-            \Fun^G(\mathcal C, \mathcal D)
-            \simeq \Fun_{\Fib(G)}(G \ltimes \mathcal C, G \ltimes \mathcal D)
-            \simeq \Fun_{\Fib(G^{op})}(G^{op} \ltimes \mathcal C, G^{op} \ltimes \mathcal D).
-      \end{equation}
-\end{remark}
-
-
-
-\subsection{2-overcategories and pullback functors}
-
-Include \S 8.1: 2-overcategories and \S 8.3: Pullback functors.
-
-Random lemmas:
-
-\begin{lemma}
-      Suppose $F: \mathcal C \to \mathcal D$ is a simple 1-arrow in $\Cat \downarrow^r \mathcal B$.
-      Consider the following cube in $\Cat$, where the bottom, top, and right faces are all (strict) pullbacks.
-      \begin{equation}
-            \begin{tikzcd}[row sep = small, column sep = small]
-                  \pi^{\**} \mathcal C \arrow[rr] \arrow[dr] \arrow[dd]
-                  &&
-                  \mathcal E \arrow[dr, "\pi"] \arrow[dd, equal]
-                  \\
-                  &
-                  \mathcal C \arrow[rr, crossing over]
-                  &&
-                  \mathcal B \arrow[dd, equal]
-                  \\
-                  \pi^{\**} \mathcal D \arrow[rr] \arrow[dr]
-                  &&
-                  \mathcal E \arrow[dr, "\pi"]
-                  \\
-                  &
-                  \mathcal D \arrow[uu, crossing over, leftarrow] \arrow[rr]
-                  &&
-                  \mathcal B
-            \end{tikzcd}
-      \end{equation}
-      Then the left square is also a pullback.
-\end{lemma}
-\begin{proof}
-      We check that $\pi^{\**}\mathcal C$ has the correct universal property: for any category $Z$, we have
-      \begin{align*}
-        \Hom(Z,\mathcal C) \times_{\Hom(Z,\mathcal D)} \Hom(Z, \pi^{\**} \mathcal C)
-        & =
-          \Hom(Z, \mathcal C) \times_{\Hom(Z, \mathcal D)}\left(
-          \Hom(Z, \mathcal D) \times_{\Hom(Z, \mathcal B)} \Hom(Z, \mathcal E)
-          \right)
-          \\
-        & =
-          \Hom(Z, \mathcal C) \times_{\Hom(Z, \mathcal B)}\Hom(Z, \mathcal E)
-          = \Hom(Z, \pi^{\**}\mathcal C).
-      \end{align*}
-\end{proof}
-
-\begin{corollary}
-      \label{PI_GFIB_COR}
-      If a simple 1-arrow $F:\mathcal C \to \mathcal D$ in $\Cat \downarrow^r \mathcal B$
-      is an underlying Grothendieck fibration,
-      then so is $\pi^{\**}F$.
-\end{corollary}
-\begin{proof}
-      As Grothendieck fibrations are preserved by pullbacks, this follows from the previous lemma.
-\end{proof}
-
-\begin{lemma}
-      \label{RANINIT_PULL_LEM}
-      Suppose we have a triangle
-      \begin{equation}
-            \begin{tikzcd}
-                  \mathcal C \arrow[rr, hookrightarrow] \arrow[dr, "p"] \arrow[ddr, bend right, "\delta"', ""{near end, name = V}]
-                  &&
-                  \mathcal D \arrow[dl, "p"'] \arrow[ddl, bend left, "\delta", ""'{near end, name = B}]
-                  \\
-                  &
-                  |[alias = A]| \mathcal E \arrow[d, "\epsilon"]
-                  \\
-                  &
-                  \mathsf F
-                  \arrow[Rightarrow, from = A, to = B, "\Phi"]
-                  \arrow[Rightarrow, from = A, to = V, "\Phi"']
-            \end{tikzcd}
-      \end{equation}
-      in $\Cat \downarrow^r \mathsf F$,
-      such that $\mathcal C \into \mathcal D$ is an inclusion of a subcategory by a simple 1-arrow.
-      If $\mathcal C \to \mathcal D$ is $\Ran$-initial over $\mathcal E$,
-      then $\mathcal C_{\mathfrak C} \to \mathcal D_{\mathfrak C}$ is $\Ran$-initial over $\mathcal E_{\mathfrak C}$.
-\end{lemma}
-\begin{proof}
-      This is just a matter of unpacking definitions.
-      Fixing some $(e, \epsilon(e) \xrightarrow{t} \mathfrak C)$ in $\mathcal E_{\mathfrak C}$,
-      and $\ki = \begin{cases}
-            (d, \delta(d) \xrightarrow{r} \mathfrak C)
-            \\
-            (e \longto p(d))
-      \end{cases}$
-      in $(e,t) \downarrow \mathcal D_{\mathfrak C}$,
-      so in particular the triangle below commutes.
-      \begin{equation}
-            \begin{tikzcd}[row sep = small,column sep = tiny]
-                  \epsilon(e) \arrow[rr] \arrow[ddr]
-                  &&
-                  \epsilon p(d) \arrow[d, "\Phi"]
-                  \\
-                  &&
-                  \delta(d) \arrow[dl]
-                  \\
-                  &
-                  \mathfrak C
-            \end{tikzcd}
-      \end{equation}
-      We must show that $\left((e,t) \downarrow \mathcal C_{\mathfrak C} \right) \downarrow \ki$ is non-empty and connected.
-
-      First, by hypothesis we know there exists $c \in \mathcal C$, $c \xrightarrow{f} d$, and $e \to p(c)$ such that the obvious triangle commutes.
-      Now, the object 
-      $\begin{cases}
-            (c, \delta(c) \xrightarrow{\delta(f)} \delta(d) \to \mathfrak C)
-            \\
-            (e \longto p(c)
-      \end{cases}$
-      in $(e,t) \downarrow \mathcal C_{\mathfrak C}$ clearly maps to $\ki$.
-
-      Second, any such object over $\ki$ must factor this way, and hence the connectedness of $(e \downarrow C) \downarrow (d,r)$
-      implies the desired connectedness.
-      \begin{equation}
-            \begin{tikzcd}
-                  &
-                  \epsilon(e) \arrow[dr] \arrow[dl]
-                  &
-                  && %                  
-                  &
-                  \epsilon(e) \arrow[dr] \arrow[dl] \arrow[dd]
-                  \\
-                  \epsilon p(c) \arrow[rr, "{\epsilon p (f)}"] \arrow[d, "\Phi"]
-                  &&
-                  \epsilon p(d) \arrow[d, "\Phi"]
-                  && %
-                  \epsilon p (c) \arrow[dr, "{\epsilon p (f)}"'] \arrow[dd, "\Phi"'] \arrow[rr, dashed]
-                  &&
-                  \epsilon p (c') \arrow[dl, "{\epsilon p (f')}"] \arrow[dd, "\Phi"]
-                  \\
-                  \delta(c) \arrow[rr, "{P\delta(f)}"] \arrow[dr, "{r \circ \delta(f)}"']
-                  &&
-                  \delta(d) \arrow[dl, "r"]
-                  && %
-                  &
-                  \epsilon p (d) \arrow[dd]
-                  \\
-                  &
-                  \mathfrak C
-                  &
-                  && %
-                  \delta (c) \arrow[dr, "{\delta(f)}"] \arrow[ddr] \arrow[rr, dashed]
-                  &&
-                  \delta(c') \arrow[dl, "{\delta(f')}"'] \arrow[ddl]
-                  \\
-                  &&&& %
-                  &
-                  \delta(d) \arrow[d]
-                  \\
-                  &&&& %
-                  &
-                  \mathfrak C
-            \end{tikzcd}
-      \end{equation}
-\end{proof}
 
 
 
@@ -1362,40 +1058,7 @@ is the left Kan extension
 {\color{red} HERE}
 
 
-\subsection{Symmetric sequences and colored operads}
-
-Fix a closed symmetric monoidal category $(\V, \otimes)$.
-
-\begin{definition}
-      Fix a set $\mathfrak C$ of \textit{colors}.
-      A list
-      $\ksi = (c_1, \ldots, c_n; c_0) \in \mathfrak C^{\times n} \times \mathfrak C$
-      is called a \textit{$\mathfrak C$-signature}.
-      A collection $\ksi, \ksi_1,\dots, \ksi_n$ of $\mathfrak C$-signatures is called \textit{compatible} if
-      $\ksi \in \mathfrak C^{\times n+1}$, and the target of $\ksi_i$ is the $i$-th source of $\ksi$;
-      e.g.  $\xi = (c_1, \ldots, c_n; c_0)$, $\xi_i = (c_{1}^i, \ldots, c_{m_i}^i; c_i)$.
-      In this case, define the \textit{composite} to be $\ksi \circ (\ksi_i) = (c_1^1,c_2^1,\dots,c_{m_n}^{n}; c_0)$.
-\end{definition}
-
-\begin{definition}
-      For a set $\mathfrak C$, define the \textit{$\mathfrak C$-symmetric category} $\Sigma_{\mathfrak C}$
-      \begin{equation}
-            \Sigma_{\mathfrak C} = \coprod_{n \geq 0} \Sigma_n \ltimes \mathfrak C^{\times n+1} = \Sigma^{+1} \wr \mathfrak C,
-      \end{equation}
-      where $\mathfrak C^{\times n+1}$ has a natural \textit{right} $\Sigma_n$-action on the first $n$-coordinates.
-      A \textit{$\mathfrak C$-symmetric sequence} is a functor $X: \Sigma_{\mathfrak C}^{op} \to \V$.
-      Explicitly, this consists of
-      \begin{itemize} %{enumerate}[label = (\arabic*)]
-      \item An object $X(\ksi) \in \V$ for each signature $\ksi$.
-      \item For all signatures $\ksi \in \mathfrak C^{\times n+1}$ and $\sigma \in \Sigma_n$,
-            unital and associative maps $X(\xi) \to X(\sigma \cdot \xi)$,
-            where $\Sigma_n$ acts on the first $n$ coordinates of $\mathfrak C^{\times n+1}$;
-            e.g. maps
-            \begin{equation}
-                  X(c_1, \ldots, c_n; c_0) \xrightarrow{\sigma} X(c_{\sigma^{-1}(1)}, \ldots, c_{\sigma^{-1}(n)}; c_0).
-            \end{equation}
-      \end{itemize}
-\end{definition}
+\subsection{Symmetric sequences and colored operads (remainders)}
 
 \begin{definition}
       A \textit{$\mathfrak C$-colored operad} in $\V$ 
@@ -1426,11 +1089,6 @@ Fix a closed symmetric monoidal category $(\V, \otimes)$.
       Let $\Op^{\mathfrak C}(\V)$ denote the category of $\mathfrak C$-colored operads in $\V$.
 \end{definition}
 
-\begin{remark}
-      There is a natural monad $\mathbb F^{\mathfrak C}$ on $\Sym^{\mathfrak C}(\V)$ such that
-      the category of $\mathbb F^{\mathfrak C}$-algebras is precisely $\Op^{\mathfrak C}(\V)$.
-\end{remark}
-
 \begin{definition}
       \label{OP_MAP_DEFN}
       Given a map of $G$-sets $F: \mathfrak C' \to \mathfrak C$ and a $\mathfrak C$-symmetric sequence $X$
@@ -1453,6 +1111,7 @@ Fix a closed symmetric monoidal category $(\V, \otimes)$.
             \end{tikzcd}
       \end{equation}
       where we highlight that $F^{\**}$ commutes with $\mathsf{fgt}$, but the left adjoint does not.
+      \todo[inline]{construct/prove this}
 
       Explicitly, a map of sequences (resp. operads) $X \to Y$ is given by a map of colors
       $F: \mathfrak C(X) \to \mathfrak C(Y)$
@@ -1463,17 +1122,9 @@ Fix a closed symmetric monoidal category $(\V, \otimes)$.
 
 \subsection{Equivariant colored operads}
 
-
 \begin{example}
       Now, for $\Op(\V)$,
-      we see that an object $\O \in \Op^G(\V)$ consists of
-      a $G$-set $\mathfrak C = \mathfrak C_\O$ of colors, and a compatible $G/e$-indexed diagram of $\mathfrak C$-colored operads;
-      in particular, $\O$ has an underlying object in $\Sym^G(\V)$
-      (i.e., satisfying items $(0)$ through $(2)$ below)
-      by composition with the forgetful functor $\Op^{\mathfrak C}(\V) \to \Sym^{\mathfrak C}(\V)$.
-      % 
-      Explicitly, an object $\O \in \Fun^{G^{op}}(E G, \Op^{\mathfrak C}(\V)) =: \Op^{G, \mathfrak C}(\V)$
-      is given by the following data:
+      we see that an object $\O \in \Op^G(\V)$ consists of the following data:
       \begin{enumerate}[label = (\arabic*), start = 0]
       \item A $G$-set $\mathfrak C = \mathfrak C_{\O}$ of colors.
       \item For each $\mathfrak C$-signature $\ksi$, an object $\O(\ksi) \in \V$.
@@ -2413,7 +2064,7 @@ We recall and extend the following definitions from \cite{BM13}.
       A {\em $\V$-interval} is a cofibrant object $\J$ in $\Cat^{\set{0,1}}(\V)$ (with the transfered model structure)
       for which there exists a weak equivalence $\J \to \I_f$.
       A set $\mathscr{G}$ of $\V$-intervals is \textit{generating} if all $\V$-intervals $\J$ can be obtained
-      as a retract of a trivial extension of an element in $\mathcal{G}$ in $\Cat^{\set{0,1}}(\V)$:
+      as a retract of a trivial extension of an element in $\mathscr{G}$ in $\Cat^{\set{0,1}}(\V)$:
       \begin{equation}
             \begin{tikzcd}
                   \mathbb{G} \arrow[r,rightarrowtail, "\sim"]
@@ -2520,7 +2171,7 @@ and the extension to the groupoid $G \ltimes \Sigma_{\mathfrak C}^{op}$ in \eqre
 
 \begin{remark}
       \label{GRAPHF_REM}
-      If $\F = \mathrm{Gr}$ is the $(G, \Sigma)$-family composed of all \textit{graph subgroups} $\Gamma \leq G \times \Sigma_n$,
+      If $\F = \F^\Gamma$ is the $(G, \Sigma)$-family composed of all \textit{graph subgroups} $\Gamma \leq G \times \Sigma_n$,
       we refer to $\F$-equivalences (resp. $\F$-fibrations, etc) as \textit{graph} equivalences (fibrations, etc).
 \end{remark}
 
@@ -9243,8 +8894,8 @@ N$ given by the diagram
 \begin{equation}\label{NMONMULTTR EQ}
 \begin{tikzcd}
 	\Sigma_{\mathfrak{C}} \ar[equal]{d}&
-	\Omega^1_{\mathfrak{C}} \wr A \ar{l} \ar{r} \ar{d}[swap]{d^0}&
-	\Sigma \wr \Omega^0_{\mathfrak{C}} \wr A \ar{r} &
+	\Omega^1_{\mathfrak{C}} \wr A \ar{l} \arrow[r, "V^0"] \ar{d}[swap]{d^0}&
+	\Sigma \wr \Omega^0_{\mathfrak{C}} \wr A \arrow[r, "V^0"] &
 	|[alias=U]|
 	\Sigma^{\wr 2} \wr A \ar{r} \ar{d}[swap]{\sigma^0} &
 	\Sigma^{\wr 2} \wr \mathcal{V}^{op} \ar{r}{\otimes} \ar{d}[swap]{\sigma^0} &
@@ -9542,6 +9193,8 @@ $\mathbb{F} = \mathsf{Lan} N \iota$ with multiplication and unit given by
 \]
 \end{definition}
 
+\todo[inline]{draw the diagram again here? or reference it?}
+
 
 
 
@@ -9645,7 +9298,7 @@ $N \left(N^{\circ n} \iota \O \amalg_{\mathsf{F}} \iota X^{\amalg_{\mathsf{F}} 2
 denotes a certain span
 $\Sigma_{\mathfrak{C}}^{op} \leftarrow 
 \left(\Omega^{n,\lambda_l}_{\mathfrak{C}}\right)^{op} \to \mathcal{V}$,
-and, once we have properly identified $\Omega_{\mathfrak C}^{n, \lambda_l}$,
+and, after we properly identify $\Omega_{\mathfrak C}^{n, \lambda_l}$ in \S \ref{LCS_SEC},
 we can then apply (the natural analogue of)
 \cite[Prop. 5.37]{BP_geo}
 along each simplicial direction
@@ -9686,6 +9339,7 @@ for the monad restricted to this subcategory.
 
 
 \subsubsection{Labeled colored strings}
+\label{LCS_SEC}
 
 The categories $\Omega_{\mathfrak C}^{n,s,\lambda}$ in the following definition will then represent
 the functors
@@ -10333,6 +9987,7 @@ the leftmost map in \eqref{FILTLAN EQ} as
 
 \subsubsection{Filtration of free extensions in the equivariant case}
 
+\todo[inline]{equivariant monad? explicitly?}
 
 When \eqref{OU EQ} is a $G$-equivariant diagram (note that the maps are still assumed the identity on colors),
 naturality with regard to data as in \eqref{COLORCHNAT EQ}
@@ -10540,8 +10195,7 @@ has a description
     \stepcounter{equation}\tag{\theequation}\label{OU EQ2}
     % =: \colim_{n,l} \mathsf{Lan} \hat N_{n,l}^{(\O,X,Y)},
 \end{align*}
-where the partition $\lambda^a_l$ in the fourth line is the active partition with $\left(\lambda^a_l\right)_a = \{1,\cdots,l\}$
-\todo[inline]{shouldn't this be everything in $\langle \langle l \rangle \rangle$?}
+where the partition $\lambda^a_l$ in the fourth line is the fully-active partition with $\left(\lambda^a_l\right)_a = \langle \langle l \rangle \rangle$
 and, similarly to Proposition \ref{EXTENTREE PROP},
 the double realization
 $\OC^p \simeq |\Omega_{\mathfrak C}^{n,\lambda^a_l}|$
