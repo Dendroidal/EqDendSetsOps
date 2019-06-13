@@ -1829,114 +1829,163 @@ $\mathsf{Op}^G_{\mathfrak{C},\F}$
 where a map is a weak equivalence/fibration iff the underlying map in 
 $\mathsf{Sym}^G_{\mathfrak{C}}$ is.
 
+The key to proving this result will be given by suitable filtrations of free operad extensions in $\mathsf{Op}_{\mathfrak{C}}^G(\V)$
+which are built in Appendix \ref{MONAD_APDX}, most notably Proposition \ref{FILTPUSHG PROP}.
+The following lemma summarizes the result we will need.
+We write
+$\mathsf{lr}_k \colon G^{op} \ltimes \Omega^a_{\mathfrak{C}}[k] 
+\to
+G^{op} \ltimes \Sigma_{\mathfrak{C}}$
+for the natural leaf root functor.
+
+
+
+\begin{lemma}
+Fix a $G$-set of colors $\mathfrak{C}$ and let
+$u\colon X \to Y$ be a map in $\mathsf{Sym}^G_{\mathfrak{C}}$
+and
+$\mathbb{F} X \to \O$ be a map in $\mathsf{Op}^G_{\mathfrak{C}}$.
+Then, for the pushout 
+\begin{equation}\label{OURE EQ}
+\begin{tikzcd}
+	\mathbb F X \arrow[d, "\mathbb{F}u"'] \arrow[r]
+&
+	\O \arrow[d]
+\\
+	\mathbb F Y \arrow[r]
+&
+\O[u]
+\end{tikzcd}
+\end{equation}
+in the category of operads $\mathsf{Op}^G_{\mathfrak{C}}$
+the map $\O \to \O[u]$ admits an underlying filtration
+\begin{equation}\label{OUFILRE EQ}
+\O = \O_0 \to \O_1 \to \O_2 \to \cdots \to \O_{\infty} = \O[u]
+\end{equation}
+of maps in $\mathsf{Sym}^G_{\mathfrak{C}}$ 
+where each map $\O_{k-1} \to \O_k$ fits into a pushout
+\begin{equation}\label{OUPUSHRE EQ}
+\begin{tikzcd}
+	\bullet 
+	\arrow{d}[swap]{\left(\mathsf{lr}_k^{op}\right)_!
+	n_k^{(\O,X,Y)}}
+	 \arrow[r]
+&
+	\O_{k-1} \arrow[d]
+\\
+	\bullet \arrow[r]
+&
+	\O_k
+\end{tikzcd}
+\end{equation}
+where 
+$
+\left(\mathsf{lr}_k^{op}\right)_! \colon
+\mathcal{V}^{G \ltimes \Omega^a_{\mathfrak{C}}[k]^{op}}
+\to
+\mathcal{V}^{G \ltimes \Sigma_{\mathfrak{C}}^{op}}
+=
+\mathsf{Sym}^G_{\mathfrak{C}}
+$
+is as in Proposition \ref{EQQUILADJ PROP}
+and $n_k^{(\O,X,Y)}$ is the natural transformation in 
+$\mathcal{V}^{G \ltimes \Omega^a_{\mathfrak{C}}[k]^{op}}$
+whose constituent arrows for $\vect{U} \in \Omega^a[k]$ are
+\begin{equation}\label{NKOXY EQ}
+n_k^{(\O,X,Y)}(\vect{U})=
+	\left(
+		\bigotimes_{v \in V^{ac}(\vect{U})}\O(\vect{U}_v)
+	\otimes
+		\mathop{\mathlarger{\mathlarger{\mathlarger{\square}}}}\limits_{v \in V^{in}(\vect{U})} u(\vect{U}_v)
+		\right)
+	=
+	\left(
+		\mathop{\mathlarger{\mathlarger{\mathlarger{\square}}}}\limits_{v \in V^{ac}(\vect{U})} \left( \emptyset \to \O(\vect{U}_v)\right) 
+	\square
+		\mathop{\mathlarger{\mathlarger{\mathlarger{\square}}}}\limits_{v \in V^{in}(\vect{U})} u(\vect{U}_v)
+		\right)
+\end{equation}
+\end{lemma}
+
+We can now prove our first main theorem.
+
+\begin{proof}[Proof of Theorem \ref{THM1_C}]
+Let us first address the main case where $\V$
+is either $\mathsf{sSet}$ or $\mathsf{sSet}_{\**}$, 
+so that all objects in $\V^{\G}$ are genuine cofibrant for any groupoid $\G$.
+
+By \cite[Thm. 11.3.2]{Hir03} we need only show that
+the pushouts maps $\O \to \O[u]$ in \eqref{OURE EQ}
+are $\F$-weak equivalences in $\mathsf{Sym}^G_{\mathfrak{C}}$
+whenever 
+$u \colon X \to Y$
+is one of the generating trivial $\F$-cofibrations in 
+$\mathsf{Sym}^G_{\mathfrak{C}}$.
+Moreover, since trivial $\F$-cofibrations are genuine cofibrations and 
+genuine weak equivalences are $\F$-weak equivalences, one needs only consider the genuine case, i.e. the case of $\F_{all}$ the family of all subgroups.
+
+By the filtration \eqref{OUFILRE EQ}, it thus suffices to check that each map $\O_{k-1} \to \O_k$
+is a genuine trivial cofibration in $\mathsf{Sym}^G_{\mathfrak{C}}$
+so that, from the pushouts \eqref{OUPUSHRE EQ}
+and Proposition \ref{EQQUILADJ PROP}
+it is enough to show that the map
+$n_k^{(\O,X,Y)}$ in \eqref{NKOXY EQ}
+is a genuine cofibration in $\V^{G \ltimes \Sigma_{\mathfrak{C}}^{op}}$.
+But now notice that the maps
+\[
+\mathop{\mathlarger{\mathlarger{\mathlarger{\square}}}}\limits_{v \in V^{ac}(\vect{U})} \left( \emptyset \to \O(\vect{U}_v)\right) 
+\qquad \qquad
+\mathop{\mathlarger{\mathlarger{\mathlarger{\square}}}}\limits_{v \in V^{in}(\vect{U})} u(\vect{U}_v)
+\]
+in \eqref{NKOXY EQ} are precisely 
+$(\emptyset \to \O)^{\square m_a}$ and 
+$u^{\square m_i}$ 
+as defined by \eqref{FSQNDEF EQ} for
+$m_a = |V^{ac}(\vect U)|$,
+$m_i = |V^{in}(\vect U)|$
+so that, by Proposition \ref{SIGMAWRGF PROP},
+$(\emptyset \to \O)^{\square m_a}$ is a 
+genuine cofibration in
+$\V^{\Sigma_{m_a} \wr (G \ltimes \Sigma_{\mathfrak{C}}^{op})}$ and
+$u^{\square m_i}$ a
+genuine trivial cofibration in 
+$\V^{\Sigma_{m_i} \wr (G \ltimes \Sigma_{\mathfrak{C}}^{op})}$.
+Proposition \ref{RESGEN PROP}
+now yields that \eqref{NKOXY EQ} is indeed a genuine trivial cofibration in $\V^{G \ltimes \Sigma_{\mathfrak{C}}^{op}}$
+(note that $k \geq 1$) finishing the proof of the 
+case where $\V$ is $\mathsf{sSet}$ or $\mathsf{sSet}_{\**}$.
+
+
+
+For the semi-model structure claim, 
+we replace the use of \cite[Thm. 11.3.2]{Hir03} with that of 
+\cite[Thm. 2.2.2]{WY18}
+which now requires us to show that 
+$\O \to \O[u]$
+is a (trivial) genuine cofibration in $\mathsf{Sym}^G_{\mathfrak{C}}$
+whenever $u$ is a (trivial) genuine cofibration in $\mathsf{Sym}^G_{\mathfrak{C}}$
+and $\O$ is cofibrant in $\mathsf{Op}^G_{\mathfrak{C}}$.
+But now note that the argument given above proves precisely the analogue claim with 
+``$\O$ is cofibrant in $\mathsf{Op}^G_{\mathfrak{C}}$''
+replaced with 
+``$\O$ is cofibrant in $\mathsf{Sym}^G_{\mathfrak{C}}$'',
+so that we are reduced to showing that if 
+$\O$ is cofibrant in $\mathsf{Op}^G_{\mathfrak{C}}$
+then it is also cofibrant in $\mathsf{Sym}^G_{\mathfrak{C}}$.
+This now follows by induction on the cell complex decomposition of $\O$,
+with the base case stating that the initial operad $\mathbb{F}\emptyset$ is cofibrant in $\mathsf{Sym}^G_{\mathfrak{C}}$
+following from the assumption that $\mathcal{V}$ has a cofibrant unit
+and the induction step following from the already established cofibrancy of the maps $\O \to \O[u]$ in $\mathsf{Sym}^G_{\mathfrak{C}}$.
+\end{proof}
+
+
+
 
 {\color{red} HERE}
 
 
 
 
-\begin{definition}
-      We say $X \to Y \in \Sym^{G, \mathfrak C}(\V)$ is a \textit{level genuine (trivial) cofibration} if
-      for each $\mathfrak C$-signature $\vect C \in G \ltimes \SC$,
-      $X(\vect C) \to Y(\vect C)$ is a genuine (trivial) cofibration in $\V^{\Aut(\vect C)}$;
-      we say $X$ is \textit{level genuine cofibrant} if $\varnothing \to X$ is a level genuine cofibration.
-\end{definition}
-
-
-
-One of the main results of Appendix \ref{MONAD_APDX} is Proposition \ref{FILTPUSHG PROP},
-which provides an explicit description of a filtration of free extensions of operads in $\sOp^G(\V)$.
-We now prove a key lemma about this filtration.
-
-\begin{lemma}[{cf. \cite[Lemma 5.73]{BP_geo}}]\label{EXMAINLEM LEM}
-	Suppose $\mathcal{V}$ is a cofibrantly generated closed monoidal model category
-	with cellular fixed points and
-	with cofibrant symmetric pushout powers.
-
-	Let $\mathfrak C$ be a $G$-set,
-	$\O \in \mathsf{Sym}^{G,\mathfrak C}(\mathcal{V})$
-	be level genuine cofibrant,
-	and  
-	$u \colon X \to Y$ in $\Sym^{G, \mathfrak C}(\V)$ a level genuine cofibration. 
-	Let $\vect U \in \Omega_{\mathfrak C}^a[k]^{op}$, and write $\vect C = \mathsf{lr}(\vect U)$ and $U \in \Omega^a[k]$ for the underlying tree of $\vect U$.
-	Then
-	\begin{equation}\label{EXMAINLEM EQ}
-		\left(
-                  \bigotimes\limits_{v \in \boldsymbol{V}^{ac}(U)}\O(\vect U_v) \otimes
-                  \underset{v \in \boldsymbol{V}^{in}(U)}
-                  {\mathlarger{\mathlarger{\mathlarger{\square}}}}
-                  u(\vect U_v)
-            \right) 
-            \mathop{\otimes}\limits_{\mathsf{Aut}({\vect U})} \mathsf{Aut}(\vect C).
-      \end{equation}
-      is a genuine cofibration in 
-      $\mathcal{V}^{\mathsf{Aut}(\vect C)}_{\text{gen}}$ which is trivial if $k \geq 1$ and $u$ is trivial,
-      where the automorphism groups are all taken in $G \ltimes \OC$.
-\end{lemma}
-
-\begin{proof}
-      This follows as in \cite{BP_geo}:
-      Using Proposition \ref{RESGEN PROP} and the maps
-      \[
-            \Aut(\vect C) \longleftarrow \Aut(\vect U) \longto
-            \Aut\Big((\vect U_v)_{v \in \boldsymbol{V}^{ac}(U)}\Big) \times \Aut\Big((\vect U_v)_{v \in \boldsymbol{V}^{in}(U)}\Big),
-      \]
-      it suffices to check that
-      \[
-            \bigotimes_{v \in \boldsymbol{V}^{ac}(U)} \O(\vect U_v) = \underset{v \in \boldsymbol{V}^{ac}(U)}{\mathlarger{\mathlarger{\mathlarger{\square}}}}(\varnothing \to \O)(\vect U_v),
-            \qquad
-            \underset{v \in \boldsymbol{V}^{in}(U)}{\mathlarger{\mathlarger{\mathlarger{\square}}}} u(\vect U_v)
-      \]
-      are $\Aut\Big((\vect U_v)_{v \in \boldsymbol{V}^{ac}(U)}\Big)$ and
-      $\Aut\Big((\vect U_v)_{v \in \boldsymbol{V}^{ac}(U)}\Big)$ genuine (trivial) cofibrations respectively, 
-      where the automorphism groups live in either
-      \begin{inparaenum}[(i)]
-      \item $\Fin \wr (G \ltimes \Sigma_{\mathfrak C})$ or
-      \item $\Fin \wr \Sigma_{\mathfrak C}$.
-      \end{inparaenum}
-      The result then follows using the product decomposition of automorphism groups in these categories,
-      Proposition \ref{RESGEN PROP}, and \cite[Prop. 6.24]{BP_geo} with
-      \begin{inparaenum}[(a)]
-      \item $f$ either $\varnothing \to \O(\vect U_v)$ or $X(\vect U_v) \to Y(\vect U_v)$,
-      \item $\F$ the family of all subgroups, and
-      \item $G = \Aut(\vect U_v)$ in the respective categories.
-      \end{inparaenum}
-\end{proof}
-
-
-
-We can now prove our first main theorem.
-
-\begin{proof}[Proof of Theorem \ref{THM1_C}]
-      We follow the proof \cite[Thm. I]{BP_geo}.
-
-      First, we build a ``projective genuine'' model structure, transferred across the composite adjunction \eqref{OPAUTAJD_EQ}
-      with $\prod \V^{\Aut(\vect C)}_{gen}$ given the levelwise genuine model structure.
-      come back!
-      
-      By \cite[Thm. 11.3.2]{Hir03} or \cite[Thm. 2.2.2]{WY18}, it suffices to consider pushouts of the form
-      \[
-            \begin{tikzcd}
-                  \mathbb F_{\vect D}[\Aut(\vect D)/\Gamma \cdot K] = \mathbb F\left(\Hom_{G \ltimes \Sigma_{\mathfrak C}}(-, \vect D)/\Gamma \cdot K\right) \arrow[r] \arrow[d]
-                  &
-                  \O \arrow[d]
-                  \\
-                  \mathbb F_{\vect D}[\Aut(\vect D)/\Gamma \cdot L] = \mathbb F\left(\Hom_{G \ltimes \Sigma_{\mathfrak C}}(-, \vect D)/\Gamma \cdot L\right) \arrow[r]
-                  &
-                  \O[u]
-            \end{tikzcd}
-      \]
-      for $\vect D \in G \ltimes \Sigma_{\mathfrak C}$, $\Gamma \leq \Aut(\vect D)$, and $u \colon K \to L$ a generating (trivial) cofibration in $\V$.
-      Proposition \ref{FILTPUSHG PROP} and Lemma \ref{EXMAINLEM LEM} combine to then say that
-      $\O(\vect C) \to \O[u](\vect C)$ is a genuine (trivial) cofibration in $\V^{\Aut(C)}_{gen}$ for all $\vect C \in G \ltimes \Sigma_{\mathfrak C}$
-      whenever $\O$ is level genuine cofibrant.
-      As in \cite[Thm. 1]{BP_geo}, the transferred model structures for $\V = \sSet, \sSet_{\**}$ and semi-model structures for $\V$ satisfying the stated hypotheses thus exist.
-      
-      Now, fix a $(G, \Sigma)$-family $\mathcal F = \set{\mathcal F_n}$, and let $\mathcal F_{\vect C}$ be defined as in \eqref{FAMC_DEF_EQ}. 
-      The desired $\F$-model structure on $\Op^{G, \mathfrak C}_{\mathcal F}(\V)$ has less (trivial) cofibrations and more weak equivalences than the projective genuine model structure,
-      and thus the transfinite composite of pushouts of $\mathcal F$-trivial cofibrations are genuine projective trivial cofibrations, and hence in particular $\F$-equivalences.
-      The result follows.
-\end{proof}
 
 
 
@@ -1949,76 +1998,24 @@ We record a particular step in the proof of Theorem \ref{THM1_C}.
       and $\O$ is level genuine cofibrant, then
       $f(\vect C)$ is a genuine (trivial) cofibration in $\V^{\Aut(C)}_{gen}$ for all $\mathfrak C$-signatures $\vect C \in G \ltimes \Sigma_{\mathfrak C}$.
 \end{corollary}
-% \begin{proof}
-%       It suffices to show that the map $\O \to \O[u]$ given by the pushout
-%       \begin{equation}
-%             \begin{tikzcd}
-%                   \mathbb F^{\mathfrak C}(X) \arrow[r] \arrow[d, "u"']
-%                   &
-%                   \O \arrow[d]
-%                   \\
-%                   \mathbb F^{\mathfrak C}(Y) \arrow[r]
-%                   &
-%                   \O[u],
-%             \end{tikzcd}
-%       \end{equation}
-%       with $u: X \to Y$ a generating (trivial) $\F$-cofibration in $\Sym^{G, \mathfrak C}_\F(\V)$
-%       (and so in particular a local genuine (trivial) cofibration),
-%       is a local genuine (trivial) cofibration.
-      
-%       Recalling the filtration in \eqref{FILT_PUSHG_EQ}, % We have/will show {\color{red} COME BACK} that we have a filtration
-%       % \begin{equation}
-%       %       \O = \O_0 \to \O_1 \to \dots \to \colim_n \O_n = \O[u]
-%       % \end{equation}
-%       % where locally we have $\O_{n-1}(\ksi) \to \O_n(\ksi)$ is given by the pushout over
-%       % \begin{gather*}
-%       %       \Lan_{\left(G \ltimes \Omega_{\mathfrak C} \to G \ltimes \Sigma_{\mathfrak C}\right)^{op}}
-%       %       \left(
-%       %             \bigotimes_{v \in V^{ac}(T)}\O(T_v, \mathfrak d) \otimes \mathop{\square}\limits_{v \in V^{in}(T)}u(T_v, mathfrak d)
-%       %       \right)
-%       %       \\
-%       %       \simeq
-%       %       \coprod_{[T] \in \Iso\left( C \downarrow_r G \ltimes \Omega^a[k] \right)}
-%       %       \left(
-%       %             \bigotimes_{v \in V^{ac}(T)}\O(T_v, \mathfrak d) \otimes
-%       %             \left(
-%       %                   Q^{in}_T[u] \to \bigotimes_{v \in V^{in}(T)}Y(T_v, \mathfrak d)
-%       %             \right)
-%       %       \right)
-%       %       \otimes_{\Aut(T, \mathfrak d)} \Aut(C, \mathfrak c),
-%       % \end{gather*}
-%       % where $(C, \mathfrak c) = (C_{|\ksi|}, i \mapsto \ksi_i)$.
-%       by \cite[Remarks 5.72(i) and 5.72(ii)]{BP_geo}, it suffices to check that the two maps
-%       \begin{gather*}
-%             \left(\varnothing \to \bigotimes_{v \in V^{ac}(T)}\O(T_v)\right)
-%             =
-%             \mathop{\square}\limits_{v \in V^{ac}(T)}(\varnothing \to \O)(T_v),
-%             \qquad
-%             \mathop{\square}\limits_{v \in V^{in}(T)}u(T_v)
-%       \end{gather*}
-%       are $\Aut\left((T_v)_{v \in V^{ac}(T)}\right)$- and $\Aut\left(((T_v)_{v \in V^{in}(T)}\right))$-genuine cofibration,
-%       with the latter trivial if $u$ is.
-%       These automophism groups are taken in $\Sigma \wr \SC$, the codomain of the vertex functor,
-%       and are of the form $\prod_i \Sigma_{\lambda_i} \wr \Aut_{\SC}(T_{v_i})$ for the partition
-%       $\lambda$ of $V(T)$ where with two vertices in the same class iff they are isomorphic in $\SC$.
-%       % CYAN = With $G \ltimes (-)$
-%       % {\color{cyan}
-%       %   These automorphism groups are taken in $G \ltimes (\Sigma \wr \Sigma_{\mathfrak C})$, the codomain of the vertex functor.
-%       %   These groups inject into $\Sigma \wr (G \ltimes \Sigma_{\mathfrak C})$ along the diagonal,
-%       % and here the automorphism group is of the form
-%       % $\Pi_i \Sigma_{|\lambda_i}| \wr \Aut(T_{v_i}, \mathfrak d)$.}    
-%       Thus the result follows by applying, in order, Remark 5.72(ii), Proposition 6.24, and Remark 5.72(i) of \cite{BP_geo}.     
-%       % \todo[inline]{come back: reference the used equations when they appear in hypothetical earlier discussion}      
-% \end{proof}
 
 
+{\color{red} HERE}
+
+
+
+\begin{remark}
 In both Theorem \ref{THM1_C} and Corollary \ref{LGC_COR}, as well as in \cite{BP_geo},
 the cofibrancy of the unit is necessary so that the initial operad $\mathbb F(\varnothing)$ is level genuine cofibrant.
+\end{remark}
+
+
+
 
 \begin{remark}
       \label{CATV_MC_REM}
-      As a corollary, we get (semi)-model structures on $\Cat^{G, \mathfrak C}(\V) = \Op^{G, \mathfrak C}(\V) \downarrow \**$,
-      so in particular we have cofibrant replacements in $\Cat^{\mathfrak C}(\V)$ for any set $\mathfrak C$.
+      As a corollary, we get (semi)-model structures on $\Cat^{G}_{ \mathfrak C}(\V) = \Op^{G}_{\mathfrak C}(\V) \downarrow \**$,
+      so in particular we have cofibrant replacements in $\Cat_{\mathfrak C}(\V)$ for any set $\mathfrak C$.
 \end{remark}
 
 
@@ -10143,7 +10140,7 @@ $G \ltimes \OC^a[k]^{op}$,
 Remark \ref{OEFIB REM} allows us to rewrite 
 the leftmost map in \eqref{FILTLAN EQ} as
 \begin{equation}\label{FILTLANFIN EQ}
-	\mathsf{Lan}{(\OC^a[k] \to \SC)^{op}}\left(
+	\mathsf{Lan}_{(\OC^a[k] \to \SC)^{op}}\left(
 		\bigotimes_{v \in V^{ac}(T)}\O(T_v) \otimes
 		\mathop{\mathlarger{\mathlarger{\mathlarger{\square}}}}\limits_{v \in V^{in}(T)} u(T_v)
 		\right).

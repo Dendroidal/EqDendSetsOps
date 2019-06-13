@@ -1,0 +1,238 @@
+\documentclass[a4paper,10pt
+%,draft
+%, final
+]{article}%
+
+\pdfcompresslevel=0
+\pdfobjcompresslevel=0
+
+\usepackage[hidelinks]{hyperref}
+\hypersetup{
+  % colorlinks,
+  final,
+  pdftitle={Equivariant Dendroidal Segal Spaces},
+  pdfauthor={Bonventre, P. and Pereira, L. A.},
+  % pdfsubject={Your subject here},
+  % pdfkeywords={keyword1, keyword2},
+  linktoc=page
+}
+%\usepackage[open=false]{bookmark}
+
+\input{commands.tex}%
+
+
+%-------- Tikz ---------------------------
+
+\usepackage{tikz}%
+\usetikzlibrary{matrix,arrows,decorations.pathmorphing,
+cd,patterns,calc}
+\tikzset{%
+  treenode/.style = {shape=rectangle, rounded corners,%
+                     draw, align=center,%
+                     top color=white, bottom color=blue!20},%
+  root/.style     = {treenode, font=\Large, bottom color=red!30},%
+  env/.style      = {treenode, font=\ttfamily\normalsize},%
+  dummy/.style    = {circle,draw,inner sep=0pt,minimum size=2mm}%
+}%
+
+\usetikzlibrary[decorations.pathreplacing]
+
+
+
+% ---- Commands on draft --------
+
+\usepackage{ifdraft}
+\ifdraft{
+  \color[RGB]{63,63,63}
+  % \pagecolor[rgb]{0.5,0.5,0.5}
+  \pagecolor[RGB]{220,220,204}
+  % \color[rgb]{1,1,1}
+}
+
+
+\usepackage[draft]{showkeys}
+\usepackage{todonotes}%[obeyDraft]
+
+
+% ----- Labels Changed? --------
+
+\makeatletter
+
+\def\@testdef #1#2#3{%
+  \def\reserved@a{#3}\expandafter \ifx \csname #1@#2\endcsname
+  \reserved@a  \else
+  \typeout{^^Jlabel #2 changed:^^J%
+    \meaning\reserved@a^^J%
+    \expandafter\meaning\csname #1@#2\endcsname^^J}%
+  \@tempswatrue \fi}
+
+\makeatother
+
+
+% ---- Commands --------
+
+% new symbols
+
+\newcommand{\mycircled}[2][none]{%
+  \mathbin{
+    \tikz[baseline=(a.base)]\node[draw,circle,inner sep=-1.5pt, outer sep=0pt,fill=#1](a){\ensuremath #2\strut};
+cf.  }
+}
+\newcommand{\owr}{\mycircled{\wr}}
+
+% replace symbols
+
+\renewcommand{\hat}{\widehat}
+
+% random
+
+\renewcommand{\F}{\mathcal F}
+\newcommand{\Q}{\mathcal Q}
+
+\newcommand{\lltimes}{\underline{\ltimes}}
+
+
+% detecting $\V$-categories:
+
+\newcommand{\I}{\mathbb I}
+\newcommand{\J}{\mathbb J}
+\renewcommand{\1}{\eta}%{\ensuremath{\mathbb{id}}}
+
+% lazy shortcuts
+
+\newcommand{\SC}{\Sigma_{\mathfrak C}}
+\newcommand{\OC}{\Omega_{\mathfrak C}}
+
+\newcommand{\UV}{\underline{\mathcal V}}
+\newcommand{\UC}{\underline{\mathfrak C}}
+
+
+% ---- Title --------
+
+\title{Equivariant Segal operads, simplicial operads, and dendroidal sets}
+
+\author{Peter Bonventre, Lu\'is A. Pereira}%
+
+\date{\today}
+
+
+% ---- Document body --------
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+      Things and stuff
+\end{abstract}
+
+\tableofcontents
+
+
+
+\begin{lemma}[{cf. \cite[Lemma 5.73]{BP_geo}}]\label{EXMAINLEM LEM}
+	Suppose $\mathcal{V}$ is a cofibrantly generated closed monoidal model category
+	with cellular fixed points and
+	with cofibrant symmetric pushout powers.
+
+	Let $\mathfrak C$ be a $G$-set,
+	$\O \in \mathsf{Sym}^{G,\mathfrak C}(\mathcal{V})$
+	be level genuine cofibrant,
+	and  
+	$u \colon X \to Y$ in $\Sym^{G, \mathfrak C}(\V)$ a level genuine cofibration. 
+	Let $\vect U \in \Omega_{\mathfrak C}^a[k]^{op}$, and write $\vect C = \mathsf{lr}(\vect U)$ and $U \in \Omega^a[k]$ for the underlying tree of $\vect U$.
+	Then
+	\begin{equation}\label{EXMAINLEM EQ}
+		\left(
+                  \bigotimes\limits_{v \in \boldsymbol{V}^{ac}(U)}\O(\vect U_v) \otimes
+                  \underset{v \in \boldsymbol{V}^{in}(U)}
+                  {\mathlarger{\mathlarger{\mathlarger{\square}}}}
+                  u(\vect U_v)
+            \right) 
+            \mathop{\otimes}\limits_{\mathsf{Aut}({\vect U})} \mathsf{Aut}(\vect C).
+      \end{equation}
+      is a genuine cofibration in 
+      $\mathcal{V}^{\mathsf{Aut}(\vect C)}_{\text{gen}}$ which is trivial if $k \geq 1$ and $u$ is trivial,
+      where the automorphism groups are all taken in $G \ltimes \OC$.
+\end{lemma}
+
+\begin{proof}
+      This follows as in \cite{BP_geo}:
+      Using Proposition \ref{RESGEN PROP} and the maps
+      \[
+            \Aut(\vect C) \longleftarrow \Aut(\vect U) \longto
+            \Aut\Big((\vect U_v)_{v \in \boldsymbol{V}^{ac}(U)}\Big) \times \Aut\Big((\vect U_v)_{v \in \boldsymbol{V}^{in}(U)}\Big),
+      \]
+      it suffices to check that
+      \[
+            \bigotimes_{v \in \boldsymbol{V}^{ac}(U)} \O(\vect U_v) = \underset{v \in \boldsymbol{V}^{ac}(U)}{\mathlarger{\mathlarger{\mathlarger{\square}}}}(\varnothing \to \O)(\vect U_v),
+            \qquad
+            \underset{v \in \boldsymbol{V}^{in}(U)}{\mathlarger{\mathlarger{\mathlarger{\square}}}} u(\vect U_v)
+      \]
+      are $\Aut\Big((\vect U_v)_{v \in \boldsymbol{V}^{ac}(U)}\Big)$ and
+      $\Aut\Big((\vect U_v)_{v \in \boldsymbol{V}^{ac}(U)}\Big)$ genuine (trivial) cofibrations respectively, 
+      where the automorphism groups live in either
+      \begin{inparaenum}[(i)]
+      \item $\Fin \wr (G \ltimes \Sigma_{\mathfrak C})$ or
+      \item $\Fin \wr \Sigma_{\mathfrak C}$.
+      \end{inparaenum}
+      The result then follows using the product decomposition of automorphism groups in these categories,
+      Proposition \ref{RESGEN PROP}, and \cite[Prop. 6.24]{BP_geo} with
+      \begin{inparaenum}[(a)]
+      \item $f$ either $\varnothing \to \O(\vect U_v)$ or $X(\vect U_v) \to Y(\vect U_v)$,
+      \item $\F$ the family of all subgroups, and
+      \item $G = \Aut(\vect U_v)$ in the respective categories.
+      \end{inparaenum}
+\end{proof}
+
+
+
+
+
+
+\begin{proof}[Proof of Theorem \ref{THM1_C}]
+      We follow the proof \cite[Thm. I]{BP_geo}.
+
+      First, we build a ``projective genuine'' model structure, transferred across the composite adjunction \eqref{OPAUTAJD_EQ}
+      with $\prod \V^{\Aut(\vect C)}_{gen}$ given the levelwise genuine model structure.
+      come back!
+      
+      By \cite[Thm. 11.3.2]{Hir03} or \cite[Thm. 2.2.2]{WY18}, it suffices to consider pushouts of the form
+      \[
+            \begin{tikzcd}
+                  \mathbb F_{\vect D}[\Aut(\vect D)/\Gamma \cdot K] = \mathbb F\left(\Hom_{G \ltimes \Sigma_{\mathfrak C}}(-, \vect D)/\Gamma \cdot K\right) \arrow[r] \arrow[d]
+                  &
+                  \O \arrow[d]
+                  \\
+                  \mathbb F_{\vect D}[\Aut(\vect D)/\Gamma \cdot L] = \mathbb F\left(\Hom_{G \ltimes \Sigma_{\mathfrak C}}(-, \vect D)/\Gamma \cdot L\right) \arrow[r]
+                  &
+                  \O[u]
+            \end{tikzcd}
+      \]
+      for $\vect D \in G \ltimes \Sigma_{\mathfrak C}$, $\Gamma \leq \Aut(\vect D)$, and $u \colon K \to L$ a generating (trivial) cofibration in $\V$.
+      Proposition \ref{FILTPUSHG PROP} and Lemma \ref{EXMAINLEM LEM} combine to then say that
+      $\O(\vect C) \to \O[u](\vect C)$ is a genuine (trivial) cofibration in $\V^{\Aut(C)}_{gen}$ for all $\vect C \in G \ltimes \Sigma_{\mathfrak C}$
+      whenever $\O$ is level genuine cofibrant.
+      As in \cite[Thm. 1]{BP_geo}, the transferred model structures for $\V = \sSet, \sSet_{\**}$ and semi-model structures for $\V$ satisfying the stated hypotheses thus exist.
+      
+      Now, fix a $(G, \Sigma)$-family $\mathcal F = \set{\mathcal F_n}$, and let $\mathcal F_{\vect C}$ be defined as in \eqref{FAMC_DEF_EQ}. 
+      The desired $\F$-model structure on $\Op^{G, \mathfrak C}_{\mathcal F}(\V)$ has less (trivial) cofibrations and more weak equivalences than the projective genuine model structure,
+      and thus the transfinite composite of pushouts of $\mathcal F$-trivial cofibrations are genuine projective trivial cofibrations, and hence in particular $\F$-equivalences.
+      The result follows.
+\end{proof}
+
+
+
+
+\bibliography{biblio-new}{}
+\bibliographystyle{amsalpha2}
+
+
+
+\end{document}
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
