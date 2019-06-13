@@ -39,7 +39,7 @@ cd,patterns,calc}
 \usepackage{ifdraft}
 \ifdraft{
   \color[RGB]{63,63,63}
-  \pagecolor[RGB]{220,220,204}
+%  \pagecolor[RGB]{220,220,204}
   \usepackage{showkeys}
   \usepackage{geometry}
   \usepackage{todonotes}
@@ -420,9 +420,21 @@ Now, recall the notation $\mathsf F \wr \mathcal C$ for a category $\mathcal C$ 
 
 \subsection{Fibered category theory}
 
+Motivations for discussing fibered category theory:
+\begin{itemize}
+\item the model structure on operads is built by first building fiberwise model structures
+\item however, describing the fibers is awkward
+\item the generating cofibrations of both $\mathsf{sOp}$
+and (the tame model structure on) $\mathsf{PreOp}$
+can be described using a fiberwise simplicial tensor,
+so that the fact that the adjunction
+$\tau \colon \mathsf{PreOp} \rightleftarrows \mathsf{sOp}\colon N$ is Quillen is readily understood by noting that this is a fibered (simplicial) adjunction.
+\end{itemize}
+
+
+
+
 \subsubsection{Fibered adjunctions}
-
-
 
 \begin{notation}
 Given a Grothendieck fibration $p\colon \mathcal{C} \to \mathcal{E}$, 
@@ -634,7 +646,7 @@ $\mathcal{C} \to \mathsf{Alg}^{p}_T(\mathcal{C}) \subseteq \mathsf{Alg}_T(\mathc
 
 
 
-\begin{proposition}
+\begin{proposition}\label{FIBALGGR PROP}
 Given a fibered monad on $p\colon \mathcal{C} \to \mathcal{D}$ the projection $\mathsf{Alg}^{p}_T(\mathcal{C}) \to \mathcal{D}$
 is again a Grothendieck fibration.
 
@@ -667,52 +679,72 @@ which is fibered by assumption,
 while the counit, evaluated on a fiber algebra $c$, is the multiplication $Tc \to c$, and hence fibered by definition of fiber algebra.
 \end{proof}
 
-{\color{red} HERE}
-
-
-
 
 
 \begin{remark}
-Suppose $p\colon \mathcal{C} \to \mathcal{D}$ happens to be a split Grothendieck fibration, so that for each arrow $f \colon \bar{d} \to d$ in $\mathcal{D}$ there are chosen functorial pullback functors
-$f^{\**} \colon \mathcal{C}_{d} \to \mathcal{C}_{\bar{d}}$.
+Suppose a cleavage of $p\colon \mathcal{C} \to \mathcal{D}$ 
+has been chosen, so that for each arrow $f \colon d \to d'$ in $\mathcal{D}$ there is a chosen functor 
+$f^{\**} \colon \mathcal{C}_{d'} \to \mathcal{C}_{d}$
+together with a natural transformation
+$f^{\**} \Rightarrow id_{\mathcal{C}_{d'}}$
+consisting of cartesian arrows.
 
-A fibered monad $T$ is is then equivalent to the data of the fiber monads
-$T_d$ on the fibers $\mathcal{C}_d$
-together with, for each arrow $f \colon \bar{d} \to d$ in $\mathcal{D}$, natural transformations
-$\varphi_f \colon T_{\bar{d}} f^{\**} \Rightarrow f^{\**} T_{d}$
+A fibered monad $T$ is then equivalent to the data of the fiber monads 
+$T_d$ on the fibers $\mathcal{C}_d$ together with,
+for each arrow $f \colon d \to d'$ in $\mathcal{D}$,
+natural transformations
+$\varphi_f \colon T_{d} f^{\**} \Rightarrow f^{\**} T_{d'}$
 such that
 \begin{itemize}
-\item[(a)] the composite 
-$T_d f^{\**} g^{\**} 
-\overset{\varphi_f g^{\**}}{ \Rightarrow} 
-f^{\**} T_{d'} g^{\**} 
-\overset{f^{\**}\varphi_g }{ \Rightarrow} 
- f^{\**} g^{\**} T_{d''}$
-coincides with 
-$T_d (gf)^{\**} \overset{\varphi_{gf} }{ \Rightarrow}  (gf)^{\**} T_{d''}$
-and $T_d id_d^{\**} \overset{\varphi_{id_d}}{\Rightarrow} id_d^{\**}  T_d$ is the identity;
-\item[(b)] the squares
+\item[(a)]
+for composites $d \xrightarrow{f} d' \xrightarrow{g} d''$
+and identities $d \xrightarrow{id_d} d$
+the induced diagrams below commute
+\begin{equation}\label{GROTHASS EQ}
+\begin{tikzcd}
+	T_d f^{\**} g^{\**} \ar[Rightarrow]{r} \ar[Leftrightarrow]{d}[swap]{\simeq} &
+	f^{\**} T_{d'} g^{\**} \ar[Rightarrow]{r} &
+	f^{\**}g^{\**}  T_{d''}  \ar[Leftrightarrow]{d}{\simeq} &
+	T_d \ar[equal]{r} \ar[Leftrightarrow]{d}[swap]{\simeq} &
+	T_d \ar[Leftrightarrow]{d}{\simeq}
+\\
+	T_d (gf)^{\**} \ar[Rightarrow]{rr}{} &&
+	(gf)^{\**} T_{d''} &
+	T_d id_d^{\**} \ar[Rightarrow]{r}{} &
+	id_d^{\**} T_{d}
+\end{tikzcd}
+\end{equation}
+\item[(b)] the natural squares below commute 
 \begin{equation}\label{GROTHCART EQ}
 \begin{tikzcd}
-	T_d T_d f^{\**} \ar{r} \ar{d}[swap]{} &
-	T_d f^{\**} T_{d'} \ar{r} &
-	f^{\**} T_{d'} T_{d'} \ar{d}{} &
-	f^{\**} \ar[equal]{r} \ar{d}&
-	f^{\**} \ar{d}
+	T_d T_d f^{\**} \ar[Rightarrow]{r} \ar[Rightarrow]{d}[swap]{} &
+	T_d f^{\**} T_{d'} \ar[Rightarrow]{r} &
+	f^{\**} T_{d'} T_{d'} \ar[Rightarrow]{d}{} &
+	f^{\**} \ar[equal]{r} \ar[Rightarrow]{d}&
+	f^{\**} \ar[Rightarrow]{d}
 \\
-	T_d f^{\**} \ar{rr}{} &&
+	T_d f^{\**} \ar[Rightarrow]{rr}{} &&
 	f^{\**} T_{d'} &
-	T_d f^{\**} \ar{r}{} &
+	T_d f^{\**} \ar[Rightarrow]{r}{} &
 	f^{\**} T_{d'}
 \end{tikzcd}
 \end{equation}
-commute.
 \end{itemize}
 % $\varphi_f$ is induced by applying $T$ to the chosen pullback arrows, 
 % (a) is then functoriality of $T$ with respect to pullback arrows
 % \eqref{GROTHCART EQ} is the naturality of $\mu \colon TT \Rightarrow T$ and $\eta I \Rightarrow T$ with regard to pullback arrows.
 \end{remark}
+
+
+\begin{remark}\label{ABSPUSH REM}
+If $p\colon \mathcal{C} \to \mathcal{D}$
+is a Grothendieck fibration then the dual map
+$p^{op}\colon \mathcal{C}^{op} \to \mathcal{D}^{op}$
+will also be a Grothendieck fibration iff
+all the cleavages $f^{\**}$ fit into adjunctions
+$f_! \colon \mathcal{C}_d \rightleftarrows \mathcal{C}_{d'}\colon f^{\**}$.
+\end{remark}
+
 
 \begin{remark}
 Should the pullback functors $f^{\**}$ in the previous remark admit left adjoints $f_{!}$,
@@ -721,6 +753,42 @@ is equivalent to the claim that the induced natural transformations
 $T_{d} \Rightarrow f^{\**}T_{d'}f_{!}$
 are maps of monads.
 \end{remark}
+
+
+\begin{remark}\label{ALGPUSHLL REM}
+Suppose that both $\mathcal{C}$ and $\mathsf{Alg}_T^p(\mathcal{C})$
+admit adjunctions as in 
+Remark \ref{ABSPUSH REM} for each map $f\colon d \to d'$.
+We denote these two adjunctions by
+\[
+f_! \colon \mathcal{C}_d \rightleftarrows \mathcal{C}_{d'}\colon f^{\**}
+\qquad
+\check{f}_! \colon \mathsf{Alg}_{T_d}(\mathcal{C}_d) 
+\rightleftarrows 
+\mathsf{Alg}_{T_{d'}}(\mathcal{C}_{d'})\colon f^{\**}
+\]
+to emphasize the fact that the algebraic $f^{\**}$ functor lifts the underlying $f^{\**}$ (cf. the proof of Proposition \ref{FIBALGGR PROP}).
+
+On the other hand, the algebraic $\check{f}_!$ functor is not a lift of
+the underlying $f_!$.
+Rather, by the dual of Proposition \ref{FIBADJCAR PROP}
+one has that $T \colon \mathcal{T} \to \mathsf{Alg}_F^p(\mathcal{C})$ preserves cocartesian arrows so that the canonical map
+$T_d \Rightarrow \check{f}_! T_d$
+is identified with the canonical map
+$T_d \Rightarrow T_{d'} f_!$.
+Thus since any 
+$c \in \mathsf{Alg}_{T_d}(\mathcal{C}_d)$
+is given by a coequalizer of free algebras
+$c \simeq coeq(T_dT_d c \rightrightarrows T_d c)$,
+so that one has the formula
+$\check{f}_! c \simeq 
+coeq(T_{d'}f_!T_d c \rightrightarrows T_{d'}f_! c)$.
+\end{remark}
+
+
+
+
+
 
 
 \begin{proposition}
@@ -744,6 +812,7 @@ $\mathsf{Alg}_{T^I}^{p^I}(\mathcal{C}^I)\simeq
 
 
 
+{\color{red} HERE}
 
 
 
@@ -807,7 +876,7 @@ of symmetric sequences.
 
 
 
-\subsection{Symmetric sequences and colored operads (Luis' version)}
+\subsection{Symmetric sequences and colored operads}
 
 \begin{definition}\label{CSYM DEF}
 	Let $\mathfrak {C} \in \mathsf{F}$ be a set of \textit{colors}.
@@ -1035,8 +1104,7 @@ together with equivariance data (this strengthens Lemma \ref{REDUCELAN LEM} a li
 one obtains that the monad $\mathbb{F}^G$ applied to 
 $X\colon G \ltimes \Sigma_{\mathfrak{C}}^{op} \to \mathcal{V}$
 is the left Kan extension
-\begin{equation}
-      \label{FGC_EQ}
+\begin{equation}\label{FGC_EQ}
       \begin{tikzcd}
             G \ltimes \Omega^{op}_{\mathfrak{C}}
             \arrow[d, "\mathsf{lr}"']
@@ -1055,144 +1123,58 @@ is the left Kan extension
       \end{tikzcd}
 \end{equation}
 
+
 {\color{red} HERE}
 
-
-\subsection{Symmetric sequences and colored operads (remainders)}
-
-\begin{definition}
-      A \textit{$\mathfrak C$-colored operad} in $\V$ 
-      is a $\mathfrak C$-symmetric sequence $\O$ along with appropriate composition laws.
-      Explicitly, this consists of the following data:
-      \begin{itemize} %{enumerate}[label = (\arabic*)]
-      \item An object $\O(\ksi) \in \V$ for each signature $\ksi$.
-      \item For all signatures $\ksi \in \mathfrak C^{\times n+1}$ and $\sigma \in \Sigma_n$,
-            unital and associative times maps $\O(\xi) \to \O(\sigma \cdot \xi)$,
-            where $\Sigma_n$ acts on the first $n$ coordinates of $\mathfrak C^{\times n+1}$;
-            i.e., maps
-            \begin{equation}
-                  \O(c_1, \ldots, c_n; c_0) \xrightarrow{\sigma} \O(c_{\sigma^{-1}(1)}, \ldots, c_{\sigma^{-1}(n)}; c_0).
-            \end{equation}
-      \item For each $c \in \mathfrak C$, a \textit{unit} $1_c \in \O(c;c)$.                        
-      \item For all compatible signatures $\ksi$, $\ksi_1$, $\dots$, $\ksi_n$,
-            \textit{composition} maps
-            \begin{equation}
-                  \O(\xi) \otimes \O(\xi_1) \otimes \ldots \otimes \O(\xi_n) \to \O(\xi \circ (\xi_i)),
-            \end{equation}
-            which are unital, associative, and appropriately $\Sigma$-equivariant.
-      \end{itemize}
-
-      A map of $\mathfrak C$-colored operads is a collection of maps
-      $\set{\O(\xi) \to \O'(\xi)}_{\xi}$
-      which commutes with the above structure maps.
-      
-      Let $\Op^{\mathfrak C}(\V)$ denote the category of $\mathfrak C$-colored operads in $\V$.
-\end{definition}
-
-\begin{definition}
-      \label{OP_MAP_DEFN}
-      Given a map of $G$-sets $F: \mathfrak C' \to \mathfrak C$ and a $\mathfrak C$-symmetric sequence $X$
-      there is a natural $\mathfrak C'$-symmetric sequence $F^{\**}X$
-      \begin{equation}
-            F^{\**}X(\xi') = X(f(\xi')),
-      \end{equation}
-      which is an operad if $X$ was an operad.
-      In fact, we have a pair of adjunctions as below for any such $F$.
-      \begin{equation}
-            \label{C_CHANGE_EQ}
-            \begin{tikzcd}
-                  \Op^{\mathfrak C'}(\V) \arrow[r, shift right, "F^{\**}"'] \arrow[d, "\mathsf{fgt}"']
-                  &
-                  \Op^{\mathfrak C}(\V) \arrow[l, shift right, "F_!"'] \arrow[d, "\mathsf{fgt}"]
-                  \\
-                  \Sym^{\mathfrak C'}(\V) \arrow[r, shift right, "F^{\**}"']
-                  &
-                  \Sym^{\mathfrak C}(\V) \arrow[l, shift right, "F_{!!}"'].
-            \end{tikzcd}
-      \end{equation}
-      where we highlight that $F^{\**}$ commutes with $\mathsf{fgt}$, but the left adjoint does not.
-      \todo[inline]{construct/prove this}
-
-      Explicitly, a map of sequences (resp. operads) $X \to Y$ is given by a map of colors
-      $F: \mathfrak C(X) \to \mathfrak C(Y)$
-      and a map of $\mathfrak C(X)$-colored sequences (operads)
-      $X \to F^{\**} Y$.
-\end{definition}
-
-
-\subsection{Equivariant colored operads}
-
-\begin{example}
-      Now, for $\Op(\V)$,
-      we see that an object $\O \in \Op^G(\V)$ consists of the following data:
-      \begin{enumerate}[label = (\arabic*), start = 0]
-      \item A $G$-set $\mathfrak C = \mathfrak C_{\O}$ of colors.
-      \item For each $\mathfrak C$-signature $\ksi$, an object $\O(\ksi) \in \V$.
-      \item \label{SACTION_LBL}
-            For all signatures $\ksi \in \mathfrak C^{\times n + 1}$ and $\sigma \in \Sigma_n$,
-            maps $\O(\ksi) \to \O(\sigma \cdot \ksi)$
-            which are unital and associative.
-      \item \label{GUNIT_LBL} 
-            For each $c \in \mathfrak{C}$, a \textit{unit} $1_c \in \O(c;c)$.
-      \item \label{COMP_LBL}
-            For all compatible signatures $\ksi, \ksi_1,\dots, \ksi_n$,
-            \textit{composition maps} $\O(\ksi) \otimes \O(\ksi_1) \otimes \dots \otimes \O(\ksi_n) \to \O(\ksi \circ (\ksi_i))$
-            which are unital, associative, and appropriately $\Sigma$-equivariant
-      \item \label{GACTION_LBL}
-            For all $g \in G$, maps $\O(\ksi) \to g^{\**}\O(\ksi) = \O(g \cdot \ksi)$
-            (with $G$ acting on $\mathfrak C^{\times n+1}$ diagonally)
-            which are unital and associative, and which commute with the composition maps
-            (note that if $\ksi, (\ksi_i)$ are compatible, then so are $g \ksi, (g \ksi_i)$).
-      \end{enumerate}
-      Synthesizing, we may combine \ref{SACTION_LBL} and \ref{GACTION_LBL} into
-      \begin{enumerate}
-      \item[($2'$)] For all signatures $\xi \in \mathfrak C^{\times n+1}$ and $(g,\sigma) \in G\times \Sigma_n$, maps
-            $\O(\xi) \to \O((g,\sigma)\cdot \xi)$
-            which are unital and associative.
-      \end{enumerate}
-      
-      and replace \ref{GUNIT_LBL} and \ref{COMP_LBL} with
-      \begin{enumerate}
-      \item[($3'$)] For each $c \in \mathfrak C$, a $G_c$-fixed unit $1_c \in \O(c;c)^{G_c}$.
-      \item[($4'$)] For all compatible signatures $\ksi, (\ksi_i)$,
-            composition maps $\O(\ksi) \otimes \bigotimes_i \O(\ksi_i) \to \O(\ksi \circ (\ksi_i))$
-            which are unital, assocative, $G$-equivariant, and approriately $\Sigma$-equivariant.
-      \end{enumerate}
-\end{example}
-
-As in \eqref{C_CHANGE_EQ}, we in fact have a pair of adjoints
-\begin{equation}
-      \label{GC_CHANGE_EQ}
-      \begin{tikzcd}
-            \Op^{G, \mathfrak C'}(\V) \arrow[r, shift right, "F^{\**}"'] \arrow[d, "\mathsf{fgt}"']
-            &
-            \Op^{G, \mathfrak C}(\V) \arrow[l, shift right, "F_!"'] \arrow[d, "\mathsf{fgt}"]
-            \\
-            \Sym^{G, \mathfrak C'}(\V) \arrow[r, shift right, "F^{\**}"']
-            &
-            \Sym^{G, \mathfrak C}(\V) \arrow[l, shift right, "\check{F}_{!}"'].
-      \end{tikzcd}
-\end{equation}
-where again only the right adjoint commutes with $\mathsf{fgt}$. 
-%
-Each $\Op^{G, \mathfrak C}(\V) \subseteq \Op^G(\V)$
-is hence the subcategory of $\mathfrak C$-colored operads and maps which are the identity on colors.
-
-
-
-
 \begin{remark}
-      \label{COLOR_SQ_REM}
-      We record the following straightforward observations.
-      If we are given a map $F: \O_1 \to \O_2$ that is color-fixed,
-      and a square in $\Op^G(\V)$ as in the middle of \eqref{COLOR_SQ_EQ}, then
-      \begin{enumerate}[label = (\roman*)]
-      \item the square in the middle commutes iff the square on the right commutes iff the square on the left commutes, and
-      \item the square in the middle is a pushout in $\Op^G(\V)$ iff
-            the square on the left is a pushout in $\Op^{G, \mathfrak C_{\P_1}}(\V)$.
+Unlike in the single-colored case, $\Op^G(\V)$ does \textit{not} coincide with the category of colored operads in $\V^G$.
+Indeed, objects in $\Op(\V^G)$ have a fixed $G$-set of colors,
+and each level $\O(\xi)$ has an action by the full group $G$
+(though only a partial action by $\Sigma_{|\xi|}$).
+\end{remark}
+
+
+\begin{remark}\label{OP_MAP REM}
+Following Remark \ref{ALGPUSHLL REM},
+for any map of $G$-sets $f \colon \mathfrak C \to \mathfrak D$
+and $\mathfrak D$-symmetric sequence $X$
+one has a pull back $\mathfrak C$-symmetric sequence $f^{\**}X$
+given by
+$ f^{\**}X(\xi') = X(f(\xi'))$
+which is an operad if $X$ itself is an operad.
+Moreover, the two $f^{\**}$ functors fit into a pair if adjunctions 
+\begin{equation}\label{GC_CHANGE_EQ}
+\begin{tikzcd}
+    \Op^G_{\mathfrak C}(\V) 
+    \arrow[shift left]{r}{\check{f}_!}
+    \arrow[d, "\mathsf{fgt}"']
+	&
+	\Op^G_{\mathfrak D}(\V) 
+	\arrow[shift left]{l}{f^{\**}}
+	\arrow[d, "\mathsf{fgt}"]
+\\
+	\Sym^G_{\mathfrak C}(\V) 
+    \arrow[shift left]{r}{\check{f}_!}
+	&
+	\Sym^G_{\mathfrak D}(\V) 
+	\arrow[shift left]{l}{f^{\**}}
+\end{tikzcd}
+\end{equation}
+where, just as in Remark \ref{ALGPUSHLL REM}, we highlight that
+the right adjoints are compatible with the forgetful functors, but the left adjoints are not.
+\end{remark}
+
+
+
+\begin{remark}\label{COLOR_SQ_REM}
+We record the following straightforward observations.
+If we are given a map $F: \O_1 \to \O_2$ that is color-fixed,
+and a square in $\Op^G(\V)$ as in the middle of \eqref{COLOR_SQ_EQ}, then:
+\begin{enumerate}[label = (\roman*)]
+\item the square in the middle commutes iff the square on the right commutes iff the square on the left commutes, and;
+\item the square in the middle is a pushout in $\Op^G(\V)$ iff
+	the square on the left is a pushout in $\Op^{G}_{\mathfrak C_{\P_1}}(\V)$.
       \end{enumerate}
-      % a commuting square (resp. lifting diagram, pullback, pushout) as in the middle below is
-      % equivalent to such squares on the left and right.
       \begin{equation}
             \label{COLOR_SQ_EQ}
             \begin{tikzcd}
@@ -1223,34 +1205,31 @@ is hence the subcategory of $\mathfrak C$-colored operads and maps which are the
       \end{equation}
 \end{remark}
 
-\begin{remark}
-      We also have a inclusion-forgetful adjunction
-      \begin{equation}
-            \label{JSTAR_CAT_EQ}
-            \begin{tikzcd}
-                  \Op^{G, \mathfrak C}(\V) \arrow[r, shift right, "j^{\**}"'] \arrow[d, "{(-)^H}"']
-                  &
-                  \Cat^{G, \mathfrak C}(\V) \arrow[l, shift right, "j_!"'] \arrow[d, "{(-)^H}"']
-                  \\
-                  \Op^{\mathfrak C^H}(\V)  \arrow[r, shift right, "j^{\**}"']
-                  &
-                  \Cat^{\mathfrak C^H}(\V) \arrow[l, shift right, "j_!"']
-            \end{tikzcd}
-      \end{equation}
-      such that $j^{\**}$ commutes with taking $H$-fixed points.
-\end{remark}
 
 
 \begin{remark}
-	Unlike in the single-colored case, $\Op^G(\V)$ does \textit{not} coincide with the category of colored operads in $\V^G$.
-	Indeed, objects in $\Op(\V^G)$ have a fixed $G$-set of colors,
-        and each level $\O(\xi)$ has an action by the full group $G$
-	(though only a partial action by $\Sigma_{|\xi|}$).
+We have inclusion-forgetful fibered adjunctions
+\begin{equation}\label{JSTAR_CAT_EQ}
+\begin{tikzcd}
+	\Cat^{G}(\V)
+	\arrow[shift left]{r}{j_!}
+	\arrow[d, "{(-)^H}"']
+&
+	\Op^{G}(\V)
+	\arrow[shift left]{l}{j^{\**}}
+	\arrow{d}{(-)^H}
+\\
+	\Cat(\V)
+	\arrow[shift left]{r}{j_!}
+&
+	\Op(\V)
+	\arrow[shift left]{l}{j^{\**}}
+\end{tikzcd}
+\end{equation}
+where both left and right adjoints are compatible the $H$-fixed point functors.
 \end{remark}
 
 
-
-\newpage
 
 
 
@@ -1336,10 +1315,24 @@ We refer to the model structure on $\V^{\G}$
 in the result above as the $\F$-model structure, 
 and denote it $\V^{\G}_{\F}$.
 
-Moreover, if $\F = \F_{all}$ is the collection of all subgroups of $G$, we denote the model structure $\V^{G}_{\F_{all}}$ simply by $\V^G$,
+
+%For completeness, we recall a main result of \cite{Ste16}, which transfers model structures along several adjuctions.
+%\begin{theorem}[{\cite[Thm. 2.10]{Ste16}}]
+%      Let $\V$ be cofibrantly generated model category with cellular fixed points, $\F$ any family of subgroups of $G$ containing the trivial subgroup, and $\mathsf O_\F$ the full subcategory of $\mathsf O_G$ spanned by the $G/H$ with $H \in \F$.
+%      Then
+%      \begin{itemize}
+%      \item the projective model structure on $\V^{\mathsf O_\F^{op}}$ exists;
+%      \item the $\F$-model structure on $\V^G$ exists, where an arrow $f \in \V$ is a weak equivalence or fibration iff each $f^H$ is in $\V$ for each $H \in \F$; and
+%      \item the inclusion $\V^G \xrightarrow{i_{\**}} \V^{\mathsf O_F^{op}}$, $i_{\**}X(G/H) = X^H$ is a right Quillen equivalence.
+%      \end{itemize}
+%\end{theorem}      
+
+
+\begin{definition}\label{GENMOD DEF}
+If $\F = \F_{all}$ is the collection of all subgroups of $G$, we denote the model structure $\V^{G}_{\F_{all}}$ simply by $\V^G$,
 and refer to it as the \textit{genuine} or \textit{fine} model structure on $\V^G$,
 with genuine (trivial) (co)fibrations and genuine weak equivalences.
-
+\end{definition}
 
 
 \begin{remark}
@@ -1390,9 +1383,10 @@ is a complete lattice, $\phi^{\**}$ admits both a left and a right adjoint).
 %\]
 \end{remark}
 
-The relevance of the previous remark is given by the following result.
+The relevance of the previous remark is given by the following result,
+which rephrases \cite[Props. 6.6, 6.7]{BP_geo}.
 
-\begin{proposition}
+\begin{proposition}\label{EQQUILADJ PROP}
 Let $\phi \colon \G \to \bar{\G}$
 be a map of groupoids and
 $\F,\bar{\F}$ families of subgroups of $\G,\bar{\G}$.
@@ -1592,7 +1586,36 @@ which correspond to the $\mathbb{Z}_{/2}$-actions on the underlying corollas dep
 \end{example}
 
 
-{\color{red} HERE}
+
+
+\begin{definition}
+Let $\mathfrak C$ be a $G$-set and $\F$ a $(G, \Sigma)$-family.
+Then the \textit{$\F$-model structure} (if it exists) on the fiber $\Sym^{G}_{\mathfrak C}(\V)$ of $\Sym(\V)$ over $\mathfrak C$
+is the $\F_{\mathfrak{C}}$-model structure
+\begin{equation}
+	\Sym^{G}_{\mathfrak{C},\F}(\V) = \V^{G \ltimes \Sigma_{\mathfrak C}^{op}}_{\F_{\mathfrak{C}}}
+\end{equation}
+where $\F_{\mathfrak{C}}$ is as in Definition \ref{GSFAM_DEF}.
+
+Moreover, when $\mathcal{F}=\mathcal{F}_{all}$ is the family of all subgroups we simply refer to this model structure as the genuine model structure on $\mathsf{Sym}^G_{\mathfrak{C}}$.
+\end{definition}
+
+
+
+\begin{remark}
+It follows immediately from the definition of $\mathsf{Sym}^G_{\mathfrak{C}}$ (cf. Definition \ref{GSFAM_DEF}) and 
+Proposition \ref{EQQUILADJ PROP} that, for any 
+$(G,\Sigma)$-family $\F$
+and map of colors $f \colon \mathfrak{C} \to \mathfrak{D}$
+the induced adjunction
+\[
+	f_! \colon \mathsf{Sym}^G_{\mathfrak{C},\F}
+	\rightleftarrows
+	\mathsf{Sym}^G_{\mathfrak{D},\F} \colon f^{\**}
+\]
+is a Quillen adjunction.
+\end{remark}
+
 
 
 
@@ -1601,64 +1624,8 @@ which correspond to the $\mathbb{Z}_{/2}$-actions on the underlying corollas dep
 \label{MSC_SEC}
 
 
+{\color{red} HERE}
 
-
-
-
-%For completeness, we recall a main result of \cite{Ste16}, which transfers model structures along several adjuctions.
-%\begin{theorem}[{\cite[Thm. 2.10]{Ste16}}]
-%      Let $\V$ be cofibrantly generated model category with cellular fixed points, $\F$ any family of subgroups of $G$ containing the trivial subgroup, and $\mathsf O_\F$ the full subcategory of $\mathsf O_G$ spanned by the $G/H$ with $H \in \F$.
-%      Then
-%      \begin{itemize}
-%      \item the projective model structure on $\V^{\mathsf O_\F^{op}}$ exists;
-%      \item the $\F$-model structure on $\V^G$ exists, where an arrow $f \in \V$ is a weak equivalence or fibration iff each $f^H$ is in $\V$ for each $H \in \F$; and
-%      \item the inclusion $\V^G \xrightarrow{i_{\**}} \V^{\mathsf O_F^{op}}$, $i_{\**}X(G/H) = X^H$ is a right Quillen equivalence.
-%      \end{itemize}
-%\end{theorem}      
-
-
-
-
-
-
-
-Applying Theorem \ref{FMODEL THM} induces an $\F$-model structure on the category of $\mathfrak C$-symmetric sequences in $\V$.
-
-\begin{definition}
-      Let $\V$ be a cofibrantly generated model category with cellular fixed points,
-      $\mathfrak C$ a $G$-set, and $\F$ a $(G, \Sigma)$-family.
-      Then the \textit{$\F$-model structure} on the fiber $\Sym^{G,\mathfrak C}(\V)$ of $\Sym(\V)$ over $\mathfrak C$
-      is the $\F$-model structure
-      \begin{equation}
-            \Sym^{G,\mathfrak C}_\F(\V) = \V^{G \ltimes \Sigma_{\mathfrak C}^{op}}_{\F}
-      \end{equation}
-      where $\F$ on the right-hand-side is the associated family of subgroups of $G \ltimes \Sigma_{\mathfrak C}^{op}$.
-      % $\V^{B_{\mathfrak C^{\times n+1}}(G \times \Sigma_n)}_{\F_n}$ has the model structure lifted from the adjunction to
-      % $\prod_{(c_i)}\V^{\mathsf{Aut}(c_1,\dots,c_n; c_0)}_{\F_{(c_i)}}$ where
-      % $\F_{(c_i)}$ is the set of all $\Gamma \in \F_n$ such that $\Gamma \leq \mathsf{Aut}(c_1,\dots, c_n;c_0)$.
-\end{definition}
-
-% On the other hand, let $\Sym_{\F, \mathfrak C}(\V)$ denote the category $\V^{\UC\Sigma_\F}$ with the projective model structure.
-
-% \begin{lemma}
-%       \label{EXMAIN_LEM}
-%       Let $\V$ be {\color{red} GOOD}.
-%       Let $\P \in \Sym_{G, \mathfrak C}(\V)$ be level genuine cofibrant, and
-%       $u: X\ to Y$ in $\Sym_{G, \mathfrak C}(\V)$ be a level genuine cofibration.
-%       Then, for each $(T, \mathfrak c) \in \UC \Omega_G^a [k]$, and writing $C = \mathsf{lr}(T)$, the map
-%       \begin{equation}
-%             \left(
-%                   \bigotimes_{v \in V_G^{ac}(T)}\P(T_v, \mathfrak c) \otimes
-%                   {\mathlarger{\mathlarger{\mathlarger{\square}}}}u(T_v, \mathfrak d_v)
-%             \right)
-%             \mathop{\otimes}\limits_{\Aut(T, \mathfrak c)}\Aut(C, \mathfrak c)
-%       \end{equation}
-%       is a genuine cofibration in $\V^{\Aut(C, \mathfrak c)}_{\mbox{gen}}$,
-%       which is trivial if $k \geq 1$ and $u$ is trivial.
-% \end{lemma}
-% \begin{proof}
-%       This follows from \cite[Prop 6.24]{BP_geo} analogously as \cite[Lemma 5.72]{BP_geo} did.
-% \end{proof}
 
 As in \cite{BP_geo}, we will transfer this model structure along the composite free-forgetful adjunction
 \begin{equation}
@@ -1732,13 +1699,6 @@ In the remainder of this section, we will make homotopical conclusions from that
       \label{RESGEN_LEM}
       Suppose $(\V, \otimes)$ is a closed monoidal model category with cellular fixed points.
       \begin{itemize}
-      \item{\cite[Prop. 6.6, 6.7]{BP_geo}} imply that for any group homomorphism $\phi: \Pi \to \bar \Pi$,
-            the induction and restriction functors on the genuine model structures are left Quillen.
-            \[
-                  \bar{\Pi} \cdot_{\Pi} (-) \colon \V^{\Pi}_{gen} \longto \V^{\bar \Pi}_{gen}
-                  \qquad
-                  \mathrm{res}^{\bar \Pi}_{\Pi} \colon \V^{\bar \Pi}_{gen} \longto \V^{\Pi}_{gen}
-            \]
       \item {\cite[Equation (6.15)]{BP_geo}} implies that the monoidal product on $\V$ is in fact a Quillen bifunctor
             \[
                   \V^{\Pi}_{gen} \times \V^{\bar \Pi}_{gen} \xrightarrow{\otimes} \V^{\Pi \times \bar \Pi}_{gen}.
@@ -1818,7 +1778,7 @@ We now prove a key lemma about this filtration.
 
 
 
-We may now prove our first main theorem.
+We can now prove our first main theorem.
 
 \begin{proof}[Proof of Theorem \ref{THM1_C}]
       We follow the proof \cite[Thm. I]{BP_geo}.
@@ -1959,6 +1919,78 @@ the cofibrancy of the unit is necessary so that the initial operad $\mathbb F(\v
 
 
 
+
+
+
+
+
+
+
+\subsection{Symmetric sequences and colored operads (remainders)}
+
+\begin{definition}
+      A \textit{$\mathfrak C$-colored operad} in $\V$ 
+      is a $\mathfrak C$-symmetric sequence $\O$ along with appropriate composition laws.
+      Explicitly, this consists of the following data:
+      \begin{itemize} %{enumerate}[label = (\arabic*)]
+      \item An object $\O(\ksi) \in \V$ for each signature $\ksi$.
+      \item For all signatures $\ksi \in \mathfrak C^{\times n+1}$ and $\sigma \in \Sigma_n$,
+            unital and associative times maps $\O(\xi) \to \O(\sigma \cdot \xi)$,
+            where $\Sigma_n$ acts on the first $n$ coordinates of $\mathfrak C^{\times n+1}$;
+            i.e., maps
+            \begin{equation}
+                  \O(c_1, \ldots, c_n; c_0) \xrightarrow{\sigma} \O(c_{\sigma^{-1}(1)}, \ldots, c_{\sigma^{-1}(n)}; c_0).
+            \end{equation}
+      \item For each $c \in \mathfrak C$, a \textit{unit} $1_c \in \O(c;c)$.                        
+      \item For all compatible signatures $\ksi$, $\ksi_1$, $\dots$, $\ksi_n$,
+            \textit{composition} maps
+            \begin{equation}
+                  \O(\xi) \otimes \O(\xi_1) \otimes \ldots \otimes \O(\xi_n) \to \O(\xi \circ (\xi_i)),
+            \end{equation}
+            which are unital, associative, and appropriately $\Sigma$-equivariant.
+      \end{itemize}
+\end{definition}
+
+
+
+
+\begin{example}
+      Now, for $\Op(\V)$,
+      we see that an object $\O \in \Op^G(\V)$ consists of the following data:
+      \begin{enumerate}[label = (\arabic*), start = 0]
+      \item A $G$-set $\mathfrak C = \mathfrak C_{\O}$ of colors.
+      \item For each $\mathfrak C$-signature $\ksi$, an object $\O(\ksi) \in \V$.
+      \item \label{SACTION_LBL}
+            For all signatures $\ksi \in \mathfrak C^{\times n + 1}$ and $\sigma \in \Sigma_n$,
+            maps $\O(\ksi) \to \O(\sigma \cdot \ksi)$
+            which are unital and associative.
+      \item \label{GUNIT_LBL} 
+            For each $c \in \mathfrak{C}$, a \textit{unit} $1_c \in \O(c;c)$.
+      \item \label{COMP_LBL}
+            For all compatible signatures $\ksi, \ksi_1,\dots, \ksi_n$,
+            \textit{composition maps} $\O(\ksi) \otimes \O(\ksi_1) \otimes \dots \otimes \O(\ksi_n) \to \O(\ksi \circ (\ksi_i))$
+            which are unital, associative, and appropriately $\Sigma$-equivariant
+      \item \label{GACTION_LBL}
+            For all $g \in G$, maps $\O(\ksi) \to g^{\**}\O(\ksi) = \O(g \cdot \ksi)$
+            (with $G$ acting on $\mathfrak C^{\times n+1}$ diagonally)
+            which are unital and associative, and which commute with the composition maps
+            (note that if $\ksi, (\ksi_i)$ are compatible, then so are $g \ksi, (g \ksi_i)$).
+      \end{enumerate}
+      Synthesizing, we may combine \ref{SACTION_LBL} and \ref{GACTION_LBL} into
+      \begin{enumerate}
+      \item[($2'$)] For all signatures $\xi \in \mathfrak C^{\times n+1}$ and $(g,\sigma) \in G\times \Sigma_n$, maps
+            $\O(\xi) \to \O((g,\sigma)\cdot \xi)$
+            which are unital and associative.
+      \end{enumerate}
+      
+      and replace \ref{GUNIT_LBL} and \ref{COMP_LBL} with
+      \begin{enumerate}
+      \item[($3'$)] For each $c \in \mathfrak C$, a $G_c$-fixed unit $1_c \in \O(c;c)^{G_c}$.
+      \item[($4'$)] For all compatible signatures $\ksi, (\ksi_i)$,
+            composition maps $\O(\ksi) \otimes \bigotimes_i \O(\ksi_i) \to \O(\ksi \circ (\ksi_i))$
+            which are unital, assocative, $G$-equivariant, and approriately $\Sigma$-equivariant.
+      \end{enumerate}
+\end{example}
 
 
 
@@ -2129,8 +2161,8 @@ Additionally, we use these $\V$-intervals to define homotopical analogues of iso
 \end{definition}
 
 
-We may now extend the categorical model theoretic notions to the equivariant context.
-First, extending \eqref{JSTAR_CAT_EQ}, we have another inclusion-forgetful adjunction,      
+We may now extend the model category notions to the equivariant context.
+First, extending \eqref{JSTAR_CAT_EQ}, we have another inclusion-forgetful adjunction,
 \begin{equation}
       \label{JSTAR_EQ}
       \begin{tikzcd}
@@ -2505,9 +2537,7 @@ The first of these two results, Proposition \ref{J-CELL_PROP}, uses the followin
       the result follows.
 \end{proof}
 
-\begin{proposition}
-      [{c.f. \cite[4.20]{Cav}}]
-      \label{J-CELL_PROP}
+\begin{proposition}[{c.f. \cite[4.20]{Cav}}]\label{J-CELL_PROP}
       Suppose $\V$ is as in Convention \ref{ALLCOLOR_CONV}. %has a cofibrant unit $1_\V$ and has cofibrant symmetric pushout powers.
       Then relative $J_{\F}$-cells with locally genuine cofibrant source are weak equivalences.
 \end{proposition}
