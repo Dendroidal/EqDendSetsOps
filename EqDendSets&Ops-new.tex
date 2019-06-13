@@ -1105,22 +1105,23 @@ one obtains that the monad $\mathbb{F}^G$ applied to
 $X\colon G \ltimes \Sigma_{\mathfrak{C}}^{op} \to \mathcal{V}$
 is the left Kan extension
 \begin{equation}\label{FGC_EQ}
-      \begin{tikzcd}
-            G \ltimes \Omega^{op}_{\mathfrak{C}}
-            \arrow[d, "\mathsf{lr}"']
-            \arrow[r, "V"]
-            &
-            (G\ltimes \Sigma \wr \Sigma_{\mathfrak{C}})^{op} \arrow{r}
-            \arrow[dl, Rightarrow]
-            &
-            (\Sigma \wr G\ltimes \Sigma_{\mathfrak{C}})^{op} \arrow[r, "X"]
-            &
-            (\Sigma \wr \V^{op})^{op} \arrow[r, "\otimes"]
-            &
-            \V
-            \\
-            G\ltimes\Sigma^{op}_{\mathfrak{C}} \arrow[urrrr, "\Lan = \mathbb F_{\mathfrak{C}}^G X"']
-      \end{tikzcd}
+	\begin{tikzcd}
+		G \ltimes \Omega^{op}_{\mathfrak{C}}
+		\arrow[d, "\mathsf{lr}"']
+		\arrow[r, "V"]
+	&
+		(G\ltimes \Sigma \wr \Sigma_{\mathfrak{C}})^{op} \arrow{r}
+		\arrow[dl, Rightarrow]
+	&
+		(\Sigma \wr G\ltimes \Sigma_{\mathfrak{C}})^{op} \arrow[r, "X"]
+	&
+		(\Sigma \wr \V^{op})^{op} \arrow[r, "\otimes"]
+	&
+		\V
+\\
+	G\ltimes\Sigma^{op}_{\mathfrak{C}}
+	\arrow[urrrr, "\Lan = \mathbb F_{\mathfrak{C}}^G X"']
+	\end{tikzcd}
 \end{equation}
 
 
@@ -1408,6 +1409,193 @@ in the second case.
 \end{proposition}
 
 
+
+
+
+We next discuss the interactions of equivariant model structures on 
+$\mathcal{V}$ with the monoidal structure $\otimes$ on $\mathcal{V}$.
+The following is immediate from
+\cite[Rem. 6.14]{BP_geo}.
+
+
+\begin{proposition}\label{RESGEN PROP}
+Suppose $(\V, \otimes)$ is a closed monoidal model category which is cofibrantly generated and has cellular fixed points.
+Further, let $\G, \bar{\G}$ be groupoids and $\F,\bar{\F}$
+families of subgroups of $\G, \bar{\G}$.
+Then $\otimes$ incudes a left Quillen bifunctor
+\[
+	\V^{\G}_{\F} \times \V^{\bar \G}_{\bar{\F}} \xrightarrow{\otimes} \V^{\G \times \bar \G}_{\F \sqcap \bar{\F}}
+\]
+where the family $\F \sqcap \bar{\F}$ of $\G \times \bar{\G}$ is defined by
+\[
+\left(\F \sqcap \bar{\F}\right)_{(x,\bar{x})}
+=
+\left\{K\leq Aut(x,\bar{x}) | \pi_{\G} (K) \in \F_x,
+\pi_{\bar{\G}} (K) \in \F_{\bar{x}}
+%\leq H \times \bar{H} \text{ for some }H\in \F_x,\bar{H} \in \bar{\F}%_{\bar{x}}
+\right\}.
+\]
+\end{proposition}
+
+Unpacking the definition of left Quillen bifunctor,
+Proposition \ref{RESGEN PROP}
+says that if maps
+$f, \bar{f}$
+in 
+$\V^{\G}$,
+$\V^{\bar{\G}}$
+are 
+$\F,\bar{\F}$
+cofibrations
+then the map
+$f\square \bar{f}$
+in $\mathcal{V}^{\G \times \bar{\G}}$
+is a 
+$\F \sqcap \bar{\F}$-cofibration,
+which is trivial if either $f$ or $\bar{f}$ are.
+
+Note, however, that should $\otimes$ be a symmetric monoidal structure, then when $\G = \bar \G$ and $f = \bar f$
+the map $f \square f$
+admits an additional $\Sigma_2$-action
+(and, more generally, $f^{\square n}$ admits a $\Sigma_n$-action)
+which is ignored by Proposition \ref{RESGEN PROP}.
+To discuss such ``actions on powers'' we need a few preliminaries, 
+starting with the following additional hypothesis on $\V$.
+
+
+\begin{definition}[{\cite[Defn 6.16]{BP_geo}}]\label{CSPP_DEF}
+      We say a symmetric monoidal model category $\V$ has \textit{cofibrant symmetric pushout powers} if
+      for all (trivial) cofibrations $f$, the pushout product power $f^{\square n}$
+      is a $\Sigma_n$-genuine (trivial) cofibration in $\V^{\Sigma_n}$ for all $n \geq 1$. 
+\end{definition}
+
+\begin{remark}
+We purposefully excluded the $n=0$ case in Definition \label{CSPP_DEF}
+for the case of consistency with Proposition \ref{SIGMAWRGF PROP}
+where the trivial cofibrancy case can only be expected to hold for $n\geq 1$.
+
+Nonetheless, unwinding definitions one sees that
+$f^{\square 0}$
+should be the map 
+$\emptyset \to 1$
+from the initial object to the monoidal unit
+(indeed, $\square$ can be regarded as a monoidal structure on the category of arrows, with $\emptyset \to 1$ being the unit).
+As such, the analogue of Definition \ref{CSPP_DEF} for $n=0$ 
+recovers the condition that $\V$ has a cofibrant unit.
+\end{remark}
+
+
+Given a map $f$ in $\mathcal{V}^{\G}$
+we write 
+$f^{\square n}$ 
+for the map in $\mathcal{V}^{\Sigma_n \wr \G}$
+given by
+\begin{equation}\label{FSQNDEF EQ}
+f^{\square n}\left((x_i)_{1\leq i \leq n }\right)
+=
+\underset{1\leq i \leq n}{\mathlarger{\mathlarger{\square}}} f(x_i).
+\end{equation}
+Next, we write
+\[
+\pi_{\Sigma} \colon \Sigma_n \ltimes \G^{\times n} \to \Sigma_n
+\qquad
+\pi^i_{\G} \colon \Sigma_n \ltimes \G^{\times n} \to \G, 1\leq i \leq n
+\]
+for the projection onto each coordinate.
+Note that while $\pi_{\Sigma}$ is a map of groupoids, 
+the $\pi^i_{\G}$ are not.
+Nonetheless, writing $\Sigma^i_n \leq \Sigma_n$
+for the subgroup of permutations that fix $i$, 
+one has that $\pi_{G}^i$ is a homomorphism when restricted to 
+$\pi^{-1}_{\Sigma}(\Sigma_n^i)$ 
+(indeed, one has an isomorphism 
+$\pi^{-1}_{\Sigma}(\Sigma_n^i) \simeq 
+(\Sigma_{1} \wr \G) \times (\Sigma_{n-1} \wr \G)$
+which identifies $\pi_{\G}^i$ with the projection to 
+$(\Sigma_{1} \wr \G) \simeq \G$).
+Given $(x_i) \in \Sigma_n \wr \G$
+and a subgroup
+$H \leq Aut((x_i))$,
+we then write
+$H_i = H \cap \pi^{-1}_{\Sigma}(\Sigma_n^i)$
+for the subgroup whose projection to $\Sigma$ fixes $i$.
+
+Given a family $\F$ of subgroups of $\G$
+we can now finally define the family $\F^{\ltimes n}$
+of subgroups of $\Sigma_n \wr \G$ for $n\geq 1$ by
+\begin{equation}\label{FWRNXI EQ}
+\left(\F^{\ltimes n}\right)_{(x_i)}
+=
+\left\{
+H \leq Aut((x_i))|
+\pi^i_{\G}(H_i) \in \F_{x_i} \text{ for all i}
+\right\}
+\end{equation}
+
+We then have the following, which is a minor strengthening of 
+\cite[Prop. 6.24]{BP_geo}.
+
+\begin{proposition}\label{SIGMAWRGF PROP}
+Suppose $(\V, \otimes)$ is as in Proposition \ref{RESGEN PROP} and, in addition, it also has cofibrant symmetric pushout powers.
+Further, let $\G$ be a groupoid and
+$\F$ a family of subgroups of $\G$.
+Then:
+\begin{enumerate}[label=(\roman*)]
+\item if $f$ is a (trivial) $\F$-cofibration in $\V^{\G}$
+then $f^{\square}$ is a (trivial)
+$\F^{\ltimes}$-cofibration in $\V^{\Sigma \wr \G}$;
+\end{enumerate}
+\end{proposition}
+
+
+\begin{proof}
+Since any groupoid is equivalent to a disjoint union of groups, we reduce to that case. In other words, we may assume that two objects of $\G$ are isomorphic iff they are equal.
+
+Given $(x_i) \in \Sigma_n \ltimes \G^{\times n}$,
+we thus want to check that \eqref{FSQNDEF EQ}
+is a (trivial) $\left(\F^{\ltimes n}\right)_{(x_i)}$-cofibration.
+Now form the partition 
+$\{1,\cdots,n\} = \lambda_1 \amalg \cdots \amalg \lambda_k$
+such that $i,j$ are in the same piece iff $x_i=x_j$ and write
+$n_l = |\lambda_l|$.
+Writing $x_{\lambda_l}$ for the common value of the $x_i$ with $i\in \lambda_l$, we then have
+\[
+f^{\square n}\left((x_i)_{1\leq i \leq n }\right)
+\simeq
+\underset{1\leq l \leq k}{\mathlarger{\mathlarger{\square}}} f(x_{\lambda_l})^{\square n_l}.
+\]
+Writing $G_l$ for the automorphism group of $x_{\lambda_l}$,
+the analogue result for groups \cite[Prop. 6.24]{BP_geo}
+(which is the hard case) implies that
+$f(x_{\lambda_l})^{\square n_l}$
+is a (trivial) $\F_{x_{\lambda_l}}^{\ltimes n_l}$-cofibration
+in $\V^{\Sigma_{n_l}\ltimes G_l}$
+
+
+Next, note that for any subgroup
+$H \leq Aut((x_i))$ the projection 
+$\pi_{\Sigma}(H)$ must preserve the partition 
+(or else there would be distinct $x_i$ which are isomorphic) 
+so that, writing 
+$\pi_{\G^{\times \lambda_l}} \colon
+\Sigma_n \ltimes \G^{\times n} \to \G^{\times \lambda_l}$
+for the projections one has that the 
+$\pi_{\G^{\times \lambda_l}}$ are homomorphisms when restricted to $H$ so that the result now follows by Proposition \ref{RESGEN PROP}
+and the observation that
+$H \in \left(\F^{\ltimes n}\right)_{(x_i)}$
+iff
+$\pi_{\G^{\times \lambda_l}}(H) \in \F_{x_{\lambda_l}}^{\ltimes n_l}$
+for all $l$.
+\end{proof}
+
+
+
+
+
+\subsection{Homotopy theory of symmetric sequences with a fixed color $G$-set}
+
+
+
 Our main example of interest will be given by the groupoids of the form
 $G \ltimes \Sigma^{op}_{\mathfrak{C}}$ for 
 $\mathfrak{C} \in \mathsf{F}^G$.
@@ -1588,7 +1776,7 @@ which correspond to the $\mathbb{Z}_{/2}$-actions on the underlying corollas dep
 
 
 
-\begin{definition}
+\begin{definition}\label{SYMGFV DEF}
 Let $\mathfrak C$ be a $G$-set and $\F$ a $(G, \Sigma)$-family.
 Then the \textit{$\F$-model structure} (if it exists) on the fiber $\Sym^{G}_{\mathfrak C}(\V)$ of $\Sym(\V)$ over $\mathfrak C$
 is the $\F_{\mathfrak{C}}$-model structure
@@ -1623,70 +1811,29 @@ is a Quillen adjunction.
 \subsection{Homotopy theory of operads with a fixed color $G$-set}
 \label{MSC_SEC}
 
+Our goal in this section is to show that the model structures 
+$\mathsf{Sym}^G_{\mathfrak{C},\F}$
+from Definition \ref{SYMGFV DEF} can be transferred 
+along the free-forgetful adjunction
+(where $\mathbb{F}^G_{\mathfrak{C}}$
+denotes the fiber monad of $\mathbb{F}^G$ on the $\mathfrak{C}$ fiber, cf. Definition \ref{COLORMON DEF}, \eqref{FGC_EQ})
+\begin{equation}\label{OPAUTADJ EQ}
+\mathbb{F}^G_{\mathfrak{C}} \colon
+\mathsf{Sym}^G_{\mathfrak{C}}
+\rightleftarrows
+\mathsf{Op}^G_{\mathfrak{C}}
+\colon \mathsf{fgt}
+\end{equation}
+to obtain model structures
+$\mathsf{Op}^G_{\mathfrak{C},\F}$
+where a map is a weak equivalence/fibration iff the underlying map in 
+$\mathsf{Sym}^G_{\mathfrak{C}}$ is.
+
 
 {\color{red} HERE}
 
 
-As in \cite{BP_geo}, we will transfer this model structure along the composite free-forgetful adjunction
-\begin{equation}
-      \label{OPAUTAJD_EQ}
-      \begin{tikzcd}
-            \displaystyle{\prod_{\vect C \in G \ltimes \Sigma_{\mathfrak C}} \V^{\Aut(\vect C)}}
-            \arrow[r, shift left, "{\Sigma_{\mathfrak C}[-]}"]
-            &
-            \Sym^{G, \mathfrak C}(\V) \arrow[r, shift left, "\mathbb F"] \arrow[l, shift left]
-            &
-            \Op^{G, \mathfrak C}(\V) \arrow[l, shift left]
-      \end{tikzcd}
-\end{equation}
-where
-$\prod \V^{\Aut(\vect C)}$, $\Sym^{G, \mathfrak C}(\V)$ are endowed with the $\F$-model strucutre,
-and $\mathbb F$ denotes the $\mathfrak C$-fiber $\mathbb F^{G, \mathfrak C}$ of the free operad monad from Definition \ref{COLORMON DEF}, \eqref{FGC_EQ}, in Appendix \ref{MONAD_APDX}.
-This transfer will follow much in the same was as in \cite{BP_geo};
-we relegate most of the technical algebraic discussion of this monad $\mathbb F$ to Appendix \ref{MONAD_APDX}.
 
-\begin{notation}
-      \label{FD_NOT}
-      For all $\mathfrak C$-signatures $\vect D \in G \ltimes \Sigma_{\mathfrak C}$, we let $\Sigma_{\mathfrak C}[-,\vect D]$ denote the composite
-      \begin{equation}
-            \label{FREESIGMA_EQ}
-            \Sigma_{\mathfrak C}[-, \vect D] \colon
-            \V^{\Aut(\vect D)} \longto \prod_{\vect C \in G \ltimes \Sigma_{\mathfrak C}} \V^{\Aut(\vect C)} \longto \Sym^{G, \mathfrak C}(\V),
-            \qquad
-            \Sigma_{\mathfrak C}[K, \vect D](-) = \Hom_{\Sigma_{\mathfrak C}}(-, \vect D) \cdot_\Gamma K.
-      \end{equation}
-      Let $\mathbb F_{\vect D} = \mathbb F \circ \Sigma_{\mathfrak C}[-,\vect D]$ denote the composite of left adjoints.
-      %
-      % ------------------------------ explicit description of first left adjoint ------------------------------
-      % Let $C_\Gamma[X]$ denote the $(G,\mathfrak C_\Gamma)$-symmetric sequence, defined on any signature $C \in G \ltimes \Sigma_{\mathfrak C_\Gamma}^{op}$ to be
-      % \begin{equation}
-      %       C_\Gamma[X](C) =
-      %       \left(\coprod_{(g,\sigma).C_0 = C} (g,\sigma)^{\**}X \right)_{/ H},
-      %       %       \begin{cases}
-      %       %             (g,\sigma)^{\**} X \qquad \qquad & C = (g,\sigma).C_0
-      %       %             \\
-      %       %             \varnothing & \mbox{otherwise,}
-      %       %       \end{cases}
-      % \end{equation}
-      % where the right $H$-action on the disjoint union (when it is non-empty) is defined as follows:
-      % Fix some $(g_0, \sigma_0)$ such that $(g_0,\sigma_0).C_0 = C$.
-      % Then any other such $(g,\sigma)$ is of the form $(g_0 h, \sigma \phi_h)$ where $\Gamma = \Gamma(\phi)$ for $\phi: H \to \Sigma_n$.
-      % The disjoint union can thus be indexed by $H$,
-      % and given $\bar h \in H$ and $(h,a) \in (g_0h,\sigma\phi_h)^{\**}X \subseteq \amalg (g,\sigma)^{\**}X$, we define the right action
-      % \[
-      %       (h,a) \cdot \bar h = \left( \bar h^{-1} h, \left(h^{-1} \bar h h, \phi_h^{-1} \phi_{\bar h} \phi_h\right) \cdot a \right).
-      % \]
-      % It is straightforward to check that this commutes with the (left) diagonal action of $\Aut(C)$ on the coproduct,
-      % does not depend on the choice of $g_0$, 
-      % and furthermore is natural in $C$.
-      % ----------------------------------------------------------------------------------------------------
-\end{notation}
-
-
-% ------------------------------ homotopy stuff ------------------------------
-In the remainder of this section, we will make homotopical conclusions from that work.
-% We end this section by building the first step in our understanding of the homotopical nature of this filtration.
-% Again, the results from \cite{BP_geo} are sufficiently robust.
 
 \begin{definition}
       We say $X \to Y \in \Sym^{G, \mathfrak C}(\V)$ is a \textit{level genuine (trivial) cofibration} if
@@ -1695,43 +1842,26 @@ In the remainder of this section, we will make homotopical conclusions from that
       we say $X$ is \textit{level genuine cofibrant} if $\varnothing \to X$ is a level genuine cofibration.
 \end{definition}
 
-\begin{lemma}
-      \label{RESGEN_LEM}
-      Suppose $(\V, \otimes)$ is a closed monoidal model category with cellular fixed points.
-      \begin{itemize}
-      \item {\cite[Equation (6.15)]{BP_geo}} implies that the monoidal product on $\V$ is in fact a Quillen bifunctor
-            \[
-                  \V^{\Pi}_{gen} \times \V^{\bar \Pi}_{gen} \xrightarrow{\otimes} \V^{\Pi \times \bar \Pi}_{gen}.
-            \]
-      \end{itemize}
-\end{lemma}
 
-To make our conclusions, we will need an additional hypothesis on $\V$.
-\begin{definition}[{\cite[Defn 6.16]{BP_geo}}]
-      \label{CSPP_DEF}
-      We say a symmetric monoidal model category $\V$ has \textit{cofibrant symmetric pushout powers} if
-      for all (trivial) cofibrations $f$, the pushout product power $f^{\square n}$
-      is a $\Sigma_n$-genuine (trivial) cofibration in $\V^{\Sigma_n}$. 
-\end{definition}
 
 One of the main results of Appendix \ref{MONAD_APDX} is Proposition \ref{FILTPUSHG PROP},
 which provides an explicit description of a filtration of free extensions of operads in $\sOp^G(\V)$.
 We now prove a key lemma about this filtration.
-\begin{lemma}[{cf. \cite[5.73]{BP_geo}}] % EXMAINLEM LEM
-      \label{EXMAINLEM LEM}
-      Suppose $\mathcal{V}$ is a cofibrantly generated closed monoidal model category
-      with cellular fixed points and
-      with cofibrant symmetric pushout powers.
 
-      Let $\mathfrak C$ be a $G$-set,
-      $\O \in \mathsf{Sym}^{G,\mathfrak C}(\mathcal{V})$
-      be level genuine cofibrant,
-      and  
-      $u: X \to Y$ in $\Sym^{G, \mathfrak C}(\V)$ a level genuine cofibration. 
-      Let $\vect U \in \Omega_{\mathfrak C}^a[k]^{op}$, and write $\vect C = \mathsf{lr}(\vect U)$ and $U \in \Omega^a[k]$ for the underlying tree of $\vect U$.
-      Then
-      \begin{equation}\label{EXMAINLEM EQ}
-            \left(
+\begin{lemma}[{cf. \cite[Lemma 5.73]{BP_geo}}]\label{EXMAINLEM LEM}
+	Suppose $\mathcal{V}$ is a cofibrantly generated closed monoidal model category
+	with cellular fixed points and
+	with cofibrant symmetric pushout powers.
+
+	Let $\mathfrak C$ be a $G$-set,
+	$\O \in \mathsf{Sym}^{G,\mathfrak C}(\mathcal{V})$
+	be level genuine cofibrant,
+	and  
+	$u \colon X \to Y$ in $\Sym^{G, \mathfrak C}(\V)$ a level genuine cofibration. 
+	Let $\vect U \in \Omega_{\mathfrak C}^a[k]^{op}$, and write $\vect C = \mathsf{lr}(\vect U)$ and $U \in \Omega^a[k]$ for the underlying tree of $\vect U$.
+	Then
+	\begin{equation}\label{EXMAINLEM EQ}
+		\left(
                   \bigotimes\limits_{v \in \boldsymbol{V}^{ac}(U)}\O(\vect U_v) \otimes
                   \underset{v \in \boldsymbol{V}^{in}(U)}
                   {\mathlarger{\mathlarger{\mathlarger{\square}}}}
@@ -1741,15 +1871,12 @@ We now prove a key lemma about this filtration.
       \end{equation}
       is a genuine cofibration in 
       $\mathcal{V}^{\mathsf{Aut}(\vect C)}_{\text{gen}}$ which is trivial if $k \geq 1$ and $u$ is trivial,
-      where the automorphism groups are either
-      \begin{inparaenum}[(i)]
-      \item all taken in $G \ltimes \OC$, or
-      \item all taken in $\Omega_{\mathfrak C}$.
-      \end{inparaenum}
+      where the automorphism groups are all taken in $G \ltimes \OC$.
 \end{lemma}
+
 \begin{proof}
       This follows as in \cite{BP_geo}:
-      Using Lemma \ref{RESGEN_LEM} and the maps
+      Using Proposition \ref{RESGEN PROP} and the maps
       \[
             \Aut(\vect C) \longleftarrow \Aut(\vect U) \longto
             \Aut\Big((\vect U_v)_{v \in \boldsymbol{V}^{ac}(U)}\Big) \times \Aut\Big((\vect U_v)_{v \in \boldsymbol{V}^{in}(U)}\Big),
@@ -1768,7 +1895,7 @@ We now prove a key lemma about this filtration.
       \item $\Fin \wr \Sigma_{\mathfrak C}$.
       \end{inparaenum}
       The result then follows using the product decomposition of automorphism groups in these categories,
-      Lemma \ref{RESGEN_LEM}, and \cite[Prop. 6.24]{BP_geo} with
+      Proposition \ref{RESGEN PROP}, and \cite[Prop. 6.24]{BP_geo} with
       \begin{inparaenum}[(a)]
       \item $f$ either $\varnothing \to \O(\vect U_v)$ or $X(\vect U_v) \to Y(\vect U_v)$,
       \item $\F$ the family of all subgroups, and
@@ -1997,6 +2124,18 @@ the cofibrancy of the unit is necessary so that the initial operad $\mathbb F(\v
 
 
 
+\begin{notation}
+      \label{FD_NOT}
+      For all $\mathfrak C$-signatures $\vect D \in G \ltimes \Sigma_{\mathfrak C}$, we let $\Sigma_{\mathfrak C}[-,\vect D]$ denote the composite
+      \begin{equation}
+            \label{FREESIGMA_EQ}
+            \Sigma_{\mathfrak C}[-, \vect D] \colon
+            \V^{\Aut(\vect D)} \longto \prod_{\vect C \in G \ltimes \Sigma_{\mathfrak C}} \V^{\Aut(\vect C)} \longto \Sym^{G, \mathfrak C}(\V),
+            \qquad
+            \Sigma_{\mathfrak C}[K, \vect D](-) = \Hom_{\Sigma_{\mathfrak C}}(-, \vect D) \cdot_\Gamma K.
+      \end{equation}
+      Let $\mathbb F_{\vect D} = \mathbb F \circ \Sigma_{\mathfrak C}[-,\vect D]$ denote the composite of left adjoints.
+\end{notation}
 
 
 
@@ -4529,7 +4668,7 @@ STUFF
       \[
             f^{\square V(T)} = f_{r_C}(\vect C) \square \mathop{\mathlarger{\square}}\limits_{1 \leq i \leq s}\left(f^{\square V(\vect T_{i_j})}\right)^{\square |\vect \lambda_j|}.
       \]
-      Lemmas \ref{640_LEM}, \ref{FVECTT_LEM} and \ref{RESGEN_LEM} combine to show that the composite
+      Lemmas \ref{640_LEM}, \ref{FVECTT_LEM} and Proposition \ref{RESGEN PROP} combine to show that the composite
       \[
             \V^{\Aut(\vect C)}_{\F_{\vect C}} \times
             \prod_{i=1}^s
@@ -4553,7 +4692,7 @@ STUFF
 \end{corollary}
 \begin{proof}
       Using the filtration from Proposition \ref{FILTPUSHG PROP},
-      this follows from Proposition \ref{BOXVT_PROP}, Lemma \ref{RESGEN_LEM}, and the fact that all generating cofibrations in $\sOp^G$ are $\Sigma_G$-cofibrations between $\Sigma_G$-cofibrant objects.
+      this follows from Proposition \ref{BOXVT_PROP}, Lemma \ref{RESGEN PROP}, and the fact that all generating cofibrations in $\sOp^G$ are $\Sigma_G$-cofibrations between $\Sigma_G$-cofibrant objects.
 \end{proof}
 
 We now consider the case $\V = \sSet$.
