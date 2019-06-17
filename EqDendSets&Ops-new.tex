@@ -2476,10 +2476,10 @@ which constitutes most of the work towards Theorem \ref{INTRO_MODEL_THM}. % (see
       thus we reduce to the second case.
       
       Since $\mathsf{Op}^G(\V)$ is complete and cocomplete, it thus suffices to prove,
-      following \cite[Theorem 2.1.19]{Hov}, or \cite[Theorem 2.2.2]{WY18} in the semi-model structure case, that:
+      following \cite[Theorem 2.1.19]{Hov}, or Theorem \ref{SEMIMS_THM} in the semi-model structure case, that:
       \begin{enumerate}[label = (\arabic*)]
       \item the class of weak $\F$-equivalences has the 2-out-of-3 property and is closed under retracts;
-      \item the domains of $I_{\F}$ (resp. $J_{\F}$) are small relative to $I_{\F}$-cell (resp. $J_{\F}$-cell);
+      \item the domains of $I_{\F}$ (resp. $J_{\F}$) are small relative to $I_{\F}$-cell (resp. $J_{\F}$-cell (with cofibrant source));
       \item $I_{\F}$-inj $= W\cap J_{\F}$-inj; and
       \item $J_{\F}$-cell (with cofibrant source) $\subseteq W\cap I_{\F}$-cof,
       \end{enumerate}
@@ -12716,6 +12716,85 @@ But this now follows immediately from the pushout from Proposition \ref{WLEFTQPU
 
 
 
+\section{Semi-model categories}
+
+We recall the definition of a semi-model category, following \cite{Spi01,Wh16}.
+
+\begin{definition}
+      Given a class of maps $ I$ in a category $\mathcal D$, we let
+      \begin{enumerate}[label = (\roman*)]
+      \item \textit{$ I$-inj} denote the class of maps with the right lifting property with respect to $ I$.
+      \item \textit{$ I$-cof} denote the class of maps with the left lifting property with respect to $ I$-inj.
+      \item \textit{$ I$-cell} denote the class of maps of transfinite compositions of pushouts of maps in $ I$.
+      \end{enumerate}
+
+      Now suppose $\mathcal D$ has an initial object.
+      Given a second class of maps $ J$, let \textit{$ J$-ccd} denote
+      the subclass of $ J$-cell with $ I$-cofibrant domains
+      (i.e. $x \to y$ in $ J$-cell is in $ J$-ccd iff the map $\varnothing \to x$ is in $ I$-cof).
+\end{definition}
+
+\begin{definition}
+      Suppose $\mathcal D$ is a category closed under all small limits and colimits.
+      % Given an adjunction $F \colon \mathcal M \rightleftarrows \colon U \mathcal D$ with $\mathcal M$ a model category,
+      A \textit{semi-model structure} on $\mathcal D$ consists of
+      subcateogries of weak equivalences, cofibrations, and fibrations, such that:
+      \begin{enumerate}[label = (\roman*)]
+            % \item $U$ preserves fibrations and trivial fibrations.
+      \item Weak equivalences are closed under two-out-of-three, and all three chosen subcategories are closed under retracts.
+      \item Every map in $\mathcal D$ can be functorially factored into a cofibration followed by a trivial fibration.
+            Every map in $\mathcal D$ whose domain is \textbf{cofibrant} in $\mathcal D$ can be functorially factored into a trivial cofibration followed by a fibration.
+      \item Cofibrations in $\mathcal D$ have the left lifting property with respect to trivial fibrations.
+            Trivial cofibrations in $\mathcal D$ whose domain is \textbf{cofibrant} in $\mathcal D$ have the left lifting property with respect to fibrations.
+            % \item The initial object in $\mathcal D$ is cofibrant in $\mathcal D$.
+      \item Fibrations and trivial fibrations are closed under pullback.
+      \end{enumerate}
+
+      A \textit{semi-model category} is such a category $\mathcal D$ equipped with a semi-model structure.
+
+      A semi-model category $\mathcal D$ is \textit{cofibrantly generated} if there exist sets of maps $ I$, $ J$ such that
+      \begin{enumerate}[label = (\roman*)]
+      \item $ I$-inj is the class of trivial cofibrations, and $ J$-inj is the class of fibrations; and
+      \item the domains of $ I$ are small relative to $ I$-cell, and
+      \item the domains of $ J$ are small relative to $ J$-ccd.
+      \end{enumerate}
+\end{definition}
+
+\begin{remark}
+      In \cite{Spi01,Wh16}, these semi-model structures come equipped with an adjunction $\mathcal M \rightleftarrows \mathcal D$ with $\mathcal M$ a model category,
+      with the added condition that $U$ preserves (trivial) fibrations.
+      Our definition is a special case, where $\mathcal M$ is the terminal category with its unique model strucutre,
+      and the left adjoint is the inclusion of the initial object.
+
+      In all of the examples from White and Spitzweck, these adjunctions actually induce the semi-model structure on $\mathcal D$;
+      however, this extra data is not necessary to generalize much of \cite{Hov99} to this context.
+\end{remark}
+
+The following is immediate from the Retract Argument \cite[Lemma 1.1.9]{Hov99}.
+\begin{lemma}
+      A map is a trivial fibration (resp. cofibration) iff it has the right (resp. left) lifting property with respect to cofibrations (resp. trivial fibrations).
+      
+      A map with cofibrant source is a fibration (resp. trivial cofibration) iff it has the right (resp. left) lifting property with respect to trivial cofibrations (resp. fibrations).
+\end{lemma}
+
+The existence result \cite[Theorem 2.1.19]{Hov99} immediately generalizes to the semi-model categorical context,
+as the (proof of the) small object argument \cite[Lemma 2.1.14]{Hov99} implies that
+if the domains of $J$ are small relative to $J$-ccd,
+then any map in $\mathcal D$ with cofibrant source may be factored into a map in $J$-ccd followed by a map in $J$-inj.
+\begin{theorem}
+      \label{SEMIMS_THM}
+      Suppose $\mathcal D$ is a category with all small limits and colimits.
+      Suppose $\mathcal W$ is a subcategory of $\mathcal D$, and $I$ and $J$ are sets of maps of $\mathcal D$.
+      Then there is a cofibrantly generated semi-model structure on $\mathcal D$ with
+      $I$ (resp. $J$) the set of generating (trivial) cofibrations, and weak equivalences $\mathcal W$ iff:
+      \begin{enumerate}[label = (\roman*)]
+      \item $\mathcal W$ is closed under two-out-of-three and retracts.
+      \item The domains of $I$ (resp. $J$) are small relative to $I$-cell (resp. $J$-ccd).
+      \item $J\text{-ccd} \subseteq \mathcal W \cap I\text{-cof}$.
+      \item $I$-inj $\subseteq$ $\mathcal W \cap J$-inj.
+      \item Either $\mathcal W \cap I\text{-cof} \subseteq J\textit{-cof}$ or $\mathcal W \cap J\text{-inj} \subseteq I\text{-inj}.$.
+      \end{enumerate}
+\end{theorem}
 
 
 
