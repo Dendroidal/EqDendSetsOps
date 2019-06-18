@@ -257,7 +257,7 @@ Here, homotopical essential surjectivity is defined on the underlying categories
             % --------------------
       \item \label{I_RP_LBL} is right proper
             \footnote{Needed for Lemma \ref{RIGHTPROPER_LEM} and Lemma \ref{2OUTOF3_PROP}.},
-      \item \label{I_GENSET_LBL} has a set $\mathbb{G}$ of generating $\V$-intervals
+      \item \label{I_GENSET_LBL} has a set $\mathscr{G}$ of generating $\V$-intervals
             \footnote{Needed so we have a \textit{set} of generating trivial cofibrations},
       \item satisfies the coherence axiom.
       \end{enumerate}
@@ -772,7 +772,7 @@ to emphasize the fact that the algebraic $f^{\**}$ functor lifts the underlying 
 On the other hand, the algebraic $\check{f}_!$ functor is not a lift of
 the underlying $f_!$.
 Rather, by the dual of Proposition \ref{FIBADJCAR PROP}
-one has that $T \colon \mathcal{T} \to \mathsf{Alg}_F^p(\mathcal{C})$ preserves cocartesian arrows so that the canonical map
+one has that $T \colon \mathcal{C} \to \mathsf{Alg}_F^p(\mathcal{C})$ preserves cocartesian arrows so that the canonical map
 $T_d \Rightarrow \check{f}_! T_d$
 is identified with the canonical map
 $T_d \Rightarrow T_{d'} f_!$.
@@ -2132,15 +2132,39 @@ the cofibrancy of the unit is necessary so that the initial operad $\mathbb F(\v
       For all $\mathfrak C$-signatures $\vect D \in G \ltimes \Sigma_{\mathfrak C}$, we let $\Sigma_{\mathfrak C}[-,\vect D]$ denote the composite
       \begin{equation}
             \label{FREESIGMA_EQ}
-            \Sigma_{\mathfrak C}[-, \vect D] \colon
+            \Sigma_{\mathfrak C}(-, \vect D)[-] \colon
             \V^{\Aut(\vect D)} \longto \prod_{\vect C \in G \ltimes \Sigma_{\mathfrak C}} \V^{\Aut(\vect C)} \longto \Sym^{G, \mathfrak C}(\V),
             \qquad
-            \Sigma_{\mathfrak C}[K, \vect D](-) = \Hom_{\Sigma_{\mathfrak C}}(-, \vect D) \cdot_{\Aut(\vect D)}K.
+            \Sigma_{\mathfrak C}(-, \vect D)[K] = \Hom_{\Sigma_{\mathfrak C}}(-, \vect D) \cdot_{\Aut(\vect D)}K.
       \end{equation}
-      Let $\mathbb F_{\vect D} = \mathbb F \circ \Sigma_{\mathfrak C}[-,\vect D]$ denote the composite of left adjoints.
+      Let $\mathbb F_{\vect D} = \mathbb F \circ \Sigma_{\mathfrak C}(-,\vect D)$ denote the composite of left adjoints.
 \end{notation}
 
+\begin{proposition}
+      \label{GCOF_SYMMS_PROP}
+      The generating (trivial) cofibrations of $\Sym^{G,\mathfrak C}(\V)$ are given by
+      $\Sigma_{\mathfrak C}(-, \vect D)[i]$
+      for $i$ a generating (trivial) cofibration in $\V^{\Aut(\vect D)}_{\F_{\vect D}}$.
+\end{proposition}
 
+More generally: (after Theorem \ref{FMODEL THM}):
+\begin{notation}
+      Given a groupoid $\mathcal G$ and an element $x \in \mathcal G$,
+      we let $\mathcal G(-,x)$ denote the composite
+      \[
+            \mathcal G(-,x) \colon \V^{\Aut(x)} \longto \prod_{y \in \mathcal G} \V^{\Aut(y)} \longto \V^{\mathcal G},
+            \qquad
+            \mathcal G(y,x)[K] = \Hom_{\mathcal G}(y,x) \cdot_{\Aut(x)} K.
+      \]
+\end{notation}
+
+\begin{proposition}
+      \label{GCOF_GPD_PROP}
+      For any groupoid $\mathcal G$ and family of subgroups $\F$ of $\mathcal G$,
+      the generating (trivial) cofibrations of $\V^{\mathcal G}_{\mathcal F}$ are given by
+      $\mathcal G[i,x]$
+      for $x \in \mathcal G$ and $i = \Aut(x)/H \cdot i'$ for $H \in \F_x$ and $i'$ a generating (trivial) cofibration in $\V$.
+\end{proposition}
 
 
 
@@ -4006,10 +4030,10 @@ We can now prove the main result of this subsection.
       It is easy to check that this gives a well-defined partition/equivalence relation.
       Let $R \subseteq \underline{n}_+$ denote the subset of minimal representatives in each class
       (so in particular $0 \in R$),
-      and $H_r \leq G$ the projection of $\Aut_r(C)$ onto $G$ for each $r \in R$.
+      and $H_r \leq H_0 \leq G$ the projection of $\Aut_r(C)$ onto $G$ for each $r \in R$.
       % Finally, fix choices of $k_{r,j}$ for all $r \in R$ and $j$ in the same class as $r$ (again with $k_{r,r} = 1$).
       
-      Now, by the completeness of $\F_1$ and the essential surjectivity of $F$,
+      Now, by the {\color{red} closure condition on} $\F_1$ and the essential surjectivity of $F$,
       for all $r \in R$ there exist $d_r \in \C(\O)^{H_r}$ such that
       $F(d_r)$ is (homotopy) $H_r$-equivalent to $d_r$.
       %
@@ -10119,7 +10143,7 @@ and the nerve of $\widehat \Omega_{\mathfrak C}^e$ is the union of the nerves of
 the desired filtration \eqref{FILT EQ} follows.
 
 
-Moreover, to prove Theorem \ref{THM1_C}, we will to
+Moreover, to prove Theorem \ref{THM1_C}, we will need to
 understand how each filtration stage is built from the previous one.
 To do so, we consider the following diagram, where the left square is a pushout at the level of nerves (cf. \cite[(5.65)]{BP_geo}),
 so that after taking $\mathsf{Lan}$
@@ -10964,7 +10988,35 @@ is encoded by the diagram
 
 
 
+\begin{example}
+      We elaborate on this construction for the particular case where
+\end{example}
 
+\begin{corollary}
+      For any $(G, \Sigma)$-family $\F$ and injective map of colors $f: \mathfrak C \to \mathfrak D$,
+      the map $f^{\**}: \Op^{\mathfrak D}_\F(\V) \to \Op^{\mathfrak C}_\F(\V)$ preserves (trivial) cofibrations.
+\end{corollary}
+\begin{proof}
+      We first show this for generating (trivial) cofibrations, as in Proposition \ref{GCOF_SYMMS_PROP}.
+      Let $X$ be a free symmetric sequence (cf. \eqref{FREESIGMA_EQ})
+      \[
+            X = \Sigma_{\mathfrak D}[K, \ksi] = \Hom_{\Sigma_{\mathfrak D}}(-,\ksi) \cdot_{\Aut(\ksi)} K
+      \]
+      on some $\mathfrak D$-signature $\ksi$ and $K \in \V^{\Aut(\ksi)}$.
+      From the definition of $\Omega^{0,\partial}_{\mathfrak C, \mathfrak D}$ and $\widehat{f^{\**}}(X)$ from \eqref{HATFSTDEF},
+      it is straightforward that the only case where $\widehat{f^{\**}}(X)$ is not the initial symmetric sequence (i.e. the constant to the initial object in $\V$)
+      is when $\ksi$ is in fact a $\mathfrak C$-signature, and then
+      \begin{equation}
+            \label{RFREE_EQ}
+            \widehat{f^{\**}}\left(\Sigma_{\mathfrak D}[K,\ksi]\right) = \Sigma_{\mathfrak D}[K,\ksi].
+      \end{equation}
+      The claim follows.
+
+      In the general case, we see that since $\otimes$ commutes with colimits in each variable, it commutes with filtered colimits, in particular transfinite compositions, by for example \cite[Lemma 2.3.3]{Rez96}.
+      
+\end{proof}
+
+come back!
 
 
 \section{Amalgamating monads (to be renamed and reskined)}
