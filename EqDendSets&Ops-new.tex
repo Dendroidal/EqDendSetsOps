@@ -13,6 +13,9 @@
   linktoc=page
 }
 
+
+
+
 \input{commands.tex}%
 
 
@@ -2181,8 +2184,19 @@ $\mathsf{Op}^G(\V)$ we will be interested in.
 We start with the ``local notions'', 
 i.e. those notions determined by the fixed color categories $\mathsf{Op}_{\mathfrak{C}}^G(\V)$.
 
+
 \begin{definition}
-Fix a $(G, \Sigma)$-family $\F$.
+Write $G \times \Sigma \xrightarrow{\pi} 
+G \simeq G \times \Sigma_1 \xrightarrow{\iota} G \times \Sigma$
+for the natural projection and inclusion.
+
+We say that a family $\F$ of subgroups of $G\times \Sigma$
+\emph{respects units} if $\F \subseteq \pi^{\**} \iota^{\**} \F$.
+\end{definition}
+
+
+\begin{definition}
+Let $\F$ be a $(G, \Sigma)$-family which respects units.
 
 We say a map $F: \O \to \P$ in $\mathsf{Op}^G(\V)$
 is a \emph{local $\F$-weak equivalence (resp. local $\F$-fibration, local $\F$-trivial fibration)}
@@ -2194,11 +2208,107 @@ is a $\F_{\mathfrak{C}_{\O}}$-weak equivalence (resp. $\F_{\mathfrak{C}_{\O}}$-f
 
 We next turn to the homotopical notions of essential surjectivity and isofibration, which concern equivalences between objects within some 
 $\O \in \mathsf{Op}^G(\V)$.
+We first recall some definitions from \cite{BM13}.
+As usual, we let $1_\V$ and $\emptyset$ denote, respectively, the unit object and initial object of $\V$.
 
+\begin{notation}
+We write $\mathbbm{1}$ (resp. $\mathbb{J}$)
+for the $\V$-category which represents arrows (resp. isomorphisms):
+it has two objects $0,1$
+and mapping objects
+$\mathbbm{1}(i,j)= 1_{\V}$
+if $i \leq j$
+and 
+$\mathbbm{1}(1,0)= \emptyset$
+(resp. $\mathbbm{1}(i,j)= 1_{\V}$ for all $i,j$)
+and composition defined by the natural isomorphisms.
+\end{notation}
  
 
+\begin{definition}
+	A {\em $\V$-interval} is a cofibrant object $\I$ in $\Cat_{\set{0,1}}(\V)$
+	which is equivalent to $\mathbb{J}.$
+\end{definition}
+
+
+
+\begin{remark}
+	We note that, since $\mathbb{J}$ is typically not fibrant,
+	an arbitrary interval $\mathbb{I}$
+	needs not admit a map to $\mathbb{J}$,
+	but only a map $\mathbb{I} \to \mathbb{J}_f$,
+	where $\mathbb{J}_f$ denotes some fixed chosen fibrant replacement.
+\end{remark}
+
+
+
+
+\begin{definition}\label{PL_ES_DEFN}
+We say a functor $F: \mathcal C \to \mathcal D$ in $\Cat(\V)$ is
+\begin{itemize}
+\item \textit{path-lifting}
+	if it has the right lifting property against all maps of the form
+	$\{0\} \to \I$, $\{1\} \to \I$
+	where $\I$ is a $\V$-interval; {\color{red} HERE}
+\item \textit{essentially surjective}
+	if for any object $d: \1 \to \mathcal D$,
+	there is an object $c: \1 \to \mathcal C$
+	and a map $\J \to \mathcal D$ out of a $\V$-interval fitting in to the commuting diagram below.
+            \begin{equation}
+                  \label{ESSURJ_EQ}
+                  \begin{tikzcd}
+                        \1 \arrow[rr, dashed, "c"] \arrow[dr, "i_0"]
+                        &&
+                        \mathcal C \arrow[dd, "F"]
+                        \\
+                        &
+                        \J \arrow[dr, dashed]
+                        \\
+                        \1 \arrow[ur, " i_1"] \arrow[rr,"d"]
+                        &&
+                        \mathcal D
+                  \end{tikzcd}
+            \end{equation}
+      \end{itemize}
+\end{definition}
 
 {\color{red} HERE}
+
+We now adapt the previous definition for $G$-operads.
+Recall that $j^{\**} \colon \mathsf{Op}^G(\V) \to \mathsf{Cat}^G(\V)$
+denotes the functor that forgets all non-unary operations and that, moreover, 
+$j^{\**}$ comutes with all fixed points $(-)^H$.
+
+
+\begin{definition}
+Let $\F$ be a $(G, \Sigma)$-family which respects units.
+
+We say a map $F: \O \to \P$ in $\mathsf{Op}^G(\V)$
+is $\F$-essentially surjective (resp. $\F$-path-lifting)
+if the maps
+$j^{\**}\O^H \to j^{\**} \P^H$
+in $\mathsf{Cat}(\V)$ are essentially surjective (path-lifting) for all $H \in \F_1$.
+\end{definition}
+
+
+
+We can finally define the classes of maps in the desired model structures in $\mathsf{Op}^G(\V)$.
+
+
+
+\begin{definition}\label{MODEL_DEFN}
+Fix a $(G, \Sigma)$-family $\F$ which respects units.
+
+We say a map $F: \O \to \P$ in $\mathsf{Op}^G(\V)$ is:
+\begin{itemize}
+	\item a {\em $\F$-fibration} if it is both a local $\F$-fibration and $\F$-path lifting;
+	\item a {\em $\F$-weak equivalence} if it is both a local $\F$-weak equivalence and $\F$-essentially surjective;
+	\item a \textit{$\F$-cofibration} if it has the left lifting property against all trivial $\F$-fibrations (i.e. $\F$-fibrations which are also $\F$-weak equivalences).
+\end{itemize}
+\end{definition}
+
+
+
 
 
 
@@ -2242,30 +2352,21 @@ so that case (f) is the true novelty of our work in this section.
 
 
 
+
+
+
+
 \newpage
 
 \subsection{Untitled subsection}
 
-In the previous section, we built model structures on each category operads with a single fixed color $G$-set $\mathfrak C$,
-i.e. on each fiber of $\Op^G(\V) \to \Fin^G$. 
-We will now generalize and synthesize \cite{BM13}, \cite{Cav}, and \cite{CM13b} to assemble these
-into a single model structure on the full category of $G$-operads $\Op^G(\V)$ with varying colors.
 
 Our main examples of interest will be $(\V, \otimes) = (\sSet, \times)$ or $(\sSet_{\**}, \wedge)$.
 We specify to these cases in Section \ref{SSETMS_SEC}.
 
 
-% \begin{definition}
-%       We say $\V$ \textit{admits (semi)-transfer for categories/operads} if for any set $\mathfrak C$,
-%       the categories $\Cat^{\mathfrak C}(\V)$, $\Op^{\mathfrak C}(\V)$
-%       may be equipped with the canonical (semi)-model structure.
-% \end{definition}
 
-% \begin{remark}
-%       If $\V$ satisfies the \textit{monoid axiom} of \cite{SS00}
-%       or has a monoidal fibrant replacement functor and a comonoidal Hopf interval object \cite{BM03},
-%       then $\V$ admits transfers for categories and operads by \cite{Mur11,Mur14} and \cite{BM03}, respectively.
-% \end{remark}
+
 
 \begin{remark}
       We could have instead chosen to follow \cite{Mur15}, and in fact
@@ -2283,48 +2384,24 @@ We specify to these cases in Section \ref{SSETMS_SEC}.
 \end{convention}
 
 
-% \begin{definition}
-%       Given $\V$ with cellular fixed points, we say
-%       $\V$ \textit{admits (semi)-transfers for $G$-categories/operads} if
-%       for any $G$-set $\mathfrak C$ and indexing collection $\F$,
-%       the categories $\Cat^{G, \mathfrak C}(\V)$, $\Op^{G, \mathfrak C}(\V)$
-%       may be equipped with the canonical $\F$-(semi)-model structure.
-% \end{definition}
 
-% \begin{example}
-%       By Theorem \ref{THM1_C}, $(\sSet, \times)$ and $(\sSet_{\**}, \wedge)$ admit transfers for $G$-operads,
-%       and any $(\V, \otimes)$ satisfying the hypotheses of said theorem admits semi-transfers for $G$-operads.
-% \end{example}
-
-% \begin{example}
-%       \cite[Theorem 3.1]{GW18} shows that $(\Top, \times)$ admits transfers for $G$-operads when $\mathfrak C = \set{*}$.
-% \end{example}
-
-% \textbf{\color{OliveGreen} In this section, further assume that $\V$
-%   has cellular fixed points and admits (semi)-transfer for $G$-categories and $G$-operads}.
 
 The model structure on $\Op^G(\V)$ is characterized by the fibrations and weak equivalences:
 weak equivalences will be level equivalences with some homotopical notion of essential surjectivity,
 while fibrations will be level fibrations with a homotopical isofibration property.
 
-We begin by formalizing these notions, starting with some mild enriched category theory.
+
 We highlight three particular $\V$-categories.
-As usual, we let $1_\V$ and $\varnothing$ denote the unit object and initial object of $\V$, respectively.
-\begin{itemize} %{enumerate}[label = (\roman*)]
-\item Let $\I$ be the $\V$-category that detects isomorphisms: it has objects $\set{0,1}$,
-      with $\I(0,0) = \I(0,1) = \I(1,0) = \I(1,1) = 1_\V$.
-\item Let $\mathbb A$ be the $\V$-category that detects arrows: it has objects $\set{0,1}$,
-      with $\mathbb A(0,0) = \mathbb A(0,1) = \mathbb A(1,1) = 1_\V$, and $\mathbb A(1,0) = \varnothing$.
+
+\begin{itemize} 
 \item Let $\1 = \Omega(\eta)$ be the $\V$-category that detects objects: it has a single object $\set{\**}$, with $\1(\**, \**) = 1_\V$.
-      % \footnote{This notation matches the fact that this category is equal to the image of the ``stick'' tree $\eta \in \Omega$.}.
 \end{itemize}
-%\end{definition}
+
+
 
 We recall and extend the following definitions from \cite{BM13}. 
 
 \begin{definition}
-      A {\em $\V$-interval} is a cofibrant object $\J$ in $\Cat^{\set{0,1}}(\V)$ (with the transfered model structure)
-      for which there exists a weak equivalence $\J \to \I_f$.
       A set $\mathscr{G}$ of $\V$-intervals is \textit{generating} if all $\V$-intervals $\J$ can be obtained
       as a retract of a trivial extension of an element in $\mathscr{G}$ in $\Cat^{\set{0,1}}(\V)$:
       \begin{equation}
@@ -2338,15 +2415,7 @@ We recall and extend the following definitions from \cite{BM13}.
       \end{equation}
 \end{definition}
 
-\begin{remark}
-      In \cite{BM13}, $\J$ just needs to be weakly equivalent to $\I$.
-      However, any zig-zag of weak-equivalences between any $A$ and $X$ with $A$ cofibrant
-      can be lifted to a single map $A \to X_f$.
-      % We illustrate with a single example:
-      % given $A \to Y \leftarrow X$, $A$ maps to $Y_c$, and then using the functoriality of $(-)_c$ on $Y \leftarrow X$, we get
-      % $Y_c \twoheadleftarrow X_c' \leftarrowtail X_c$.
-      % But then we have a lift $Y_c \to X_c'$, and a lift $X_c' \to X_f$, yielding our weak equivalence $A \to X_f$.      
-\end{remark}
+
 
 % \begin{remark}
 %       The prototypical example of a $\V$-interval is $W_!J$ where $J = N(0 \leftrightarrows 1) = N \I \in \sSet$ is the nerve of the walking isomorphism.
@@ -2360,74 +2429,12 @@ We recall and extend the following definitions from \cite{BM13}.
 Morally, $\V$-intervals detect ``homotopical isomorphisms'' in any $\V$-cat $\mathcal C$; cf. Definition \ref{EQUIV_DEF} below.
 Additionally, we use these $\V$-intervals to define homotopical analogues of isofibrations and surjective maps of $\V$-categories.
 
-\begin{definition}
-      \label{PL_ES_DEFN}
-      We say a functor $F: \mathcal C \to \mathcal D$ in $\Cat(\V)$ is
-      \begin{itemize} %{enumerate}[label = (\roman*)]
-      \item \textit{path-lifting}
-            if it has the right lifting property against all maps of the form
-            $\1 \to \J$
-            where $\J$ is a $\V$-interval.
-      \item \textit{essentially surjective}
-            if for any object $d: \1 \to \mathcal D$,
-            there is an object $c: \1 \to \mathcal C$
-            and a map $\J \to \mathcal D$ out of a $\V$-interval fitting in to the commuting diagram below.
-            \begin{equation}
-                  \label{ESSURJ_EQ}
-                  \begin{tikzcd}
-                        \1 \arrow[rr, dashed, "c"] \arrow[dr, "i_0"]
-                        &&
-                        \mathcal C \arrow[dd, "F"]
-                        \\
-                        &
-                        \J \arrow[dr, dashed]
-                        \\
-                        \1 \arrow[ur, " i_1"] \arrow[rr,"d"]
-                        &&
-                        \mathcal D
-                  \end{tikzcd}
-            \end{equation}
-      \end{itemize}
-\end{definition}
 
 
-We may now extend the model category notions to the equivariant context.
-First, extending \eqref{JSTAR_CAT_EQ}, we have another inclusion-forgetful adjunction,
-\begin{equation}
-      \label{JSTAR_EQ}
-      \begin{tikzcd}
-            \mathsf{Op}^G(\V) \arrow[d, "(-)^H"']
-            \arrow[r, shift right, "j^*"']
-            &
-            \mathsf{Cat}^G(\V) \arrow[l, shift right, swap, "j_!"] \arrow[d, "(-)^H"]
-            \\
-            \Op(\V) \arrow[r, shift right, "j^*"']
-            &
-            \Cat(\V) \arrow[l, shift right, swap, "j_!"]
-      \end{tikzcd}
-\end{equation}
-where again $j^{\**}$ commutes with $H$-fixed points and fibrant replacement.
 
 Now, recall the notion of a $(G, \Sigma)$-family (with units) from Definition \ref{GSFAM_DEF}
 and the extension to the groupoid $G \ltimes \Sigma_{\mathfrak C}^{op}$ in \eqref{FAMC_DEF_EQ}.
 
-
-\begin{definition}\label{MODEL_DEFN}
-Fix a $(G, \Sigma)$-family $\F$.
-We call a map $F: \O \to \P$ in $\mathsf{Op}^G(\V)$
-\begin{itemize}
-	\item a {\em local $\F$-fibration} (resp. {\em local weak $\F$-equivalence}) if
-	$F(C): \O(C)\to \P(F(C))$
-	is a fibration (resp. weak equivalence) in $\V^{\Aut(C)}_{\F_C}$ for all $C \in G \ltimes \Sigma_{\mathfrak C_\O}$
-	\item a {\em local trivial $\F$-fibration} if it is both a local $\F$-fibration and a local $\F$-weak equivalence.
-	\item {\em $\F$-essentially surjective} (resp. {\em $\F$-path lifting}) if $j^*F^H$ is essentially surjective (resp. path lifting) in $\Cat(\V)$ for all $H = H \times \set{e} \in \F_1$.
-	\item a {\em $\F$-fibration} if both $\F$-path lifting and a local $\F$-fibration.
-	\item a {\em $\F$-weak equivalence} if both $\F$-essentially surjective and a local weak $\F$-equivalence.
-      % \item a \textit{DK-$\F$-equivalence} if a local weak $\F$-equivalence such that
-      %       $\pi_0 j^{\**}F^H$ (cf. Definition \ref{HTPY_DEFN}) is essentially surjective.
-      \item a \textit{(trivial) $\F$-cofibration} if it has the left lifting property against all trivial $\F$-fibrations (resp. $\F$-fibrations).
-      \end{itemize}
-\end{definition}
 
 
 \begin{remark}
@@ -2814,14 +2821,9 @@ The first of these two results, Proposition \ref{J-CELL_PROP}, uses the followin
       Thus, if $x \in \C_{\P}^K$ is in $\C_{\O'}$ for some $K \leq G$, we have essential surjectivity trivially,
       as shown on the left below in \eqref{J-CELL_EQ},
       where $\I_c \to \I$ is a cofibrant replacement in $\Op^{\set{0,1}}(\V)$.
-      %
       \begin{equation}
             \label{J-CELL_EQ}
             \begin{tikzcd}
-                  \1 \arrow[rrr, "x"] \arrow[dr, " i_0"]
-                  &&&
-                  (\O')^K \arrow[dd, "\psi'"]
-                  &[15pt] % ----------
                   \1 \arrow[r, "0"] \arrow[dr, "i_0"']
                   &
                   \J_{\set{0}} \arrow[d] \arrow[r, "g"]
@@ -2829,26 +2831,15 @@ The first of these two results, Proposition \ref{J-CELL_PROP}, uses the followin
                   (\O')^K \arrow[d, "{\psi'}"]
                   \\
                   &
-                  \I_c \arrow[r]
-                  &
-                  \I \arrow[dr, "x"]
-                  &
-                  & % ----------
-                  &
                   \J \arrow[r, "g"]
                   &
                   \P^K \arrow[d, equal]
                   \\
-                  \1 \arrow[ur, " i_1"] \arrow[rrr,"x"]
-                  &&&
-                  (\P)^K
-                  & % ----------
                   \1 \arrow[rr, "g \cdot 1"] \arrow[ur, "i_1"]
                   &&
                   \P^K
             \end{tikzcd}
       \end{equation}
-      %
       If instead $x  = g \cdot 1 \in (G/H \cdot 1)^K \subseteq \mathfrak C_\P^K$,
       the pushout square yields the diagram on the right above in \eqref{J-CELL_EQ},
       where the maps $\J_{\set{0}} \xrightarrow{g} (\O')^K$, $\J \xrightarrow{g} \P^K$ are adjoint to the composites
@@ -4866,10 +4857,6 @@ All together, we conclude the following (cf. \cite[Remark 6.7]{Per18}, \cite[dis
 \end{definition}
 
 \todo[inline]{move $W(T)$ discussion here!}
-
-
-
-
 
 
 
@@ -7655,9 +7642,6 @@ For COMUOTOHOM PROP: replace all instances of $\Omega_G$ with $\Omega_{\mathcal 
 
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% -------------------- UP: PETER, DOWN: LUIS  --------------------
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newpage
 
@@ -10328,7 +10312,7 @@ and each coproduct summand in \eqref{FILTPUSHG EQ} is then the coproduct of a $G
 %
 %
 %The connection between the two formulas is given by Lemma \ref{REDUCELAN LEM},
-though some care is needed.
+%though some care is needed.
 %Namely, \eqref{PUSHOPPRG EQ} generally features fewer coproduct summands but this is compensated by the inductions
 %$(-) \cdot_{\mathsf{Aut}_{G \ltimes \Omega^a_{\mathfrak{C}}}(T)} \mathsf{Aut}_{G \ltimes \Sigma_{\mathfrak{C}}}(C)$,
 %which produce more terms than the 
@@ -10604,98 +10588,7 @@ This follows by adding to both $A$ and $\mathcal{O}$ a disjoint trivial operad w
 \end{proof}
 
 
-% {\color{OliveGreen} % ---------------------------------------- OLIVE GREEN ----------------------------------------
-%   We end by proving a technical step in the above proof, of greater specificity than Corollary \ref{LOCALISO_COR}.
-%   \begin{lemma}
-%         \label{LOCALISO_LEM}
-%         Suppose that we have a pushout in $\Op(\V)$ such that $f,g$ are both injective on colors.
-%         \[
-%               \begin{tikzcd}
-%                     A \arrow[d, "g"'] \arrow[r, "f"]
-%                     &
-%                     \O \arrow[d]
-%                     \\
-%                     B \arrow[r]
-%                     &
-%                     \P
-%               \end{tikzcd}
-%         \]
-%         If $A \to B$ is a local isomorphism, then so is $\O \to \P$.
-%   \end{lemma}
-%   \begin{proof}
-%         We denote the sets of colors by
-%         \[
-%               \mathfrak C = \mathfrak C(A),
-%               \qquad
-%               \mathfrak C' = \mathfrak C(B),
-%               \qquad
-%               \mathfrak D = \mathfrak C(\O),
-%               \qquad
-%               \mathfrak D' = \mathfrak C(\P),
-%         \]
-%         and fix a $\mathfrak D$-signature $C$ for the duration of the proof.
-%         We will show that $\O(C) \to \P(C)$ is an isomorphism
-%         by following the string of natural isomorphisms below:
-%         \begin{equation}
-%               \label{LOCALISO_EQ}
-%               \P(C) =
-%               \lim_{\Omega_{\mathfrak D'}^p \downarrow C} N =
-%               \lim_{\hat\Omega_{\mathfrak D'}^p \downarrow C} N =
-%               \lim_{\hat \Omega_{\mathfrak D}^p \downarrow C} N =
-%               \lim_{\hat\Omega_{\mathfrak D}^{B, \O} \downarrow C} N = 
-%               \lim_{\hat\Omega_{\mathfrak D}^{A,\O} \downarrow C} N =
-%               \lim_{\Omega_{\mathfrak D} \downarrow C} N =
-%               \O(C),
-%         \end{equation}
-%         where $N = N^{(B,A,\O)}$ and it's restrictions.
-        
-%         Let us define the sequence of full subcategories of $\Omega_{\mathfrak D}^p$, following Lemma \ref{BASICPUSH LEMMA}, written in \eqref{LOCALISO_EQ}.
-%         \begin{itemize}
-%         \item Let $\hat \Omega_{\mathfrak D'}^p$
-%               be spanned by those trees $\set{B,A,\O}$-labeled trees $T$ in $\Omega_{\mathfrak D'}$ such that
-%               if $v \in V(T)$ is $A$-labeled (resp. $B$-labeled, $\O$-labeled), then
-%               $T_v \in \Sigma_{\mathfrak C}$ (resp. $\Sigma_{\mathfrak C'}$, $\Sigma_{\mathfrak D}$).
-%         \item Let $\hat \Omega_{\mathfrak D}^p \subseteq \hat \Omega_{\mathfrak D'}^p$ be spanned by those objects whose udnerlying colored tree lives in $\Omega_{\mathfrak D} \subseteq \Omega_{\mathfrak D'}$.
-%         \item Let $\hat \Omega_{\mathfrak D}^{B,\O} \subseteq \hat \Omega_{\mathfrak D}^p$ be spanned by those objects with no $A$-labeled vertices.
-%         \item Let $\hat \Omega_{\mathfrak D}^{A,\O} \subseteq \hat \Omega_{\mathfrak D}^p$ be spanned by those objects with no $B$-labeled vertices.
-%         \end{itemize}
 
-%         The first two isomorphisms follow by \eqref{NBAO EQ} and the associated discussion in the proof of Lemma \ref{BASICPUSH LEMMA}.
-        
-%         Next, given $(T \to C) \in \Omega_{\mathfrak D'}^p \downarrow C$, we note that the roots and leaves of $T$ must in fact be $\mathfrak D$-colored,
-%         and thus for all maximal outer faces $U \subseteq T$ whose vertices are all $B$-labeled,
-%         the roots and leaves of $U$ must be $\mathfrak C$-colored.
-%         Thus if we ``collapse'' all of these subtrees, the resulting tree will not have any colors in $\mathfrak C'$.
-%         That is, following a variation on the arguments from \cite[Prop. 5.48, Cor. 5.52]{BP_geo},
-%         there exist right retractions
-%         \[
-%               \hat \Omega_{\mathfrak D'}^{p} \downarrow C \xrightarrow{\mathsf{lr}_B}
-%               \hat \Omega_{\mathfrak D'}^{p,a} \downarrow C 
-%               =
-%               \hat \Omega_{\mathfrak D}^{p,a} \downarrow C \xleftarrow{\mathsf{lr}_B}
-%               \hat \Omega_{\mathfrak D}^{p} \downarrow C 
-%         \]
-%         where $\hat \Omega_{\mathfrak D'}^{p,a} \subseteq \hat \Omega_{\mathfrak D'}^{p}$
-%         and $\hat \Omega_{\mathfrak D}^{p,a} \subseteq \hat \Omega_{\mathfrak D}^{p}$
-%         are full subcategories spanned by those objects whose underlying tree is alternating with active nodes labeled by $B$ \footnote{
-%           More information on this terminology can be found in \cite{BP_geo} near
-%           Definitions 5.43, 5.47 and the cited results.}.
-%         This gives the third isomorphism in \eqref{LOCALISO_EQ}.
-
-%         Now, consider the construction $(-)_{A \mapsto B}$ which takes a tree $T \in \hat\Omega_{\mathfrak D}^{p}$
-%         and changes all $A$-labels to $B$-labels, so $(T)_{A \mapsto B} \in \hat\Omega_{\mathfrak D}^{B,\O}$.
-%         This is functorial on maps which preserve $\O$-labels,
-%         those maps $T \to S$ such that if $v \in V(T)$ is $\O$-labeled, then so is every vertex in $S_v$.
-%         Moreover, there is a map $(T)_{A \mapsto B} \to T$ for all $T$, natural in such maps.
-
-%         We note that any map $T \to S$ with $S \in \hat \Omega_{\mathfrak D}^{B,\O}$ and $T \in \hat\Omega_{\mathfrak D}^p$ factors $T \to T' \to S$ where $T' \to S$ preserves $\O$-labels.
-%         Thus, we may follow the proof of \cite[Lemma 5.57]{BP_geo} to show that
-%         $\hat\Omega_{\mathfrak D}^{B,\O} \downarrow C$ is initial in $\hat\Omega_{\mathfrak D}^p \downarrow C$, given the fourth isomorphism.
-        
-%         Finally, the fifth isomorphism follows as $A \to B$ is a local isomorphism,
-%         and the last follows from applying \cite[Prop 5.37]{BP_geo} to the free resolution of $\O$.      
-%   \end{proof}
-% } % ---------------------------------------- OLIVE GREEN ----------------------------------------
 
 
 
