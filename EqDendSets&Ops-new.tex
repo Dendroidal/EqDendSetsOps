@@ -42,7 +42,7 @@ cd,patterns,calc}
 \usepackage{ifdraft}
 \ifdraft{
   \color[RGB]{63,63,63}
-%  \pagecolor[RGB]{220,220,204}
+  \pagecolor[RGB]{220,220,204}
   \usepackage{showkeys}
   \usepackage{geometry}
   \usepackage{todonotes}
@@ -258,7 +258,7 @@ Here, homotopical essential surjectivity is defined on the underlying categories
             % --------------------
       \item \label{I_RP_LBL} is right proper
             \footnote{Needed for Lemma \ref{RIGHTPROPER_LEM} and Lemma \ref{2OUTOF3_PROP}.},
-      \item \label{I_GENSET_LBL} has a set $\mathbb{G}$ of generating $\V$-intervals
+      \item \label{I_GENSET_LBL} has a set $\mathscr{G}$ of generating $\V$-intervals
             \footnote{Needed so we have a \textit{set} of generating trivial cofibrations},
       \item satisfies the coherence axiom.
       \end{enumerate}
@@ -738,21 +738,23 @@ the induced diagrams below commute
 
 
 \begin{remark}\label{ABSPUSH REM}
-If $p\colon \mathcal{C} \to \mathcal{D}$
-is a Grothendieck fibration then the dual map
-$p^{op}\colon \mathcal{C}^{op} \to \mathcal{D}^{op}$
-will also be a Grothendieck fibration iff
-all the cleavages $f^{\**}$ fit into adjunctions
-$f_! \colon \mathcal{C}_d \rightleftarrows \mathcal{C}_{d'}\colon f^{\**}$.
-\end{remark}
-
-
-\begin{remark}
-Should the pullback functors $f^{\**}$ in the previous remark admit left adjoints $f_{!}$,
-the commutativity of the diagrams in $\eqref{GROTHCART EQ}$
-is equivalent to the claim that the induced natural transformations
-$T_{d} \Rightarrow f^{\**}T_{d'}f_{!}$
-are maps of monads.
+      If $p\colon \mathcal{C} \to \mathcal{D}$
+      is a Grothendieck fibration then the dual map
+      $p^{op}\colon \mathcal{C}^{op} \to \mathcal{D}^{op}$
+      will also be a Grothendieck fibration iff
+      all the cleavages $f^{\**}$ fit into adjunctions
+      $f_! \colon \mathcal{C}_d \rightleftarrows \mathcal{C}_{d'}\colon f^{\**}$,
+      in which case we a natural transformation $id_{\mathcal C_d} \Rightarrow f_!$ consisting of cocartesian arrows.
+      \todo[inline]{reference?}
+      % \end{remark}
+      
+      % \begin{remark}
+      % Should the pullback functors $f^{\**}$ in the previous remark admit left adjoints $f_{!}$,
+      In this case,
+      the commutativity of the diagrams in $\eqref{GROTHCART EQ}$
+      is equivalent to the claim that the induced natural transformations
+      $T_{d} \Rightarrow f^{\**}T_{d'}f_{!}$
+      are maps of monads.
 \end{remark}
 
 
@@ -773,9 +775,10 @@ to emphasize the fact that the algebraic $f^{\**}$ functor lifts the underlying 
 On the other hand, the algebraic $\check{f}_!$ functor is not a lift of
 the underlying $f_!$.
 Rather, by the dual of Proposition \ref{FIBADJCAR PROP}
-one has that $T \colon \mathcal{T} \to \mathsf{Alg}_F^p(\mathcal{C})$ preserves cocartesian arrows so that the canonical map
+one has that $T \colon \mathcal{C} \to \mathsf{Alg}_F^p(\mathcal{C})$ preserves cocartesian arrows,
+so that the canonical map of cocartesian arrows
 $T_d \Rightarrow \check{f}_! T_d$
-is identified with the canonical map
+is identified with the canonical map of the image under $T$ of cocartesian arrows
 $T_d \Rightarrow T_{d'} f_!$.
 Thus since any 
 $c \in \mathsf{Alg}_{T_d}(\mathcal{C}_d)$
@@ -783,7 +786,12 @@ is given by a coequalizer of free algebras
 $c \simeq coeq(T_dT_d c \rightrightarrows T_d c)$,
 so that one has the formula
 $\check{f}_! c \simeq 
-coeq(T_{d'}f_!T_d c \rightrightarrows T_{d'}f_! c)$.
+coeq(T_{d'}f_!T_d c \rightrightarrows T_{d'}f_! c)$,
+{\color{OliveGreen} with the interesting arrow given intrinsically by the composite
+  \[
+        T_{d'} f_! T_d \Rightarrow T_{d'} f_! f^{\**} T_{d'} f_! \Rightarrow T_{d'} T_{d'} f_! \Rightarrow T_{d'} f_!.
+  \]
+}
 \end{remark}
 
 
@@ -793,6 +801,7 @@ coeq(T_{d'}f_!T_d c \rightrightarrows T_{d'}f_! c)$.
 
 
 \begin{proposition}
+      \label{DIAGRAMFM_PROP}
 Let $I$ be a fixed diagram category, and $T$ a fibered monad with respect to a Grothendieck fibration with respect to
 $p\colon \mathcal{C} \to \mathcal{D}$. Then:
 \begin{itemize}
@@ -857,7 +866,7 @@ $\mathsf{Sym}(\mathcal{V})$ which is suitably fibered over $\mathsf{F}$
 and such that the category of ``fibered algebras'' is 
 $\mathsf{Op}(\mathcal{V})$.
 
-With this set-up, it is then entirely formal to show that 
+With this set-up, it is then entirely formal using Proposition \ref{DIAGRAMFM_PROP} to show that 
 $\mathsf{Op}^G(\mathcal{V}) \to \mathsf{F}^G$
 and
 $\mathsf{Sym}^G(\mathcal{V}) \to \mathsf{F}^G$
@@ -1013,7 +1022,8 @@ the left Kan extension
 \end{tikzcd}
 \end{equation}
 
-\todo[inline]{add citations/comments that the proofs from \cite{BP_geo} easily generalize to this context}
+A complete discussion and rigorous definition this monad can be found in Appendex \ref{MONAD_APDX},
+culmintating in Definition \ref{COLORMON DEF}.
 
 Our next goal is to provide a convenient explicit description of the fibers of $\mathsf{Sym}(\mathcal{V})^G \to \mathsf{F}^G$
 for each $\mathfrak{C} \in \mathsf{F}^G$
@@ -1164,7 +1174,8 @@ Moreover, the two $f^{\**}$ functors fit into a pair if adjunctions
 \end{tikzcd}
 \end{equation}
 where, just as in Remark \ref{ALGPUSHLL REM}, we highlight that
-the right adjoints are compatible with the forgetful functors, but the left adjoints are not.
+the right adjoints are compatible with the forgetful functors, but the left adjoints are not;
+see Appendix \S \ref{FREEOPCOL_SEC}
 \end{remark}
 
 
@@ -2101,7 +2112,7 @@ where a map is a weak equivalence/fibration iff the underlying map in
 $\mathsf{Sym}^G_{\mathfrak{C}}$ is.
 
 The key to proving this result will be given by suitable filtrations of free operad extensions in $\mathsf{Op}_{\mathfrak{C}}^G(\V)$
-which are built in Appendix \ref{MONAD_APDX}, most notably Proposition \ref{FILTPUSHG PROP}.
+which are built in Appendix \ref{MONAD_APDX} \S \ref{PUSHOUT_SEC}, most notably Proposition \ref{FILTPUSHG PROP}.
 The following lemma summarizes the result we will need.
 We write
 $\mathsf{lr}_k \colon G^{op} \ltimes \Omega^a_{\mathfrak{C}}[k] 
@@ -2417,15 +2428,39 @@ the cofibrancy of the unit is necessary so that the initial operad $\mathbb F(\v
       For all $\mathfrak C$-signatures $\vect D \in G \ltimes \Sigma_{\mathfrak C}$, we let $\Sigma_{\mathfrak C}[-,\vect D]$ denote the composite
       \begin{equation}
             \label{FREESIGMA_EQ}
-            \Sigma_{\mathfrak C}[-, \vect D] \colon
+            \Sigma_{\mathfrak C}(-, \vect D)[-] \colon
             \V^{\Aut(\vect D)} \longto \prod_{\vect C \in G \ltimes \Sigma_{\mathfrak C}} \V^{\Aut(\vect C)} \longto \Sym^{G, \mathfrak C}(\V),
             \qquad
-            \Sigma_{\mathfrak C}[K, \vect D](-) = \Hom_{\Sigma_{\mathfrak C}}(-, \vect D) \cdot_{\Aut(\vect D)}K.
+            \Sigma_{\mathfrak C}(-, \vect D)[K] = \Hom_{\Sigma_{\mathfrak C}}(-, \vect D) \cdot_{\Aut(\vect D)}K.
       \end{equation}
-      Let $\mathbb F_{\vect D} = \mathbb F \circ \Sigma_{\mathfrak C}[-,\vect D]$ denote the composite of left adjoints.
+      Let $\mathbb F_{\vect D} = \mathbb F \circ \Sigma_{\mathfrak C}(-,\vect D)$ denote the composite of left adjoints.
 \end{notation}
 
+\begin{proposition}
+      \label{GCOF_SYMMS_PROP}
+      The generating (trivial) cofibrations of $\Sym^{G,\mathfrak C}(\V)$ are given by
+      $\Sigma_{\mathfrak C}(-, \vect D)[i]$
+      for $i$ a generating (trivial) cofibration in $\V^{\Aut(\vect D)}_{\F_{\vect D}}$.
+\end{proposition}
 
+More generally: (after Theorem \ref{FMODEL THM}):
+\begin{notation}
+      Given a groupoid $\mathcal G$ and an element $x \in \mathcal G$,
+      we let $\mathcal G(-,x)$ denote the composite
+      \[
+            \mathcal G(-,x) \colon \V^{\Aut(x)} \longto \prod_{y \in \mathcal G} \V^{\Aut(y)} \longto \V^{\mathcal G},
+            \qquad
+            \mathcal G(y,x)[K] = \Hom_{\mathcal G}(y,x) \cdot_{\Aut(x)} K.
+      \]
+\end{notation}
+
+\begin{proposition}
+      \label{GCOF_GPD_PROP}
+      For any groupoid $\mathcal G$ and family of subgroups $\F$ of $\mathcal G$,
+      the generating (trivial) cofibrations of $\V^{\mathcal G}_{\mathcal F}$ are given by
+      $\mathcal G[i,x]$
+      for $x \in \mathcal G$ and $i = \Aut(x)/H \cdot i'$ for $H \in \F_x$ and $i'$ a generating (trivial) cofibration in $\V$.
+\end{proposition}
 
 
 
@@ -4356,10 +4391,10 @@ We can now prove the main result of this subsection.
       It is easy to check that this gives a well-defined partition/equivalence relation.
       Let $R \subseteq \underline{n}_+$ denote the subset of minimal representatives in each class
       (so in particular $0 \in R$),
-      and $H_r \leq G$ the projection of $\Aut_r(C)$ onto $G$ for each $r \in R$.
+      and $H_r \leq H_0 \leq G$ the projection of $\Aut_r(C)$ onto $G$ for each $r \in R$.
       % Finally, fix choices of $k_{r,j}$ for all $r \in R$ and $j$ in the same class as $r$ (again with $k_{r,r} = 1$).
       
-      Now, by the completeness of $\F_1$ and the essential surjectivity of $F$,
+      Now, by the {\color{red} closure condition on} $\F_1$ and the essential surjectivity of $F$,
       for all $r \in R$ there exist $d_r \in \C(\O)^{H_r}$ such that
       $F(d_r)$ is (homotopy) $H_r$-equivalent to $d_r$.
       %
@@ -4760,7 +4795,7 @@ We have similarly nice results for $V = \Top$.
 
 
 
-\iffalse%
+
 
 
 
@@ -8360,7 +8395,8 @@ such that $\mathfrak{c}_T = \mathfrak{c}_{T'} f$.
 
 A map in $\Omega_{\mathfrak{C}}$ is the called \textit{planar/tall} if the underlying map of trees is.
 
-The category $\Omega_{\mathfrak{C}}^n$ of \textit{planar strings} has as objects strings $T_0 \to T_1 \to \cdots \to T_n$ of maps that are planar and tall, and as arrows a tuple of compatible isomorphisms.
+The category $\Omega_{\mathfrak{C}}^n$ of \textit{planar tall strings} has as objects strings $T_0 \to T_1 \to \cdots \to T_n$ of maps that are planar and tall, and as arrows a tuple of compatible isomorphisms.
+As we will not work with strings which are not planar and tall, in practice we will drop these adjectives.
 \end{definition}
 
 
@@ -10267,10 +10303,10 @@ and define $N_{n,l}^{(\O,X,Y)}$ to be the opposite of the composite
       \Sigma^{\wr n} \wr \V^{op} \xrightarrow{\otimes}
       \V^{op}.
 \]
-Corollary \ref{LABIDEN_COR} implies that
-$N \left(N^{\circ n} \iota \O \amalg_{\mathsf{F}} \iota X^{\amalg_{\mathsf{F}} 2l +1}\amalg_{\mathsf{F}} \iota Y \right)$
+The upshot of \S \ref{LCS_SEC}, in particular Corollary \ref{LABIDEN_COR}, is that
+$\mbox{$N \left(N^{\circ n} \iota \O \amalg_{\mathsf{F}} \iota X^{\amalg_{\mathsf{F}} 2l +1}\amalg_{\mathsf{F}} \iota Y \right)$}$
 is the span
-$\Sigma_{\mathfrak C}^{op} \xleftarrow{\mathsf{lr}} (\Omega_{\mathfrak C}^{n,0,\lambda_l})^{op} \xrightarrow{N_{n,l}^{(\O,X,Y)}} \V$,
+$\mbox{$\Sigma_{\mathfrak C}^{op} \xleftarrow{\mathsf{lr}} (\Omega_{\mathfrak C}^{n,0,\lambda_l})^{op} \xrightarrow{N_{n,l}^{(\O,X,Y)}} \V$}$,
 and hence following \eqref{OU EQ1} we conclude that
 \begin{equation}\label{1STRED EQ}
 \O[u] \simeq
@@ -10462,7 +10498,7 @@ and the nerve of $\widehat \Omega_{\mathfrak C}^e$ is the union of the nerves of
 the desired filtration \eqref{FILT EQ} follows.
 
 
-Moreover, to prove Theorem \ref{THM1_C}, we will to
+Moreover, to prove Theorem \ref{THM1_C}, we will need to
 understand how each filtration stage is built from the previous one.
 To do so, we consider the following diagram, where the left square is a pushout at the level of nerves (cf. \cite[(5.65)]{BP_geo}),
 so that after taking $\mathsf{Lan}$
@@ -10546,25 +10582,43 @@ the leftmost map in \eqref{FILTLAN EQ} as
 
 \subsubsection{Filtration of free extensions in the equivariant case}
 
-\todo[inline]{equivariant monad? explicitly?}
-
-When \eqref{OU EQ} is a $G$-equivariant diagram (note that the maps are still assumed the identity on colors),
+As discussed in \S \ref{SSEQ_SEC},
+Proposition \ref{DIAGRAMFM_PROP} implies that $\Op^G(\V)$ is the category of fibered algebras for the monad $\mathbb F^G$ on $\Sym^G(\V)$,
+with underlying functor the composite
+\[
+      \left(
+            \Fun(\Sigma^{op}_{\bullet}, \mathcal V)
+      \right)^G
+      \xrightarrow{\iota^G}
+      \left(
+            \mathsf{WSpan}_l
+            (\Sigma^{op}_{\bullet},\mathcal{V})
+      \right)^G
+      \xrightarrow{\Lan^G}
+      \left(
+            \mathsf{Fun}
+            (\Sigma^{op}_{\bullet},\mathcal{V})
+      \right)^G
+\]
+and given on each fiber by \eqref{FGC_EQ}.
+      
+For pushouts, when \eqref{OU EQ} is a $G$-equivariant diagram (note that the maps are still assumed the identity on colors),
 naturality with regard to data as in \eqref{COLORCHNAT EQ}
-shows that in 
-\eqref{2NDRED EQ} the left Kan extension 
-is compatible with $G$-equivariance, i.e. it is in fact 
-$
-\mathsf{Lan}^G \colon 
-\left(
-\mathsf{WSpan}_l
-(\Sigma^{op}_{\bullet},\mathcal{V})
-\right)^G
-\to
-\left(
-\mathsf{Fun}
-(\Sigma^{op}_{\bullet},\mathcal{V})
-\right)^G
-$.
+shows that the left Kan extension in 
+\eqref{2NDRED EQ} 
+is also compatible with $G$-equivariance, i.e. it is in fact $\Lan^G$.
+% $
+% \mathsf{Lan}^G \colon 
+% \left(
+% \mathsf{WSpan}_l
+% (\Sigma^{op}_{\bullet},\mathcal{V})
+% \right)^G
+% \to
+% \left(
+% \mathsf{Fun}
+% (\Sigma^{op}_{\bullet},\mathcal{V})
+% \right)^G
+% $.
 Hence, by (the span version of) Lemma \ref{EQUIVFUNCONV LEM},
 we further have the alternative formula
 \begin{equation}\label{3RDRED EQ}
@@ -10707,9 +10761,10 @@ $G^{op} \ltimes \OC^{n}
 
 
 
-\subsubsection{Pushouts and change of color}
+\subsubsection{Pushouts and injective change of color}
 
-
+In this subsection, we show that, for any inclusions $f \colon \mathfrak C \to \mathfrak D$ of colors,
+the the right adjoint $f^{\**}$ preserves certain pushouts.
 
 First note that, by a variation of the arguments in \eqref{OU EQ1}, \eqref{1STRED EQ}, \eqref{2NDRED EQ},
 any pushout 
@@ -10823,7 +10878,7 @@ We start by noting that the top composite in the diagram
 	\Sigma_{\mathfrak{D}}^{op} %\ar[dashed]{rru}[swap]{\mathcal{P}}
 \end{tikzcd}
 \]
-is $N^{(B,A,f^{\**}\mathcal{O})}$, so that our intended result is that the induced map
+is $N^{(B,A,f^{\**}\mathcal{O})}$ by Corollary \ref{FTF_COR}(ii), so that our intended result is that the induced map
 \begin{equation}\label{LANISO EQ}
 	\mathsf{Lan}_{\Omega_{\mathfrak{C}}^{p,op} \to \Sigma_{\mathfrak{C}}^{op}}
 	N^{(B,A,f^{\**}\mathcal{O})}
@@ -10837,7 +10892,7 @@ is an isomorphism. To see this, first let $\widehat{\Omega}^p_{\mathfrak{D}}$
 be the full subcategory of $\Omega^p_{\mathfrak{D}}$
 such that if 
 $v \in V(T)$ is $A$ or $B$-labeled then $T_v \in \Sigma_{\mathfrak C}$.
-It follows from \eqref{NBAO EQ} that $N^{(f_! B, f_! A, \mathcal{O})}(T) = \emptyset$ whenever $T \not \in \widehat{\Omega}^p_{\mathfrak{D}}$,
+It follows from \eqref{NBAO EQ} and Corollary \ref{FSU_COR} that $N^{(f_! B, f_! A, \mathcal{O})}(T) = \emptyset$ whenever $T \not \in \widehat{\Omega}^p_{\mathfrak{D}}$,
 and it is straightforward to check that 
 $\widehat{\Omega}^p_{\mathfrak{D}}$
 is a sieve of $\Omega^p_{\mathfrak{D}}$, i.e. for any map $T \to S$ in $\Omega^p_{\mathfrak{D}}$ such that $S \in \widehat{\Omega}^p_{\mathfrak{D}}$ then $T \in \widehat{\Omega}^p_{\mathfrak{D}}$.
@@ -10912,7 +10967,7 @@ This follows by adding to both $A$ and $\mathcal{O}$ a disjoint trivial operad w
 
 
 \subsection{Free operads and change of color}
-
+\label{FREEOPCOL_SEC}
 
 Let $f \colon \mathfrak{C} \to \mathfrak{D}$ be an inclusion of colors.
 Our goal in this section is to show that the pullback of a free $\mathfrak{D}$-colored operad is a free $\mathfrak{C}$-colored operad, in a natural way.
@@ -10920,14 +10975,15 @@ Our goal in this section is to show that the pullback of a free $\mathfrak{D}$-c
 More precisely, our goal is to identify a functor 
 $\widehat{f^{\**}}$ such that the diagram below commutes (up to natural isomorphism).
 \begin{equation}\label{HATFST EQ}
-\begin{tikzcd}
-	\mathsf{Sym}^{\mathfrak{D}} \ar{r}{\mathbb{F}_{\mathfrak{D}}} \ar[dashed]{d}[swap]{\widehat{f^{\**}}} &
-	\mathsf{Op}^{\mathfrak{D}} \ar{d}{f^{\**}}
-\\
-	\mathsf{Sym}^{\mathfrak{C}} \ar{r}[swap]{\mathbb{F}_{\mathfrak{C}}} &
-	\mathsf{Op}^{\mathfrak{C}}
-\end{tikzcd}
+      \begin{tikzcd}
+            \mathsf{Sym}^{\mathfrak{D}} \ar{r}{\mathbb{F}_{\mathfrak{D}}} \ar[dashed]{d}[swap]{\widehat{f^{\**}}} &
+            \mathsf{Op}^{\mathfrak{D}} \ar{d}{f^{\**}}
+            \\
+            \mathsf{Sym}^{\mathfrak{C}} \ar{r}[swap]{\mathbb{F}_{\mathfrak{C}}} &
+            \mathsf{Op}^{\mathfrak{C}}
+      \end{tikzcd}
 \end{equation}
+
 We now introduce some notation.
 We will write 
 $\Omega^0_{\mathfrak{C},\mathfrak{D}} \subseteq \Omega^0_{\mathfrak{D}}$
@@ -10996,6 +11052,12 @@ where the top composite is naturally isomorphic to the top composite in
 and then performing the associated Kan extension along 
 $\Omega_{\mathfrak{C}} \to \Sigma_{\mathfrak{C}}$
 in \eqref{PULLFREEFREE2 EQ}.
+
+\begin{definition}
+      \label{HATFST_DEF}
+      Given $X \in \Sym^{\mathfrak D}$, define $\widehat{f^{\**}}(X)$ to be the left Kan extension in \eqref{HATFSTDEF EQ}.
+\end{definition}
+
 Put together, these observations show the desired claim that
 $
 f^{\**} \mathbb{F}_{\mathfrak{D}}(X) \simeq
@@ -11074,18 +11136,19 @@ $\Omega^{0,\partial}_{\mathfrak{C},\mathfrak{D}}$.
 Namely, we define full subcategories 
 $\Omega^{n,\partial}_{\mathfrak{C},\mathfrak{D}}
 \subseteq
-\Omega^{0}_{\mathfrak{C},\mathfrak{D}}
+\Omega^{n}_{\mathfrak{C},\mathfrak{D}}
 \subseteq
 \Omega^{n}_{\mathfrak{D}}
 $
 where the objects of 
-$\Omega^{0}_{\mathfrak{C},\mathfrak{D}}$
+$\Omega^{n}_{\mathfrak{C},\mathfrak{D}}$
 are strings $T_0 \to T_1 \to \cdots \to T_n$
+of maps
 such that $T_k \in \Omega_{\mathfrak{C}}$ for $k<n$
 and the objects of 
 $\Omega^{n,\partial}_{\mathfrak{C},\mathfrak{D}}$
 satisfy the further restriction that
-$T_{k-1}=\partial_{\mathfrak{D} \setminus \mathfrak{C}}(T_k)$.
+$T_{n-1}=\partial_{\mathfrak{D} \setminus \mathfrak{C}}(T_n)$.
 
 
 Note that the vertex and simplicial operators then restrict to maps
@@ -11214,10 +11277,115 @@ is encoded by the diagram
 \]
 
 
+Thus we have established \eqref{HATSFT EQ}.
+We explore several consequences.
 
 
+\begin{corollary}
+      \label{FTF_COR}
+      For any injective $f \colon \mathfrak C \to \mathfrak D$, the following hold.
+      \begin{enumerate}[label = (\roman*)]
+      \item $f^{\**} \mathbb F_{\mathfrak D} f_! \simeq \mathbb F_{\mathfrak C}$.
+      \item $f^{\**} \check{f_!} = id_{\Op_{\mathfrak C}}$ and $f^{\**} f_! = id_{\Sym_{\mathfrak C}}$.
+      \end{enumerate}
+\end{corollary}
+\begin{proof}
+      For (i), it suffices to show that $\widehat{f^{\**}} f_!$ is the 
+      this is straightforward from the definition given in \eqref{HATFSTDEF EQ}.
+      % $\widehat{f^{\**}} f_! X(\ksi) = \varnothing$ unless $\ksi \in \Sigma_{\mathfrak C}$, in which case
+      % $\widehat{f^{\**}} f_! X(\ksi) = X(\ksi)$.
+      For (ii), using
+      \begin{equation}
+            \label{CFS_EQ}
+            \check{f_!} \O \simeq \mathop{coeq}(\mathbb F_{\mathfrak D} f_! \mathbb F_{\mathfrak C}\O \rightrightarrows \mathbb F_{\mathfrak D} f_! \O)
+      \end{equation}
+      from Remark \ref{ALGPUSHLL REM}
+      and the fact that $f^{\**}$ commutes with reflexive colimits\footnote{
+        This follows as $\otimes$ commuting with colimits in both variables implies it commutes with reflexive colimits; see e.g. \cite[Lemma 2.3.2]{Rez96}.},
+      the result follows from part (i).
+\end{proof}
 
+\begin{corollary}
+      \label{FSU_COR}
+      For any injective $f \colon \mathfrak C \to \mathfrak D$, $U \check{f_!} = f_! U$.
+\end{corollary}
+\begin{proof}
+      Using Corollary \ref{FTF_COR}, it is straightforward from the definitions that we have natural isomorphisms
+      \[
+            \mathbb F_{\mathfrak D} f_! U \mathbb F_{\mathfrak C} \xrightarrow{\simeq} % \mathbb F_{\mathfrak D} f_! U(\simeq)
+            \mathbb F_{\mathfrak D} f_! f^{\**} U \mathbb F_{\mathfrak D} f_! \xrightarrow{\simeq} % \mathbb F_{\mathfrak D}(\simeq)
+            \mathbb F_{\mathfrak D} U \mathbb F_{\mathfrak D} f_!,
+      \]
+      so in particular for any $\O \in \Op^{\mathfrak C}$
+      % there exists a unique $\mathfrak D$-colored operad structure on $f_! X$
+      % such that the canonical map $X \to f_! X$ is a map of operads.
+      there is an induced $\mathfrak D$-colored operad structure on $f_! X$,
+      which is indeed described by the coequalizer \eqref{CFS_EQ}.
+\end{proof}
 
+\begin{corollary}
+      For any $(G, \Sigma)$-family $\F$ and injective map of colors $f \colon \mathfrak C \to \mathfrak D$,
+      the map $f^{\**}: \Op^{\mathfrak D}_\F(\V) \to \Op^{\mathfrak C}_\F(\V)$ preserves (trivial) cofibrations.
+\end{corollary}
+\begin{proof}
+      We first show $f^{\**}$ preserves generating (trivial) cofibrations, as in Proposition \ref{GCOF_SYMMS_PROP}.
+      To start, let $X$ be a free symmetric sequence (cf. \eqref{FREESIGMA_EQ})
+      \[
+            X = \Sigma_{\mathfrak D}(-, \ksi)[K] = \Hom_{\Sigma_{\mathfrak D}}(-,\ksi) \cdot_{\Aut(\ksi)} K
+      \]
+      on some $\mathfrak D$-signature $\ksi$ and $K \in \V^{\Aut(\ksi)}$.
+      % From the definition of $\Omega^{0,\partial}_{\mathfrak C, \mathfrak D}$ and $\widehat{f^{\**}}(X)$ from \eqref{HATFSTDEF},
+      It is straightforward to check that the only case in which $\widehat{f^{\**}}(X)$ is not the initial symmetric sequence (i.e. constant to the initial object in $\V$)
+      is when $\ksi$ is in fact a $\mathfrak C$-signature, in which case
+      \begin{equation}
+            \label{SDFI_EQ}
+            \Sigma_{\mathfrak D}(-,\ksi)[K] = f_!\Sigma_{\mathfrak C}(-,\ksi)[K].
+      \end{equation}
+      The claim for generating (trivial) cofibrations then follows from Corollary \ref{FTF_COR}(i).
+
+      For the general case, we have that since $\otimes$ commutes with colimits in each variable, it commutes with filtered colimits, in particular transfinite compositions (\cite[Lemma 2.3.3]{Rez96}), and hence $f^{\**}$ preserves transfinite compositions.
+      Moreover, $f^{\**}$ preserves pushouts of free symmetric sequences
+      $\Sigma_{\mathfrak D}(-,\ksi)[i]$
+      with $\ksi \in \Sigma_{\mathfrak C}$ by \eqref{SDFI_EQ}, Corollary \ref{FSU_COR}, and Lemma \ref{BASICPUSH LEMMA}.
+
+      It remains to check that the image under $f^{\**}$ of a pushout over $\Sigma_{\mathfrak D}(-,\ksi)[i]$ with $\ksi \notin \Sigma_{\mathfrak C}$ is a (trivial) cofibration.
+      
+      come back!
+\end{proof}
+
+The following example demonstrates that $f^{\**}$ need not preserve all pushouts.
+\begin{example}
+      Let $f \colon \set{0} \hookrightarrow \set{0,1}$, and consider the following pushouts in $\Cat^{\set{0,1}}(\sSet)$.
+      \[
+            \begin{tikzcd}
+                  \set{0,1} \arrow[d, "{\mathbb F(-, (1;1))[\partial \Delta[0] \to \Delta[0]]}"'] \arrow[r]
+                  &
+                  {[1]} \arrow[d]
+                  &&& % --------------------
+                  \set{0,1} \arrow[d, "{\mathbb F(-, (1;1))[\partial \Delta[0] \to \Delta[0]]}"'] \arrow[r]
+                  &
+                  \widetilde{[1]} \arrow[d]
+                  \\
+                  \set{0} \amalg \mathbb N_0\set{1} \arrow[r]
+                  &
+                  \mathcal P
+                  &&& % ----------
+                  \set{0} \amalg \mathbb N_0\set{1} \arrow[r]
+                  &
+                  \tilde{\mathcal P}
+            \end{tikzcd}
+      \]
+      In both cases, $f^{\**}$ applied to the left vertical arrows yields $id_{\varnothing}$.
+      However, the pushout on the left is preserved by $f^{\**}$, as
+      $f^{\**}([1]) = f^{\**}(\mathcal P) = \**$,
+      but the pushout on the right is not preserved, as
+      $f^{\**}(\widetilde{[1]}) = \**$ but $f^{\**}(\tilde{\mathcal P}) = \mathbb N_0$.
+
+      \todo[inline]{In this case, the RHS is still a pushout of a free thing, but I don't know how to make this systematic
+      - it must preserve cofibrant objects (i.e. by BM13a), but Lemma \ref{BASICPUSH LEMMA} only takes care of the easy case from \cite[Thm. 1.15]{BP13a}.}
+\end{example}
+
+come back!
 
 \section{Amalgamating monads (to be renamed and reskined)}
 
@@ -13049,7 +13217,7 @@ then any map in $\mathcal D$ with cofibrant source may be factored into a map in
 \end{theorem}
 
 
-\fi%
+
 
 
 
