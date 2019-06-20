@@ -84,7 +84,7 @@ cf.  }
 
 % replace symbols
 
-\renewcommand{\hat}{\widehat}
+% \renewcommand{\hat}{\widehat}
 
 % random
 
@@ -4007,7 +4007,7 @@ by restricting to the categories $j^{\**}\O^H$ and using \eqref{FIBFIX_LIFT_EQ}.
 % \end{proof}
 
 The key ideas in the proofs are:
-the stacking of $\V$-intervals forms another $\V$-interval \todo{pushout trick and Cav4.14 - still need that $\mathbb J_0$ is a cofibrant \textit{monoid}!},
+the stacking of $\V$-intervals forms another $\V$-interval \todo{pushout trick and Cav4.14 - still need that $\mathbb J_0$ is a cofibrant category with one object},
 ``nice'' pullbacks in $\Cat(\V)$ preserve local equivalences which are bijective on objects, and
 the two objects of any $\V$-interval $\mathbb J$ are isomorphic in $\pi_0(\mathbb J)$.
 
@@ -5168,7 +5168,7 @@ STUFF
       For $\vect T \in \Omega_{\mathfrak C}$, we have an analogous decomposition of $\vect T$ using a partition $\vect \lambda$,
       and controlling for the repeated $G$-action, we have
       \[
-            \Aut(\vect T) \simeq \big(\Sigma_{|\lambda_1|} \wr_G \Aut(\vect T_{i_1}\big) \times_G^\lrcorner \dots \times_G^\lrcorner \big(\Sigma_{|\lambda_s|} \wr_G \Aut(\vect T_{i_s}\big)
+            \Aut(\vect T) \simeq \big(\Sigma_{|\lambda_1|} \wr_G \Aut(\vect T_{i_1}\big) \times_G^\lrcorner \dots \times_G^\lrcorner \big(\Sigma_{|\lambda_s|} \wr_G \Aut(\vect T_{i_s})\big)
             %\prod_{j=1}^s{}_G \Sigma_{|\lambda_j} \wr_G \Aut(\vect T_{i_j})
       \]
       where $(-) \times_G^\lrcorner (-)$ again denotes the fiber product over $G$. 
@@ -7390,8 +7390,10 @@ one has that, writing $C \simeq G \cdot_H C_{\star}$ one has the alternative pus
 \section{The Quillen equivalence}
 \label{QE_SEC}
 
+In this section, we synthesize the above results as well as the results of the related papers \cite{BP_geo,BP_edss,Per18},
+to prove the main theorem of this project, Theorem \ref{QE_THM}.
 
-
+First, we discuss the adjunction in question.
 
 \subsection{The $W$ construction}
 
@@ -7432,7 +7434,8 @@ where the map $\eta_{\mathfrak C} \to U_\eta(\O)$ selects the identity operation
 $(-) \amalg \eta$ is the (levelwise) coproduct in $\Sym^{\mathfrak C}(\V)$,
 and $\mathbb F^{\mathfrak C}_\eta$ is the ``free operad with prescribed units'' monad,
 defined on $X \in \Sym^{\mathfrak C}_\eta(\V)$ to be the pushout below computed in $\Op^{\mathfrak C}(\V)$.
-\[
+\begin{equation}
+      \label{FETA_EQ}
       \begin{tikzcd}
             \mathbb F^{\mathfrak C} \eta_{\mathfrak C} \arrow[d] \arrow[r]
             &
@@ -7442,7 +7445,7 @@ defined on $X \in \Sym^{\mathfrak C}_\eta(\V)$ to be the pushout below computed 
             &
             \mathbb F^{\mathfrak C}_\eta X
       \end{tikzcd}
-\]
+\end{equation}
 
 We can now make the following definition of the $W$-construction.
 
@@ -7457,7 +7460,7 @@ We can now make the following definition of the $W$-construction.
 To work with this definition, we must ensure that $\mathbb F_\eta$ is in fact a monad, and moreover that is is the left adjoint to the forgetful functor.
 While we could show this directly, we instead apply results from Appendix \ref{AMALGMON_SEC} to realize this simplicial resolution from a different perspective.
 
-\subsubsection{Non-unital operads}
+\subsubsection{Non-unital operads and combined monads}
 
 We consider an orthogonal factorization of the free operad monad
 \[
@@ -7494,53 +7497,118 @@ in particular, \eqref{FREEOP_EQ}, Definition \ref{COLORMON DEF}, and Proposition
       The free non-unital operad monad $\bar F$ on a $\mathfrak C$-colored symmetric sequence $X \in \Sym_{\mathfrak C}$ is given by the left Kan extension
       \[
             \begin{tikzcd}
-                  \left(\Omega_{\mathfrak C}^{\textrm{nu},0}\right)^{op} \arrow[r,"V"] \arrow[d, "\mathsf{lr}"]
+                  \left(\Omega_{\mathfrak C}^{\text{nu},0}\right)^{op} \arrow[r, hookrightarrow] \arrow[d, "\mathsf{lr}"]
                   &
-                  \left(\Sigma \wr \Sigma_{\mathfrak C}\right)^{op} \arrow[r, "X"] \arrow[dl, Rightarrow]
+                  \Omega_{\mathfrak C}^{0,op} \arrow[r,"V"] \arrow[dl, Rightarrow,shorten >=0.4cm,shorten <=0.4cm]
+                  &
+                  \left(\Sigma \wr \Sigma_{\mathfrak C}\right)^{op} \arrow[r, "X"] 
                   &
                   \left(\Sigma \wr \V^{op}\right)^{op} \arrow[r, "\otimes"]
                   &
                   \V
                   \\
-                  \Sigma_{\mathfrak C}^{op} \arrow[urrr, "\Lan = \bar F X"']
+                  \Sigma_{\mathfrak C}^{op} \arrow[urrrr, "\Lan = \bar F X"']
             \end{tikzcd}
       \]
-      Moreover, $\bar F^{\circ n}X$ is given by the left Kan extension
-      
+      Moreover, $\bar F^{\circ n}X$ is given by the left Kan extension      
       \begin{equation}
             \label{FREENUOP_EQ}
             \begin{tikzcd}
-                  \left(\Omega_{\mathfrak C}^{\textrm{nu},n}\right)^{op} \arrow[r,"{(V^0)^{\circ n+1}}"] \arrow[d, "\mathsf{lr}"]
-                  &[20pt]
-                  \left(\Sigma ^{\wr n+1} \wr \Sigma_{\mathfrak C}\right)^{op} \arrow[r, "{(\sigma^0)^{\circ n+1}}"] \arrow[dl, Rightarrow]
-                  &[20pt]
+                  \left(\Omega_{\mathfrak C}^{\text{nu},n}\right)^{op} \arrow[r, hookrightarrow] \arrow[d, "\mathsf{lr}"]
+                  &
+                  \Omega_{\mathfrak C}^{n,op} \arrow[r,"{(V^0)^{\circ n+1}}"]
+                  \arrow[dl, Rightarrow, shorten >=0.4cm,shorten <=0.4cm]
+                  &[10pt]
+                  \left(\Sigma ^{\wr n+1} \wr \Sigma_{\mathfrak C}\right)^{op} \arrow[r, "{(\sigma^0)^{\circ n+1}}"]
+                  &[10pt]
                   \left(\Sigma \wr \Sigma_{\mathfrak C}\right)^{op} \arrow[r, "X"]
                   &
                   \left(\Sigma \wr \V^{op}\right)^{op} \arrow[r, "\otimes"]
                   &
                   \V
                   \\
-                  \Sigma_{\mathfrak C}^{op} \arrow[urrrr, end anchor = south west, "\Lan = \bar F^{\circ n} X"']
+                  \Sigma_{\mathfrak C}^{op} \arrow[urrrrr, start anchor = east, end anchor = south west, "\Lan = \bar F^{\circ n} X"']
             \end{tikzcd}
       \end{equation}
 \end{proposition}
 
-\subsubsection{Amalgamating monads}
 
-\begin{lemma}
-      The conditions from Definition \ref{AMALGMON DEF} hold for $P$ and $\bar F$.
-      Moreover, $P$ and $F$ preserve reflexive coequalizers.
-\end{lemma}
+Now, we apply Appendix \ref{AMALGMON_SEC}.
+First, we observe by hand % P-F-combined.pdf
+that $P$ and $\bar F$ can be combined as in Definition \ref{AMALGMON DEF} ---
+the maps $P \Rightarrow \mathbb F$ and $\bar F \Rightarrow \mathbb F$ are simply
+\[
+      X \amalg \eta \xrightarrow{\eta \amalg e} \mathbb F X,
+      \qquad
+      \bar F X \hookrightarrow \eta \amalg \bar F X.
+\]
+Moreover, as $P$ and $F = \mathbb F$ both preserve reflexive coequalizers\footnote{
+  For $\mathbb F$, this follows as $\otimes$ commuting with colimits in both variables implies it commutes with reflexive coequalizers; see e.g. \cite[Lemma 2.3.2]{Rez96}.},
+the ``free operad with prescribed units'' functor, i.e. the left adjoint $F_p$ to the forgetful functor $\mathsf{fgt} \colon \Op_{\mathfrak C} \to \Sym^{\mathfrak C}_e$, exists,
+and following \eqref{FRMONDES EQ} is given on $Y \in \Sym^{\mathfrak C}_e$ as the coequalizer of the following in $\Sym_{\mathfrak C}$.
+\begin{equation}
+      \label{FPYCOEQ_EQ}
+      \mathbb F P Y = \mathbb F(Y \amalg \eta_{\mathfrak C}) \overset{f_1}{\underset{f_2}\rightrightarrows} \mathbb F Y,
+      % \begin{tikzcd}
+      %       \mathbb F P Y = \mathbb F(Y \amalg \eta_{\mathfrak C}) 
+      %       \arrow[r, shift left, "{\mu \circ F P \eta_{\bar F}}"] \arrow[r, shift right, "{Fm}"']
+      %       &[30pt]
+      %       \mathbb F Y,
+      % \end{tikzcd}
+      \qquad
+      f_1 = \mathbb F(Y \amalg \eta \xrightarrow{id,e} Y),
+      \quad
+      f_2 \colon \mathbb F(Y \amalg \eta) \xrightarrow{\eta_{\bar F} \amalg id} \mathbb F(\bar F Y \amalg \eta) = \mathbb F^2 Y \xrightarrow{\mu} \mathbb FY,
+\end{equation}
 
+
+This matches the above description of $\mathbb F_\eta$ from \eqref{FETA_EQ}:
 \begin{lemma}
       The underlying functor for the ``free operad with prescribed units'' monad $F_P$ on $\Sym_e$ is naturally isomorphic to $\mathbb F_\eta$.
 \end{lemma}
+\begin{proof}
+      We note that $f_2$ in \eqref{FPYCOEQ_EQ} has another decomposition, namely
+      \[
+            \mathbb F (Y \amalg \eta) = P\bar F Y \mathbin{\hat{\amalg}} \mathbb F_\eta \xrightarrow{\eta_{\bar F} \amalg id}
+            P\bar F \bar F Y \mathbin{\hat{\amalg}} \mathbb F \eta \xrightarrow{\mu_{\bar F} \amalg (id \circ \mu)}
+            F Y \amalg \eta = \mathbb F Y,
+      \]
+      where $\hat{\amalg}$ denotes the coproduct in $\mathbb F$-algebras
+      (as $P \bar F \bar F \to \mathbb F Y$, by Proposition \ref{ALTMULT PROP}, and both $\mathbb F \eta \to \eta$ and the unique map $\eta \to \O$ are all maps of $\mathbb F$-algebras).
 
+      But then this equalizier is of form
+      $
+      \O \mathbin{\hat{\amalg}} \P \rightrightarrows \O
+      $
+      with both maps the identity on the $\O$ component.
+      As in any category, this is isomorphic to the coequalizer of the interesting pieces
+      $\P \rightrightarrows \O$,
+      and thus $F_P Y$ is the coequalizer below of $\mathbb F$-algebras.
+      \[
+            \mathbb F_\eta \overset{e \circ \mu}{\underset{\mathbb F(e)} \rightrightarrows} \mathbb F Y \xrightarrow{\mathrm{coeq}} F_P Y
+      \]
+      Converting this coequalizer into a pushout yields the diagram below.
+      \[
+            \begin{tikzcd}
+                  \mathbb F \eta \mathbin{\hat{\amalg}} \mathbb F \eta \arrow[r] \arrow[d, "\nabla"']
+                  &
+                  \mathbb F Y \arrow[d]
+                  \\
+                  \mathbb F \eta \arrow[r]
+                  &
+                  F_P Y
+            \end{tikzcd}
+      \]
+      Finally, one can check that this pushout has the same universal property as the pushout \eqref{FETA_EQ};
+      the result follows.
+\end{proof}
+
+We can now describe $W(T)$.
 \begin{corollary}
       For any $T \in \Omega_G$, we have
       \begin{equation}
             \label{WT_EQ}
-            W(T)_n = \mathbb F_\eta^{\circ n+1} \Omega(T) \cong F_P^{\circ n+1} P \bar F \Sigma_\bullet[T] \cong P \bar F^{\circ n+2}\Sigma_\bullet[T].
+            W(T)_n = \mathbb F_\eta^{\circ n+1} \Omega(T) = F_P^{\circ n+1} P \bar F \Sigma_\bullet[T] = P \bar F^{\circ n+2}\Sigma_\bullet[T].
       \end{equation}
       Moreover, for any signature $\vect C = (e_1, \dots, e_k; e)$, we have
       $W(T)(\vect C) = \Delta[1]^{\times \boldsymbol{E}^i(T_{\underline{e} \leq e})}$ is the (nerve of the) poset of inner faces of $T_{e_1 e_2 \dots e_k \leq e_0}$.
@@ -7570,6 +7638,26 @@ in particular, \eqref{FREEOP_EQ}, Definition \ref{COLORMON DEF}, and Proposition
       and by $\emptyset$ otherwise.
       The result follows.
 \end{proof}
+
+
+\begin{definition}
+      The \textit{homotopy coherent dendroidal nerve} and the \textit{$W_!$-construction}
+      are the right- and left-adjoints of the nerve-realization adjunction associated to the functor $W: \Omega \into \Op(\sSet)$.
+      \begin{equation}
+            \label{SOPDSET_EQ}
+            hc N \colon \sOp \leftrightarrows
+            \dSet \colon W_!
+      \end{equation}
+\end{definition}
+
+The culmination of extensive work by Cisinski-Moerdijk-Weiss \cite{CM13a,CM13b,CM11,MW09,MW07} is the following.
+
+\begin{theorem}
+      \label{CMW_THM}
+      $hcN$ and $W_!$ form a Quillen equivalence with respect to the model structures
+      which, in particular, are recovered by the $G = \**$ cases of Theorem \ref{MODEL_THM} and \cite[Thm. 2.1]{Per18}.
+\end{theorem}
+
 
 
 \todo[inline]{come back!}
@@ -7676,261 +7764,6 @@ is the iterated pushout product
 
 \newpage
 
-In this section, we synthesize the above results as well as the results of the related papers \cite{BP_geo,BP_edss,Per18},
-to prove the main theorem of this project, Theorem \ref{QE_THM}.
-
-\subsection{The non-equivariant adjunction}
-We recall the adjunction in question.
-\todo[inline]{say more. come back once the paper is organized}
-
-To extend $\tau \colon \dSet \rightleftarrows \Op \colon N$ from Definition \ref{OT_DEF} to a Quillen adjunction out of $\sOp$,
-we need a topological enrichment of the inclusion $\Omega \into \Op$.
-We do this by constructing the free simplicial resolution\footnote{Also called the \textit{Godement} resolution, c.f. \cite[\S 8.3]{BM06}.}
-of $\Omega(T)$ as an algebra in the category of \textit{pointed} $\mathbf E(T)$-colored symmetric sequences $\Sym^{\mathbf E(T)}_{\eta}(\Set)$.
-We elaborate on that distinction now.
-
-\begin{definition}
-      Given a set of colors $\mathfrak C$, let $\eta_{\mathfrak C} = \eta$ denote the initial $\mathfrak C$-colored operad in $\V$,
-      defined for all $\mathfrak C$-sequences $\vect C$ by
-      \[
-            \eta(\vect C) =
-            \begin{cases}
-                  1_\V \qquad \qquad & \vect C = (x;x) \mbox{ for some $x \in \mathfrak C$,}
-                  \\
-                  \varnothing & \mbox{else.}
-            \end{cases}
-      \]
-      The category of \textit{pointed} $\mathfrak C$-colored symmetric sequences in $\V$ is the category
-      \[
-            \Sym^{\mathfrak C}_\eta(\V) := \eta_{\mathfrak C} \downarrow \Sym^{\mathfrak C}(\V).
-      \]
-\end{definition}
-
-The free operad monad $\mathbb F^{\mathfrak C}$ factors
-\begin{equation}
-      \label{FC_FAC_EQ}
-      \begin{tikzcd}
-            \Sym^{\mathfrak C}(\V) \arrow[r, shift left, "{(-) \amalg \eta}"]
-            &
-            \Sym^{\mathfrak C}_\eta(\V) \arrow[l, shift left] \arrow[r, shift left, "\mathbb F^{\mathfrak C}_\eta"]
-            &
-            \Op^{\mathfrak C}(\V) \arrow[l, shift left, "U_\eta"]
-      \end{tikzcd}
-\end{equation}
-where the map $\eta_{\mathfrak C} \to U_\eta(\O)$ selects the identity operations for each color,
-$(-) \amalg \eta$ is the (levelwise) coproduct in $\Sym^{\mathfrak C}(\V)$,
-and $\mathbb F^{\mathfrak C}_\eta$ is defined on $X \in \Sym^{\mathfrak C}_\eta(\V)$ to be the pushout below computed in $\Op^{\mathfrak C}(\V)$.
-\[
-      \begin{tikzcd}
-            \mathbb F^{\mathfrak C} \eta_{\mathfrak C} \arrow[d] \arrow[r]
-            &
-            \eta_{\mathfrak C} \arrow[d]
-            \\
-            \mathbb F^{\mathfrak C} X \arrow[r]
-            &
-            \mathbb F^{\mathfrak C}_\eta X
-      \end{tikzcd}
-\]
-
-% The following observations are straightforward.
-% \begin{lemma}
-%       $\mathbb F^{\mathfrak C}_\eta$ is left adjoint to the forgetful functor $\Op^{\mathfrak C}(\V) \to \Sym^{\mathfrak C}_\eta(\V)$,
-%       and \eqref{FC_FAC_EQ} is a factorization of the original free-forgetful adjunction for $\mathbb F^{\mathfrak C}$. 
-% \end{lemma}
-
-We can now make the following definition of the $W$-construction.
-
-\begin{definition}
-      Given $T \in \Omega$, define $W(T)_\bullet \in \Op(\sSet) \subseteq (\Op^{\mathbf E(T)})^{\Delta^{op}}$ to be the bar construction
-      \[
-            W(T)_n = \left( \mathbb F^{\mathbf E(T)}_\eta \right)^{n+1} \left(\Omega(T)\right),
-      \]
-      with the simplicial maps the monadic unit and monadic multiplication.
-\end{definition}
-
-We unpack this $\mathbf E(T)$-colored operad, culminating in \eqref{WT_EQ}.
-First, we consider $\mathbb F^{\mathbf E(T)} \Omega(T)$ and $\mathbb F^{\mathbf E(T)}_\eta \Omega(T)$.
-We observe that $\mathbb F^{\mathbf E(T)} \Omega(T)(\vect C) = \varnothing$ iff $\Omega(T)(\vect C) = \varnothing$.
-Otherwise, if $C \xrightarrow{\phi} T$ is such that $\partial \phi = \vect C$, then
-\begin{equation}
-      \label{FET_EQ}
-      \mathbb F^{\mathbf E(T)}\Omega(T)(\vect C)
-      = \set{\mbox{factorizations $C \xrightarrow{\psi_0} S_1 \xrightarrow{\psi_1} T$ of $\phi$ with $\psi_0$ tall}}.
-\end{equation}
-We note in particular that neither map in the factorization needs to be injective;
-specifically, for any $e \in \mathbf E(T)$,
-\begin{equation}
-      \label{FET_EE_EQ}
-      \mathbb F^{\mathbf E(T)}\Omega(T)(e;e) = \mathbb Z_{\geq 0}
-\end{equation}
-is in bijection with the set of non-negative integers.
-
-\begin{example}
-      More generally, we consider the simple case where $T$ is the 2-corolla $C_2 \in \Sigma$, with leaves $\set{a,b}$ and root $r$.
-      Then $\mathbb F^{\mathbf E(T)}\Omega(T)(a,b;r) = \mathbb Z_{\geq 0}^{\times \set{a,b,r}}$,
-      where the tree $S_1$ associated to the triple $(n_a, n_b, n_r)$ has one node of valence two,
-      with root (resp. left, right) path out of that node of length $n_r$ (resp. $n_a$, $n_b$).
-      \[
-            \begin{tikzpicture}
-                  [grow=up,auto,
-                  level distance=2em,
-                  every node/.style = {font=\footnotesize,solid},
-                  dummy/.style={circle,draw,inner sep=0pt,minimum size=1.75mm},
-                  emph/.style={edge from parent/.style={black,thin,dotted,draw}},
-                  norm/.style={edge from parent/.style={black,thin,draw,solid}}
-                  ]
-                  \node {$S_1$}
-                  child[norm, level distance=1.5em] {node [dummy] {}
-                    % child[norm, level distance=1.2em] {node [dummy] {}
-                      child[emph]{node [dummy] {} % vertex
-                        child[norm] {node [dummy] {}
-                          child[emph] {node [dummy] {}
-                            child[norm] {edge from parent node [swap] {$b$}}
-                          }
-                        }
-                         child[norm] {node [dummy] {}
-                          child[emph] {node [dummy] {}
-                            child[norm] {edge from parent node {$a$}}
-                          }
-                        }
-                      }
-                      % }
-                    edge from parent node [swap] {$r$}
-                  };
-            \end{tikzpicture}
-      \]
-      where there are $n_r$, $n_b$, and $n_a$ edges on the bottom, right, and left paths respectively.
-\end{example}
-      
-Now, $\mathbb F^{\mathbf E(T)}\eta_{\mathbf E(T)}(\vect C) = \varnothing$ unless $\vect C = (e;e)$ for some $e \in \mathbf E(T)$;
-in this case, $\mathbb F^{\mathbf E(T)}\eta(e;e) = \mathbb Z_{\geq 0}$, as in \eqref{FET_EE_EQ}.
-% 
-If we also denote the unit map by $\eta$, we see that the image of the map
-\[
-      \mathbb F^{\mathbf E(T)}\eta \xrightarrow{\mathbb F^{\mathbf E(T)}\eta} \mathbb F^{\mathbf E(T)} \Omega(T)
-\]
-corresponds to all factorizations from \eqref{FET_EQ} with $S_1$ a linear tree and $\phi$ (and hence $\psi_1$) a degeneracy.
-
-Thus in the pushout $\mathbb F^{\mathbf E(T)}_\eta\Omega(T)$, all the non-injective operations are identified, and we have
-\begin{align*}
-  \mathbb F^{\mathbf E(T)}_\eta\Omega(T)(\vect C)
-  & = \set{\mbox{factorizations $C \xrightarrow{\psi_0} S_1 \xrightarrow{\psi_1} T$ of $\phi$ with $\psi_1$ injective, $\psi_0$ tall}} \\
-  & = \set{\mbox{inner faces $S_1$ of $T_{\phi(1 2 \dots n) \leq \phi(0)}$}} \\
-  & = \set{\mbox{subsets $S_1 \subseteq \mathbf E^i(T_{\phi(1 2 \dots n) \leq \phi(0)})$ of inner edges}}    
-\end{align*}
-where $1 2 \dots n \leq 0$ is the vertex of $C$ and $T_{\phi(1 2 \dots n) \leq \phi(0)}$ is the associated outer face of $T$ \todo{find citation from \cite{Per18} /add discussion}.
-
-
-% Iterating, we see that
-% \[
-%       \mathbb F(\mathbb F_\eta \Omega(T))(C)
-%       = \set{
-%         \begin{array}{l}
-%           \mbox{factorizations $C \xrightarrow{\psi_0} S_1 \xrightarrow{\psi_1} S_2 \xrightarrow{\psi_2} T$}
-%           \\
-%           \mbox{of $\phi$ with $\psi_0,\psi_1$ tall and $\psi_2$ injective}
-%         \end{array}
-%       },
-% \]
-% while the image of $\eta$ in $\mathbb F_\eta \Omega(T)$ are those factorizations with
-% $S_1 = \eta$,
-% and the image of $\mathbb F(\eta)$ in $\mathbb F(\mathbb F_\eta \Omega(T)$ are those factorizations with
-% $S_1$ linear and $S_2 = \eta$.
-
-Inductively, we have the following:
-\begin{align*}
-  \left(\mathbb F^{\mathbf E(T)}_\eta \right)^{n-1} \Omega(T)(\vect C)
-  & = \set{
-    \begin{array}{l}
-      \mbox{factorizations $C \xrightarrow{\ \quad \psi_0 \quad \ } S_1 \xrightarrow{\psi_1}
-      % S_2 \xrightarrow{\psi_2}
-      \dots \xrightarrow{\psi_{n-2}} S_{n-1} \xrightarrow{\psi_{n-1}} T$}
-      \\
-      \mbox{of $\phi$ with $\psi_i$ injective for $i > 0$ and $\psi_i$ tall for $i < n-1$}
-    \end{array}
-  },
-  \\ % --------------------
-  \mathbb F^{\mathbf E(T)} \left(\mathbb F^{\mathbf E(T)}_\eta\right)^{n-1} \Omega(T) (\vect C)
-  & = \set{
-    \begin{array}{l}
-      \mbox{factorizations $C \xrightarrow{\psi_0} S_1 \xrightarrow{\psi_1} S_2 \xrightarrow{\psi_2} \dots \xrightarrow{\psi_{n-1}} S_n \xrightarrow{\psi_n} T$}
-      \\
-      \mbox{of $\phi$ with $\psi_i$ tall for $i < n$ and injective for $i > 1$}
-    \end{array}
-  },
-  \\ % --------------------
-  \mathsf{im}\left(\eta \to \left(\mathbb F^{\mathbf E(T)}_{\eta}\right)^{n-1}\Omega(T)\right)
-  & = \set{
-    \begin{array}{l}
-      \mbox{factorizations $C_1 \xrightarrow{\ \quad \psi_0 \ \quad} \eta \xrightarrow{\psi_1}
-        % \eta \xrightarrow{\psi_2}
-      \dots \xrightarrow{\psi_{n-2}} \eta \xrightarrow{\psi_{n-1}} T$}
-    \end{array}
-  },
-  \\ % --------------------
-  \mathsf{im}\left(\mathbb F^{\mathbf E(T)}\left( \eta \to \left(\mathbb F^{\mathbf E(T)}_{\eta}\right)^n\Omega(T)\right)\right)
-  & = \set{
-    \begin{array}{l}
-      \mbox{factorizations $C_1 \xrightarrow{\psi_0} S_1 \xrightarrow{\psi_1} \eta \xrightarrow{\psi_2} \dots \xrightarrow{\psi_{n-1}} \eta \xrightarrow{\psi_n} T$}
-      \\
-      \mbox{of $\phi$ with $S_1$ linear}
-    \end{array}
-  },
-  \\ % --------------------
-  \left(\mathbb F^{\mathbf E(T)}_\eta \right)^n \Omega(T)(\vect C)
-  & = \set{
-    \begin{array}{l}
-      \mbox{factorizations $C \xrightarrow{\psi_0} S_1 \xrightarrow{\psi_1} S_2 \xrightarrow{\psi_2} \dots \xrightarrow{\psi_{n-1}} S_n \xrightarrow{\psi_n} T$}
-      \\
-      \mbox{of $\phi$ with $\psi_i$ injective for $i > 0$ and $\psi_i$ tall for $i < n$}
-    \end{array}
-  }
-  \\
-  &= \set{\mbox{nested subsets $S_1 \subseteq S_2 \subseteq \dots \subseteq S_n \subseteq \mathbf E^i(T_{\phi(1 2 \dots n) \leq \phi(0)})$}}.
-  % \\
-  % \left(\mathbb F^{\mathbf E(T)}\right)^n \Omega(T)(\vect C)
-  % & = \set{
-  %   \begin{array}{l}
-  %     \mbox{factorizations $C \xrightarrow{\psi_0} S_1 \xrightarrow{\psi_1} S_2 \xrightarrow{\psi_2} \dots \xrightarrow{\psi_{n-1}} S_n \xrightarrow{\psi_n} T$}
-  %     \\
-  %     \mbox{of $\phi$ with $\psi_i$ tall for $i < n$}
-  %   \end{array}
-  % }
-\end{align*}
-
-Finally, for any finite set $A$, we recall that the $n$-simplicies of $\Delta[1]^{\times A}$ correspond to $(n+1)$-strings of nested subsets of $A$.
-Thus we have the following description of $W(T)$:
-
-\begin{equation}
-      \label{WT_EQ}
-      W(T)(\vect C) = 
-      \begin{cases}
-            \Delta[1]^{\times \mathbf E^i(T_{\underline e \leq e})}, \qquad & \mbox{there exist $C \xrightarrow{\phi} T$ with $\partial \phi = \vect C$}
-            \\
-            \varnothing & \text{else,}
-      \end{cases}
-\end{equation}
-
-It is clear that $W(-)$ is functorial. Thus we have the following definition.
-
-\begin{definition}
-      The \textit{homotopy coherent dendroidal nerve} and the \textit{$W_!$-construction}
-      are the right- and left-adjoints of the nerve-realization adjunction associated to the functor $W: \Omega \into \Op(\sSet)$.
-      \begin{equation}
-            \label{SOPDSET_EQ}
-            hc N \colon \sOp \leftrightarrows
-            \dSet \colon W_!
-      \end{equation}
-\end{definition}
-The culmination of extensive work by Cisinski-Moerdijk-Weiss \cite{CM13a,CM13b,CM11,MW09,MW07} is the following.
-
-\begin{theorem}
-      \label{CMW_THM}
-      $hcN$ and $W_!$ form a Quillen equivalence with respect to the model structures
-      which, in particular, are recovered by the $G = \**$ cases of Theorem \ref{MODEL_THM} and \cite[Thm. 2.1]{Per18}.
-\end{theorem}
-
-\todo[inline]{come back}
 
 \subsection{The equivariant adjunction}
 
@@ -11641,8 +11474,8 @@ We explore several consequences.
             \check{f_!} \O \simeq \mathop{coeq}(\mathbb F_{\mathfrak D} f_! \mathbb F_{\mathfrak C}\O \rightrightarrows \mathbb F_{\mathfrak D} f_! \O)
       \end{equation}
       from Remark \ref{ALGPUSHLL REM}
-      and the fact that $f^{\**}$ commutes with reflexive colimits\footnote{
-        This follows as $\otimes$ commuting with colimits in both variables implies it commutes with reflexive colimits; see e.g. \cite[Lemma 2.3.2]{Rez96}.},
+      and the fact that $f^{\**}$ commutes with reflexive coequalizers\footnote{
+        As with $\mathbb F$, this follows as $\otimes$ commuting with colimits in both variables implies it commutes with reflexive coequalizers; see e.g. \cite[Lemma 2.3.2]{Rez96}.},
       the second half follows from part (i).
 \end{proof}
 
