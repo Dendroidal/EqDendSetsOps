@@ -84,7 +84,7 @@ cf.  }
 
 % replace symbols
 
-\renewcommand{\hat}{\widehat}
+% \renewcommand{\hat}{\widehat}
 
 % random
 
@@ -1004,8 +1004,9 @@ assigns to a functor
 $\Sigma_{\mathfrak{C}}^{op} \xrightarrow{X} \mathcal{V}$
 the left Kan extension
 \begin{equation}
+      \label{FREEOP_EQ}
 \begin{tikzcd}
-	\Omega^{op}_{\mathfrak{C}}
+	\Omega^{0,op}_{\mathfrak{C}}
 	\arrow[d, "\mathsf{lr}"']
 	\arrow[r, "V"]
 &
@@ -1116,7 +1117,7 @@ $X\colon G \ltimes \Sigma_{\mathfrak{C}}^{op} \to \mathcal{V}$
 is the left Kan extension
 \begin{equation}\label{FGC_EQ}
 	\begin{tikzcd}
-		G \ltimes \Omega^{op}_{\mathfrak{C}}
+		G \ltimes \Omega^{0,op}_{\mathfrak{C}}
 		\arrow[d, "\mathsf{lr}"']
 		\arrow[r, "V"]
 	&
@@ -4149,7 +4150,7 @@ by restricting to the categories $j^{\**}\O^H$ and using \eqref{FIBFIX_LIFT_EQ}.
 % \end{proof}
 
 The key ideas in the proofs are:
-the stacking of $\V$-intervals forms another $\V$-interval \todo{pushout trick and Cav4.14 - still need that $\mathbb J_0$ is a cofibrant \textit{monoid}!},
+the stacking of $\V$-intervals forms another $\V$-interval \todo{pushout trick and Cav4.14 - still need that $\mathbb J_0$ is a cofibrant category with one object},
 ``nice'' pullbacks in $\Cat(\V)$ preserve local equivalences which are bijective on objects, and
 the two objects of any $\V$-interval $\mathbb J$ are isomorphic in $\pi_0(\mathbb J)$.
 
@@ -5310,7 +5311,7 @@ STUFF
       For $\vect T \in \Omega_{\mathfrak C}$, we have an analogous decomposition of $\vect T$ using a partition $\vect \lambda$,
       and controlling for the repeated $G$-action, we have
       \[
-            \Aut(\vect T) \simeq \big(\Sigma_{|\lambda_1|} \wr_G \Aut(\vect T_{i_1}\big) \times_G^\lrcorner \dots \times_G^\lrcorner \big(\Sigma_{|\lambda_s|} \wr_G \Aut(\vect T_{i_s}\big)
+            \Aut(\vect T) \simeq \big(\Sigma_{|\lambda_1|} \wr_G \Aut(\vect T_{i_1}\big) \times_G^\lrcorner \dots \times_G^\lrcorner \big(\Sigma_{|\lambda_s|} \wr_G \Aut(\vect T_{i_s})\big)
             %\prod_{j=1}^s{}_G \Sigma_{|\lambda_j} \wr_G \Aut(\vect T_{i_j})
       \]
       where $(-) \times_G^\lrcorner (-)$ again denotes the fiber product over $G$. 
@@ -5479,6 +5480,7 @@ All together, we conclude the following (cf. \cite[Remark 6.7]{Per18}, \cite[dis
       it has colors $\mathfrak C = \mathbf E(U)$ the set of edges, and
       for any $\mathbf E(U)$-signature $\vect C$, 
       \begin{equation}
+           \label{OMEGADEF_EQ}
             \Omega(U)(\vect C) =
             \begin{cases}
                   \** \qquad \qquad \qquad & \mbox{there exists $C \xrightarrow{\phi} U$ such that $\partial \phi = \vect C$}
@@ -5491,7 +5493,7 @@ All together, we conclude the following (cf. \cite[Remark 6.7]{Per18}, \cite[dis
       \todo[inline]{profile of a map? is this used in other places?}
       This extends to a functor $\Omega \into \Op$, and has an associated nerve-realization adjunction
       \begin{equation}
-            \label{dSETADJ_EQ}
+            \label{DSETADJ_EQ}
             \begin{tikzcd}
                   \dSet \arrow[r, shift left]
                   &
@@ -7531,6 +7533,285 @@ one has that, writing $C \simeq G \cdot_H C_{\star}$ one has the alternative pus
 \section{The Quillen equivalence}
 \label{QE_SEC}
 
+In this section, we synthesize the above results as well as the results of the related papers \cite{BP_geo,BP_edss,Per18},
+to prove the main theorem of this project, Theorem \ref{QE_THM}.
+
+First, we discuss the adjunction in question.
+
+\subsection{The $W$ construction}
+
+To extend $\tau \colon \dSet \rightleftarrows \Op \colon N$ from \eqref{DSETADJ_EQ} to a Quillen adjunction out of $\sOp$,
+we need a topological enrichment of the inclusion $\Omega \into \Op$ from \eqref{OMEGADEF_EQ}.
+We do this by constructing the free simplicial resolution\footnote{Also called the \textit{Godement} resolution, c.f. \cite[\S 8.3]{BM06}.}
+of $\Omega(T)$ as an algebra in the category of \textit{pointed} $\mathbf E(T)$-colored symmetric sequences $\Sym^{\mathbf E(T)}_{\eta}(\Set)$.
+
+\begin{definition}
+      Given a set of colors $\mathfrak C$, let $\eta_{\mathfrak C} = \eta$ denote the initial $\mathfrak C$-colored operad in $\V$,
+      defined for all $\mathfrak C$-sequences $\vect C$ by
+      \[
+            \eta(\vect C) =
+            \begin{cases}
+                  1_\V \qquad \qquad & \vect C = (x;x) \mbox{ for some $x \in \mathfrak C$,}
+                  \\
+                  \varnothing & \mbox{else.}
+            \end{cases}
+      \]
+      The category of \textit{pointed} $\mathfrak C$-colored symmetric sequences in $\V$ is the category
+      \[
+            \Sym^{\mathfrak C}_\eta(\V) := \eta_{\mathfrak C} \downarrow \Sym^{\mathfrak C}(\V).
+      \]
+\end{definition}
+
+The free operad monad $\mathbb F^{\mathfrak C}$ factors
+\begin{equation}
+      \label{FC_FAC_EQ}
+      \begin{tikzcd}
+            \Sym^{\mathfrak C}(\V) \arrow[r, shift left, "{(-) \amalg \eta}"]
+            &
+            \Sym^{\mathfrak C}_\eta(\V) \arrow[l, shift left] \arrow[r, shift left, "\mathbb F^{\mathfrak C}_\eta"]
+            &
+            \Op^{\mathfrak C}(\V) \arrow[l, shift left, "U_\eta"]
+      \end{tikzcd}
+\end{equation}
+where the map $\eta_{\mathfrak C} \to U_\eta(\O)$ selects the identity operations for each color,
+$(-) \amalg \eta$ is the (levelwise) coproduct in $\Sym^{\mathfrak C}(\V)$,
+and $\mathbb F^{\mathfrak C}_\eta$ is the ``free operad with prescribed units'' monad,
+defined on $X \in \Sym^{\mathfrak C}_\eta(\V)$ to be the pushout below computed in $\Op^{\mathfrak C}(\V)$.
+\begin{equation}
+      \label{FETA_EQ}
+      \begin{tikzcd}
+            \mathbb F^{\mathfrak C} \eta_{\mathfrak C} \arrow[d] \arrow[r]
+            &
+            \eta_{\mathfrak C} \arrow[d]
+            \\
+            \mathbb F^{\mathfrak C} X \arrow[r]
+            &
+            \mathbb F^{\mathfrak C}_\eta X
+      \end{tikzcd}
+\end{equation}
+
+We can now make the following definition of the $W$-construction.
+
+\begin{definition}
+      Given $T \in \Omega$, define $W(T)_\bullet \in \Op(\sSet) \subseteq (\Op^{\mathbf E(T)})^{\Delta^{op}}$ to be the bar construction
+      \[
+            W(T)_n = \left( \mathbb F^{\mathbf E(T)}_\eta \right)^{n+1} \left(\Omega(T)\right),
+      \]
+      with the simplicial maps the monadic unit and monadic multiplication.
+\end{definition}
+
+To work with this definition, we must ensure that $\mathbb F_\eta$ is in fact a monad, and moreover that is is the left adjoint to the forgetful functor.
+While we could show this directly, we instead apply results from Appendix \ref{AMALGMON_SEC} to realize this simplicial resolution from a different perspective.
+
+\subsubsection{Non-unital operads and combined monads}
+
+We consider an orthogonal factorization of the free operad monad
+\[
+      \Sym_\bullet \xrightarrow{\bar F} \Op_{\bullet,nu} \xrightarrow{P} \Op_\bullet
+\]
+where $\Op_{\bullet,nu}$ is the category of non-unital operads, and $P = (-) \amalg \eta_\bullet$ adds units.
+
+\begin{definition}
+      A \textit{non-unital operad} is a symmetric sequence equipped with an associative and $\Sigma_\bullet$-equivariant composition law, but no specified units.
+      Specifically, we are including ``partial'' composition laws
+      \[
+            \O(n) \times \prod_{i \in \lambda} \O(k_i) \longto \O\left(n-|\lambda|+\sum_{i \in \lambda}k_i\right)
+      \]
+      for any subset $\lambda \subseteq \set{1,2,\dots,n}$.
+\end{definition}
+
+The monad $\bar F$ encoding non-unital operads is built analogously to $\mathbb F_\bullet$ as in Appendix \ref{MONAD_APDX},
+with the key difference that,
+for any set of colors $\mathfrak C$,
+the fundamental category $\Omega_{\mathfrak C}^0$ of $\mathfrak C$-colored trees and isomorphisms
+is replaced with the subcategory $\Omega_{\mathfrak C}^{\textrm{nu},0}$ of non-stick trees and isomorphisms.
+This has the effect of replacing the categories $\Omega_{\mathfrak C}^n$ of $n$-strings of planar tall maps --- i.e. composites of inner faces and degeneracies --- 
+with the subcategory $\Omega_{\mathfrak C}^{\textrm{nu},n}$ of
+non-stick trees and $n$-strings of inner face maps:
+a planar tall map $T \to S$ is equivalent to substitution data $(T_v \to S_v)_{v \in V(T)}$ by \cite[Prop. 3.41]{BP_geo},
+and if we forbid $S_v$ from being a stick,
+we remove the ability of $T \to S$ to be a degeneracy.
+
+As observed in \cite{BP_geo}, degeneracies and sticks precisely record the unit and the unitality conditions.
+Thus, the results from Appendix \ref{MONAD_APDX} may be adapted mutatis mutandis;
+in particular, \eqref{FREEOP_EQ}, Definition \ref{COLORMON DEF}, and Proposition \ref{ASSOCIDS PROP} yield the following.
+
+\begin{proposition}
+      The free non-unital operad monad $\bar F$ on a $\mathfrak C$-colored symmetric sequence $X \in \Sym_{\mathfrak C}$ is given by the left Kan extension
+      \[
+            \begin{tikzcd}
+                  \left(\Omega_{\mathfrak C}^{\text{nu},0}\right)^{op} \arrow[r, hookrightarrow] \arrow[d, "\mathsf{lr}"]
+                  &
+                  \Omega_{\mathfrak C}^{0,op} \arrow[r,"V"] \arrow[dl, Rightarrow,shorten >=0.4cm,shorten <=0.4cm]
+                  &
+                  \left(\Sigma \wr \Sigma_{\mathfrak C}\right)^{op} \arrow[r, "X"] 
+                  &
+                  \left(\Sigma \wr \V^{op}\right)^{op} \arrow[r, "\otimes"]
+                  &
+                  \V
+                  \\
+                  \Sigma_{\mathfrak C}^{op} \arrow[urrrr, "\Lan = \bar F X"']
+            \end{tikzcd}
+      \]
+      Moreover, $\bar F^{\circ n}X$ is given by the left Kan extension      
+      \begin{equation}
+            \label{FREENUOP_EQ}
+            \begin{tikzcd}
+                  \left(\Omega_{\mathfrak C}^{\text{nu},n}\right)^{op} \arrow[r, hookrightarrow] \arrow[d, "\mathsf{lr}"]
+                  &
+                  \Omega_{\mathfrak C}^{n,op} \arrow[r,"{(V^0)^{\circ n+1}}"]
+                  \arrow[dl, Rightarrow, shorten >=0.4cm,shorten <=0.4cm]
+                  &[10pt]
+                  \left(\Sigma ^{\wr n+1} \wr \Sigma_{\mathfrak C}\right)^{op} \arrow[r, "{(\sigma^0)^{\circ n+1}}"]
+                  &[10pt]
+                  \left(\Sigma \wr \Sigma_{\mathfrak C}\right)^{op} \arrow[r, "X"]
+                  &
+                  \left(\Sigma \wr \V^{op}\right)^{op} \arrow[r, "\otimes"]
+                  &
+                  \V
+                  \\
+                  \Sigma_{\mathfrak C}^{op} \arrow[urrrrr, start anchor = east, end anchor = south west, "\Lan = \bar F^{\circ n} X"']
+            \end{tikzcd}
+      \end{equation}
+\end{proposition}
+
+
+Now, we apply Appendix \ref{AMALGMON_SEC}.
+First, we observe by hand % P-F-combined.pdf
+that $P$ and $\bar F$ can be combined as in Definition \ref{AMALGMON DEF} ---
+the maps $P \Rightarrow \mathbb F$ and $\bar F \Rightarrow \mathbb F$ are simply
+\[
+      X \amalg \eta \xrightarrow{\eta \amalg e} \mathbb F X,
+      \qquad
+      \bar F X \hookrightarrow \eta \amalg \bar F X.
+\]
+Moreover, as $P$ and $F = \mathbb F$ both preserve reflexive coequalizers\footnote{
+  For $\mathbb F$, this follows as $\otimes$ commuting with colimits in both variables implies it commutes with reflexive coequalizers; see e.g. \cite[Lemma 2.3.2]{Rez96}.},
+the ``free operad with prescribed units'' functor, i.e. the left adjoint $F_p$ to the forgetful functor $\mathsf{fgt} \colon \Op_{\mathfrak C} \to \Sym^{\mathfrak C}_e$, exists,
+and following \eqref{FRMONDES EQ} is given on $Y \in \Sym^{\mathfrak C}_e$ as the coequalizer of the following in $\Sym_{\mathfrak C}$.
+\begin{equation}
+      \label{FPYCOEQ_EQ}
+      \mathbb F P Y = \mathbb F(Y \amalg \eta_{\mathfrak C}) \overset{f_1}{\underset{f_2}\rightrightarrows} \mathbb F Y,
+      % \begin{tikzcd}
+      %       \mathbb F P Y = \mathbb F(Y \amalg \eta_{\mathfrak C}) 
+      %       \arrow[r, shift left, "{\mu \circ F P \eta_{\bar F}}"] \arrow[r, shift right, "{Fm}"']
+      %       &[30pt]
+      %       \mathbb F Y,
+      % \end{tikzcd}
+      \qquad
+      f_1 = \mathbb F(Y \amalg \eta \xrightarrow{id,e} Y),
+      \quad
+      f_2 \colon \mathbb F(Y \amalg \eta) \xrightarrow{\eta_{\bar F} \amalg id} \mathbb F(\bar F Y \amalg \eta) = \mathbb F^2 Y \xrightarrow{\mu} \mathbb FY,
+\end{equation}
+
+
+This matches the above description of $\mathbb F_\eta$ from \eqref{FETA_EQ}:
+\begin{lemma}
+      The underlying functor for the ``free operad with prescribed units'' monad $F_P$ on $\Sym_e$ is naturally isomorphic to $\mathbb F_\eta$.
+\end{lemma}
+\begin{proof}
+      We note that $f_2$ in \eqref{FPYCOEQ_EQ} has another decomposition, namely
+      \[
+            \mathbb F (Y \amalg \eta) = P\bar F Y \mathbin{\hat{\amalg}} \mathbb F_\eta \xrightarrow{\eta_{\bar F} \amalg id}
+            P\bar F \bar F Y \mathbin{\hat{\amalg}} \mathbb F \eta \xrightarrow{\mu_{\bar F} \amalg (id \circ \mu)}
+            F Y \amalg \eta = \mathbb F Y,
+      \]
+      where $\hat{\amalg}$ denotes the coproduct in $\mathbb F$-algebras
+      (as $P \bar F \bar F \to \mathbb F Y$, by Proposition \ref{ALTMULT PROP}, and both $\mathbb F \eta \to \eta$ and the unique map $\eta \to \O$ are all maps of $\mathbb F$-algebras).
+
+      But then this equalizier is of form
+      $
+      \O \mathbin{\hat{\amalg}} \P \rightrightarrows \O
+      $
+      with both maps the identity on the $\O$ component.
+      As in any category, this is isomorphic to the coequalizer of the interesting pieces
+      $\P \rightrightarrows \O$,
+      and thus $F_P Y$ is the coequalizer below of $\mathbb F$-algebras.
+      \[
+            \mathbb F_\eta \overset{e \circ \mu}{\underset{\mathbb F(e)} \rightrightarrows} \mathbb F Y \xrightarrow{\mathrm{coeq}} F_P Y
+      \]
+      Converting this coequalizer into a pushout yields the diagram below.
+      \[
+            \begin{tikzcd}
+                  \mathbb F \eta \mathbin{\hat{\amalg}} \mathbb F \eta \arrow[r] \arrow[d, "\nabla"']
+                  &
+                  \mathbb F Y \arrow[d]
+                  \\
+                  \mathbb F \eta \arrow[r]
+                  &
+                  F_P Y
+            \end{tikzcd}
+      \]
+      Finally, one can check that this pushout has the same universal property as the pushout \eqref{FETA_EQ};
+      the result follows.
+\end{proof}
+
+We can now describe $W(T)$.
+\begin{corollary}
+      For any $T \in \Omega_G$, we have
+      \begin{equation}
+            \label{WT_EQ}
+            W(T)_n = \mathbb F_\eta^{\circ n+1} \Omega(T) = F_P^{\circ n+1} P \bar F \Sigma_\bullet[T] = P \bar F^{\circ n+2}\Sigma_\bullet[T].
+      \end{equation}
+      Moreover, for any signature $\vect C = (e_1, \dots, e_k; e)$, we have
+      $W(T)(\vect C) = \Delta[1]^{\times \boldsymbol{E}^i(T_{\underline{e} \leq e})}$ is the (nerve of the) poset of inner faces of $T_{e_1 e_2 \dots e_k \leq e_0}$.
+\end{corollary}
+\begin{proof}
+      Equation \eqref{WT_EQ} follows from Corollary \ref{ALGLEFTEX_COR}.
+      The evaluation $W(T)(\vect C)$ follows from \eqref{FREENUOP_EQ} that
+      \[
+            \bar F^{\circ n+2} \Sigma_\bullet[T] = \Lan_{(\Omega_\bullet^{r,n+1}\to \Sigma_\bullet)^{op}} \bar N^{T},
+      \]
+      with
+      \[
+            \left(\bar N^{T}\right)^{op} \colon
+            \Omega_{\boldsymbol E(T)}^{r, n+1} \xrightarrow{\boldsymbol{V}}
+            \Sigma^{\wr n+2} \wr \Sigma_{\boldsymbol E(T)} \longto
+            \Sigma \wr \Sigma_{\boldsymbol E(T)} \xrightarrow{\Sigma_\bullet[T]}
+            \Sigma \wr \V^{op} \xrightarrow{\otimes}
+            \V^{op}.
+      \]
+      But $\bar N^T$ evaluated on an $(n+1)$-string of inner faces
+      $T_0 \hookrightarrow T_1 
+      \hookrightarrow T_2 
+      \hookrightarrow \cdots
+      \hookrightarrow T_{n+1}$
+      is given by a point $\**$
+      if $T_{n+1} \simeq T$
+      and by $\emptyset$ otherwise.
+      The result follows.
+\end{proof}
+
+
+\begin{definition}
+      The \textit{homotopy coherent dendroidal nerve} and the \textit{$W_!$-construction}
+      are the right- and left-adjoints of the nerve-realization adjunction associated to the functor $W: \Omega \into \Op(\sSet)$.
+      \begin{equation}
+            \label{SOPDSET_EQ}
+            hc N \colon \sOp \leftrightarrows
+            \dSet \colon W_!
+      \end{equation}
+\end{definition}
+
+The culmination of extensive work by Cisinski-Moerdijk-Weiss \cite{CM13a,CM13b,CM11,MW09,MW07} is the following.
+
+\begin{theorem}
+      \label{CMW_THM}
+      $hcN$ and $W_!$ form a Quillen equivalence with respect to the model structures
+      which, in particular, are recovered by the $G = \**$ cases of Theorem \ref{MODEL_THM} and \cite[Thm. 2.1]{Per18}.
+\end{theorem}
+
+
+
+\todo[inline]{come back!}
+
+
+
+
+
+
+
+
 
 
 
@@ -7626,261 +7907,6 @@ is the iterated pushout product
 
 \newpage
 
-In this section, we synthesize the above results as well as the results of the related papers \cite{BP_geo,BP_edss,Per18},
-to prove the main theorem of this project, Theorem \ref{QE_THM}.
-
-\subsection{The non-equivariant adjunction}
-We recall the adjunction in question.
-\todo[inline]{say more. come back once the paper is organized}
-
-To extend $\tau \colon \dSet \rightleftarrows \Op \colon N$ from Definition \ref{OT_DEF} to a Quillen adjunction out of $\sOp$,
-we need a topological enrichment of the inclusion $\Omega \into \Op$.
-We do this by constructing the free simplicial resolution\footnote{Also called the \textit{Godement} resolution, c.f. \cite[\S 8.3]{BM06}.}
-of $\Omega(T)$ as an algebra in the category of \textit{pointed} $\mathbf E(T)$-colored symmetric sequences $\Sym^{\mathbf E(T)}_{\eta}(\Set)$.
-We elaborate on that distinction now.
-
-\begin{definition}
-      Given a set of colors $\mathfrak C$, let $\eta_{\mathfrak C} = \eta$ denote the initial $\mathfrak C$-colored operad in $\V$,
-      defined for all $\mathfrak C$-sequences $\vect C$ by
-      \[
-            \eta(\vect C) =
-            \begin{cases}
-                  1_\V \qquad \qquad & \vect C = (x;x) \mbox{ for some $x \in \mathfrak C$,}
-                  \\
-                  \varnothing & \mbox{else.}
-            \end{cases}
-      \]
-      The category of \textit{pointed} $\mathfrak C$-colored symmetric sequences in $\V$ is the category
-      \[
-            \Sym^{\mathfrak C}_\eta(\V) := \eta_{\mathfrak C} \downarrow \Sym^{\mathfrak C}(\V).
-      \]
-\end{definition}
-
-The free operad monad $\mathbb F^{\mathfrak C}$ factors
-\begin{equation}
-      \label{FC_FAC_EQ}
-      \begin{tikzcd}
-            \Sym^{\mathfrak C}(\V) \arrow[r, shift left, "{(-) \amalg \eta}"]
-            &
-            \Sym^{\mathfrak C}_\eta(\V) \arrow[l, shift left] \arrow[r, shift left, "\mathbb F^{\mathfrak C}_\eta"]
-            &
-            \Op^{\mathfrak C}(\V) \arrow[l, shift left, "U_\eta"]
-      \end{tikzcd}
-\end{equation}
-where the map $\eta_{\mathfrak C} \to U_\eta(\O)$ selects the identity operations for each color,
-$(-) \amalg \eta$ is the (levelwise) coproduct in $\Sym^{\mathfrak C}(\V)$,
-and $\mathbb F^{\mathfrak C}_\eta$ is defined on $X \in \Sym^{\mathfrak C}_\eta(\V)$ to be the pushout below computed in $\Op^{\mathfrak C}(\V)$.
-\[
-      \begin{tikzcd}
-            \mathbb F^{\mathfrak C} \eta_{\mathfrak C} \arrow[d] \arrow[r]
-            &
-            \eta_{\mathfrak C} \arrow[d]
-            \\
-            \mathbb F^{\mathfrak C} X \arrow[r]
-            &
-            \mathbb F^{\mathfrak C}_\eta X
-      \end{tikzcd}
-\]
-
-% The following observations are straightforward.
-% \begin{lemma}
-%       $\mathbb F^{\mathfrak C}_\eta$ is left adjoint to the forgetful functor $\Op^{\mathfrak C}(\V) \to \Sym^{\mathfrak C}_\eta(\V)$,
-%       and \eqref{FC_FAC_EQ} is a factorization of the original free-forgetful adjunction for $\mathbb F^{\mathfrak C}$. 
-% \end{lemma}
-
-We can now make the following definition of the $W$-construction.
-
-\begin{definition}
-      Given $T \in \Omega$, define $W(T)_\bullet \in \Op(\sSet) \subseteq (\Op^{\mathbf E(T)})^{\Delta^{op}}$ to be the bar construction
-      \[
-            W(T)_n = \left( \mathbb F^{\mathbf E(T)}_\eta \right)^{n+1} \left(\Omega(T)\right),
-      \]
-      with the simplicial maps the monadic unit and monadic multiplication.
-\end{definition}
-
-We unpack this $\mathbf E(T)$-colored operad, culminating in \eqref{WT_EQ}.
-First, we consider $\mathbb F^{\mathbf E(T)} \Omega(T)$ and $\mathbb F^{\mathbf E(T)}_\eta \Omega(T)$.
-We observe that $\mathbb F^{\mathbf E(T)} \Omega(T)(\vect C) = \varnothing$ iff $\Omega(T)(\vect C) = \varnothing$.
-Otherwise, if $C \xrightarrow{\phi} T$ is such that $\partial \phi = \vect C$, then
-\begin{equation}
-      \label{FET_EQ}
-      \mathbb F^{\mathbf E(T)}\Omega(T)(\vect C)
-      = \set{\mbox{factorizations $C \xrightarrow{\psi_0} S_1 \xrightarrow{\psi_1} T$ of $\phi$ with $\psi_0$ tall}}.
-\end{equation}
-We note in particular that neither map in the factorization needs to be injective;
-specifically, for any $e \in \mathbf E(T)$,
-\begin{equation}
-      \label{FET_EE_EQ}
-      \mathbb F^{\mathbf E(T)}\Omega(T)(e;e) = \mathbb Z_{\geq 0}
-\end{equation}
-is in bijection with the set of non-negative integers.
-
-\begin{example}
-      More generally, we consider the simple case where $T$ is the 2-corolla $C_2 \in \Sigma$, with leaves $\set{a,b}$ and root $r$.
-      Then $\mathbb F^{\mathbf E(T)}\Omega(T)(a,b;r) = \mathbb Z_{\geq 0}^{\times \set{a,b,r}}$,
-      where the tree $S_1$ associated to the triple $(n_a, n_b, n_r)$ has one node of valence two,
-      with root (resp. left, right) path out of that node of length $n_r$ (resp. $n_a$, $n_b$).
-      \[
-            \begin{tikzpicture}
-                  [grow=up,auto,
-                  level distance=2em,
-                  every node/.style = {font=\footnotesize,solid},
-                  dummy/.style={circle,draw,inner sep=0pt,minimum size=1.75mm},
-                  emph/.style={edge from parent/.style={black,thin,dotted,draw}},
-                  norm/.style={edge from parent/.style={black,thin,draw,solid}}
-                  ]
-                  \node {$S_1$}
-                  child[norm, level distance=1.5em] {node [dummy] {}
-                    % child[norm, level distance=1.2em] {node [dummy] {}
-                      child[emph]{node [dummy] {} % vertex
-                        child[norm] {node [dummy] {}
-                          child[emph] {node [dummy] {}
-                            child[norm] {edge from parent node [swap] {$b$}}
-                          }
-                        }
-                         child[norm] {node [dummy] {}
-                          child[emph] {node [dummy] {}
-                            child[norm] {edge from parent node {$a$}}
-                          }
-                        }
-                      }
-                      % }
-                    edge from parent node [swap] {$r$}
-                  };
-            \end{tikzpicture}
-      \]
-      where there are $n_r$, $n_b$, and $n_a$ edges on the bottom, right, and left paths respectively.
-\end{example}
-      
-Now, $\mathbb F^{\mathbf E(T)}\eta_{\mathbf E(T)}(\vect C) = \varnothing$ unless $\vect C = (e;e)$ for some $e \in \mathbf E(T)$;
-in this case, $\mathbb F^{\mathbf E(T)}\eta(e;e) = \mathbb Z_{\geq 0}$, as in \eqref{FET_EE_EQ}.
-% 
-If we also denote the unit map by $\eta$, we see that the image of the map
-\[
-      \mathbb F^{\mathbf E(T)}\eta \xrightarrow{\mathbb F^{\mathbf E(T)}\eta} \mathbb F^{\mathbf E(T)} \Omega(T)
-\]
-corresponds to all factorizations from \eqref{FET_EQ} with $S_1$ a linear tree and $\phi$ (and hence $\psi_1$) a degeneracy.
-
-Thus in the pushout $\mathbb F^{\mathbf E(T)}_\eta\Omega(T)$, all the non-injective operations are identified, and we have
-\begin{align*}
-  \mathbb F^{\mathbf E(T)}_\eta\Omega(T)(\vect C)
-  & = \set{\mbox{factorizations $C \xrightarrow{\psi_0} S_1 \xrightarrow{\psi_1} T$ of $\phi$ with $\psi_1$ injective, $\psi_0$ tall}} \\
-  & = \set{\mbox{inner faces $S_1$ of $T_{\phi(1 2 \dots n) \leq \phi(0)}$}} \\
-  & = \set{\mbox{subsets $S_1 \subseteq \mathbf E^i(T_{\phi(1 2 \dots n) \leq \phi(0)})$ of inner edges}}    
-\end{align*}
-where $1 2 \dots n \leq 0$ is the vertex of $C$ and $T_{\phi(1 2 \dots n) \leq \phi(0)}$ is the associated outer face of $T$ \todo{find citation from \cite{Per18} /add discussion}.
-
-
-% Iterating, we see that
-% \[
-%       \mathbb F(\mathbb F_\eta \Omega(T))(C)
-%       = \set{
-%         \begin{array}{l}
-%           \mbox{factorizations $C \xrightarrow{\psi_0} S_1 \xrightarrow{\psi_1} S_2 \xrightarrow{\psi_2} T$}
-%           \\
-%           \mbox{of $\phi$ with $\psi_0,\psi_1$ tall and $\psi_2$ injective}
-%         \end{array}
-%       },
-% \]
-% while the image of $\eta$ in $\mathbb F_\eta \Omega(T)$ are those factorizations with
-% $S_1 = \eta$,
-% and the image of $\mathbb F(\eta)$ in $\mathbb F(\mathbb F_\eta \Omega(T)$ are those factorizations with
-% $S_1$ linear and $S_2 = \eta$.
-
-Inductively, we have the following:
-\begin{align*}
-  \left(\mathbb F^{\mathbf E(T)}_\eta \right)^{n-1} \Omega(T)(\vect C)
-  & = \set{
-    \begin{array}{l}
-      \mbox{factorizations $C \xrightarrow{\ \quad \psi_0 \quad \ } S_1 \xrightarrow{\psi_1}
-      % S_2 \xrightarrow{\psi_2}
-      \dots \xrightarrow{\psi_{n-2}} S_{n-1} \xrightarrow{\psi_{n-1}} T$}
-      \\
-      \mbox{of $\phi$ with $\psi_i$ injective for $i > 0$ and $\psi_i$ tall for $i < n-1$}
-    \end{array}
-  },
-  \\ % --------------------
-  \mathbb F^{\mathbf E(T)} \left(\mathbb F^{\mathbf E(T)}_\eta\right)^{n-1} \Omega(T) (\vect C)
-  & = \set{
-    \begin{array}{l}
-      \mbox{factorizations $C \xrightarrow{\psi_0} S_1 \xrightarrow{\psi_1} S_2 \xrightarrow{\psi_2} \dots \xrightarrow{\psi_{n-1}} S_n \xrightarrow{\psi_n} T$}
-      \\
-      \mbox{of $\phi$ with $\psi_i$ tall for $i < n$ and injective for $i > 1$}
-    \end{array}
-  },
-  \\ % --------------------
-  \mathsf{im}\left(\eta \to \left(\mathbb F^{\mathbf E(T)}_{\eta}\right)^{n-1}\Omega(T)\right)
-  & = \set{
-    \begin{array}{l}
-      \mbox{factorizations $C_1 \xrightarrow{\ \quad \psi_0 \ \quad} \eta \xrightarrow{\psi_1}
-        % \eta \xrightarrow{\psi_2}
-      \dots \xrightarrow{\psi_{n-2}} \eta \xrightarrow{\psi_{n-1}} T$}
-    \end{array}
-  },
-  \\ % --------------------
-  \mathsf{im}\left(\mathbb F^{\mathbf E(T)}\left( \eta \to \left(\mathbb F^{\mathbf E(T)}_{\eta}\right)^n\Omega(T)\right)\right)
-  & = \set{
-    \begin{array}{l}
-      \mbox{factorizations $C_1 \xrightarrow{\psi_0} S_1 \xrightarrow{\psi_1} \eta \xrightarrow{\psi_2} \dots \xrightarrow{\psi_{n-1}} \eta \xrightarrow{\psi_n} T$}
-      \\
-      \mbox{of $\phi$ with $S_1$ linear}
-    \end{array}
-  },
-  \\ % --------------------
-  \left(\mathbb F^{\mathbf E(T)}_\eta \right)^n \Omega(T)(\vect C)
-  & = \set{
-    \begin{array}{l}
-      \mbox{factorizations $C \xrightarrow{\psi_0} S_1 \xrightarrow{\psi_1} S_2 \xrightarrow{\psi_2} \dots \xrightarrow{\psi_{n-1}} S_n \xrightarrow{\psi_n} T$}
-      \\
-      \mbox{of $\phi$ with $\psi_i$ injective for $i > 0$ and $\psi_i$ tall for $i < n$}
-    \end{array}
-  }
-  \\
-  &= \set{\mbox{nested subsets $S_1 \subseteq S_2 \subseteq \dots \subseteq S_n \subseteq \mathbf E^i(T_{\phi(1 2 \dots n) \leq \phi(0)})$}}.
-  % \\
-  % \left(\mathbb F^{\mathbf E(T)}\right)^n \Omega(T)(\vect C)
-  % & = \set{
-  %   \begin{array}{l}
-  %     \mbox{factorizations $C \xrightarrow{\psi_0} S_1 \xrightarrow{\psi_1} S_2 \xrightarrow{\psi_2} \dots \xrightarrow{\psi_{n-1}} S_n \xrightarrow{\psi_n} T$}
-  %     \\
-  %     \mbox{of $\phi$ with $\psi_i$ tall for $i < n$}
-  %   \end{array}
-  % }
-\end{align*}
-
-Finally, for any finite set $A$, we recall that the $n$-simplicies of $\Delta[1]^{\times A}$ correspond to $(n+1)$-strings of nested subsets of $A$.
-Thus we have the following description of $W(T)$:
-
-\begin{equation}
-      \label{WT_EQ}
-      W(T)(\vect C) = 
-      \begin{cases}
-            \Delta[1]^{\times \mathbf E^i(T_{\underline e \leq e})}, \qquad & \mbox{there exist $C \xrightarrow{\phi} T$ with $\partial \phi = \vect C$}
-            \\
-            \varnothing & \text{else,}
-      \end{cases}
-\end{equation}
-
-It is clear that $W(-)$ is functorial. Thus we have the following definition.
-
-\begin{definition}
-      The \textit{homotopy coherent dendroidal nerve} and the \textit{$W_!$-construction}
-      are the right- and left-adjoints of the nerve-realization adjunction associated to the functor $W: \Omega \into \Op(\sSet)$.
-      \begin{equation}
-            \label{SOPDSET_EQ}
-            hc N \colon \sOp \leftrightarrows
-            \dSet \colon W_!
-      \end{equation}
-\end{definition}
-The culmination of extensive work by Cisinski-Moerdijk-Weiss \cite{CM13a,CM13b,CM11,MW09,MW07} is the following.
-
-\begin{theorem}
-      \label{CMW_THM}
-      $hcN$ and $W_!$ form a Quillen equivalence with respect to the model structures
-      which, in particular, are recovered by the $G = \**$ cases of Theorem \ref{MODEL_THM} and \cite[Thm. 2.1]{Per18}.
-\end{theorem}
-
-\todo[inline]{come back}
 
 \subsection{The equivariant adjunction}
 
@@ -11299,8 +11325,9 @@ is equivalent to performing the Kan extension of the top composite.
 
 
 We next note that there is a natural map 
-$\Omega^0_{\mathfrak{C},\mathfrak{D}} \to \Omega^0_{\mathfrak{C}}$
-given by $T \mapsto \partial_{\mathfrak{D} \setminus \mathfrak{C}}(T)$, i.e. by collapsing those inner edges not in $\mathfrak{C}$, and we write
+$\Omega^0_{\mathfrak{C},\mathfrak{D}} \to \Omega^0_{\mathfrak{C}}$,
+defined by $T \mapsto \partial_{\mathfrak{D} \setminus \mathfrak{C}}(T)$,
+collapsing those inner edges not in $\mathfrak{C}$, and we write
 $\Omega^{0,\partial}_{\mathfrak{C},\mathfrak{D}}
 \subseteq 
 \Omega^{0}_{\mathfrak{C},\mathfrak{D}}
@@ -11568,32 +11595,31 @@ is encoded by the diagram
 \]
 
 
-Thus we have established \eqref{HATSFT EQ}.
+This finishes the argument establishing \eqref{HATSFT EQ}.
+
 We explore several consequences.
-
-
 \begin{corollary}
       \label{FTF_COR}
       For any injective $f \colon \mathfrak C \to \mathfrak D$, the following hold.
       \begin{enumerate}[label = (\roman*)]
       \item $f^{\**} \mathbb F_{\mathfrak D} f_! \simeq \mathbb F_{\mathfrak C}$.
-      \item $f^{\**} \check{f_!} = id_{\Op_{\mathfrak C}}$ and $f^{\**} f_! = id_{\Sym_{\mathfrak C}}$.
+      \item $f^{\**} f_! = id_{\Sym_{\mathfrak C}}$ and $f^{\**} \check{f_!} = id_{\Op_{\mathfrak C}}$.
       \end{enumerate}
 \end{corollary}
 \begin{proof}
-      For (i), it suffices to show that $\widehat{f^{\**}} f_!$ is the 
-      this is straightforward from the definition given in \eqref{HATFSTDEF EQ}.
+      For (i), it suffices to show that $\widehat{f^{\**}} f_!$ is the identity,
+      which is straightforward from the definition given in \eqref{HATFSTDEF EQ}.
       % $\widehat{f^{\**}} f_! X(\ksi) = \varnothing$ unless $\ksi \in \Sigma_{\mathfrak C}$, in which case
       % $\widehat{f^{\**}} f_! X(\ksi) = X(\ksi)$.
-      For (ii), using
+      For (ii), the first half is immediate, and using
       \begin{equation}
             \label{CFS_EQ}
             \check{f_!} \O \simeq \mathop{coeq}(\mathbb F_{\mathfrak D} f_! \mathbb F_{\mathfrak C}\O \rightrightarrows \mathbb F_{\mathfrak D} f_! \O)
       \end{equation}
       from Remark \ref{ALGPUSHLL REM}
-      and the fact that $f^{\**}$ commutes with reflexive colimits\footnote{
-        This follows as $\otimes$ commuting with colimits in both variables implies it commutes with reflexive colimits; see e.g. \cite[Lemma 2.3.2]{Rez96}.},
-      the result follows from part (i).
+      and the fact that $f^{\**}$ commutes with reflexive coequalizers\footnote{
+        As with $\mathbb F$, this follows as $\otimes$ commuting with colimits in both variables implies it commutes with reflexive coequalizers; see e.g. \cite[Lemma 2.3.2]{Rez96}.},
+      the second half follows from part (i).
 \end{proof}
 
 \begin{corollary}
@@ -11614,72 +11640,80 @@ We explore several consequences.
       which is indeed described by the coequalizer \eqref{CFS_EQ}.
 \end{proof}
 
-\begin{corollary}
-      For any $(G, \Sigma)$-family $\F$ and injective map of colors $f \colon \mathfrak C \to \mathfrak D$,
-      the map $f^{\**}: \Op^{\mathfrak D}_\F(\V) \to \Op^{\mathfrak C}_\F(\V)$ preserves (trivial) cofibrations.
-\end{corollary}
-\begin{proof}
-      We first show $f^{\**}$ preserves generating (trivial) cofibrations, as in Proposition \ref{GCOF_SYMMS_PROP}.
-      To start, let $X$ be a free symmetric sequence (cf. \eqref{FREESIGMA_EQ})
-      \[
-            X = \Sigma_{\mathfrak D}(-, \ksi)[K] = \Hom_{\Sigma_{\mathfrak D}}(-,\ksi) \cdot_{\Aut(\ksi)} K
-      \]
-      on some $\mathfrak D$-signature $\ksi$ and $K \in \V^{\Aut(\ksi)}$.
-      % From the definition of $\Omega^{0,\partial}_{\mathfrak C, \mathfrak D}$ and $\widehat{f^{\**}}(X)$ from \eqref{HATFSTDEF},
-      It is straightforward to check that the only case in which $\widehat{f^{\**}}(X)$ is not the initial symmetric sequence (i.e. constant to the initial object in $\V$)
-      is when $\ksi$ is in fact a $\mathfrak C$-signature, in which case
-      \begin{equation}
-            \label{SDFI_EQ}
-            \Sigma_{\mathfrak D}(-,\ksi)[K] = f_!\Sigma_{\mathfrak C}(-,\ksi)[K].
-      \end{equation}
-      The claim for generating (trivial) cofibrations then follows from Corollary \ref{FTF_COR}(i).
 
-      For the general case, we have that since $\otimes$ commutes with colimits in each variable, it commutes with filtered colimits, in particular transfinite compositions (\cite[Lemma 2.3.3]{Rez96}), and hence $f^{\**}$ preserves transfinite compositions.
-      Moreover, $f^{\**}$ preserves pushouts of free symmetric sequences
-      $\Sigma_{\mathfrak D}(-,\ksi)[i]$
-      with $\ksi \in \Sigma_{\mathfrak C}$ by \eqref{SDFI_EQ}, Corollary \ref{FSU_COR}, and Lemma \ref{BASICPUSH LEMMA}.
+{\color{OliveGreen} % --------------------------------------------------------------------------------
+  \begin{corollary}
+        For any $(G, \Sigma)$-family $\F$ and injective map of colors $f \colon \mathfrak C \to \mathfrak D$,
+        the map $f^{\**}: \Op^{\mathfrak D}_\F(\V) \to \Op^{\mathfrak C}_\F(\V)$ preserves (trivial) cofibrations between cofibrant objects.
+  \end{corollary}
+  \todo[inline]{the statement is true as written, however the machinery to prove it entirely has not been developed.}
+  \begin{proof}
+        We first show $f^{\**}$ preserves generating (trivial) cofibrations, as in Proposition \ref{GCOF_SYMMS_PROP}.
+        To start, let $X$ be a free symmetric sequence (cf. \eqref{FREESIGMA_EQ})
+        \[
+              X = \Sigma_{\mathfrak D}(-, \ksi)[K] = \Hom_{\Sigma_{\mathfrak D}}(-,\ksi) \cdot_{\Aut(\ksi)} K
+        \]
+        on some $\mathfrak D$-signature $\ksi$ and $K \in \V^{\Aut(\ksi)}$.
+        % From the definition of $\Omega^{0,\partial}_{\mathfrak C, \mathfrak D}$ and $\widehat{f^{\**}}(X)$ from \eqref{HATFSTDEF},
+        It is straightforward to check that the only case in which $\widehat{f^{\**}}(X)$ is not the initial symmetric sequence (i.e. constant to the initial object in $\V$)
+        is when $\ksi$ is in fact a $\mathfrak C$-signature, in which case
+        \begin{equation}
+              \label{SDFI_EQ}
+              \Sigma_{\mathfrak D}(-,\ksi)[K] = f_!\Sigma_{\mathfrak C}(-,\ksi)[K].
+        \end{equation}
+        The claim for generating (trivial) cofibrations then follows from Corollary \ref{FTF_COR}(i).
 
-      It remains to check that the image under $f^{\**}$ of a pushout over $\Sigma_{\mathfrak D}(-,\ksi)[i]$ with $\ksi \notin \Sigma_{\mathfrak C}$ is a (trivial) cofibration.
-      
-      come back!
-\end{proof}
+        For the general case, we have that since $\otimes$ commutes with colimits in each variable, it commutes with filtered colimits, in particular transfinite compositions (\cite[Lemma 2.3.3]{Rez96}), and hence $f^{\**}$ preserves transfinite compositions.
+        Moreover, $f^{\**}$ preserves pushouts of free symmetric sequences
+        $\Sigma_{\mathfrak D}(-,\ksi)[i]$
+        with $\ksi \in \Sigma_{\mathfrak C}$ by \eqref{SDFI_EQ}, Corollary \ref{FSU_COR}, and Lemma \ref{BASICPUSH LEMMA}.
 
-The following example demonstrates that $f^{\**}$ need not preserve all pushouts.
-\begin{example}
-      Let $f \colon \set{0} \hookrightarrow \set{0,1}$, and consider the following pushouts in $\Cat^{\set{0,1}}(\sSet)$.
-      \[
-            \begin{tikzcd}
-                  \set{0,1} \arrow[d, "{\mathbb F(-, (1;1))[\partial \Delta[0] \to \Delta[0]]}"'] \arrow[r]
-                  &
-                  {[1]} \arrow[d]
-                  &&& % --------------------
-                  \set{0,1} \arrow[d, "{\mathbb F(-, (1;1))[\partial \Delta[0] \to \Delta[0]]}"'] \arrow[r]
-                  &
-                  \widetilde{[1]} \arrow[d]
-                  \\
-                  \set{0} \amalg \mathbb N_0\set{1} \arrow[r]
-                  &
-                  \mathcal P
-                  &&& % ----------
-                  \set{0} \amalg \mathbb N_0\set{1} \arrow[r]
-                  &
-                  \tilde{\mathcal P}
-            \end{tikzcd}
-      \]
-      In both cases, $f^{\**}$ applied to the left vertical arrows yields $id_{\varnothing}$.
-      However, the pushout on the left is preserved by $f^{\**}$, as
-      $f^{\**}([1]) = f^{\**}(\mathcal P) = \**$,
-      but the pushout on the right is not preserved, as
-      $f^{\**}(\widetilde{[1]}) = \**$ but $f^{\**}(\tilde{\mathcal P}) = \mathbb N_0$.
+        It remains to check that the image under $f^{\**}$ of a pushout over $\Sigma_{\mathfrak D}(-,\ksi)[i]$ with $\ksi \notin \Sigma_{\mathfrak C}$ is a (trivial) cofibration.
+        
+        {\color{red} can't go on from here yet}
+  \end{proof}
 
-      \todo[inline]{In this case, the RHS is still a pushout of a free thing, but I don't know how to make this systematic
-      - it must preserve cofibrant objects (i.e. by BM13a), but Lemma \ref{BASICPUSH LEMMA} only takes care of the easy case from \cite[Thm. 1.15]{BP13a}.}
-\end{example}
+  The following example demonstrates that $f^{\**}$ need not preserve all pushouts.
+  \begin{example}
+        Let $f \colon \set{0} \hookrightarrow \set{0,1}$, and consider the following pushouts in $\Cat^{\set{0,1}}(\sSet)$.
+        \[
+              \begin{tikzcd}
+                    \set{0,1} \arrow[d, "{\mathbb F(-, (1;1))[\partial \Delta[0] \to \Delta[0]]}"'] \arrow[r]
+                    &
+                    {[1]} \arrow[d]
+                    &&& % --------------------
+                    \set{0,1} \arrow[d, "{\mathbb F(-, (1;1))[\partial \Delta[0] \to \Delta[0]]}"'] \arrow[r]
+                    &
+                    \widetilde{[1]} \arrow[d]
+                    \\
+                    \set{0} \amalg \mathbb N_0\set{1} \arrow[r]
+                    &
+                    \mathcal P
+                    &&& % ----------
+                    \set{0} \amalg \mathbb N_0\set{1} \arrow[r]
+                    &
+                    \tilde{\mathcal P}
+              \end{tikzcd}
+        \]
+        In both cases, $f^{\**}$ applied to the left vertical arrows yields $id_{\varnothing}$.
+        However, the pushout on the left is preserved by $f^{\**}$, as
+        $f^{\**}([1]) = f^{\**}(\mathcal P) = \**$,
+        but the pushout on the right is not preserved, as
+        $f^{\**}(\widetilde{[1]}) = \**$ but $f^{\**}(\tilde{\mathcal P}) = \mathbb N_0$.
 
-come back!
+        \todo[inline]{In this case, the RHS is still a pushout of a free thing, but I don't know how to make this systematic
+          - it must preserve cofibrant objects, but Lemma \ref{BASICPUSH LEMMA} only takes care of the first case from \cite[Thm. 1.15]{BM13}.}
+  \end{example}
+} % ---------------------------------------- OLIVEGREEN ----------------------------------------
+
 
 \section{Amalgamating monads (to be renamed and reskined)}
+\label{AMALGMON_SEC}
 
+\subsection{Combinable monads}
+\label{COMBMON_SEC}
+
+We establish our setting for this section.
 
 \begin{definition}\label{AMALGMON DEF}
 Let $P$ and $\bar{F}$ be two monads on the same category $\mathcal{C}$.
@@ -12075,58 +12109,89 @@ are maps of monads.
 
 
 
+\subsection{Kleisli categories}
 
+Given a map of monads $T \Rightarrow F$ (for example, $P \Rightarrow F$ or $\bar F \Rightarrow F$), one can explore the existence and properties of various free and forgtful functors.
+Somewhat surprisingly, the most natural and general setting for these comparisons is not the entire category of algebras,
+but instead in the Kleisli category of free algebras and all algebra maps between them.
+
+\begin{definition}[{\cite{Kl65}}]
+      Let $T$ be a monad on a category $\mathcal C$.
+      The \textit{Kleisli category} $\mathsf{Kl}_T$ is the category defined as follows:
+      it has the same objects as $\mathcal{C}$,
+      and arrows from $A$ to $B$,
+      which we denote $A \rightsquigarrow B$,
+      are given by arrows $A \to TB$ in $\mathcal{C}$.
+      Composition
+      $A \rightsquigarrow B \rightsquigarrow C$
+      of underlying maps 
+      $A \xrightarrow{f} TB$,
+      $B \xrightarrow{g} TC$
+      given by the composite
+      $A \xrightarrow{f} TB \xrightarrow{Tg} TTB \xrightarrow{\mu} TB$.
+
+      We say an arrow
+      $A \rightsquigarrow B$ in $\mathsf{Kl}_F$ is a 
+      \emph{free arrow}
+      if the underlying map has a factorization
+      $A \xrightarrow{f} B \xrightarrow{\eta} TB$.
+      In particular, the unit arrow $A \rightsquigarrow A$ in $\Kl_T$
+      is the free arrow $A \xrightarrow{=} A \xrightarrow{\eta} TA$.
+\end{definition}
 
 \begin{remark}\label{KLEISLIDEF REM}
-Letting $T$ be a monad on the category $\mathcal{C}$,
-recall that the Kleisli category
-$\mathsf{Kl}_T$ is the category with:
-the same objects as $\mathcal{C}$;
-arrows from $A$ to $B$,
-which we denote $A \rightsquigarrow B$,
-the underlying arrows $A \to TB$ in $\mathcal{C}$;
-composition
-$A \rightsquigarrow B \rightsquigarrow C$
-of underlying maps 
-$A \xrightarrow{f} TB$,
-$B \xrightarrow{g} TC$
-given by the composite
-$A \xrightarrow{f} TB \xrightarrow{Tg} TTB \xrightarrow{\mu} TB$.
-Moreover, there is then a canonical fully faithful inclusion
-\[
-\begin{tikzcd}[row sep = 0pt]
-	\Kl_T \ar[hookrightarrow]{r}{\iota} &
-	\Alg_T
-\\
-	A \ar[mapsto]{r} &
-	TA
-\\
-	(A \xrightarrow{f} TB) \ar[mapsto]{r} &
-	(TA \xrightarrow{Tf} TTB \xrightarrow{\mu} TB) 
-\end{tikzcd} 
-\]
-which identifies $\mathsf{Kl}_T$ with the full subcategory of
-$\mathsf{Alg}_T$ spanned by the free algebras.
-
-Moreover, we say an arrow
-$A \rightsquigarrow B$ in $\mathsf{Kl}_F$ is a 
-\emph{free arrow}
-if the underlying map has a factorization
-$A \xrightarrow{f} B \xrightarrow{\eta} TB$.
-This is equivalent to its image under $\iota$
-being the free map
-$TA \xrightarrow{Tf} TB$.
-Note that free arrows provide a canonical functor
-$\C \to \Kl_T$ and that the unit arrow $A \rightsquigarrow A$ in $\Kl_T$
-is the free arrow $A \xrightarrow{=} A \xrightarrow{\eta} TA$.
+% Letting $T$ be a monad on the category $\mathcal{C}$,
+% recall that the Kleisli category
+% $\mathsf{Kl}_T$ is the category with:
+% the same objects as $\mathcal{C}$;
+% arrows from $A$ to $B$,
+% which we denote $A \rightsquigarrow B$,
+% the underlying arrows $A \to TB$ in $\mathcal{C}$;
+% composition
+% $A \rightsquigarrow B \rightsquigarrow C$
+% of underlying maps 
+% $A \xrightarrow{f} TB$,
+% $B \xrightarrow{g} TC$
+% given by the composite
+% $A \xrightarrow{f} TB \xrightarrow{Tg} TTB \xrightarrow{\mu} TB$.
+% Moreover,
+      Justifying our intuitive description above,
+      there is a canonical fully faithful inclusion
+      \[
+            \begin{tikzcd}[row sep = 0pt]
+                  \Kl_T \ar[hookrightarrow]{r}{\iota} &
+                  \Alg_T
+                  \\
+                  A \ar[mapsto]{r} &
+                  TA
+                  \\
+                  (A \xrightarrow{f} TB) \ar[mapsto]{r} &
+                  (TA \xrightarrow{Tf} TTB \xrightarrow{\mu} TB) 
+            \end{tikzcd} 
+      \]
+      which identifies $\mathsf{Kl}_T$ with the full subcategory of
+      $\mathsf{Alg}_T$ spanned by the free algebras.
+      %
+      % Moreover, we say an arrow
+      % $A \rightsquigarrow B$ in $\mathsf{Kl}_F$ is a 
+      % \emph{free arrow}
+      % if the underlying map has a factorization
+      % $A \xrightarrow{f} B \xrightarrow{\eta} TB$.
+      Moreover, an arrow is free iff
+      % This is equivalent to
+      its image under $\iota$
+      is the free map
+      $TA \xrightarrow{Tf} TB$.
+      % Note that free arrows provide a canonical functor
+      % $\mathcal C \to \Kl_T$ and that the unit arrow $A \rightsquigarrow A$ in $\Kl_T$
+      % is the free arrow $A \xrightarrow{=} A \xrightarrow{\eta} TA$.
+      In particular, the free functor $\mathcal C \to \Alg_T$ factors through $\Kl_T$ via free arrows.
 \end{remark}
 
 
-
-
-\begin{remark}\label{KLEISLIPUSH REM}
-Given a map of monads $\psi \colon T \to F$
-one has a well known forgetul functor 
+To start our analysis,
+for any map of monads $\psi \colon T \to F$,
+one has a well known forgetful functor 
 $\mathsf{Alg}_F \xrightarrow{\psi^{\**}} \mathsf{Alg}_T$
 sending a $F$-monad $Y$ with multiplication
 $FY \xrightarrow{m} Y$
@@ -12134,66 +12199,71 @@ to a $T$-monad with the same underlying object $Y$
 and multiplication given by
 $TY \xrightarrow{\psi} FY \xrightarrow{m} Y$.
 
-Similarly, on Kleisli categories there is a functor
-$\mathsf{Kl}_T \xrightarrow{\psi_!} \mathsf{Kl}_F$
-which is given by the identity on objects 
-and sending the map $A \rightsquigarrow B$
-given by the underlying map $A \xrightarrow{f} TB$
-to the map $\psi_!A \rightsquigarrow \psi_!B$
-given by the underlying composite
-$A \xrightarrow{f} TB \xrightarrow{\psi} FB$.
-
-To check $\psi_!$ respects composition of arrows, let
-$A \rightsquigarrow B$,
-$B \rightsquigarrow C$
-be maps in $\Kl_T$ with
-underlying maps
-$A \xrightarrow{f} TB$,
-$B \xrightarrow{f} TC$.
-Then $\psi_!$ of the composite 
-$A \rightsquigarrow B \rightsquigarrow C$
-is given by the top right composite in \eqref{CHECKFUN EQ}
-while the composite of 
-$\psi_!A \rightsquigarrow \psi_! B$,
-$\psi_! B \rightsquigarrow \psi_! C$
-is given by the bottom  left composite in \eqref{CHECKFUN EQ}.
-\begin{equation}\label{CHECKFUN EQ}
-\begin{tikzcd}[column sep = 1.55em]
-	A \ar{r}{f} 
-&
-	TB \ar{r}{Tg} \ar{d}[swap]{\psi}
-&
-	TTC \ar{rr}{\mu}  \ar{d}[swap]{\psi T}
-&&
-	TC \ar{d}{\psi}
-\\
-&
-	FB \ar{r}{Fg}
-&
-	FTB \ar{r}{F\psi}
-&
-	FFC \ar{r}{\mu}
-&
-	FC
-\end{tikzcd}
-\end{equation}
-Lastly, note that $\psi_!$ maps the free arrow 
-$A \xrightarrow{f} B \xrightarrow{\eta} TB$
-to the free arrow
-$A \xrightarrow{f} B \xrightarrow{\eta} FB$,
-so that in particular it preserves unit arrows.
-\end{remark}
+A dual situation holds for Kleisli categories:
+\begin{lemma}
+      \label{KLEISLIPUSH LEM}
+      Given a map of monads $\psi \colon T \to F$,
+      there is a pushforward functor
+      $\mathsf{Kl}_T \xrightarrow{\psi_!} \mathsf{Kl}_F$,
+      defined as the identity on objects,
+      and sending the map $A \rightsquigarrow B$
+      given by the underlying map $A \xrightarrow{f} TB$
+      to the map $\psi_!A \rightsquigarrow \psi_!B$
+      given by the underlying composite
+      $A \xrightarrow{f} TB \xrightarrow{\psi} FB$.
+\end{lemma}
+\begin{proof}
+      To check $\psi_!$ respects composition of arrows, let
+      $A \rightsquigarrow B$,
+      $B \rightsquigarrow C$
+      be maps in $\Kl_T$ with
+      underlying maps
+      $A \xrightarrow{f} TB$,
+      $B \xrightarrow{f} TC$.
+      Then $\psi_!$ of the composite 
+      $A \rightsquigarrow B \rightsquigarrow C$
+      is given by the top right composite in \eqref{CHECKFUN EQ}
+      while the composite of 
+      $\psi_!A \rightsquigarrow \psi_! B$,
+      $\psi_! B \rightsquigarrow \psi_! C$
+      is given by the bottom  left composite in \eqref{CHECKFUN EQ}.
+      \begin{equation}\label{CHECKFUN EQ}
+            \begin{tikzcd}[column sep = 1.55em]
+                  A \ar{r}{f} 
+                  &
+                  TB \ar{r}{Tg} \ar{d}[swap]{\psi}
+                  &
+                  TTC \ar{rr}{\mu}  \ar{d}[swap]{\psi T}
+                  &&
+                  TC \ar{d}{\psi}
+                  \\
+                  &
+                  FB \ar{r}{Fg}
+                  &
+                  FTB \ar{r}{F\psi}
+                  &
+                  FFC \ar{r}{\mu}
+                  &
+                  FC
+            \end{tikzcd}
+      \end{equation}
+      Lastly, note that $\psi_!$ maps the free arrow 
+      $A \xrightarrow{f} B \xrightarrow{\eta} TB$
+      to the free arrow
+      $A \xrightarrow{f} B \xrightarrow{\eta} FB$,
+      so that in particular it preserves unit arrows.
+\end{proof}
 
 
 
 
 \begin{proposition}\label{PARTADJ PROP}
-The functors in Remarks \ref{KLEISLIDEF REM} and \ref{KLEISLIPUSH REM}
+The functors in Remark \ref{KLEISLIDEF REM} and Lemma \ref{KLEISLIPUSH LEM}
 fit into a (non-commutative) square
 \begin{equation}\label{PARTADJ EQ}
 \begin{tikzcd}
 	\mathsf{Kl}_{T} \ar{r}{\psi_!} \ar[hookrightarrow]{d}[swap]{\iota}&
-	\mathsf{Kl}_{F} \ar[hookrightarrow]{d}{\iota}
+	\mathsf{Kl}_{F} \ar[hookrightarrow]{d}{\iota} \arrow[dl, phantom, "\times"]
 \\
 	\mathsf{Alg}_{T} &
 	\mathsf{Alg}_{F}  \ar{l}{\psi^{\**}}.
@@ -12286,36 +12356,73 @@ $\bar{A} \to FA$ in that diagram coincide and, after unpacking definitions, this
 \end{equation}
 \end{proof}
 
+Necessary and sufficient conditions to extend this partial adjoint to a full adjoint are given below.
+\begin{corollary}
+      \label{ALGLEFTEX_COR}
+      Fix a map of monads $\psi \colon T \to F$.
+      \begin{enumerate}[label = (\roman*)]
+      \item The left adjoint $\psi_!$ of $\psi^{\**} \colon \Alg_F \to \Alg_T$ exists iff the coequalizers of $F$-algebras
+            \[
+                  \psi_!(X):= \mathop{coeq}\left( FTX \overset{\mu}{\underset{Fm}{\rightrightarrows}} FX \right)
+            \]
+            exist for all $X \in \mathsf{Alg}_T$.
+      \item If $\psi_!$ exists, then the triangle of left adjoints below commutes.
+            \[
+                  \begin{tikzcd}
+                        \mathcal C \arrow[d, "T"'] \arrow[r, "F"]
+                        &
+                        \mathsf{Alg}_F
+                        \\
+                        \mathsf{Alg}_T \arrow[ur, "{\psi_!}"']
+                  \end{tikzcd}
+            \]           
+      \end{enumerate}
+\end{corollary}
+\begin{proof}
+      The existence of $\psi_!$ is equivalent to the representability of the functors 
+      $\Alg_T(X,\psi^{\**}(-))\colon \Alg_{F} \to \mathsf{Set}$
+      for each $X \in \Alg_T$,
+      so that Proposition \ref{PARTADJ PROP} implies that these functors are representable whenever $X \simeq FA$ is free.
+      Hence, since any $X \in \Alg_T$
+      with multiplication $m \colon TX \to X$
+      is canonically described by the coequalizer % of free $T$-algebras
+      $coeq \left(
+            T T X 
+            \overset{\mu}{\underset{Fm}{\rightrightarrows}}
+            T X
+      \right)$,
+      (i) result follows.
+
+      Part (ii) follows since the associated triangle of right adjoints commutes.
+\end{proof}
 
 
-\begin{remark}\label{ALGLEFTEX REM}
-Recall that the existence of a left adjoint $\psi_!$ to 
-$\psi^{\**} \colon \Alg_F \to \Alg_T$
-is equivalent to the representability of the functors 
-$\Alg_T(X,\psi^{\**}(-))\colon \Alg_{F} \to \mathsf{Set}$
-for each $X \in \Alg_T$,
-so that Proposition \ref{PARTADJ PROP} implies that these functors are representable whenever $X \simeq FA$ is free.
+% \begin{remark}\label{ALGLEFTEX REM}
+% Recall that the existence of a left adjoint $\psi_!$ to 
+% $\psi^{\**} \colon \Alg_F \to \Alg_T$
+% is equivalent to the representability of the functors 
+% $\Alg_T(X,\psi^{\**}(-))\colon \Alg_{F} \to \mathsf{Set}$
+% for each $X \in \Alg_T$,
+% so that Proposition \ref{PARTADJ PROP} implies that these functors are representable whenever $X \simeq FA$ is free.
 
-Hence, since any $X \in \Alg_T$
-with multiplication $m \colon TX \to X$
-is canonically described by the coequalizer % of free $T$-algebras
-$coeq \left( T T X 
-\overset{\mu}{\underset{Fm}{\rightrightarrows}}
-T X\right)$
-it follows that the left adjoint 
-$\psi_! \colon \Alg_F \to \Alg_T$
-exists iff the coequalizers 
-$coeq \left( F T X 
-\overset{\mu}{\underset{Fm}{\rightrightarrows}}
-F X\right)
-$
-of $F$-algebras exist for all $X \in \Alg_T$, in which case it is
-$\psi_!(X)=coeq \left( F T X 
-\overset{\mu}{\underset{Fm}{\rightrightarrows}}
-F X\right)$.
-\end{remark}
-
-
+% Hence, since any $X \in \Alg_T$
+% with multiplication $m \colon TX \to X$
+% is canonically described by the coequalizer % of free $T$-algebras
+% $coeq \left( T T X 
+% \overset{\mu}{\underset{Fm}{\rightrightarrows}}
+% T X\right)$
+% it follows that the left adjoint 
+% $\psi_! \colon \Alg_F \to \Alg_T$
+% exists iff the coequalizers 
+% $coeq \left( F T X 
+% \overset{\mu}{\underset{Fm}{\rightrightarrows}}
+% F X\right)
+% $
+% of $F$-algebras exist for all $X \in \Alg_T$, in which case it is
+% $\psi_!(X)=coeq \left( F T X 
+% \overset{\mu}{\underset{Fm}{\rightrightarrows}}
+% F X\right)$.
+% \end{remark}
 
 
 \begin{remark}\label{ADJSRMON REM}
@@ -12325,7 +12432,7 @@ as those where $R$ creates $R$-split coequalizers.
 
 Hence, should the adjunction 
 $\psi_! \colon \Alg_T \rightleftarrows \Alg_F \colon \psi^{\**}$
-in Remark \ref{ALGLEFTEX REM} exist,
+in Corollary \ref{ALGLEFTEX_COR} exist,
 it readily follows from Beck's theorem that this adjunction is monadic
 (since in 
 $\mathcal{C} \rightleftarrows
@@ -12361,34 +12468,65 @@ $F_T = \psi^{\**} \psi_!$.
 \end{remark}
 
 
+\subsection{Adjoints for combinable monads}
 
+Returning to our setup from \S \ref{COMBMON_SEC},
+we have the existence of a right adjoint to $\psi_!$ on Kleisli categories for a particular map of monads $\psi$.
+
+\begin{definition}
+      Let $P,\bar{F}$ and $F = P \bar{F}$ be as in 
+      Definition \ref{AMALGMON DEF},
+      and write
+      \[
+            \psi = P\eta_{\bar F} \colon P \Rightarrow P \bar{F} = F.
+      \]
+      Define the functor
+      $\psi^{\**} \colon \Kl_F \to \Kl_P$
+      on objects by
+      $\psi^{\**}A = \bar{F} A$,
+      and sending the arrow
+      $A \rightsquigarrow B$
+      with underlying map
+      $A \xrightarrow{f} FB$
+      to the arrow 
+      $\bar{F} A \rightsquigarrow \bar{F} B$
+      with underlying map the composite
+      $\bar{F} A \xrightarrow{\bar{F}f} \bar{F} FB
+      =
+      \bar{F}P \bar{F} B \xrightarrow{\tau \bar{F}}
+      P \bar{F} \bar{F} B \xrightarrow{P \mu}
+      P\bar{F}B$
+      or, equivalently (cf. Lemma \ref{MODSTRCOMRE LEM}(iii)(ii)),
+      $\bar{F} A \xrightarrow{\bar{F}f} \bar{F} FB
+      \xrightarrow{\mu} FB = P\bar{F}B$.
+\end{definition}
 
 \begin{proposition}\label{PARTADJP PROP}
-Let $P,\bar{F}$ and $F = P \bar{F}$ be as in 
-Definition \ref{AMALGMON DEF},
-and write $\psi = P\eta \colon P \Rightarrow P \bar{F} = F$.
-
-Then there is a functor
-$\psi^{\**} \colon \Kl_F \to \Kl_P$
-given on objects by
-$\psi^{\**}A = \bar{F} A$
-and sending the arrow
-$A \rightsquigarrow B$
-with underlying arrow 
-$A \xrightarrow{f} FB$
-to the arrow 
-$\bar{F} A \rightsquigarrow \bar{F} B$
-with underlying arrow the composite
-$\bar{F} A \xrightarrow{\bar{F}f} \bar{F} FB
-=
-\bar{F}P \bar{F} B \xrightarrow{\tau \bar{F}}
-P \bar{F} \bar{F} B \xrightarrow{P \mu}
-P\bar{F}B$
-or, equivalently (cf. Lemma \ref{MODSTRCOMRE LEM}(iii)(ii)),
-$\bar{F} A \xrightarrow{\bar{F}f} \bar{F} FB
-\xrightarrow{\mu} FB = P\bar{F}B$.
-
-Moreover, in the diagram
+Let $P,\bar{F}$ and $F = P \bar{F}$ be as above.
+% Definition \ref{AMALGMON DEF},
+% and write $\psi = P\eta \colon P \Rightarrow P \bar{F} = F$.
+%
+% Then there is a functor
+% $\psi^{\**} \colon \Kl_F \to \Kl_P$
+% given on objects by
+% $\psi^{\**}A = \bar{F} A$
+% and sending the arrow
+% $A \rightsquigarrow B$
+% with underlying arrow 
+% $A \xrightarrow{f} FB$
+% to the arrow 
+% $\bar{F} A \rightsquigarrow \bar{F} B$
+% with underlying arrow the composite
+% $\bar{F} A \xrightarrow{\bar{F}f} \bar{F} FB
+% =
+% \bar{F}P \bar{F} B \xrightarrow{\tau \bar{F}}
+% P \bar{F} \bar{F} B \xrightarrow{P \mu}
+% P\bar{F}B$
+% or, equivalently (cf. Lemma \ref{MODSTRCOMRE LEM}(iii)(ii)),
+% $\bar{F} A \xrightarrow{\bar{F}f} \bar{F} FB
+% \xrightarrow{\mu} FB = P\bar{F}B$.
+%
+In the diagram
 \begin{equation}\label{PARTADJP EQ}
 \begin{tikzcd}
 	\mathsf{Kl}_{P} 
@@ -12412,15 +12550,17 @@ for $A \in \Kl_P$
 and counit
 $\psi_! \psi^{\**} B \rightsquigarrow B$
 for $B \in \Kl_F$
-given by 
+given respectively by 
 \begin{equation}\label{UNITCOUNIT EQ}
 	A \xrightarrow{\eta} 
 	\bar{F} A \xrightarrow{\eta \bar{F}}
 	P \bar{F} A
-\qquad
+        \qquad
+        \mbox{and}
+        \qquad
 	\bar{F} B \xrightarrow{\eta \bar{F}}
 	P \bar{F} B =
-	F B
+	F B.
 \end{equation}
 \item the composites
 $
@@ -12534,11 +12674,11 @@ follows since $\psi\colon P \Rightarrow F$ is a map of monads.
 
 \begin{remark}\label{MONALGP REM}
 By Proposition \ref{PARTADJP PROP}
-on has an adjunction monad $\psi^{\**} \psi_!$
+one has an adjunction monad $\psi^{\**} \psi_!$
 on $\Kl_P$ which is given on objects by $\bar{F}$.
 Moreover the first half of
 \eqref{UNITCOUNIT EQ} shows that the unit
-$I \to \psi^{\**} \psi_!$
+$I \Rightarrow \psi^{\**} \psi_!$
 consists of the free arrows on the unit $I \Rightarrow \bar{F}$
 while, 
 by applying the definition of $\psi^{\**}$ to the second half of
@@ -12594,7 +12734,7 @@ one has that in the diagram
 both functors in the bottom adjunction
 extend the functors in the top adjunction.
 As such, the monad
-$F_T = \psi^{\**} \psi_!$ on $\Alg_P$
+$F_P = \psi^{\**} \psi_!$ on $\Alg_P$
 extends the monad $\psi^{\**} \psi_!$ on $\Kl_P$ which, 
 following \ref{MONALGP REM}, can be thought of as the monad $\bar{F}$.
 
