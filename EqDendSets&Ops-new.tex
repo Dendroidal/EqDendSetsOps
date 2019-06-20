@@ -1327,7 +1327,6 @@ We refer to the model structure on $\V^{\G}$
 in the result above as the $\F$-model structure, 
 and denote it $\V^{\G}_{\F}$.
 
-{\color{red} HERE}
 
 \begin{remark}\label{VGFGEN REM}
 	Letting $\mathcal{I}$ (resp. $\mathcal{J}$)
@@ -2747,7 +2746,7 @@ $\mathsf{Op}_{\F}^G(\V)$.
 
 \begin{remark}
 In contrast to the other parts therein,
-the implication in Remark \label{FIBERGLMOD REM}(iii) 
+the implication in Remark \ref{FIBERGLMOD REM}(iii) 
 only holds in one direction. 
 As an simple example where its converse fails, 
 note that the map $\eta \amalg \eta \to \tilde{\mathbbm{1}}$
@@ -2822,14 +2821,11 @@ $\Sigma_{\tau}[F] = \Sigma_{\boldsymbol{E}(T)}[F^{\tau}] \in \mathsf{Sym}_{\bull
 	\mathsf{Sym}_{\boldsymbol{E}(T)} \to
 	\mathsf{Sym}_{\mathfrak{C}}$
 	one then has the identification
-	\[
+\begin{equation}\label{CANPUSH EQ}
 	\mathfrak{c}_! \left(\Sigma_{\tau}[F]\right) = \Sigma_{\mathfrak{C}}[\vect{F}]
-	\]
+\end{equation}	
+	
 \end{remark}
-
-
-
-{\color{red} HERE}
 
 
 
@@ -2853,15 +2849,85 @@ $\Sigma_{\tau}[F] = \Sigma_{\boldsymbol{E}(T)}[F^{\tau}] \in \mathsf{Sym}_{\bull
 	where we stress that we are including those automorphisms which change colors.
 	
 	The claim that 
-	$\Lambda \leq \mathsf{Aut}_{G \ltimes \Sigma_{\mathfrak{C}^{op}}}(\vect{C}) 
+	$\Lambda \leq \mathsf{Aut}_{G \ltimes \Sigma_{\mathfrak{C}}^{op}}(\vect{C}) 
 	\leq G \times \Sigma_{n}^{op}$
+	is then the claim that, for each $\lambda \in \Lambda$ then the left vertical isomorphism in the diagram	
+\[
+\begin{tikzcd}
+	G \cdot C^{\tau} \ar{d}[swap]{\lambda} \ar{r}  
+&
+	G \cdot_{\mathfrak{C}} \vect{C}
+	\ar{d}{\lambda}
+\\
+	G \cdot C^{\tau} \ar{r}
+&
+	G \cdot_{\mathfrak{C}} \vect{C}
+\end{tikzcd}
+\]
+induces the right vertical isomorphism which is moreover a map in 
+$\Phi_{\mathfrak{C}}$.
+
+We now claim that, adapting \eqref{CANPUSH EQ},
+$\Sigma_{\mathfrak{C}}[G\cdot_{\mathfrak{C}} \vect{C}]/\Lambda$
+is a pushout of
+$\Sigma_{\tau}[G\cdot C]/\Lambda$.
+Indeed, this follows from the way colimits in (co)fibered categories are calculated:
+since $\Lambda$ does not act trivially on 
+$\boldsymbol{E}(G\cdot C)$,
+the set of colors of 
+$\Sigma_{\tau}[G\cdot C]/\Lambda$
+is instead given by the orbits
+$\boldsymbol{E}(G\cdot C)/ \Lambda$
+so that, writing 
+$\pi \colon \boldsymbol{E}(G\cdot C) \to \boldsymbol{E}(G\cdot C)/ \Lambda$ one has a natural identification 
+$\Sigma_{\tau}[G\cdot C]/\Lambda \simeq \left(\pi_!\Sigma_{\tau}[G\cdot C]\right)/\Lambda$
+where the second coequalizer now takes place in a fiber category,
+and writing 
+$\phi \colon \boldsymbol{E}(G\cdot C)/ \Lambda \to \mathfrak{C}$
+for the induced map one further has
+\begin{equation}\label{CANPUSHQ EQ}
+\Sigma_{\mathfrak{C}}[G\cdot_{\mathfrak{C}} \vect{C}]/\Lambda
+\simeq
+\phi_! \left( \Sigma_{\tau}[G\cdot C]/\Lambda \right).
+\end{equation}
 \end{remark}
+
+\eqref{CANPUSHQ EQ} will allow us to minimize  
+the representatives of the generating sets in \eqref{FVGSIGF EQ}
+that are needed to obtain the generating cofibrations in 
+$\mathsf{Op}^G_{\F}(\V)$.
+
+Before describing the generating sets, however, we need to address the path-lifting condition.
+Since fibrations in $\mathsf{Op}^G_{\F}(\V)$ are to have the lifting property against all maps $\eta \to \mathbb I$
+with $\mathbb{I}$ a $\V$-interval.
+But since the collection of all intervals form a class, one must be able to select a suitable representative set of intervals, leading to the following definition (cf. \cite{BM13}).
+
+
+
+
+\begin{definition}
+	A set $\mathscr{G}$ of $\V$-intervals is \textit{generating} if,
+	in the model category on $\Cat_{\set{0,1}}(\V)$,
+	any $\V$-interval $\mathbb{I}$ can be obtained
+	as a retract of a trivial extension of some element
+	$\mathbb{G} \in \mathscr{G}$.
+	More explicitly, this means that there is a diagram in 
+	$\Cat_{\set{0,1}}(\V)$ as below
+	where the left arrow is a trivial cofibration and
+	$ri = id_{\mathbb{I}}$.
+\begin{equation}
+	\begin{tikzcd}
+		\mathbb{G} \arrow[r,rightarrowtail, "\sim"]
+	&
+		\widetilde{\mathbb{G}} \arrow[r,yshift=-.3em, "r"']
+	&
+		\mathbb{I} \arrow[l,yshift=.3em, "i"']
+	\end{tikzcd}
+\end{equation}
+\end{definition}
 
 
 {\color{red} HERE}
-
-
-
 
 
 
@@ -2950,21 +3016,7 @@ We highlight three particular $\V$-categories.
 
 
 
-We recall and extend the following definitions from \cite{BM13}. 
 
-\begin{definition}
-      A set $\mathscr{G}$ of $\V$-intervals is \textit{generating} if all $\V$-intervals $\J$ can be obtained
-      as a retract of a trivial extension of an element in $\mathscr{G}$ in $\Cat^{\set{0,1}}(\V)$:
-      \begin{equation}
-            \begin{tikzcd}
-                  \mathbb{G} \arrow[r,rightarrowtail, "\sim"]
-                  &
-                  \mathbb{K} \arrow[r,yshift=-.3em, "r"']
-                  &
-                  \mathbb{J} \arrow[l,yshift=.3em, "i"']
-            \end{tikzcd}
-      \end{equation}
-\end{definition}
 
 
 
