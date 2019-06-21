@@ -603,8 +603,35 @@ is the standard map, which is clear.
       $\{K,-\}_{\mathsf{F}}\colon \mathsf{sOp} \to \mathsf{sOp}$
       is then a fibered right adjoint which preserves pullback arrows,
       and thus the corresponding adjunction is also fibered.
-      
+\end{example}
+
+\begin{example}
+      \label{TENS_EX}
       We warn that the tensoring left adjoint, denoted $(-) \otimes_{\Fin} K: \sOp \to \sOp$, is in general \textit{not} levelwise.
+      However, for $C \in \Sigma$, we have
+      \begin{enumerate}
+      \item $\Omega(C) \otimes_\F K(\vect D) = \Omega(C)(\vect D) \times K$,
+      \item $\Omega(C) \otimes_\F K = (\mathbb F_{\Set} \Sigma_\bullet[C]) \otimes_F K = \mathbb F_{\sSet} (\Sigma_\bullet[C] \cdot K)$.
+      \item $\Hom_{\Op}(\Omega(C) \otimes_\Fin K, \O) = \coprod_{\mbox{$C$-profiles $\vect C$}} \Hom_{\sSet}(K, \O(\vect C)),$
+      \item The set of squares on the left below are in bijection with the set of squares are the right, where $\vect C$ runs over all $C$-profiles.
+            \begin{equation}
+                  \Omega(C) \otimes_\F K \arrow[r] \arrow[d, "u"']
+                  &
+                  \O \arrow[d, "F"]
+                  & %----------
+                  K \arrow[r] \arrow[d, "u"']
+                  &
+                  \O(\vect C) \arrow[d, "{F(\vect C)}"]
+                  \\
+                  \Omega(C) \otimes_\F L \arrow[r]
+                  &
+                  \P
+                  & % ----------
+                  L \arrow[r]
+                  &
+                  \P(F(\vect C))
+            \end{equation}
+      \end{enumerate}
 \end{example}
 
 
@@ -871,9 +898,28 @@ such that the fibers are precisely the categories
 $\mathsf{Op}^{\mathfrak{C}}(\mathcal{V})$
 (resp. $\mathsf{Sym}^{\mathfrak{C}}(\mathcal{V})$),
 as well as a monad $\mathbb{F}$ on 
-$\mathsf{Sym}^\bullet(\mathcal{V})$ which is suitably fibered as in \S \ref{FIBCAT_SEC} over $\mathsf{F}$
+$\mathsf{Sym}^\bullet(\mathcal{V})$ which is suitably fibered (\S \ref{FIBCAT_SEC}) over $\mathsf{F}$
 such that the category of ``fibered algebras'' is exactly
 $\mathsf{Op}(\mathcal{V})$.
+
+\[
+      \begin{tikzcd}[row sep = small, column sep = tiny]
+            \Sym_\bullet(\V) \arrow[rr, "\mathbb F"] \arrow[dr]
+            &&
+            \Op(\V) \arrow[dl]
+            &&& % ----------
+            \Sym^G_\bullet(\V) \arrow[rr, "\mathbb F^G"] \arrow[dr]
+            &&
+            \Op^G(\V) \arrow[dl]
+            \\
+            &
+            \Fin
+            &
+            &&& % ----------
+            &
+            \Fin^G
+      \end{tikzcd}
+\]
 
 With this set-up, it is then entirely formal using Proposition \ref{DIAGRAMFM_PROP} to show that 
 $\mathsf{Op}^G(\mathcal{V}) \to \mathsf{F}^G$
@@ -881,7 +927,7 @@ and
 $\mathsf{Sym}^G(\mathcal{V}) \to \mathsf{F}^G$
 are Grothendieck fibrations and that 
 $\mathsf{Op}^G(\mathcal{V})$ is the category of fibered algebras for $\mathbb{F}^G$.
-Additionally, by fibering over a fixed $G$-set $\mathfrak{C} \in \mathbb{F}^G$,
+Additionally, by fibering over a fixed $G$-set $\mathfrak{C} \in \mathsf{F}^G$,
 we obtain a description of the subcategory 
 $\mathsf{Op}^{G,\mathfrak{C}}(\mathcal{V})$
 of those $G$-operads with $G$-set of objects $\mathfrak{C}$
@@ -891,19 +937,18 @@ of symmetric sequences.
 
 
 We elaborate on this narrative in the following section.
-In \S \ref{SSEQ_SEC}, we build the category $\Sym(\V)$, % Definition \ref{SYMV_DEF}
-describe the fibered monad $\mathbb F$, % \eqref{FREEOP_EQ}, elaborated in Appendix \ref{MONAD_APDX}.
-and determine the fibers of the equivariant monad $\mathbb F^G$. % \eqref{FGC_EQ}.
-
-In \S \ref{EHT_SEC}, we identify several pieces of equivariant homotopy theory needed in
-\S \ref{SSEQC_MS_SEC} and \S \ref{OPC_MS_SEC} to build model structures on the color-fixed categories $\mathsf{Sym}^{G,\mathfrak{C}}(\mathcal{V})$ and $\mathsf{Op}^{G,\mathfrak{C}}(\mathcal{V})$.
+In \S \ref{SYMC_SEC}, we build the category $\Sym(\V)$ (Definition \ref{SYMV_DEF}),
+describe the fibered monad $\mathbb F$ (Equation \eqref{FREEOP_EQ}, elaborated in Appendix \ref{MONAD_APDX}),
+and determine the fibers of the equivariant monad $\mathbb F^G$ (Equation \eqref{FGC_EQ}).
+In \S \ref{SYMC_MS_SEC} and \S \ref{OPC_MS_SEC} we build model structures on the color-fixed categories $\mathsf{Sym}^{G,\mathfrak{C}}(\mathcal{V})$ and $\mathsf{Op}^{G,\mathfrak{C}}(\mathcal{V})$,
+using several pieces of equivariant homotopy theory developed in \S \ref{EHT_SEC}.
 
 
 
 
 
 \subsection{Symmetric sequences and colored operads}
-\label{SSEQ_SEC}
+\label{SYMC_SEC}
 
 \begin{definition}\label{CSYM DEF}
 	Let $\mathfrak {C} \in \mathsf{F}$ be a set of \textit{colors}.
@@ -1157,6 +1202,7 @@ is the left Kan extension
 
 {\color{red} HERE}
 
+\todo[inline]{these should go somewhere else...}
 \begin{remark}
 Unlike in the single-colored case, $\Op^G(\V)$ does \textit{not} coincide with the category of colored operads in $\V^G$.
 Indeed, objects in $\Op(\V^G)$ have a fixed $G$-set of colors,
@@ -1195,7 +1241,7 @@ where both left and right adjoints are compatible the $H$-fixed point functors.
       Following Remark \ref{ALGPUSHLL REM},
       for any map of $G$-sets $f \colon \mathfrak C \to \mathfrak D$
       and $\mathfrak D$-symmetric sequence $X$
-      one has a pull back $\mathfrak C$-symmetric sequence $f^{\**}X$
+      one has a pullback $\mathfrak C$-symmetric sequence $f^{\**}X$
       given by
       $ f^{\**}X(\xi') = X(f(\xi'))$
       which is an operad if $X$ itself is an operad.
@@ -1211,13 +1257,13 @@ where both left and right adjoints are compatible the $H$-fixed point functors.
                   \arrow[d, "\mathsf{fgt}"]
                   \\
                   \Sym^G_{\mathfrak C}(\V) 
-                  \arrow[shift left]{r}{\check{f}_!}
+                  \arrow[shift left]{r}{f_!}
                   &
                   \Sym^G_{\mathfrak D}(\V) 
                   \arrow[shift left]{l}{f^{\**}}
             \end{tikzcd}
       \end{equation}
-      where, just as in Remark \ref{ALGPUSHLL REM}, we highlight that
+      where we highlight that
       the right adjoints are compatible with the forgetful functors, but the left adjoints are not:
       $f_!$ is given by a left Kan extension, while $\check{f}_!$ is given by the coequalizer
       \begin{equation}
@@ -1277,7 +1323,7 @@ where both left and right adjoints are compatible the $H$-fixed point functors.
 
 
 \subsection{Equivariant homotopy theory}
-
+\label{EHT_SEC}
 
 
 \begin{definition}\label{FAMGROUPOID DEF}
@@ -2119,7 +2165,7 @@ is a Quillen adjunction.
 
  
 \subsection{Homotopy theory of operads with a fixed color $G$-set}
-\label{MSC_SEC}
+\label{OPC_MS_SEC}
 
 Our goal in this section is to show that the model structures 
 $\mathsf{Sym}^G_{\mathfrak{C},\F}$
@@ -3375,7 +3421,7 @@ where $\1$ defined as in Definition \ref{PL_ES_DEFN}, and $\mathscr{G}$ is a gen
                   \qquad
                   \mathbb F_\Gamma[\Gamma/\Gamma \cdot K] = \Omega(C) \otimes_\Fin K,
             \]
-            with $K \in \V$ and $\otimes_\Fin$ denotes the $\V$-tensoring from Example \ref{COTENS_EX};
+            with $K \in \V$ and $\otimes_\Fin$ denotes the $\V$-tensoring from Example \ref{TENS_EX};
             in this case, we note that the tensoring is levelwise, with
             $(\Omega(C) \otimes_\Fin K)(\vect C) = \Omega(C)(\vect C) \otimes K$.            
             
@@ -5859,7 +5905,7 @@ explicitly, $\mathsf{sk}_{\eta}X(U) = X(\eta)$ if $U = [n]$ is a linear tree, an
 \begin{lemma}
       \label{TAUOTIMES_LEM}
       For all $X \in \mathsf{PreOp}^G$ and $K \in \sSet$, $\tau(X \otimes_\Fin K) = \tau(X) \otimes_\Fin K$,
-      with the second $\otimes_\Fin$ the (fiberwise) simplicial tensoring of $\sOp^G$ defined as in Example \ref{COTENS_EX}.
+      with the second $\otimes_\Fin$ the (fiberwise) simplicial tensoring of $\sOp^G$ defined as in Example \ref{TENS_EX}.
 \end{lemma}
 \begin{proof}
       We want to show the square of left adjoints on the left below commutes;
@@ -7630,8 +7676,14 @@ We can now make the following definition of the $W$-construction.
       with the simplicial maps the monadic unit and monadic multiplication.
 \end{definition}
 
-To work with this definition, we must ensure that $\mathbb F_\eta$ is in fact a monad, and moreover that is is the left adjoint to the forgetful functor.
-While we could show this directly, we instead apply results from Appendix \ref{AMALGMON_SEC} to realize this simplicial resolution from a different perspective.
+To work with this definition, we must ensure that
+\begin{enumerate}
+\item $\mathbb F_\eta$ is the left adjoint to the forgetful functor,
+\item this adjunction is monadic, and
+\item this recovers the usual description of the $W$-construction.
+\end{enumerate}
+While we could show this directly, we instead apply results from Appendix \ref{AMALGMON_SEC} to realize this simplicial resolution from a different perspective,
+and the above will follow from Lemma \ref{FP_FETA_LEM}, Remark \ref{ADJSRMON REM}, and Corollary \ref{WT_COR} respectively.
 
 \subsubsection{Non-unital operads and combined monads}
 
@@ -7708,8 +7760,8 @@ in particular, \eqref{FREEOP_EQ}, Definition \ref{COLORMON DEF}, and Proposition
 
 Now, we apply Appendix \ref{AMALGMON_SEC}.
 First, we observe by hand % P-F-combined.pdf
-that $P$ and $\bar F$ can be combined as in Definition \ref{AMALGMON DEF} ---
-the maps $P \Rightarrow \mathbb F$ and $\bar F \Rightarrow \mathbb F$ are simply
+that $P$ and $\bar F$ can be combined as in Definition \ref{AMALGMON DEF}:
+The maps $P \Rightarrow \mathbb F$ and $\bar F \Rightarrow \mathbb F$ are simply
 \[
       X \amalg \eta \xrightarrow{\eta \amalg e} \mathbb F X,
       \qquad
@@ -7778,6 +7830,7 @@ This matches the above description of $\mathbb F_\eta$ from \eqref{FETA_EQ}:
 
 We can now describe $W(T)$.
 \begin{corollary}
+      \label{WT_COR}
       For any $T \in \Omega_G$, we have
       \begin{equation}
             \label{WT_EQ}
@@ -7886,24 +7939,24 @@ $T_{e_1e_2\cdots e_k\leq e}$.
 {\color{red} HERE}
 
 \begin{proposition}\label{WLEFTQPUSH PEOP}
-For $T \in \Omega$
+For $\eta \neq T \in \Omega$
 and $\emptyset \neq E \subseteq \boldsymbol{E}^{\mathsf{i}}(T)$
 one has pushout digrams
 \[
 \begin{tikzcd}
 	\Omega(C) \otimes_{\mathsf{F}}
-	\partial \Delta[1]^{\times \boldsymbol{E}^{\mathsf{i}}(T)}
+	\partial \left(\Delta[1]^{\times \boldsymbol{E}^{\mathsf{i}}(T)}\right)
 	\ar{r} \ar{d}
 &
 	W_! \left(\partial \Omega[T]\right) 
-	\ar{d}
+	\arrow[d, "i"]
 &%
 	\Omega(C) \otimes_{\mathsf{F}}
 	\lambda^E \Delta[1]^{\times \boldsymbol{E}^{\mathsf{i}}(T)}
 	\ar{r} \ar{d}
 &
 	W_! \left(\Lambda^E[T]\right) 
-	\ar{d}
+	\arrow[d, "j"]
 \\
 	\Omega(C) \otimes_{\mathsf{F}}
 	\Delta[1]^{\times \boldsymbol{E}^{\mathsf{i}}(T)}
@@ -7919,20 +7972,36 @@ one has pushout digrams
 \end{tikzcd}
 \]
 where
+$C = \mathsf{lr}(T)$, and
+$\partial \left(\Delta[1]^{\times \boldsymbol{E}^{\mathsf{i}}(T)}\right)
+\to
+\Delta[1]^{\times \boldsymbol{E}^{\mathsf{i}}(T)}$
+and
 $\lambda^E \Delta[1]^{\times \boldsymbol{E}^{\mathsf{i}}(T)}
 \to \Delta[1]^{\times \boldsymbol{E}^{\mathsf{i}}(T)}$
-is the iterated pushout product
+are the iterated pushout products
 \[
-\left(
-\partial \Delta[1] \to \Delta[1]
-\right)^{\square (\boldsymbol{E}^{\mathsf{i}}(T) \setminus E)}
-\square
-\left(
-\{1\} \to \Delta[1]
-\right)^{\square E}
+      \left(
+            \partial\Delta[1] \to \Delta[1]
+      \right)^{\square \boldsymbol E^{i(T)}},
+      \qquad
+      \left(
+            \partial \Delta[1] \to \Delta[1]
+      \right)^{\square (\boldsymbol{E}^{\mathsf{i}}(T) \setminus E)}
+      \square
+      \left(
+            \{1\} \to \Delta[1]
+      \right)^{\square E}
 \]
 \end{proposition}
-
+\begin{proof}
+      We note that $i$ is the identity on objects,
+      and for any $\boldsymbol{E}(T)$-signature $\vect D$, $i(\vect D)$ is the identity unless $\vect D = \sigma \cdot \partial C$,
+      where $\sigma \in \Sigma_n$ and $\partial C = (e_1,\dots,e_n;e)$ with $\set{e_1,\dots,e_n}$ the set of leaves of $T$ and $e$ the root.
+      In this case, $i(\partial C) = (\partial \Delta[1] \to \Delta[1])^{\square \boldsymbol{E}^i(T)}$,
+      and the top horizontal map is adjoint to the identity map via Examples \ref{TENS_EX}.
+      \todo[inline{come back!}
+\end{proof}
 
 
 \newpage
@@ -7958,7 +8027,7 @@ On the one hand, the construction of the new adjunction is immediate:
 
 
 On the other hand, the homotopy theories involved are much more involved to capture the genuine equivariance,
-as noted in \S \ref{MSC_SEC}, \S \ref{MS_SEC}, \S \ref{EDS_SEC}, and \cite{Per18}.
+as noted in \S \ref{OPC_MS_SEC}, \S \ref{MS_SEC}, \S \ref{EDS_SEC}, and \cite{Per18}.
 
 We have the following generalization of \cite[Prop 4.5]{CM11} (see also \cite[Prop. 6.15]{Per18}).
 
@@ -10929,7 +10998,7 @@ the leftmost map in \eqref{FILTLAN EQ} as
 
 \subsubsection{Filtration of free extensions in the equivariant case}
 
-As discussed in \S \ref{SSEQ_SEC},
+As discussed in \S \ref{SYMC_SEC},
 Proposition \ref{DIAGRAMFM_PROP} implies that $\Op^G(\V)$ is the category of fibered algebras for the monad $\mathbb F^G$ on $\Sym^G(\V)$,
 with underlying functor the composite
 \[
@@ -10953,7 +11022,7 @@ For pushouts, when \eqref{OU EQ} is a $G$-equivariant diagram (note that the map
 naturality with regard to data as in \eqref{COLORCHNAT EQ}
 shows that the left Kan extension in 
 \eqref{2NDRED EQ} 
-is also compatible with $G$-equivariance, i.e. it is in fact $\Lan^G$.
+is also compatible with $G$-equivariance, i.e. it is in fact $\Lan^G$ as above.
 % $
 % \mathsf{Lan}^G \colon 
 % \left(
@@ -11108,9 +11177,9 @@ $G^{op} \ltimes \OC^{n}
 
 \subsection{Injective change of color}
 
-In this short subsection, we provide a description of the left adjoint $\check f_! \colon \Op^{\mathfrak D} \to \Op^{\mathfrak C}$
+In this subsection, we provide a description of the left adjoint $\check f_! \colon \Op^{\mathfrak D} \to \Op^{\mathfrak C}$
 from Remark \ref{OP_MAP REM}
-for an inclusion $f \colon \mathfrak C \to \mathfrak D$ of colors,
+for an \textit{inclusion} $f \colon \mathfrak C \to \mathfrak D$ of colors,
 and explore the interaction of the change of color functors $f_!$,$f^{\**}$ with free operads and pushouts.
 
 
