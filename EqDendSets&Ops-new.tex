@@ -3087,7 +3087,6 @@ where the first map is a pushout of a map in (C1) and
 the second map is in the saturation of (C2).
 \end{proof}
 
-{\color{red} HERE}
 
 
 
@@ -3380,13 +3379,112 @@ while local $\F$-weak equivalences
 are easily seen to satisfy two out of the three cases in $2$-out-of-$3$,
 the $2$-out-of-$3$ condition for 
 $\F$-Dwyer-Kan equivalences reduces to showing that, 
-if $F$ and $GF$ are $\F$-Dwyer-Kan equivalences,
-then $G$ is a local $\F$-weak equivalence.
+if $F$ and $\bar{F}F$ are $\F$-Dwyer-Kan equivalences,
+then $\bar{F}$ is a local $\F$-weak equivalence.
+
+As it turns out, this case is interesting enough to warrant its own section, and we prove it separately as
+Proposition \ref{23HARDCASE PROP}
 \end{remark}
 
 
 
+
+\subsection{Homotopy equivalences and fully faithfulness}
+
+
+
+\begin{proposition}\label{23HARDCASE PROP}
+Let $\F$ be a $(G,\Sigma)$-family which respects units and let
+$F \colon \O \to \P$ and 
+$\bar{F} \colon \P \to \mathcal{Q}$
+be maps in $\mathsf{Op}^G(\V)$.
+
+If $F$ and $\bar{F}F$ are $\F$-Dwyer-Kan equivalences
+then $\bar{F}$ is a local $\F$-weak equivalence.
+\end{proposition}
+
+
+This result is essentially the analogue of
+\cite[Lemma 4.14]{Cav} and its proof will follow a similar idea.
+However, as the equivariant setting will add quite a few subtleties, we start by outlining the non-equivariant argument,
+then motivating the required modifications.
+
+Firstly, if $\vect{C} = (c_1,\cdots,c_n;c_0)$
+is a signature in the image of $F$ (i.e. all $c_i$ are in the image of $F$),
+it is immediate that 
+$\P(\vect{C}) \to \mathcal{Q}(\bar{F}(\vect{C}))$
+is a weak equivalence.
+Hence, since for any arbitrary signature
+$\vect{D} = (d_1,\cdots,d_n;d_0)$ on $\mathfrak{C}_{\mathcal{P}}$
+one can find such a $\vect{C}$ for which the pairs $c_i,d_i$ are homotopy equivalent,
+the result follows from the claim that the homotopies
+$\alpha_i \colon 1_{\V} \to \P(c_i,d_i)$
+induce compatible (zigzags of) weak equivalences
+$\mathcal{P}(\vect{C}) \sim \mathcal{P}(\vect{D})$,
+$\mathcal{Q}(\bar{F}(\vect{C})) \sim \mathcal{Q}(\bar{F}(\vect{D}))$.
+Conveniently, this last claim can be shown iteratively by
+considering the string of signatures
+$\vect{C} = \vect{C}_0,\vect{C}_1,\vect{C}_2,\cdots,
+\vect{C}_n,\vect{C}_{n+1} = \vect{D}$
+where $\vect{C}_{i+1}$ is obtained from $\vect{C}_i$
+by replacing $c_i$ with $d_i$ and establishing the equivalences
+$\mathcal{P}(\vect{C}_i) \sim \mathcal{P}(\vect{C}_{i+1})$,
+$\mathcal{Q}(\bar{F}(\vect{C}_i)) \sim \mathcal{Q}(\bar{F}(\vect{C}_{i+1}))$.
+
+When working equivariantly, saying $\bar{F}$
+is a local $\F$-weak equivalence now says 
+that for each signature $\vect{D}$ the maps
+$\mathcal{P}(\vect{D})^{\Lambda} \to \mathcal{Q}(\bar{F}(\vect{D}))^{\Lambda}$
+are weak equivalences for any subgroup 
+$\Lambda \in \F_{\vect{D}}$.
+Hence, to carry out the idea in the previous paragraph we will need to, given $\vect{D}$ and $\Lambda \in \F_{\vect{D}}$,
+be able to find a signature $\vect{C}$ which is in the image of $F$ and such that $\vect{C},\vect{D}$ are homotopic in a way that is sufficiently ``$\Lambda$-equivariant''.
+To get a sense for what this should mean, we consider an example.
+
 {\color{red} HERE}
+
+\begin{example}
+Let $G = \{1,i,-1,-i\} \simeq \mathbb{Z}_{/4}$ 
+be the group of quartic roots of unit and
+$\mathfrak{C} = \{\mathfrak{a}, \mathfrak{b}, i \mathfrak{b}, 
+\mathfrak{c} \}$ where we implicitly have
+$i\mathfrak{a} = \mathfrak{a}$,
+$-\mathfrak{b} = \mathfrak{b}$,
+$i\mathfrak{c} = \mathfrak{c}$.
+
+
+{\color{red} HERE}
+
+
+\begin{equation}
+	\begin{tikzpicture}[auto,grow=up, level distance = 2.2em,
+	every node/.style={font=\scriptsize,inner sep = 2pt}]%
+		\tikzstyle{level 2}=[sibling distance=3em]%
+			\node at (0,0) [font = \normalsize] {$\vect{B}$}%	
+				child{node [dummy] {}%
+					child{node {}%
+					edge from parent node [swap] {$\mathfrak{b}$}}%
+					child[level distance = 2.9em]{node {}%
+					edge from parent node [swap,	near end] {$i\mathfrak{b}$}}%
+					child[level distance = 2.9em]{node {}%
+					edge from parent node [near end] {$i\mathfrak{b}$}}%
+					child{node {}%
+					edge from parent node  {$\mathfrak{b}$}}%
+				edge from parent node [swap] {$\mathfrak{a}$}};%
+			\node at (4.5,0) [font = \normalsize] {$\vect{C}$}%	
+				child{node [dummy] {}%
+					child{node {}%
+					edge from parent node [swap] {$\mathfrak{c}$}}%
+					child[level distance = 2.9em]{node {}%
+					edge from parent node [swap,	near end] {$\mathfrak{c}$}}%
+					child[level distance = 2.9em]{node {}%
+					edge from parent node [near end] {$\mathfrak{c}$}}%
+					child{node {}%
+					edge from parent node  {$\mathfrak{c}$}}%
+				edge from parent node [swap] {$\mathfrak{a}$}};%
+	\end{tikzpicture}%
+\end{equation}%
+\end{example}
 
 
 
