@@ -1754,6 +1754,26 @@ we say that \textit{$\F$ has units}.
 
 
 
+\begin{remark}\label{SIGACT REM}
+The group $G \times \Sigma_n^{op}$
+naturally on the set $\Sigma_{\mathfrak{C},n}$
+of $n$-ary $\mathfrak{C}$-corollas
+$\vect{C} = (\mathfrak{c}_1,\cdots,\mathfrak{c}_n;\mathfrak{c}_0)$
+via the assigment (where $g \in G$, $\sigma \in \Sigma_n$)
+\[
+g \sigma \vect{C} =
+g \sigma (\mathfrak{c}_1,\cdots,\mathfrak{c}_n;\mathfrak{c}_0)
+=
+(g\mathfrak{c}_{\sigma(1)},\cdots,g\mathfrak{c}_{\sigma(n)};g\mathfrak{c}_{\sigma(0)})
+\]
+or, more compactly, $g \sigma (\mathfrak{c}_i) = (g \mathfrak{c}_{\sigma(i)})$.
+
+Moreover, the subcategory of $G \ltimes \Sigma^{op}_{\mathfrak{C}}$
+spanned by the $n$-ary corollas is the action groupoid for this action.
+\end{remark}
+
+
+
 \begin{remark}
 The functors
 $\pi_{\mathfrak{C}} \colon
@@ -3399,57 +3419,40 @@ Proposition \ref{23HARDCASE PROP}
 
 \subsection{Homotopy equivalences and fully faithfulness}
 
-
+The following is essentially the equivariant analogue of
+\cite[Lemma 4.14]{Cav}.
 
 \begin{proposition}\label{23HARDCASE PROP}
-Let $\F$ be a $(G,\Sigma)$-family which respects units and let
-$F \colon \O \to \P$ and 
-$\bar{F} \colon \P \to \mathcal{Q}$
-be maps in $\mathsf{Op}^G(\V)$.
-
+Let $\F$ be a $(G,\Sigma)$-family which respects units. 
+Consider the diagram below 
+in $\mathsf{Op}^G(\V)$.
+\begin{equation}\label{23HARDDIAG EQ}
+	\begin{tikzcd}[row sep=5pt]
+		\O \arrow{rr}{\bar{F}F}
+		\arrow{dr}[swap]{F}
+	&&
+		\mathcal{Q} 
+	\\
+	&
+		\mathcal{P} \ar{ru}[swap]{\bar{F}}
+	\end{tikzcd}
+\end{equation}
 If $F$ and $\bar{F}F$ are $\F$-Dwyer-Kan equivalences
 then $\bar{F}$ is a local $\F$-weak equivalence.
 \end{proposition}
 
-
-This result is essentially the analogue of
-\cite[Lemma 4.14]{Cav} and its proof will follow a similar idea.
-However, as the equivariant setting will add quite a few subtleties, we start by outlining the non-equivariant argument,
-then motivating the required modifications.
-
-Firstly, if $\vect{C} = (c_1,\cdots,c_n;c_0)$
-is a signature in the image of $F$ (i.e. all $c_i$ are in the image of $F$),
-it is immediate that 
-$\P(\vect{C}) \to \mathcal{Q}(\bar{F}(\vect{C}))$
-is a weak equivalence.
-Hence, since for any arbitrary signature
-$\vect{D} = (d_1,\cdots,d_n;d_0)$ on $\mathfrak{C}_{\mathcal{P}}$
-one can find such a $\vect{C}$ for which the pairs $c_i,d_i$ are homotopy equivalent,
-the result follows from the claim that the homotopies
-$\alpha_i \colon 1_{\V} \to \P(c_i,d_i)$
-induce compatible (zigzags of) weak equivalences
-$\mathcal{P}(\vect{C}) \sim \mathcal{P}(\vect{D})$,
-$\mathcal{Q}(\bar{F}(\vect{C})) \sim \mathcal{Q}(\bar{F}(\vect{D}))$.
-Conveniently, this last claim can be shown iteratively by
-considering the string of signatures
-$\vect{C} = \vect{C}_0,\vect{C}_1,\vect{C}_2,\cdots,
-\vect{C}_n,\vect{C}_{n+1} = \vect{D}$
-where $\vect{C}_{i+1}$ is obtained from $\vect{C}_i$
-by replacing $c_i$ with $d_i$ and establishing the equivalences
-$\mathcal{P}(\vect{C}_i) \sim \mathcal{P}(\vect{C}_{i+1})$,
-$\mathcal{Q}(\bar{F}(\vect{C}_i)) \sim \mathcal{Q}(\bar{F}(\vect{C}_{i+1}))$.
-
-When working equivariantly, saying $\bar{F}$
-is a local $\F$-weak equivalence now says 
-that for each signature $\vect{D}$ the maps
-$\mathcal{P}(\vect{D})^{\Lambda} \to \mathcal{Q}(\bar{F}(\vect{D}))^{\Lambda}$
-are weak equivalences for any subgroup 
-$\Lambda \in \F_{\vect{D}}$.
-Hence, to carry out the idea in the previous paragraph we will need to, given $\vect{D}$ and $\Lambda \in \F_{\vect{D}}$,
-be able to find a signature $\vect{C}$ which is in the image of $F$ and such that $\vect{C},\vect{D}$ are homotopic in a way that is sufficiently ``$\Lambda$-equivariant''.
-To get a sense for what this should mean, we consider an example.
+The proof of this result will mostly adapt the proof of the non-equivariant case,
+but one must be more careful since equivariance introduced a address a number of subtleties.
+Moreover, these subtleties are (for the most part)
+present even when $\V = \mathsf{Set}$
+with weak equivalences the isomorphisms.
+Hence, for the sake of motivation, 
+we start by discussing the $\V = \mathsf{Set}$ case
+in a concrete example.
 
 {\color{red} HERE}
+
+
 
 \begin{example}
 Let $G = \{1,i,-1,-i\} \simeq \mathbb{Z}_{/4}$ 
@@ -3459,11 +3462,7 @@ $\mathfrak{C} = \{\mathfrak{a}, \mathfrak{b}, i \mathfrak{b},
 $i\mathfrak{a} = \mathfrak{a}$,
 $-\mathfrak{b} = \mathfrak{b}$,
 $i\mathfrak{c} = \mathfrak{c}$.
-
-
-{\color{red} HERE}
-
-
+Consider the $\mathfrak{C}$-corollas below.
 \begin{equation}
 	\begin{tikzpicture}[auto,grow=up, level distance = 2.2em,
 	every node/.style={font=\scriptsize,inner sep = 2pt}]%
@@ -3492,7 +3491,128 @@ $i\mathfrak{c} = \mathfrak{c}$.
 				edge from parent node [swap] {$\mathfrak{a}$}};%
 	\end{tikzpicture}%
 \end{equation}%
+Now consider maps
+$\O \xrightarrow{F} \P \xrightarrow{\bar{F}} \mathcal{Q}$
+as in \eqref{23HARDDIAG EQ},
+and suppose 
+$\mathfrak{C}_{\O} = \{\mathfrak{a},\mathfrak{c}\}$,
+$\mathfrak{C}_{\P} = \mathfrak{C} = \{\mathfrak{a},\mathfrak{b},i\mathfrak{b},\mathfrak{c}\}$.
+Then if $F$ and $\bar{F}F$ are local isomorphisms
+it is immediate that
+$\P(\vect{C}) \to \mathcal{Q}(\bar{F}(\vect{C}))$
+is an isomorphism since 
+$\vect{C}$ is in the image of $F$.
+However, to guarantee that
+$\P(\vect{B}) \to \mathcal{Q}(\bar{F}(\vect{B}))$
+is also an isomorphism, 
+one must further impose an essential surjectivity requirement on $F$.
+For concreteness,
+suppose there was an isomorphism
+$\alpha \colon \mathfrak{b} \to \mathfrak{c}$
+in $\P$
+(note that $\alpha \in \P(\mathfrak{b};\mathfrak{c})$).
+Then, by $G$-equivariance, one also has an isomorphism
+$i\alpha \colon i\mathfrak{b} \to \mathfrak{c}$
+in $\P$ and precomposing  
+with $\alpha$, $i \alpha$ gives a string of isomorphisms
+\begin{equation}\label{ITERWE EQ}
+\P(\vect{C})
+=
+\P(\mathfrak{c},\mathfrak{c},\mathfrak{c},\mathfrak{c};\mathfrak{a})
+\simeq 
+\P(\mathfrak{b},\mathfrak{c},\mathfrak{c},\mathfrak{c};\mathfrak{a})
+\simeq
+\P(\mathfrak{b},i\mathfrak{b},\mathfrak{c},\mathfrak{c};\mathfrak{a})
+\simeq
+\P(\mathfrak{b},i\mathfrak{b},i\mathfrak{b},\mathfrak{c};\mathfrak{a})
+\simeq
+\P(\mathfrak{b},i\mathfrak{b},i\mathfrak{b},\mathfrak{b};\mathfrak{a})
+=
+\P(\vect{B})
+\end{equation}
+and similarly
+$\mathcal{Q}(\bar{F}(\vect{C})) 
+\simeq
+\cdots 
+\simeq
+\mathcal{Q}(\bar{F}(\vect{B}))
+$,
+yielding that
+$\P(\vect{B}) \to \mathcal{Q}(\bar{F}(\vect{B}))$
+is indeed an isomorphism.
+
+Our discussion thus far has ignored a key feature of the equivariant setting: the choice of the $(G,\Sigma)$-family $\F$
+(or, more precisely, our discussion above covers the case of $\F$ the naive/coarse family consisting of only the trivial subgroups).
+Given such $\F$, 
+and assuming $F$ and $\bar{F} F$ are $\F$-local isomorphisms,
+it is again clear that
+$\P(\vect{C})^{\Lambda} \to \mathcal{Q}(\bar{F}(\vect{C}))^{\Lambda}$
+is an isomorphism for all $\Lambda \in \F_{\vect{C}}$.
+And, yet again, to conclude that
+$\P(\vect{B})^{\Lambda} \to \mathcal{Q}(\bar{F}(\vect{B}))^{\Lambda}$
+is also an isomorphism for $\Lambda \in \F_{\vect{B}}$ we will further need to impose an essential surjectivity requirement on $F$.
+As it turns out, the exact requirement on $F$ depends on 
+$\Lambda \leq G \times \Sigma_4^{op}$ itself so that, for concreteness, we set (we write $(g,\sigma) \in G \times \Sigma_4^{op}$ simply as $g\sigma$)
+\[
+\Lambda = \langle (14)(23), i (12)(34) \rangle.
+\]
+and assume that $\Lambda \in \F_4$.
+Note that $\Lambda$ fixes both 
+$\vect{B}$ and $\vect{C}$
+(cf. Notation \ref{SIGACT REM})
+so that 
+$\Lambda \leq \mathsf{Aut}_{G \ltimes \Sigma^{op}_{\mathfrak{C}}}(\vect{B})$,
+$\Lambda \leq \mathsf{Aut}_{G \ltimes \Sigma^{op}_{\mathfrak{C}}}(\vect{C})$
+and $\P(\vect{B})^{\Lambda}, \P(\vect{C})^{\Lambda}$
+are well defined.
+At this point it may be tempting to think that, 
+given an isomorphism 
+$\alpha \colon \mathfrak{b} \to \mathfrak{c}$,
+one may simply apply $\Lambda$-fixed points 
+to the isomorphisms in \eqref{ITERWE EQ}
+to obtain an isomorphism 
+$\P(\vect{B})^{\Lambda} \simeq \P(\vect{C})^{\Lambda}$.
+
+
+
+{\color{red} HERE}
+
 \end{example}
+
+
+
+
+
+
+
+Then $\Lambda$ acts on both $\vect{B},\vect{C}$, i.e. 
+$\Lambda \leq \mathsf{Aut}_{G \ltimes \Sigma^{op}_{\mathfrak{C}}}(\vect{B})$,
+$\Lambda \leq \mathsf{Aut}_{G \ltimes \Sigma^{op}_{\mathfrak{C}}}(\vect{C})$.
+Hence, to account for the case of a $(G,\Sigma)$-family $\F$ such that 
+$\Lambda \in \F_4$,
+it is natural to ask if the chosen homotopy equivalence
+$\alpha \colon 1_{\V} \to \P(\mathfrak{b},\mathfrak{c})$
+between $\mathfrak{b},\mathfrak{c}$ also induces a fixed point equivalence
+$\P(\vect{B})^{\Lambda} \sim \P(\vect{C})^{\Lambda}$.
+This turns out to essentially work, provided one 
+accounts for the following caveats:
+
+
+\begin{itemize}
+\item one can not change colors one by one as in \eqref{ITERWE EQ},
+since the intermediate signatures therein are not $\Lambda$-equivariant. 
+Instead, colors in $\vect{B}$ which are in the same orbit
+under the $\Lambda$-action must be changed simultaneously;
+\item moreover, noting that the action of 
+$\Lambda $
+
+colors of $\vect{B}$
+\end{itemize}
+
+
+
+
+
 
 
 
