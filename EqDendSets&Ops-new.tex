@@ -42,7 +42,7 @@ cd,patterns,calc}
 \usepackage{ifdraft}
 \ifdraft{
   \color[RGB]{63,63,63}
-%  \pagecolor[RGB]{220,220,204}
+  \pagecolor[RGB]{220,220,204}
   \usepackage{showkeys}
   \usepackage{geometry}
   \usepackage{todonotes}
@@ -614,24 +614,26 @@ is the standard map, which is clear.
       \item $\Omega(C) \otimes_\F K = (\mathbb F_{\Set} \Sigma_\bullet[C]) \otimes_F K = \mathbb F_{\sSet} (\Sigma_\bullet[C] \cdot K)$.
       \item $\Hom_{\Op}(\Omega(C) \otimes_\Fin K, \O) = \coprod_{\mbox{$C$-profiles $\vect C$}} \Hom_{\sSet}(K, \O(\vect C)),$
       \item The set of squares on the left below are in bijection with the set of squares are the right, where $\vect C$ runs over all $C$-profiles.
-%\begin{equation}
-%	\Omega(C) \otimes_\F K \arrow[r] \arrow[d, "u"']
-%&
-%	\O \arrow[d, "F"]
-%& %----------
-%	K \arrow[r] \arrow[d, "u"']
-%&
-%	\O(\vect C) \arrow[d, "{F(\vect C)}"]
-%\\
-%	\Omega(C) \otimes_\F L \arrow[r]
-%&
-%	\P
-%& % ----------
-%	L \arrow[r]
-%&
-%	\P(F(\vect C))
-%\end{equation}
-\end{enumerate}
+            \begin{equation}
+                  \begin{tikzcd}
+                        \Omega(C) \otimes_\F K \arrow[r] \arrow[d, "u"']
+                        &
+                        \O \arrow[d, "F"]
+                        & %----------
+                        K \arrow[r] \arrow[d, "u"']
+                        &
+                        \O(\vect C) \arrow[d, "{F(\vect C)}"]
+                        \\
+                        \Omega(C) \otimes_\F L \arrow[r]
+                        &
+                        \P
+                        & % ----------
+                        L \arrow[r]
+                        &
+                        \P(F(\vect C))
+                  \end{tikzcd}
+            \end{equation}
+      \end{enumerate}
 \end{example}
 
 
@@ -883,7 +885,10 @@ As such, in order to build our desired model structure on the category $\mathsf{
 However, a little care is needed, since the objects of a $G$-equivariant operad in $\mathsf{Op}(\mathcal{V})^G$ are now a $G$-set $\mathfrak{C} \in \mathsf{F}^G$, meaning that even when describing the objects of 
 $\mathsf{Op}(\mathcal{V})^G$ one must consider maps of 
 $\mathsf{Op}(\mathcal{V})$ that are not the identity on objects.
-For this reason, we find is useful to be able to describe 
+Additionally, the above cited formal approaches fail to see the automorphisms of objects in $\Sym^G_\bullet$,
+which is necessary to detect the appropriate notion of weak equivalence in this context.
+
+For these reasons, we find is useful to be able to describe 
 $\mathsf{Op}(\mathcal{V})$ 
 in a way that does not explicitly mention the color fixed structures
 $\mathsf{Op}^{\mathfrak{C}}(\mathcal{V}),
@@ -1533,7 +1538,7 @@ where the family $\F \sqcap \bar{\F}$ of $\G \times \bar{\G}$ is defined by
 \[
 \left(\F \sqcap \bar{\F}\right)_{(x,\bar{x})}
 =
-\left\{K\leq Aut(x,\bar{x}) | \pi_{\G} (K) \in \F_x,
+\left\{K\leq Aut(x,\bar{x})\ |\ \pi_{\G} (K) \in \F_x,
 \pi_{\bar{\G}} (K) \in \F_{\bar{x}}
 %\leq H \times \bar{H} \text{ for some }H\in \F_x,\bar{H} \in \bar{\F}%_{\bar{x}}
 \right\}.
@@ -2300,38 +2305,74 @@ $\mathsf{Sym}^G_{\mathfrak{C}}$.
 Moreover, since trivial $\F$-cofibrations are genuine cofibrations and 
 genuine weak equivalences are $\F$-weak equivalences, one needs only consider the genuine case, i.e. the case of $\F_{all}$ the family of all subgroups.
 
-By the filtration \eqref{OUFILRE EQ}, it thus suffices to check that each map $\O_{k-1} \to \O_k$
-is a genuine trivial cofibration in $\mathsf{Sym}^G_{\mathfrak{C}}$
-so that, from the pushouts \eqref{OUPUSHRE EQ}
-and Proposition \ref{EQQUILADJ PROP}
+By the filtration \eqref{OUFILRE EQ} and {\color{blue} reference}
+\todo{level genuine trivial cofibrations are closed under transfinite composites and pushouts, as colimits are computed levelwise},
+it thus suffices to check that
+each map $\O_{k-1} \to \O_k$
+is a level genuine trivial cofibration in $\mathsf{Sym}^G_{\mathfrak{C}}$,
+i.e. $\O_{k-1}(\vect C) \to \O_k(\vect C)$ is a genuine trivial cofibration in $\V^{\Aut(\vect C)}$ for all $\mathfrak C$-signatures $\vect C$.
+From the pushout \eqref{OUPUSHRE EQ}
+and Proposition \ref{EQQUILADJ PROP},
+it 
 it is enough to show that the map
-$n_k^{(\O,X,Y)}$ in \eqref{NKOXY EQ}
-is a genuine cofibration in $\V^{G \ltimes \Sigma_{\mathfrak{C}}^{op}}$.
+$n_k^{(\O,X,Y)}(\vect U)$ in \eqref{NKOXY EQ}
+is a genuine trivial cofibration in $\V^{\Aut(\vect U)}$.
 But now notice that the maps
+\begin{equation}
+      \label{NKOXY2 EQ}
+      \mathop{\mathlarger{\mathlarger{\mathlarger{\square}}}}\limits_{v \in V^{ac}(\vect{U})} \left( \emptyset \to \O(\vect{U}_v)\right)
+      \qquad \qquad
+      \mathop{\mathlarger{\mathlarger{\mathlarger{\square}}}}\limits_{v \in V^{in}(\vect{U})} u(\vect{U}_v)
+\end{equation}
+in \eqref{NKOXY EQ} are precisely the evaluations of 
+\begin{equation}
+      \label{NKOXY3 EQ}
+      \Big(\varnothing \to \O\Big)^{\square m_a}
+      \mbox{\quad and \quad}
+      u^{\square m_i},
+      \qquad
+      \qquad
+      m_a = |V^{ac}(\vect U)|,
+      \quad
+      m_i = |V^{in}(\vect U)|,
+\end{equation}
+as defined by \eqref{FSQNDEF EQ},
+at $\Big( (\vect U_v)_{ac} \Big)$ and $\Big( (\vect U_v)_{in} \Big)$ respectively,
+% $(\emptyset \to \O)^{\square m_a}$ and 
+% $u^{\square m_i}$ 
+
+Thus, \eqref{NKOXY EQ} is the image of \eqref{NKOXY3 EQ} under the composite of left Quillen functors between genuine model structures
+% \[
+%       \V^{\Sigma_{m_a} \wr G \ltimes \Sigma_{\mathfrak C}^{op}}_{gen} \times
+%       \V^{\Sigma_{m_i} \wr G \ltimes \Sigma_{\mathfrak C}^{op}}_{gen}
+%       \to
+%       \V^{\Aut((\vect U_V)_{ac})}_{gen} \times \V^{\Aut( (\vect U_v)_{in} )}_{gen} \xrightarrow{\otimes}
+%       \V^{\Aut((\vect U_V)_{ac}) \times \Aut( (\vect U_v)_{in} )}_{gen} \to
+%       \V^{\Aut(\vect U)}
+% \]
 \[
-\mathop{\mathlarger{\mathlarger{\mathlarger{\square}}}}\limits_{v \in V^{ac}(\vect{U})} \left( \emptyset \to \O(\vect{U}_v)\right) 
-\qquad \qquad
-\mathop{\mathlarger{\mathlarger{\mathlarger{\square}}}}\limits_{v \in V^{in}(\vect{U})} u(\vect{U}_v)
+      \V^{\Sigma_{m_a} \wr G \ltimes \Sigma_{\mathfrak C}^{op}} \times
+      \V^{\Sigma_{m_i} \wr G \ltimes \Sigma_{\mathfrak C}^{op}}
+      \to
+      \V^{\Aut((\vect U_V)_{ac})}_{gen} \times \V^{\Aut( (\vect U_v)_{in} )}_{gen} \to
+      \V^{\Aut(\vect U)} \times \V^{\Aut(\vect U)} \xrightarrow{\otimes}
+      \V^{\Aut(\vect U)}
 \]
-in \eqref{NKOXY EQ} are precisely 
-$(\emptyset \to \O)^{\square m_a}$ and 
-$u^{\square m_i}$ 
-as defined by \eqref{FSQNDEF EQ} for
-$m_a = |V^{ac}(\vect U)|$,
-$m_i = |V^{in}(\vect U)|$
-so that, by Proposition \ref{SIGMAWRGF PROP},
-$(\emptyset \to \O)^{\square m_a}$ is a 
-genuine cofibration in
-$\V^{\Sigma_{m_a} \wr (G \ltimes \Sigma_{\mathfrak{C}}^{op})}$ and
-$u^{\square m_i}$ a
-genuine trivial cofibration in 
-$\V^{\Sigma_{m_i} \wr (G \ltimes \Sigma_{\mathfrak{C}}^{op})}$.
-Proposition \ref{RESGEN PROP}
-now yields that \eqref{NKOXY EQ} is indeed a genuine trivial cofibration in $\V^{G \ltimes \Sigma_{\mathfrak{C}}^{op}}$
-(note that $k \geq 1$) finishing the proof of the 
+from Propositions \ref{EQQUILADJ PROP} and \ref{RESGEN PROP}.
+Since the maps in \eqref{NKOXY3 EQ} are a genuine cofibration and a genuine trivial cofibration (as $k \geq 1$),
+% o that, by Proposition \ref{SIGMAWRGF PROP},
+% $(\emptyset \to \O)^{\square m_a}$ is a 
+% genuine cofibration in
+% $\V^{\Sigma_{m_a} \wr (G \ltimes \Sigma_{\mathfrak{C}}^{op})}$ and
+% $u^{\square m_i}$ a
+% genuine trivial cofibration in 
+% $\V^{\Sigma_{m_i} \wr (G \ltimes \Sigma_{\mathfrak{C}}^{op})}$
+% (note that $k \geq 1$).
+% Propositions \ref{EQQUILADJ PROP} and \ref{RESGEN PROP}
+% now yields that
+\eqref{NKOXY EQ} is indeed a genuine trivial cofibration in $\V^{\Aut(\vect U)}$,
+finishing the proof of the 
 case where $\V$ is $\mathsf{sSet}$ or $\mathsf{sSet}_{\**}$.
-
-
 
 For the semi-model structure claim, 
 we replace the use of \cite[Thm. 11.3.2]{Hir03} with that of 
@@ -2354,6 +2395,21 @@ following from the assumption that $\mathcal{V}$ has a cofibrant unit
 and the induction step following from the already established cofibrancy of the maps $\O \to \O[u]$ in $\mathsf{Sym}^G_{\mathfrak{C}}$.
 \end{proof}
 
+\begin{remark}
+      The conditions we actually need are:
+      \begin{enumerate}[label = (\roman*)]
+      \item genuine model structures on $\V^\G$ exist,
+      \item cofibrant symmetric pushout powers,
+      \item[$(\bigstar)$]
+            Relative $K^G$-cell complexes are genuine weak equivalences in $\V^G$, where
+            \[
+                  K^G = \sets{X \times G/H \cdot j}{X \in \V^G,\ j \in J}.
+            \]
+      \end{enumerate}
+      If every object in $\V^G$ is genuine cofibrant, then $\bigstar$ follows from Propositions \ref{EQQUILADJ PROP} and \ref{RESGEN PROP}.
+\end{remark}
+
+\todo[inline]{come back! what weaker assumptions give $\bigstar$?}
 
 
 \begin{remark}
@@ -5518,7 +5574,7 @@ where $\1$ defined as in Definition \ref{PL_ES_DEFN}, and $\mathscr{G}$ is a gen
 
 
 
-\iffalse%
+
 
 
 
@@ -12180,7 +12236,7 @@ This follows by adding to both $A$ and $\mathcal{O}$ a disjoint trivial operad w
 
 
 
-
+3
 
 
 \section{Amalgamating monads (to be renamed and reskined)}
@@ -14124,7 +14180,7 @@ then any map in $\mathcal D$ with cofibrant source may be factored into a map in
 \end{theorem}
 
 
-\fi%
+
 
 
 
