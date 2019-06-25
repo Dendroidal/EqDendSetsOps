@@ -2400,8 +2400,9 @@ and the induction step following from the already established cofibrancy of the 
       \begin{enumerate}[label = (\roman*)]
       \item genuine model structures on $\V^\G$ exist,
       \item cofibrant symmetric pushout powers,
-      \item[$(\bigstar)$]
-            Relative $K^G$-cell complexes are genuine weak equivalences in $\V^G$, where
+      \item[$(\bigstar)$] $(J^G)^{\otimes} \subseteq W^G$.
+            
+            Explicitly, relative $K^G$-cell complexes are genuine weak equivalences in $\V^G$, where
             \[
                   K^G = \sets{X \times G/H \cdot j}{X \in \V^G,\ j \in J}.
             \]
@@ -2409,7 +2410,18 @@ and the induction step following from the already established cofibrancy of the 
       If every object in $\V^G$ is genuine cofibrant, then $\bigstar$ follows from Propositions \ref{EQQUILADJ PROP} and \ref{RESGEN PROP}.
 \end{remark}
 
+{\color{blue}
 \todo[inline]{come back! what weaker assumptions give $\bigstar$?}
+To prove $\bigstar$, need a lot:
+\begin{enumerate}
+\item (i) and (ii) from above
+\item strongly cofibrantly generated
+\item non-equivariant monoid axiom
+\item $(I^G)^{\otimes} = I^G-cof$, which along with monoid axiom imply $J^\otimes = J-cof$ (so we may apply \cite[Prop. 6.3(ii)]{BP_geo})
+\item $(X \times G/G \cdot j)^H$-cell $\subseteq W$.
+\end{enumerate}
+These don't seem ``weaker''...
+}
 
 
 \begin{remark}
@@ -8089,7 +8101,7 @@ We can now make the following definition of the $W$-construction.
 \end{definition}
 
 To work with this definition, we must ensure that
-\begin{enumerate}
+\begin{enumerate}[label = (\roman*)]
 \item $\mathbb F_\eta$ is the left adjoint to the forgetful functor,
 \item this adjunction is monadic, and
 \item this recovers the usual description of the $W$-construction.
@@ -8099,20 +8111,22 @@ and the above will follow from Lemma \ref{FP_FETA_LEM}, Remark \ref{ADJSRMON REM
 
 \subsubsection{Non-unital operads and combined monads}
 
-We consider an orthogonal factorization of the free operad monad
+We consider an factorization of the free operad monad orthogonal to \eqref{FC_FAC_EQ}, namely
 \[
       \Sym_\bullet \xrightarrow{\bar F} \Op_{\bullet,nu} \xrightarrow{P} \Op_\bullet
 \]
-where $\Op_{\bullet,nu}$ is the category of non-unital operads, and $P = (-) \amalg \eta_\bullet$ adds units.
+where $\Op_{\bullet,nu}$ is the category of non-unital operads, and $P = (-) \amalg \eta_\bullet$ ``adds units''.
 
 \begin{definition}
-      A \textit{non-unital operad} is a symmetric sequence equipped with an associative and $\Sigma_\bullet$-equivariant composition law, but no specified units.
-      Specifically, we are including ``partial'' composition laws
+      A \textit{non-unital operad} is a symmetric sequence equipped with an associative and $\Sigma_\bullet$-equivariant composition law, but no units.
+      Specifically, we have all ``partial'' composition laws\footnote{
+        We note that for unital operads, whether we define them via partial composition laws or total composition laws makes no difference. The same does not hold for non-unital operads.}
       \[
             \O(n) \times \prod_{i \in \lambda} \O(k_i) \longto \O\left(n-|\lambda|+\sum_{i \in \lambda}k_i\right)
       \]
       for any subset $\lambda \subseteq \set{1,2,\dots,n}$.
 \end{definition}
+
 
 The monad $\bar F$ encoding non-unital operads is built analogously to $\mathbb F_\bullet$ as in Appendix \ref{MONAD_APDX},
 with the key difference that,
@@ -8124,7 +8138,7 @@ with the subcategory $\Omega_{\mathfrak C}^{\textrm{nu},n}$ of
 non-stick trees and $n$-strings of inner face maps:
 a planar tall map $T \to S$ is equivalent to substitution data $(T_v \to S_v)_{v \in V(T)}$ by \cite[Prop. 3.41]{BP_geo},
 and if we forbid $S_v$ from being a stick,
-we remove the ability of $T \to S$ to be a degeneracy.
+we remove the possibility of $T \to S$ to be a degeneracy.
 
 As observed in \cite{BP_geo}, degeneracies and sticks precisely record the unit and the unitality conditions.
 Thus, the results from Appendix \ref{MONAD_APDX} may be adapted mutatis mutandis;
@@ -8181,8 +8195,10 @@ The maps $P \Rightarrow \mathbb F$ and $\bar F \Rightarrow \mathbb F$ are simply
 \]
 Moreover, as $P$ and $F = \mathbb F$ both preserve reflexive coequalizers\footnote{
   For $\mathbb F$, this follows as $\otimes$ commuting with colimits in both variables implies it commutes with reflexive coequalizers; see e.g. \cite[Lemma 2.3.2]{Rez96}.},
-the ``free operad with prescribed units'' functor, i.e. the left adjoint $F_p$ to the forgetful functor $\mathsf{fgt} \colon \Op_{\mathfrak C} \to \Sym^{\mathfrak C}_e$, exists,
-and following \eqref{FRMONDES EQ} is given on $Y \in \Sym^{\mathfrak C}_e$ as the coequalizer of the following in $\Sym_{\mathfrak C}$.
+the left adjoint $F_p$ to the forgetful functor $\mathsf{fgt} \colon \Op_{\mathfrak C} \to \Sym^{\mathfrak C}_e$,
+i.e. the ``free operad with prescribed units'' functor, exists,
+and following
+Corollary \ref{ALGLEFTEX_COR} and \eqref{FRMONDES EQ} is given on $Y \in \Sym^{\mathfrak C}_e$ as the coequalizer of the following in $\Sym_{\mathfrak C}$.
 \begin{equation}
       \label{FPYCOEQ_EQ}
       \mathbb F P Y = \mathbb F(Y \amalg \eta_{\mathfrak C}) \overset{f_1}{\underset{f_2}\rightrightarrows} \mathbb F Y,
@@ -8201,6 +8217,7 @@ and following \eqref{FRMONDES EQ} is given on $Y \in \Sym^{\mathfrak C}_e$ as th
 
 This matches the above description of $\mathbb F_\eta$ from \eqref{FETA_EQ}:
 \begin{lemma}
+      \label{FP_FETA_LEM}
       The underlying functor for the ``free operad with prescribed units'' monad $F_P$ on $\Sym_e$ is naturally isomorphic to $\mathbb F_\eta$.
 \end{lemma}
 \begin{proof}
@@ -8283,8 +8300,7 @@ We can now describe $W(T)$.
       are the right- and left-adjoints of the nerve-realization adjunction associated to the functor $W: \Omega \into \Op(\sSet)$.
       \begin{equation}
             \label{SOPDSET_EQ}
-            hc N \colon \sOp \leftrightarrows
-            \dSet \colon W_!
+            W_! \colon \dSet \rightleftarrows \sOp \colon h c N
       \end{equation}
 \end{definition}
 
@@ -8292,130 +8308,141 @@ The culmination of extensive work by Cisinski-Moerdijk-Weiss \cite{CM13a,CM13b,C
 
 \begin{theorem}
       \label{CMW_THM}
-      $hcN$ and $W_!$ form a Quillen equivalence with respect to the model structures
-      which, in particular, are recovered by the $G = \**$ cases of Theorem \ref{MODEL_THM} and \cite[Thm. 2.1]{Per18}.
+      The categories $\dSet$ and $\sOp$ may be equipped with Dwyer-Kan model structures
+      (recovered by Theorem \ref{MODEL_THM} and \cite[Thm. 2.1]{Per18} when $G = \**$),
+      such that \eqref{SOPDSET_EQ} is a Quillen equivalence.
 \end{theorem}
 
 
 
 \todo[inline]{come back!}
 
+Using the simplicial tensoring of $\sOp$ from Example \ref{TENS_EX}, we can formalize the main observations used in the proof of \cite[Prop. 4.5]{CM13b}.
 
-
-
-
-
-
-
-
-
-
-\subsubsection{Applying this to the main case}
-
-Working in the category 
-$\mathsf{Sym}_{\bullet}(\mathcal{V})$
-with $\bar{F}$ the non-unital operad monad and $P$ the ``adding units/points'' monad, one has
-\[
-\Omega(T) = F \Sigma_{\bullet}[T] 
-	= P \bar{F} \Sigma_{\bullet}[T]
-\]
-and one then defines
-\[
-\left(W(T)\right)_n 
-	= F_r^{\circ n+1} \Omega(T)
-	= F_r^{\circ n+1} P \bar{F} \Sigma_{\bullet}[T]
-	= P \bar{F}^{\circ n+2} \Sigma_{\bullet}[T]
-\]
-Moreover, noting that
-\[\bar{F}^{\circ n+2} \Sigma_{\bullet}[T]=
-\mathsf{Lan}_{
-\left(\Omega^{r,n+1}_{\bullet} \to \Sigma_{\bullet}\right)^{op}}
-\bigotimes \circ (\Sigma\wr\Sigma_{\bullet}[T])\circ V\]
-and that
-$\bigotimes \circ (\Sigma\wr\Sigma_{\bullet}[T])\circ V$
-evaluated on a $n+1$-string of inner faces
-$T_0 \hookrightarrow T_1 
-\hookrightarrow T_2 
-\hookrightarrow \cdots
-\hookrightarrow T_{n+1}$
-is given by a point $\**$
-if $T_{n+1} \simeq T$
-and by $\emptyset$ otherwise,
-we recover the usual description of 
-$W(T)(e_1e_2\cdots e_k\leq e)$
-as the poset of inner faces of 
-$T_{e_1e_2\cdots e_k\leq e}$.
-
-
-
-{\color{red} HERE}
-
-\begin{proposition}\label{WLEFTQPUSH PEOP}
-For $\eta \neq T \in \Omega$
-and $\emptyset \neq E \subseteq \boldsymbol{E}^{\mathsf{i}}(T)$
-one has pushout digrams
-\[
-\begin{tikzcd}
-	\Omega(C) \otimes_{\mathsf{F}}
-	\partial \left(\Delta[1]^{\times \boldsymbol{E}^{\mathsf{i}}(T)}\right)
-	\ar{r} \ar{d}
-&
-	W_! \left(\partial \Omega[T]\right) 
-	\arrow[d, "i"]
-&%
-	\Omega(C) \otimes_{\mathsf{F}}
-	\lambda^E \Delta[1]^{\times \boldsymbol{E}^{\mathsf{i}}(T)}
-	\ar{r} \ar{d}
-&
-	W_! \left(\Lambda^E[T]\right) 
-	\arrow[d, "j"]
-\\
-	\Omega(C) \otimes_{\mathsf{F}}
-	\Delta[1]^{\times \boldsymbol{E}^{\mathsf{i}}(T)}
-	\ar{r}
-&
-	W(T)
-&%
-	\Omega(C) \otimes_{\mathsf{F}}
-	\Delta[1]^{\times \boldsymbol{E}^{\mathsf{i}}(T)}
-	\ar{r}
-&
-	W(T)
-\end{tikzcd}
-\]
-where
-$C = \mathsf{lr}(T)$, and
-$\partial \left(\Delta[1]^{\times \boldsymbol{E}^{\mathsf{i}}(T)}\right)
-\to
-\Delta[1]^{\times \boldsymbol{E}^{\mathsf{i}}(T)}$
-and
-$\lambda^E \Delta[1]^{\times \boldsymbol{E}^{\mathsf{i}}(T)}
-\to \Delta[1]^{\times \boldsymbol{E}^{\mathsf{i}}(T)}$
-are the iterated pushout products
-\[
-      \left(
-            \partial\Delta[1] \to \Delta[1]
-      \right)^{\square \boldsymbol E^{i(T)}},
-      \qquad
-      \left(
-            \partial \Delta[1] \to \Delta[1]
-      \right)^{\square (\boldsymbol{E}^{\mathsf{i}}(T) \setminus E)}
-      \square
-      \left(
-            \{1\} \to \Delta[1]
-      \right)^{\square E}
-\]
+\begin{proposition}
+      \label{WLEFTQPUSH PROP}
+      For $\eta \neq T \in \Omega$
+      and $\emptyset \neq E \subseteq \boldsymbol{E}^{\mathsf{i}}(T)$
+      one has pushout digrams
+      \begin{equation}
+            \label{WLEFTQPUSH_EQ}
+            \begin{tikzcd}
+                  \Omega(C) \otimes_{\mathsf{F}}
+                  \partial \left(\Delta[1]^{\times \boldsymbol{E}^{\mathsf{i}}(T)}\right)
+                  \ar{r} \ar{d}
+                  &
+                  W_! \left(\partial \Omega[T]\right) 
+                  \arrow[d, "i"]
+                  & % ----------
+                  \Omega(C) \otimes_{\mathsf{F}}
+                  \lambda^E \Delta[1]^{\times \boldsymbol{E}^{\mathsf{i}}(T)}
+                  \ar{r} \ar{d}
+                  &
+                  W_! \left(\Lambda^E[T]\right) 
+                  \arrow[d, "j"]
+                  \\
+                  \Omega(C) \otimes_{\mathsf{F}}
+                  \Delta[1]^{\times \boldsymbol{E}^{\mathsf{i}}(T)}
+                  \ar{r}
+                  &
+                  W(T)
+                  & % ----------
+                  \Omega(C) \otimes_{\mathsf{F}}
+                  \Delta[1]^{\times \boldsymbol{E}^{\mathsf{i}}(T)}
+                  \ar{r}
+                  &
+                  W(T)
+            \end{tikzcd}
+      \end{equation}
+      where
+      $C = \mathsf{lr}(T)$, and
+      $\partial \left(\Delta[1]^{\times \boldsymbol{E}^{\mathsf{i}}(T)}\right)
+      \to
+      \Delta[1]^{\times \boldsymbol{E}^{\mathsf{i}}(T)}$
+      and
+      $\lambda^E \Delta[1]^{\times \boldsymbol{E}^{\mathsf{i}}(T)}
+      \to \Delta[1]^{\times \boldsymbol{E}^{\mathsf{i}}(T)}$
+      are the iterated pushout products
+      \[
+            \left(
+                  \partial\Delta[1] \to \Delta[1]
+            \right)^{\square \boldsymbol E^{i(T)}},
+            \qquad
+            \left(
+                  \partial \Delta[1] \to \Delta[1]
+            \right)^{\square (\boldsymbol{E}^{\mathsf{i}}(T) \setminus E)}
+            \square
+            \left(
+                  \{1\} \to \Delta[1]
+            \right)^{\square E}
+      \]
 \end{proposition}
+% \begin{proof}
+%       We note that $i$ is the identity on objects,
+%       and for any $\boldsymbol{E}(T)$-signature $\vect D$, $i(\vect D)$ is the identity unless $\vect D = \sigma \cdot \partial C$,
+%       where $\sigma \in \Sigma_n$ and $\partial C = (e_1,\dots,e_n;e)$ with $\set{e_1,\dots,e_n}$ the set of leaves of $T$ and $e$ the root.
+%       In this case, $i(\partial C) = (\partial \Delta[1] \to \Delta[1])^{\square \boldsymbol{E}^i(T)}$,
+%       and the top horizontal map is adjoint to the identity map via Examples \ref{TENS_EX}.
+%       \todo[inline]{come back!}
+% \end{proof}
+\begin{remark}
+      Here, we are using that the operations of $W_!(\partial\Omega[T])$ and $W(T)$ are ``finite and directed'',
+      in that their operations endow the set of $\boldsymbol{E}(T)$-signatures with a broad poset structure (namely the broad poset $T$) as opposed to just a pre-broad poset structure,
+      and there is a ``terminal signature'' (namely $\partial C$) with no non-trivial composites out of it.
 
-\begin{proof}
-      We note that $i$ is the identity on objects,
-      and for any $\boldsymbol{E}(T)$-signature $\vect D$, $i(\vect D)$ is the identity unless $\vect D = \sigma \cdot \partial C$,
-      where $\sigma \in \Sigma_n$ and $\partial C = (e_1,\dots,e_n;e)$ with $\set{e_1,\dots,e_n}$ the set of leaves of $T$ and $e$ the root.
-      In this case, $i(\partial C) = (\partial \Delta[1] \to \Delta[1])^{\square \boldsymbol{E}^i(T)}$,
-      and the top horizontal map is adjoint to the identity map via Examples \ref{TENS_EX}.
-      \todo[inline]{come back!}
-\end{proof}
+      In the cases from this proposition, we have that
+      the adjoint squares to \eqref{WLEFTQPUSH_EQ} as on the right in Example \ref{TENS_EX}(iv) are pushouts onto the terminal signatures
+      (in fact, the horizontal maps are all identities),
+      and thus we may conclude that the original squares are pushouts as well.
+\end{remark}
 
+
+
+
+
+
+
+
+
+% \subsubsection{Applying this to the main case}
+
+% Working in the category 
+% $\mathsf{Sym}_{\bullet}(\mathcal{V})$
+% with $\bar{F}$ the non-unital operad monad and $P$ the ``adding units/points'' monad, one has
+% \[
+% \Omega(T) = F \Sigma_{\bullet}[T] 
+% 	= P \bar{F} \Sigma_{\bullet}[T]
+% \]
+% and one then defines
+% \[
+% \left(W(T)\right)_n 
+% 	= F_r^{\circ n+1} \Omega(T)
+% 	= F_r^{\circ n+1} P \bar{F} \Sigma_{\bullet}[T]
+% 	= P \bar{F}^{\circ n+2} \Sigma_{\bullet}[T]
+% \]
+% Moreover, noting that
+% \[\bar{F}^{\circ n+2} \Sigma_{\bullet}[T]=
+% \mathsf{Lan}_{
+% \left(\Omega^{r,n+1}_{\bullet} \to \Sigma_{\bullet}\right)^{op}}
+% \bigotimes \circ (\Sigma\wr\Sigma_{\bullet}[T])\circ V\]
+% and that
+% $\bigotimes \circ (\Sigma\wr\Sigma_{\bullet}[T])\circ V$
+% evaluated on a $n+1$-string of inner faces
+% $T_0 \hookrightarrow T_1 
+% \hookrightarrow T_2 
+% \hookrightarrow \cdots
+% \hookrightarrow T_{n+1}$
+% is given by a point $\**$
+% if $T_{n+1} \simeq T$
+% and by $\emptyset$ otherwise,
+% we recover the usual description of 
+% $W(T)(e_1e_2\cdots e_k\leq e)$
+% as the poset of inner faces of 
+% $T_{e_1e_2\cdots e_k\leq e}$.
+
+
+
+% {\color{red} HERE}
 
 \newpage
 
@@ -8427,22 +8454,23 @@ On the one hand, the construction of the new adjunction is immediate:
 
 \begin{definition}
       Define
-      \[
+      \begin{equation}
+            \label{SOPDSETG_EQ}
             W_! \colon \dSet^G \rightleftarrows \sOp^G \colon hcN_d
-      \]
+      \end{equation}
       to be the
       extension of the adjunction \eqref{SOPDSET_EQ}
       given by post-composition.
 \end{definition}
 
-% Equivalently, given decompositions $T \simeq G \cdot_H U$ and $T \simeq G \cdot U / N$, we have
-% $W(T) \simeq G \cdot_H W(U)$ and $W(T) \simeq G \cdot W(U)/N$.
-
+Equivalently, given decompositions $T \simeq G \cdot_H U$ and $T \simeq G \cdot U / N$, we have
+$W(T) \simeq G \cdot_H W(U)$ and $W(T) \simeq G \cdot W(U)/N$.
 
 On the other hand, the homotopy theories involved are much more involved to capture the genuine equivariance,
-as noted in \S \ref{OPC_MS_SEC}, \S \ref{MS_SEC}, \S \ref{EDS_SEC}, and \cite{Per18}.
+as noted in \S \ref{REVMS_SEC} and \cite{BP_GSOP, BP_edss, Per18}.
 
-%We have the following generalization of \cite[Prop 4.5]{CM11} (see also \cite[Prop. 6.15]{Per18}).
+Moving forward, our first task is to show that \eqref{SOPDSETG_EQ} is a Quillen adjunction.
+We have the following generalization of \cite[Prop 4.5]{CM13b} (see also \cite[Prop. 6.15]{Per18}).
 
 \begin{proposition}
       \label{W!_COF_PROP}
@@ -8452,26 +8480,21 @@ as noted in \S \ref{OPC_MS_SEC}, \S \ref{MS_SEC}, \S \ref{EDS_SEC}, and \cite{Pe
 \begin{proof}
       It suffices to check this on the generating maps.
       To that end, let $T \in \Omega_\F$, choose a decomposition $T \simeq G \cdot_H T_e$ and consider the map
-%      \begin{equation}
-%            G \cdot_H \left( W_! \partial \Omega[T_e] \xrightarrow{\ i \ } W(T_e) \right)      
-%      \end{equation}
+       \begin{equation}
+            G \cdot_H \left( W_! \partial \Omega[T_e] \xrightarrow{\ i \ } W(T_e) \right)      
+      \end{equation}
       in $\sOp^G$.
       If $T_e = \eta$, then $i$ is the canonical map $\varnothing \to \eta$,
-      % W_! \partial \Omega[\eta] = \varnothing \to W(\eta) = \eta$,
+      $W_! \partial \Omega[\eta] = \varnothing \to W(\eta) = \eta$,
       and so $G \cdot_H i$ is a generating cofibration from \eqref{IFJF_EQ} in $\sOp^G$.
-
-      Thus we may assume that $|V(T)| \geq 1$.
-      In this case, $i$ is an isomorphism on the $H$-set of objects $\mathbf E(T_e)$,
-      and for any $\mathbf E(T_e)$-signature $\vect C$,
-      $i(\vect C)$ is the identity unless $\vect C = h \cdot \partial \mathsf{lr}(T_e)$ for some $h \in H$,
-      where $\partial \mathsf{lr}(T_e)$ is the signature $(e_1, \dots, e_n; e)$ 
-      with $\set{e_1,\dots, e_n}$ the set of leaves of $T_e$ and $e$ the root.
-      When $\vect C = \partial \mathsf{lr}(T_e)$, $i(\vect C)$ is the iterated pushout product
-%      \[
-%            i(\vect C) = (\partial \Delta[1] \to \Delta[1])^{\square \mathbf E^i(T_e)}.
-%      \]
-      We need that $i(\vect C)$ is a genuine cofibration in $\sSet^{\Aut(\vect C)}_\F$.
-      However, $\Aut(\vect C) = \Gamma$ for $\Gamma \leq H \times \Sigma_n$ the graph subgroup encoding the $H$-action on the set of leaves $\set{e_1, \dots, e_n}$,
+      When $|V(T)| \geq 1$, following Proposition \ref{WLEFTQPUSH PROP}
+      it suffices to show that
+      \[
+            i(partial C) = 
+            (\partial \Delta[1] \to \Delta[1])^{\square \mathbf E^i(T_e)}
+      \]
+      is a genuine cofibration in $\sSet^{\Aut(\partial C)}_\Fin$ with $C = \mathsf{lr}(T_e)$.
+      However, $\Aut(\partial C) = \Gamma$ for $\Gamma \leq H \times \Sigma_n$ the graph subgroup encoding the $H$-action on the set of leaves $\set{e_1, \dots, e_n}$,
       and since $\F$ is a weak indexing system and $T \in \Omega_\F$,
       $\Aut(\vect C) \in \F_n$,
       and thus, as $\F$ is closed under subgroups, $\sSet^{\Aut(\vect C)}_\F = \sSet^{\Aut(\vect C)}_{gen}$.
@@ -8480,9 +8503,9 @@ as noted in \S \ref{OPC_MS_SEC}, \S \ref{MS_SEC}, \S \ref{EDS_SEC}, and \cite{Pe
         or using the fact that $\sSet$ has cofibrant symmetric pushout powers,
         so $(\partial \Delta[1] \to \Delta[1])^{\square m}$ is a genuine $\Sigma_m$-cofibration where $m = |\mathbf E^i(T_e)|$,
         and then as restriction is left Quillen on genuine model structures,
-        the composite on the right below is a genuine $\Aut(\vect C)$-cofibration.
+        the composite on the right below is a genuine $\Aut(\partial C)$-cofibration.
         \[
-              \mathrm{Res}^{\Sigma_m}_{\Aut(C)}(\partial \Delta[1] \to \Delta[1])^{\square m} = i(\vect C),
+              \mathrm{Res}^{\Sigma_m}_{\Aut(C)}(\partial \Delta[1] \to \Delta[1])^{\square m} = i(\partial C),
               \qquad
               \Aut(\vect C) = \Gamma \xrightarrow{pr} H \xrightarrow{\mathbf E^i(T_e)} \Sigma_m
         \]
@@ -8497,54 +8520,54 @@ as noted in \S \ref{OPC_MS_SEC}, \S \ref{MS_SEC}, \S \ref{EDS_SEC}, and \cite{Pe
         If $C_j = \mathsf{lr}(T_e)$ for some $j$, then the composite map is just the identity, and there is no content to check.
         If $C_j \neq \mathsf{lr}(T_e)$ for all $j$,
         then this follows by a simple diagram chase on the cube relating the compositions in $W(T)$ and $W_! \partial \Omega(T)$ with those in the source and target of the testing trivial fibration.
-      } % COLOR OLIVEGREEN
+      } % COLOR OLIVEGREEN ------------------------------------------------------
       Hence $G \cdot_H i$ is an $\F$-cofibration in $\sOp^G$ by Lemma \ref{CAV_4.8}.
       
-     
-      Similarly, consider a generating $\F$-inner horn inclusion
-%      \[
-%            G \cdot_H \left(W_! \Lambda^{H e}[T_e] \xrightarrow{\ j \ } W(T_e) \right).
-%      \]
-      with $T \simeq G \cdot_H T_e \in \Omega_\F$ and $e \in \mathbf E(T_e)$ some inner edge.
-      Again, $j$ is bijective on objects and $j(\vect C)$ is the identity unless $\vect C = h \cdot \partial \mathsf{lr}(T_e)$.
-      When $\vect C = \partial \mathsf{lr}(T_e)$, $j(\vect C)$ is the iterated pushout product
-      \begin{equation}
-            j(\vect C) =
-            \left(
-                  \begin{tikzcd}
-                        \partial \left(
-                              \Delta[1]^{\times \mathbf E^i(T_e) \setminus H e}
-                        \right) \arrow[d]
-                        \\
-                        \Delta[1]^{\times \mathbf E^i(T_e) \setminus H e}
-                  \end{tikzcd}
-            \right) \square
-            \left(
-                  \begin{tikzcd}
-                        \set{1} \arrow[d]
-                        \\
-                        \Delta[1]
-                  \end{tikzcd}
-            \right)^{\square H e}
-            =
-            \left(
-                  \begin{tikzcd}
-                        \partial \Delta[1] \arrow[d]
-                        \\
-                        \Delta[1]
-                  \end{tikzcd}
-            \right)^{\square \mathbf E^i(T_e) \setminus H e}
-            \square
-            \left(
-                  \begin{tikzcd}
-                        \set{1} \arrow[d]
-                        \\
-                        \Delta[1]
-                  \end{tikzcd}
-            \right)^{\square H e}.                              
-      \end{equation}
-      A similar argument shows that $G \cdot_H j$ has the left lifting property against all local $\F$-fibrations,
-      hence is a trivial $\F$-cofibration in $\sOp^G$ by Lemma \ref{CAV_4.3}, as desired. 
+      A similar argument using the other half of Proposition \ref{WLEFTQPUSH PROP} shows that $W_!$ preserves generating $\F$-inner horn inclusions.
+      % Similarly, consider a generating $\F$-inner horn inclusion
+      % \[
+      %       G \cdot_H \left(W_! \Lambda^{H e}[T_e] \xrightarrow{\ j \ } W(T_e) \right).
+      % \]
+      % with $T \simeq G \cdot_H T_e \in \Omega_\F$ and $e \in \mathbf E(T_e)$ some inner edge.
+      % Again, $j$ is bijective on objects and $j(\vect C)$ is the identity unless $\vect C = h \cdot \partial \mathsf{lr}(T_e)$.
+      % When $\vect C = \partial \mathsf{lr}(T_e)$, $j(\vect C)$ is the iterated pushout product
+      % \begin{equation}
+      %       j(\vect C) =
+      %       \left(
+      %             \begin{tikzcd}
+      %                   \partial \left(
+      %                         \Delta[1]^{\times \mathbf E^i(T_e) \setminus H e}
+      %                   \right) \arrow[d]
+      %                   \\
+      %                   \Delta[1]^{\times \mathbf E^i(T_e) \setminus H e}
+      %             \end{tikzcd}
+      %       \right) \square
+      %       \left(
+      %             \begin{tikzcd}
+      %                   \set{1} \arrow[d]
+      %                   \\
+      %                   \Delta[1]
+      %             \end{tikzcd}
+      %       \right)^{\square H e}
+      %       =
+      %       \left(
+      %             \begin{tikzcd}
+      %                   \partial \Delta[1] \arrow[d]
+      %                   \\
+      %                   \Delta[1]
+      %             \end{tikzcd}
+      %       \right)^{\square \mathbf E^i(T_e) \setminus H e}
+      %       \square
+      %       \left(
+      %             \begin{tikzcd}
+      %                   \set{1} \arrow[d]
+      %                   \\
+      %                   \Delta[1]
+      %             \end{tikzcd}
+      %       \right)^{\square H e}.                              
+      % \end{equation}
+      % A similar argument shows that $G \cdot_H j$ has the left lifting property against all local $\F$-fibrations,
+      % hence is a trivial $\F$-cofibration in $\sOp^G$ by Lemma \ref{CAV_4.3}, as desired. 
 \end{proof}
 
 We have the following immediate corollary.
@@ -14074,7 +14097,7 @@ that are identified in
 $\pi_0 \upsilon_{\**} N \O$
 were already identified in 
 $ho(hcN(\O))$.
-But this now follows immediately from the pushout from Proposition \ref{WLEFTQPUSH PEOP}
+But this now follows immediately from the pushout from Proposition \ref{WLEFTQPUSH PROP}
 \[
 \begin{tikzcd}
 	\Omega(C) \otimes_{\mathsf{F}}
