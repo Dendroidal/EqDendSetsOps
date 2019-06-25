@@ -3583,17 +3583,67 @@ It is then straightforward to check that if $-\alpha = \alpha$
 then the composite in \eqref{ITERWE EQ}
 is indeed $\Lambda$-equivariant, showing that indeed
 $\P(\vect{C})^{\Lambda} \simeq \P(\vect{B})^{\Lambda}$,
-as follows from the next remark, which discusses the general case.
+as follows from the next lemma, which discusses the general case.
 \end{example}
 
 
+To motivate the following lemma, we recall that
+(cf. Remark \ref{SIGACT REM}),
+for a $\mathfrak{C}$-signature
+$\vect{C} = (\mathfrak{c}_1,\cdots,\mathfrak{c}_n;\mathfrak{c}_0)$
+one has $\Lambda \leq \mathsf{Aut}_{G \ltimes \Sigma^{op}_{\mathfrak{C}}}(\vect{C})$
+iff 
+$g \mathfrak{c}_{\sigma(i)} = \mathfrak{c}_i$
+for all $g\sigma \in \Lambda, 0\leq i \leq n$.
 
-\begin{remark}
-Consider $\mathfrak{C}-$signatures
-$\vect{B}=(\mathfrak{b}_1,\cdots,\mathfrak{b}_n;\mathfrak{c}_0)$
-and 
-$\vect{C}=(\mathfrak{c}_1,\cdots,\mathfrak{c}_n;\mathfrak{c}_0)$, as depicted below.
-We note that, to simplify notation, we assume these have a common target $\mathfrak{b}_0=\mathfrak{c}_0$.
+
+\begin{lemma}
+Fix a $G$-set of colors $\mathfrak{C}$.
+Let $\P \in \mathsf{Op}^G(\mathfrak{C})$ be an operad,
+$\vect{B},\vect{C}$ be $\mathfrak{C}$-signatures,
+and suppose 
+$\Lambda \leq G \times \Sigma_n^{op}$
+acts on both $\vect{B},\vect{C}$, i.e. 
+$\Lambda \leq \mathsf{Aut}_{G\ltimes \Sigma_{\mathfrak{C}}^{op}}(\vect{B})$, 
+$\Lambda \leq \mathsf{Aut}_{G\ltimes \Sigma_{\mathfrak{C}}^{op}}(\vect{C})$. Then:
+\begin{enumerate}[label=(\roman*)]
+\item suppose further that 
+$\vect{B}=(\mathfrak{b}_1,\cdots,\mathfrak{b}_n;\mathfrak{c}_0)$,
+$\vect{C}=(\mathfrak{c}_1,\cdots,\mathfrak{c}_n;\mathfrak{c}_0)$
+have a common target $\mathfrak{c}_0$ and
+that for some $\mathbb{K} \in \V$
+one has maps 
+$\mathbb{K} \xrightarrow{\kappa_i} \P(\mathfrak{b}_i;\mathfrak{c}_i), 1\leq i \leq n$
+such that $g\kappa_{\sigma(i)} = \kappa_i$ for all $g\sigma\in \Lambda,1\leq i \leq n$. Then one has $\Lambda$-equivariant maps as below, where the right map is the composition in $\P$.
+\[
+	\P(\vect{C}) \otimes \bigotimes_{1\leq i \leq n} \mathbb{K}
+\xrightarrow{id \otimes \bigotimes \kappa_i}
+	\P(\vect{C}) \otimes \bigotimes_{1\leq i \leq n} \P(\mathfrak{b}_i;\mathfrak{c}_i)
+	\xrightarrow{\circ}
+	\P(\vect{B})
+\]
+\item
+suppose further that 
+$\vect{B}=(\mathfrak{c}_1,\cdots,\mathfrak{c}_n;\mathfrak{b}_0)$,
+$\vect{C}=(\mathfrak{c}_1,\cdots,\mathfrak{c}_n;\mathfrak{c}_0)$
+have common sources $\mathfrak{c}_1,\cdots,\mathfrak{c}_n$
+and that for some $\mathbb{K} \in \mathcal{V}$
+one has a map $\mathbb{K} \to \P(\mathfrak{b}_0;\mathfrak{c}_0)$
+such that $g\kappa = \kappa$ for all $g\sigma \in \Lambda$.
+Then one has $\Lambda$-equivariant maps as below, where the right map is the composition in $\P$.
+\[
+	\mathbb{K} \otimes \P(\vect{B}) 
+\xrightarrow{\kappa \otimes id}
+	\P(\mathfrak{b}_0;\mathfrak{c}_0) \otimes \P(\vect{B}) 
+	\xrightarrow{\circ}
+	\P(\vect{C})
+\]
+\end{enumerate}
+\end{lemma}
+
+
+\begin{proof}
+We discuss only (i), since (ii) follows from a similar but easier argument. 
 
 {\color{red} HERE}
 
@@ -3622,16 +3672,37 @@ node [name=Kone,swap] {}}
 		edge from parent node [swap] {$\mathfrak{c}_0$}
 		};
 		\draw [dotted,thick] (Kone) -- (Kn) ;
+		\draw [dotted,thick] (Kone) -- (Kn) ;
+	\node at (9,0) [font=\normalsize]{$\vect{T}$}
+		child{node [dummy] {}
+			child{node [dummy] {}
+				child{
+				edge from parent node [swap] {$\mathfrak{b}_n$} node {}}
+			edge from parent node [swap,near end] {$\mathfrak{c}_n$} node [name=Kn] {}}
+			child{node [dummy] {}
+				child{
+				edge from parent node {$\mathfrak{b}_1$} node {}}
+			edge from parent node [near end] {$\mathfrak{c}_1$}
+node [name=Kone,swap] {}}
+		edge from parent node [swap] {$\mathfrak{c}_0$}
+		};
+		\draw [dotted,thick] (Kone) -- (Kn) ;
 \end{tikzpicture}
 \]
-Now suppose a $(G,\Sigma)$-family $\F$ was chosen and $\Lambda \in \F_n$.
-Following Remark \ref{SIGACT REM},
-one has that $\Lambda$ is in $\F_{\vect{B}}$ and $\F_{\vect{C}}$
-iff
-$g \mathfrak{b}_{\sigma(i)} = \mathfrak{b}_i$
-and  
-$g \mathfrak{c}_{\sigma(i)} = \mathfrak{c}_i$
-for all $g\sigma \in \Lambda, 0\leq i \leq n$.
+
+\end{proof}
+
+
+{\color{red} HERE}
+
+
+
+
+
+\begin{remark}
+{\color{red} HERE}
+
+
 
 Now let $\mathcal{P} \in \mathsf{Op}^G_{\mathfrak{C}}(\V)$
 be an operad.
@@ -3645,8 +3716,6 @@ provided they satisfy the same
 $\Lambda$-equivariance condition as the $\mathfrak{b}_i$, $\mathfrak{c}_i$,
 i.e. provided that
 $g \alpha_{\sigma(i)} = \alpha_i$ for all $g\sigma \in \Lambda, 1\leq i\leq n$.
-
- 
 \end{remark}
 
 
@@ -3654,9 +3723,6 @@ $g \alpha_{\sigma(i)} = \alpha_i$ for all $g\sigma \in \Lambda, 1\leq i\leq n$.
 
 
 
-\begin{lemma}
-bla bla get $\Lambda$ map
-\end{lemma}
 
 
 
