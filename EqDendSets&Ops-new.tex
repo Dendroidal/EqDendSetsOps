@@ -1090,8 +1090,8 @@ the left Kan extension
 \end{tikzcd}
 \end{equation}
 
-A complete discussion and rigorous definition this monad can be found in Appendex \ref{MONAD_APDX},
-culmintating in Definition \ref{COLORMON DEF}.
+A complete discussion and rigorous definition of this monad can be found in Appendix \ref{MONAD_APDX},
+culminating in Definition \ref{COLORMON DEF}.
 
 Our next goal is to provide a convenient explicit description of the fibers of $\mathsf{Sym}(\mathcal{V})^G \to \mathsf{F}^G$
 for each $\mathfrak{C} \in \mathsf{F}^G$
@@ -1709,6 +1709,80 @@ then for the point $(x,\bar{x}) \in \Sigma_2 \wr (\G \amalg \bar{\G})$
 it is
 $\left(\left(\F \amalg \bar{\F}\right)^{\ltimes 2}\right)_{(x,\bar{x})} = \F \sqcap \bar{\F}$.
 \end{remark}
+
+
+
+{\color{red} HERE}
+
+
+We may assemble homotopies in the following manner.
+
+\begin{lemma}
+      Suppose $\V$ is as in Convention \ref{ALLCOLOR_CONV} \footnote{
+        We don't need that the unit is cofibrant.}.
+        % has cofibrant symmetric pushout powers and cellular fixed points.
+      Let $h: Z_1 \to Z_2$ in $\V$ be a (trivial) cofibration between cofibrant objects.
+      Then $h^{\otimes n}: Z_1^{\otimes n} \to Z_2^{\otimes n}$ is a genuine (trivial) cofibration in $\V^{\Sigma_n}_{gen}$.
+\end{lemma}
+\begin{proof}
+      We apply arguments from \cite[Prop. 6.24]{BP_geo} and \cite[Lemma 4.8]{Pe16}).
+      Given composable arrows $Z_0 \xrightarrow{g} Z_1 \xrightarrow{h} Z_2$ in $\V$,
+      we denote by $Q^n(g), Q^n(h)$ the domains of $g^{\square n}, h^{\square n}$.
+      There is a filtration of the box product of the composite $(hg)^{\square n}$ by a series of pushouts as on the left below
+      \begin{equation}
+            \label{HGBOX_EQ}
+            \begin{tikzcd}
+                  \bullet \arrow[d, "\Sigma_n \cdot_{\Sigma_{n-r} \times \Sigma_r} (g^{\square n-r} \square h^{\square r})"'] \arrow[r]
+                  &
+                  \bullet \arrow[d, "k_r"]
+                  & &% ----------
+                  Q^n(g) \arrow[r] \arrow[d, "g^{\square n}"']
+                  &
+                  Q^n(hg) \arrow[d, "k_0"]
+                  \\
+                  \bullet \arrow[r]
+                  &
+                  \bullet
+                  & &% ----------
+                  Z_1^{\otimes n} \arrow[r]
+                  &
+                  \bullet
+            \end{tikzcd}
+      \end{equation}
+      for $0 \leq r \leq n$,
+      built out of a filtration $P_0 \subseteq P_1 \subseteq \dots \subseteq P_n$ of the poset $P_n = (0 \to 1 \to 2)^{\times n}$,
+      where $P_0$ is all tuples containing at least one 0, and
+      $P_{r+1}$ is built from $P_r$ by adding all tuples with exactly $(n-r)$ 1-coordinates and $r$ 2-coordinates.
+      In the zeroth stage \footnote{
+        In the language of \cite[Lemma 4.8]{Pe16}, this is the map associated to the subsets
+        $T = P_0$ and $\bar T = \sets{e}{e \leq (1,1,\dots,1)}$.}
+      we have the pushout on the right in \eqref{HGBOX_EQ}.
+      But when $Z_0 = \varnothing$, $Q^n(g) = Q^n(hg) = \varnothing$, and so
+      $k_0: \varnothing \to Z_1^{\otimes n}$ and
+      \[
+            k_n k_{n-1} \dots k_0 = h^{\otimes n}: Z_1^{\otimes n} \to Z_2^{\otimes n}.
+      \]
+
+      Now, since the functor $G \cdot_H (-): \V^H \to \V^G$ sends genuine $H$-cofibrations to genuine $G$-cofibrations,
+      the fact that $\V$ has cofibrant symmetric pushout powers implies that
+      if $g$ is a cofibration and $h$ a (trivial) cofibration in $\V$,
+      $k_r$ is a genuine cofibration in $\V^{\Sigma_n}$ for $r \geq 0$ (which is trivial if $r \geq 1$).
+
+      Thus when $Z_0 = \varnothing$, we have that $h^{\otimes n}$ is a genuine (trivial) $\Sigma_n$-cofibration.
+\end{proof}
+
+
+
+
+
+{\color{red} HERE}
+
+
+
+
+
+
+
 
 
 \subsection{Homotopy theory of symmetric sequences with a fixed color $G$-set}
@@ -3649,23 +3723,107 @@ since $-\mathfrak{b}=\mathfrak{b},-\mathfrak{c}=\mathfrak{c}$).
 
 It is then straightforward to check that if $-\alpha = \alpha$
 then the composite in \eqref{ITERWE EQ}
-is indeed $\Lambda$-equivariant, showing that indeed
-$\P(\vect{C})^{\Lambda} \simeq \P(\vect{B})^{\Lambda}$,
-as follows from the next remark, which discusses the general case.
+is indeed $\Lambda$-equivariant
+(this follows from Lemma \ref{LAMBEQMAPS LEM} below, which discusses the general case), showing that indeed
+$\P(\vect{C})^{\Lambda} \simeq \P(\vect{B})^{\Lambda}$.
 \end{example}
 
 
+To motivate the following result, recall that
+(cf. Remark \ref{SIGACT REM}),
+for a $\mathfrak{C}$-signature
+$\vect{C} = (\mathfrak{c}_1,\cdots,\mathfrak{c}_n;\mathfrak{c}_0)$
+one has $\Lambda \leq \mathsf{Aut}_{G \ltimes \Sigma^{op}_{\mathfrak{C}}}(\vect{C})$
+iff 
+$g \mathfrak{c}_{\sigma(i)} = \mathfrak{c}_i$
+for all $g\sigma \in \Lambda, 0\leq i \leq n$,
+which matches the $g \kappa_{\sigma(i)} = \kappa_i$
+requirement in Lemma \ref{LAMBEQMAPS LEM}(i).
 
-\begin{remark}
-Consider $\mathfrak{C}-$signatures
-$\vect{B}=(\mathfrak{b}_1,\cdots,\mathfrak{b}_n;\mathfrak{c}_0)$
-and 
-$\vect{C}=(\mathfrak{c}_1,\cdots,\mathfrak{c}_n;\mathfrak{c}_0)$, as depicted below.
-We note that, to simplify notation, we assume these have a common target $\mathfrak{b}_0=\mathfrak{c}_0$.
 
-{\color{red} HERE}
+\begin{lemma}\label{LAMBEQMAPS LEM}
+Fix a $G$-set of colors $\mathfrak{C}$.
+Let $\P \in \mathsf{Op}^G(\mathfrak{C})$ be an operad,
+$\vect{B},\vect{C}$ be $\mathfrak{C}$-signatures,
+and suppose 
+$\Lambda \leq G \times \Sigma_n^{op}$
+acts on both $\vect{B},\vect{C}$, i.e. 
+$\Lambda \leq \mathsf{Aut}_{G\ltimes \Sigma_{\mathfrak{C}}^{op}}(\vect{B})$, 
+$\Lambda \leq \mathsf{Aut}_{G\ltimes \Sigma_{\mathfrak{C}}^{op}}(\vect{C})$. Then:
+\begin{enumerate}[label=(\roman*)]
+\item suppose further that 
+$\vect{B}=(\mathfrak{b}_1,\cdots,\mathfrak{b}_n;\mathfrak{c}_0)$,
+$\vect{C}=(\mathfrak{c}_1,\cdots,\mathfrak{c}_n;\mathfrak{c}_0)$
+have a common target $\mathfrak{c}_0$ and
+that for some $\mathbb{K} \in \V$
+one has maps 
+$\mathbb{K} \xrightarrow{\kappa_i} \P(\mathfrak{b}_i;\mathfrak{c}_i), 1\leq i \leq n$
+such that $g\kappa_{\sigma(i)} = \kappa_i$ for all $g\sigma\in \Lambda,1\leq i \leq n$. Then one has $\Lambda$-equivariant maps as below, where the right map is the composition in $\P$
+and the action of $g\sigma\in \Lambda$ on $\mathbb{K}^{\otimes n}$
+is the permutation action of $\sigma$.
+\begin{equation}\label{LAMBEQMAPS EQ}
+	\P(\vect{C}) \otimes %\bigotimes_{1\leq i \leq n} \mathbb{K}
+	\mathbb{K}^{\otimes n}
+\xrightarrow{id \otimes \bigotimes \kappa_i}
+	\P(\vect{C}) \otimes \bigotimes_{1\leq i \leq n} \P(\mathfrak{b}_i;\mathfrak{c}_i)
+	\xrightarrow{\circ}
+	\P(\vect{B})
+\end{equation}
+\item
+suppose further that 
+$\vect{B}=(\mathfrak{c}_1,\cdots,\mathfrak{c}_n;\mathfrak{b}_0)$,
+$\vect{C}=(\mathfrak{c}_1,\cdots,\mathfrak{c}_n;\mathfrak{c}_0)$
+have common sources $\mathfrak{c}_1,\cdots,\mathfrak{c}_n$
+and that for some $\mathbb{K} \in \mathcal{V}$
+one has a map $\mathbb{K} \to \P(\mathfrak{b}_0;\mathfrak{c}_0)$
+such that $g\kappa = \kappa$ for all $g\sigma \in \Lambda$.
+Then one has $\Lambda$-equivariant maps as below, where the right map is the composition in $\P$.
+\[
+	\mathbb{K} \otimes \P(\vect{B}) 
+\xrightarrow{\kappa \otimes id}
+	\P(\mathfrak{b}_0;\mathfrak{c}_0) \otimes \P(\vect{B}) 
+	\xrightarrow{\circ}
+	\P(\vect{C})
+\]
+\end{enumerate}
+\end{lemma}
+
+Note that if $\mathbb{K}=1_{\V}$
+in Lemma \ref{LAMBEQMAPS LEM}
+we get $\Lambda$-equivariant maps
+$\P(\vect{C}) \to \P(\vect{B})$,
+$\P(\vect{B}) \to \P(\vect{C})$.
 
 
+\begin{proof}
+We discuss only (i), since (ii) follows from a similar but easier argument. 
+
+The fact that the left map in \eqref{LAMBEQMAPS EQ} is
+$\Lambda$-equivariant follows can be deduced
+from the $g \kappa_{\sigma(i)} = \kappa_i$ requirement
+via a straightforward calculation, but here we argue this a little more abstractly.
+The maps 
+$\P(\mathfrak{b}_i;\mathfrak{c}_i) \to 
+\P(g\mathfrak{b}_{\sigma(i)};g\mathfrak{c}_{\sigma(i)}) $
+for $g\sigma \in \Lambda$
+make the tuple
+$\left(\P(\mathfrak{b}_i;\mathfrak{c}_i) \right)_{1\leq i \leq n}$
+into a $\Lambda$-equivariant object of $\Sigma_n^{op} \wr \V$
+and likewise
+$(\mathbb{K})_{1\leq i \leq n}
+\xrightarrow{(\kappa_i)}
+\left(\P(\mathfrak{b}_i;\mathfrak{c}_i) \right)_{1\leq i \leq n}
+$
+into a $\Lambda$-equivariant map in $\Sigma_n^{op}\wr \V$.
+Hence $\Lambda$-equivariance of the left map in 
+\eqref{LAMBEQMAPS EQ}
+follows by functoriality of 
+$\Sigma_n^{op} \wr \V \xrightarrow{\otimes} \V$. 
+
+To check that the left map in \eqref{LAMBEQMAPS EQ}
+is also $\Lambda$-equivariant,
+consider the $\mathfrak{C}$-trees below, including the signatures
+$\vect{B},\vect{C}$.
 \[
 \begin{tikzpicture}
       [grow=up,auto,level distance=2.3em,every node/.style = {font=\footnotesize},dummy/.style={circle,draw,inner sep=0pt,minimum size=1.75mm}]
@@ -3690,41 +3848,43 @@ node [name=Kone,swap] {}}
 		edge from parent node [swap] {$\mathfrak{c}_0$}
 		};
 		\draw [dotted,thick] (Kone) -- (Kn) ;
+		\draw [dotted,thick] (Kone) -- (Kn) ;
+	\node at (9,0) [font=\normalsize]{$\vect{T}$}
+		child{node [dummy] {}
+			child{node [dummy] {}
+				child{
+				edge from parent node [swap] {$\mathfrak{b}_n$} node {}}
+			edge from parent node [swap,near end] {$\mathfrak{c}_n$} node [name=Kn] {}}
+			child{node [dummy] {}
+				child{
+				edge from parent node {$\mathfrak{b}_1$} node {}}
+			edge from parent node [near end] {$\mathfrak{c}_1$}
+node [name=Kone,swap] {}}
+		edge from parent node [swap] {$\mathfrak{c}_0$}
+		};
+		\draw [dotted,thick] (Kone) -- (Kn) ;
 \end{tikzpicture}
 \]
-Now suppose a $(G,\Sigma)$-family $\F$ was chosen and $\Lambda \in \F_n$.
-Following Remark \ref{SIGACT REM},
-one has that $\Lambda$ is in $\F_{\vect{B}}$ and $\F_{\vect{C}}$
-iff
-$g \mathfrak{b}_{\sigma(i)} = \mathfrak{b}_i$
-and  
-$g \mathfrak{c}_{\sigma(i)} = \mathfrak{c}_i$
-for all $g\sigma \in \Lambda, 0\leq i \leq n$.
+Clearly the fact that 
+$\vect{B},\vect{C}$
+are $\Lambda$-equivariant implies that so it $\vect{T}$.
+Thus $\Lambda$-equivariance of the right map in 
+\eqref{LAMBEQMAPS EQ}
+follows since the middle term is
+$\bigotimes_{v \in \boldsymbol{V}(T)} \P(\vect{T}_v)$
+and $\vect{B} = \mathsf{lr}(\vect{T})$,
+compatibly with the $\Lambda$-action.
+\end{proof}
 
-Now let $\mathcal{P} \in \mathsf{Op}^G_{\mathfrak{C}}(\V)$
-be an operad.
-Given maps $\alpha_i \colon 1_{\mathcal{V}} \to \P(\mathfrak{b}_i;\mathfrak{c}_i)$
-from $\mathfrak{b}_i$ to $\mathfrak{c}_i$ for $1\leq i \leq n$
-it is then natural to expect precomposition with the $\alpha_i$
-to yield a 
-$\Lambda$-equivariant map
-$\P(\vect{C}) \to \P(\vect{B})$
-provided they satisfy the same
-$\Lambda$-equivariance condition as the $\mathfrak{b}_i$, $\mathfrak{c}_i$,
-i.e. provided that
-$g \alpha_{\sigma(i)} = \alpha_i$ for all $g\sigma \in \Lambda, 1\leq i\leq n$.
 
- 
-\end{remark}
+{\color{red} HERE}
 
 
 
 
 
 
-\begin{lemma}
-bla bla get $\Lambda$ map
-\end{lemma}
+
 
 
 
@@ -4002,8 +4162,6 @@ These cylinder objects provide another description of the mapping sets in the ho
       $\Ho \V (A,B) = \V(A_c, B_f)/\sim$.
 \end{proposition}
 
-We can use these cylinder objects to extend the notion of homotopy to $\V$-categories or $\V$-operads.
-
 
 
 
@@ -4011,61 +4169,6 @@ We can use these cylinder objects to extend the notion of homotopy to $\V$-categ
 % ------------------------------ ASSEMBLING HOMOTOPIES ------------------------------
 
 
-We may assemble homotopies in the following manner.
-
-\begin{lemma}
-      Suppose $\V$ is as in Convention \ref{ALLCOLOR_CONV} \footnote{
-        We don't need that the unit is cofibrant.}.
-        % has cofibrant symmetric pushout powers and cellular fixed points.
-      Let $h: Z_1 \to Z_2$ in $\V$ be a (trivial) cofibration between cofibrant objects.
-      Then $h^{\otimes n}: Z_1^{\otimes n} \to Z_2^{\otimes n}$ is a genuine (trivial) cofibration in $\V^{\Sigma_n}_{gen}$.
-\end{lemma}
-\begin{proof}
-      We apply arguments from \cite[Prop. 6.24]{BP_geo} and \cite[Lemma 4.8]{Pe16}).
-      Given composable arrows $Z_0 \xrightarrow{g} Z_1 \xrightarrow{h} Z_2$ in $\V$,
-      we denote by $Q^n(g), Q^n(h)$ the domains of $g^{\square n}, h^{\square n}$.
-      There is a filtration of the box product of the composite $(hg)^{\square n}$ by a series of pushouts as on the left below
-      \begin{equation}
-            \label{HGBOX_EQ}
-            \begin{tikzcd}
-                  \bullet \arrow[d, "\Sigma_n \cdot_{\Sigma_{n-r} \times \Sigma_r} (g^{\square n-r} \square h^{\square r})"'] \arrow[r]
-                  &
-                  \bullet \arrow[d, "k_r"]
-                  & &% ----------
-                  Q^n(g) \arrow[r] \arrow[d, "g^{\square n}"']
-                  &
-                  Q^n(hg) \arrow[d, "k_0"]
-                  \\
-                  \bullet \arrow[r]
-                  &
-                  \bullet
-                  & &% ----------
-                  Z_1^{\otimes n} \arrow[r]
-                  &
-                  \bullet
-            \end{tikzcd}
-      \end{equation}
-      for $0 \leq r \leq n$,
-      built out of a filtration $P_0 \subseteq P_1 \subseteq \dots \subseteq P_n$ of the poset $P_n = (0 \to 1 \to 2)^{\times n}$,
-      where $P_0$ is all tuples containing at least one 0, and
-      $P_{r+1}$ is built from $P_r$ by adding all tuples with exactly $(n-r)$ 1-coordinates and $r$ 2-coordinates.
-      In the zeroth stage \footnote{
-        In the language of \cite[Lemma 4.8]{Pe16}, this is the map associated to the subsets
-        $T = P_0$ and $\bar T = \sets{e}{e \leq (1,1,\dots,1)}$.}
-      we have the pushout on the right in \eqref{HGBOX_EQ}.
-      But when $Z_0 = \varnothing$, $Q^n(g) = Q^n(hg) = \varnothing$, and so
-      $k_0: \varnothing \to Z_1^{\otimes n}$ and
-      \[
-            k_n k_{n-1} \dots k_0 = h^{\otimes n}: Z_1^{\otimes n} \to Z_2^{\otimes n}.
-      \]
-
-      Now, since the functor $G \cdot_H (-): \V^H \to \V^G$ sends genuine $H$-cofibrations to genuine $G$-cofibrations,
-      the fact that $\V$ has cofibrant symmetric pushout powers implies that
-      if $g$ is a cofibration and $h$ a (trivial) cofibration in $\V$,
-      $k_r$ is a genuine cofibration in $\V^{\Sigma_n}$ for $r \geq 0$ (which is trivial if $r \geq 1$).
-
-      Thus when $Z_0 = \varnothing$, we have that $h^{\otimes n}$ is a genuine (trivial) $\Sigma_n$-cofibration.
-\end{proof}
 
 \begin{lemma}
       \label{ASSEM_HOM_LEM}
