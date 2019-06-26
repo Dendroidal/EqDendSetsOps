@@ -42,7 +42,7 @@ cd,patterns,calc}
 \usepackage{ifdraft}
 \ifdraft{
   \color[RGB]{63,63,63}
-%  \pagecolor[RGB]{220,220,204}
+  \pagecolor[RGB]{220,220,204}
   \usepackage{showkeys}
   \usepackage{geometry}
   \usepackage{todonotes}
@@ -98,7 +98,7 @@ cf.  }
 
 \newcommand{\I}{\mathbb I}
 \newcommand{\J}{\mathbb J}
-\renewcommand{\1}{\eta}%{\ensuremath{\mathbb{id}}}
+\renewcommand{\1}{\ensuremath{\mathbbm 1}} % {\eta}%{\ensuremath{\mathbb{id}}}
 
 \newcommand{\Alg}{\mathsf{Alg}}
 \newcommand{\Kl}{\mathsf{Kl}}
@@ -2567,7 +2567,7 @@ Thus, \eqref{NKOXY EQ} is the image of \eqref{NKOXY3 EQ} under the composite of 
       \V^{\Sigma_{m_a} \wr G \ltimes \Sigma_{\mathfrak C}^{op}} \times
       \V^{\Sigma_{m_i} \wr G \ltimes \Sigma_{\mathfrak C}^{op}}
       \to
-      \V^{\Aut((\vect U_V)_{ac})}_{gen} \times \V^{\Aut( (\vect U_v)_{in} )}_{gen} \to
+      \V^{\Aut((\vect U_V)_{ac})} \times \V^{\Aut( (\vect U_v)_{in} )} \to
       \V^{\Aut(\vect U)} \times \V^{\Aut(\vect U)} \xrightarrow{\otimes}
       \V^{\Aut(\vect U)}
 \]
@@ -2619,6 +2619,7 @@ and the induction step following from the already established cofibrancy of the 
             \[
                   K^G = \sets{X \times G/H \cdot j}{X \in \V^G,\ j \in J}.
             \]
+            {\color{blue} AND that this class is preserved under induction of groups (a la the left Kan extension)}
       \end{enumerate}
       If every object in $\V^G$ is genuine cofibrant, then $\bigstar$ follows from Propositions \ref{EQQUILADJ PROP} and \ref{RESGEN PROP}.
 \end{remark}
@@ -2628,6 +2629,12 @@ and the induction step following from the already established cofibrancy of the 
 To prove $\bigstar$, need a lot:
 \begin{enumerate}
 \item (i) and (ii) from above
+\item fixed point of genuine trivial cofibrations are trivial cofibrations!
+
+      now what do we need?
+
+
+      
 \item strongly cofibrantly generated
 \item non-equivariant monoid axiom
 \item $(I^G)^{\otimes} = I^G-cof$, which along with monoid axiom imply $J^\otimes = J-cof$ (so we may apply \cite[Prop. 6.3(ii)]{BP_geo})
@@ -4384,7 +4391,7 @@ The first of these two results, Proposition \ref{J-CELL_PROP}, uses the followin
 
 \begin{lemma}
       \label{TRANSCOMP_LGC_LEM}
-      Local genuine cofibrations in $\Op^G(\V)$ are closed under transfinite composition.
+      Local genuine trivial cofibrations with cofibrant source and local genuine cofibrations in $\Op^G(\V)$ are closed under transfinite composition.
 \end{lemma}
 
 \begin{proof}
@@ -4400,6 +4407,7 @@ The first of these two results, Proposition \ref{J-CELL_PROP}, uses the followin
       for $F_\alpha$ the (transfinite) composite $\O_0 \to \O_1 \to \dots \to \O_\alpha$,
       the result follows.
 \end{proof}
+\todo[inline]{to remove ``cofibrant source'' need something like $\otimes$-perfect}
 
 \begin{proposition}[{c.f. \cite[4.20]{Cav}}]\label{J-CELL_PROP}
       Suppose $\V$ is as in Convention \ref{ALLCOLOR_CONV}. %has a cofibrant unit $1_\V$ and has cofibrant symmetric pushout powers.
@@ -7741,10 +7749,10 @@ We do this by constructing the free simplicial resolution\footnote{Also called t
 of $\Omega(T)$ as an algebra in the category of \textit{pointed} $\mathbf E(T)$-colored symmetric sequences $\Sym^{\mathbf E(T)}_{\eta}(\Set)$.
 
 \begin{definition}
-      Given a set of colors $\mathfrak C$, let $\eta_{\mathfrak C} = \eta$ denote the initial $\mathfrak C$-colored operad in $\V$,
+      Given a set of colors $\mathfrak C$, let $\1_{\mathfrak C}$ denote the initial $\mathfrak C$-colored operad in $\V$,
       defined for all $\mathfrak C$-sequences $\vect C$ by
       \[
-            \eta(\vect C) =
+            \1(\vect C) =
             \begin{cases}
                   1_\V \qquad \qquad & \vect C = (x;x) \mbox{ for some $x \in \mathfrak C$,}
                   \\
@@ -7753,51 +7761,51 @@ of $\Omega(T)$ as an algebra in the category of \textit{pointed} $\mathbf E(T)$-
       \]
       The category of \textit{pointed} $\mathfrak C$-colored symmetric sequences in $\V$ is the category
       \[
-            \Sym^{\mathfrak C}_\eta(\V) := \eta_{\mathfrak C} \downarrow \Sym^{\mathfrak C}(\V).
+            \Sym_{\mathfrak C, \1}(\V) := \1_{\mathfrak C} \downarrow \Sym^{\mathfrak C}(\V).
       \]
 \end{definition}
-
-The free operad monad $\mathbb F^{\mathfrak C}$ factors
+The free operad adjunction $\mathbb F_{\mathfrak C}$ factors
 \begin{equation}
-      \label{FC_FAC_EQ}
+      \label{F_FAC_EQ}
       \begin{tikzcd}
-            \Sym^{\mathfrak C}(\V) \arrow[r, shift left, "{(-) \amalg \eta}"]
+            \Sym_{\mathfrak C}\V) \arrow[r, shift left, "{(-) \amalg \eta_{\mathfrak C}}"]
             &
-            \Sym^{\mathfrak C}_\eta(\V) \arrow[l, shift left] \arrow[r, shift left, "\mathbb F^{\mathfrak C}_\eta"]
+            \Sym_{\mathfrak C,\1}(\V) \arrow[l, shift left] \arrow[r, shift left, "\mathbb F_{\mathfrak C, \1}"]
             &
-            \Op^{\mathfrak C}(\V) \arrow[l, shift left, "U_\eta"]
+            \Op_{\mathfrak C}(\V) \arrow[l, shift left, "U_\1"]
       \end{tikzcd}
 \end{equation}
-where the map $\eta_{\mathfrak C} \to U_\eta(\O)$ selects the identity operations for each color,
-$(-) \amalg \eta$ is the (levelwise) coproduct in $\Sym^{\mathfrak C}(\V)$,
-and $\mathbb F^{\mathfrak C}_\eta$ is the ``free operad with prescribed units'' monad,
-defined on $X \in \Sym^{\mathfrak C}_\eta(\V)$ to be the pushout below computed in $\Op^{\mathfrak C}(\V)$.
+where
+$(-) \amalg \1$ is the (levelwise) coproduct in $\Sym_{\mathfrak C}(\V)$,
+the map $\1_{\mathfrak C} \to U_\1(\O)$ selects the identity operations for each color,
+and $\mathbb F_{\mathfrak C, \1}$ is the ``free operad with prescribed units'' monad,
+defined on $X \in \Sym_{\mathfrak C, \1}(\V)$ to be the pushout below computed in $\Op_{\mathfrak C}(\V)$.
 \begin{equation}
       \label{FETA_EQ}
       \begin{tikzcd}
-            \mathbb F^{\mathfrak C} \eta_{\mathfrak C} \arrow[d] \arrow[r]
+            \mathbb F_{\mathfrak C} \1_{\mathfrak C} \arrow[d] \arrow[r]
             &
-            \eta_{\mathfrak C} \arrow[d]
+            \1_{\mathfrak C} \arrow[d]
             \\
-            \mathbb F^{\mathfrak C} X \arrow[r]
+            \mathbb F_{\mathfrak C} X \arrow[r]
             &
-            \mathbb F^{\mathfrak C}_\eta X
+            \mathbb F_{\mathfrak C, \1} X
       \end{tikzcd}
 \end{equation}
 
 We can now make the following definition of the $W$-construction.
 
 \begin{definition}
-      Given $T \in \Omega$, define $W(T)_\bullet \in \Op(\sSet) \subseteq (\Op^{\mathbf E(T)})^{\Delta^{op}}$ to be the bar construction
+      Given $T \in \Omega$, define $W(T)_\bullet \in \Op(\sSet) \subseteq (\Op_{\mathbf E(T)}(\Set))^{\Delta^{op}}$ to be the bar construction
       \[
-            W(T)_n = \left( \mathbb F^{\mathbf E(T)}_\eta \right)^{n+1} \left(\Omega(T)\right),
+            W(T)_n = \left( \mathbb F_{\mathbf E(T), \1} \right)^{n+1} \left(\Omega(T)\right),
       \]
       with the simplicial maps the monadic unit and monadic multiplication.
 \end{definition}
 
-To work with this definition, we must ensure that
+For this definition to be valid, we must verify that
 \begin{enumerate}[label = (\roman*)]
-\item $\mathbb F_\eta$ is the left adjoint to the forgetful functor,
+\item $\mathbb F_{\mathfrak C,\1}$ is the left adjoint to the forgetful functor,
 \item this adjunction is monadic, and
 \item this recovers the usual description of the $W$-construction.
 \end{enumerate}
@@ -7806,14 +7814,23 @@ and the above will follow from Lemma \ref{FP_FETA_LEM}, Remark \ref{ADJSRMON REM
 
 \subsubsection{Non-unital operads and combined monads}
 
-We consider an factorization of the free operad monad orthogonal to \eqref{FC_FAC_EQ}, namely
-\[
-      \Sym_\bullet \xrightarrow{\bar F} \Op_{\bullet,nu} \xrightarrow{P} \Op_\bullet
-\]
-where $\Op_{\bullet,nu}$ is the category of non-unital operads, and $P = (-) \amalg \eta_\bullet$ ``adds units''.
+We consider a factorization of the free operad adjunction orthogonal to \eqref{F_FAC_EQ}
+\begin{equation}
+      \label{F_FAC_NU_EQ}
+      \begin{tikzcd}
+            \Sym_{\mathfrak C} \arrow[r, shift left, "{\bar{\mathbb F}}"]
+            &
+            \Op_{\mathfrak C,nu} \arrow[l, shift left, "U_{nu}"] \arrow[r, shift left, "\mathbb P"]
+            &
+            \Op_{\mathfrak C} \arrow[l, shift left, "\hat U_\1"]
+      \end{tikzcd}
+\end{equation}
+through the category $\Op_{\mathfrak C, nu}$ of ($\mathfrak C$-colored) non-unital operads.
 
 \begin{definition}
-      A \textit{non-unital operad} is a symmetric sequence equipped with an associative and $\Sigma_\bullet$-equivariant composition law, but no units.
+      A \textit{non-unital operad} is an operad without units or unitality conditions:
+      a $\mathfrak C$-colored symmetric sequence for some set $\mathfrak C$
+      equipped with an associative and $\Sigma$-equivariant composition law.
       Specifically, we have all ``partial'' composition laws\footnote{
         We note that for unital operads, whether we define them via partial composition laws or total composition laws makes no difference. The same does not hold for non-unital operads.}
       \[
@@ -7822,8 +7839,14 @@ where $\Op_{\bullet,nu}$ is the category of non-unital operads, and $P = (-) \am
       for any subset $\lambda \subseteq \set{1,2,\dots,n}$.
 \end{definition}
 
+$U_{nu} = U_{\mathfrak C, nu}$ and $\hat U_\1 = \hat U_{\mathfrak C, \1}$ from \eqref{F_FAC_NU_EQ} are forgetful functors,
+with $\bar{\mathbb F} = \bar{\mathbb F}_{\mathfrak C}$ and $\mathbb P = \mathbb P_{\mathfrak C}$ the associated left adjoints.
+The ``adds units'' functor $\mathbb P$ is easy to describe:
+on underlying symmetric sequences, it is the (levelwise) coproduct with $\1_{\mathfrak C}$,
+and the composition law may be canonically extended so that the new operations act as units.
 
-The monad $\bar F$ encoding non-unital operads is built analogously to $\mathbb F_\bullet$ as in Appendix \ref{MONAD_APDX},
+To describe the functor $\bar{\mathbb F}$, we realize $\Op_{\mathfrak C, nu}$ as algebras over a monad we will also denote $\bar{\mathbb F}$.
+This is built analogously to $\mathbb F$ as in Appendix \ref{MONAD_APDX},
 with the key difference that,
 for any set of colors $\mathfrak C$,
 the fundamental category $\Omega_{\mathfrak C}^0$ of $\mathfrak C$-colored trees and isomorphisms
@@ -7840,7 +7863,7 @@ Thus, the results from Appendix \ref{MONAD_APDX} may be adapted mutatis mutandis
 in particular, \eqref{FREEOP_EQ}, Definition \ref{COLORMON DEF}, and Proposition \ref{ASSOCIDS PROP} yield the following.
 
 \begin{proposition}
-      The free non-unital operad monad $\bar F$ on a $\mathfrak C$-colored symmetric sequence $X \in \Sym_{\mathfrak C}$ is given by the left Kan extension
+      The free non-unital operad monad $\bar{\mathbb F}$ on a $\mathfrak C$-colored symmetric sequence $X \in \Sym_{\mathfrak C}$ is given by the left Kan extension
       \[
             \begin{tikzcd}
                   \left(\Omega_{\mathfrak C}^{\text{nu},0}\right)^{op} \arrow[r, hookrightarrow] \arrow[d, "\mathsf{lr}"]
@@ -7853,10 +7876,10 @@ in particular, \eqref{FREEOP_EQ}, Definition \ref{COLORMON DEF}, and Proposition
                   &
                   \V
                   \\
-                  \Sigma_{\mathfrak C}^{op} \arrow[urrrr, "\Lan = \bar F X"']
+                  \Sigma_{\mathfrak C}^{op} \arrow[urrrr, "\Lan = \bar{\mathbb F} X"']
             \end{tikzcd}
       \]
-      Moreover, $\bar F^{\circ n}X$ is given by the left Kan extension      
+      Moreover, $\bar{\mathbb F}^{\circ n}X$ is given by the left Kan extension      
       \begin{equation}
             \label{FREENUOP_EQ}
             \begin{tikzcd}
@@ -7873,7 +7896,7 @@ in particular, \eqref{FREEOP_EQ}, Definition \ref{COLORMON DEF}, and Proposition
                   &
                   \V
                   \\
-                  \Sigma_{\mathfrak C}^{op} \arrow[urrrrr, start anchor = east, end anchor = south west, "\Lan = \bar F^{\circ n} X"']
+                  \Sigma_{\mathfrak C}^{op} \arrow[urrrrr, start anchor = east, end anchor = south west, "\Lan = \bar{\mathbb F}^{\circ n} X"']
             \end{tikzcd}
       \end{equation}
 \end{proposition}
@@ -7881,14 +7904,15 @@ in particular, \eqref{FREEOP_EQ}, Definition \ref{COLORMON DEF}, and Proposition
 
 Now, we apply Appendix \ref{AMALGMON_SEC}.
 First, we observe by hand % P-F-combined.pdf
-that $P$ and $\bar F$ can be combined as in Definition \ref{AMALGMON DEF}:
-The maps $P \Rightarrow \mathbb F$ and $\bar F \Rightarrow \mathbb F$ are simply
+that $\mathbb P$ and $\bar{\mathbb F}$ can be combined as in Definition \ref{AMALGMON DEF}:
+The maps $\mathbb P \Rightarrow \mathbb F$ and $\bar{\mathbb F} \Rightarrow \mathbb F$ are simply
 \[
-      X \amalg \eta \xrightarrow{\eta \amalg e} \mathbb F X,
+      X \amalg \1 \xrightarrow{\eta \amalg e} \mathbb F X,
       \qquad
-      \bar F X \hookrightarrow \eta \amalg \bar F X.
+      \bar{\mathbb F} X \hookrightarrow \1 \amalg \bar{\mathbb F} X
 \]
-Moreover, as $P$ and $F = \mathbb F$ both preserve reflexive coequalizers\footnote{
+with $\eta$ the adjunction counit and $e$ the inclusion of the units.
+Moreover, as $\mathbb P$ and $F = \mathbb F$ both preserve reflexive coequalizers\footnote{
   For $\mathbb F$, this follows as $\otimes$ commuting with colimits in both variables implies it commutes with reflexive coequalizers; see e.g. \cite[Lemma 2.3.2]{Rez96}.},
 the left adjoint $F_p$ to the forgetful functor $\mathsf{fgt} \colon \Op_{\mathfrak C} \to \Sym^{\mathfrak C}_e$,
 i.e. the ``free operad with prescribed units'' functor, exists,
@@ -7896,21 +7920,22 @@ and following
 Corollary \ref{ALGLEFTEX_COR} and \eqref{FRMONDES EQ} is given on $Y \in \Sym^{\mathfrak C}_e$ as the coequalizer of the following in $\Sym_{\mathfrak C}$.
 \begin{equation}
       \label{FPYCOEQ_EQ}
-      \mathbb F P Y = \mathbb F(Y \amalg \eta_{\mathfrak C}) \overset{f_1}{\underset{f_2}\rightrightarrows} \mathbb F Y,
+      \mathbb F P Y = \mathbb F(Y \amalg \1_{\mathfrak C}) \overset{f_1}{\underset{f_2}\rightrightarrows} \mathbb F Y,
       % \begin{tikzcd}
-      %       \mathbb F P Y = \mathbb F(Y \amalg \eta_{\mathfrak C}) 
-      %       \arrow[r, shift left, "{\mu \circ F P \eta_{\bar F}}"] \arrow[r, shift right, "{Fm}"']
+      %       \mathbb F P Y = \mathbb F(Y \amalg \1_{\mathfrak C}) 
+      %       \arrow[r, shift left, "{\mu \circ F P \eta_{\bar{\mathbb F}}}"] \arrow[r, shift right, "{Fm}"']
       %       &[30pt]
       %       \mathbb F Y,
       % \end{tikzcd}
       \qquad
-      f_1 = \mathbb F(Y \amalg \eta \xrightarrow{id,e} Y),
+      f_1 = \mathbb F(Y \amalg \1 \xrightarrow{id,e} Y),
       \quad
-      f_2 \colon \mathbb F(Y \amalg \eta) \xrightarrow{\eta_{\bar F} \amalg id} \mathbb F(\bar F Y \amalg \eta) = \mathbb F^2 Y \xrightarrow{\mu} \mathbb FY,
+      f_2 \colon \mathbb F(Y \amalg \1) \xrightarrow{\eta_{\bar{\mathbb F}} \amalg id} \mathbb F(\bar{\mathbb F} Y \amalg \1) = \mathbb F^2 Y \xrightarrow{\mu} \mathbb FY,
 \end{equation}
 
+come back!
 
-This matches the above description of $\mathbb F_\eta$ from \eqref{FETA_EQ}:
+This matches the above description of $\mathbb F_\1$ from \eqref{FETA_EQ}:
 \begin{lemma}
       \label{FP_FETA_LEM}
       The underlying functor for the ``free operad with prescribed units'' monad $F_P$ on $\Sym_e$ is naturally isomorphic to $\mathbb F_\eta$.
@@ -7918,12 +7943,12 @@ This matches the above description of $\mathbb F_\eta$ from \eqref{FETA_EQ}:
 \begin{proof}
       We note that $f_2$ in \eqref{FPYCOEQ_EQ} has another decomposition, namely
       \[
-            \mathbb F (Y \amalg \eta) = P\bar F Y \mathbin{\hat{\amalg}} \mathbb F_\eta \xrightarrow{\eta_{\bar F} \amalg id}
-            P\bar F \bar F Y \mathbin{\hat{\amalg}} \mathbb F \eta \xrightarrow{\mu_{\bar F} \amalg (id \circ \mu)}
+            \mathbb F (Y \amalg \eta) = P\bar{\mathbb F} Y \mathbin{\hat{\amalg}} \mathbb F_\eta \xrightarrow{\eta_{\bar{\mathbb F}} \amalg id}
+            P\bar{\mathbb F} \bar{\mathbb F} Y \mathbin{\hat{\amalg}} \mathbb F \eta \xrightarrow{\mu_{\bar{\mathbb F}} \amalg (id \circ \mu)}
             F Y \amalg \eta = \mathbb F Y,
       \]
       where $\hat{\amalg}$ denotes the coproduct in $\mathbb F$-algebras
-      (as $P \bar F \bar F \to \mathbb F Y$, by Proposition \ref{ALTMULT PROP}, and both $\mathbb F \eta \to \eta$ and the unique map $\eta \to \O$ are all maps of $\mathbb F$-algebras).
+      (as $P \bar{\mathbb F} \bar{\mathbb F} \to \mathbb F Y$, by Proposition \ref{ALTMULT PROP}, and both $\mathbb F \eta \to \eta$ and the unique map $\eta \to \O$ are all maps of $\mathbb F$-algebras).
 
       But then this equalizier is of form
       $
@@ -7958,7 +7983,7 @@ We can now describe $W(T)$.
       For any $T \in \Omega_G$, we have
       \begin{equation}
             \label{WT_EQ}
-            W(T)_n = \mathbb F_\eta^{\circ n+1} \Omega(T) = F_P^{\circ n+1} P \bar F \Sigma_\bullet[T] = P \bar F^{\circ n+2}\Sigma_\bullet[T].
+            W(T)_n = \mathbb F_\eta^{\circ n+1} \Omega(T) = F_P^{\circ n+1} P \bar{\mathbb F} \Sigma_\bullet[T] = P \bar{\mathbb F}^{\circ n+2}\Sigma_\bullet[T].
       \end{equation}
       Moreover, for any signature $\vect C = (e_1, \dots, e_k; e)$, we have
       $W(T)(\vect C) = \Delta[1]^{\times \boldsymbol{E}^i(T_{\underline{e} \leq e})}$ is the (nerve of the) poset of inner faces of $T_{e_1 e_2 \dots e_k \leq e_0}$.
@@ -7967,7 +7992,7 @@ We can now describe $W(T)$.
       Equation \eqref{WT_EQ} follows from Corollary \ref{ALGLEFTEX_COR}.
       The evaluation $W(T)(\vect C)$ follows from \eqref{FREENUOP_EQ} that
       \[
-            \bar F^{\circ n+2} \Sigma_\bullet[T] = \Lan_{(\Omega_\bullet^{r,n+1}\to \Sigma_\bullet)^{op}} \bar N^{T},
+            \bar{\mathbb F}^{\circ n+2} \Sigma_\bullet[T] = \Lan_{(\Omega_\bullet^{r,n+1}\to \Sigma_\bullet)^{op}} \bar N^{T},
       \]
       with
       \[
@@ -13115,15 +13140,16 @@ $\psi^{\**} \psi_!$ on $\Alg_{\bar{F}}$ has the same underlying functor, unit an
 Our goal in this section is to build,
 for each $G$-$\infty$-operad $X \in \mathsf{dSet}^G$,
 the associated homotopy genuine equivariant operad
-$\mathsf{ho} (X)$,
-which we will describe as an object in
+$\mathsf{ho} (X)$.
+While some of the discussion will be a careful generalization of \cite[\S 6]{MW09},
+we will describe $\mathsf{ho} (X)$ as an object in
 $\mathsf{dSet}_G$
-satisfying a strict Segal condition.
-
+satisfying a strict Segal condition, as in \cite[\S 3.3]{BP_edss},
+in analogue to taking the nerve of the contruction from \cite{MW09}.
 
 We start with some notation. 
 Given a multiset $I$ of edges of a tree $T \in \Omega$
-(formally, $I$ is a function 
+(formally, a function 
 $I \colon \boldsymbol{E}(T) \to \mathbb{N}_0$),
 we write $\sigma^I T \in \Omega$
 for the tree obtained by degenerating $T$ once for each edge in $I$.
@@ -13136,7 +13162,8 @@ then $\sigma^{I} T \in \Omega_{G}$
 can be defined if $I$ is $G$-equivariant
 (formally, this means that the multiset $I$ is a composite
 $\boldsymbol{E}(T) \to \boldsymbol{E}_G(T)
-\to \mathbb{N}_0$).
+\to \mathbb{N}_0$;
+i.e. if $e \in I$ has multiplicity $n$, then so does $ g.e$ for all $g \in G$).
 
 Our main interest will be in degeneracies of $G$-corollas. Recall that, up to isomorphism, 
 a $G$-corolla $C \in \Sigma_G$ is determined the number $0 \leq k$ of leaf orbits
@@ -13212,7 +13239,7 @@ node [near start,inner sep=1pt,name=Kn1,swap]{}}
 		\draw [dotted,thick] (Kone1) -- (Kn1) ;
 \end{tikzpicture}
 \]
-$\sigma^i C$ then has an orbital inner face
+The $G$-tree $\sigma^i C$ then has an orbital inner face\footnote{See \cite[Defn. 2.16]{BP_edss} for a discussion of \textit{orbital} inner faces.}
 $\sigma^i C - [e_i]$ obtained by removing $[e_i]$
 as well as an orbital outer face obtained by removing $e'_i$,
 which we denote $\sigma^i C - [e'_i]$.
@@ -13229,7 +13256,7 @@ simply as $T \to X$.
 	Let $X \in \mathsf{dSet}^G$ be a $G$-$\infty$-operad and $C$ a $G$-corolla with edge orbits
 	$[e_0],\cdots,[e_k]$.
 	
-	Given two operations 
+	Given two parallel operations 
 	$f,g\colon C \rightrightarrows X$,
 	we write $f \sim_i g$ if there exists a map
 	$H \colon \sigma^i C \to X$ such that
@@ -13299,7 +13326,7 @@ node [swap] {}}
 $C$ then has a single leaf $G$-edge orbit $[e] = G \cdot e$, so that for
 $f,g \colon C \to X$ it is
 $f \sim_1 g$
-if there exists a 
+if there exists a dendrix
 $H \colon \sigma^{\{e,-e\}}C \to X$
 such that 
 \begin{equation}\label{EQUIVHOMOT EQ}
@@ -13394,7 +13421,7 @@ $\bar{H} \colon \Lambda^{[e_i]}_o[\sigma^{ii} C] \to X$ by
 \]
 Since the orbital inner horn inclusion
 $\bar{H} \colon \Lambda^{[e_i]}_o[\sigma^{ii} C] \to \Omega[C]$
-is $G$-inner anodyne,
+is $G$-inner anodyne by \cite[Prop. 3.13]{BP_edss},
 $\bar{H}$ admits an extension $\widetilde{H} \colon \sigma^{ii}C \to X$.
 The restriction $\bar{H}|_{\sigma^{ii}C - [e_i]}$ then provides the homotopy exhibiting $g \sim_i f$, and symmetry of $\sim_i$ follows.
 
@@ -13466,7 +13493,7 @@ provides a homotopy exhibiting $g \sim_j f$. (b) now follows.
 \end{proof}
 
 In light of Lemma \ref{EQUIVI LEM},
-given $f,g \rightrightarrows C \to X$ with 
+given parallel operation $f,g \colon C \rightrightarrows X$ with 
 $C$ a $G$-corolla and $X$ a $G$-$\infty$-operad,
 we will henceforth write $f \sim g$ whenever $f \sim_i g$ for some (and thus all) $i$.
 We now extend the $\sim$ relation.
@@ -13510,8 +13537,8 @@ Let $X \in \mathsf{dSet}^G$ be a $G$-$\infty$-operad. Then the assignment
 It remains to address the most interesting case,
 that inner faces. Since inner faces can be factored as composites of inner faces that collapse a singe inner edge orbit,
 it suffices to consider the case of faces
-$D \to T$ where $T$ has a single edge edge orbit.
-I.e. we can assume that there are $G$-corollas
+$D \to T$ where $T$ has a single inner edge orbit; that is,
+we can assume that there are $G$-corollas
 $C_1$, $C_2$ such that 
 $T = C_1 \amalg_{[e_i]} C_2$ and
 $D = T - [e_i]$, as illustrated below.
@@ -13714,7 +13741,7 @@ Let $X \in \mathsf{dSet}^G$ be a $G$-$\infty$-operad. Then
 	For strictness,	
 	note that Definition \ref{XTENDSIM DEF}
 	can be reinterpreted as saying that
-	$x,y \colon \Omega[T] \rightrightarrows X$
+	a pair of dendrices $\Omega[T] \rightrightarrows X$
 	give rise to the same point of 
 	$\mathsf{ho}(X)$, i.e. 
 	the composites 
@@ -13738,7 +13765,7 @@ Let $X \in \mathsf{dSet}^G$ be a $G$-$\infty$-operad. Then
 	must coincide, and thus that
 	$F(f)=F(g)$.
 	The further claim that $F$ respects equivalences
-	of general dendrices $x,y\colon T \rightrightarrows X$
+	of general pair of dendrices $T \rightrightarrows X$
 	is immediate from Definition \ref{XTENDSIM DEF}.
 \end{proof}
 
@@ -13761,9 +13788,10 @@ ho(hcN(\mathcal{O})) \xrightarrow{\simeq}
 
 
 \begin{proof}
-The existence of the map in \eqref{HOOPID EQ}
-will be an application of
-Corollary \ref{HOOPUNIV COR}(b).
+      By \cite[Prop. 5.9]{BP_edss}, $\pi_0(\upsilon_{\**}N\O)$ is a genuine equivariant operad,
+      and the existence of the map in \eqref{HOOPID EQ}
+      will be an application of
+      Corollary \ref{HOOPUNIV COR}(b).
 
 Firstly,
 note that we have the following, naturally in $T \in \Omega_G$.
@@ -13776,23 +13804,20 @@ note that we have the following, naturally in $T \in \Omega_G$.
 \simeq 
 \mathsf{sdSet}_G(\upsilon_{\**}N W_!\Omega[T],\upsilon_{\**}N \O)
 \]
-there the second identification uses the fact that 
-$N\colon \mathsf{Op} \to \mathsf{dSet}$
-is a fully faithful inclusion.
+where the second and third identifications use the fact that 
+$N\colon \mathsf{Op} \to \mathsf{dSet}$ and $\upsilon_{\**} \colon \dSet^G \to \dSet_G$
+are fully faithful inclusions. 
 But now one has a map
 \begin{align*}
-	\mathsf{sdSet}_G(\upsilon_{\**}N W_!\Omega[T],\upsilon_{\**}N \O)
-\to  &
-	\mathsf{sdSet}_G(\upsilon_{\**}N W_!\Omega[T],\pi_0\upsilon_{\**}N \O)
-\simeq
-	\mathsf{dSet}_G(\pi_0 \upsilon_{\**}  N W_!\Omega[T],\pi_0\upsilon_{\**}N \O)
-\\
-\simeq &
-	\mathsf{dSet}_G(\pi_0\upsilon_{\**} N W_!\Omega[T],\pi_0\upsilon_{\**}N \O)
-	\simeq
-	\mathsf{dSet}_G(\upsilon_{\**}\Omega[T]],\pi_0\upsilon_{\**}N \O)
-	=
-	(\pi_0\upsilon_{\**}N \O)(T)
+  \mathsf{sdSet}_G(\upsilon_{\**}N W_!\Omega[T],\upsilon_{\**}N \O)
+  & \to
+    \mathsf{sdSet}_G(\upsilon_{\**}N W_!\Omega[T],\pi_0\upsilon_{\**}N \O)
+  \\ & \simeq
+       \mathsf{dSet}_G(\pi_0 \upsilon_{\**}  N W_!\Omega[T],\pi_0\upsilon_{\**}N \O)
+  \\ & \simeq
+       \mathsf{dSet}_G(\upsilon_{\**}\Omega[T],\pi_0\upsilon_{\**}N \O)
+  \\ & =
+       (\pi_0\upsilon_{\**}N \O)(T)
 \end{align*}
 so altogether we obtain a map
 $\upsilon_{\**}hcN(\O) \to \pi_0 \upsilon_{\**} N \O$
@@ -13800,7 +13825,7 @@ and hence, by Corollary \ref{HOOPUNIV COR},
 the desired map 
 \[ho(hcN(\O)) \to \pi_0 \upsilon_{\**} N \O\]
 Moreover, both of these are quotients of $\upsilon_{\**}hcN(\O)$,
-so to prove that the map is an isomorphism one needs only show that any two operations $f,g\colon C \rightrightarrows hcN \O$ of $\upsilon_{\**}hcN(\O)$
+so to prove that the map is an isomorphism one needs only show that any two parallel operations $C \rightrightarrows hcN \O$ of $\upsilon_{\**}hcN(\O)$
 that are identified in 
 $\pi_0 \upsilon_{\**} N \O$
 were already identified in 
@@ -13828,51 +13853,98 @@ But this now follows immediately from the pushout from Proposition \ref{WLEFTQPU
 come back!
 
 \begin{lemma}
-      $ho(X)$ detects isofibrations.
+      $ho(X)$ detects isofibrations between $\F$-$\infty$-operads.
 \end{lemma}
 \begin{proof}
+      Consider the composite
       \[
-            \begin{tikzcd}
-                  \sOp^G \arrow[d, "h c N"'] \arrow[r, "\upsilon_{\**}"]
-                  &
-                  \sOp_G \arrow[r, "\pi_0"]
-                  &
-                  \Op_G \arrow[d, "N"] \arrow[r, "j^{\**}"] \arrow[dll, Leftrightarrow, shorten >=0.15cm,shorten <=0.15cm]
-                  &
-                  \Cat^{\mathsf O_G^{op}} \arrow[d, "N"] \arrow[r, equal]
-                  &
-                  \Cat^{\mathsf O_G^{op}} \arrow[d, equal]
-                  \\
-                  \Op^G_{\infty} \arrow[rr, "ho"']
-                  &&
-                  \dSet_G \arrow[r, "j^{\**}"]
-                  &
-                  \sSet^{\mathsf O_G^{op}} \arrow[r, "\tau"]
-                  &
-                  \Cat^{\mathsf O_G^{op}}
-            \end{tikzcd}
+            \Op^G_\infty \xrightarrow{ho}
+            \dSet_G \xrightarrow{k^{\**}}
+            \dSet^{\mathsf O_{\F_1}^{op}} \xrightarrow{j^{\**}}
+            \sSet^{\mathsf O_{\F_1}^{op}} \xrightarrow{\tau}
+            \Cat^{\mathsf O_{\F_1}^{op}}
       \]
-      Since $ho(X)$ is strict Segal, so is $j^{\**}ho(X)$, and thus $N\tau j^{\**}ho(X) = j^{\**}ho(X)$.
-      Moreover, $j^{\**}\upsilon X \to j^{\**}ho(X)$ remains universal.
-      Thus the universal property of the unit map implies that $j^{\**}ho(X) \simeq N \tau j^{\**} \upsilon_{\**} X$.
-      Finally, $f \colon X \to Y$ in $\dSet^G$ is an isofibration iff $\tau j^{\**}(f^H)$ is,
-      i.e. if $\tau j^{\**} \upsilon_{\**} f$ is a level isofibration.
+      for $k \colon \Omega \times \mathsf O_{\F_1} \to \Omega_G$.
+      Since $ho(X)$ is strict Segal, so is $(kj)^{\**} ho(X)$. % and thus $N\tau j^{\**}ho(X) = j^{\**}ho(X)$.
+      Moreover, as $(kj)^{\**} \upsilon_{\**} X \to (kj)^{\**} ho(X)$ is again universal to a strict Segal object,
+      the universal property of the unit map implies that
+      \[
+            (kj)^{\**}ho(X) = N \tau (kj)^{\**} ho(X) \simeq N \tau (kj)^{\**} \upsilon_{\**} X
+      \]
+      where the first equality is from the strict Segal property.
+      Finally, $f \colon X \to Y$ in $\dSet^G$ is an isofibration iff $\tau j^{\**}(f^H)$ is for each $H \in \F_1$,
+      or equivalently if $\tau (kj)^{\**} \upsilon_{\**} f$ is a level isofibration.
       The result follows.
 \end{proof}
 
 \begin{remark}
       \label{W!_LEFTQ_REM}
-      This gives us a second proof of Proposition \ref{W!_LEFTQ_PROP}:
-      $hcN(f)$ is an $\F$-fibration iff $\tau j^{\**} \upsilon_{\**} h c N(f)$ is,
+      This gives us a second finish to the proof of Proposition \ref{W!_LEFTQ_PROP}:
+      $hcN(f)$ is an $\F$-fibration iff $\tau (kj)^{\**} \upsilon_{\**} h c N(f)$ is,
       but
       \[
-            \tau j^{\**} \upsilon_{\**} h c N(f) \simeq
-            \tau N \tau j^{\**} \upsilon_{\**} \simeq
-            \tau j^{\**} ho(hcN(f)) \simeq
-            \tau j^{\**} N \pi_0 \upsilon_{\**} f,
+            +            \tau (kj)^{\**} \upsilon_{\**} hcN(f) =
+            \tau N \tau (kj)^{\**} \upsilon_{\**} hcN(f) \simeq
+            \tau (kj)^{\**} ho( hcN(f) ) \simeq
+            \tau (kj)^{\**} \pi_0 \upsilon_{\**} N \O =
+            \pi_0 j^{\**} i_{\**} f,
       \]
-      and $f \in \sOp^G$ is an isofibration iff
-      $\tau j^{\**} N \pi_0 \upsilon_{\**} f$ is a level isofibration.
+      where the last equality follows from the diagram below.
+      \[
+            \begin{tikzcd}[column sep = scriptsize]
+                  \sOp^G \arrow[d, equal] \arrow[rrr, "i_{\**}"]
+                  &&&
+                  \sOp^{\mathsf O_{\F_1}^{op}} \arrow[d, "N"'] \arrow[r, "j^{\**}"]
+                  &
+                  \mathsf{sCat}^{\mathsf O_{\F_1}^{op}} \arrow[d, "N"'] \arrow[r, "\pi_0"]
+                  &
+                  \Cat^{\mathsf O_{\F_1}^{op}} \arrow[d, "N"'] \arrow[r, equal]
+                  &
+                  \Cat^{\mathsf O_{\F_1}^{op}} \arrow[d, equal]
+                  \\
+                  \sOp^G \arrow[d, equal] \arrow[r, "N"]
+                  &
+                  \mathsf{sdSet}^G \arrow[d, equal] \arrow[rr, "i_{\**}"]
+                  &&
+                  \mathsf{sdSet}^{\mathsf O_{\F_1}^{op}} \arrow[d, equal] \arrow[r, "j^{\**}"]
+                  &
+                  \mathsf{ssSet}^{\mathsf O_{\F_1}^{op}} \arrow[r, "\pi_0"]
+                  &
+                  \sSet^{\mathsf O_{\F_1}^{op}} \arrow[d, equal] \arrow[r, "\tau"]
+                  &
+                  \Cat^{\mathsf O_{\F_1}^{op}} \arrow[d, equal]
+                  \\
+                  \sOp^G \arrow[d, equal] \arrow[r, "N"]
+                  &
+                  \mathsf{sdSet}^G \arrow[d, equal] \arrow[r, "\upsilon_{\**}"]
+                  &
+                  \mathsf{sdSet}_G \arrow[d, equal] \arrow[r, "k^{\**}"]
+                  &
+                  \mathsf{sdSet}^{\mathsf O_{\F_1}^{op}} \arrow[r, "\pi_0"]
+                  &
+                  \dSet^{\mathsf O_{\F_1}^{op}} \arrow[d, equal] \arrow[r, "j^{\**}"]
+                  &
+                  \sSet^{\mathsf O_{\F_1}^{op}} \arrow[d, equal] \arrow[r, "\tau"]
+                  &
+                  \Cat^{\mathsf O_{\F_1}^{op}} \arrow[d, equal]
+                  \\
+                  \sOp^G \arrow[r, "N"]
+                  &
+                  \mathsf{sdSet}^G \arrow[r, "\upsilon_{\**}"]
+                  &
+                  \mathsf{sdSet}_G \arrow[r, "\pi_0"]
+                  &
+                  \dSet_G \arrow[r, "k^{\**}"]
+                  &
+                  \dSet^{\mathsf O_{\F_1}^{op}} \arrow [r, "j^{\**}"]
+                  &
+                  \sSet^{\mathsf O_{\F_1}^{op}} \arrow[r, "\tau"]
+                  &
+                  \Cat^{\mathsf O_{\F_1}^{op}}
+            \end{tikzcd}
+      \]
+      But $f \in \sOp^G$ is an isofibration iff
+      $\pi_0 j^{\**} i_{\**} f$ is a level isofibration, finishing the proof.
 \end{remark}
 
 
