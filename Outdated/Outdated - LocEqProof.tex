@@ -1,0 +1,649 @@
+\documentclass[a4paper,10pt
+%,draft
+%, final
+]{article}%
+
+\pdfcompresslevel=0
+\pdfobjcompresslevel=0
+
+\usepackage[hidelinks]{hyperref}
+\hypersetup{
+  % colorlinks,
+  final,
+  pdftitle={Equivariant Dendroidal Segal Spaces},
+  pdfauthor={Bonventre, P. and Pereira, L. A.},
+  % pdfsubject={Your subject here},
+  % pdfkeywords={keyword1, keyword2},
+  linktoc=page
+}
+%\usepackage[open=false]{bookmark}
+
+\input{commands.tex}%
+
+
+%-------- Tikz ---------------------------
+
+\usepackage{tikz}%
+\usetikzlibrary{matrix,arrows,decorations.pathmorphing,
+cd,patterns,calc}
+\tikzset{%
+  treenode/.style = {shape=rectangle, rounded corners,%
+                     draw, align=center,%
+                     top color=white, bottom color=blue!20},%
+  root/.style     = {treenode, font=\Large, bottom color=red!30},%
+  env/.style      = {treenode, font=\ttfamily\normalsize},%
+  dummy/.style    = {circle,draw,inner sep=0pt,minimum size=2mm}%
+}%
+
+\usetikzlibrary[decorations.pathreplacing]
+
+
+
+% ---- Commands on draft --------
+
+\usepackage{ifdraft}
+\ifdraft{
+  \color[RGB]{63,63,63}
+  % \pagecolor[rgb]{0.5,0.5,0.5}
+  \pagecolor[RGB]{220,220,204}
+  % \color[rgb]{1,1,1}
+}
+
+
+\usepackage[draft]{showkeys}
+\usepackage{todonotes}%[obeyDraft]
+
+
+% ----- Labels Changed? --------
+
+\makeatletter
+
+\def\@testdef #1#2#3{%
+  \def\reserved@a{#3}\expandafter \ifx \csname #1@#2\endcsname
+  \reserved@a  \else
+  \typeout{^^Jlabel #2 changed:^^J%
+    \meaning\reserved@a^^J%
+    \expandafter\meaning\csname #1@#2\endcsname^^J}%
+  \@tempswatrue \fi}
+
+\makeatother
+
+
+% ---- Commands --------
+
+% new symbols
+
+\newcommand{\mycircled}[2][none]{%
+  \mathbin{
+    \tikz[baseline=(a.base)]\node[draw,circle,inner sep=-1.5pt, outer sep=0pt,fill=#1](a){\ensuremath #2\strut};
+cf.  }
+}
+\newcommand{\owr}{\mycircled{\wr}}
+
+% replace symbols
+
+\renewcommand{\hat}{\widehat}
+
+% random
+
+\renewcommand{\F}{\mathcal F}
+\newcommand{\Q}{\mathcal Q}
+
+\newcommand{\lltimes}{\underline{\ltimes}}
+
+
+% detecting $\V$-categories:
+
+\newcommand{\I}{\mathbb I}
+\newcommand{\J}{\mathbb J}
+\renewcommand{\1}{\eta}%{\ensuremath{\mathbb{id}}}
+
+% lazy shortcuts
+
+\newcommand{\SC}{\Sigma_{\mathfrak C}}
+\newcommand{\OC}{\Omega_{\mathfrak C}}
+
+\newcommand{\UV}{\underline{\mathcal V}}
+\newcommand{\UC}{\underline{\mathfrak C}}
+
+
+% ---- Title --------
+
+\title{Equivariant Segal operads, simplicial operads, and dendroidal sets}
+
+\author{Peter Bonventre, Lu\'is A. Pereira}%
+
+\date{\today}
+
+
+% ---- Document body --------
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+      Things and stuff
+\end{abstract}
+
+\tableofcontents
+
+
+
+Moving on to Case I, we now prove that a homotopy equivalence of colors induces a homotopy equivalence between certain hom-objects.
+% 
+We begin with some notation and a construction.
+Let $\mathfrak C$ be a $G$-set of colors, and fix a $\mathfrak C$-signature $C = (c_1, \dots, c_n; c_0)$.
+For each $0 \leq i \leq n$, let $\Aut_i(C) \leq \Aut(C) = \Aut_{G \ltimes \Sigma_{\mathfrak C}}(C)$ denote the subgroup of elements $(g, \sigma)$
+such that $\sigma(i) = i$ (including $\Aut_0(C) = \Aut(C)$),
+and let $H_i \leq G$ denote the $G$-projection of $\Aut_i(C)$.
+
+Now, suppose $d_i$ and $c_i$ are $H_i$-homotopy equivalent.
+We define a new $\mathfrak C$-signature by replacing $c_i$ and all of its ``$\Aut_i(C)$-orbits'' in $C$ with
+the $\Aut_i(C)$-orbit of $d_i$.
+Specifically, let $\lambda \subseteq \langle n \rangle = \set{0,1,2,\dots,n}$ denote the subset of all $j$ such that
+there exists some $(k_j, \sigma_j) \in \Aut(C)$ such that $\sigma_j(i) = j$ (and hence $c_j = k_j c_i$).
+% for each $j \in \lambda$, fix choices of such $(k_j, \sigma_j)$ (with $(k_i,\sigma_i) = (1,1)$).
+Then for all $0 \leq j \leq n$, we define $d_j$ and $D$ by
+\begin{equation}
+      \label{DDEF_EQ}
+      d_j =
+      \begin{cases}
+            k_j \cdot d_i \qquad & j \in \lambda
+            \\
+            c_j & \mbox{otherwise,}
+      \end{cases}
+      \qquad \qquad
+      D = (d_1,\dots, d_n; d_0).
+\end{equation}
+
+\begin{remark}
+      We note that these $d_j$, and hence $D$, do not depend on the choice of $(k_j,\sigma_j) \in \Aut(C)$:
+      If $(k'_j, \sigma'_j) \in \Aut(C)$ also has $\sigma'_j(i) = j$, then
+      $(k'_j, \sigma'_j) \cdot (k_j^{-1}, \sigma_j^{-1}) \in \Aut_i(C)$,
+      so $k'_j k_j^{-1} \in \Aut_G(c_i) \mathop{\cap} \Aut_G(d_i)$,
+      and thus $k'_j \cdot d_i = k_j \cdot d_i$.
+\end{remark}
+
+
+\begin{lemma}
+      \label{AUTC_LEM}
+      For $C$, $D$, $\lambda$, $H_i$, and $(k_j, \sigma_j)$ defined as above, we have the following:
+      \begin{enumerate}[label = (\roman*)]
+      \item $j \in \lambda$ iff $\pi(j) \in \lambda$ for all $(h,\pi) \in \Aut(C)$.
+      \item $\Aut(C) \leq \Aut(D)$.
+      \item $H_{\pi(i)} = h H_i h^{-1}$ for all $(h,\pi) \in \Aut(C)$.
+      \item For any arrow
+            $\alpha \colon 1_\V \to \O(c_i;d_i)^{H_i}$,
+            and homotopy
+            $H \colon \mathbb C \to \O(c_i;c_i)^{H_i}$
+            in a $\mathfrak C$-colored $G$-operad $\O$,
+            the maps
+            \begin{equation}
+                  \alpha_j \colon 1_\V \xrightarrow{\alpha} \O(c_i; d_i)^{H_i} \xrightarrow{ k_j \cdot (-) } \O(c_j; d_j)^{H_j},
+                  \qquad \qquad
+                  H_j \colon \mathbb C \xrightarrow{H} \O(c_i;c_i)^{H_i} \xrightarrow{k_j \cdot (-)} \O(c_j;c_j)^{H_j}
+            \end{equation}
+            are well-defined and indepedent of the choice of $(k_j, \sigma_j)$.
+      \item For any $\alpha$ and $H$, the maps
+            \begin{align*}
+              \otimes_\lambda \alpha_j \colon & 1_\V \simeq \otimes_\lambda 1_\V \longto \otimes_\lambda \O(c_j; d_j)^{H_j},
+              \\
+              \otimes_\lambda H_j \colon & \otimes_\lambda \mathbb C \longto \otimes_\lambda \O(c_j;c_j)^{H_j},
+              \\
+              (\alpha_j)_{\**} \colon & \O(C) \xrightarrow{\otimes_\lambda \alpha_j} \O(C) \otimes \bigotimes_\lambda \O(c_j; d_j)^{H_j} \longto \O(D)
+            \end{align*}
+            are $\Aut(C)$-equivariant.
+      \end{enumerate}
+\end{lemma}
+\begin{proof}
+      These all follow more-or-less immediately from the same straightforward calculation:
+      Fixing $(h,\pi) \in \Aut(C)$ and $j \in \lambda$, we have
+      \begin{equation}
+            (k_{\pi(j)}^{-1} h k_j, \sigma_{\pi(j)}^{-1} \pi \sigma_j) \in \Aut_i(C),
+            \qquad
+            \textrm{and}
+            \qquad
+            (h,\pi) \Aut_i(C) (h,\pi)^{-1} = \Aut_{\pi(i)}(C).
+      \end{equation}
+\end{proof}
+
+\begin{proposition}[{c.f. \cite[Prop. 4.14]{Cav}, \cite[Prop. 2.12]{BM13}}]
+      \label{CAV_4.14_PROP2}
+      Suppose $\V$ is as in Convention \ref{ALLCOLOR_CONV}. %has cofibrant symmetric pushout powers and cofibrant unit.
+      Let $\O \in \Op^G(\V)$ with color $G$-set $\mathfrak C$,
+      fix a $\mathfrak C$-signature $C = (c_1,\dots, c_n;c_0)$,
+      and let $H_i$ be defined as in \eqref{DDEF_EQ}.
+      %
+      Suppose $d_i$ and $c_i$ are $H_i$-homotopy equivalent.
+      Then there is a zig-zag, natural in functors out of $\O$,
+      of genuine $\Aut(C)$-weak equivalences between $\O(C)$ and $\O(D)$,
+      with $D$ the $\mathfrak C$-signature defined as in \eqref{DDEF_EQ}.
+\end{proposition}
+\begin{proof}
+      Without loss of generality, $i = 1$ or $i = 0$.
+      We only consider $i=1$; the case $i = 0$, $D = (c_1, \dots, c_n; d_0)$ will follow by an analogous (and simpler) argument.
+
+      First, we note that using appropriate lifts (and \eqref{FIBFIX_LIFT_EQ}), one can show that if $c$ and $d$ are $H$-homotopy equivalent in $\O$, they are
+      homotopy $H$-equivalent in the functorial bifibrant replacement $\O_{fc}$ of $\O$ in $\Op^{G, \mathfrak C(\O)}_{gen}(\V)$,
+      the $\F$-(semi)-model structure from Theorem \ref{THM1_C} for $\F = \set{\F_n}$ with $\F_n$ all subgroups of $G \times \Sigma_n$.
+      %
+      Moreover, for any functor $F$, we have the following commuting diagram of zig-zags
+      \begin{equation}
+            \begin{tikzcd}
+                  \O(C) \arrow[r, "\simeq"] \arrow[d, "F"']
+                  &
+                  \O_f(C) \arrow[d]
+                  &
+                  \O_{fc}(C) \arrow[l, "\simeq"'] \arrow[r, "{(\alpha_j)_{\**}}"] \arrow[d]
+                  &
+                  \O_{fc}(D) \arrow[r, "\simeq"] \arrow[d]
+                  &
+                  \O_f(D) \arrow[d]
+                  &
+                  \O(D) \arrow[l, "\simeq"'] \arrow[d, "F"]
+                  \\
+                  \P(C) \arrow[r, "\simeq"]
+                  &
+                  \P_f(C)
+                  &
+                  \P_{fc}(C) \arrow[l, "\simeq"'] \arrow[r, "{F(\alpha_j)_{\**})}"]
+                  &
+                  \P_{fc}(D) \arrow[r, "\simeq"] 
+                  &
+                  \P_f(D) 
+                  &
+                  \P(D) \arrow[l, "\simeq"']
+            \end{tikzcd}
+      \end{equation}
+      where the $\simeq$ denote weak equivalences in $\V^{\Aut(C)}_{gen}$.
+      Thus it suffices to consider the case where $\O$ is bifibrant; the general case and naturality follow.
+
+      Now, by assumption we have
+      arrows $\alpha: 1_\V \to \O(c_1; d_1)^{H_1}$ and $\beta: 1_\V \to \O(d_1, c_1)^{H_1}$,
+      and homotopies $H = H_{\beta\alpha,id}$ and $H_{\alpha\beta,id}$.
+      Building off Lemma \ref{AUTC_LEM}$(v)$, we use Remark \ref{CYL_REM} and Lemma \ref{ASSEM_HOM_LEM} to assemble the homotopies $H_j = H_{\beta_j \alpha_j,id}$, yielding
+      \begin{equation}
+            (\beta_j \alpha_j)_{\**} = (\beta_j)_{\**} (\alpha_j)_{\**} \sim id_{\O(C)^\Gamma}
+            \qquad
+            \textrm{and}
+            \qquad
+            (\alpha_j \beta_j)_{\**} = (\alpha_j)_{\**} (\beta_j)_{\**} \sim id_{\O(D)^\Gamma}
+      \end{equation}
+      in $\V$ for all subgroups $\Gamma \leq \Aut(C)$ via the diagram
+      \begin{equation}
+            \begin{tikzcd}
+                  \O(C)^\Gamma \otimes (1_\V \amalg 1_\V) \arrow[d, tail] \arrow[rr, "{((\beta_i)_{\**}(\alpha_i)_{\**}, id)}"]
+                  &&
+                  \O(C)^\Gamma
+                  \\                  
+                  \O(C)^\Gamma \otimes \left(\bigotimes\limits_\lambda \mathbb C\right)^{\Gamma}
+                  \arrow[r, "\otimes_\lambda H_j"]
+                  &
+                  \O(C)^\Gamma \otimes \left(\bigotimes\limits_\lambda \O(c_j;c_j)^{H_j}\right)^{\Gamma} \arrow[r]
+                  &
+                  \left( \O(C) \otimes \bigotimes\limits_\lambda \O(c_j;c_j) \right)^{\Gamma} \arrow[u, "\circ"']
+            \end{tikzcd}
+      \end{equation}
+      and it's partner switching the order of $\beta$ and $\alpha$.      
+      Hence, as both $\O(C)^\Gamma$ and $\O(D)^\Gamma$ are bifibrant in $\V$ by Remark \ref{LEVEL_COF_REM},
+      \[
+            (\alpha_j)_{\**}: \O(C)^\Gamma \leftrightarrows \O(D)^\Gamma : (\beta_j){\**}
+      \]
+      are inverse isomorphisms in $\Ho(\V)$ for all $\Gamma \leq \Aut(C)$,
+      and thus $(\alpha_j)_{\**}$ is a weak equivalence in $\V^{\Aut(C)}_{gen}$.
+
+      
+      % % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+      % % ---------------------------------------- OLD PROOF ----------------------------------------
+      % First, we have some straightforward calculations. Fix $(h,\pi) \in \Aut(C)$, so $h c_i = c_{\pi(i)}$ for all $0 \leq i \leq n$.
+      % %
+      % Then $j \in \lambda$ iff $\pi(j) \in \lambda$.
+      % Moreover, additionally fixing $j \in \lambda$, we have
+      % \begin{equation}
+      %       \label{STAB_CONJ_EQ}
+      %       (k_{\pi(j)}^{-1} h k_j, \sigma_{\pi(j)}^{-1} \pi \sigma_j) \in \Aut_1(C),
+      %       \qquad
+      %       \textrm{and}
+      %       \qquad
+      %       (h,\pi) \Aut_1(C) (h,\pi)^{-1} = \Aut_{\pi(1)}(C).
+      % \end{equation}
+      % % \begin{enumerate}[label = (\roman*)]
+      % % \item 
+      % %       {\color{OliveGreen} % ----------------------------------------
+      % %       since
+      % %       \[
+      % %             k_{\pi(j)}^{-1} h k_j c_i = k_{\pi(j)}^{-1} h c_{\sigma_j(i)} = k_{\pi(j)}^{-1} c_{\pi \sigma_j(i)} = c_{\sigma_{\pi(j)}^{-1} \pi \sigma_j(i)},
+      % %             \qquad
+      % %             \sigma_{\pi(j)}^{-1} \pi \sigma_j(1) = \sigma_{\pi(j)}^{-1}(\pi(j)) = 1.
+      % %       \] %
+      % %     } % ------------------------------------------------------------
+      % % \item $\Stab_j(C) = (k_j, \sigma_j) \Stab_1(C) (k_j, \sigma_j)^{-1}$,
+      % %       {\color{OliveGreen} % ------------------------------------------
+      % %       as when $(h,\pi) \in \Stab_1(C)$,
+
+      % %       \[
+      % %             \sigma_j \pi \sigma_j^{-1}(j) = \sigma_j\pi(1) = \sigma_j(1) = j.
+      % %       \]
+      % %     } % ------------------------------------------------------------
+      % % \end{enumerate}
+      % %
+      % From these, it is easy to see that $\Aut(C) \leq \Aut(D)$,
+      % % {\color{OliveGreen} % ----------------------------------------
+      % %   since
+      % %   \[
+      % %         h d_j = h k_j d_1 = k_{\pi(j)} k_{\pi(j)}^{-1} h k_j d_1 = k_{\pi(j)} d_1 = d_{\pi(j)},
+      % %   \]
+      % %   for $j \in \lambda$ and otherwise $h d_j = h c_j = c_{\pi(j)} = d_{\pi(j)}$. 
+      % % } % --------------------------------------------------
+      % and that $H_j = k_j H_1 k_j^{-1}$ for all $j \in \lambda$,
+      % and more generally $H_{\pi(1)} = h H_1 h^{-1}$ for all $(h,\pi) \in \Aut(C)$.
+
+      % % ---------- bifibrant case ----------------------------------------
+      % Second, let us assume that $\O$ is bifibrant in $\Op^{G, \mathfrak C(\O)}_{gen}(\V)$,
+      % the $\F$-(semi)-model structure from Theorem \ref{THM1_C} for $\F = \set{\F_n}$ with $\F_n$ all subgroups of $G \times \Sigma_n$.
+      % By assumption, we have maps 
+      % $\alpha_1: 1_\V \to \O(c_1;d_1)^{H_1}$ and $1_\V \to \O(d_1;c_1)^{H_1}$,
+      % and homotopies $H_{\beta\alpha,1}$ and $H_{\alpha\beta,1}$.
+      % Action by $k_j$ and \eqref{STAB_CONJ_EQ} yield a well-defined map
+      % \[
+      %       \alpha_j: 1_\V \xrightarrow{\alpha} \O(c_1;d_1)^{H_1} \xrightarrow{k_j \cdot (-)} \O{fc}(c_j; d_j)^{H_j},
+      % \]
+      % and similarly well-defined $\beta_j$,
+      % and naturality implies that the pair $(\alpha_j,\beta_j)$ realize a homotopy $H_j$-equivalence
+      % via
+      % \[
+      %       H_{\beta_j\alpha_j,1} = k_j \cdot H_{\beta\alpha,1}
+      %       \qquad \textrm{and} \qquad
+      %       H_{\alpha_j \beta_J, 1} = k_j \cdot H_{\alpha\beta,1}.
+      % \]
+      % All together, \eqref{STAB_CONJ_EQ} also implies that $\otimes_\lambda \O(c_j; c_j;)^{H_j}$ has an action by $\Aut(C)$
+      % (and similarly replacing either/both $c_j$ with $d_j$),
+      % and moreover that the products
+      % \[
+      %       \otimes_\lambda \alpha_j: 1_\V \simeq \otimes_\lambda 1_\V \longto \otimes_\lambda \O(c_j; d_j)^{H_j},
+      %       \qquad
+      %       H_\lambda := \otimes_\lambda H_{\beta_j\alpha_j, 1}: \otimes_\lambda \mathbb C \longto \otimes_\lambda \O(c_j;c_j)^{H_j},
+      % \]
+      % their induced composition operations
+      % \[
+      %       (\alpha_j)_{\**}: \O(C) \simeq \O(C) \otimes \bigotimes_\lambda 1_\V \xrightarrow{\alpha_j}
+      %       \O(C) \otimes \bigotimes_\lambda \O(c_j; d_j)^{H_j} \longto \O(D),
+      % \]
+      % and their companions $\otimes \beta_j$, $\otimes H_{\alpha_j\beta_j,1}$, $(\beta_j)_{\**}$
+      % are $\Aut(C)$-equivariant.
+
+      % Using Remark \ref{CYL_REM} and Lemma \ref{ASSEM_HOM_LEM}, we assemble the homotopies $H_{\beta_j \alpha_j,1}$ to yield
+      % \begin{equation}
+      %       (\beta_j \alpha_j)_{\**} = (\beta_j)_{\**} (\alpha_j)_{\**} \sim id_{\O(C)^\Gamma}
+      %       \qquad
+      %       \textrm{and}
+      %       \qquad
+      %       (\alpha_j \beta_j)_{\**} = (\alpha_j)_{\**} (\beta_j)_{\**} \sim id_{\O(D)^\Gamma}
+      % \end{equation}
+      % in $\V$ for all subgroups $\Gamma \leq \Aut(C)$, via the diagram
+      % \begin{equation}
+      %       \begin{tikzcd}[column sep = small]
+      %             \O(C)^\Gamma \otimes (1_\V \amalg 1_\V) \arrow[d, tail] \arrow[rr, "{((\beta_i)_{\**}(\alpha_i)_{\**}, id)}"]
+      %             &&
+      %             \O(C)^\Gamma
+      %             \\                  
+      %             \O(C)^\Gamma \otimes \left(\bigotimes\limits_\lambda \mathbb C\right)^{\Gamma}
+      %             \arrow[r, "H_\lambda"]
+      %             &
+      %             \O(C)^\Gamma \otimes \left(\bigotimes\limits_\lambda \O(c_j;c_j)^{H_j}\right)^{\Gamma} \arrow[r]
+      %             &
+      %             \left( \O(C) \otimes \bigotimes\limits_\lambda \O(c_j;c_j) \right)^{\Gamma} \arrow[u, "\circ"']
+      %       \end{tikzcd}
+      % \end{equation}
+      % and it's partner switching the order of $\beta$ and $\alpha$.      
+      % Hence, as both $\O(C)^\Gamma$ and $\O(D)^\Gamma$ are bifibrant in $\V$ by Remark \ref{LEVEL_COF_REM},
+      % \[
+      %       (\alpha_j)_{\**}: \O(C)^\Gamma \leftrightarrows \O(D)^\Gamma : (\beta_j){\**}
+      % \]
+      % are inverse isomorphisms in $\Ho(\V)$ for all $\Gamma \leq \Aut(C)$,
+      % and thus $(\alpha_j)_{\**}$ is a weak equivalence in $\V^{\Aut(C)}_{gen}$.
+
+      % % ---------- general case --------------------------------------------------
+      % Third, for the general case, 
+      % we note that using appropriate lifts (and \eqref{FIBFIX_LIFT_EQ}), one can show that if $c$ and $d$ are $H$-homotopy equivalent in $\O$, they are
+      % homotopy $H$-equivalent in the functorial bifibrant replacement $\O_{fc}$ of $\O$ in $\Op^{G, \mathfrak C(\O)}_{gen}(\V)$.
+      % Moreover, for any functor $F$, we have the following commuting diagram of zig-zags
+      % \begin{equation}
+      %       \begin{tikzcd}
+      %             \O(C) \arrow[r, "\simeq"] \arrow[d, "F"']
+      %             &
+      %             \O_f(C) \arrow[d]
+      %             &
+      %             \O_{fc}(C) \arrow[l, "\simeq"'] \arrow[r, "{(\alpha_j)_{\**}}"] \arrow[d]
+      %             &
+      %             \O_{fc}(D) \arrow[r, "\simeq"] \arrow[d]
+      %             &
+      %             \O_f(D) \arrow[d]
+      %             &
+      %             \O(D) \arrow[l, "\simeq"'] \arrow[d, "F"]
+      %             \\
+      %             \P(C) \arrow[r, "\simeq"]
+      %             &
+      %             \P_f(C)
+      %             &
+      %             \P_{fc}(C) \arrow[l, "\simeq"'] \arrow[r, "{F(\alpha_j)_{\**})}"]
+      %             &
+      %             \P_{fc}(D) \arrow[r, "\simeq"] 
+      %             &
+      %             \P_f(D) 
+      %             &
+      %             \P(D) \arrow[l, "\simeq"']
+      %       \end{tikzcd}
+      % \end{equation}
+      % where the $\simeq$ denote weak equivalences in $\V^{\Aut(C)}_{gen}$.
+      % Thus the result for general $\O$ follows from the bifibrant case,
+      % and naturality is clear.
+
+      
+      % % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+      % % -------------------- $i = 0$ case --------------------------------------------------
+      % The case $i = 0$, $D = (c_1, \dots, c_n; d_0)$ follows by an analogous (simpler) argument.
+      % % Using appropriate lifts (and \eqref{FIBFIX_LIFT_EQ}), one can show that if $c$ and $d$ are $H$-homotopy equivalent in $\O$, they are
+      % % homotopy $H$-equivalent in the functorial bifibrant replacement $\O_{fc}$ of $\O$ in $\Op^{G, \mathfrak C(\O)}_{gen}(\V)$,
+      % % the $\F$-(semi)-model structure from Theorem \ref{THM1_C} for $\F = \set{\F_n}$ with $\F_n$ all subgroups of $G \times \Sigma_n$.
+      % % Thus we may assume we have representing maps
+      % % $\alpha: 1_\V \to \O_{fc}(c;d)^H$ and $1_\V \to \O_{fc}(d;c)^H$.
+      % % Now, for any functor $F$, we have the following commuting diagram of zig-zags
+      % % \begin{equation}
+      % %       \begin{tikzcd}
+      % %             \O(C) \arrow[r, "\simeq"] \arrow[d, "F"']
+      % %             &
+      % %             \O_f(C) \arrow[d]
+      % %             &
+      % %             \O_{fc}(C) \arrow[l, "\simeq"'] \arrow[r, "\alpha_{\**}"] \arrow[d]
+      % %             &
+      % %             \O_{fc}(D) \arrow[r, "\simeq"] \arrow[d]
+      % %             &
+      % %             \O_f(D) \arrow[d]
+      % %             &
+      % %             \O(D) \arrow[l, "\simeq"'] \arrow[d, "F"]
+      % %             \\
+      % %             \P(C) \arrow[r, "\simeq"]
+      % %             &
+      % %             \P_f(C)
+      % %             &
+      % %             \P_{fc}(C) \arrow[l, "\simeq"'] \arrow[r, "{F(\alpha_{\**})}"]
+      % %             &
+      % %             \P_{fc}(D) \arrow[r, "\simeq"] 
+      % %             &
+      % %             \P_f(D) 
+      % %             &
+      % %             \P(D) \arrow[l, "\simeq"']
+      % %       \end{tikzcd}
+      % % \end{equation}
+      % % where the $\simeq$ denote weak equivalences in $\V^{\Aut(C)}_{gen}$, and $\alpha_{\**}$ is the composite
+      % % \[
+      % %       \O_{fc}(C) \xrightarrow{\alpha} \O_{fc}(C) \otimes \O_{fc}(c,d) \longto \O_{fc}(D).
+      % % \]
+      % % Thus, it suffices to check that $\alpha_{\**}$ is a genuine $\Aut(C)$-weak equivalence when $\O$ is bifibrant in $\Op^{G,\mathfrak C(\O)}_{gen}(\V)$.
+
+      % % Let $\beta: 1_V \to \O(d,c)^H$ denote the $H$-homotopy inverse of $\alpha$,
+      % % and $H_{\beta\alpha,1}$, $H_{\alpha\beta,1}$ the associated homotopies.
+      % % Naturality implies that we have composition maps of the form
+      % % \[
+      % %       \O(C)^\Gamma \otimes \O(c,d)^{H_\Gamma} \longto \left( \O(C) \otimes \O(c,d) \right)^\Gamma \xrightarrow{\circ} \O(D)^\Gamma
+      % % \]
+      % % for all $\Gamma \leq \Stab(C)$, with $H_\Gamma \leq G$ the $G$-projection,
+      % % and so in particular the maps $\alpha_{\**}$ and $\beta_{\**}$ are $\Aut(C)$-equivariant.
+      % % Thus $H_{\beta\alpha,1}$ and $H_{\alpha\beta,1}$ restrict and induce homotopies
+      % % \[
+      % %       (\beta\alpha)_{\**} \sim id_{\O(C)^{\Gamma}}
+      % %       \qquad \textrm{and} \qquad
+      % %       (\alpha\beta)_{\**} \sim id_{\O(D)^\Gamma}
+      % % \]
+      % % in $\V$ via diagrams of the form, e.g.,
+      % % \begin{equation}
+      % %       \begin{tikzcd}
+      % %             \O_{f c}(C)^{\Gamma} \otimes (1_\V \amalg 1_\V) \arrow[d, tail] \arrow[r, "{((\beta\alpha)_{\**}, id)}"]
+      % %             &
+      % %             \O_{f c}(C)^\Gamma
+      % %             % &
+      % %             % 1_\V \amalg 1_\V \arrow[d, tail] \arrow[rr, "{((\alpha\beta)_{\**}, id)}"]
+      % %             % &&
+      % %             % \V((\O(\ksi_c^d)_f)^\Gamma, (\O(\ksi_c^d)_f)^\Gamma)
+      % %             \\                  
+      % %             \O_{f c}(C)^\Gamma \otimes \mathbb C \arrow[r, "H_{\beta\alpha,1}"]
+      % %             &
+      % %             \O_{f c}(C)^\Gamma \otimes \O_{f c}(c;c)^{H_\Gamma} \arrow[u, "\circ"']
+      % %             % &
+      % %             % \mathbb C \arrow[r, "H_{\alpha\beta,1}"']
+      % %             % &
+      % %             % (\O(d;d)^{H_\Gamma})_f \arrow[r]
+      % %             % &
+      % %             % (\O(d;d)_f)^{H_\Gamma} \arrow[u, "{(-)_{\**}}"],
+      % %       \end{tikzcd}
+      % % \end{equation}
+      % % Hence, as both $\O(C)^\Gamma$ and $\O(D)^\Gamma$ are bifibrant in $\V$ by Remark \ref{LEVEL_COF_REM},
+      % % \[
+      % %       \alpha_{\**}: \O(C)^\Gamma \leftrightarrows \O(D)^\Gamma : \beta_{\**}
+      % % \]
+      % % are inverse isomorphisms in $\Ho(\V)$ for all $\Gamma \leq \Aut(C)$,
+      % % and thus $\alpha_{\**}$ is a weak equivalence in $\V^{\Aut(C)}_{gen}$, as desired.
+\end{proof}
+
+We can now prove the main result of this subsection.
+ 
+\begin{proposition}
+      [{c.f. \cite[4.15]{Cav}, \cite[2.13]{BM13}}]
+      \label{CAV_4.15_PROP}
+      \label{2OUTOF3_PROP}
+      Suppose $\V$ is as in Convention \ref{ALLCOLOR_CONV} and additionally is right proper.
+      Then for any $(G, \Sigma)$-family $\F$ such that $H \in \F_1$ for all $H \leq G$, %with units,
+      the class of weak $\F$-equivalences in $\mathsf{Op}^G(\V)$ satisfies the 2-out-of-3 condition.
+\end{proposition}
+\begin{proof}
+      Let $\O \xrightarrow{F} \P \xrightarrow{L} \Q$ be a composition of maps in $\mathsf{Op}^G(\V)$.
+      If $F$ and $L$ are weak $\F$-equivalences,
+      the composite is obviously a local weak $\F$-equivalence:
+      $\O(C)^\Gamma \xrightarrow{\sim} \P(F(C))^\Gamma \xrightarrow{\sim} \Q(LF(C))^\Gamma$.
+      Moreover, as functors preserve equivalences of colors, $L F$ is essentially $\F$-surjective by transitivity from Lemma \ref{CAV_4.10_LEM}. 
+      % Moreover, concatenation of $\V$-intervals collapses the consecutive essential surjectivity diagrams on the left
+      % onto the one on the right.
+      % \begin{equation}
+      %       \begin{tikzcd}[row sep = tiny]
+      %             \1 \arrow[rr, dashed, "a"] \arrow[dr]
+      %             &&
+      %             j^{\**}\O^H \arrow[dd]
+      %             \\
+      %             & \J \arrow[dr, dashed]
+      %             &&
+      %             \1 \arrow[rr, "a", dashed] \arrow[dr]
+      %             &&
+      %             j^{\**}\O^H \arrow[dd]
+      %             \\
+      %             \1 \arrow[rr, dashed, "b"] \arrow[ur] \arrow[dr]
+      %             &&
+      %             j^{\**} \P^H \arrow[dd]
+      %             &&
+      %             \J \** \J' \arrow[dr, dashed]
+      %             \\
+      %             & \J' \arrow[dr, dashed]
+      %             &&
+      %             \1 \arrow[rr, "c"] \arrow[ur]
+      %             &&
+      %             j^{\**}\Q^H
+      %             \\
+      %             \1 \arrow[ur] \arrow[rr, "c"]
+      %             &&
+      %             j^{\**} \Q^H
+      %       \end{tikzcd}
+      % \end{equation}
+      
+      If $L$ and $FL$ are weak $\F$-equivalences,
+      then $F$ is a local weak $\F$-equivalence by 2-out-of-3 in each $\V^{\Aut(C)}_{\F_C}$.
+      Moreover, if $b \in \mathfrak C(\P)^H$ for $H \in \F_1$, then by Remark \ref{ESS_SUR_REM}, there exists $a \in \mathfrak C(\O)^H$ such that
+      $LF(a)$ and $L(b)$ are (virtually) $H$-equivalent.
+      Lemma \ref{REF_VIRT_LEM} then implies $F(a)$ and $b$ are virtually $H$-equivalent, 
+      and since $\V$ is right proper, Lemma \ref{RIGHTPROPER_LEM} implies they are $H$-equivalent.
+
+      Lastly, suppose $F$ and $LF$ are weak $\F$-equivalences.
+      It is immediate that $L$ is essentially $\F$-surjective.
+      Now, given a signature $C = (c_1,\ldots,c_n;c_0$) in $\C(\P)$,
+      we define a partition on $\underline{n}_+ = \set{0,1,2,\dots,n}$ where
+      $i < j$ are in the same class iff there exists $(k_{i,j}, \sigma_{i,j}) \in \Aut(C)$ such that
+      $\sigma_{i,j}(i) = j$ (so in particular $c_j = k_{i,j} c_i$).
+      It is easy to check that this gives a well-defined partition/equivalence relation.
+      Let $R \subseteq \underline{n}_+$ denote the subset of minimal representatives in each class
+      (so in particular $0 \in R$),
+      and $H_r \leq H_0 \leq G$ the projection of $\Aut_r(C)$ onto $G$ for each $r \in R$.
+      % Finally, fix choices of $k_{r,j}$ for all $r \in R$ and $j$ in the same class as $r$ (again with $k_{r,r} = 1$).
+      
+      Now, by the {\color{red} closure condition on} $\F_1$ and the essential surjectivity of $F$,
+      for all $r \in R$ there exist $d_r \in \C(\O)^{H_r}$ such that
+      $F(d_r)$ is (homotopy) $H_r$-equivalent to $d_r$.
+      %
+      Extend the set $\set{d_r}_{r\in R}$ to a signature $D = (d_1,\ldots, d_n;d_0)$
+      by defining $d_j = k_{r,j} \cdot d_r$;
+      as in Lemma \ref{AUTC_LEM}, these are independent of the choice of $(k_{r,j}, \sigma_{r,j})$.
+      % Consequently, $F(c_i)$ is homotopy equivalent to $d_i$ via $k_{r,i}\gamma_r$,
+      % where $\gamma_r$ realizes the homotopy equivalence between $F(c_r)$ and $d_r$ for $i \in \lambda_r$.
+      This yields a diagram of the form
+      \begin{equation}
+            \label{TWOOFTHREE_EQ}
+            \begin{tikzcd}
+                  \O(d_1,\ldots, d_n;d_0) \arrow[r, "(1)"]
+                  &
+                  \P(F(d_1),\ldots, F(d_n); F(d_0)) \arrow[d,dash, "(3)"] \arrow[r, "(2)"]
+                  &
+                  \Q(LF(d_1),\ldots, LF(d_n);LF(d_0)) \arrow[d, dash, "(4)"]
+                  \\
+                  &
+                  \P(c_1,\ldots, c_n;c_0) \arrow[r, "(5)"]
+                  &
+                  \Q(L(c_1),\ldots, L(c_n); L(c_0)).
+            \end{tikzcd}
+      \end{equation}
+      $(1)$ is a weak equivalence in $\V^{\Aut(D)}_{\F_D}$ by assumption, and
+      $(2)$ is a weak-equivalence in $\V^{\Aut(D)}_{\F_D}$ by 2-out-of-3 here.
+      $(3)$ and $(4)$ are zig-zags of weak equivalences in $\V^{\Aut(C)}_{gen}$ by iterating applications of
+      Proposition \ref{CAV_4.14_PROP2},
+      as each application only changes the colors in a single partition class.
+      As these zig-zags are functorial, the above diagram commutes.
+      %
+      Finally, $\Aut(C) \leq \Aut(D)$ by the same argument as in Lemma \ref{AUTC_LEM}.
+      Thus $(5)$ is a weak equivalence in $\V^{\Aut(C)}_{\F_C}$ by 2-out-of-3, and hence
+      $L$ is a local weak $\F$-equivalence, as desired.
+\end{proof}
+
+
+
+
+
+\bibliography{biblio-new}{}
+\bibliographystyle{amsalpha2}
+
+
+
+\end{document}
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
