@@ -366,6 +366,7 @@ Now, recall the notation $\mathsf F \wr \mathcal C$ for a category $\mathcal C$ 
       Explicitly, objects are tuples of elements of $\mathcal C$, and maps are composites of ``shuffles'' and tuples of maps in $\mathcal C$.
 \end{notation}
 
+
 \begin{remark}
       \label{WR_DIAG_REM}
       We observe that we have a natural diagonal map
@@ -3402,14 +3403,13 @@ which is a challenging technical result in \cite{BM13}.
 \begin{theorem}
 [Interval Cofibrancy Theorem; cf. {\cite[Thm. 1.15]{BM13}}]
 \label{INTCOF THM}
-Suppose $\V$ is {\color{blue} adequate}.
+Suppose $\V$ is {\color{blue} adequate} with cofibrant unit.
 Then for any cofibrant $\mathbb{I} \in \mathsf{Cat}_{\{0,1\}}(\V)$
 one has that 
 $\mathbb{I}(0,0)$ %and $\mathbb{I}(1,1)$
 is a cofibrant monoid, i.e. cofibrant
 in $ \mathsf{Cat}_{\{0\}}(\V)$.
 \end{theorem}
-
 
 
 \begin{remark}
@@ -3530,12 +3530,12 @@ cf. {\cite[Lemma 1.16]{BM13}}]
 Let $\mathbb{I},\mathbb{J}$ be two $\V$-intervals.
 
 Then the coproduct 
-$\partial_{2,!} \mathbb{I} \amalg \partial_{0,!} \mathbb{J}$
+$\mathbb{K} = \partial_{2,!} \mathbb{I} \amalg \partial_{0,!} \mathbb{J}$
 in $\mathsf{Cat}_{\{0,1,2\}}(\V)$
 is weakly equivalent to $\widetilde{\mathbbm{2}}$.
 
 In particular, 
-$\partial_1^{\**}\left(\partial_{2,!} \mathbb{I} \amalg \partial_{0,!} \mathbb{J}\right)$
+$\partial_1^{\**}\mathbb{K}$
 is weakly equivalent to $\widetilde{\mathbbm{1}}$
 in $\mathsf{Cat}_{\{0,1\}}(\V)$.
 \end{lemma}
@@ -3547,23 +3547,87 @@ Here we present an alternative argument requiring only the cofibrancy of $\mathb
 in our formulation of Theorem \ref{INTCOF THM}.
 
 
-{\color{red} HERE}
-
-
 \begin{proof}
-Since $\mathbb{I},\mathbb{J}$ are cofibrant and $\partial_{i,!}$
+Since $\mathbb{I},\mathbb{J}$ are cofibrant and the $\partial_{i,!}$
 preserve cofibrations,
 the coproduct 
-$\partial_1^{\**}\left(\partial_{2,!} \mathbb{I} \amalg \partial_{0,!} \mathbb{J}\right)$
+$\partial_{2,!} \mathbb{I} \amalg \partial_{0,!} \mathbb{J}$
 is a homotopy coproduct, 
 so we are free to replace $\mathbb{I},\mathbb{J}$
 with any chosen intervals.
-In particular, we may thus assume there are weak equivalences
-$\mathbb{I} \xrightarrow{\sim} \widetilde{\mathbbm{1}}$,
-$\mathbb{J} \xrightarrow{\sim} \widetilde{\mathbbm{1}}$.
+In particular, we may thus assume there are trivial fibrations
+$\mathbb{I} \overset{\sim}{\twoheadrightarrow} \widetilde{\mathbbm{1}}$,
+$\mathbb{J} \overset{\sim}{\twoheadrightarrow} \widetilde{\mathbbm{1}}$.
+One then has a map
+\[
+\mathbb{K}=
+\partial_{2,!} \mathbb{I} \amalg \partial_{0,!} \mathbb{J}
+\to
+\partial_{2,!} \widetilde{\mathbbm{1}} \amalg \partial_{0,!} \widetilde{\mathbbm{1}}
+= \widetilde{\mathbbm{2}}
+\]
+which we will show to be a weak equivalence.
+
+Firstly, by applying Corollary \ref{FGTPUSH COR} twice,
+one has that $\mathbb{K}(1,1)= \mathbb{I}(1,1) \amalg \mathbb{J}(1,1)$
+where the coproduct is taken in $\Cat_{\{1\}}(\V)$.
+Since Theorem \ref{INTCOF THM} says $\mathbb{I}(1,1),\mathbb{J}(1,1)$
+are acyclic cofibrant (i.e. weakly equivalent to the inital object $1_{\V}$),
+so is $\mathbb{K}(1,1)$.
 
 
+Next, note that our assumption on $\mathbb{I},\mathbb{J}$
+allows us to find factorizations
+of the identity $1_{\V} \xrightarrow{=} 1_{\V}$
+\[
+1_{\V} \xrightarrow{\alpha}
+\mathbb{I}(0,1)
+\to 
+\widetilde{\mathbbm{1}}(0,1)
+\quad
+1_{\V} \xrightarrow{\beta}
+\mathbb{I}(1,0)
+\to 
+\widetilde{\mathbbm{1}}(1,0)
+\quad
+1_{\V} \xrightarrow{\bar{\alpha}}
+\mathbb{J}(0,1)
+\to 
+\widetilde{\mathbbm{1}}(0,1)
+\quad
+1_{\V} \xrightarrow{\bar{\beta}}
+\mathbb{I}(1,0)
+\to 
+\widetilde{\mathbbm{1}}(1,0).
+\]
+such that $\alpha,\beta,\bar{\alpha},\bar{\beta}$ induce, 
+upon inclusion into $\mathbb{K}$,
+homotopy equivalences between $1$ and $0,2$ in either direction. 
+For any choice of $i,j$ in $\{0,1,2\}$,
+composing with $\alpha,\beta,\bar{\alpha},\bar{\beta}$
+as appropriate gives top horizontal weak equivalences as above
+\begin{equation}
+\begin{tikzcd}[column sep = 45pt]
+	\mathbb{K}(1,1)
+	\arrow{d}[swap]{\sim}
+	\arrow{r}{\sim}%[swap]{(\alpha_i)^{\**}(\beta_0)_{\**}}
+&
+	\mathbb{K}(i,j) 
+	\arrow[d]
+\\
+	\widetilde{\mathbbm{2}}(1,1)
+	\arrow[equal]{r}
+&
+	\widetilde{\mathbbm{2}}(i,j)
+\end{tikzcd}
+\end{equation}
+showing that $\mathbb{K} \to \widetilde{\mathbbm{2}}$, as desired.
 \end{proof}
+
+
+{\color{red} HERE}
+
+
 
 
 
@@ -4156,7 +4220,7 @@ are weak equivalences in $\V$.
 We address only (i), with (ii) being similar but easier.
 
 Applying Lemma \ref{LAMBEQMAPS LEM} one obtains diagrams as below,
-which will shows that
+which will show that
 $(\alpha_i)^{\**}$ and
 $(\beta_i)^{\**}$
 are inverse up to homotopy provided we show
@@ -4755,21 +4819,8 @@ To finish off Case II, we will need that (local) weak equivalences preserve some
 
 % ------------------------------- DWYER-KAN DESCRIPTION -----------------------------
 
-\subsection{Dwyer-Kan equivalences}
-\label{DK_SEC}
+\subsection{Dwyer-Kan equivalences}\label{DK_SEC}
 
-
-
-\begin{remark}
-      If $\V$ has diagonals, then one can show that $F \in \Op^G(\V)$ is a $DK$-$\F$-equivalence iff
-      the following seemingly strong condition holds:
-      $F$ is a local weak $\F$-equivalence such that 
-      the associated map of \textit{$\F$-genuine equivariant operads} under the composite
-      \begin{equation}
-            \Op^G(\V) \to \Op_\F(\V) \xrightarrow{\pi_0} \Op_\F(\Set) 
-      \end{equation}
-      is an equivalence.
-\end{remark}
 
 
 
@@ -7804,9 +7855,12 @@ To work with this definition, we must ensure that
 While we could show this directly, we instead apply results from Appendix \ref{AMALGMON_SEC} to realize this simplicial resolution from a different perspective,
 and the above will follow from Lemma \ref{FP_FETA_LEM}, Remark \ref{ADJSRMON REM}, and Corollary \ref{WT_COR} respectively.
 
+
+
+
 \subsubsection{Non-unital operads and combined monads}
 
-We consider an factorization of the free operad monad orthogonal to \eqref{FC_FAC_EQ}, namely
+We consider a factorization of the free operad monad orthogonal to \eqref{FC_FAC_EQ}, namely
 \[
       \Sym_\bullet \xrightarrow{\bar F} \Op_{\bullet,nu} \xrightarrow{P} \Op_\bullet
 \]
@@ -13945,8 +13999,7 @@ The existence result \cite[Theorem 2.1.19]{Hov99} immediately generalizes to the
 as the (proof of the) small object argument \cite[Lemma 2.1.14]{Hov99} implies that
 if the domains of $J$ are small relative to $J$-ccd,
 then any map in $\mathcal D$ with cofibrant source may be factored into a map in $J$-ccd followed by a map in $J$-inj.
-\begin{theorem}
-      \label{SEMIMS_THM}
+\begin{theorem}\label{SEMIMS_THM}
       Suppose $\mathcal D$ is a category with all small limits and colimits.
       Suppose $\mathcal W$ is a subcategory of $\mathcal D$, and $I$ and $J$ are sets of maps of $\mathcal D$.
       Then there is a cofibrantly generated semi-model structure on $\mathcal D$ with
