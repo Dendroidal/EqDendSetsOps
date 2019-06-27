@@ -42,7 +42,7 @@ cd,patterns,calc}
 \usepackage{ifdraft}
 \ifdraft{
   \color[RGB]{63,63,63}
-  \pagecolor[RGB]{220,220,204}
+%  \pagecolor[RGB]{220,220,204}
   \usepackage{showkeys}
   \usepackage{geometry}
   \usepackage{todonotes}
@@ -3486,9 +3486,11 @@ the second map is in the saturation of (C2).
 
 
 
+
+
 \newpage
 
-\subsection{Required observations on intervals}
+\subsection{Interval cofibrancy and trivial cofibrations}
 
 
 We start by recalling the following, 
@@ -3620,25 +3622,40 @@ such that all mapping objects are $\widetilde{\mathbbm{2}}(i,j)=1_{\V}$.
 
 \begin{lemma}[Interval Amalgamation Lemma; 
 cf. {\cite[Lemma 1.16]{BM13}}]
-
+\label{AMALGLEM LEM}
 Let $\mathbb{I},\mathbb{J}$ be two $\V$-intervals.
 
 Then the coproduct 
 $\mathbb{K} = \partial_{2,!} \mathbb{I} \amalg \partial_{0,!} \mathbb{J}$
 in $\mathsf{Cat}_{\{0,1,2\}}(\V)$
-is weakly equivalent to $\widetilde{\mathbbm{2}}$.
+is cofibrant and weakly equivalent to $\widetilde{\mathbbm{2}}$.
 
 In particular, 
-$\partial_1^{\**}\mathbb{K}$
+$\mathbb{I} \star \mathbb{J} = \partial_1^{\**}\mathbb{K}$
 is weakly equivalent to $\widetilde{\mathbbm{1}}$
 in $\mathsf{Cat}_{\{0,1\}}(\V)$.
 \end{lemma}
+
+
+
+
+\begin{remark}
+	$\mathbb{I} \star \mathbb{J} = \partial_1^{\**} \left(\partial_{2,!} \mathbb{I} \amalg \partial_{0,!} \mathbb{J}\right)$
+is called the \emph{amalgamation} of $\mathbb{I}$ and $\mathbb{J}$,
+so that Lemma \ref{AMALGLEM LEM} can be phrased as saying that an amalgamation of intervals is,
+up to cofibrant replacement, again an interval
+(Conjecture \ref{CATOP CONJ} would imply that $\mathbb{I} \star \mathbb{J}$ is already cofibrant, 
+but we will not need to know this)
+\end{remark}
+
+
+
 
 The original proof of this result \cite[Lemma 1.16]{BM13} makes use of the cofibrancy of modules condition for
 $\mathbb{I}(0,1),\mathbb{I}(1,0)$
 in \cite[Thm 1.15]{BM13}.
 Here we present an alternative argument requiring only the cofibrancy of $\mathbb{I}(0,0)$ as a monoid
-in our formulation of Theorem \ref{INTCOF THM}.
+included in our formulation of Theorem \ref{INTCOF THM}.
 
 
 \begin{proof}
@@ -3720,6 +3737,223 @@ showing that $\mathbb{K} \to \widetilde{\mathbbm{2}}$, as desired.
 
 
 {\color{red} HERE}
+
+
+\begin{lemma}[cf. {\cite[4.17]{Cav}}]
+\label{TRANSCOMP_ES_LEM}
+      Transfinite composition of $\F$-essentially surjective maps in $\Op^G(\V)$ is $\F$-essentially surjective.
+\end{lemma}
+
+
+
+\begin{proof}
+Let $\kappa$ be a limit ordinal and consider the transfinite composition
+$\O_0 \to \O_1 \to \cdots \colim_{\alpha < \kappa} \O_{\alpha} = \O_{\kappa}$
+of $\F$-essentially surjective maps
+$F_{\alpha} \colon \O_{\alpha} \to \O_{\alpha +1}$ where, as usual, 
+we assume that $\O_{\beta} = \colim_{\alpha < \beta} \O_{\alpha}$ whenever $\beta$ is a limit ordinal.
+We argue by transfinite induction on $\alpha \leq \kappa$
+that the composite maps $\bar{F}_{\alpha} \colon \O_0 \to \O_{\alpha}$
+are $\F$-essentially surjective. Fix $H \in \F_1$.
+
+For a sucessor ordinal $\alpha+1$, given $c \in \O_{\alpha+1}^H$
+one can find $b \in \O(\alpha)^H$ and map from an interval 
+$\mathbb{J} \xrightarrow{j} \O_{\alpha+1}^H$ with $j(0) = F_{\alpha}(b),j(1)=c$
+and, by the induction hypothesis, can likewise find
+$a \in \O(0)^H$ and map from an interval $\mathbb{I} \xrightarrow{i} \O_0^H$
+with $i(0)=\bar{F}_{\alpha}a,i(1)=b$.
+The amalgamated map
+$\mathbb{I} \star \mathbb{J} \xrightarrow{F_{\alpha}i \star j} \O_{\alpha+1}^H$
+now connects $\bar{F}_{\alpha+1}(a)$ and $c$, as desired.
+
+The case of a limit ordinal $\alpha$ is immediate: any object $b \in \O_{\alpha}^H$
+lifts to an object $\bar{b} \in \O_{\bar{\alpha}}^H$ for some $\bar{\alpha} < \alpha$,
+so noting that by induction there exists $a \in \O_0^H$ and map from an interval $\mathbb{I} \xrightarrow{i} \O_{\bar{\alpha}}^H$
+with $i(0) = F_{\bar{\alpha}}a,i(1) = \bar{b}$ yields the result.
+\end{proof}
+
+
+
+{\color{red} HERE}
+
+
+\begin{lemma}
+      Local genuine trivial cofibrations with cofibrant source and local genuine cofibrations in $\Op^G(\V)$ are closed under transfinite composition.
+\end{lemma}
+
+\begin{proof}
+      Since for any $\mathfrak C$-signature $C \in G \ltimes \SC^{op}$ and any map of $\mathfrak C$-colored operads $f$ we have that
+      the restriction map
+      $\V^{\Aut(f(C))}_{gen} \to \V^{\Aut(C)}_{gen}$
+      is left Quillen,
+      and any transfinite composition of operads locally is of the form
+      \begin{equation}
+            \O_0(C) \to \O_1(F_1(C)) \to \O_2(F_2(C)) \to \dots   
+      \end{equation}
+      in $\V^{\Aut(C)}_{gen}$
+      for $F_\alpha$ the (transfinite) composite $\O_0 \to \O_1 \to \dots \to \O_\alpha$,
+      the result follows.
+\end{proof}
+\todo[inline]{to remove ``cofibrant source'' need something like $\otimes$-perfect}
+
+
+
+\begin{lemma}
+      \label{TRANSCOMP_LGC_LEM}
+      Local genuine (trivial) cofibrations $\Op^G(\V)$ are closed under transfinite composition.
+\end{lemma}
+
+\begin{proof}
+      Since for any $\mathfrak C$-signature $C \in G \ltimes \SC^{op}$ and any map of $\mathfrak C$-colored operads $f$ we have that
+      the restriction map
+      $\V^{\Aut(f(C))}_{gen} \to \V^{\Aut(C)}_{gen}$
+      is left Quillen,
+      and any transfinite composition of operads locally is of the form
+      \begin{equation}
+            \O_0(C) \to \O_1(F_1(C)) \to \O_2(F_2(C)) \to \dots   
+      \end{equation}
+      in $\V^{\Aut(C)}_{gen}$
+      for $F_\alpha$ the (transfinite) composite $\O_0 \to \O_1 \to \dots \to \O_\alpha$,
+      the result follows.
+\end{proof}
+
+
+
+
+
+\begin{proposition}[{c.f. \cite[4.20]{Cav}}]\label{J-CELL_PROP}
+      Suppose $\V$ is as in Convention \ref{ALLCOLOR_CONV}. %has a cofibrant unit $1_\V$ and has cofibrant symmetric pushout powers.
+      Then relative $J_{\F}$-cells with locally genuine cofibrant source are weak equivalences.
+\end{proposition}
+\begin{proof}
+      By Lemmas \ref{TRANSCOMP_ES_LEM} and \ref{TRANSCOMP_LGC_LEM}, it suffices to show that
+      the pushout of a map $j \in J_\F$ is both
+      essentially surjective and a local genuine trivial cofibration.
+
+      Firstly, if $j = \mathbb F_\Gamma[\Gamma/\Gamma \cdot i] \in J_{\F, loc}$,
+      then by Remark \ref{COLOR_SQ_REM}(ii) the pushout can be computed in a fixed-color category $\mathsf{Op}^{G,\mathfrak C_{\P}}(\V)$.
+      By Corollary \ref{COLOR_CHANGE_Q_COR}, the relevant span is a trivial cofibration in one leg, while the other leg has a locally cofibrant target.
+      Thus by the existence of the $\F$-semi-model structures from Theorem \ref{THM1_C},
+      the pushout is again a trivial cofibration, and hence by Corollary \ref{LGC_COR} a local genuine trivial cofibration.
+      As it is the identity on colors, it is also essentially surjective.
+
+      Secondly, supppose $j$ is of the form $G/H \cdot (\1 \to \J)$ for $\J$ a $\V$-interval.
+      We split this pushout into a composition of two pushouts
+      \begin{equation}
+            \begin{tikzcd}
+                  G/H \cdot \1 \arrow[r, "a"] \arrow[d, "G/H \cdot \phi"']
+                  % \arrow[dr,phantom, yshift=.1em, xshift=.5em, "\lrcorner" near end]
+                  &
+                  \O \arrow[d,"\phi'"]
+                  \\
+                  G/H \cdot \J_{\set{0}} \arrow[r] \arrow[d, "G/H \cdot \psi"']
+                  % \arrow[dr,phantom, yshift=.1em, xshift=.5em, "\lrcorner" near end]
+                  &
+                  \O' \arrow[d,"\psi'"]
+                  \\
+                  G/H \cdot \J \arrow[r]
+                  &
+                  \P
+            \end{tikzcd}
+      \end{equation}
+      where $\J_{\set{0}}$ is the full subcategory of $\J$ spanned by the object $0$.
+      It suffices to show both $\psi'$ and $\phi'$ are local genuine trivial cofibrations which are essentially surjective on fixed points. 
+
+      We first consider the bottom pushout.
+      We know that $\psi$ is injective on colors and a local isomorphism in $\Op(\V)$,
+      and hence so is $G/H \cdot \psi$ in $\Op^G(\V)$.
+      Since colimits are created non-equivariantly, and equivariant isomorphisms are detected by invertible equivariant maps,
+      Corollary \ref{LOCALISO_COR} below implies that $\psi'$ is also a local isomorphism in $\Op^G(\V)$ \footnote{
+        This also follows from the more general result \cite[Prop. B.22]{Cav},
+        and from \cite[Prop. 1.28]{CM13b} in the case $(\V, \otimes) = (\sSet, \times)$.
+      }.
+      % so in particular a local trivial $\F$-cofibration.
+      
+      Moreover, we observe that $\C_{\P} = \C_{\O'} \amalg (G/H \times \set{1})$.
+      Thus, if $x \in \C_{\P}^K$ is in $\C_{\O'}$ for some $K \leq G$, we have essential surjectivity trivially,
+      as shown on the left below in \eqref{J-CELL_EQ},
+      where $\I_c \to \I$ is a cofibrant replacement in $\Op^{\set{0,1}}(\V)$.
+      \begin{equation}
+            \label{J-CELL_EQ}
+            \begin{tikzcd}
+                  \1 \arrow[r, "0"] \arrow[dr, "i_0"']
+                  &
+                  \J_{\set{0}} \arrow[d] \arrow[r, "g"]
+                  &
+                  (\O')^K \arrow[d, "{\psi'}"]
+                  \\
+                  &
+                  \J \arrow[r, "g"]
+                  &
+                  \P^K \arrow[d, equal]
+                  \\
+                  \1 \arrow[rr, "g \cdot 1"] \arrow[ur, "i_1"]
+                  &&
+                  \P^K
+            \end{tikzcd}
+      \end{equation}
+      If instead $x  = g \cdot 1 \in (G/H \cdot 1)^K \subseteq \mathfrak C_\P^K$,
+      the pushout square yields the diagram on the right above in \eqref{J-CELL_EQ},
+      where the maps $\J_{\set{0}} \xrightarrow{g} (\O')^K$, $\J \xrightarrow{g} \P^K$ are adjoint to the composites
+      \begin{equation}
+            G/K \cdot \J_{\set{0}} \xrightarrow{g} G/H \cdot \J_{\set{0}} \longto \O',
+            \qquad \qquad
+            G/K \cdot \J \xrightarrow{g} G/H \cdot \J \longto \P
+      \end{equation}
+      (using that $(G/H)^K \simeq \Hom(G/K, G/H)$).
+      % Lastly, if we consider (any element in the orbit of) the new object $1\in \C(\P)^H$,
+      % there is an associated object $0 \in \C(\O')^H$ such that the essentially surjectivity diagram
+      % factors through the pushout diagram for $\psi$:
+      % \begin{equation}
+      %       \begin{tikzcd}
+      %             G/H \cdot \1 \arrow[r,"0"] \arrow[dr, "G/H \cdot i_0"']
+      %             &
+      %             G/H \cdot \J_{\set{0}} \arrow[r] \arrow[d]
+      %             &
+      %             \O' \arrow[d, "\psi'"]
+      %             \\
+      %             &
+      %             G/H \cdot \J \arrow[r]
+      %             &
+      %             \P \arrow[d, equal]
+      %             \\
+      %             G/H \cdot \1 \arrow[ur, "G/H \cdot i_1"] \arrow[rr, "1"]
+      %             &&
+      %             \P.
+      %       \end{tikzcd}
+      % \end{equation}
+      Hence $\psi'$ is also essentially surjective.
+
+      Now, consider the top pushout. Remark \ref{COLOR_SQ_REM}(ii) again implies that this pushout is created in $\Op^{G, \mathfrak C_\O}(\V)$.
+      In particular, this implies $\phi'$ is bijective on objects, and hence essentially surjective.
+      Further, since $1_\V$ is cofibrant in $\V$, \cite[Thm. 1.15]{BM13} implies that $\J_{\set 0}$ is cofibrant in $\Op^{\**}(\V)$,
+      and since $\1$ is the initial object here, $\phi$ is a trivial cofibration here.
+      Thus $a_! (G/H \cdot \phi)$ is a trivial $\F$-cofibration in $\Op^{G, \mathfrak C_\O}(\V)$ by Corollary \ref{COLOR_CHANGE_Q_COR}.
+      % {(as $G/H \cdot \phi$ is one in $\Op^{G, G/H}(\V)$,
+      %   since $\O \to \P$ a trivial $\F$-fibration in $\Op^{G, \mathfrak C}(\V)$
+      %   implies $j^{\**}\O^H \to j^{\**}\P^H$ is one in $\Cat^{\mathfrak C^H}(\V)$)}.
+      Hence, again using the $\F$-semi-model structure on $\mathsf{Op}^{G, \mathfrak C_\O}(\V)$ and the fact that $\O$ is locally cofibrant,
+      $\phi'$ is a trivial $\F$-cofibration in $\mathsf{Op}^{G,\C_\O}(\V)$,
+      and thus a local genuine trivial cofibration by Corollary \ref{LGC_COR}.
+      
+      Since both $\phi'$ and $\psi'$ are essentially surjective and local genuine trivial cofibrations,
+      the result is proved.
+\end{proof}
+
+{\color{blue} HERE}
+
+\begin{remark}
+      \label{OPGCV_F_JC_REM}
+      If for an independent reason we know that each $\mathsf{Op}^{G}_{\mathfrak C}(\V)$ had a full Quillen model structure,
+      then the above proof would show that \textit{all} relative $J_\F$-cells are weak equivalences.
+
+{\color{blue} Luis: I don't think this is true. Even if knowing the fibers have model strucutres, something along the lines of $\otimes$-perfectness would still be needed to conclude that stuff in (the operadic) $J$-cell are local equivalences
+This is one of the reasons (possibly the only reason) why \cite{BM13} assume what they do.}
+\end{remark}
+
+
+
+
 
 
 
@@ -3827,6 +4061,9 @@ we make the following definitions.
 	$1_{\V} \xrightarrow{id_{c'}} \mathcal C_f(c',c')$.
 \end{itemize}
 \end{definition}
+
+
+
 
 
 \begin{remark}
@@ -4518,172 +4755,7 @@ so that case (g) is the true novelty of our work in this section.
 
 
 
-
 \newpage
-
-
-
-
-
-
-\subsection{Trivial cofibrations}
-
-
-The first of these two results, Proposition \ref{J-CELL_PROP}, uses the following straightforward lemmas.
-
-\begin{lemma}
-      \label{TRANSCOMP_ES_LEM}
-      Transfinite composition of essentially surjective maps in $\Op^G(\V)$ is essentially surjective.
-\end{lemma}
-\begin{proof}
-      Since taking fixed points commutes with filtered colimits, they commute with transfinite composition,
-      and hence by \cite[4.17]{Cav}, we are done.
-\end{proof}
-
-\begin{lemma}
-      \label{TRANSCOMP_LGC_LEM}
-      Local genuine (trivial) cofibrations $\Op^G(\V)$ are closed under transfinite composition.
-\end{lemma}
-
-\begin{proof}
-      Since for any $\mathfrak C$-signature $C \in G \ltimes \SC^{op}$ and any map of $\mathfrak C$-colored operads $f$ we have that
-      the restriction map
-      $\V^{\Aut(f(C))}_{gen} \to \V^{\Aut(C)}_{gen}$
-      is left Quillen,
-      and any transfinite composition of operads locally is of the form
-      \begin{equation}
-            \O_0(C) \to \O_1(F_1(C)) \to \O_2(F_2(C)) \to \dots   
-      \end{equation}
-      in $\V^{\Aut(C)}_{gen}$
-      for $F_\alpha$ the (transfinite) composite $\O_0 \to \O_1 \to \dots \to \O_\alpha$,
-      the result follows.
-\end{proof}
-
-
-\begin{proposition}[{c.f. \cite[4.20]{Cav}}]\label{J-CELL_PROP}
-      Suppose $\V$ is as in Convention \ref{ALLCOLOR_CONV}. %has a cofibrant unit $1_\V$ and has cofibrant symmetric pushout powers.
-      Then relative $J_{\F}$-cells with locally genuine cofibrant source are weak equivalences.
-\end{proposition}
-\begin{proof}
-      By Lemmas \ref{TRANSCOMP_ES_LEM} and \ref{TRANSCOMP_LGC_LEM}, it suffices to show that
-      the pushout of a map $j \in J_\F$ is both
-      essentially surjective and a local genuine trivial cofibration.
-
-      Firstly, if $j = \mathbb F_\Gamma[\Gamma/\Gamma \cdot i] \in J_{\F, loc}$,
-      then by Remark \ref{COLOR_SQ_REM}(ii) the pushout can be computed in a fixed-color category $\mathsf{Op}^{G,\mathfrak C_{\P}}(\V)$.
-      By Corollary \ref{F!LQ_COR}, the relevant span is a trivial cofibration in one leg, while the other leg has a locally cofibrant target.
-      Thus by the existence of the $\F$-semi-model structures from Theorem \ref{THM1_C},
-      the pushout is again a trivial cofibration, and hence by Corollary \ref{LGC_COR} a local genuine trivial cofibration.
-      As it is the identity on colors, it is also essentially surjective.
-
-      Secondly, supppose $j$ is of the form $G/H \cdot (\1 \to \J)$ for $\J$ a $\V$-interval.
-      We split this pushout into a composition of two pushouts
-      \begin{equation}
-            \begin{tikzcd}
-                  G/H \cdot \1 \arrow[r, "a"] \arrow[d, "G/H \cdot \phi"']
-                  % \arrow[dr,phantom, yshift=.1em, xshift=.5em, "\lrcorner" near end]
-                  &
-                  \O \arrow[d,"\phi'"]
-                  \\
-                  G/H \cdot \J_{\set{0}} \arrow[r] \arrow[d, "G/H \cdot \psi"']
-                  % \arrow[dr,phantom, yshift=.1em, xshift=.5em, "\lrcorner" near end]
-                  &
-                  \O' \arrow[d,"\psi'"]
-                  \\
-                  G/H \cdot \J \arrow[r]
-                  &
-                  \P
-            \end{tikzcd}
-      \end{equation}
-      where $\J_{\set{0}}$ is the full subcategory of $\J$ spanned by the object $0$.
-      It suffices to show both $\psi'$ and $\phi'$ are local genuine trivial cofibrations which are essentially surjective on fixed points. 
-
-      We first consider the bottom pushout.
-      We know that $\psi$ is injective on colors and a local isomorphism in $\Op(\V)$,
-      and hence so is $G/H \cdot \psi$ in $\Op^G(\V)$.
-      Since colimits are created non-equivariantly, and equivariant isomorphisms are detected by invertible equivariant maps,
-      Corollary \ref{LOCALISO_COR} below implies that $\psi'$ is also a local isomorphism in $\Op^G(\V)$ \footnote{
-        This also follows from the more general result \cite[Prop. B.22]{Cav},
-        and from \cite[Prop. 1.28]{CM13b} in the case $(\V, \otimes) = (\sSet, \times)$.
-      }.
-      % so in particular a local trivial $\F$-cofibration.
-      
-      Moreover, we observe that $\C_{\P} = \C_{\O'} \amalg (G/H \times \set{1})$.
-      Thus, if $x \in \C_{\P}^K$ is in $\C_{\O'}$ for some $K \leq G$, we have essential surjectivity trivially,
-      as shown on the left below in \eqref{J-CELL_EQ},
-      where $\I_c \to \I$ is a cofibrant replacement in $\Op^{\set{0,1}}(\V)$.
-      \begin{equation}
-            \label{J-CELL_EQ}
-            \begin{tikzcd}
-                  \1 \arrow[r, "0"] \arrow[dr, "i_0"']
-                  &
-                  \J_{\set{0}} \arrow[d] \arrow[r, "g"]
-                  &
-                  (\O')^K \arrow[d, "{\psi'}"]
-                  \\
-                  &
-                  \J \arrow[r, "g"]
-                  &
-                  \P^K \arrow[d, equal]
-                  \\
-                  \1 \arrow[rr, "g \cdot 1"] \arrow[ur, "i_1"]
-                  &&
-                  \P^K
-            \end{tikzcd}
-      \end{equation}
-      If instead $x  = g \cdot 1 \in (G/H \cdot 1)^K \subseteq \mathfrak C_\P^K$,
-      the pushout square yields the diagram on the right above in \eqref{J-CELL_EQ},
-      where the maps $\J_{\set{0}} \xrightarrow{g} (\O')^K$, $\J \xrightarrow{g} \P^K$ are adjoint to the composites
-      \begin{equation}
-            G/K \cdot \J_{\set{0}} \xrightarrow{g} G/H \cdot \J_{\set{0}} \longto \O',
-            \qquad \qquad
-            G/K \cdot \J \xrightarrow{g} G/H \cdot \J \longto \P
-      \end{equation}
-      (using that $(G/H)^K \simeq \Hom(G/K, G/H)$).
-      % Lastly, if we consider (any element in the orbit of) the new object $1\in \C(\P)^H$,
-      % there is an associated object $0 \in \C(\O')^H$ such that the essentially surjectivity diagram
-      % factors through the pushout diagram for $\psi$:
-      % \begin{equation}
-      %       \begin{tikzcd}
-      %             G/H \cdot \1 \arrow[r,"0"] \arrow[dr, "G/H \cdot i_0"']
-      %             &
-      %             G/H \cdot \J_{\set{0}} \arrow[r] \arrow[d]
-      %             &
-      %             \O' \arrow[d, "\psi'"]
-      %             \\
-      %             &
-      %             G/H \cdot \J \arrow[r]
-      %             &
-      %             \P \arrow[d, equal]
-      %             \\
-      %             G/H \cdot \1 \arrow[ur, "G/H \cdot i_1"] \arrow[rr, "1"]
-      %             &&
-      %             \P.
-      %       \end{tikzcd}
-      % \end{equation}
-      Hence $\psi'$ is also essentially surjective.
-
-      Now, consider the top pushout. Remark \ref{COLOR_SQ_REM}(ii) again implies that this pushout is created in $\Op^{G, \mathfrak C_\O}(\V)$.
-      In particular, this implies $\phi'$ is bijective on objects, and hence essentially surjective.
-      Further, since $1_\V$ is cofibrant in $\V$, \cite[Thm. 1.15]{BM13} implies that $\J_{\set 0}$ is cofibrant in $\Op^{\**}(\V)$,
-      and since $\1$ is the initial object here, $\phi$ is a trivial cofibration here.
-      Thus $a_! (G/H \cdot \phi)$ is a trivial $\F$-cofibration in $\Op^{G, \mathfrak C_\O}(\V)$ by Corollary \ref{F!LQ_COR}.
-      % {(as $G/H \cdot \phi$ is one in $\Op^{G, G/H}(\V)$,
-      %   since $\O \to \P$ a trivial $\F$-fibration in $\Op^{G, \mathfrak C}(\V)$
-      %   implies $j^{\**}\O^H \to j^{\**}\P^H$ is one in $\Cat^{\mathfrak C^H}(\V)$)}.
-      Hence, again using the $\F$-semi-model structure on $\mathsf{Op}^{G, \mathfrak C_\O}(\V)$ and the fact that $\O$ is locally cofibrant,
-      $\phi'$ is a trivial $\F$-cofibration in $\mathsf{Op}^{G,\C_\O}(\V)$,
-      and thus a local genuine trivial cofibration by Corollary \ref{LGC_COR}.
-      
-      Since both $\phi'$ and $\psi'$ are essentially surjective and local genuine trivial cofibrations,
-      the result is proved.
-\end{proof}
-
-\begin{remark}
-      \label{OPGCV_F_JC_REM}
-      If for an independent reason we know that each $\mathsf{Op}^{G, \mathfrak C}(\V)$ had a full Quillen model structure,
-      then the above proof would show that \textit{all} relative $J_\F$-cells are weak equivalences.
-\end{remark}
 
 
 
@@ -4756,33 +4828,9 @@ These cylinder objects provide another description of the mapping sets in the ho
 \subsection{2-out-of-3}
 
 
-The main ingredient comes from comparing and applying different notions of when two objects are ``homotopically equivalent'', as suggested in the introduction to this section.
 
-
-For our group $G$, we define the following:
-\begin{definition}
-      \label{EQUIVG_DEF}
-      Fix $H \leq G$, $\mathcal{C}\in \Cat^G(\V)$, and $a,b\in \mathrm{Ob}(\mathcal{C})^H$.
-      We say $a$ and $b$ are 
-      \textit{(virtually, homotopy) $H$-equivalent}
-      if they are (resp. virtually, homotopy) equivalent in $\mathcal{C}^H$;
-      
-      For a $G$-operad $\O\in \mathsf{Op}^G(\V)$ and $a,b\in \C(\O)^H$, we say $a$ and $b$ are
-      {\em (virtually, homotopy) $H$-equivalent}
-      if they are so in the underlying category $j^*\O$. 
-\end{definition}
-
-
-\begin{remark}
-      \label{ESS_SUR_REM}
-      Unraveling definitions, we see
-      $F: \O \to \P$ in $\Op^G(\V)$ is essentially $\F$-surjective iff
-      for all $H \in \F_1$ and any $b \in \P^H$ there exists $a \in \O^H$ such that $F(a)$ and $b$ are $H$-equivalent.
-\end{remark}
 
 We can now record the important steps of the proof of 2-out-of-3, broken into the three distinct cases.
-%splits into the three cases. For the first, only preservation of local weak equivalences is non-trival, while for the second and third, the proofs relies on a deep understanding of essential surjectivity.
-%We describe the important steps in each case.
 \begin{description}
 \item [$F$ and $LF$ implies $L$:] This relies on Proposition \ref{CAV_4.14_PROP2}, which shows that
       homotopy equivalence colors induce weak equivalences between certain associated mapping objects,
@@ -4803,7 +4851,7 @@ We unpack these definitions with two quick remarks.
       virtual equivalence does not depend on the choice of fibrant replacement nor the choice of $\V$-interval.
       However, for naturality reasons we will almost exclusively use a functorial fibrant replacement.
       This does not cause any added difficult:
-      If $a,b\in \mathcal C$ are virtually $H$-equivalent, %(which could more accurately be called ``$H$-virtually equivalent''),
+      If $a,b\in \mathcal C$ are virtually $H$-equivalent,
       they are in fact virtually equivalent for $\mathcal C^H$,
       in that there exists a lift
       \begin{equation}
@@ -5427,7 +5475,7 @@ where $\1$ defined as in Definition \ref{PL_ES_DEFN}, and $\mathscr{G}$ is a gen
 
 
 
-
+\iffalse%
 
 
 
@@ -14172,7 +14220,7 @@ then any map in $\mathcal D$ with cofibrant source may be factored into a map in
 
 
 
-
+\fi%
 
 
 \newpage
