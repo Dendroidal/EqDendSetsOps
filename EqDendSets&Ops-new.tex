@@ -3870,7 +3870,7 @@ with $i(0) = F_{\bar{\alpha}}a,i(1) = \bar{b}$ yields the result.
 
 \begin{proof}
 We first consider the case of a pushout
-\begin{equation}
+\begin{equation}\label{JUSTAPUSH EQ}
 \begin{tikzcd}
 		 \bullet \ar{r}{a} \arrow{d}[swap]{j}
 	&
@@ -3893,7 +3893,7 @@ $\mathsf{Op}^{G}(\V)$.
 Secondly, in the more interesting case where $j$ is a map in (TC1), 
 i.e. of the form $G/H \cdot (\eta \to \mathbb{G})$ for $\mathbb{G}$ a $\V$-interval,
 we split the pushout as a composition of two pushouts 
-      \begin{equation}
+      \begin{equation}\label{BROKENPUSH EQ}
             \begin{tikzcd}
                   G/H \cdot \eta \arrow[r, "a"] \arrow[d, "G/H \cdot \phi"']
                   % \arrow[dr,phantom, yshift=.1em, xshift=.5em, "\lrcorner" near end]
@@ -3913,7 +3913,7 @@ we split the pushout as a composition of two pushouts
       where $\mathbb{G}_{\set{0}}$ is the full $\V$-subcategory of $\mathbb{G}$ spanned by the object $0$.
       It now suffices to show that both $\phi'$ and $\psi'$ are $\F$-weak equivalences.
 
-For the top pushout, Theorem \ref{INTCOF THM} imples that $\eta \to \mathbb{G}$
+For the top pushout in \eqref{BROKENPUSH EQ}, Theorem \ref{INTCOF THM} imples that $\eta \to \mathbb{G}$
 is a trivial cofibration in $\mathsf{Cat}_{\{0\}}(\V)$
 so that since Remark \ref{OPCOMBADJ REM} says that 
 $G/H \cdot (-) \colon \mathsf{Cat}_{\{0\}}(\V) \to \mathsf{Cat}^G_{G/H,\F}(\V)$ is left Quillen
@@ -3921,85 +3921,58 @@ we have that $G/H \cdot \phi$ is a $\F$-trivial cofibration with fixed objects,
 so that the (TC2) argument above implies $\phi'$ is a $\F$-weak equivalence.
 
 
-{\color{red} HERE}
+Now consider the bottom pushout in \eqref{BROKENPUSH EQ}.
+Since $\psi$ is a local isomorphism (i.e. $\mathbb{G}_{\{0\}} \to \psi^{\**}\mathbb{G}$ is an isomorphism),
+so is $G/H \cdot \psi$ and thus by Corollary \ref{LOCALISO_COR} (see also \cite[Prop. B.22]{Cav})
+the map $\psi' \colon \O' \to \mathcal{P}$
+is itself a local isomorphism, and thus certainly a local $\F$-weak equivalence.
+%
+To address $\F$-essential surjectivity, 
+we write $[g]_0$ and $[g]_1$ for $[g] \in G/H$
+to denote the objects of $G/H \cdot \mathbb{G}$,
+so that $\C_{\P} = \C_{\O} \amalg \{[g]_1\}_{[g] \in G/H}$.
+Clearly one needs only verify the essential surjectivity condition for the $[g]_1$.
+Given $K\in \F_1$,
+$[g]_1$ is $K$-fixed in $\P$ iff it is $K$-fixed in $G/H \cdot \mathbb{G}$,
+in which case $[g]$ induces a map
+$\mathbb{G} \xrightarrow{[g]} \left(G/H \cdot \mathbb{G}\right)^K$.
+Writing $i$ for the composite 
+$\mathbb{G} \xrightarrow{[g]} \left(G/H \cdot \mathbb{G}\right)^K \to \P^K$
+one then has $i(0) = a([g]_0)$ and $i(1)=[g]_1$,
+establishing $\F$-essential surjectivity.
+%      \begin{equation}
+%            \label{J-CELL_EQ}
+%            \begin{tikzcd}
+%                  \1 \arrow[r, "0"] \arrow[dr, "i_0"']
+%                  &
+%                  \J_{\set{0}} \arrow[d] \arrow[r, "g"]
+%                  &
+%                  (\O')^K \arrow[d, "{\psi'}"]
+%                  \\
+%                  &
+%                  \J \arrow[r, "g"]
+%                  &
+%                  \P^K \arrow[d, equal]
+%                  \\
+%                  \1 \arrow[rr, "g \cdot 1"] \arrow[ur, "i_1"]
+%                  &&
+%                  \P^K
+%            \end{tikzcd}
+%      \end{equation}
 
+To finish the proof, we need to show that transfinite compositions of pushouts as in \eqref{JUSTAPUSH EQ}
+are again $\F$-weak equivalences.
+$\F$-essential surjectivity has already been established in Lemma \ref{TRANSCOMP_ES_LEM}.
+As for the fact that transfinite composites are local $\F$-weak equivalences,
+it suffices to show that for $j':\O \to \P$ as in \eqref{JUSTAPUSH EQ} and each signature $\vect{C}$
+the map $\O(\vect{C}) \to \P(j(\vect{C}))$ is a {\color{blue} $\otimes$-cofibration} in $\V^{\mathsf{Aut}_{G\ltimes \Sigma_{\mathfrak{C}}^{op}}(\vect{C})}$.
+But not both the (TC1) and (TC2) cases follow from the fact that this holds for pushouts of cofibrations in the fiber categories 
+$\mathsf{Op}^{G}_{\mathfrak C_{\O},\F}(\V)$
+(note that the lower square in \eqref{BROKENPUSH EQ}
+does not affect this question, since $\psi'$ is a local isomorphism).
 
-      We now consider the bottom pushout.
-      We know that $\psi$ is injective on colors and a local isomorphism in $\Op(\V)$,
-      and hence so is $G/H \cdot \psi$ in $\Op^G(\V)$.
-      Since colimits are created non-equivariantly, and equivariant isomorphisms are detected by invertible equivariant maps,
-      Corollary \ref{LOCALISO_COR} below implies that $\psi'$ is also a local isomorphism in $\Op^G(\V)$ \footnote{
-        This also follows from the more general result \cite[Prop. B.22]{Cav},
-        and from \cite[Prop. 1.28]{CM13b} in the case $(\V, \otimes) = (\sSet, \times)$.
-      }.
-      % so in particular a local trivial $\F$-cofibration.
-      
-      Moreover, we observe that $\C_{\P} = \C_{\O'} \amalg (G/H \times \set{1})$.
-      Thus, if $x \in \C_{\P}^K$ is in $\C_{\O'}$ for some $K \leq G$, we have essential surjectivity trivially,
-      as shown on the left below in \eqref{J-CELL_EQ},
-      where $\I_c \to \I$ is a cofibrant replacement in $\Op^{\set{0,1}}(\V)$.
-      \begin{equation}
-            \label{J-CELL_EQ}
-            \begin{tikzcd}
-                  \1 \arrow[r, "0"] \arrow[dr, "i_0"']
-                  &
-                  \J_{\set{0}} \arrow[d] \arrow[r, "g"]
-                  &
-                  (\O')^K \arrow[d, "{\psi'}"]
-                  \\
-                  &
-                  \J \arrow[r, "g"]
-                  &
-                  \P^K \arrow[d, equal]
-                  \\
-                  \1 \arrow[rr, "g \cdot 1"] \arrow[ur, "i_1"]
-                  &&
-                  \P^K
-            \end{tikzcd}
-      \end{equation}
-      If instead $x  = g \cdot 1 \in (G/H \cdot 1)^K \subseteq \mathfrak C_\P^K$,
-      the pushout square yields the diagram on the right above in \eqref{J-CELL_EQ},
-      where the maps $\J_{\set{0}} \xrightarrow{g} (\O')^K$, $\J \xrightarrow{g} \P^K$ are adjoint to the composites
-      \begin{equation}
-            G/K \cdot \J_{\set{0}} \xrightarrow{g} G/H \cdot \J_{\set{0}} \longto \O',
-            \qquad \qquad
-            G/K \cdot \J \xrightarrow{g} G/H \cdot \J \longto \P
-      \end{equation}
-      (using that $(G/H)^K \simeq \Hom(G/K, G/H)$).
-      % Lastly, if we consider (any element in the orbit of) the new object $1\in \C(\P)^H$,
-      % there is an associated object $0 \in \C(\O')^H$ such that the essentially surjectivity diagram
-      % factors through the pushout diagram for $\psi$:
-      % \begin{equation}
-      %       \begin{tikzcd}
-      %             G/H \cdot \1 \arrow[r,"0"] \arrow[dr, "G/H \cdot i_0"']
-      %             &
-      %             G/H \cdot \J_{\set{0}} \arrow[r] \arrow[d]
-      %             &
-      %             \O' \arrow[d, "\psi'"]
-      %             \\
-      %             &
-      %             G/H \cdot \J \arrow[r]
-      %             &
-      %             \P \arrow[d, equal]
-      %             \\
-      %             G/H \cdot \1 \arrow[ur, "G/H \cdot i_1"] \arrow[rr, "1"]
-      %             &&
-      %             \P.
-      %       \end{tikzcd}
-      % \end{equation}
-      Hence $\psi'$ is also essentially surjective.
-
-
-      
-      Since both $\phi'$ and $\psi'$ are essentially surjective and local genuine trivial cofibrations,
-      the result is proved.
-
-{\color{red} HERE}
-
-      By Lemmas \ref{TRANSCOMP_ES_LEM} and \ref{TRANSCOMP_LGC_LEM}, it suffices to show that
-      the pushout of a map $j \in J_\F$ is both
-      essentially surjective and a local genuine trivial cofibration.
-
+(\color{blue} implicit in this argument is the fact that $\otimes$-cofibrations are compatible with pull-backs along homomorphisms 
+$G \to \bar{G}$).
 \end{proof}
 
 
@@ -4008,8 +3981,6 @@ so that the (TC2) argument above implies $\phi'$ is a $\F$-weak equivalence.
 \begin{lemma}\label{TRANSCOMP_LGC_LEM}
 	Transfinite compositions of local genuine trivial cofibrations in $\Op^G(\V)$ are local genuine weak equivalences. 
 \end{lemma}
-
-
 
 \begin{proof}
 	Fix a $\mathfrak{C}$-signature
@@ -4027,8 +3998,6 @@ so that the (TC2) argument above implies $\phi'$ is a $\F$-weak equivalence.
 \end{proof}
 
 
-
-{\color{blue} HERE}
 
 \begin{remark}
       \label{OPGCV_F_JC_REM}
