@@ -42,7 +42,7 @@ cd,patterns,calc}
 \usepackage{ifdraft}
 \ifdraft{
   \color[RGB]{63,63,63}
-  \pagecolor[RGB]{220,220,204}
+%  \pagecolor[RGB]{220,220,204}
   \usepackage{showkeys}
   \usepackage{geometry}
   \usepackage{todonotes}
@@ -3859,9 +3859,6 @@ with $i(0) = F_{\bar{\alpha}}a,i(1) = \bar{b}$ yields the result.
 
 
 
-{\color{red} HERE}
-
-
 
 \begin{proposition}[{c.f. \cite[4.20]{Cav}}]\label{J-CELL_PROP}
       Suppose $\V$ satisfies {\color{blue} conditions}. Then $J_{\F}$-cells are $\F$-weak equivalences.
@@ -3870,7 +3867,7 @@ with $i(0) = F_{\bar{\alpha}}a,i(1) = \bar{b}$ yields the result.
 
 \begin{proof}
 We first consider the case of a pushout
-\begin{equation}
+\begin{equation}\label{JUSTAPUSH EQ}
 \begin{tikzcd}
 		 \bullet \ar{r}{a} \arrow{d}[swap]{j}
 	&
@@ -3893,7 +3890,7 @@ $\mathsf{Op}^{G}(\V)$.
 Secondly, in the more interesting case where $j$ is a map in (TC1), 
 i.e. of the form $G/H \cdot (\eta \to \mathbb{G})$ for $\mathbb{G}$ a $\V$-interval,
 we split the pushout as a composition of two pushouts 
-      \begin{equation}
+      \begin{equation}\label{BROKENPUSH EQ}
             \begin{tikzcd}
                   G/H \cdot \eta \arrow[r, "a"] \arrow[d, "G/H \cdot \phi"']
                   % \arrow[dr,phantom, yshift=.1em, xshift=.5em, "\lrcorner" near end]
@@ -3913,7 +3910,7 @@ we split the pushout as a composition of two pushouts
       where $\mathbb{G}_{\set{0}}$ is the full $\V$-subcategory of $\mathbb{G}$ spanned by the object $0$.
       It now suffices to show that both $\phi'$ and $\psi'$ are $\F$-weak equivalences.
 
-For the top pushout, Theorem \ref{INTCOF THM} imples that $\eta \to \mathbb{G}$
+For the top pushout in \eqref{BROKENPUSH EQ}, Theorem \ref{INTCOF THM} imples that $\eta \to \mathbb{G}$
 is a trivial cofibration in $\mathsf{Cat}_{\{0\}}(\V)$
 so that since Remark \ref{OPCOMBADJ REM} says that 
 $G/H \cdot (-) \colon \mathsf{Cat}_{\{0\}}(\V) \to \mathsf{Cat}^G_{G/H,\F}(\V)$ is left Quillen
@@ -3921,85 +3918,58 @@ we have that $G/H \cdot \phi$ is a $\F$-trivial cofibration with fixed objects,
 so that the (TC2) argument above implies $\phi'$ is a $\F$-weak equivalence.
 
 
-{\color{red} HERE}
+Now consider the bottom pushout in \eqref{BROKENPUSH EQ}.
+Since $\psi$ is a local isomorphism (i.e. $\mathbb{G}_{\{0\}} \to \psi^{\**}\mathbb{G}$ is an isomorphism),
+so is $G/H \cdot \psi$ and thus by Corollary \ref{LOCALISO_COR} (see also \cite[Prop. B.22]{Cav})
+the map $\psi' \colon \O' \to \mathcal{P}$
+is itself a local isomorphism, and thus certainly a local $\F$-weak equivalence.
+%
+To address $\F$-essential surjectivity, 
+we write $[g]_0$ and $[g]_1$ for $[g] \in G/H$
+to denote the objects of $G/H \cdot \mathbb{G}$,
+so that $\C_{\P} = \C_{\O} \amalg \{[g]_1\}_{[g] \in G/H}$.
+Clearly one needs only verify the essential surjectivity condition for the $[g]_1$.
+Given $K\in \F_1$,
+$[g]_1$ is $K$-fixed in $\P$ iff it is $K$-fixed in $G/H \cdot \mathbb{G}$,
+in which case $[g]$ induces a map
+$\mathbb{G} \xrightarrow{[g]} \left(G/H \cdot \mathbb{G}\right)^K$.
+Writing $i$ for the composite 
+$\mathbb{G} \xrightarrow{[g]} \left(G/H \cdot \mathbb{G}\right)^K \to \P^K$
+one then has $i(0) = a([g]_0)$ and $i(1)=[g]_1$,
+establishing $\F$-essential surjectivity.
+%      \begin{equation}
+%            \label{J-CELL_EQ}
+%            \begin{tikzcd}
+%                  \1 \arrow[r, "0"] \arrow[dr, "i_0"']
+%                  &
+%                  \J_{\set{0}} \arrow[d] \arrow[r, "g"]
+%                  &
+%                  (\O')^K \arrow[d, "{\psi'}"]
+%                  \\
+%                  &
+%                  \J \arrow[r, "g"]
+%                  &
+%                  \P^K \arrow[d, equal]
+%                  \\
+%                  \1 \arrow[rr, "g \cdot 1"] \arrow[ur, "i_1"]
+%                  &&
+%                  \P^K
+%            \end{tikzcd}
+%      \end{equation}
 
+To finish the proof, we need to show that transfinite compositions of pushouts as in \eqref{JUSTAPUSH EQ}
+are again $\F$-weak equivalences.
+$\F$-essential surjectivity has already been established in Lemma \ref{TRANSCOMP_ES_LEM}.
+As for the fact that transfinite composites are local $\F$-weak equivalences,
+it suffices to show that for $j':\O \to \P$ as in \eqref{JUSTAPUSH EQ} and each signature $\vect{C}$
+the map $\O(\vect{C}) \to \P(j'(\vect{C}))$ is a {\color{blue} $\otimes$-cofibration} in $\V^{\mathsf{Aut}_{G\ltimes \Sigma_{\mathfrak{C}}^{op}}(\vect{C})}$.
+But not both the (TC1) and (TC2) cases follow from the fact that this holds for pushouts of cofibrations in the fiber categories 
+$\mathsf{Op}^{G}_{\mathfrak C_{\O},\F}(\V)$
+(note that the lower square in \eqref{BROKENPUSH EQ}
+does not affect this question, since $\psi'$ is a local isomorphism).
 
-      We now consider the bottom pushout.
-      We know that $\psi$ is injective on colors and a local isomorphism in $\Op(\V)$,
-      and hence so is $G/H \cdot \psi$ in $\Op^G(\V)$.
-      Since colimits are created non-equivariantly, and equivariant isomorphisms are detected by invertible equivariant maps,
-      Corollary \ref{LOCALISO_COR} below implies that $\psi'$ is also a local isomorphism in $\Op^G(\V)$ \footnote{
-        This also follows from the more general result \cite[Prop. B.22]{Cav},
-        and from \cite[Prop. 1.28]{CM13b} in the case $(\V, \otimes) = (\sSet, \times)$.
-      }.
-      % so in particular a local trivial $\F$-cofibration.
-      
-      Moreover, we observe that $\C_{\P} = \C_{\O'} \amalg (G/H \times \set{1})$.
-      Thus, if $x \in \C_{\P}^K$ is in $\C_{\O'}$ for some $K \leq G$, we have essential surjectivity trivially,
-      as shown on the left below in \eqref{J-CELL_EQ},
-      where $\I_c \to \I$ is a cofibrant replacement in $\Op^{\set{0,1}}(\V)$.
-      \begin{equation}
-            \label{J-CELL_EQ}
-            \begin{tikzcd}
-                  \1 \arrow[r, "0"] \arrow[dr, "i_0"']
-                  &
-                  \J_{\set{0}} \arrow[d] \arrow[r, "g"]
-                  &
-                  (\O')^K \arrow[d, "{\psi'}"]
-                  \\
-                  &
-                  \J \arrow[r, "g"]
-                  &
-                  \P^K \arrow[d, equal]
-                  \\
-                  \1 \arrow[rr, "g \cdot 1"] \arrow[ur, "i_1"]
-                  &&
-                  \P^K
-            \end{tikzcd}
-      \end{equation}
-      If instead $x  = g \cdot 1 \in (G/H \cdot 1)^K \subseteq \mathfrak C_\P^K$,
-      the pushout square yields the diagram on the right above in \eqref{J-CELL_EQ},
-      where the maps $\J_{\set{0}} \xrightarrow{g} (\O')^K$, $\J \xrightarrow{g} \P^K$ are adjoint to the composites
-      \begin{equation}
-            G/K \cdot \J_{\set{0}} \xrightarrow{g} G/H \cdot \J_{\set{0}} \longto \O',
-            \qquad \qquad
-            G/K \cdot \J \xrightarrow{g} G/H \cdot \J \longto \P
-      \end{equation}
-      (using that $(G/H)^K \simeq \Hom(G/K, G/H)$).
-      % Lastly, if we consider (any element in the orbit of) the new object $1\in \C(\P)^H$,
-      % there is an associated object $0 \in \C(\O')^H$ such that the essentially surjectivity diagram
-      % factors through the pushout diagram for $\psi$:
-      % \begin{equation}
-      %       \begin{tikzcd}
-      %             G/H \cdot \1 \arrow[r,"0"] \arrow[dr, "G/H \cdot i_0"']
-      %             &
-      %             G/H \cdot \J_{\set{0}} \arrow[r] \arrow[d]
-      %             &
-      %             \O' \arrow[d, "\psi'"]
-      %             \\
-      %             &
-      %             G/H \cdot \J \arrow[r]
-      %             &
-      %             \P \arrow[d, equal]
-      %             \\
-      %             G/H \cdot \1 \arrow[ur, "G/H \cdot i_1"] \arrow[rr, "1"]
-      %             &&
-      %             \P.
-      %       \end{tikzcd}
-      % \end{equation}
-      Hence $\psi'$ is also essentially surjective.
-
-
-      
-      Since both $\phi'$ and $\psi'$ are essentially surjective and local genuine trivial cofibrations,
-      the result is proved.
-
-{\color{red} HERE}
-
-      By Lemmas \ref{TRANSCOMP_ES_LEM} and \ref{TRANSCOMP_LGC_LEM}, it suffices to show that
-      the pushout of a map $j \in J_\F$ is both
-      essentially surjective and a local genuine trivial cofibration.
-
+(\color{blue} implicit in this argument is the fact that $\otimes$-cofibrations are compatible with pull-backs along homomorphisms 
+$G \to \bar{G}$).
 \end{proof}
 
 
@@ -4008,8 +3978,6 @@ so that the (TC2) argument above implies $\phi'$ is a $\F$-weak equivalence.
 \begin{lemma}\label{TRANSCOMP_LGC_LEM}
 	Transfinite compositions of local genuine trivial cofibrations in $\Op^G(\V)$ are local genuine weak equivalences. 
 \end{lemma}
-
-
 
 \begin{proof}
 	Fix a $\mathfrak{C}$-signature
@@ -4028,8 +3996,6 @@ so that the (TC2) argument above implies $\phi'$ is a $\F$-weak equivalence.
 
 
 
-{\color{blue} HERE}
-
 \begin{remark}
       \label{OPGCV_F_JC_REM}
       If for an independent reason we know that each $\mathsf{Op}^{G}_{\mathfrak C}(\V)$ had a full Quillen model structure,
@@ -4046,8 +4012,6 @@ This is one of the reasons (possibly the only reason) why \cite{BM13} assume wha
 
 
 
-
-\newpage
 
 \subsection{Equivalences of objects}
 
@@ -4152,6 +4116,63 @@ we make the following definitions.
 
 
 
+\begin{remark}\label{VIRTEQRESTA REM}
+Given $c,c' \in \mathrm{Ob}{\mathcal{C}}$, write $\iota_{c,c'} \colon \{0,1\} \to \mathrm{Ob}{\mathcal{C}}$
+for the induced map.
+
+The condition that $c,c'$ are equivalent can then be restated as saying that
+there is a $\V$-interval $\mathbb{I}$
+together with some map $\mathbb{I} \to \iota^{\**}_{c,c'}\mathcal{C}$ in $\mathsf{Cat}_{\{0,1\}}(\V)$. 
+
+Moreover, we can also restate the notion of virtual equivalence.
+Since a $\V$-interval $\mathbb{I}$ is a cofibrant replacement of $\widetilde{\mathbbm{1}}$ in $\mathsf{Cat}_{\{0,1\}}(\V)$
+while $\iota^{\**}_{c,c'} \mathcal{C}_f$ is a fibrant replacement of $\iota^{\**}_{c,c'} \mathcal{C}$,
+the condition that $c,c'$ are virtually equivalent is precisely the statement that
+\[
+\Ho \left(\mathsf{Cat}_{\{0,1\}}(\V)\right)\left(\widetilde{\mathbbm{1}},\iota^{\**}_{c,c'} \mathcal{C}\right)
+=
+[\mathbb{I},\iota^{\**}_{c,c'} \mathcal{C}_f] 
+\neq
+ \emptyset
+\]
+i.e. that, up to homotopy, there is at least one map from $\widetilde{\mathbbm{1}}$ to $\iota^{\**}_{c,c'} \mathcal{C}$
+in $\mathsf{Cat}_{\{0,1\}}(\V)$.
+
+Note in particular that this does not depend on the choice of %(co)fibrant
+replacements 
+$\mathbb{I}$ and $\mathcal{C}_f$.
+\end{remark}
+
+
+\begin{remark}
+That homotopy equivalence is an equivalence relation 
+follows from the fact that composites of isomorphisms are isomorphisms.
+
+On the other hand, to check that equivalence and virtual equivalence are likewise equivalence relations
+one has that transitivity, which is a priori not obvious,
+is a straightforward consequence of Interval Amalgamation, cf. Lemma \ref{AMALGLEM LEM}.
+\end{remark}
+
+%\begin{proposition}[{cf. \cite[Lemma 4.10]{Cav}}]
+%      \label{CAV_4.10_PROP}
+%      Equivalence and virtual equivalence define equivalence relations on $\mathfrak C(\O)^H$.
+%\end{proposition}
+
+%\begin{proof}        
+%Only transitivity requires explanation, following from the amalgamation of interval objects \cite[Cor. 1.16]{BM13}
+%         by the following two claims.
+%         First, for any maps of $G$-sets $f: A \to \mathfrak C(\O)$,
+%         we have a canonical ``identity'' map $f^{\**}\O \to \O$.
+%         Second, a chase through the adjunctions yields that
+%         any pair of maps $h: \J \to \mathcal C$ and $h': \J' \to \mathcal C$
+%         induces a map $h \** h' : \J \** \J' \to \mathcal C$ such that      
+%         $(h \** h') i_0 = h i_0$ and $(h \** h') i_1 = h' i_1$.
+%\end{proof}
+
+
+
+
+
 
 
 \begin{remark}
@@ -4180,6 +4201,98 @@ We discuss these converse results {\color{red} later \S \ref{DK_SEC}}.
 	\end{tikzcd}
 \]
 \end{remark}
+
+
+
+\begin{lemma}[{cf. \cite[4.12]{Cav}, \cite[2.10]{BM13}}] \label{RIGHTPROPER_LEM}
+      If $\V$ is right proper, then two colors are virtually equivalent iff they are equivalent. 
+\end{lemma}
+
+
+\begin{proof}
+Let $c,c'$ be two colors and (following Remark \ref{VIRTEQRESTA REM})
+let $\mathbb{I} \overset{\sim}{\twoheadrightarrow} \iota_{c,c'} \mathcal{C}_F$
+exhibit a virtual equivalence between them, where we note
+that we can assume the map is a fibration in $\mathsf{Cat}_{\{0,1\}}(\C)$
+(thanks to a "factorization into trivial cofibration followed by fibration" argument).
+Forming the pullback
+\begin{equation}
+\begin{tikzcd}
+		 \mathbb{I}' \ar{r} \arrow{d}
+	&
+		\iota_{c,c'} \mathcal{C} \arrow{d}{\sim}
+\\
+		\mathbb{I} \ar[twoheadrightarrow]{r} 
+	&
+		\iota_{c,c'}\mathcal{C}_f
+\end{tikzcd}
+\end{equation}
+right properness of $\V$ implies 
+that $\mathbb{I}' \to \mathbb{I}$ is a weak equivalence in 
+$\mathsf{Cat}_{\{0,1\}}(\V)$
+and thus choosing a cofibran replacement
+$\mathbb{I}'_c \to \mathbb{I}'$
+shows that $c,c'$ are equivalent.
+\end{proof}
+
+
+
+
+
+We now discuss the necessary requirement for homotopy equivalence and virtual equivalence to coincide.
+Informally, this will be the case provided that any isomorphism 
+$c \to c'$ in $\pi_0 \mathcal{C}$
+can be suitably lifted to map 
+$\mathbb{I} \to \C_f$ for some $\V$-interval $\mathbb{I}$.
+The following definition makes this idea precise, (cf. \cite[\S 2]{BM13}.
+% originally due to Boardman-Vogt \cite{BV73}, and extended by Berger-Moerdijk \cite{BM13}.
+
+
+\begin{definition}
+	Let $\mathbbm{1}$ be the free $\V$-arrow category and $\mathbb{I}$ a $\V$-interval.
+	A cofibration $\mathbbm{1} \to \mathbb{I}$ in $\Cat_{\set{0,1}}(\V)$
+	is called \textit{natural} if it fits into a commuting diagram in $\Cat_{\set{0,1}}(\V)$ as on the left below.
+\begin{equation}
+\begin{tikzcd}
+	\mathbbm{1} \arrow[d, tail] \arrow[r]
+&
+	\widetilde{\mathbbm{1}} \arrow[d, "\sim"]
+&&%%
+	\mathbbm{1} \arrow[r, "\alpha"] \arrow[d, tail, dashed]
+&
+	\mathcal C_f
+\\
+	\mathbb{I} \arrow[r, "\sim"']
+&
+	\widetilde{\mathbbm{1}}_f
+&&%%
+	\mathbb{I} \arrow[ur, dashed]
+\end{tikzcd}
+\end{equation}
+A homotopy equivalence between two objects in a $\V$-category $\mathcal C$ is called \textit{coherent} if
+there is a representative $\alpha: \mathbbm{1} \to \mathcal C_f$ that factors along a natural cofibration,
+as on the right above.
+
+A monoidal model category $\V$ is then said to satisfy the \textit{coherence axiom} if
+all homotopy equivalences in every $\V$-category are coherent.
+\end{definition}
+
+
+
+
+
+
+{\color{red} HERE}
+
+
+\begin{proposition}[{cf. \cite[Prop. 2.24]{BM13}}]
+If $\V$ is an {\color{blue} adequate} monoidal model category with cofibrant unit then $\V$ satisfies the coherence axiom.
+\end{proposition}
+
+
+{\color{red} HERE}
+
+
 
 
 
@@ -4931,30 +5044,7 @@ We can now record the important steps of the proof of 2-out-of-3, broken into th
 Many of the results will follow immediately from (the proof of) their non-equivariant counterparts once the definitions have been established;
 only Proposition \ref{CAV_4.14_PROP2} will require a more complex analysis.
 
-We unpack these definitions with two quick remarks.
 
-\begin{remark}
-      \label{VE_CHOICE_REM}
-      We note that by straightforward lifting and factoring arguments,
-      virtual equivalence does not depend on the choice of fibrant replacement nor the choice of $\V$-interval.
-      However, for naturality reasons we will almost exclusively use a functorial fibrant replacement.
-      This does not cause any added difficult:
-      If $a,b\in \mathcal C$ are virtually $H$-equivalent,
-      they are in fact virtually equivalent for $\mathcal C^H$,
-      in that there exists a lift
-      \begin{equation}
-            \label{FIBFIX_LIFT_EQ}
-            \begin{tikzcd}
-                  \mathcal C^H \arrow[d, tail, "\sim"'] \arrow[r, "\sim"]
-                  &
-                  (\mathcal C_f)^H
-                  \\
-                  (\mathcal C^H)_f \arrow[ur, dashed, "\sim"']
-            \end{tikzcd}
-      \end{equation}
-      and thus any equivalence in $(\mathcal C^H)_f$ induces an equivalence in $(\mathcal C_f)^H$.
-      % This also follows from Remark \ref{VE_CHOICE_REM}, as both $(\mathcal C^H)_f$ and $(\mathcal C_f)^H$ are fibrant replacements for $\mathcal C^H$.
-\end{remark}
 
 \begin{remark}
       \label{HK_EQUIV_REM}
@@ -4970,54 +5060,6 @@ We unpack these definitions with two quick remarks.
       where the last two use a functorial fibrant replacement.
 \end{remark}
 
-
-
-\begin{notation}
-      As fixed points $(-)^\Gamma$ and fibrant replacement $(-)_f$ need not commute, we will write
-      \begin{equation}
-            \O_f(C)^\Gamma = (\O_f(C))^\Gamma,
-            \qquad
-            \O^\Gamma(C)_f = (\O(C)^{\Gamma})_f.
-      \end{equation}
-\end{notation}
-
-
-Now, we begin by showing that these notions of equivalences are nested.
-The following three lemmas follow exactly as in the non-equivariant setting,
-by restricting to the categories $j^{\**}\O^H$ and using \eqref{FIBFIX_LIFT_EQ}.
-
-\begin{lemma}
-      [{cf. \cite[4.10]{Cav}}]
-      \label{CAV_4.10_LEM}
-      $H$-equivalence and virtual $H$-equivalence define equivalence relations on $\mathfrak C(\O)^H$.
-\end{lemma}
-
-\begin{proof}        
-Only transitivity requires explanation, following from the amalgamation of interval objects \cite[Cor. 1.16]{BM13}
-         by the following two claims.
-         First, for any maps of $G$-sets $f: A \to \mathfrak C(\O)$,
-         we have a canonical ``identity'' map $f^{\**}\O \to \O$.
-         Second, a chase through the adjunctions yields that
-         any pair of maps $h: \J \to \mathcal C$ and $h': \J' \to \mathcal C$
-         induces a map $h \** h' : \J \** \J' \to \mathcal C$ such that      
-         $(h \** h') i_0 = h i_0$ and $(h \** h') i_1 = h' i_1$.
-\end{proof}
-
-
-
-
-\begin{lemma}
-      [{cf. \cite[4.12]{Cav}, \cite[2.10]{BM13}}]
-      \label{RIGHTPROPER_LEM}
-      If $\V$ is right proper, then two colors are virtually $H$-equivalent iff they are $H$-equivalent. 
-\end{lemma}
-
-
-
-
-The key ideas in the proofs are:
-the stacking of $\V$-intervals forms another $\V$-interval \todo{pushout trick and Cav4.14 - still need that $\mathbb J_0$ is a cofibrant category with one object},
-``nice'' pullbacks in $\Cat(\V)$ preserve local equivalences which are bijective on objects.
 
 
 
@@ -5055,42 +5097,6 @@ To finish off Case II, we will need that (local) weak equivalences preserve some
 
 
 
-
-For the reverse direction (cf. \cite[\S 2]{BM13}), we need to show that
-homotopy equivalences are all virtual equivalences.
-This requires another condition on $\V$, namely that the homotopy equivalences all satisfy a ``coherence'' condition.
-% originally due to Boardman-Vogt \cite{BV73}, and extended by Berger-Moerdijk \cite{BM13}.
-
-
-\begin{definition}
-	Recall the category $\mathbbm{1} \in \Cat_{\set{0,1}}(\V)$ which detects arrows.
-	A cofibration $\mathbbm{1} \to \mathbb{I}$ in $\Cat_{\set{0,1}}(\V)$ into a $\V$-interval is called \textit{natural} if
-	it fits into a commuting diagram of the following form in $\Cat_{\set{0,1}}(\V)$.
-\begin{equation}
-\begin{tikzcd}
-	\mathbbm{1} \arrow[d, tail] \arrow[r]
-&
-	\widetilde{\mathbbm{1}} \arrow[d, "\sim"]
-\\
-	\mathbb{I} \arrow[r, "\sim"']
-&
-	\widetilde{\mathbbm{1}}_f.
-\end{tikzcd}
-\end{equation}
-A homotopy equivalence between two objects in a $\V$-category $\mathcal C$ is called \textit{coherent} if
-the detecting map $\alpha: \mathbb A \to \mathcal C_f$ factors along a natural cofibration
-\begin{equation}
-\begin{tikzcd}
-	\mathbbm{1} \arrow[r, "\alpha"] \arrow[d, tail, dashed]
-&
-	\mathcal C_f
-\\
-	\mathbb{I} \arrow[ur, dashed]
-\end{tikzcd}
-\end{equation}
-      A monoidal model category $\V$ is said to satisfy the \textit{coherence axiom} if
-      all homotopy equivalences in every $\V$-category are coherent.
-\end{definition}
 
 \begin{proposition}[{cf. \cite[Prop. 2.20]{BM13}}]
       \label{COH_DK_ARE_WE_PROP}
@@ -5131,6 +5137,8 @@ the detecting map $\alpha: \mathbb A \to \mathcal C_f$ factors along a natural c
             This adds the example of $\sSet$ with the Joyal model structure, among others \cite[A.3.2.23]{Lur09}.
       \end{enumerate}
 \end{remark}
+
+
 
 
 
