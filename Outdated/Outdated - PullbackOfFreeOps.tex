@@ -1,0 +1,570 @@
+\documentclass[a4paper,10pt
+%,draft
+%, final
+]{article}%
+
+\pdfcompresslevel=0
+\pdfobjcompresslevel=0
+
+\usepackage[hidelinks]{hyperref}
+\hypersetup{
+  % colorlinks,
+  final,
+  pdftitle={Equivariant Dendroidal Segal Spaces},
+  pdfauthor={Bonventre, P. and Pereira, L. A.},
+  % pdfsubject={Your subject here},
+  % pdfkeywords={keyword1, keyword2},
+  linktoc=page
+}
+%\usepackage[open=false]{bookmark}
+
+\input{commands.tex}%
+
+
+%-------- Tikz ---------------------------
+
+\usepackage{tikz}%
+\usetikzlibrary{matrix,arrows,decorations.pathmorphing,
+cd,patterns,calc}
+\tikzset{%
+  treenode/.style = {shape=rectangle, rounded corners,%
+                     draw, align=center,%
+                     top color=white, bottom color=blue!20},%
+  root/.style     = {treenode, font=\Large, bottom color=red!30},%
+  env/.style      = {treenode, font=\ttfamily\normalsize},%
+  dummy/.style    = {circle,draw,inner sep=0pt,minimum size=2mm}%
+}%
+
+\usetikzlibrary[decorations.pathreplacing]
+
+
+
+% ---- Commands on draft --------
+
+\usepackage{ifdraft}
+\ifdraft{
+  \color[RGB]{63,63,63}
+  % \pagecolor[rgb]{0.5,0.5,0.5}
+  \pagecolor[RGB]{220,220,204}
+  % \color[rgb]{1,1,1}
+}
+
+
+\usepackage[draft]{showkeys}
+\usepackage{todonotes}%[obeyDraft]
+
+
+% ----- Labels Changed? --------
+
+\makeatletter
+
+\def\@testdef #1#2#3{%
+  \def\reserved@a{#3}\expandafter \ifx \csname #1@#2\endcsname
+  \reserved@a  \else
+  \typeout{^^Jlabel #2 changed:^^J%
+    \meaning\reserved@a^^J%
+    \expandafter\meaning\csname #1@#2\endcsname^^J}%
+  \@tempswatrue \fi}
+
+\makeatother
+
+
+% ---- Commands --------
+
+% new symbols
+
+\newcommand{\mycircled}[2][none]{%
+  \mathbin{
+    \tikz[baseline=(a.base)]\node[draw,circle,inner sep=-1.5pt, outer sep=0pt,fill=#1](a){\ensuremath #2\strut};
+cf.  }
+}
+\newcommand{\owr}{\mycircled{\wr}}
+
+% replace symbols
+
+\renewcommand{\hat}{\widehat}
+
+% random
+
+\renewcommand{\F}{\mathcal F}
+\newcommand{\Q}{\mathcal Q}
+
+\newcommand{\lltimes}{\underline{\ltimes}}
+
+
+% detecting $\V$-categories:
+
+\newcommand{\I}{\mathbb I}
+\newcommand{\J}{\mathbb J}
+\renewcommand{\1}{\eta}%{\ensuremath{\mathbb{id}}}
+
+% lazy shortcuts
+
+\newcommand{\SC}{\Sigma_{\mathfrak C}}
+\newcommand{\OC}{\Omega_{\mathfrak C}}
+
+\newcommand{\UV}{\underline{\mathcal V}}
+\newcommand{\UC}{\underline{\mathfrak C}}
+
+
+% ---- Title --------
+
+\title{Equivariant Segal operads, simplicial operads, and dendroidal sets}
+
+\author{Peter Bonventre, Lu\'is A. Pereira}%
+
+\date{\today}
+
+
+% ---- Document body --------
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+      Things and stuff
+\end{abstract}
+
+\tableofcontents
+
+
+
+
+\subsubsection{Free operads and injective change of color}
+\label{FREEOPCOL_SEC}
+
+Let $f \colon \mathfrak{C} \to \mathfrak{D}$ be an inclusion of colors.
+Our goal in this section is to show that the pullback of a free $\mathfrak{D}$-colored operad is a free $\mathfrak{C}$-colored operad, in a natural way.
+As consequence, we will show that the left adjoint $\check f_!$ is underlying.
+
+More precisely, our goal is to identify a functor 
+$\widehat{f^{\**}}$ such that the diagram below commutes (up to natural isomorphism).
+\begin{equation}\label{HATFST EQ}
+      \begin{tikzcd}
+            \mathsf{Sym}^{\mathfrak{D}} \ar{r}{\mathbb{F}_{\mathfrak{D}}} \ar[dashed]{d}[swap]{\widehat{f^{\**}}} &
+            \mathsf{Op}^{\mathfrak{D}} \ar{d}{f^{\**}}
+            \\
+            \mathsf{Sym}^{\mathfrak{C}} \ar{r}[swap]{\mathbb{F}_{\mathfrak{C}}} &
+            \mathsf{Op}^{\mathfrak{C}}
+      \end{tikzcd}
+\end{equation}
+
+We now introduce some notation.
+We will write 
+$\Omega^0_{\mathfrak{C},\mathfrak{D}} \subseteq \Omega^0_{\mathfrak{D}}$
+for the full subcategory of those trees whose root and leaves are labeled by $\mathfrak{C}$.
+One then has that in the diagram below the square is a pullback square.
+\begin{equation}\label{PULLFREEFREE EQ}
+\begin{tikzcd}
+	\Omega^0_{\mathfrak{C},\mathfrak{D}} \ar{r}{} \ar{d}{} &
+	\Omega^0_{\mathfrak{D}} \ar{d}{} \ar{r} &
+	\Sigma \wr \Sigma_{\mathfrak{D}} \ar{r} &
+	\Sigma \wr \mathcal{V}^{op} \ar{r} &
+	\mathcal{V}^{op}
+\\
+	\Sigma_{\mathfrak{C}} \ar{r}[swap]{} &
+	\Sigma_{\mathfrak{D}}
+\end{tikzcd}
+\end{equation}
+Moreover, since $\Sigma_{\mathfrak{C}} \to \Sigma_{\mathfrak{D}}$ is an inclusion of components, it follows that performing a Kan extension to $\Sigma_{\mathfrak{D}}$ and then restricting to $\Sigma_{\mathfrak{C}}$
+is equivalent to performing the Kan extension of the top composite.
+
+
+
+
+We next note that there is a natural map 
+$\Omega^0_{\mathfrak{C},\mathfrak{D}} \to \Omega^0_{\mathfrak{C}}$,
+defined by $T \mapsto \partial_{\mathfrak{D} \setminus \mathfrak{C}}(T)$,
+collapsing those inner edges not in $\mathfrak{C}$, and we write
+$\Omega^{0,\partial}_{\mathfrak{C},\mathfrak{D}}
+\subseteq 
+\Omega^{0}_{\mathfrak{C},\mathfrak{D}}
+$ for the full subcategory mapping to $\Sigma_{\mathfrak{C}}$ under $\partial_{\mathfrak{D} \setminus \mathfrak{C}}$ (more explicitly, elements of $\Omega^{0,\partial}_{\mathfrak{C},\mathfrak{D}}$ are non-stick trees with root and leaves in $\mathfrak{C}$ and inner edges in $\mathfrak{D} \setminus \mathfrak{C}$).
+Moreover, noting that for the canonical maps 
+$\partial_{\mathfrak{D} \setminus \mathfrak{C}}(T) \to T$
+the subtrees $T_v$ for $v \in V(\partial_{\mathfrak{D} \setminus \mathfrak{C}}(T))$
+must be in $\Omega^{0,\partial}_{\mathfrak{D}, \mathfrak{C}}$
+one obtains a vertex functor 
+$V \colon \Omega_{\mathfrak{C},\mathfrak{D}}^{0}
+\to \Sigma \wr \Omega_{\mathfrak{C},\mathfrak{D}}^{0,\partial}$.
+One then has a diagram
+\begin{equation}\label{PULLFREEFREE2 EQ}
+\begin{tikzcd}
+	\Omega^0_{\mathfrak{C},\mathfrak{D}} \ar{r}{} \ar{d}[swap]{\partial_{\mathfrak{D} \setminus \mathfrak{C}}} &
+	\Sigma \wr \Omega^{0,\partial}_{\mathfrak{C},\mathfrak{D}} \ar{d}[swap]{\partial_{\mathfrak{D} \setminus \mathfrak{C}}} \ar{r} &
+	\Sigma \wr \Sigma \wr \Sigma_{\mathfrak{D}} \ar{r} &
+	\Sigma \wr \Sigma_{\mathfrak{D}} \ar{r} &
+	\Sigma \wr \mathcal{V}^{op} \ar{r} &
+	\mathcal{V}^{op}
+\\
+	\Omega_{\mathfrak{C}} \ar{r}[swap]{} \ar{d}[swap]{\mathsf{lr}} &
+	\Sigma \wr \Sigma_{\mathfrak{C}}
+\\
+	\Sigma_{\mathfrak{C}}
+\end{tikzcd}
+\end{equation}
+where the top composite is naturally isomorphic to the top composite in 
+\eqref{PULLFREEFREE EQ}, and whose Kan extension can alternatively be computed by first computing the Kan extension
+\begin{equation}\label{HATFSTDEF EQ}
+\begin{tikzcd}
+	\Omega_{\mathfrak{C},\mathfrak{D}}^{0,\partial} \ar{r} \ar{d} &
+	\Sigma \wr \Sigma_{\mathfrak{D}} \ar{r}{X} & 
+	\Sigma \wr \mathcal{V}^{op} \ar{r} & 
+	\mathcal{V}^{op}
+\\
+	\Sigma_{\mathfrak{C}} \ar[dashed]{rrru}[swap]{\widehat{f^{\**}}(X)}
+\end{tikzcd}
+\end{equation}
+and then performing the associated Kan extension along 
+$\Omega_{\mathfrak{C}} \to \Sigma_{\mathfrak{C}}$
+in \eqref{PULLFREEFREE2 EQ}.
+
+\begin{definition}
+      \label{HATFST_DEF}
+      Given $X \in \Sym^{\mathfrak D}$, define $\widehat{f^{\**}}(X)$ to be the left Kan extension in \eqref{HATFSTDEF EQ}.
+\end{definition}
+
+Put together, these observations show the desired claim that
+$
+f^{\**} \mathbb{F}_{\mathfrak{D}}(X) \simeq
+\mathbb{F}_{\mathfrak{C}} \widehat{f^{\**}}(X)
+$
+as symmetric sequences.
+
+Checking that this isomorphism agrees with the operad structures requires some extra work, which we now briefly sketch.
+Firstly, to simplify the discussion concerning Kan extensions,
+it is preferable to first prove the analogous result for spans, i.e. that there is 
+$\widehat{f^{\**}_s}$ as in the following analogue of 
+\eqref{HATFST EQ}.
+\begin{equation}\label{HATFSTSP EQ}
+\begin{tikzcd}
+	\mathsf{WSpan}(\Sigma_{\mathfrak{D}},\mathcal{V}^{op})
+	\ar{r}{N_{\mathfrak{D}}} \ar[dashed]{d}[swap]{\widehat{f^{\**}_s}} &
+	\mathsf{Alg}_{N_{\mathfrak{D}}}
+	\ar{d}{f^{\**}_s}
+\\
+	\mathsf{WSpan}(\Sigma_{\mathfrak{C}},\mathcal{V}^{op})
+	\ar{r}{N_{\mathfrak{C}}} &
+	\mathsf{Alg}_{N_{\mathfrak{C}}}
+\end{tikzcd}
+\end{equation}
+Firstly, as a natural adaptation of 
+\eqref{HATFSTDEF EQ}
+one defines $\widehat{f^{\**}_s}$
+on the span $\Sigma_{\mathfrak{D}} \rightarrow A \leftarrow \mathcal{V}^{op}$
+to be given by 
+\[
+\begin{tikzcd}
+	\Omega_{\mathfrak{C},\mathfrak{D}}^{0,\partial} \wr A
+	\ar{r} \ar{d} &
+	\Sigma \wr A \ar{r} \ar{d} &
+	\Sigma \wr \mathcal{V}^{op} \ar{r} &
+	\mathcal{V}^{op}
+\\
+	\Omega_{\mathfrak{C},\mathfrak{D}}^{0,\partial}
+	\ar{r} \ar{d} &
+	\Sigma \wr \Sigma_{\mathfrak{D}}
+\\
+	\Sigma_{\mathfrak{C}}
+\end{tikzcd}
+\]
+where the square defining 
+$\Omega^{0,\partial}_{\mathfrak{C},\mathfrak{D}} \wr A$ is a pullback. 
+
+Assuming for the moment that \eqref{HATFSTSP EQ} indeed commutes up to natural isomorphism (i.e. that compatibility with the monad structures as been verified), one then has the string of isomorphisms
+\[
+f^{\**} \circ \mathbb{F}_{\mathfrak{D}} = 
+f^{\**} \circ \mathsf{Lan} \circ N_{\mathfrak{D}} \circ \iota \xleftarrow{\simeq}
+\mathsf{Lan} \circ f^{\**}_s \circ N_{\mathfrak{D}} \circ \iota \simeq
+\mathsf{Lan} \circ N_{\mathfrak{C}} \circ \widehat{f^{\**}_s} \circ \iota
+\xleftarrow{\simeq}
+\mathsf{Lan} \circ N_{\mathfrak{C}} \circ \iota \circ \mathsf{Lan}
+\circ \widehat{f^{\**}} \circ \iota
+=
+\mathbb{F}_{\mathfrak{C}} \circ \mathsf{Lan}
+\circ \widehat{f^{\**}_s} \circ \iota
+=
+\mathbb{F}_{\mathfrak{C}}
+\circ \widehat{f^{\**}}
+\]
+where the second step follows since 
+$\Sigma_{\mathfrak{C}} \to \Sigma_{\mathfrak{D}}$ is an inclusion of components and the fourth step follows
+from Lemmas \ref{FINWRPRODLIM LEM} and \ref{LANPULLCOMA LEM}.
+
+We now tackle the remaining claim of showing that
+\eqref{HATFSTSP EQ} commutes up to isomorphism.
+
+We first need to discuss higher string generalizations of the tree categories 
+$\Omega^{0}_{\mathfrak{C},\mathfrak{D}}$
+and
+$\Omega^{0,\partial}_{\mathfrak{C},\mathfrak{D}}$.
+
+Namely, we define full subcategories 
+$\Omega^{n,\partial}_{\mathfrak{C},\mathfrak{D}}
+\subseteq
+\Omega^{n}_{\mathfrak{C},\mathfrak{D}}
+\subseteq
+\Omega^{n}_{\mathfrak{D}}
+$
+where the objects of 
+$\Omega^{n}_{\mathfrak{C},\mathfrak{D}}$
+are strings $T_0 \to T_1 \to \cdots \to T_n$
+of maps
+such that $T_k \in \Omega_{\mathfrak{C}}$ for $k<n$
+and the objects of 
+$\Omega^{n,\partial}_{\mathfrak{C},\mathfrak{D}}$
+satisfy the further restriction that
+$T_{n-1}=\partial_{\mathfrak{D} \setminus \mathfrak{C}}(T_n)$.
+
+
+Note that the vertex and simplicial operators then restrict to maps
+\[
+	\Omega_{\mathfrak{C},\mathfrak{D}}^{n, \partial} 
+	\xrightarrow{V}
+	\Sigma \wr \Omega_{\mathfrak{C},\mathfrak{D}}^{n-1, \partial} 
+\quad
+	n \geq 1
+\qquad \qquad
+	\Omega_{\mathfrak{C},\mathfrak{D}}^{n, \partial} 
+	\xrightarrow{d_i}
+	\Omega_{\mathfrak{C},\mathfrak{D}}^{n-1, \partial}
+\quad
+	n-2 \geq i \geq 0
+\qquad \qquad
+	\Omega_{\mathfrak{C},\mathfrak{D}}^{n, \partial} 
+	\xrightarrow{d_{n-1},\simeq}
+	\Omega_{\mathfrak{C},\mathfrak{D}}^{n-1}
+\]
+where we note that the last map is an isomorphism. 
+Indeed, the $\Omega^0_{\mathfrak{C},\mathfrak{D}}$ 
+on the top left corner of \eqref{PULLFREEFREE2 EQ} is best viewed as
+being $\Omega^{1,\partial}_{\mathfrak{C},\mathfrak{D}}$, so that the leftmost horizontal map is the regular $V$ and the vertical maps are $d_1,d_0$.
+
+The required compatibility with the operadic structure now follows by noting that the composite
+$N_{\mathfrak{C}} N_{\mathfrak{C}} \widehat{f^{\**}_s}
+\simeq
+N_{\mathfrak{C}} f^{\**}_s N_{\mathfrak{D}}
+\to
+f^{\**}_s N_{\mathfrak{D}}
+$
+is encoded by the diagram
+\[
+\begin{tikzcd}[column sep =8pt]
+	\Omega^{2,\partial}_{\mathfrak{C},\mathfrak{D}} \wr A \ar{d}[swap]{d^1}{\simeq}  \ar{r} &
+	\Sigma \wr \Omega^{1,\partial}_{\mathfrak{C},\mathfrak{D}} \wr A \ar{d}[swap]{d^0}{\simeq} \ar{r} &
+	\Sigma^{\wr 2} \wr \Omega^{0,\partial}_{\mathfrak{C},\mathfrak{D}} \wr A \ar{r} &
+	|[alias=UUU]|
+	\Sigma^{\wr 3} \wr A \ar{d}[swap]{\sigma^1} \ar{r} &
+	\Sigma^{\wr 3} \wr \mathcal{V}^{op} \ar{d}[swap]{\sigma^1} \ar{r}{\otimes} &
+	\Sigma^{\wr 2} \wr \mathcal{V}^{op} \ar{r}{\otimes} &
+	|[alias=UUUU]|
+	\Sigma \wr \mathcal{V}^{op} \ar{r}{\otimes} \ar[equal]{d} &
+	\mathcal{V}^{op} \ar[equal]{d}
+\\
+	\Omega^1_{\mathfrak{C},\mathfrak{D}} \wr A \ar{r} \ar{d}[swap]{d^0} &
+	|[alias=VVV]|
+	\Sigma \wr \Omega^0_{\mathfrak{C},\mathfrak{D}} \wr A \ar{rr} & &
+	|[alias=U]|
+	\Sigma^{\wr 2} \wr A \ar{r} \ar{d}[swap]{\sigma^0} &
+	|[alias=VVVV]|
+	\Sigma^{\wr 2} \wr \mathcal{V}^{op} \ar{rr}{\otimes} \ar{d}[swap]{\sigma^0} & &
+	\Sigma \wr \mathcal{V}^{op} \ar{r}{\otimes} &
+	|[alias=UU]|
+	\mathcal{V}^{op} \ar[equal]{d}
+\\
+	|[alias=V]|
+	\Omega^0_{\mathfrak{C},\mathfrak{D}} \wr A \ar{rrr} & & &
+	\Sigma \wr A \ar{r} &
+	|[alias=VV]|
+	\Sigma \wr \mathcal{V}^{op} \ar{rrr}{\otimes} & & &
+	\mathcal{V}^{op}
+\arrow[Leftrightarrow, from=V, to=U,shorten >=0.15cm,shorten <=0.15cm
+,swap,"\pi"
+]
+\arrow[Leftrightarrow, from=VV, to=UU,shorten >=0.15cm,shorten <=0.15cm
+]
+\arrow[Leftrightarrow, from=VVV, to=UUU,shorten >=0.15cm,shorten <=0.15cm
+,swap,"\pi"
+]
+\arrow[Leftrightarrow, from=VVVV, to=UUUU,shorten >=0.15cm,shorten <=0.15cm
+]
+\end{tikzcd}
+\]
+while the composite
+$N_{\mathfrak{C}} N_{\mathfrak{C}} \widehat{f^{\**}_s}
+\to
+N_{\mathfrak{C}} \widehat{f^{\**}_s}
+\simeq
+f^{\**}_s N_{\mathfrak{D}}
+$
+is encoded by the diagram
+\[
+\begin{tikzcd}[column sep =8pt]
+	\Omega^{2,\partial}_{\mathfrak{C},\mathfrak{D}} \wr A \ar{r} \ar{d}[swap]{d^0} &
+	\Sigma \wr \Omega^{1,\partial}_{\mathfrak{C},\mathfrak{D}} \wr A \ar{r} &
+	|[alias=UUU]|
+	\Sigma^{\wr 2} \wr \Omega^{0,\partial}_{\mathfrak{C},\mathfrak{D}} \wr A
+	\ar{d}[swap]{\sigma^0} \ar{r} &
+	\Sigma^{\wr 3} \wr A \ar{d}[swap]{\sigma^0} \ar{r} &
+	\Sigma^{\wr 3} \wr \mathcal{V}^{op} \ar{d}[swap]{\sigma^0} \ar{r}{\otimes} &
+	\Sigma^{\wr 2} \wr \mathcal{V}^{op} \ar{d}[swap]{\sigma^0} \ar{r}{\otimes} &
+	\Sigma \wr \mathcal{V}^{op} \ar{r}{\otimes} & 
+	|[alias=UUUU]|
+	\mathcal{V}^{op} \ar[equal]{d}
+\\
+	|[alias=VVV]|
+	\Omega^{1,\partial}_{\mathfrak{C},\mathfrak{D}} \wr A \ar{rr} \ar{d}[swap]{d^0}{\simeq} & &
+	\Sigma \wr \Omega^{0,\delta}_{\mathfrak{C},\mathfrak{D}} \wr A \ar{r} &
+	|[alias=U]|
+	\Sigma^{\wr 2} \wr A \ar{r} \ar{d}[swap]{\sigma^0} &
+	\Sigma^{\wr 2} \wr \mathcal{V}^{op} \ar{r}{\otimes} \ar{d}[swap]{\sigma^0} &
+	|[alias=VVVV]|
+	\Sigma \wr \mathcal{V}^{op} \ar{rr}{\otimes} & &
+	|[alias=UU]|
+	\mathcal{V}^{op} \ar[equal]{d}
+\\
+	|[alias=V]|
+	\Omega^0_{\mathfrak{C}} \wr A \ar{rrr} & & &
+	\Sigma \wr A \ar{r} &
+	|[alias=VV]|
+	\Sigma \wr \mathcal{V}^{op} \ar{rrr}{\otimes} & & &
+	\mathcal{V}^{op}
+\arrow[Leftrightarrow, from=V, to=U,shorten >=0.15cm,shorten <=0.15cm
+,swap,"\pi"
+]
+\arrow[Leftrightarrow, from=VV, to=UU,shorten >=0.15cm,shorten <=0.15cm
+]
+\arrow[Leftrightarrow, from=VVV, to=UUU,shorten >=0.15cm,shorten <=0.15cm
+,swap,"\pi"
+]
+\arrow[Leftrightarrow, from=VVVV, to=UUUU,shorten >=0.15cm,shorten <=0.15cm
+]
+\end{tikzcd}
+\]
+
+
+This finishes the argument establishing \eqref{HATFST EQ}.
+
+We explore several consequences.
+\begin{corollary}
+      \label{FTF_COR}
+      For any injective $f \colon \mathfrak C \to \mathfrak D$, the following hold.
+      \begin{enumerate}[label = (\roman*)]
+      \item $f^{\**} \mathbb F_{\mathfrak D} f_! \simeq \mathbb F_{\mathfrak C}$.
+      \item $f^{\**} f_! = id_{\Sym_{\mathfrak C}}$ and $f^{\**} \check{f_!} = id_{\Op_{\mathfrak C}}$.
+      \item $U \check{f_!} = f_! U$.
+      \end{enumerate}
+\end{corollary}
+\begin{proof}
+      For (i), it suffices to show that $\widehat{f^{\**}} f_!$ is the identity,
+      which is straightforward from the definition given in \eqref{HATFSTDEF EQ}.
+      % $\widehat{f^{\**}} f_! X(\ksi) = \varnothing$ unless $\ksi \in \Sigma_{\mathfrak C}$, in which case
+      % $\widehat{f^{\**}} f_! X(\ksi) = X(\ksi)$.
+      For (ii), the first half is immediate,
+      and using \eqref{CFS_EQ} plus the fact that $f^{\**}$ commutes with reflexive coequalizers\footnote{
+        As with $\mathbb F$, this follows as $\otimes$ commuting with colimits in both variables implies it commutes with reflexive coequalizers; see e.g. \cite[Lemma 2.3.2]{Rez96}.},
+      the second half follows from part (i).
+
+      For (iii), following (i) and (ii) it is straightforward from the definitions that we have natural isomorphisms
+      \[
+            \mathbb F_{\mathfrak D} f_! U \mathbb F_{\mathfrak C} \xrightarrow{\simeq} % \mathbb F_{\mathfrak D} f_! U(\simeq)
+            \mathbb F_{\mathfrak D} f_! f^{\**} U \mathbb F_{\mathfrak D} f_! \xrightarrow{\simeq} % \mathbb F_{\mathfrak D}(\simeq)
+            \mathbb F_{\mathfrak D} U \mathbb F_{\mathfrak D} f_!,
+      \]
+      so in particular for any $\O \in \Op^{\mathfrak C}$
+      % there exists a unique $\mathfrak D$-colored operad structure on $f_! X$
+      % such that the canonical map $X \to f_! X$ is a map of operads.
+      there is an induced $\mathfrak D$-colored operad structure on $f_! X$,
+      which is indeed described by the coequalizer \eqref{CFS_EQ}.
+\end{proof}
+
+
+
+{\color{OliveGreen} % --------------------------------------------------------------------------------
+  \begin{corollary}
+        For any $(G, \Sigma)$-family $\F$ and injective map of colors $f \colon \mathfrak C \to \mathfrak D$,
+        the map $f^{\**}: \Op^{\mathfrak D}_\F(\V) \to \Op^{\mathfrak C}_\F(\V)$ preserves (trivial) cofibrations between cofibrant objects.
+  \end{corollary}
+  \todo[inline]{the statement is true as written, however the machinery to prove it entirely has not been developed.}
+  \begin{proof}
+        We first show $f^{\**}$ preserves generating (trivial) cofibrations.
+        To start, let $X$ be a free symmetric sequence
+        \[
+              X = \Sigma_{\mathfrak D}(-, \ksi)[K] = \Hom_{\Sigma_{\mathfrak D}}(-,\ksi) \cdot_{\Aut(\ksi)} K
+        \]
+        on some $\mathfrak D$-signature $\ksi$ and $K \in \V^{\Aut(\ksi)}$.
+        % From the definition of $\Omega^{0,\partial}_{\mathfrak C, \mathfrak D}$ and $\widehat{f^{\**}}(X)$ from \eqref{HATFSTDEF},
+        It is straightforward to check that the only case in which $\widehat{f^{\**}}(X)$ is not the initial symmetric sequence (i.e. constant to the initial object in $\V$)
+        is when $\ksi$ is in fact a $\mathfrak C$-signature, in which case
+        \begin{equation}
+              \label{SDFI_EQ}
+              \Sigma_{\mathfrak D}(-,\ksi)[K] = f_!\Sigma_{\mathfrak C}(-,\ksi)[K].
+        \end{equation}
+        The claim for generating (trivial) cofibrations then follows from Corollary \ref{FTF_COR}(i).
+
+        For the general case, we have that since $\otimes$ commutes with colimits in each variable, it commutes with filtered colimits, in particular transfinite compositions (\cite[Lemma 2.3.3]{Rez96}), and hence $f^{\**}$ preserves transfinite compositions.
+        Moreover, $f^{\**}$ preserves pushouts of free symmetric sequences
+        $\Sigma_{\mathfrak D}(-,\ksi)[i]$
+        with $\ksi \in \Sigma_{\mathfrak C}$ by \eqref{SDFI_EQ}, Corollary \ref{FTF_COR}(iii), and Lemma \ref{BASICPUSH LEMMA}.
+
+        It remains to check that the image under $f^{\**}$ of a pushout over $\Sigma_{\mathfrak D}(-,\ksi)[i]$ with $\ksi \notin \Sigma_{\mathfrak C}$ is a (trivial) cofibration.
+        
+        {\color{red} can't go on from here yet}
+  \end{proof}
+
+  The following example demonstrates that $f^{\**}$ need not preserve all pushouts.
+  \begin{example}
+        Let $f \colon \set{0} \hookrightarrow \set{0,1}$, and consider the following pushouts in $\Cat^{\set{0,1}}(\sSet)$.
+        \[
+              \begin{tikzcd}
+                    \set{0,1} \arrow[d, "{\mathbb F(-, (1;1))[\partial \Delta[0] \to \Delta[0]]}"'] \arrow[r]
+                    &
+                    {[1]} \arrow[d]
+                    &&& % --------------------
+                    \set{0,1} \arrow[d, "{\mathbb F(-, (1;1))[\partial \Delta[0] \to \Delta[0]]}"'] \arrow[r]
+                    &
+                    \widetilde{[1]} \arrow[d]
+                    \\
+                    \set{0} \amalg \mathbb N_0\set{1} \arrow[r]
+                    &
+                    \mathcal P
+                    &&& % ----------
+                    \set{0} \amalg \mathbb N_0\set{1} \arrow[r]
+                    &
+                    \tilde{\mathcal P}
+              \end{tikzcd}
+        \]
+        In both cases, $f^{\**}$ applied to the left vertical arrows yields $id_{\varnothing}$.
+        However, the pushout on the left is preserved by $f^{\**}$, as
+        $f^{\**}([1]) = f^{\**}(\mathcal P) = \**$,
+        but the pushout on the right is not preserved, as
+        $f^{\**}(\widetilde{[1]}) = \**$ but $f^{\**}(\tilde{\mathcal P}) = \mathbb N_0$.
+
+        \todo[inline]{In this case, the RHS is still a pushout of a free thing, but I don't know how to make this systematic
+          - it must preserve cofibrant objects, but Lemma \ref{BASICPUSH LEMMA} only takes care of the first case from \cite[Thm. 1.15]{BM13}.}
+  \end{example}
+} % ---------------------------------------- OLIVEGREEN ----------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+\bibliography{biblio-new}{}
+\bibliographystyle{amsalpha2}
+
+
+
+\end{document}
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
