@@ -943,7 +943,7 @@ of symmetric sequences.
 
 
 We elaborate on this narrative in the following section.
-In \S \ref{SYMC_SEC}, we build the category $\Sym(\V)$ (Definition \ref{SYMV_DEF}),
+In \S \ref{SYMC_SEC}, we build the category $\Sym(\V)$ % (Definition \ref{SYMV_DEF}),
 describe the fibered monad $\mathbb F$ (Equation \eqref{FREEOP_EQ}, elaborated in Appendix \ref{MONAD_APDX}),
 and determine the fibers of the equivariant monad $\mathbb F^G$ (Equation \eqref{FGC_EQ}).
 In \S \ref{SYMC_MS_SEC} and \S \ref{OPC_MS_SEC} we build model structures on the color-fixed categories $\mathsf{Sym}^{G,\mathfrak{C}}(\mathcal{V})$ and $\mathsf{Op}^{G,\mathfrak{C}}(\mathcal{V})$,
@@ -1363,6 +1363,13 @@ One allows for some (or even all) of the $\F_x$ to be empty.
 \end{remark}
 
 
+\begin{definition}
+      Given a model category $\V$, a groupoid $\G$, and a family of subgroups $\F$ on $\G$,
+      the \textit{$\F$-model structure}, denoted $\V^\G_\F$, if it exists,
+      defines a map $A \to B$ to be a 
+      weak equivalence (resp. fibration) if the maps $A(x)^H \to B(x)^H$ are weak equivalences (fibrations) in $\V$
+      for all $x \in \G$ and $H \in \F_x$.
+\end{definition}
 
 
 \begin{definition}\label{ALLEQ DEF}
@@ -1397,13 +1404,12 @@ for all finite groups $G$ and subgroups $H, K \leq G$ one has that:
 
 
 \begin{remark}\label{LEVEL_COF_REM}
-	A consequence of $\V$ having cellular fixed points (cf. the proof of \cite[Prop. 6.3(i)]{BP_geo})
-	is that for any genuine (trivial) cofibration $f \in \V^G_{gen}$,
-	the map $f^H$ is a (trivial) cofibration in $\V$ for all $H \leq G$.
-	{\color{blue} (Luis: this might need cofibrant generation as well)}
+      A consequence of cofibrantly-generated $\V$ having cellular fixed points
+      (cf. \cite[Lemma A.3]{Ste16})
+      (cf. the proof of \cite[Prop. 6.3(i)]{BP_geo})
+      is that for any genuine (trivial) cofibration $f \in \V^G_{gen}$,
+      the map $f^H$ is a (trivial) cofibration in $\V$ for all $H \leq G$.
 \end{remark}
-
-
 
 For any groupoid $\G$ there is an equivalence of categories
 $\G \simeq \coprod_{[x] \in ob(\G)/\simeq} Aut(x)$,
@@ -1416,28 +1422,22 @@ immediately implies the following.
 
 
 \begin{theorem}\label{FMODEL THM}
-	If $\V$ is a cofibrantly generated model category with cellular fixed points, $\G$ is a groupoid and $\F$ a family of subgroups on $\G$,
-	then $\mathcal{V}^{\G}$ has a model structure where a map
-	$A \to B$ in $\mathcal{V}^{\G}$ is a 
-	weak equivalence (resp. fibration) if the maps
-	$A(x)^H \to B(x)^H$
-	are weak equivalences (fibrations) in $\V$
-	for all $x \in \G$, $H \in \F_x$.
+      If $\V$ is a cofibrantly generated model category with cellular fixed points, $\G$ is a groupoid and $\F$ a family of subgroups on $\G$,
+      then the $\F$-model structure $\V^\G_\F$ exists.
 \end{theorem}      
-
-We refer to the model structure on $\V^{\G}$
-in the result above as the $\F$-model structure, 
-and denote it $\V^{\G}_{\F}$.
-
 
 \begin{remark}\label{VGFGEN REM}
 	Letting $\mathcal{I}$ (resp. $\mathcal{J}$)
 	denote the sets of generating (resp. trivial) cofibrations of 
 	$\V$, the sets of generating (trivial) cofibrations of $\V^{\G}_{\F}$ are then given by the sets of maps
 \begin{equation}\label{VGFGEN EQ}
-\left\{
-	\G(x,-)/H \cdot i\right\} \qquad \left\{\G(x,-)/H \cdot j
-\right\}
+      \mathcal I_\G := \left\{
+            \G(x,-)/H \cdot i
+      \right\}
+      \qquad
+      \mathcal J_\G := \left\{
+            \G(x,-)/H \cdot j
+      \right\}
 \end{equation}
 where $x$ ranges over the objects of $\G$, $H$ ranges over $\F_x$,
 $i$ ranges over $\mathcal{I}$ and 
@@ -1455,6 +1455,27 @@ $j$ ranges over $\mathcal{J}$.
 %      \item the inclusion $\V^G \xrightarrow{i_{\**}} \V^{\mathsf O_F^{op}}$, $i_{\**}X(G/H) = X^H$ is a right Quillen equivalence.
 %      \end{itemize}
 %\end{theorem}      
+
+{\color{blue} \textbf{A Weaker condition:}
+  
+  \begin{remark}
+        In fact, the proof of \cite[Thm. 2.10]{Ste16} follows from the two condition below:
+        \begin{enumerate}[label = (\alph*)]
+        \item The domains of $\mathcal I_G$ (resp. $\mathcal J_G$) are small rel $\mathcal I_G$-cell (resp. $\mathcal J_G$-cell).
+        \item $\left(\mathcal J_G\text{-cell}\right)^H \subseteq \mathcal J\text{-cell}$
+        \end{enumerate}
+
+        In some cases, (a) can be checked by hand (and follows from $(i)$ and $(ii)$ of cellularity above), while (b) follows from a weakening of the cellularity conditions above:
+        We say $\V$ has \textit{weak acyclic cellular fixed points} if for all finite groups $G$ and subgroups $H$,
+        \begin{enumerate}[label = (\roman*)]
+        \item $(-)^H \colon \V^G \to \V$ preserves direct colimits of maps in $\mathcal J^G$;
+        \item $(-)^H \colon \V^G \to \V$ preserves pushouts of $\mathcal J^G$
+        \item $(\mathcal J_G)^H \subseteq \mathcal J$-cell.
+        \end{enumerate}
+  \end{remark}
+
+} % ------------------------------ BLUE ----------------------------------------
+
 
 
 \begin{definition}\label{GENMOD DEF}
@@ -1893,7 +1914,7 @@ $\left(\left(\F \amalg \bar{\F}\right)^{\ltimes 2}\right)_{(x,\bar{x})} = \F \sq
 
 
 \subsection{Homotopy theory of symmetric sequences with a fixed color $G$-set}
-
+\label{SYMC_MS_SEC}
 
 
 Our main example of interest will be given by the groupoids of the form
@@ -2643,42 +2664,47 @@ and the induction step following from the already established cofibrancy of the 
       \begin{enumerate}[label = (\roman*)]
       \item genuine model structures on $\V^\G$ exist,
       \item cofibrant symmetric pushout powers,
-      \item \textit{unreasonably specific global monoid axiom} (\textbf{USGMA}):
+      \item \textit{global monoid axiom} (\textbf{USGMA}):
 
             Let $\mathcal J^{\otimes}_G$ denote the class of \textit{global $\otimes$-trivial-cofibrations} in $\V^G$,
-            given by transfinite composites of maps from
             \begin{equation}
                   \label{GLOBMONAX_EQ}
-                  \bigcup_{H \to G} \left(G \cdot_H \left(\mathcal J \otimes \V^H\right)\text{-cof}\right).
+                  \left( \mathcal J \otimes \V^G \right) \text{-cof}.
             \end{equation}
 
-            The \textbf{USGMA} demands that $\mathcal J^{\otimes}_G$ is contained in $\mathcal W^G$ for all $G$.            
+            We say $\V$ satisfies the \textit{global monoid axiom} if $\mathcal J^{\otimes}_G$ is contained in $\mathcal W^G$ for all finite groups $G$.
       \end{enumerate}
 \end{remark}
 
 {\color{OliveGreen}
   \begin{remark}
         \label{GLOBMONAX_REM}
-        First, we note that
+        By quick adjunction arguements, we note that for $A \in \V$ and $B \in \V^G$, we have
         \[
-              G \cdot_H \left( (H \cdot_K A) \otimes X \right) = G \cdot_H \left( H \cdot_K \left(A \otimes X\right) \right)
-              = G \cdot_K \left(A \otimes X\right).
+              G/H \cdot A \otimes B \simeq G/G \cdot A \otimes G \cdot_H B \simeq G \cdot_H (A \otimes B).
         \]
-        Second, the following classes of maps are equal, using the fact that $G \cdot_H (-)$ is a left adjoint and the functoriality of $G \cdot_H (-)$ and $(-) \otimes X$.
-        \begin{align*}
-          \left( G \cdot_H \left( \left(J^H\text{-cof}\right) \otimes \V^H \right)\text{-cell} \right) \mathbin{\cap} \mathcal W^G
-          & = 
-            \left( G \cdot_H \left( \left(J^H \otimes \V^H\right)\text{-cof}\right)\text{-cell} \right) \mathbin{\cap} \mathcal W^G \\
-          & =
-            \left( G \cdot_H \left(J^H \otimes \V^H\right)\text{-cof} \right) \mathbin{\cap} \mathcal W^G \\
-          & =
-            \left( G \cdot_H \left(J^H \otimes \V^H\right)\text{-cell} \right) \mathbin{\cap} \mathcal W^G \\
-          & =
-            \left( G \cdot_H \left(J \otimes \V^H\right)\text{-cell} \right) \mathbin{\cap} \mathcal W^G \\
-          & =
-          \left( G \cdot_H \left( \left(\mathcal J \otimes \V^H\right)\text{-cell} \right) \right) \mathbin{\cap} \mathcal W^G
-        \end{align*}
-        In particular, there is no difference in \eqref{GLOBMONAX_EQ} whether ``-cof'' refers to $\mathcal J \otimes \V^H$ or it's induction.
+        Thus the global monoid axiom implies in particular that $\O_{k-1}(\vect C) \to \O_{k}(\vect C)$ from \eqref{OUPUSHRE EQ}
+        is a weak equivalence in $\V^{\Aut(\vect C)}$ for all $k \geq 0$ and $\vect C \in G \ltimes \Sigma_{\mathfrak C}^{op}$. 
+        % First, we note that
+        % \[
+        %       G \cdot_H \left( (H \cdot_K A) \otimes X \right) = G \cdot_H \left( H \cdot_K \left(A \otimes X\right) \right)
+        %       = G \cdot_K \left(A \otimes X\right).
+        % \]
+        % Second, the following classes of maps are equal, using the fact that $G \cdot_H (-)$ is a left adjoint and the functoriality of $G \cdot_H (-)$ and $(-) \otimes X$.
+        % \begin{align*}
+        %   \left( G \cdot_H \left( \left(J^H\text{-cof}\right) \otimes \V^H \right)\text{-cell} \right) \mathbin{\cap} \mathcal W^G
+        %   & = 
+        %     \left( G \cdot_H \left( \left(J^H \otimes \V^H\right)\text{-cof}\right)\text{-cell} \right) \mathbin{\cap} \mathcal W^G \\
+        %   & =
+        %     \left( G \cdot_H \left(J^H \otimes \V^H\right)\text{-cof} \right) \mathbin{\cap} \mathcal W^G \\
+        %   & =
+        %     \left( G \cdot_H \left(J^H \otimes \V^H\right)\text{-cell} \right) \mathbin{\cap} \mathcal W^G \\
+        %   & =
+        %     \left( G \cdot_H \left(J \otimes \V^H\right)\text{-cell} \right) \mathbin{\cap} \mathcal W^G \\
+        %   & =
+        %   \left( G \cdot_H \left( \left(\mathcal J \otimes \V^H\right)\text{-cell} \right) \right) \mathbin{\cap} \mathcal W^G
+        % \end{align*}
+        % In particular, there is no difference in \eqref{GLOBMONAX_EQ} whether ``-cof'' refers to $\mathcal J \otimes \V^H$ or it's induction.
   \end{remark}
 }
 
@@ -8493,13 +8519,13 @@ We have the following generalization of \cite[Prop 4.5]{CM13b} (see also \cite[P
       If $T_e = \eta$, then $i$ is the canonical map $\varnothing \to \eta$,
       $W_! \partial \Omega[\eta] = \varnothing \to W(\eta) = \eta$,
       and so $G \cdot_H i$ is a generating cofibration from \eqref{IFJF_EQ} in $\sOp^G$.
-      When $|V(T)| \geq 1$, following Proposition \ref{WLEFTQPUSH PROP}
+      
+      When $|V(T)| \geq 1$, following Proposition \ref{WLEFTQPUSH PROP} and Example \ref{TENS_EX} (iv),
       it suffices to show that
       \[
-            i(partial C) = 
             (\partial \Delta[1] \to \Delta[1])^{\square \mathbf E^i(T_e)}
       \]
-      is a genuine cofibration in $\sSet^{\Aut(\partial C)}_\Fin$ with $C = \mathsf{lr}(T_e)$.
+      is a genuine cofibration in $\sSet^{\Aut(\partial C)}_\F$ with $C = \mathsf{lr}(T_e) \in H \ltimes \Sigma_{\boldsymbol{E}(T_e)}^{op}$.
       However, $\Aut(\partial C) = \Gamma$ for $\Gamma \leq H \times \Sigma_n$ the graph subgroup encoding the $H$-action on the set of leaves $\set{e_1, \dots, e_n}$,
       and since $\F$ is a weak indexing system and $T \in \Omega_\F$,
       $\Aut(\vect C) \in \F_n$,
@@ -11995,8 +12021,8 @@ We explore several consequences.
   \end{corollary}
   \todo[inline]{the statement is true as written, however the machinery to prove it entirely has not been developed.}
   \begin{proof}
-        We first show $f^{\**}$ preserves generating (trivial) cofibrations, as in Proposition \ref{GCOF_SYMMS_PROP}.
-        To start, let $X$ be a free symmetric sequence (cf. \eqref{FREESIGMA_EQ})
+        We first show $f^{\**}$ preserves generating (trivial) cofibrations.
+        To start, let $X$ be a free symmetric sequence
         \[
               X = \Sigma_{\mathfrak D}(-, \ksi)[K] = \Hom_{\Sigma_{\mathfrak D}}(-,\ksi) \cdot_{\Aut(\ksi)} K
         \]
