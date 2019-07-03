@@ -15,7 +15,7 @@
   linktoc=page
 }
 
-\externaldocument[TameAndSquare-]{TAS} % cite using names from other half
+\externaldocument[TAS-]{TameAndSquare} % cite using names from other half
 
 \usepackage{amsmath, amsthm}% {amsfonts, amssymb}
 
@@ -284,7 +284,8 @@ cd,patterns,calc}
       \label{THM1_C}
       Let $(\V,\otimes)$ denote either $(\sSet, \times)$ or $(\sSet_{\**} \wedge)$,
       and fix a $G$-set $\mathfrak C$.
-      Then there exist model structures on $\Op^{G, \mathfrak C}(\V)$ such that
+
+      Then there exists a model structure on $\Op^G_{\mathfrak C}(\V)$ such that
       $\O \to \O'$ is a weak equivalence (resp. fibration) if the maps
       \begin{equation}
             \label{THM1_C_EQ}
@@ -297,21 +298,71 @@ cd,patterns,calc}
       More generally, for $\F = \set{\F_n}_{n \geq 0}$ an \textit{arbitrary} $(G, \Sigma)$-family,
       there exists a model category structure on $\Op^{G, \mathfrak C}(\V)$, which we denote $\Op^{G, \mathfrak C}_\F(\V)$,
       with weak equivalences (resp. fibrations) determined by \eqref{THM1_C_EQ} for $\Gamma \leq (\F_n)_\ksi = \F_n \cap \Aut(\ksi)$.
-
-      Lastly, analogous semi-model category structures $\Op^{G, \mathfrak C}(\V)$, $\Op^{G, \mathfrak C}_\F(\V)$ exist provided that
+      Finally, analogous model structures $\Op^G_{\mathfrak C}(\V)$, $\Op^G_{\mathfrak C, \F}(\V)$ exist provided that
       $(\V, \otimes)$:
-      \begin{enumerate*}[label = (\roman*)]
+      \begin{enumerate}[label = (\roman*)]
       \item is a cofibrantly generated model category;
       \item is a closed monoidal model category with cofibrant unit;
-      \item has cellular fixed points;
-      \item has cofibranty symmetric pushout powers.
-      \end{enumerate*}
+      \item admits all equivariant model structures;
+      \item has cofibranty symmetric pushout powers;
+      \item satisfies the global monoid axiom.
+      \end{enumerate}
+
+      % -------------------- Old setup --------------------
+      % Let $(\V,\otimes)$ denote either $(\sSet, \times)$ or $(\sSet_{\**} \wedge)$,
+      % and fix a $G$-set $\mathfrak C$.
+      % Then there exist model structures on $\Op^{G, \mathfrak C}(\V)$ such that
+      % $\O \to \O'$ is a weak equivalence (resp. fibration) if the maps
+      % \begin{equation}
+      %       \label{THM1_C_EQ}
+      %       \O(\xi)^\Gamma \to \O'(\xi)^\Gamma
+      % \end{equation}
+      % are weak equivalences (resp. fibrations) in $\V$ for all
+      % $\mathfrak C$-signatures $\xi$ and
+      % graph subgroups $\Gamma \leq \Stab(\xi)$.
+
+      % More generally, for $\F = \set{\F_n}_{n \geq 0}$ an \textit{arbitrary} $(G, \Sigma)$-family,
+      % there exists a model category structure on $\Op^{G, \mathfrak C}(\V)$, which we denote $\Op^{G, \mathfrak C}_\F(\V)$,
+      % with weak equivalences (resp. fibrations) determined by \eqref{THM1_C_EQ} for $\Gamma \leq (\F_n)_\ksi = \F_n \cap \Aut(\ksi)$.
+
+      % Lastly, analogous semi-model category structures $\Op^{G, \mathfrak C}(\V)$, $\Op^{G, \mathfrak C}_\F(\V)$ exist provided that
+      % $(\V, \otimes)$:
+      % \begin{enumerate*}[label = (\roman*)]
+      % \item is a cofibrantly generated model category;
+      % \item is a closed monoidal model category with cofibrant unit;
+      % \item has cellular fixed points;
+      % \item has cofibranty symmetric pushout powers.
+      % \end{enumerate*}
 \end{theorem}
 
 \begin{remark}
-      As $\Cat^{G, \mathfrak C}(\V) = \Op^{G, \mathfrak C}(\V) \downarrow \**$,
+      As $\Cat^{G, \mathfrak C}(\V) = \Op^G_{\mathfrak C}(\V) \downarrow \**$,
       this produces $G$-model structures on $\V$-enriched categories with a fixed set of objects.
 \end{remark}
+
+\todo[inline]{come back}
+
+\begin{theorem}
+      \label{THMII}
+      Let $(\V,\otimes)$ denote either $(\sSet, \times)$ or $(\sSet_{\**} \wedge)$,
+      and let $\F = \set{\F_n}_{n \geq 0}$ a $(G, \Sigma)$-family which respects units.
+      Then there exists a model structure on $\Op^G(\V)$, denoted $\Op^G_\F(\V)$, such that
+      a map $F \colon \O \to \O'$ is a weak equivalence if
+      \begin{enumerate}[label = (\alph*)]
+      \item $\O \to F^{\**}\O'$ is a weak equivalence in $\Op^G_{\mathfrak C(\O), \F}(\V)$ and
+      \item $\pi_0(j^{\**}F^H)$ is essentially surjective for all $H \in \F_1$.
+      \end{enumerate}
+      
+      Finally, analogous model structures $\Op^G_{\F}(\V)$ exist provided that
+      $(\V, \otimes)$:
+      \begin{enumerate}[label = (\roman*)]
+      \item is a cofibrantly generated model category;
+      \item is a closed monoidal model category with cofibrant unit;
+      \item has acyclic cofibrant fixed points;
+      \item has cofibranty symmetric pushout powers;
+      \item satisfies the global monoid axiom.
+      \end{enumerate}
+\end{theorem}
 
 
 
@@ -631,15 +682,15 @@ is the standard map, which is clear.
 \begin{example}
       \label{TENS_EX}
       We warn that the tensoring left adjoint, denoted $(-) \otimes_{\Fin} K: \sOp \to \sOp$, is in general \textit{not} levelwise.
-      However, for $C \in \Sigma$, we have
-      \begin{enumerate}
-      \item $\Omega(C) \otimes_\F K(\vect D) = \Omega(C)(\vect D) \times K$,
-      \item $\Omega(C) \otimes_\F K = (\mathbb F_{\Set} \Sigma_\bullet[C]) \otimes_F K = \mathbb F_{\sSet} (\Sigma_\bullet[C] \cdot K)$.
-      \item $\Hom_{\Op}(\Omega(C) \otimes_\Fin K, \O) = \coprod_{\mbox{$C$-profiles $\vect C$}} \Hom_{\sSet}(K, \O(\vect C)),$
+      However, for $C \in \Sigma$, we have the following:
+      \begin{enumerate}[label = (\roman*)]
+      \item $\Omega(C) \otimes_\Fin K(\vect D) = \Omega(C)(\vect D) \times K$,
+      \item $\Omega(C) \otimes_\Fin K = (\mathbb F_{\Set} \Sigma_\bullet[C]) \otimes_\Fin K = \mathbb F_{\sSet} (\Sigma_\bullet[C] \cdot K)$.
+      \item $\Hom_{\Op}(\Omega(C) \otimes_\Fin K, \O) = \displaystyle\coprod_{\mbox{$C$-profiles $\vect C$}} \Hom_{\sSet}(K, \O(\vect C)),$
       \item The set of squares on the left below are in bijection with the set of squares are the right, where $\vect C$ runs over all $C$-profiles.
             \begin{equation}
                   \begin{tikzcd}
-                        \Omega(C) \otimes_\F K \arrow[r] \arrow[d, "u"']
+                        \Omega(C) \otimes_\Fin K \arrow[r] \arrow[d, "u"']
                         &
                         \O \arrow[d, "F"]
                         & %----------
@@ -647,7 +698,7 @@ is the standard map, which is clear.
                         &
                         \O(\vect C) \arrow[d, "{F(\vect C)}"]
                         \\
-                        \Omega(C) \otimes_\F L \arrow[r]
+                        \Omega(C) \otimes_\Fin L \arrow[r]
                         &
                         \P
                         & % ----------
@@ -1412,41 +1463,74 @@ exist for all groups $G$.
 
 
 
-The following definition is adapted from \cite{Ste16}.
 
-\begin{definition}\label{CELLFP_DEF}
-We say $\V$ has \textit{cellular fixed points} if
-for all finite groups $G$ and subgroups $H, K \leq G$ one has that:
-	\begin{enumerate}[label = (\roman*)]
-	\item $(-)^H \colon \V^G \to \V$ preserves direct colimits of diagrams in $\V^G$ where each underlying arrow in $\V$ is a cofibration;
-      \item $(-)^H \colon \V^G \to \V$ preserves pushouts where one leg is $(G/K) \cdot f$, for $f$ a cofibration in $\V$.
-      \item for each object $X \in \V$, the natural map $(G/K)^H \cdot X \to ((G/K) \cdot X)^H$ is an isomorphism.
-      \end{enumerate}
-\end{definition}
+The existence of these model structures will be sufficient for Theorem \ref{THM1_C}.
+However, to prove Theomem \ref{THMII}.
+To prove Theorem  main results {\color{red} reference}, we will need some control over the equivariant model structures, namely
+that $\V$ has \textit{acyclic cofibrant fixed points} for all finite groups $G$:
+\begin{equation}
+      \label{GTCOFH_COF_EQ}
+      \mbox{$(\bigstar)$: fixed points of genuine trivial cofibrations in $\V^G$ are trivial cofibrations.}
+\end{equation}
+Specifically, $\left(\mathcal J_G\text{-cof}\right)^H \subseteq \mathcal J\text{-cof}$.
 
-
-\begin{remark}\label{LEVEL_COF_REM}
-      A consequence of cofibrantly-generated $\V$ having cellular fixed points
-      (cf. \cite[Lemma A.3]{Ste16})
-      (cf. the proof of \cite[Prop. 6.3(i)]{BP_geo})
-      is that for any genuine (trivial) cofibration $f \in \V^G_{gen}$,
-      the map $f^H$ is a (trivial) cofibration in $\V$ for all $H \leq G$.
-\end{remark}
-
-For any groupoid $\G$ there is an equivalence of categories
-$\G \simeq \coprod_{[x] \in ob(\G)/\simeq} Aut(x)$,
-where $ob(\G)/\simeq$
-denotes isomorphism classes of objects,
-and thus also equivalences
-$\V^{\G} \simeq \prod_{[x] \in ob(\G)/\simeq} \V^{Aut(x)}$,
-so that \cite[Thm. 2.10]{Ste16}
-immediately implies the following.
+This is sufficent to show that $\V$ admits all equivariant model structures.
+\begin{lemma}
+      Suppose $\V$ is a strongly cofibrantly generated model category which satisfies $(\bigstar)$.
+      Then $\V$ admits all equivariant model structures.
+\end{lemma}
+\begin{proof}
+      This follows from \cite[Thm. A.1]{Ste16}:
+      Following the numbering there,
+      the necessary smallness condition $(i)$ on $\mathcal I_G$ (resp. $\mathcal J_G$).
+      follows from the fact that
+      fixed points commute with filtered colimits in the category of $G$-sets
+      and the smallness of $\mathcal I$ (resp. $\mathcal J$) relative to $\mathcal I$-cell (resp. $\mathcal J$-cell);
+      the strongness of cofibrant generation ensures that $\mathcal J_G$-cells in $\V^G$ forget to $\mathcal J$-cells in $\V$.
+      Condition $(ii)$ is exactly $(\bigstar)$.  
+\end{proof}
 
 
-\begin{theorem}\label{FMODEL THM}
-      If $\V$ is a cofibrantly generated model category with cellular fixed points, $\G$ is a groupoid and $\F$ a family of subgroups on $\G$,
-      then the $\F$-model structure $\V^\G_\F$ exists.
-\end{theorem}      
+
+
+
+
+
+% The following definition is adapted from \cite{Ste16}.
+
+% \begin{definition}\label{CELLFP_DEF}
+% We say $\V$ has \textit{cellular fixed points} if
+% for all finite groups $G$ and subgroups $H, K \leq G$ one has that:
+% 	\begin{enumerate}[label = (\roman*)]
+% 	\item $(-)^H \colon \V^G \to \V$ preserves direct colimits of diagrams in $\V^G$ where each underlying arrow in $\V$ is a cofibration;
+%       \item $(-)^H \colon \V^G \to \V$ preserves pushouts where one leg is $(G/K) \cdot f$, for $f$ a cofibration in $\V$.
+%       \item for each object $X \in \V$, the natural map $(G/K)^H \cdot X \to ((G/K) \cdot X)^H$ is an isomorphism.
+%       \end{enumerate}
+% \end{definition}
+
+
+% \begin{remark}\label{LEVEL_COF_REM}
+%       A consequence of cofibrantly-generated $\V$ having cellular fixed points
+%       (cf. \cite[Lemma A.3]{Ste16})
+%       (cf. the proof of \cite[Prop. 6.3(i)]{BP_geo})
+%       is that for any genuine (trivial) cofibration $f \in \V^G_{gen}$,
+%       the map $f^H$ is a (trivial) cofibration in $\V$ for all $H \leq G$.
+% \end{remark}
+
+% For any groupoid $\G$ there is an equivalence of categories
+% $\G \simeq \coprod_{[x] \in ob(\G)/\simeq} Aut(x)$,
+% where $ob(\G)/\simeq$
+% denotes isomorphism classes of objects,
+% and thus also equivalences
+% $\V^{\G} \simeq \prod_{[x] \in ob(\G)/\simeq} \V^{Aut(x)}$,
+% so that \cite[Thm. 2.10]{Ste16}
+% immediately implies the following.
+
+
+% \begin{theorem}\label{FMODEL THM}
+%       If $\V$ is a cofibrantly generated model category with cellular fixed points, $\G$ is a groupoid and $\F$ a family of subgroups on $\G$,
+%       then the $\F$-model structure $\V^\G_\F$ exists.
+% \end{theorem}      
 
 \begin{remark}\label{VGFGEN REM}
 	Letting $\mathcal{I}$ (resp. $\mathcal{J}$)
@@ -1466,37 +1550,6 @@ $i$ ranges over $\mathcal{I}$ and
 $j$ ranges over $\mathcal{J}$.
 \end{remark}
 
-
-%For completeness, we recall a main result of \cite{Ste16}, which transfers model structures along several adjuctions.
-%\begin{theorem}[{\cite[Thm. 2.10]{Ste16}}]
-%      Let $\V$ be cofibrantly generated model category with cellular fixed points, $\F$ any family of subgroups of $G$ containing the trivial subgroup, and $\mathsf O_\F$ the full subcategory of $\mathsf O_G$ spanned by the $G/H$ with $H \in \F$.
-%      Then
-%      \begin{itemize}
-%      \item the projective model structure on $\V^{\mathsf O_\F^{op}}$ exists;
-%      \item the $\F$-model structure on $\V^G$ exists, where an arrow $f \in \V$ is a weak equivalence or fibration iff each $f^H$ is in $\V$ for each $H \in \F$; and
-%      \item the inclusion $\V^G \xrightarrow{i_{\**}} \V^{\mathsf O_F^{op}}$, $i_{\**}X(G/H) = X^H$ is a right Quillen equivalence.
-%      \end{itemize}
-%\end{theorem}      
-
-{\color{blue} \textbf{A Weaker condition:}
-  
-  \begin{remark}
-        In fact, the proof of \cite[Thm. 2.10]{Ste16} follows from the two condition below:
-        \begin{enumerate}[label = (\alph*)]
-        \item The domains of $\mathcal I_G$ (resp. $\mathcal J_G$) are small rel $\mathcal I_G$-cell (resp. $\mathcal J_G$-cell).
-        \item $\left(\mathcal J_G\text{-cell}\right)^H \subseteq \mathcal J\text{-cell}$
-        \end{enumerate}
-
-        In some cases, (a) can be checked by hand (and follows from $(i)$ and $(ii)$ of cellularity above), while (b) follows from a weakening of the cellularity conditions above:
-        We say $\V$ has \textit{weak acyclic cellular fixed points} if for all finite groups $G$ and subgroups $H$,
-        \begin{enumerate}[label = (\roman*)]
-        \item $(-)^H \colon \V^G \to \V$ preserves direct colimits of maps in $\mathcal J^G$;
-        \item $(-)^H \colon \V^G \to \V$ preserves pushouts of $\mathcal J^G$
-        \item $(\mathcal J_G)^H \subseteq \mathcal J$-cell.
-        \end{enumerate}
-  \end{remark}
-
-} % ------------------------------ BLUE ----------------------------------------
 
 
 
@@ -2557,7 +2610,7 @@ $
 is as in Proposition \ref{EQQUILADJ PROP}
 and $n_k^{(\O,X,Y)}$ is the natural transformation in 
 $\mathcal{V}^{G \ltimes \Omega^a_{\mathfrak{C}}[k]^{op}}$
-whose constituent arrows for $\vect{U} \in \Omega^a[k]$ are
+whose constituent arrows for $\vect{U} \in \Omega^a_{\mathfrak C}[k]$ are
 \begin{equation}\label{NKOXY EQ}
 n_k^{(\O,X,Y)}(\vect{U})=
 	\left(
@@ -2574,13 +2627,59 @@ n_k^{(\O,X,Y)}(\vect{U})=
 \end{equation}
 \end{lemma}
 
+
+Considering \eqref{NKOXY}, we will need the following additional axiom to prove our first main theorem.
+
+\begin{definition}
+      Let $\V$ be a cofibrantly generated monoidal model category which admits all equivariant model structures.
+
+      For a finite group $G$, let $\mathcal J^{\otimes}_G$ denote the class of \textit{global $\otimes$-trivial-cofibrations} in $\V^G$,
+      \begin{equation}
+            \label{GLOBMONAX_EQ}
+            \left( \mathcal J \otimes \V^G \right) \text{-cof}.
+      \end{equation}
+      
+      We say $\V$ satisfies the \textit{global monoid axiom} if $\mathcal J^{\otimes}_G$ is contained in $\mathcal W_G$ for all finite groups $G$.
+\end{definition}
+
+\begin{remark}
+      By quick adjunction arguements, we note that for $A \in \V$ and $B \in \V^G$, we have
+      \[
+            G/H \cdot A \otimes B \simeq G/G \cdot A \otimes G \cdot_H B \simeq G \cdot_H (A \otimes B),
+      \]
+      and thus $J \otimes \V^G = J^G \otimes \V^G$.
+      % We note that
+      % \[
+      %       G \cdot_H \left( (H \cdot_K A) \otimes X \right) = G \cdot_H \left( H \cdot_K \left(A \otimes X\right) \right)
+      %       = G \cdot_K \left(A \otimes X\right).
+      % \]
+      % Second, the following classes of maps are equal, using the fact that $G \cdot_H (-)$ is a left adjoint and the functoriality of $G \cdot_H (-)$ and $(-) \otimes X$.
+      % \begin{align*}
+          %           \left( G \cdot_H \left( \left(J^H\text{-cof}\right) \otimes \V^H \right)\text{-cell} \right) \mathbin{\cap} \mathcal W^G
+          %           & = 
+          %           \left( G \cdot_H \left( \left(J^H \otimes \V^H\right)\text{-cof}\right)\text{-cell} \right) \mathbin{\cap} \mathcal W^G \\
+          %           & =
+          %           \left( G \cdot_H \left(J^H \otimes \V^H\right)\text{-cof} \right) \mathbin{\cap} \mathcal W^G \\
+          %           & =
+          %           \left( G \cdot_H \left(J^H \otimes \V^H\right)\text{-cell} \right) \mathbin{\cap} \mathcal W^G \\
+          %           & =
+          %           \left( G \cdot_H \left(J \otimes \V^H\right)\text{-cell} \right) \mathbin{\cap} \mathcal W^G \\
+          %           & =
+          %           \left( G \cdot_H \left( \left(\mathcal J \otimes \V^H\right)\text{-cell} \right) \right) \mathbin{\cap} \mathcal W^G
+          %     \end{align*}
+          %     In particular, there is no difference in \eqref{GLOBMONAX_EQ} whether ``-cof'' refers to $\mathcal J \otimes \V^H$ or it's induction.
+\end{remark}
+
+
+
+
+\begin{remark}
+      If we only require this for the trivial group $G = \**$, this recovers the usual \textit{monoid axiom} of Schwede-Shipley \cite{SS00}.
+\end{remark}
+
 We can now prove our first main theorem.
 
-\begin{proof}[Proof of Theorem \ref{THM1_C}]
-Let us first address the main case where $\V$
-is either $\mathsf{sSet}$ or $\mathsf{sSet}_{\**}$, 
-so that all objects in $\V^{\G}$ are genuine cofibrant for any groupoid $\G$.
-
+\begin{proof}[Proof of Theorem \ref{THM1_C}]     
 By \cite[Thm. 11.3.2]{Hir03} we need only show that
 the pushouts maps $\O \to \O[u]$ in \eqref{OURE EQ}
 are $\F$-weak equivalences in $\mathsf{Sym}^G_{\mathfrak{C}}$
@@ -2591,8 +2690,11 @@ $\mathsf{Sym}^G_{\mathfrak{C}}$.
 Moreover, since trivial $\F$-cofibrations are genuine cofibrations and 
 genuine weak equivalences are $\F$-weak equivalences, one needs only consider the genuine case, i.e. the case of $\F_{all}$ the family of all subgroups.
 
-By the filtration \eqref{OUFILRE EQ} and {\color{blue} reference}
-\todo{{\color{blue}level genuine trivial cofibrations are closed under transfinite composites and pushouts, as colimits are computed levelwise}},
+Let us first address the main case where $\V$
+is either $\mathsf{sSet}$ or $\mathsf{sSet}_{\**}$, 
+so that all objects in $\V^{\G}$ are genuine cofibrant for any groupoid $\G$.
+By the filtration \eqref{OUFILRE EQ}
+and the fact that level genuine trivial cofibrations are closed under transfinite composites and pushouts, % as colimits are computed levelwise,
 it thus suffices to check that
 each map $\O_{k-1} \to \O_k$
 is a level genuine trivial cofibration in $\mathsf{Sym}^G_{\mathfrak{C}}$,
@@ -2656,94 +2758,48 @@ Since the maps in \eqref{NKOXY3 EQ} are a genuine cofibration and a genuine triv
 % (note that $k \geq 1$).
 % Propositions \ref{EQQUILADJ PROP} and \ref{RESGEN PROP}
 % now yields that
-\eqref{NKOXY EQ} is indeed a genuine trivial cofibration in $\V^{\Aut(\vect U)}$,
+\eqref{NKOXY EQ} is indeed a genuine trivial cofibration in $\V^{\Aut_{G \ltimes \Sigma_{\mathfrak C}}(\vect U)}$,
 finishing the proof of the 
 case where $\V$ is $\mathsf{sSet}$ or $\mathsf{sSet}_{\**}$.
 
-For the semi-model structure claim, 
-we replace the use of \cite[Thm. 11.3.2]{Hir03} with that of 
-\cite[Thm. 2.2.2]{WY18}
-which now requires us to show that 
-$\O \to \O[u]$
-is a (trivial) genuine cofibration in $\mathsf{Sym}^G_{\mathfrak{C}}$
-whenever $u$ is a (trivial) genuine cofibration in $\mathsf{Sym}^G_{\mathfrak{C}}$
-and $\O$ is cofibrant in $\mathsf{Op}^G_{\mathfrak{C}}$.
-But now note that the argument given above proves precisely the analogue claim with 
-``$\O$ is cofibrant in $\mathsf{Op}^G_{\mathfrak{C}}$''
-replaced with 
-``$\O$ is cofibrant in $\mathsf{Sym}^G_{\mathfrak{C}}$'',
-so that we are reduced to showing that if 
-$\O$ is cofibrant in $\mathsf{Op}^G_{\mathfrak{C}}$
-then it is also cofibrant in $\mathsf{Sym}^G_{\mathfrak{C}}$.
-This now follows by induction on the cell complex decomposition of $\O$,
-with the base case stating that the initial operad $\mathbb{F}\emptyset$ is cofibrant in $\mathsf{Sym}^G_{\mathfrak{C}}$
-following from the assumption that $\mathcal{V}$ has a cofibrant unit
-and the induction step following from the already established cofibrancy of the maps $\O \to \O[u]$ in $\mathsf{Sym}^G_{\mathfrak{C}}$.
+% -------------------- GENERAL CASE --------------------
+For general $(\V, \otimes)$, the hypotheses and the argument above imply that the rightmost map in \eqref{NKOXY2 EQ} is a genuine trivial cofibration in $\V^{\Aut(\vect U)}$,
+and thus
+\[
+      n_k^{(\O,X,Y)}(\vect U) \cdot_{\Aut_{G \ltimes \Omega^a_{\mathfrak C}[k]}(\vect U)}\Aut_{G \ltimes \Sigma_{\mathfrak C}}(\vect C) \subseteq \left( \mathcal J \otimes \V^{\Aut(\vect C)}\right)\text{-cell}
+\]
+for all $\vect U \in \Omega^a_{\mathfrak C}[k]$, $k \geq 0$, with $\mathsf{lr}(\vect U) = \vect C$.
+Hence the global monoid axiom implies that each $\O_{k-1}(\vect C) \to \O_k(\vect C)$ and their composite
+$\O(\vect C) \to \O[u](\vect C)$ are
+genuine weak equivalences in $\V^{\Aut_{G \ltimes \Sigma_{\mathfrak C}}(\vect C)}$.
+The result follows.
+% For the semi-model structure claim, 
+% we replace the use of \cite[Thm. 11.3.2]{Hir03} with that of 
+% \cite[Thm. 2.2.2]{WY18}
+% which now requires us to show that 
+% $\O \to \O[u]$
+% is a (trivial) genuine cofibration in $\mathsf{Sym}^G_{\mathfrak{C}}$
+% whenever $u$ is a (trivial) genuine cofibration in $\mathsf{Sym}^G_{\mathfrak{C}}$
+% and $\O$ is cofibrant in $\mathsf{Op}^G_{\mathfrak{C}}$.
+% But now note that the argument given above proves precisely the analogue claim with 
+% ``$\O$ is cofibrant in $\mathsf{Op}^G_{\mathfrak{C}}$''
+% replaced with 
+% ``$\O$ is cofibrant in $\mathsf{Sym}^G_{\mathfrak{C}}$'',
+% so that we are reduced to showing that if 
+% $\O$ is cofibrant in $\mathsf{Op}^G_{\mathfrak{C}}$
+% then it is also cofibrant in $\mathsf{Sym}^G_{\mathfrak{C}}$.
+% This now follows by induction on the cell complex decomposition of $\O$,
+% with the base case stating that the initial operad $\mathbb{F}\emptyset$ is cofibrant in $\mathsf{Sym}^G_{\mathfrak{C}}$
+% following from the assumption that $\mathcal{V}$ has a cofibrant unit
+% and the induction step following from the already established cofibrancy of the maps $\O \to \O[u]$ in $\mathsf{Sym}^G_{\mathfrak{C}}$.
 \end{proof}
 
-\begin{remark}
-      The conditions we actually need are:
-      \begin{enumerate}[label = (\roman*)]
-      \item genuine model structures on $\V^\G$ exist,
-      \item cofibrant symmetric pushout powers,
-      \item \textit{global monoid axiom} (\textbf{USGMA}):
 
-            Let $\mathcal J^{\otimes}_G$ denote the class of \textit{global $\otimes$-trivial-cofibrations} in $\V^G$,
-            \begin{equation}
-                  \label{GLOBMONAX_EQ}
-                  \left( \mathcal J \otimes \V^G \right) \text{-cof}.
-            \end{equation}
-
-            We say $\V$ satisfies the \textit{global monoid axiom} if $\mathcal J^{\otimes}_G$ is contained in $\mathcal W^G$ for all finite groups $G$.
-      \end{enumerate}
-\end{remark}
-
-{\color{OliveGreen}
-  \begin{remark}
-        \label{GLOBMONAX_REM}
-        By quick adjunction arguements, we note that for $A \in \V$ and $B \in \V^G$, we have
-        \[
-              G/H \cdot A \otimes B \simeq G/G \cdot A \otimes G \cdot_H B \simeq G \cdot_H (A \otimes B).
-        \]
-        Thus the global monoid axiom implies in particular that $\O_{k-1}(\vect C) \to \O_{k}(\vect C)$ from \eqref{OUPUSHRE EQ}
-        is a weak equivalence in $\V^{\Aut(\vect C)}$ for all $k \geq 0$ and $\vect C \in G \ltimes \Sigma_{\mathfrak C}^{op}$. 
-        % First, we note that
-        % \[
-        %       G \cdot_H \left( (H \cdot_K A) \otimes X \right) = G \cdot_H \left( H \cdot_K \left(A \otimes X\right) \right)
-        %       = G \cdot_K \left(A \otimes X\right).
-        % \]
-        % Second, the following classes of maps are equal, using the fact that $G \cdot_H (-)$ is a left adjoint and the functoriality of $G \cdot_H (-)$ and $(-) \otimes X$.
-        % \begin{align*}
-        %   \left( G \cdot_H \left( \left(J^H\text{-cof}\right) \otimes \V^H \right)\text{-cell} \right) \mathbin{\cap} \mathcal W^G
-        %   & = 
-        %     \left( G \cdot_H \left( \left(J^H \otimes \V^H\right)\text{-cof}\right)\text{-cell} \right) \mathbin{\cap} \mathcal W^G \\
-        %   & =
-        %     \left( G \cdot_H \left(J^H \otimes \V^H\right)\text{-cof} \right) \mathbin{\cap} \mathcal W^G \\
-        %   & =
-        %     \left( G \cdot_H \left(J^H \otimes \V^H\right)\text{-cell} \right) \mathbin{\cap} \mathcal W^G \\
-        %   & =
-        %     \left( G \cdot_H \left(J \otimes \V^H\right)\text{-cell} \right) \mathbin{\cap} \mathcal W^G \\
-        %   & =
-        %   \left( G \cdot_H \left( \left(\mathcal J \otimes \V^H\right)\text{-cell} \right) \right) \mathbin{\cap} \mathcal W^G
-        % \end{align*}
-        % In particular, there is no difference in \eqref{GLOBMONAX_EQ} whether ``-cof'' refers to $\mathcal J \otimes \V^H$ or it's induction.
-  \end{remark}
-}
 
 {\color{blue} % ------------------------------ COLOR BLUE ------------------------------
-  \begin{lemma}
-        Suppose genuine model structures exist for $\V$.
-        Then any of the following conditions imply the \textbf{USGMA}.
-        \begin{enumerate}[label = (\alph*)]
-        \item $J \otimes \V^G \subseteq J^G\text{-cell}$ (Proposition \ref{EQQUILADJ PROP}).
 
-              In particular, this holds if all objects in $\V^G$ are cofibrant (Propositions \ref{EQQUILADJ PROP} and \ref{RESGEN PROP}).
-              % \item $(J \otimes \V^G)\text{-cell}$ are genuine weak equivalences between cofibrant objects (Ken Brown's Lemma and Proposition \ref{EQQUILADJ PROP}).
-              % ---------- This no longer works: in the application, this would mean we get genuine $\Aut{\vect U}$- and then $\Aut(\vect C)$-equivalences for each $k$, but not that these compose to remain weak equivalences in $\Aut(\vect C)$.
-        \end{enumerate}
-  \end{lemma}
-  \todo[inline]{can we get better than this using ``fixed points of trivial cofibs are cofibs'' + ``monoid axiom''?}
-
+  \textbf{J-CELL PROP}
+  
   \begin{lemma}
         $\F$-trivial cofibrations in $\Op^G_{\mathfrak C}$ are levelwise global $\otimes$-trivial-cofibrations.
   \end{lemma}
@@ -2752,7 +2808,7 @@ and the induction step following from the already established cofibrancy of the 
   \end{proof}
 
   \begin{lemma}
-        The \textbf{USGMA} implies Proposition \ref{J-CELL_PROP}.
+        The global monoid axiom implies Proposition \ref{J-CELL_PROP}.
   \end{lemma}
   \begin{proof}
         The proof of \ref{J-CELL_PROP} shows that pushouts of generating trivial cofibrations are either
@@ -2761,75 +2817,9 @@ and the induction step following from the already established cofibrancy of the 
         \item a composite of an $\F$-trivial cofibration with an essentially-surjective local isomorphism.
         \end{enumerate}
         All three of these maps are essentially surjective AND levelwise global $\otimes$-trivial-cofibrations,
-        and Lemma \ref{TRANSCOMP_ES_LEM} and \textbf{USGMA} imply that any transfinite composite of such maps is
+        and Lemma \ref{TRANSCOMP_ES_LEM} and the global monoid axiom imply that any transfinite composite of such maps is
         essentially surjective and a levelwise weak equivalence.
   \end{proof}
-
-  % \textbf{For J-Cell Lemma:}
-
-  % \begin{definition}
-  %       Given a saturated class $K$ in $\V$, we say the weak equivalences $\mathcal W$ in $\V$ are \textit{$K$-perfect} if
-  %       $\mathcal W$ is stable under filtered colimits of maps in $K$; that is,
-  %       for any filtered category $\mathcal D$, we have a lifting
-  %       \[
-  %             \begin{tikzcd}
-  %                   &
-  %                   \mathcal W \arrow[d, hookrightarrow]
-  %                   \\
-  %                   \Fun_{K \cap \mathcal W}(\mathcal D, \V) \arrow[r, "\colim"'] \arrow[ur, dashed]
-  %                   &
-  %                   \V
-  %             \end{tikzcd}
-  %       \]
-  %       where $\Fun_{K \cap \mathcal W}(\mathcal D, \V) \subseteq \Fun(\mathcal D, \V)$ is the wide subcategory consisting of those natural transformations consisting of maps in $K \cap \mathcal W$,
-  %       and $\mathcal W \subseteq \V$ is the wide subcategory defined by $\mathcal W$.
-  % \end{definition}
-  
-  % \begin{definition}
-  %       Given a homomorphism of finite groups $H \to G$, denote by $\mathcal I^\otimes_{H,G}$ the class of maps in $\V^G$ given by
-  %       \begin{equation}
-  %             \label{IOTIMESHG_EQ}
-  %             \mathcal I^{\otimes}_{H,G} := G \cdot_H \left(\mathcal I \otimes \V^H\right)\text{-cell}.
-  %       \end{equation}
-  %       A map in $\V^G$ is a \textit{global $\otimes$-cofibration} if it is in some $\mathcal I^{\otimes}_{H,G}$ for some $H \to G$.
-        
-  %       We say $\V$ is \textit{globally $\otimes$-perfect} if
-  %       the class of genuine weak equivalences $\mathcal W^G \subseteq \V^G$ is $\mathcal I^\otimes_{H,G}$-perfect for all $H \to G$.
-  % \end{definition}
-
-  % \begin{lemma}
-  %       Suppose genuine model structures exist for $\V$. Then any of the following conditions imply that $\V$ is globally $\otimes$-perfect:
-  %       \begin{enumerate}
-  %       \item $\mathcal I \otimes \V^G \subseteq I^G\text{-cell}$ (Proposition \ref{EQQUILADJ PROP}).
-
-  %             In particular, this holds if all objects in $\V^G$ are cofibrant (Propositions \ref{EQQUILADJ PROP} and \ref{RESGEN PROP}).
-  %       \item 
-  %       \end{enumerate}
-  % \end{lemma}
-  
-  % \todo[inline]{similarly, can we break this down?}
-  
-  % \begin{remark}
-  %       By an argument analogous to Remark \ref{GLOBMONAX_REM}, the class of maps $\mathcal I^{\otimes}_{H,G} \mathbin{\cap} \mathcal W^G$ is equal to the class of maps
-  %       \begin{equation}
-  %             G \cdot_H \left( \left(\mathcal I^H\text{-cof}\right) \otimes \V^H \right) \mathbin{\cap} \mathcal W^G.
-  %       \end{equation}
-  % \end{remark}
-
-
-  
-  % \begin{corollary}[cf. Corollary \ref{LGC_COR}]
-  %       If $\V$ is globally $\otimes$-perfect, then 
-  %       any cofibration in $\Op^G_{\mathfrak C}$ is levelwise a global $\otimes$-cofibration.
-  % \end{corollary}
-  % \begin{proof}
-  %       This follows from the proof of Theorem \ref{THM1_C}.
-  % \end{proof}
-
-  % \begin{lemma}
-  %       Global $\otimes$-cofibrations in $\V^G$ are closed under transfinite composition.
-  % \end{lemma}
-
 } % ----------------------------------- COLOR BLUE -----------------------------------
 
 
@@ -2909,42 +2899,6 @@ whenever $\F \subseteq \phi^{\**} \bar{\F}$.
 
 
 
-We record a particular consequence of the proof of Theorem \ref{THM1_C}.
-\begin{corollary}
-      \label{LGC_COR}
-      Suppose $\V$ has the hypotheses of Theorem \ref{THM1_C},
-      let $\mathfrak C$ be a $G$-set, and $f: \O \to \P$ a map in $\Op^{G,\mathfrak C}(\V)$.
-      If $f$ is a (trivial) cofibration in $\Op^{G, \mathfrak C}_\F(\V)$ for some $(G, \Sigma)$-family $\F$,
-      and $\O$ is level genuine cofibrant, then
-      $f(\vect C)$ is a genuine (trivial) cofibration in $\V^{\Aut(C)}_{gen}$ for all $\mathfrak C$-signatures $\vect C \in G \ltimes \Sigma_{\mathfrak C}$.
-\end{corollary}
-
-
-
-
-
-\begin{remark}
-In both Theorem \ref{THM1_C} and Corollary \ref{LGC_COR}, as well as in \cite{BP_geo},
-the cofibrancy of the unit is necessary so that the initial operad $\mathbb F(\varnothing)$ is level genuine cofibrant.
-\end{remark}
-
-
-
-
-\begin{remark}
-      \label{CATV_MC_REM}
-      As a corollary, we get (semi)-model structures on $\Cat^{G}_{ \mathfrak C}(\V) = \Op^{G}_{\mathfrak C}(\V) \downarrow \**$,
-      so in particular we have cofibrant replacements in $\Cat_{\mathfrak C}(\V)$ for any set $\mathfrak C$.
-\end{remark}
-
-
-\begin{remark}
-      \label{TOP_FULL_REM}
-      The category $\Op^{G,\mathfrak C}(\Top)$ actually has full model structures lifted from $\Sym^{G, \mathfrak C}_\F(\Top)$
-      for any $(G, \Sigma)$-family $\F$,
-      using an argument analogous to \cite[Thm. 3.1]{GW18}.
-\end{remark}
-
 
 
 
@@ -3023,7 +2977,64 @@ the cofibrancy of the unit is necessary so that the initial operad $\mathbb F(\v
 \end{example}
 
 
+\subsection{Sufficient conditions}
 
+\todo[inline]{here or later?}
+
+We consider two conditions on $(\V,\otimes)$ necessary for our first main result, Theorem \ref{THM1_C}:
+\begin{itemize}
+\item \mbox{$\V$ admits equivariant model structures.}
+\item \mbox{$\V$ satisfies the global monoid axiom.}
+\end{itemize}
+
+In this short section, we identify several sufficient conditions which are easier to check in practice.
+
+The following definitions synthesize parts of the \textit{cellularity} conditions of \cite{Ste16} with the monoid axiom (Definition \ref{MONAX_DEF}).
+
+\begin{definition}
+      We say $\V$ has \textit{weak acyclic cellular fixed points} (resp. \textit{monoidal weak acyclic cellular fixed points}) if for all finite groups $G$ and subgroups $H$,
+      \begin{enumerate}[label = (\roman*)]
+      \item $(-)^H \colon \V^G \to \V$ preserves direct colimits of maps in $\mathcal J_G$ (resp. $\mathcal J \otimes \V^G$).
+      \item $(-)^H \colon \V^G \to \V$ preserves pushouts of $\mathcal J_G$ (resp. $\mathcal J \otimes \V^G$).
+      \item $(-)^H$ sends $\mathcal J_G$ (resp. $\mathcal J \otimes \V^G$) to $\mathcal J$-cof (resp. $(\mathcal J \otimes \V^G)$-cof).
+      \end{enumerate}
+\end{definition}
+
+The following are straightforward.
+\begin{lemma}
+      Suppose $\V$ is a strongly cofibrantly generated model category.
+      \begin{enumerate}[label=(\roman*)]
+      \item If $\V$ has weak acyclic cellular fixed points, then $\V$ satifies $(\bigstar)$ from \eqref{GTCOFH_COF_EQ}, and hence
+            admits all equivariant model structures.
+      \item If $\V$ has monoidal weak acyclic cellular fixed points and additionally satisfies the monoid axiom,
+            then $\V$ satisfies the global monoid axiom.
+      \end{enumerate}
+\end{lemma}
+
+
+\todo[inline]{come back}
+
+Clearly monoidal weak acyclic cellularity implies the non-monoidal condition.
+
+\begin{lemma}
+      Suppose $\mathcal J \otimes \V^G \subseteq \mathcal J_G$-cell. Then
+      \begin{enumerate}[label=(\roman*)]
+      \item $\V$ satisfies the global monoid axiom.
+      \item $\V$ has weak acyuclic cellular fixed points iff $\V$ has monoidal weak acyclic cellular fixed points.
+      \end{enumerate}
+\end{lemma}
+\begin{proof}
+      This follows by Proposition \ref{EQQUILADJ PROP}.
+\end{proof}
+
+\begin{remark}
+      If all objects in $\V^G$ are cofibrant, Propositions \ref{EQQUILADJ PROP} and \ref{RESGEN PROP} imply
+      $\mathcal J \otimes \V^G \subseteq \mathcal J_G$-cell.
+\end{remark}
+
+
+
+\todo[inline]{examples?}
 
 
 
@@ -5391,7 +5402,7 @@ We have similarly nice results for $V = \Top$.
       \label{ALLCOLOR_CONV}
       For this section, we assume $\V$ is always a cofibrantly generated closed monoidal model category with
       cofibrant unit, cellular fixed points, and cofibrant symmetric pushout powers.
-      In particular, Theorem \ref{THM1_C} and Remark \ref{CATV_MC_REM} imply that $\Cat^{\mathfrak C}(\V)$ is a (semi)-model category for each set $\mathfrak C$,
+      In particular, Theorem \ref{THM1_C} and Corollary \ref{CATV_MC_COR} imply that $\Cat^{\mathfrak C}(\V)$ is a (semi)-model category for each set $\mathfrak C$,
       and thus in particular has cofibrant replacements.
 
       We additionally assume that $\V$ has a generating set of intervals.
@@ -8668,8 +8679,215 @@ This follows by adding to both $A$ and $\mathcal{O}$ a disjoint trivial operad w
 
 
 
+\section{Semi-model structures}
+
+Weaker versions of our main results hold in more generality.
+Namely, if we only desire semi-model structures on $\Op^G_{\mathfrak C}$ and $\Op^G$, we may
+remove the global monoid axiom condition.
+\todo[inline]{is this entirely true?}
+
+\subsection{Semi-model categories}
+
+We recall the definition of a semi-model category, following \cite{Spi01,Wh16}.
+
+\begin{definition}
+      Given a class of maps $ I$ in a category $\mathcal D$, we let
+      \begin{enumerate}[label = (\roman*)]
+      \item \textit{$ I$-inj} denote the class of maps with the right lifting property with respect to $ I$.
+      \item \textit{$ I$-cof} denote the class of maps with the left lifting property with respect to $ I$-inj.
+      \item \textit{$ I$-cell} denote the class of maps of transfinite compositions of pushouts of maps in $ I$.
+      \end{enumerate}
+
+      Now suppose $\mathcal D$ has an initial object.
+      Given a second class of maps $ J$, let \textit{$ J$-ccd} denote
+      the subclass of $ J$-cell with $ I$-cofibrant domains
+      (i.e. $x \to y$ in $ J$-cell is in $ J$-ccd iff the map $\varnothing \to x$ is in $ I$-cof).
+\end{definition}
+
+\begin{definition}
+      Suppose $\mathcal D$ is a category closed under all small limits and colimits.
+      % Given an adjunction $F \colon \mathcal M \rightleftarrows \colon U \mathcal D$ with $\mathcal M$ a model category,
+      A \textit{semi-model structure} on $\mathcal D$ consists of
+      subcateogries of weak equivalences, cofibrations, and fibrations, such that:
+      \begin{enumerate}[label = (\roman*)]
+            % \item $U$ preserves fibrations and trivial fibrations.
+      \item Weak equivalences are closed under two-out-of-three, and all three chosen subcategories are closed under retracts.
+      \item Every map in $\mathcal D$ can be functorially factored into a cofibration followed by a trivial fibration.
+            Every map in $\mathcal D$ whose domain is \textbf{cofibrant} in $\mathcal D$ can be functorially factored into a trivial cofibration followed by a fibration.
+      \item Cofibrations in $\mathcal D$ have the left lifting property with respect to trivial fibrations.
+            Trivial cofibrations in $\mathcal D$ whose domain is \textbf{cofibrant} in $\mathcal D$ have the left lifting property with respect to fibrations.
+            % \item The initial object in $\mathcal D$ is cofibrant in $\mathcal D$.
+      \item Fibrations and trivial fibrations are closed under pullback.
+      \end{enumerate}
+
+      A \textit{semi-model category} is such a category $\mathcal D$ equipped with a semi-model structure.
+
+      A semi-model category $\mathcal D$ is \textit{cofibrantly generated} if there exist sets of maps $ I$, $ J$ such that
+      \begin{enumerate}[label = (\roman*)]
+      \item $ I$-inj is the class of trivial cofibrations, and $ J$-inj is the class of fibrations; and
+      \item the domains of $ I$ are small relative to $ I$-cell, and
+      \item the domains of $ J$ are small relative to $ J$-ccd.
+      \end{enumerate}
+\end{definition}
+
+\begin{remark}
+      In \cite{Spi01,Wh16}, these semi-model structures come equipped with an adjunction $\mathcal M \rightleftarrows \mathcal D$ with $\mathcal M$ a model category,
+      with the added condition that $U$ preserves (trivial) fibrations.
+      Our definition is a special case, where $\mathcal M$ is the terminal category with its unique model strucutre,
+      and the left adjoint is the inclusion of the initial object.
+
+      In all of the examples from White and Spitzweck, these adjunctions actually induce the semi-model structure on $\mathcal D$;
+      however, this extra data is not necessary to generalize much of \cite{Hov99} to this context.
+\end{remark}
+
+The following is immediate from the Retract Argument \cite[Lemma 1.1.9]{Hov99}.
+\begin{lemma}
+      A map is a trivial fibration (resp. cofibration) iff it has the right (resp. left) lifting property with respect to cofibrations (resp. trivial fibrations).
+      
+      A map with cofibrant source is a fibration (resp. trivial cofibration) iff it has the right (resp. left) lifting property with respect to trivial cofibrations (resp. fibrations).
+\end{lemma}
+
+The existence result \cite[Theorem 2.1.19]{Hov99} immediately generalizes to the semi-model categorical context,
+as the (proof of the) small object argument \cite[Lemma 2.1.14]{Hov99} implies that
+if the domains of $J$ are small relative to $J$-ccd,
+then any map in $\mathcal D$ with cofibrant source may be factored into a map in $J$-ccd followed by a map in $J$-inj.
+\begin{theorem}\label{SEMIMS_THM}
+      Suppose $\mathcal D$ is a category with all small limits and colimits.
+      Suppose $\mathcal W$ is a subcategory of $\mathcal D$, and $I$ and $J$ are sets of maps of $\mathcal D$.
+      Then there is a cofibrantly generated semi-model structure on $\mathcal D$ with
+      $I$ (resp. $J$) the set of generating (trivial) cofibrations, and weak equivalences $\mathcal W$ iff:
+      \begin{enumerate}[label = (\roman*)]
+      \item $\mathcal W$ is closed under two-out-of-three and retracts.
+      \item The domains of $I$ (resp. $J$) are small relative to $I$-cell (resp. $J$-ccd).
+      \item $J\text{-ccd} \subseteq \mathcal W \cap I\text{-cof}$.
+      \item $I$-inj $\subseteq$ $\mathcal W \cap J$-inj.
+      \item Either $\mathcal W \cap I\text{-cof} \subseteq J\textit{-cof}$ or $\mathcal W \cap J\text{-inj} \subseteq I\text{-inj}.$.
+      \end{enumerate}
+\end{theorem}
 
 
+\subsection{Results}
+
+The main results Theorem \ref{THM1_C} and Theorem \ref{THMII}, adapted to the semi-model structure context, follow with only minimal changes.
+We highlight these in this section.
+
+First, we stengthen ``admits all equivariant model structures'' to ``acyclic cofibrant fixed points'' for the first result.
+\begin{theorem}
+      \label{THM1_S}
+      Suppose $(\V,\otimes)$
+      \begin{enumerate}[label = (\roman*)]
+      \item is a cofibrantly generated model category;
+      \item is a closed monoidal model category with cofibrant unit;
+      \item has ayclic cofibrant fixed points;
+      \item has cofibranty symmetric pushout powers.
+      \end{enumerate}
+      Then for any $(G, \Sigma)$-family $\F$,
+      the $\F$-semi-model structure exists on $\Op^G_{\mathfrak C}(\V)$. 
+\end{theorem}
+\begin{proof}
+      Following \cite[Thm. 2.2.2]{WY18} it suffices to consider show that free extensions $\O \to \O[u]$ as in \eqref{OURE EQ} with $\O$ cofibrant in $\mathsf{Op}^G_{\mathfrak C}$ are weak equivalences.
+      The proof for $\V = \sSet$ would then suffice, provided we could show that $\O$ must also be cofibrant in $\Sym^G_{\mathfrak C}(\V)$.
+      This follows by induction on the cell complex decomposition of $\O$,
+      with the base case stating that the initial operad $\mathbb{F}\emptyset$ is cofibrant in $\mathsf{Sym}^G_{\mathfrak{C}}$
+      following from the assumption that $\mathcal{V}$ has a cofibrant unit
+      and the induction step following from the already established cofibrancy of the maps $\O \to \O[u]$ in $\mathsf{Sym}^G_{\mathfrak{C}}$.
+\end{proof}
+
+We record a particular consequence of the above.
+\begin{corollary}
+      \label{LGC_COR}
+      Suppose $(\V, \otimes)$ satisfies the hypotheses of Theorem \ref{THM1_S},
+      let $\mathfrak C$ be a $G$-set, and $f: \O \to \P$ a map in $\Op^{G,\mathfrak C}(\V)$.
+      If $f$ is a (trivial) cofibration in $\Op^{G, \mathfrak C}_\F(\V)$ for some $(G, \Sigma)$-family $\F$,
+      and $\O$ is level $\F$-cofibrant, then
+      $f(\vect C)$ is an $\F$-(trivial) cofibration in $\V^{\Aut(\vect C)}_{\F_{\vect C}}$ for all $\mathfrak C$-signatures $\vect C \in G \ltimes \Sigma_{\mathfrak C}$.
+\end{corollary}
+
+
+\begin{corollary}
+      \label{CATV_MC_COR}
+      Suppose $(\V, \otimes)$ satisfies the hypotheses of Theorem \ref{THM1_S},
+      Then we have induced (semi)-model structures on $\Cat^{G}_{ \mathfrak C}(\V) = \Op^{G}_{\mathfrak C}(\V) \downarrow \**$,
+      so in particular we have cofibrant replacements in $\Cat_{\mathfrak C}(\V)$ for any set $\mathfrak C$.
+\end{corollary}
+
+% \begin{remark}
+%       \label{TOP_FULL_REM}
+%       The category $\Op^{G,\mathfrak C}(\Top)$ actually has full model structures lifted from $\Sym^{G, \mathfrak C}_\F(\Top)$
+%       for any $(G, \Sigma)$-family $\F$,
+%       using an argument analogous to \cite[Thm. 3.1]{GW18}.
+% \end{remark}
+
+
+\textbf{THMII}
+
+\begin{remark}
+      In \cite{BM13}, the Interval Cofibrancy Theorem does not appear to use the full power of ``adequate'' model categories -
+      specifically, it appears that $\otimes$-perfectness is not applied,
+      and thus it suffices to assume that the category of algebras over any non-symmetric operad has the induced model structure.
+      It appears this too can be weakened:
+      in particular, the proof never factors a map into a trivial cofibration followed by a weak equivalence,
+      and only uses cofibrant replacement or pushouts of cofibrations between cofibrant objects.
+      These operations all make sense in the language of a semi-model category.
+      Thus we conclude that Interval Cofibrancy Theorem holds whenever the category of algebras over any non-symmetric operad has the induced semi-model structure. 
+
+      A similar analysis holds true for the $W$-construction from \cite{BM06}.
+      
+      This allows us to immediately conclude that, for any $\V$ satisfying the hypotheses of Theorem \ref{THM1_S}:
+      \begin{enumerate}[label=(\roman*)]
+      \item (Virtual) equivalence of objects (Definition \ref{EQUIV_DEF}) is an equivalence relation.
+      \item Transfinite composites of $\F$-essentially surjective maps in $\Op^G(\V)$ are $\F$-essentially surjective.
+      \item $\V$ satifies the coherence axiom.
+      \end{enumerate}
+\end{remark}
+
+The two majors steps in the proof of Theorem \ref{THMII} are that that relative $\mathcal J_\F$-cells are $\F$-weak equivalences, and 2-out-of-3.
+The proofs of Proposition \ref{J-CELL_PROP} and Corollary \ref{ALBEETA COR} may be modified accordingly.
+
+\begin{proposition}
+      Relative $\mathcal J_\F$-cells with $\F$-cofibrant source are $\F$-weak equivalences.
+\end{proposition}
+\begin{proof}
+      The proof of Proposition \ref{J-CELL_PROP} implies that for any generating trivial cofibration,
+      the pushout is either an $\F$-trivial cofibration or a composite of an $\F$-trivial cofibration with an essentially surjective local isomorphism.
+      If we started with a cofibrant source, each pushout map will have a cofibrant source,
+      and hence by Corollary \ref{LGC_COR} each of these maps will be a level $\F$-trivial cofibration.
+      As level genuine trivial cofibrations and essentially surjective maps are closed under transfinite composition, the result holds.
+\end{proof}
+
+\begin{proposition}
+      Suppose that $\V$ has cofibrant pushout power and acyclic cofibrant fixed points,
+      and $\P, \vect B, \vect C, \Lambda$ as in Corollary \ref{ALBEETA COR}.
+      Then the conclusions of Corollary \ref{ALBEETA COR} hold.
+\end{proposition}
+\begin{proof}
+      Using a zig-zag of weak equivlances, we may assume $\P$ is $\F$-bifibrant.
+      But then $\P$ is level genuine cofibrant by Corollary \ref{LGC_COR},
+      and hence $\P(\vect B)^\Lambda$ is cofibrant.
+      Thus we replace the use of the 
+\end{proof}
+
+The result of \S 4 follows as in the regular model structure case.
+
+\begin{theorem}
+      \label{THMII_S}
+      Let $(\V,\otimes)$ denote a closed symmetric monoidal category such that
+      $(\V, \otimes)$:
+      \begin{enumerate}[label = (\roman*)]
+      \item is a cofibrantly generated model category;
+      \item is a closed monoidal model category with cofibrant unit;
+      \item admits all equivariant model structures and has acyclic cofibrant fixed points;
+      \item has cofibranty symmetric pushout powers.
+      \end{enumerate}
+      
+      Let $\F = \set{\F_n}_{n \geq 0}$ a $(G, \Sigma)$-family which respects units.
+      Then there exists a model structure on $\Op^G(\V)$, denoted $\Op^G_\F(\V)$, such that
+      a map $F \colon \O \to \O'$ is a weak equivalence if
+      \begin{enumerate}[label = (\alph*)]
+      \item $\O \to F^{\**}\O'$ is a weak equivalence in $\Op^G_{\mathfrak C(\O), \F}(\V)$ and
+      \item $\pi_0(j^{\**}F^H)$ is essentially surjective for all $H \in \F_1$.
+      \end{enumerate}
+\end{theorem}
 
 
 
