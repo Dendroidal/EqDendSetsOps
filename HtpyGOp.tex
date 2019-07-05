@@ -3880,7 +3880,7 @@ is suffices to solve the induced lifting problem against
 $\eta \to \widetilde{\mathbb{G}}$.
 But now given a lifting problem against 
 $\eta \to \widetilde{\mathbb{G}}$
-we consider the diagram where the solid lift exits by hypothesis on $F$.
+we consider the diagram where the solid lift exists by hypothesis on $F$.
 \[
 \begin{tikzcd}
 	\eta \ar{d} \ar{rr}  
@@ -5463,9 +5463,522 @@ is also a weak equivalence, as desired.
 		\P(\vect{B}) \ar{ru}
 	\end{tikzcd}
 \end{equation}
-
-
 \end{proof}
+
+
+
+\subsection{Characterizing isofibrations}
+
+
+\begin{remark}\label{FACTMAPLIFT REM}
+Letting $\V$ be any model category and $Y\in \V$,
+recall that the overcategory $\V_{/Y}$ 
+inherits a model structure
+such that a map is a weak equivalence/cofibration/fibration 
+iff if becomes one upon applying the forgetful functor to 
+$\V_{/Y}$.
+Dually, the same applies to undercategories $\V_{A/}$.
+
+Given a map $A\to Y$, consider now the category
+$\V_{A//Y}$, whose objects are the factorizations of $A\to C \to  Y$ of $A \to Y$, and whose maps are given by lifts
+$C \to C'$ as below
+\begin{equation}\label{FACTMAPLIFT EQ}
+\begin{tikzcd}[column sep = 45pt]
+	A \ar{r}
+	\arrow{d}
+&
+	C' \arrow{d}
+\\
+	C\ar{r} \ar{ru}
+&
+	Y.
+\end{tikzcd}
+\end{equation}
+Noting that $\V_{A//Y}$ has a description
+$\left(\V_{/C}\right)_{(A\to Y)/}$
+as an undercategory of an overcategory (or vice versa)
+we conclude that $\V_{A//Y}$ has a model structure where a lift
+\eqref{FACTMAPLIFT EQ}
+is a weak equivalence/cofibration/fibration in $\V_{A//Y}$
+iff so is the underlying map
+$C\to C'$ in $\V$.
+\end{remark}
+
+
+\begin{remark}\label{UNDFGT REM}
+Since the forgetful functor $\V_{A//Y} \to \V$
+preserves all weak equivalences 
+it likewise preserves left/right homotopies between maps.
+\end{remark}
+
+\begin{remark} \label{LEFTQUILUND REM}
+For any map $A \to A'$ the induced adjunction
+$A' \amalg_A (-) \colon \V_{A/} 
+\rightleftarrows 
+\V_{A'/} \colon \mathsf{fgt}$
+is Quillen.
+In particular,
+given a cofibration 
+$A \rightarrowtail B$
+and map $A' \to X$ with fibrant $X$,
+\[
+\Ho \V_{A/}\left(A \rightarrowtail B, A \to X\right)
+\simeq
+\Ho \V_{A'/}\left(A' \rightarrowtail A' \amalg_A B, A' \to X\right).
+\]
+\end{remark}
+
+
+
+
+\begin{lemma}[{cf. \cite[Lemma 2.6]{Ber07b}}]
+\label{TRANSFLIFT LEMMA}
+Let $\V$ be a model category and consider diagrams as below, 
+where maps marked $\sim$ are weak equivalences, 
+maps $\rightarrowtail$ are cofibrations
+and maps $\twoheadrightarrow$ are fibrations.
+\begin{equation}\label{TRANSFLIFT EQ}
+\begin{tikzcd}[column sep = 45pt]
+	A
+	\ar{d}
+	\arrow[equal]{r}
+&
+	A \ar{r}
+	\arrow[rightarrowtail]{d}
+&
+	X \arrow[twoheadrightarrow]{d}
+&%
+	A
+	\ar[rightarrowtail]{d}
+	\arrow{r}
+&
+	X
+	\arrow[twoheadrightarrow]{d} \ar{r}{\sim}
+&
+	X' \ar{d}
+\\
+	B'
+	\arrow{r}[swap]{\sim}
+&
+	B\ar{r}
+&
+	Y
+&%
+	B
+	\arrow{r}
+&
+	Y \ar[equal]{r}
+&
+	Y
+\end{tikzcd}
+\end{equation}
+Then:
+\begin{enumerate}[label=(\roman*)]
+\item in the left diagram, 
+a lift $B \to X$ %in the left square
+exists iff
+a lift $B' \to X$ %in the total square 
+exists;
+\item in the right diagram, 
+a lift $B \to X$ %in the right square 
+exists iff
+a lift $B \to X'$ %in the total square 
+exists.
+\end{enumerate}
+\end{lemma}
+
+
+\begin{proof}
+The claims are dual, so it suffices to show (i). Moreover, the ``only if'' direction is obvious.
+For the ``if'' direction,
+consider the model structure on factorizations  
+$\V_{A//Y}$
+in Remark \ref{FACTMAPLIFT REM} where, to ease notation, 
+we refer to an object $A \to C \to Y$ in $\V_{A//Y}$
+simply as $C$.
+The existence of a lift $B' \to X$ now implies that,
+in the homotopy category of $\V_{A//Y}$, it is
+$\Ho \V_{A//Y}(B',X) \neq \emptyset$.
+And since $B,B'$ are weak equivalent in 
+$\V_{A//Y}$, it is also 
+$\Ho \V_{A//Y}(B,X) \neq \emptyset$.
+But now notice that the (co)fibrancy assumptions in \eqref{TRANSFLIFT EQ}
+say that $B$ is cofibrant in $\V_{A//Y}$ while 
+$X$ is fibrant, so that any map $\Ho \V_{A//Y}(B,X) \neq \emptyset$
+must be represented by an actual lift $B \to X$.
+\end{proof}
+
+
+\begin{remark}\label{NOTMATCH REM}
+We caution that in the previous proof, when given a lift $f'\colon B' \to X$,
+the induced lift $f \colon B \to X$
+needs not be such that the composite $B' \to B \xrightarrow{f} X$
+equals $f'$.
+\end{remark}
+
+
+\begin{corollary}\label{LIFTEQUIV COR}
+Let $\V$ be a model category and
+consider the lifting problems below, were $A,B$ are cofibrant, 
+the common map $A \rightarrowtail B$ is a cofibration, and $X$ is fibrant.
+\begin{equation}
+\begin{tikzcd}[column sep = 45pt]
+	A
+	\ar[rightarrowtail]{d}
+	\arrow{r}{f}
+&
+	X
+&%
+	A
+	\ar[rightarrowtail]{d}
+	\arrow{r}{g}
+&
+	X
+\\
+	B \ar[dashed]{ru}[swap]{F}
+&
+&%
+	B \ar[dashed]{ru}[swap]{G}
+&
+\end{tikzcd}
+\end{equation}
+Then if $f$ and $g$ are homotopic 
+(i.e. they coincide in $\Ho \V(A,X)$)
+a lift $F$ exists iff a lift $G$ exists.
+\end{corollary}
+
+\begin{proof}
+Let 
+$X \overset{\sim}{\rightarrowtail} PX 
+\twoheadrightarrow X \times X$
+be a choice of path object for $X$,
+and $A \xrightarrow{H} PX$
+be a right homotopy between $f,g$,
+i.e. writing $p_1,p_2 \colon PX \to X$ for the two projections,
+one has
+$p_1H=f$, $p_2H=g$.
+The result now follows from Lemma \ref{TRANSFLIFT LEMMA}(ii)
+applied to the following.
+\begin{equation}
+\begin{tikzcd}[column sep = 45pt]
+	A
+	\ar[rightarrowtail]{d}
+	\arrow{r}{H}
+&
+	PX
+	\arrow[twoheadrightarrow]{d} \ar{r}{\sim}[swap]{p_1}
+&
+	X \ar{d}
+&%
+	A
+	\ar[rightarrowtail]{d}
+	\arrow{r}{H}
+&
+	PX
+	\arrow[twoheadrightarrow]{d} \ar{r}{\sim}[swap]{p_2}
+&
+	X \ar{d}
+\\
+	B
+	\arrow{r}
+&
+	\**\ar{r}
+&
+	\**
+&%
+	B
+	\arrow{r}
+&
+	\**\ar{r}
+&
+	\**
+\end{tikzcd}
+\end{equation}
+\end{proof}
+
+
+
+\begin{lemma}\label{HOMTPOFHOMTP LEM}
+Let $\mathcal{D} \in \mathsf{Cat}_{\{0,1\}}(\V)$
+be fibrant and suppose 
+$\alpha \colon 1_{\V} \to \mathcal{D}(0,1)$
+is a homotopy equivalence. 
+%
+Moreover, let 
+\[\beta \colon 1_{\V} \to \mathcal{C}(1,0), \qquad
+\bar{\beta} \colon 1_{\V} \to \bar{\mathcal{C}}(1,0),\qquad
+H \colon \mathbb{C} \to \mathcal{C}(0,0), \qquad
+\bar{H} \colon \mathbb{C} \to \bar{\mathcal{C}}(0,0)
+\]
+be two left homotopy inverses $\beta,\bar{\beta}$ to $\alpha$
+along with exhibiting homotopies 
+$H,\bar{H}$
+between $id_0$ and $\beta \alpha$, $\bar{\beta}\alpha$.
+Then there exists a commutative diagram 
+\begin{equation}
+\begin{tikzcd}[column sep = 45pt]
+	\mathbb{C}_{\{1,2\}}
+	\ar{d}
+	\arrow{r}{B}
+&
+	\mathcal{D}(1,0)
+	\arrow{d}{\alpha^{\**}}[swap]{\sim}
+\\
+	\mathbb{C}_{\{0,1,2\}}
+	\arrow{r}[swap]{\mathcal{H}}
+&
+	\mathcal{D}(0,0)
+\end{tikzcd}
+\end{equation}
+which satisfies the following compatibilities with restrictions
+\[
+B|_{\mathbb{C}_{\{1\}}} = \beta, \qquad
+B|_{\mathbb{C}_{\{2\}}} = \bar{\beta}, \qquad
+\mathcal{H}|_{\mathbb{C}_{\{0,1\}}} = H, \qquad
+\mathcal{H}|_{\mathbb{C}_{\{0,2\}}} = \bar{H}.
+\]
+\end{lemma}
+
+We note that, informally, $B$ is an homotopy between $\beta$ and $\bar{\beta}$
+while $\mathcal{H}$
+is a compatible homotopy of homotopies 
+between $H$ and $\bar{H}$
+(except encoded by a ``triangle'' rather than a ``square'').
+
+
+\begin{proof}
+We first build the dashed lift $\bar{\mathcal{H}}$
+as on the left below (which exists since we are lifting a trivial cofibration against a fibrant object).
+Using this $\bar{\mathcal{H}}$ we now consider the right diagram,
+\begin{equation}
+\begin{tikzcd}[column sep = 35pt]
+	\mathbb{C}_{\{0,2\}} 
+	\amalg_{\mathbb{C}_{\{0\}}}
+	\mathbb{C}_{\{0,1\}} 
+	\ar[rightarrowtail]{d}[swap]{\sim}
+	\arrow{r}{(\bar{H},H)}
+&
+	\mathcal{D}(0,0)
+&%
+	\mathbb{C}_{\{1\}} \amalg \mathbb{C}_{\{2\}}
+	\ar[rightarrowtail]{d}
+	\arrow{r}{(\beta,\bar{\beta})}
+&
+	\mathcal{D}(1,0)
+	\ar{r}{\sim}[swap]{\alpha^{\**}}
+&
+	\mathcal{D}(0,0) 
+\\
+	\mathbb{C}_{\{0,1,2\}}
+	\arrow[dashed]{ur}[swap]{\widetilde{\mathcal{H}}}
+&
+&%
+	\mathbb{C}_{\{1,2\}}
+	\ar[dashed]{ru}{B}
+	\ar{rru}[swap]{\bar{\mathcal{H}}|_{\mathbb{C}_{\{1,2\}}}}
+&
+&
+\end{tikzcd}
+\end{equation}
+where $B$ making the top left triangle exists by Lemma \ref{TRANSFLIFT LEMMA}.
+Moreover, note that while 
+$\alpha^{\**}B$ and $\bar{\mathcal{H}}_{\mathbb{C}_{\{1,2\}}}$
+need not match (cf. Remark \ref{NOTMATCH REM}),
+we nonetheless know that these are homotopic maps
+in $\V_{\left(\mathbb{C}_{\{1\}} \amalg \mathbb{C}_{\{2\}}\right)/}$.
+Now consider the following lifting problems, 
+where
+where $\mathbb{C}_{\partial \Delta[2]}$ denotes the informal ``union''
+$\mathbb{C}_{\{1,2\}} \cup \mathbb{C}_{\{0,2\}} \cup \mathbb{C}_{\{0,1\}}$
+\begin{equation}\label{GOTTALIFT EQ}
+\begin{tikzcd}[column sep = 65pt]
+	\mathbb{C}_{\partial \Delta[2]}
+	\ar[rightarrowtail]{d}
+	\arrow{r}{(\bar{\mathcal{H}}|_{\mathbb{C}_{\{1,2\}}},\bar{H},H)}
+&
+	\mathcal{D}(0,0)
+&%
+	\mathbb{C}_{\partial \Delta[2]}
+	\ar[rightarrowtail]{d}
+	\arrow{r}{(\alpha^{\**}B,\bar{H},H)}
+&
+	\mathcal{D}(0,0)
+\\
+	\mathbb{C}_{\{0,1,2\}} \ar{ru}[swap]{\bar{\mathcal{H}}}
+&
+&%
+	\mathbb{C}_{\{0,1,2\}} \ar[dashed]{ru}[swap]{\mathcal{H}}
+&
+\end{tikzcd}
+\end{equation}
+Since $\alpha^{\**}B$ and $\bar{\mathcal{H}}|_{\mathbb{C}_{\{1,2\}}}$
+are homotopic in 
+$\V_{\left(\mathbb{C}_{\{1\}} \amalg \mathbb{C}_{\{2\}}\right)/}$,
+Remark \ref{LEFTQUILUND REM}
+implies that the top maps in \eqref{GOTTALIFT EQ}
+are homotopic in 
+$\V_{\left(
+\mathbb{C}_{\{0,2\}} \amalg_{\mathbb{C}_{\{0\}}} \mathbb{C}_{\{0,1\}}
+\right)/}$ and thus,
+by Remark \ref{UNDFGT REM}, also homotopic in 
+$\V$.
+Corollary \ref{LIFTEQUIV COR} now applied to \eqref{GOTTALIFT EQ}
+to give the desired lift $\mathcal{H}$.
+\end{proof}
+
+
+
+
+\begin{lemma}
+Suppose $\V$ is right proper and consider a diagram 
+in $\mathsf{Cat}_{\{0,1\}}(\V)$
+\begin{equation}
+\begin{tikzcd}[column sep = 45pt]
+	\mathbbm{1}
+	\arrow{d}[swap]{\bar{\alpha}}
+	\arrow{r}{\alpha}
+&
+	\mathcal{C}
+	\arrow[twoheadrightarrow]{d}{F}
+\\
+	\bar{\mathcal{C}}
+	\arrow{r}[swap]{\bar{F}}
+&
+	\mathcal{D}
+\end{tikzcd}
+\end{equation}
+such that $\alpha,\bar{\alpha}$ encode homotopy equivalences in 
+$\mathcal{C}, \bar{\mathcal{C}}$ and
+$F \colon \mathcal{C} \twoheadrightarrow \mathcal{D}$
+is a (local) fibration.
+
+Then the induced map 
+$\mathbbm{1} \xrightarrow{(\alpha,\bar{\alpha})}
+\mathcal{C} \times_{\mathcal{D}}\bar{\mathcal{C}}$
+encodes a homotopy equivalence in $\mathcal{C} \times_{\mathcal{D}}\bar{\mathcal{C}}$.
+\end{lemma}
+
+
+\begin{proof}
+Note first that, since $\V$ is right proper and $F$ is a fibration,
+the pullback $\mathcal{C} \times_{\mathcal{D}}\bar{\mathcal{C}}$
+is a homotopy pullback,
+so we reduce to the case 
+where $\mathcal{C},\bar{\mathcal{C}},\mathcal{D}$
+are fibrant and both maps $F,\bar{F}$ are fibrations.
+
+We need to show $(\alpha,\bar{\alpha})$
+admits left and right inverses up to homotopy.
+By symmetry, we need only address the left inverse case.
+
+Let
+$\beta \colon 1_{\V} \to \mathcal{C}(1,0)$,
+$\bar{\beta} \colon 1_{\V} \to \bar{\mathcal{C}}(1,0)$
+be left homotopy inverse to $\alpha,\bar{\alpha}$,
+with 
+$H \colon \mathbb{C} \to \mathcal{C}(0,0)$,
+$\bar{H} \colon \mathbb{C} \to \bar{\mathcal{C}}(0,0)$
+the exhibiting homotopies between 
+$id_0$ and $\beta\alpha$, $\bar{\beta}\bar{\alpha}$.
+We now note that, for $\beta$ and $\bar{\beta}$ to induce the desired 
+left homotopy inverse to 
+$(\alpha,\bar{\alpha})$
+we would need to know not just that 
+$F\beta=\bar{F}\bar{\beta}$
+but also 
+$FH=\bar{F}\bar{H}$,
+and the proof will follow by showing that one can modify 
+$\beta,H$ so as to achieve this.
+
+We now consider the diagram below, 
+where $B, \mathcal{H}$ in the bottom square
+are obtained by applying Lemma \ref{HOMTPOFHOMTP LEM}
+to the homotopy equivalence 
+$F\alpha = \bar{F} \bar{\alpha}$ in $\mathcal{D}$
+and its two homotopy left inverses
+$F\beta, \bar{F} \bar{\beta}$
+and exhibiting homotopies
+$F H, \bar{F} \bar{H}$.
+\begin{equation}\label{BIGISHDIAG EQ}
+\begin{tikzcd}[row sep = 15pt,column sep = 40pt]
+	\mathbb{C}_{\{1\}} 	\ar{rr}{\beta} \ar{rd} \ar{dd}&&
+	\mathcal{C}(1,0) \ar[twoheadrightarrow]{dd} \ar{dr}{\alpha^{\**}}
+	\ar[dashed,leftarrow,bend left =15]{ddll}
+\\
+	&
+	\mathbb{C}_{\{0,1\}} \arrow[crossing over]{rr}[near end]{H} &&
+	\mathcal{C}(0,0)  
+	\ar[twoheadrightarrow]{dd}
+\\
+	\mathbb{C}_{\{1,2\}} \ar{rr}[swap,near end]{B} \ar{rd} &&
+	\mathcal{D}(1,0) \ar{rd}{(F\alpha)^{\**}}
+\\
+	&
+	\mathbb{C}_{\{0,1,2\}}
+	\ar[dashed,bend right =15,crossing over]{uurr}
+	\ar{rr}[swap]{\mathcal{H}} \arrow[uu, leftarrow, crossing over] &&
+	\mathcal{D}(0,0)
+\end{tikzcd}
+\end{equation}
+We now claim that the arched dashed arrows in 
+\eqref{BIGISHDIAG EQ}
+making the diagram commute exist
+(explicitly, this means the dashed arrows are lifts in the front and back squares, and that the slanted square with two dashed sides commutes).
+To see this, regarding the diagonal $\searrow$ arrows as objects in the arrow category $\V^{\bullet \to \bullet}$, 
+\eqref{BIGISHDIAG EQ}
+is reinterpreted as a square in $\V^{\bullet \to \bullet}$,
+with the desired dashed arrows being precisely a lift of said square.
+But the right vertical arrow in that square
+(i.e. the left side face of \eqref{BIGISHDIAG EQ}) is a projective fibration 
+while the left vertical arrow 
+(i.e. the right side face)
+is a projective trivial cofibration
+(this amounts to the claim that the maps
+$\mathbb{C}_{\{1\}} \overset{\sim}{\rightarrowtail} \mathbb{C}_{\{1,2\}}$ and
+$\mathbb{C}_{\{0,1\}} \amalg_{\mathbb{C}_{\{1\}}} \mathbb{C}_{\{1,2\}} \overset{\sim}{\rightarrowtail} \mathbb{C}_{\{0,1,2\}}$
+are trivial cofibrations)
+so the dashed lifts indeed exist.
+
+Writing 
+$B'\colon \mathbb{C}_{\{1,2\}} \to \mathcal{C}(1,0)$,
+$\mathcal{H}' \colon \mathbb{C}_{\{0,1,2\}} \to \mathcal{C}(0,0)$
+for the lifts,
+we now set
+$\beta' = B'|_{\mathbb{C}_{\{2\}}}$,
+which is a left inverse of $\alpha$
+as exhibited by $H' = \mathcal{H}'|_{\mathbb{C}_{\{0,2\}}}$.
+Moreover, by construction, we now have
+$F\beta' = B|_{\mathbb{C}_{\{2\}}} = \bar{F} \bar{\beta}$
+and 
+$FH' = \mathcal{H}|_{\mathbb{C}_{\{0,2\}}} = \bar{F} \bar{H}$
+hence
+$(\beta',\bar{\beta})\colon \mathbbm{1} \to
+\mathcal{C} \times_{\mathcal{D}}\bar{\mathcal{C}}$
+now defines the desired left homotopy inverse to 
+$(\alpha,\bar{\alpha}) \colon \mathbbm{1} \to
+\mathcal{C} \times_{\mathcal{D}}\bar{\mathcal{C}}$,
+as exhibited by
+$(H',\bar{H}) \colon \mathbb{C} \to
+\mathcal{C} \times_{\mathcal{D}}\bar{\mathcal{C}}$.
+\end{proof}
+
+
+
+
+{\color{red} HERE}
+
+
+\begin{remark}\label{FIB_ISOFIB_REM}
+	When $\V$ satisfies the coherence condition, we also have an additional nice description of fibrations:
+	A map $F: \O \to \P$ in $\Op^G_\F(\V)$ is a fibration iff
+	$F$ is a local $\F$-fibration such that
+	$j^{\**}\pi_0(F^H)$ is an isofibration of 1-categories.
+	Indeed, the arguments in \cite[Propositions 2.3 and 2.5]{Ber07b} extend as written to the general case,
+	notationally replacing $\mathcal H$ with an arbitrary $\V$-interval $\mathbb J$ and
+	$\mathscr F$ with $\mathbb A$.
+\end{remark}
+
+
 
 
 
@@ -5554,16 +6067,6 @@ These cylinder objects provide another description of the mapping sets in the ho
 
 
 
-\begin{remark}
-      \label{FIB_ISOFIB_REM}
-      When $\V$ satisfies the coherence condition, we also have an additional nice description of fibrations:
-      A map $F: \O \to \P$ in $\Op^G_\F(\V)$ is a fibration iff
-      $F$ is a local $\F$-fibration such that
-      $j^{\**}\pi_0(F^H)$ is an isofibration of 1-categories.
-      Indeed, the arguments in \cite[Propositions 2.3 and 2.5]{Ber07b} extend as written to the general case,
-      notationally replacing $\mathcal H$ with an arbitrary $\V$-interval $\mathbb J$ and
-      $\mathscr F$ with $\mathbb A$.
-\end{remark}
 
 
 \begin{remark}
