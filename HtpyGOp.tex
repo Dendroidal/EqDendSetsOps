@@ -349,6 +349,56 @@ cd,patterns,calc}
 \subsection{Main Results}
 
 
+Recall that a colored operad $\O$
+with color set $\mathfrak{C}$ has levels 
+$
+\O(\vect{C})=
+\O(\mathfrak{c}_1,\cdots,\mathfrak{c}_n;\mathfrak{c}_0)$
+indexed by tuples 
+$\vect{C} = (\mathfrak{c}_1,\cdots,\mathfrak{c}_n;\mathfrak{c}_0)$
+in $\mathfrak{C}$.
+If the operad is symmetric has associative and unital isomorphisms
+$
+\O(\mathfrak{c}_1,\cdots,\mathfrak{c}_n;\mathfrak{c}_0) \to 
+\O(\mathfrak{c}_{\sigma(1)},\cdots,\mathfrak{c}_{\sigma(n)};\mathfrak{c}_0)
+$
+for each permutation $\sigma \in \Sigma_n$.
+On the other hand, if 
+$\O \in \mathsf{Op}^G(\V)$
+is a $G$-equivariant operad, 
+the color set $\mathfrak{C}$ is itself a $G$-set
+and one similarly has associative and natural isomorphisms
+$
+\O(\mathfrak{c}_1,\cdots,\mathfrak{c}_n;\mathfrak{c}_0) \to 
+\O(g\mathfrak{c}_{1},\cdots,g\mathfrak{c}_{n};g\mathfrak{c}_0)
+$.
+All together, one has isomorphisms
+\[
+\O(\mathfrak{c}_1,\cdots,\mathfrak{c}_n;\mathfrak{c}_0)
+\to 
+\O(g \mathfrak{c}_{\sigma(1)},\cdots,g \mathfrak{c}_{\sigma(n)};g\mathfrak{c}_0)
+\]
+for $(g,\sigma) \in G \times \Sigma_n^{op}$.
+Note that underlying these isomorphisms is the fact that
+the group
+$G \times \Sigma_n^{op}$
+acts on the set $\mathfrak{C}^{n+1}$ of $n$-ary signatures by 
+$(g,\sigma) (\mathfrak{c}_i)_{0\leq i \leq n}
+= (g \mathfrak{c}_{\sigma(i)})_{0\leq i \leq n}$.
+
+As such, we will say that a subgroup 
+$\Lambda \leq G \times \Sigma_n^{op}$
+\emph{stabilizes} a signature $\vect{C}=(\mathfrak{c}_i)_{0 \leq i \leq n}$
+if for any 
+$(g,\sigma) \in \Lambda$ it is 
+$\mathfrak{c}_i = g \mathfrak{c}_{\sigma(i)}$.
+Note that, if $\O \in \mathsf{Op}^G(\V)$
+is a $G$-operad one then has that
+$\O(\vect{C})$ has a $\Lambda$-action.
+
+ 
+
+
 \begin{theorem}\label{THMI}
 Fix a $G$-set of colors $\mathfrak{C}$
 and a $(G,\Sigma)$-family $\F = \set{\F_n}_{n \geq 0}$.
@@ -382,6 +432,40 @@ exists provided that:
 \end{theorem}
 
 
+The fixed color model structures
+on $\mathsf{Op}^G(\V)$
+are one of the key ingredients to build a model structure
+on the category 
+$\mathsf{Op}^G(\V)$
+of all $G$-operads,
+with the other ingredient being the notion of ``essential surjectivity''.
+To do so, we first recall the following standard construction, 
+which associates to any $\V$-category $\mathcal{C}$
+an ``underlying category'' $\pi_0 \mathcal{C}$.
+
+\begin{definition}\label{HTPY_DEFN}
+	Suppose $\V$ has a cofibrant unit.
+
+	Given $\mathcal C \in \Cat_{\mathfrak{C}}(\V)$,
+	we define $\pi_0 \mathcal C \in \Cat_{\mathfrak{C}}(\mathsf{Set})$ 
+	to be the ordinary category with the same objects and
+\[
+	\pi_0(\mathcal{C})(c,d)=
+	\Ho(\V)(1_\V, \mathcal C(c,c'))=
+	[1_\V, \mathcal{C}_f(c,c')]
+\]
+where $[-,-]$ denotes homotopy equivalence classes of maps
+and $\mathcal{C}_f$ denotes some fibrant replacement of
+$\mathcal C$ in $\Cat_{\mathfrak{C}}(\V)$.
+\end{definition}
+
+Further writing 
+$j^{\**} \colon 
+\mathsf{Op}^G(\V) \to \mathsf{Cat}^G(\V)$
+for the ``underlying category''
+functor which forgets the non-unary operations, 
+we can now state our main result.
+
 
 
 \begin{theorem}\label{THMII}
@@ -389,29 +473,88 @@ Fix a $G$-set of colors $\mathfrak{C}$
 and a $(G,\Sigma)$-family $\F = \set{\F_n}_{n \geq 0}$
 which respects units.
 
-{\color{red} HERE}
-
-
-      Let $(\V,\otimes)$ denote either $(\sSet, \times)$ or $(\sSet_{\**} \wedge)$,
-      and let $\F = \set{\F_n}_{n \geq 0}$ a $(G, \Sigma)$-family which respects units.
-      Then there exists a model structure on $\Op^G(\V)$, denoted $\Op^G_\F(\V)$,
-      with $\F$-Dwyer Kan weak equivalences.
-      % a map $F \colon \O \to \O'$ is a weak equivalence if
-      % \begin{enumerate}[label = (\alph*)]
-      % \item $\O \to F^{\**}\O'$ is a weak equivalence in $\Op^G_{\mathfrak C(\O), \F}(\V)$ and
-      % \item $\pi_0(j^{\**}F^H)$ is essentially surjective for all $H \in \F_1$.
-      % \end{enumerate}
-      
-      Finally, analogous model structures $\Op^G_{\F}(\V)$ exist provided that
-      $(\V, \otimes)$:
-      \begin{enumerate}[label = (\roman*)]
-      \item is a cofibrantly generated model category;
-      \item is a closed monoidal model category with cofibrant unit;
-      \item has acyclic cofibrant fixed points;
-      \item has cofibranty symmetric pushout powers;
-      \item satisfies the global monoid axiom.
-      \end{enumerate}
+Then there exists a model structure on
+$\mathsf{sOp}^G = 
+\mathsf{Op}^G(\mathsf{sSet})$
+such that a map
+$F\colon \mathcal{O} \to \mathcal{P}$
+is a weak equivalence (resp. trivial fibration) if
+\begin{itemize}
+\item the maps
+\begin{equation}\label{THMII1ST EQ}
+	\O(\vect{C})^{\Lambda} \to \mathcal{P}(F(\vect{C}))^{\Lambda}
+\end{equation}
+are Kan equivalences (trivial Kan fibrations)
+in $\mathsf{sSet}$
+for all $\mathfrak{C}$-signatures $\vect{C}$
+and $\Lambda \in \F$ which stabilizes $\vect{C}$;
+\item 
+the maps of (unenriched) categories
+\begin{equation}\label{THMII2ND EQ}
+\pi_0 j^{\**} \O^H 
+\to 
+\pi_0 j^{\**} \mathcal{P}^H 
+\end{equation}
+are essentially surjective (surjective on objects)
+for all $H \in \F_1$.
+\end{itemize}
+More generally, a model structure on 
+$\Op^G(\V)$
+with weak equivalences/trivial fibrations determined as in 
+\eqref{THMII1ST EQ},\eqref{THMII2ND EQ}
+exists provided $(\V,\otimes)$ satisfies conditions
+(i),(ii),(iii),(iv)(v) in Theorem \ref{THMI}
+as well as:
+\begin{enumerate}
+	\item[(vi)] $\V$ is right proper;
+	\item[(vii)]
+	for any group $G$, fixed points
+	$(-)^{G} \colon \V^G \to \V$
+	send genuine trivial cofibrations to trivial cofibrations;
+	\item[(viii)] $(\V, \otimes)$ has a generating set of intervals.
+\end{enumerate}
 \end{theorem}
+
+
+
+
+
+\begin{remark}\label{WETRFCAN REM}
+The requirement that the maps in 
+\eqref{THMII1ST EQ}
+are weak equivalences implies in particular that the maps in
+\eqref{THMII2ND EQ}
+are fully faithful.
+Therefore, the condition following \eqref{THMII2ND EQ}
+can be restated as saying that those maps are
+equivalences of categories (resp. equivalences of categories that are surjective on objects) or, in other words,
+that the maps in \eqref{THMII2ND EQ}
+are weak equivalences/trivial fibrations in the canonical model structure on the category $\mathsf{Cat}$ of unenriched categories.
+\end{remark}
+
+
+
+\begin{remark}
+	In light of Remark \ref{WETRFCAN REM}, 
+	it is natural to ask if the fibrations from Theorem \ref{THMII}
+	admit a similar description.
+	
+	I.e. we may ask if a map $F\colon \O \to \mathcal{P}$
+	is a fibration in the sense of Theorem \ref{THMII}
+	iff the maps in 
+	\eqref{THMII1ST EQ}
+	are Kan fibrations in $\mathsf{sSet}$
+	and the maps in
+	\eqref{THMII2ND EQ}
+	are isofibrations (i.e. fibrations in the canonical model structure in $\mathsf{Cat}$).
+	
+	However, at our level of generality we can only guarantee the 
+	``only if'' direction of this characterization,
+	and for the ``if'' direction to hold we need to either demand
+	that $\P$ itself is fibrant or
+	impose an extra condition on the unit of $\V$ (which happens to be satisfied by $\mathsf{sSet}$).
+	See Propositions \ref{ISOFIBEASY PROP} and \ref{ISOFIBHARD PROP}.	
+\end{remark}
 
 
 
@@ -428,41 +571,13 @@ which respects units.
 
 \subsection{Wreath products and Grothendieck fibrations}
 
-% -------------------- Types of Grothendieck fibrations --------------------
+ -------------------- Types of Grothendieck fibrations --------------------
 
-% \begin{remark}
-%       \label{GRTH_RMK}
-%       Given a functor
-%       \begin{equation}
-%             \mathcal B^{op} \longrightarrow \Cat,
-%             \qquad
-%             b \mapsto \mathcal C_b
-%       \end{equation}
-%       there are four possible ``Grothendieck constructions''.
-%       Two are fibrations over $\mathcal B$, two over $\mathcal B^{op}$.
-%       They all have as objects pairs $(b \in \mathcal B, X \in \mathcal C_b)$ and arrows pairs of maps,
-%       but the directionality of these maps is different:
-%       \begin{enumerate}[label = (\roman*)]
-%       \item The \textit{standard} Grothendieck construction $\mathcal B \ltimes \mathcal C$
-%             is the fibration over $\mathcal B$ with as arrows pairs of maps $(f, \phi)$ with
-%             $f: b \to \bar b$ and
-%             $\phi: X \to f^{\**} \bar X$.
-%       \item $(\mathcal B \ltimes \mathcal C)^{\underline{op}}$
-%             is the fibration over $\mathcal B$ with as arrows pairs of maps $(f, \phi)$ with
-%             $f: b \to \bar b$ and
-%             $\phi: f^{\**} \bar X \to X$.
-%       \item $(\mathcal B \ltimes \mathcal C)^{op}$
-%             is the fibration over $\mathcal B^{op}$ with as arrows pairs of maps $(f, \phi)$ with
-%             $f: \bar b \to b$ and
-%             $\phi: \bar X \to f^{\**} X$.
-%       \item $\mathcal B \underline{\ltimes} \mathcal C = \left((\mathcal B \ltimes \mathcal C)^{\underline{op}}\right)^{op}$
-%             is the fibration over $\mathcal B^{op}$ with as arrows pairs of maps $(f, \phi)$ with
-%             $f: \bar b \to b$ and 
-%             $\phi: f^{\**}X \to \bar X$.
-%       \end{enumerate}
-      
-%       Unless otherwise specified, \textit{the} Grothendieck construction will refer to the first one.
-% \end{remark}
+
+{\color{red} HERE}
+
+
+
 \begin{notation}
       Given a functor $\mathcal C_{(-)}: \mathcal B \to \Cat$, $b \mapsto \mathcal C_b$, we let
       $\mathcal B \ltimes \mathcal C_{(-)}$ denote the (covariant) \textit{Grothendieck construction},
@@ -5917,7 +6032,8 @@ to give the desired lift $\mathcal{H}$.
 
 
 \begin{lemma}\label{HOMINPULL LEM}
-Suppose $\V$ is right proper and consider a diagram 
+%Suppose $\V$ is right proper and 
+Consider a diagram 
 in $\mathsf{Cat}_{\{0,1\}}(\V)$
 \begin{equation}
 \begin{tikzcd}[column sep = 45pt]
@@ -5942,7 +6058,12 @@ is a (local) fibration.
 Then the induced map 
 $\mathbbm{1} \xrightarrow{(\alpha,\bar{\alpha})}
 \mathcal{C} \times_{\mathcal{D}}\bar{\mathcal{C}}$
-encodes a homotopy equivalence in $\mathcal{C} \times_{\mathcal{D}}\bar{\mathcal{C}}$.
+encodes a homotopy equivalence in $\mathcal{C} \times_{\mathcal{D}}\bar{\mathcal{C}}$
+provided that:
+\begin{inparaenum}
+\item[(i)] $\mathcal{D}$ is fibrant;
+\item[(ii)] $\V$ is right proper.
+\end{inparaenum}
 \end{lemma}
 
 
@@ -6173,6 +6294,7 @@ We can finally prove the following, which adapts
 \cite[Props. 2.5]{Ber07b}.
 
 \begin{proposition}[{\cite[Prop. 2.5]{Ber07b}}]
+\label{ISOFIBHARD PROP}
 Let $\F$ be a $(G,\Sigma)$-family which respects units.
 Moreover, suppose $\V$ has cofibrant unit,
 and satisfies the coherence axiom,
