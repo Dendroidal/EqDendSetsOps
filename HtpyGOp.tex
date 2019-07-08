@@ -569,102 +569,8 @@ are weak equivalences/trivial fibrations in the canonical model structure on the
 
 \section{Preliminaries}
 
-\subsection{Wreath products and Grothendieck fibrations}
-
- -------------------- Types of Grothendieck fibrations --------------------
-
 
 {\color{red} HERE}
-
-
-
-\begin{notation}
-      Given a functor $\mathcal C_{(-)}: \mathcal B \to \Cat$, $b \mapsto \mathcal C_b$, we let
-      $\mathcal B \ltimes \mathcal C_{(-)}$ denote the (covariant) \textit{Grothendieck construction},
-      with objects pairs $(b,X)$ with $b \in \mathcal B$ and $X \in \mathcal C_b$, and
-      maps pairs $(f,g)$ with $f: b \to \bar b$ and $g: f_{\**}X \to \bar X$.
-\end{notation}
-
-
-
-% -------------------- Wreath Products --------------------
-
-Now, recall the notation $\mathsf F \wr \mathcal C$ for a category $\mathcal C$ from \cite{BP_geo}.
-
-\begin{notation}
-      \label{F_WR_NOT}
-      We let $\mathsf F$ denote a (fixed) full subcategory of \textit{ordered finite sets} and set maps,
-      such that the only ordered isomorphisms are the identity.
-      
-      Given a category $\mathcal C$, let $\mathsf F \wr \mathcal C$ denote the contravariant Grothendieck construction
-      $(\mathsf F^{op} \ltimes \mathcal C^{\times (-)})^{op}$ on the functor
-      \begin{equation}
-            \mathsf F^{op} \longto \Cat,
-            \qquad \qquad
-            A \mapsto \mathcal C^{\times A}.
-      \end{equation}
-      Explicitly, objects are tuples of elements of $\mathcal C$, and maps are composites of ``shuffles'' and tuples of maps in $\mathcal C$.
-\end{notation}
-
-
-\begin{remark}
-      \label{WR_DIAG_REM}
-      We observe that we have a natural diagonal map
-      % \begin{equation}
-      $
-      \mathsf F \times \mathcal C \into \mathsf F \wr \mathcal C,
-      $
-      % \end{equation}
-      for any category $\mathcal C$,
-      and thus for any functor $F: \mathcal D \to \mathsf F$, we have an induced functor
-      $F: \mathcal D \times \mathcal C \to \mathsf F \wr \mathcal C$.
-
-      More generally, for any $G$-category $\mathcal C$ we have a natural ``diagonal'' map
-      \begin{equation} 
-            G \ltimes (\mathsf F \wr \mathcal C) \to \mathsf F \wr (G \ltimes \mathcal C).
-      \end{equation}
-\end{remark}
-
-\begin{definition}[{cf. \cite[Defn 4.3]{BP_geo}}]
-      Let $\mathsf{WSpan}^l(\mathcal C, \mathcal D)$ (resp. $\mathsf{WSpan}^r(\mathcal C, \mathcal D)$)
-      denote the category of \textit{left (resp. right) weak spans}, with objects
-      \begin{equation}
-            \mathcal C \xleftarrow{k} \mathcal A \xrightarrow{X} \mathcal D
-      \end{equation}
-      and arrows those diagrams as on the left (resp. right) below
-      \begin{equation}
-            \begin{tikzcd}[row sep = tiny]
-                  & \mathcal A_1 \arrow[dr, "X_1", ""'{name=U}] \arrow[dl, "k_1"'] \arrow[dd, "i"']
-                  &
-                  &&
-                  &
-                  \mathcal A_1 \arrow[dr, "X_1", ""'{name=A}] \arrow[dl, "k_1"'] \arrow[dd, "i"']
-                  \\
-                  \mathcal C
-                  &&
-                  \mathcal D
-                  &&
-                  \mathcal C
-                  &&
-                  \mathcal D
-                  \\
-                  & |[alias=V]| \mathcal A_2 \arrow[ur, "X_2"'] \arrow[ul, "k_2"]
-                  &
-                  &&
-                  &
-                  |[alias=B]| \mathcal A_2 \arrow[ur, "X_2"'] \arrow[ul, "k_2"]
-                  \arrow[Rightarrow, from = U, to = V]
-                  \arrow[Rightarrow, from = B, to = A]
-            \end{tikzcd}
-      \end{equation}
-      denoted by $(i,\phi): (k_1,X_1) \to (k_2,X_2)$, with composition defined in the natural way.      
-\end{definition}
-
-
-
-
-\subsection{Fibered category theory}
-\label{FIBCAT_SEC}
 
 Motivations for discussing fibered category theory:
 \begin{itemize}
@@ -676,6 +582,156 @@ can be described using a fiberwise simplicial tensor,
 so that the fact that the adjunction
 $\tau \colon \mathsf{PreOp} \rightleftarrows \mathsf{sOp}\colon N$ is Quillen is readily understood by noting that this is a fibered (simplicial) adjunction.
 \end{itemize}
+
+
+
+
+\subsection{Grothendieck fibrations}
+
+
+
+Recall that a functor 
+$\pi \colon \mathcal{C} \to \mathcal{B}$
+is called a \emph{Grothendieck fibration}
+if for all arrows
+$\varphi \colon b' \to b$ in $\mathcal{B}$
+and $c \in \mathcal{C}$ such that $\pi(c) = b$
+there exists a \emph{cartesian arrow}
+$\varphi^{\**}c \to c$
+lifting $\varphi$,
+meaning that for any choice of solid arrows
+\begin{equation}\label{CARTARDEF EQ}
+\begin{tikzcd}
+c'' \ar{rr} \ar[dashed]{rd}[swap]{\exists!} 
+&&
+c
+&%%
+b'' \ar{rr} \ar{rd} 
+&&
+b
+\\
+& \varphi^{\**} c \ar{ru}
+&
+&%%
+& b'\ar{ru}[swap]{\varphi}
+&
+\end{tikzcd}
+\end{equation}
+such that the right diagram commutes and 
+$c'' \to c$ lifts $b'' \to b$,
+there exists a unique dashed arrow
+$c'' \to \varphi^{\**} c$ lifting $b'' \to b'$
+and making the left diagram commute.
+
+
+Moreover, writing $\mathcal{C}_b$ for the fiber over $b \in \mathcal{B}$,
+a \emph{cleavage} of $\pi$ is a fixed choice of cartesian arrows
+$\varphi^{\**} c \to c$
+for each $\varphi \colon b' \to b$ and $c$ with $\pi(c)=b$.
+
+
+Dually, if $\pi^{op} \colon \mathcal{C}^{op} \to \mathcal{B}^{op}$
+is a Grothendieck fibration we 
+say that $\pi$ is a \emph{Grothendieck opfibration}.
+More explicitly, this means that for any arrow
+$\varphi \colon b \to b'$ in $\mathcal{B}$
+and $c \in \mathcal{C}$ such that 
+$\pi(c) = b$ there exists a 
+\emph{cocartesian arrow}
+$c \to \varphi_! c$ lifting $\varphi$
+and satisfying the dual of the universal property in 
+\eqref{CARTARDEF EQ}.
+A cleavage of an opfibration is similarly defined as a fixed choice
+of cocartesian arrows 
+$c \to \varphi_!c$.
+
+{\color{red} HERE}
+
+
+\begin{remark}
+Given any functor of categories
+$\pi \colon \mathcal{C} \to \mathcal{B}$,
+one has a natural decomposition of mapping sets
+\begin{equation}
+\mathcal{C}(c',c) = 
+\coprod_{f \in \mathcal{B}(\pi(c'),\pi(c))}
+ \mathcal{C}_{\varphi}\left(c',c \right)
+\end{equation}
+where $\mathcal{C}_{\varphi}\left(c',c \right)$ consists of the arrows projecting to $\varphi$.
+
+{\color{red} HERE}
+
+Note that, specifying to the case $b'' = b'$ in 
+\eqref{CARTARDEF EQ},
+one has that when $\pi$ is a Grothendieck fibration the contravariant functors
+\[
+\mathcal{C}_{\varphi} 
+\colon
+\mathcal{C}_{b'} 
+\to
+\mathsf{Set}
+\]
+are represented by (some choice of) $f^{\**}c$.
+
+{\color{red} HERE}
+
+However, the universal condition in \eqref{CARTARDEF EQ}
+is stronger
+\end{remark}
+
+{\color{red} HERE}
+
+
+
+\begin{remark}
+Using the universal property \eqref{CARTARDEF EQ},
+a cleavage of a Grothendieck fibration 
+$\pi \colon \mathcal{C} \to \mathcal{B}$
+defines functors
+$f^{\**} \colon \mathcal{C}_b \to \mathcal{C}_{b'}$
+for each arrow $f \colon b' \to b$.
+
+{\color{red} HERE}
+\end{remark}
+
+
+
+\begin{notation}
+Given a functor $\mathcal{B} \xrightarrow{\mathcal{C}_{\bullet}} \mathsf{Cat}$
+we write 
+$\mathcal{B} \ltimes \mathcal{C}_{\bullet}$
+for the associated (covariant) Grothendieck construction.
+
+More explicitly, this is
+the category with objects pairs 
+$(b,c)$ with $b \in \mathcal{B}$ and $c \in \mathcal{C}_b$,
+and with an arrow
+$(b,c) \to (b',c')$
+given by an arrow 
+$f\colon b \to b'$ in $\mathcal{B}$
+together with an arrow
+$\mathcal{C}_f(c) \to c'$ in $\mathcal{C}_{b'}$.
+
+Note that the natural projection
+$\mathcal{B} \ltimes \mathcal{C}_{\bullet} \to \mathcal{B}$
+is naturally a Grothendieck opfibration.
+\end{notation}
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Fibered category theory}
+\label{FIBCAT_SEC}
+
+
 
 
 
@@ -1096,6 +1152,105 @@ $\mathsf{Alg}_{T^I}^{p^I}(\mathcal{C}^I)\simeq
 
 
 
+\subsection{Wreath products and Grothendieck fibrations}
+
+
+
+
+{\color{red} HERE}
+
+{\color{red} test}
+
+
+{\color{blue} another test}
+
+
+\begin{notation}
+	Given a functor $\mathcal C_{(-)}: \mathcal B \to \Cat$, $b \mapsto \mathcal C_b$, we let
+	$\mathcal B \ltimes \mathcal C_{(-)}$ denote the (covariant) \textit{Grothendieck construction},
+	with objects pairs $(b,X)$ with $b \in \mathcal B$ and $X \in \mathcal C_b$, and
+	maps pairs $(f,g)$ with $f: b \to \bar b$ and $g: f_{\**}X \to \bar X$.
+\end{notation}
+
+
+
+% -------------------- Wreath Products --------------------
+
+Now, recall the notation $\mathsf F \wr \mathcal C$ for a category $\mathcal C$ from \cite{BP_geo}.
+
+\begin{notation}
+	\label{F_WR_NOT}
+	We let $\mathsf F$ denote a (fixed) full subcategory of \textit{ordered finite sets} and set maps,
+	such that the only ordered isomorphisms are the identity.
+	
+	Given a category $\mathcal C$, let $\mathsf F \wr \mathcal C$ denote the contravariant Grothendieck construction
+	$(\mathsf F^{op} \ltimes \mathcal C^{\times (-)})^{op}$ on the functor
+	\begin{equation}
+	\mathsf F^{op} \longto \Cat,
+	\qquad \qquad
+	A \mapsto \mathcal C^{\times A}.
+	\end{equation}
+	Explicitly, objects are tuples of elements of $\mathcal C$, and maps are composites of ``shuffles'' and tuples of maps in $\mathcal C$.
+\end{notation}
+
+
+\begin{remark}
+	\label{WR_DIAG_REM}
+	We observe that we have a natural diagonal map
+	% \begin{equation}
+	$
+	\mathsf F \times \mathcal C \into \mathsf F \wr \mathcal C,
+	$
+	% \end{equation}
+	for any category $\mathcal C$,
+	and thus for any functor $F: \mathcal D \to \mathsf F$, we have an induced functor
+	$F: \mathcal D \times \mathcal C \to \mathsf F \wr \mathcal C$.
+	
+	More generally, for any $G$-category $\mathcal C$ we have a natural ``diagonal'' map
+	\begin{equation} 
+	G \ltimes (\mathsf F \wr \mathcal C) \to \mathsf F \wr (G \ltimes \mathcal C).
+	\end{equation}
+\end{remark}
+
+\begin{definition}[{cf. \cite[Defn 4.3]{BP_geo}}]
+	Let $\mathsf{WSpan}^l(\mathcal C, \mathcal D)$ (resp. $\mathsf{WSpan}^r(\mathcal C, \mathcal D)$)
+	denote the category of \textit{left (resp. right) weak spans}, with objects
+	\begin{equation}
+	\mathcal C \xleftarrow{k} \mathcal A \xrightarrow{X} \mathcal D
+	\end{equation}
+	and arrows those diagrams as on the left (resp. right) below
+	\begin{equation}
+	\begin{tikzcd}[row sep = tiny]
+	& \mathcal A_1 \arrow[dr, "X_1", ""'{name=U}] \arrow[dl, "k_1"'] \arrow[dd, "i"']
+	&
+	&&
+	&
+	\mathcal A_1 \arrow[dr, "X_1", ""'{name=A}] \arrow[dl, "k_1"'] \arrow[dd, "i"']
+	\\
+	\mathcal C
+	&&
+	\mathcal D
+	&&
+	\mathcal C
+	&&
+	\mathcal D
+	\\
+	& |[alias=V]| \mathcal A_2 \arrow[ur, "X_2"'] \arrow[ul, "k_2"]
+	&
+	&&
+	&
+	|[alias=B]| \mathcal A_2 \arrow[ur, "X_2"'] \arrow[ul, "k_2"]
+	\arrow[Rightarrow, from = U, to = V]
+	\arrow[Rightarrow, from = B, to = A]
+	\end{tikzcd}
+	\end{equation}
+	denoted by $(i,\phi): (k_1,X_1) \to (k_2,X_2)$, with composition defined in the natural way.      
+\end{definition}
+
+
+
+
+
 
 
 \section{Colored operads}
@@ -1112,15 +1267,9 @@ and it has been shown (e.g. \cite{BM07,BB17,WY18,Cav}) that
 $\mathsf{Op}^{\mathfrak{C}}(\mathcal{V})$ may often be equipped with a model structured via transfer across the associated monadic adjunction,
 which assemble (\cite{BM13,Cav}) into a Dwyer-Kan model structure structure on $\mathsf{Op}(\mathcal{V})$.
 
-% As an example, to build the model structure on $\mathsf{Op}(\mathcal{V})$ one usually starts by building suitable model structures on the subcategories $\mathsf{Op}^{\mathfrak{C}}(\mathcal{V})$.
-% Moreover, we note that $\mathsf{Op}^{\mathfrak{C}}(\mathcal{V})$ can be regarded as the category of algebras over a monad 
-% $\mathbb{F}_{\mathfrak{C}}$ on a simpler category
-% $\mathsf{Sym}^{\mathfrak{C}}(\mathcal{V})$ of symmetric sequences, 
-% with the model structure on
-% $\mathsf{Op}^{\mathfrak{C}}(\mathcal{V})$
-% obtained by transferring a model structure on 
-% $\mathsf{Sym}^{\mathfrak{C}}(\mathcal{V})$
-% via the monadic adjunction.
+
+{\color{red} HERE}
+
 
 As such, in order to build our desired model structure on the category $\mathsf{Op}(\mathcal{V})^G$ of $G$-equivariant colored operads, one should suitably generalize the discussion in the paragraph above.
 However, a little care is needed, since the objects of a $G$-equivariant operad in $\mathsf{Op}(\mathcal{V})^G$ are now a $G$-set $\mathfrak{C} \in \mathsf{F}^G$, meaning that even when describing the objects of 
@@ -2822,31 +2971,11 @@ Considering \eqref{NKOXY}, we will need the following additional axiom to prove 
 \end{definition}
 
 \begin{remark}
-      By adjunction arguments, tnote that for $A \in \V$ and $B \in \V^G$, we have
+      By adjunction arguments, note that for $A \in \V$ and $B \in \V^G$, we have
       \[
             (G/H \cdot A) \otimes B \simeq G/G \cdot A \otimes G \cdot_H B \simeq G \cdot_H (A \otimes B),
       \]
       and thus $J \otimes \V^G = J^G \otimes \V^G$.
-      % We note that
-      % \[
-      %       G \cdot_H \left( (H \cdot_K A) \otimes X \right) = G \cdot_H \left( H \cdot_K \left(A \otimes X\right) \right)
-      %       = G \cdot_K \left(A \otimes X\right).
-      % \]
-      % Second, the following classes of maps are equal, using the fact that $G \cdot_H (-)$ is a left adjoint and the functoriality of $G \cdot_H (-)$ and $(-) \otimes X$.
-      % \begin{align*}
-          %           \left( G \cdot_H \left( \left(J^H\text{-cof}\right) \otimes \V^H \right)\text{-cell} \right) \mathbin{\cap} \mathcal W^G
-          %           & = 
-          %           \left( G \cdot_H \left( \left(J^H \otimes \V^H\right)\text{-cof}\right)\text{-cell} \right) \mathbin{\cap} \mathcal W^G \\
-          %           & =
-          %           \left( G \cdot_H \left(J^H \otimes \V^H\right)\text{-cof} \right) \mathbin{\cap} \mathcal W^G \\
-          %           & =
-          %           \left( G \cdot_H \left(J^H \otimes \V^H\right)\text{-cell} \right) \mathbin{\cap} \mathcal W^G \\
-          %           & =
-          %           \left( G \cdot_H \left(J \otimes \V^H\right)\text{-cell} \right) \mathbin{\cap} \mathcal W^G \\
-          %           & =
-          %           \left( G \cdot_H \left( \left(\mathcal J \otimes \V^H\right)\text{-cell} \right) \right) \mathbin{\cap} \mathcal W^G
-          %     \end{align*}
-          %     In particular, there is no difference in \eqref{GLOBMONAX_EQ} whether ``-cof'' refers to $\mathcal J \otimes \V^H$ or it's induction.
 \end{remark}
 
 
@@ -2929,7 +3058,7 @@ Thus, \eqref{NKOXY EQ} is the image of \eqref{NKOXY3 EQ} under the composite of 
 \]
 from Propositions \ref{EQQUILADJ PROP} and \ref{RESGEN PROP}.
 Since the maps in \eqref{NKOXY3 EQ} are a genuine cofibration and a genuine trivial cofibration (as $k \geq 1$),
-% o that, by Proposition \ref{SIGMAWRGF PROP},
+% or that, by Proposition \ref{SIGMAWRGF PROP},
 % $(\emptyset \to \O)^{\square m_a}$ is a 
 % genuine cofibration in
 % $\V^{\Sigma_{m_a} \wr (G \ltimes \Sigma_{\mathfrak{C}}^{op})}$ and
@@ -3294,7 +3423,7 @@ STUFF
 We recall a key definition from \cite{Per18,BP_geo}.
 \begin{definition}
       \label{WIS_DEF}
-      A \textit{weak indexing system}..
+      A \textit{weak indexing system}...
 
       In particular, the induction map
       \[
@@ -3347,21 +3476,6 @@ All together, we conclude the following (cf. \cite[Remark 6.7]{Per18}, \cite[dis
 
       In particular, $\O$ is $\Sigma_G$-cofibrant iff $\O(n)$ has a free $\Sigma_n$-action.
 \end{proposition}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -4498,14 +4612,7 @@ $G \to \bar{G}$).
 
 
 
-% \begin{remark}
-%       \label{OPGCV_F_JC_REM}
-%       If for an independent reason we know that each $\mathsf{Op}^{G}_{\mathfrak C}(\V)$ had a full Quillen model structure,
-%       then the above proof would show that \textit{all} relative $J_\F$-cells are weak equivalences.
 
-% {\color{blue} Luis: I don't think this is true. Even if knowing the fibers have model strucutres, something along the lines of $\otimes$-perfectness would still be needed to conclude that stuff in (the operadic) $J$-cell are local equivalences.
-% This is one of the reasons (possibly the only reason) why \cite{BM13} assume what they do.}
-% \end{remark}
 
 
 
@@ -4655,6 +4762,7 @@ one has that transitivity, which is a priori not obvious,
 is a straightforward consequence of Interval Amalgamation, cf. Lemma \ref{AMALGLEM LEM}.
 \end{remark}
 
+
 %\begin{proposition}[{cf. \cite[Lemma 4.10]{Cav}}]
 %      \label{CAV_4.10_PROP}
 %      Equivalence and virtual equivalence define equivalence relations on $\mathfrak C(\O)^H$.
@@ -4670,9 +4778,6 @@ is a straightforward consequence of Interval Amalgamation, cf. Lemma \ref{AMALGL
 %         induces a map $h \** h' : \J \** \J' \to \mathcal C$ such that      
 %         $(h \** h') i_0 = h i_0$ and $(h \** h') i_1 = h' i_1$.
 %\end{proof}
-
-
-
 
 
 
@@ -8147,7 +8252,7 @@ is a left Kan extension diagram then so is the composite of the rightmost diagra
 \end{lemma}
 
 
-The following is a variation of \cite[Lemma 4.28]{BP_geo} % LANPULLCOMA LEM
+The following is a variation of \cite[Lemma 4.28]{BP_geo}.
 \begin{lemma}\label{LANPULLCOMA LEM}
 	Suppose that $\mathcal{V}$ is complete. If the rightmost triangle in 
 \[
