@@ -2124,8 +2124,8 @@ In particular, these $\mathsf{Op}_{\mathfrak{C}}(\mathcal{V})$ can be regarded a
 $\mathbb{F}_{\mathfrak{C}}$ on a simpler category
 $\mathsf{Sym}_{\mathfrak{C}}(\mathcal{V})$ of $\mathfrak C$-colored symmetric sequences,
 and it has been shown (e.g. \cite{BM07,BB17,WY18,Cav}) that
-$\mathsf{Op}_{\mathfrak{C}}(\mathcal{V})$ may often be equipped with a model structured via transfer across the associated monadic adjunction,
-which assemble (\cite{BM13,Cav,Mur15}) into a Dwyer-Kan model structure structure on $\mathsf{Op}_\bullet(\mathcal{V})$.
+$\mathsf{Op}_{\mathfrak{C}}(\mathcal{V})$ often may be equipped with a model structured via transfer across the associated monadic adjunction,
+which may assemble (\cite{BM13,Cav,Mur15}) into a Dwyer-Kan model structure structure on $\mathsf{Op}_\bullet(\mathcal{V})$.
 
 
 
@@ -2136,7 +2136,8 @@ As such, in order to build our desired model structure on the category $\Op^G_\b
 However, a little care is needed, since the objects of a $G$-equivariant operad in $\mathsf{Op}(\mathcal{V})^G$ are now a $G$-set $\mathfrak{C} \in \mathsf{F}^G$, meaning that even when describing the objects of 
 $\mathsf{Op}^G_\bullet(\mathcal{V})$ one must consider maps of 
 $\mathsf{Op}_\bullet(\mathcal{V})$ that are not the identity on objects.
-Additionally, the above cited formal approaches fail to see the automorphisms of $G$-equivariant symmetric sequences, % objects in $\Sym^G_\bullet(\V)$,
+Additionally, the above cited formal approaches fail to see the automorphisms of
+the evaluations $\O(\vect C)$, % $G$-equivariant symmetric sequences, % objects in $\Sym^G_\bullet(\V)$,
 which is necessary to detect the appropriate notion of weak equivalence in this context.
 
 For these reasons, we find is useful to be able to describe 
@@ -2298,6 +2299,7 @@ to assume that these equivariant model structures are relatively well behaved.
 
 This is sufficent to show that $\V$ admits all equivariant model structures.
 \begin{lemma}
+      \label{PTRCOF_LEM}
       Suppose $\V$ is a strongly cofibrantly generated model category with fixed points which preserve trivial cofibrations.
       Then $\V$ admits all equivariant model structures.
 \end{lemma}
@@ -3516,7 +3518,8 @@ In this short section, we identify several sufficient conditions which are easie
 The following definitions synthesize parts of the \textit{cellularity} conditions of \cite{Ste16} with the monoid axiom (Remark \ref{MONAX_REM}).
 
 \begin{definition}
-      We say $\V$ has \textit{weak acyclic cellular fixed points} (resp. \textit{monoidal weak acyclic cellular fixed points}) if for all finite groups $G$ and subgroups $H$, the functor $(-)^H \colon \V^G \o \V$
+      We say $\V$ has \textit{weak acyclic cellular fixed points} (resp. \textit{monoidal weak acyclic cellular fixed points}) if
+      for all finite groups $G$ and subgroups $H$, the functor $(-)^H \colon \V^G \to \V$
       \begin{enumerate}[label = (\roman*)]
       \item preserves direct colimits of maps in $\mathcal J_G$-cof (resp. ($\mathcal J \otimes \V^G$)-cof).
       \item preserves pushouts of $\mathcal J_G$ (resp. $\mathcal J \otimes \V^G$).
@@ -3524,27 +3527,32 @@ The following definitions synthesize parts of the \textit{cellularity} condition
       \end{enumerate}
 \end{definition}
 
+
 The following are straightforward.
 \begin{lemma}
       Suppose $\V$ is a strongly cofibrantly generated model category.
       \begin{enumerate}[label=(\roman*)]
       \item If $\V$ has weak acyclic cellular fixed points, then $\V$ has fixed points which preserve trivial cofibrations and hence
-            admits all equivariant model structures.
+            admits all equivariant model structures by Lemma \ref{PTRCOF_LEM}.
       \item If $\V$ has monoidal weak acyclic cellular fixed points and additionally satisfies the monoid axiom,
             then $\V$ satisfies the global monoid axiom.
       \end{enumerate}
 \end{lemma}
 
+\begin{remark}
+      As alluded to in \cite[Remark 2.7]{Ste16}, if $\V$ satisfies the cellularity conditions of \cite[Prop. 2.6]{Ste16}, then $\V$ has weak acyclic cellular fixed points.      
+\end{remark}
 
 \todo[inline]{come back}
 
 Clearly monoidal weak acyclic cellularity implies the non-monoidal condition.
 
 \begin{lemma}
+      \label{JVG_JG_LEM}
       Suppose $\mathcal J \otimes \V^G \subseteq \mathcal J_G$-cell. Then
       \begin{enumerate}[label=(\roman*)]
       \item $\V$ satisfies the global monoid axiom.
-      \item $\V$ has weak acyuclic cellular fixed points iff $\V$ has monoidal weak acyclic cellular fixed points.
+      \item $\V$ has weak acyclic cellular fixed points iff $\V$ has monoidal weak acyclic cellular fixed points.
       \end{enumerate}
 \end{lemma}
 \begin{proof}
@@ -3557,13 +3565,82 @@ Clearly monoidal weak acyclic cellularity implies the non-monoidal condition.
 \end{remark}
 
 
-
 \todo[inline]{examples?}
 
+\begin{proposition}
+      The category of categories with the canonical model structure
+      is a strongly cofibrantly generated monoidal model category,
+      satisfies the global monoid axiom,
+      has monoidal weak acyclic cellular fixed points,
+      and thus satisfies the hypotheses of Theorem \ref{THMI}.
+\end{proposition}
+\begin{proof}
+      The generating (trivial) cofibrations are
+      \[
+            \set{ \varnothing \to \**,\ \set{0,1} \to [1],\ \set{0 \rightrightarrows 1} \to [1] },
+            \qquad
+            \set{ \** \xrightarrow{\varepsilon} \widetilde{[1]} };
+      \]
+      and cofibrations are functors which are injective on objects.
+      Thus all objects are cofibrant, and it is straightforward to check that it satisfies the pushout product axiom,
+      so by Lemma \ref{JVG_JG_LEM} it remains to show that $\V$ has weak acyclic cellular fixed points.
+
+      Since trivial cofibrations are underlying monomorphisms, \cite[Prop. 2.3]{BMOOPY15} implies (i) holds.
+
+      For (ii), we consider a pushout
+      \[
+            \begin{tikzcd}
+                  G/H \cdot \** \arrow[d] \arrow[r, "G \cdot x"]
+                  &
+                  \mathcal C \arrow[d]
+                  \\
+                  G/H \cdot \widetilde{[1]} \arrow[r]
+                  &
+                  \mathcal D                  
+            \end{tikzcd}
+      \]
+      where $x \in \mathcal C^H$.
+      We have
+      $\mathrm{Ob}(\mathcal D) = \mathrm{Ob}(\mathcal C) \amalg G/H \cdot \set{\bar x}$,
+      and by inspection, we see that
+      \begin{align*}
+        \mathcal D(c,c') & = \mathcal C(c,c') & c,c' \in \mathcal C
+        \\
+        \mathcal D(c, g\bar x) & = \mathcal C(c, gx) & c \in \mathcal C,\ g \in G
+        \\
+        \mathcal D(g \bar x, c') & = \mathcal C(g x,c') & c' \in \mathcal C,\ g \in G
+        \\
+        \mathcal D(g_1 \bar x, g_2 \bar x) & = \mathcal C(g_1 x, g_2 x) & g_1,g_2 \in G.
+      \end{align*} 
+      It is then straightforward to check that Condition (ii) holds.
+
+      Finally, $(G/H \cdot f)^H = (G/H)^H \cdot f$, so (iii) follows.
+\end{proof}
+
+We note that it is not known whether $\Cat$ with the Thomason model structure satisfies the pushout-product axiom.
 
 
 
 
+
+\todo[inline]{come back}
+
+\begin{remark}
+      We note that if $\V$ satisfies the global monoid axiom and has cofibrant symmetric pushout powers,
+      then in particular it satisfies condition $\spadesuit$ of \cite[Thm. 6.1.1]{WY18}:
+      First note that
+      \[
+            X \otimes_{\Sigma_n} (\Sigma_n / H \cdot j) = X/H \cdot j \in \mathcal J^{\otimes} \subseteq \mathcal W
+      \]
+      for any $H \leq \Sigma_n$ and $j \in \mathcal J$ a generating trivial cofibration of $\V$.
+      But since $\otimes$ commutes with colimits in each variable
+      and $u^{\square n}$ is a trivial cofibration in $\V^{\Sigma_n}$ for any trivial cofibration $u$ of $\V$,
+      the claim follows.
+
+      As we mentioned at the begining of this section, the result of \cite[Thm. 6.1.1]{WY18} is insufficent for our purposes,
+      as it only includes the case where
+      the $(G,\Sigma)$-family $\F$ consists only of the trivial subgroup in each level.
+\end{remark}
 
 
 
