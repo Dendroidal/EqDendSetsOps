@@ -71,7 +71,7 @@ cd,patterns,calc}
 \usepackage{ifdraft}
 \ifdraft{
   \color[RGB]{63,63,63}
-  \pagecolor[RGB]{220,220,204}
+%  \pagecolor[RGB]{220,220,204}
   \usepackage{showkeys}
   \usepackage{geometry}
   \usepackage{todonotes}
@@ -790,7 +790,7 @@ $\psi^{\**} \varphi^{\**} \simeq
 \end{remark}
 
 
-\begin{remark}
+\begin{remark}\label{FUNISGROTH REM}
 Let $\pi \colon \mathcal{C} \to \mathcal{B}$
 be a Grothendieck fibration and
 $I$ a diagram category.
@@ -1392,27 +1392,23 @@ Both parts follow readily from the definitions.
 \subsection{Equivariant colored symmetric sequences}
 
 
-{\color{red} HERE}
-
-
 \begin{definition}\label{CSYM DEF}
-	Let $\mathfrak {C} \in \mathsf{Set}$ be a fixed set of \textit{colors} (or \textit{objects}).
+	Let $\mathfrak {C} \in \mathsf{Set}$ be a fixed set of colors (or objects).
 	A tuple
     $\vect C = (\mathfrak c_1, \dots, \mathfrak c_n; \mathfrak c_0) \in \mathfrak{C}^{\times n+1}$
 	is called a \textit{$\mathfrak {C}$-signature} of \textit{arity} $n$.
 	The \textit{$\mathfrak C$-symmetric category} $\Sigma_{\mathfrak C}$ is the category whose objects are the $\mathfrak{C}$-signatures and the morphisms are action maps
-\[
+\begin{equation}\label{CSYM EQ1}
 \vect{C} =
 (\mathfrak c_1, \dots, \mathfrak c_n; \mathfrak c_0) \xrightarrow{\sigma} (\mathfrak c_{\sigma^{-1}(1)}, \dots, \mathfrak c_{\sigma^{-1}(n)}; \mathfrak c_0)
-= \vect{C} \sigma
-\]
+= \vect{C} \sigma^{-1}
+\end{equation}
 for each permutation $\sigma \in \Sigma_n$, with the natural notion of composition.
 
 	Alternatively, we will find it useful to visualize signatures as corollas (i.e. trees with a single node)
 	with edges decorated by colors in $\mathfrak{C}$, as depicted below, so that the map labeled $\sigma$
         is the unique map of trees indicated such that the coloring of an edge equals the coloring of its image.
-        % interchange the edges of the leftmost tree in such a way that one obtains the colored corolla on the left.
-\[
+\begin{equation}\label{CSYM EQ2}
 \begin{tikzpicture}
       [grow=up,auto,level distance=2.3em,every node/.style = {font=\footnotesize},dummy/.style={circle,draw,inner sep=0pt,minimum size=1.75mm}]
       
@@ -1426,7 +1422,8 @@ node [name=Kone,swap] {}}
 		edge from parent node [swap] {$\mathfrak c_0$}
 		};
 		\draw [dotted,thick] (Kone) -- (Kn) ;
-	\node at (5,0) [font=\normalsize] {$\vect{C} \sigma$}
+	\node at (5,0) [font=\normalsize] {$\vect{C} \sigma^{-1}
+	$}
 		child{node [dummy] {}
 			child{
 			edge from parent node [swap,near end] {$\mathfrak c_{\sigma^{-1}(n)}$} node [name=Kn] {}}
@@ -1439,64 +1436,111 @@ node [name=Kone,swap] {}}
 
 \draw[->] (1.5,0.8) -- node{$\sigma$} (3,0.8);
 \end{tikzpicture}
-\]
-Given any map $f \colon \mathfrak{C} \to \mathfrak{D}$ of colors, there is a functor
-$f_{\**} \colon \Sigma_{\mathfrak{C}} \to \Sigma_{\mathfrak{D}}$
-given by $f_{\**} (\mathfrak c_1, \dots, \mathfrak c_n; \mathfrak c_0) = (f(\mathfrak c_1),\cdots,f(\mathfrak c_n);f(\mathfrak c_0))$. 
+\end{equation}
+Given any map of colors $\varphi \colon \mathfrak{C} \to \mathfrak{D}$, there is a functor
+$\varphi_{!} \colon \Sigma_{\mathfrak{C}} \to \Sigma_{\mathfrak{D}}$
+given by 
+$\varphi_{!} (\mathfrak c_1, \dots, \mathfrak c_n; \mathfrak c_0) = (\varphi(\mathfrak c_1),\cdots,\varphi(\mathfrak c_n);\varphi(\mathfrak c_0))$. 
 \end{definition}
+
+
+\begin{remark}
+The notation $\vect{C} \sigma^{-1}$
+in \eqref{CSYM EQ1},\eqref{CSYM EQ2}
+reflects the fact that $\Sigma_n$
+acts on the right on $\mathfrak{C}$-signatures of arity $n$
+via 
+$\vect{C} \sigma = (\mathfrak{c}_i)\sigma = 
+(\mathfrak{c}_{\sigma(i)})$,
+where we make the convention that $\sigma(0)=0$.
+\end{remark}
+
+
+\begin{remark}
+If one regards $\mathfrak{C} \in \mathsf{Set}$
+as a discrete category, 
+following Notation \ref{SIGWR NOT} one has an identification 
+of groupoids
+$\Sigma_{\mathfrak{C}} = (\Sigma \wr \mathfrak{C}) \times \mathfrak{C}$,
+where the 
+$\Sigma \wr \mathfrak{C}$ factor accounts for the sources
+$\mathfrak{c}_1,\cdots,\mathfrak{c}_n$ of a signature
+and the $\mathfrak{C}$ factor accounts for the target 
+$\mathfrak{c}_0$.
+\end{remark}
+
 
 
 \begin{definition}
 Let $\mathcal{V}$ be a category.
 The category $\mathsf{Sym}_\bullet(\mathcal{V})$ of
-\textit{symmetric sequences on $\mathcal{V}$} is the category with:
+\textit{symmetric sequences on $\mathcal{V}$} 
+(on all colors) is the category with:
 \begin{itemize}
-\item objects given by a pair $(\mathfrak C, X)$ with
-      $\mathfrak{C} \in \mathsf{F}$ a set of colors and
+\item objects given by pairs $(\mathfrak C, X)$ with
+      $\mathfrak{C} \in \mathsf{Set}$ a set of colors and
       $X \colon \Sigma_{\mathfrak{C}}^{op} \to \mathcal{V}$ a functor;
 \item arrows $(\mathfrak C, X) \to (\mathfrak D, Y)$ given by a map 
-      $f \colon \mathfrak{C} \to \mathfrak{D}$ of colors and a natural transformation
-      \begin{equation}
-            \begin{tikzcd}[row sep = tiny, column sep = 35pt]
-                  \Sigma_{\mathfrak{C}}^{op} \arrow[dr, "X"{name=U}] \arrow{dd}[swap]{f_{\**}}
-                  \\
-                  & \mathcal{V}
-                  \\
+      $\varphi \colon \mathfrak{C} \to \mathfrak{D}$ of colors and a natural transformation $X \Rightarrow Y \varphi_!$ as below.
+\begin{equation}
+\begin{tikzcd}[row sep = tiny, column sep = 45pt]
+                  \Sigma_{\mathfrak{C}}^{op} \arrow[dr, "X"{name=U}] 
+                  \arrow{dd}[swap]{\varphi_{!}}
+\\
+	& \mathcal{V}
+\\
                   |[alias=V]| \Sigma_{\mathfrak{D}}^{op} \arrow[ur, "Y"']
                   \arrow[Leftarrow, from=V, to=U,shorten >=0.25cm,shorten <=0.25cm]
-            \end{tikzcd}
-      \end{equation}
+\end{tikzcd}
+\end{equation}
 \end{itemize}
 \end{definition}
 
 
-It is clear that the natural projection map
-$\mathsf{Sym}_\bullet(\mathcal{V}) \to \mathsf{F}$
-is a (split) Grothendieck fibration with fibers the categories
-$\Sym_{\mathfrak C}\mathsf{Fun}(\Sigma_{\mathfrak{C}}^{op},\mathcal{V})$.
-
-
 \begin{remark}\label{SUBCATDOWNL REM}
-      Given a category $\V$, let $\Cat \downarrow^l \V$ denote the category with
-      objects given by functors $\mathcal B \to \V$,
-      and arrows given by pairs $(f,\phi)$ with $f \colon \mathcal B \to \mathcal C$ a functor and $\phi$ a natural transformation
-      \begin{equation}
-            \begin{tikzcd}[row sep = tiny, column sep = 35pt]
-                  \mathcal B \arrow{dr}[name=U]{} \arrow{dd}[swap]{f}
-                  \\
-                  & \mathcal{V}
-                  \\
-                  |[alias=V]| \mathcal C \arrow{ur}[swap]{}
-                  \arrow[Leftarrow, from=V, to=U,shorten >=0.25cm,shorten <=0.25cm
-                  ,swap
-                  ]
-            \end{tikzcd}
-      \end{equation}
-
-      Then $\mathsf{Sym}(\mathcal{V})$ is naturally a (neither wide nor full) subcategory of the $\mathsf{Cat}\downarrow^l \mathcal{V}$.
+Given a category $\V$, let $\Cat \downarrow^l \V$ denote the category with
+objects given by functors $\mathcal{C} \to \V$,
+and arrows from $\mathcal{C} \to \V$ to $\mathcal{D} \to \V$
+given by pairs 
+$(\varphi,\phi)$ with 
+$\varphi \colon \mathcal{C} \to \mathcal{D}$ a functor and
+$\phi$ a natural transformation
+\begin{equation}
+\begin{tikzcd}[row sep = tiny, column sep = 45pt]
+	\mathcal C \arrow{dr}[name=U]{} \arrow{dd}[swap]{\varphi}
+\\
+	& \mathcal{V}
+\\
+	|[alias=V]| \mathcal D \arrow{ur}[swap]{}
+	\arrow[Leftarrow, from=V, to=U,shorten >=0.25cm,shorten <=0.25cm
+    ,swap,"\phi"]
+\end{tikzcd}
+\end{equation}
+Then $\mathsf{Sym}_{\bullet}(\mathcal{V})$ is naturally a (neither wide nor full) subcategory of the $\mathsf{Cat}\downarrow^l \mathcal{V}$.
 \end{remark}
 
 
+{\color{red} HERE}
+
+
+
+
+Clearly the natural projection map
+$\mathsf{Sym}_\bullet(\mathcal{V}) \to \mathsf{Set}$
+is a (split) Grothendieck fibration with fibers the categories
+$\Sym_{\mathfrak C}(\V)=
+\mathsf{Fun}(\Sigma_{\mathfrak{C}}^{op},\mathcal{V})$.
+
+Now let $G$ be a group. Writing 
+$\mathsf{Sym}^G_\bullet(\mathcal{V})
+=
+\left(\mathsf{Sym}_\bullet(\mathcal{V})\right)^G$
+for the category of $G$-objects
+in $\mathsf{Sym}_{\bullet}(\V)$,
+the abstract nonsense argument in Remark \ref{FUNISGROTH REM}
+yields that
+$\mathsf{Sym}^G_\bullet(\mathcal{V}) \to \mathsf{Set}^G$
+is again a Grothendieck fibration.
 
 {\color{blue} HERE}
 
@@ -1507,8 +1551,8 @@ We start with the following, which is a slight strengthening of
 
 
 \begin{lemma}\label{EQUIVFUNCONV LEM}
-Let $G$ be a group and $\mathfrak{C} \colon G \to \mathsf{F}$ be a $G$-set (or, more generally, $\mathcal{D}$ a category and 
-$\mathcal{C}_{\bullet}\colon \mathcal{D} \to \mathsf{Cat}$ a functor). Then category of sections as on the left below (or, more generally, as on the left)
+Let $G$ be a group and $\mathfrak{C} \colon G \to \mathsf{Set}$ be a $G$-set (or, more generally, $\mathcal{D}$ a category and 
+$\mathcal{C}_{\bullet}\colon \mathcal{D} \to \mathsf{Cat}$ a functor). Then the category of sections as on the left below (or, more generally, as on the left)
 \begin{equation}
 	\begin{tikzcd}
 		&
@@ -1518,7 +1562,7 @@ $\mathcal{C}_{\bullet}\colon \mathcal{D} \to \mathsf{Cat}$ a functor). Then cate
 		\mathsf{Cat}\downarrow^l \mathcal{V} \arrow{d}{\mathsf{fgt}}
 \\
 		G \arrow{r}[swap]{\mathfrak{C}} \arrow[dashed]{ru} &
-		\mathsf{F}
+		\mathsf{Set}
 &
 		\mathcal{D} \arrow{r}[swap]{\mathcal{C}_{\bullet}} \arrow[dashed]{ru} &
 		\mathsf{Cat}
@@ -2971,6 +3015,7 @@ However, we will prefer to have a somewhat more conceptual description in terms 
 
 
 
+
 %\begin{remark}\label{VGSIGF REM}
 Combining \eqref{VGFGEN EQ} with the 
 $\Sigma_{\mathfrak{C}}[G \cdot_{\mathfrak{C}} \vect{C}]$ notation
@@ -2995,11 +3040,10 @@ $j$ ranges over $\mathcal{J}$.
 %\end{remark}
 
 
-We have the following consequences.
 
-\begin{corollary}
-      \label{SYMADJ_COR}
-      The following hold.
+
+\begin{corollary}\label{SYMADJ_COR}
+One has the following.
       \begin{enumerate}[label=(\roman*)]
       \item \label{SYMCOCHADJ_LBL}
             For any $(G,\Sigma)$-family $\F$ and map of colors $f \colon \mathfrak{C} \to \mathfrak{D}$
