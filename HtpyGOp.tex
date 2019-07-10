@@ -698,7 +698,7 @@ $c \to \varphi_!c$.
 
 
 
-\begin{notation}
+\begin{notation}\label{MAPSDEC NOT}
 Given any functor of categories
 $\pi \colon \mathcal{C} \to \mathcal{B}$,
 one has a natural decomposition of mapping sets
@@ -1212,6 +1212,46 @@ is the standard map, which is clear.
 
 
 
+\begin{remark}
+Let $\pi \colon \mathfrak{C} \to \mathcal{B}$
+be a functor that preserves coproducts and $G$ a group.
+Then the free-forget adjunctions 
+\begin{equation}
+\begin{tikzcd}[column sep =50pt]
+	\mathcal{C}
+	\arrow[shift left]{r}{G \cdot (-)}
+	\arrow[d, "\pi"']
+&
+	\mathcal{C}^G 
+	\arrow[shift left]{l}{\mathsf{fgt}}
+	\arrow[d, "\pi"]
+\\
+	\mathcal{B} 
+	\arrow[shift left]{r}{G \cdot (-)}
+&
+	\mathcal{B}^G
+	\arrow[shift left]{l}{\mathsf{fgt}}
+\end{tikzcd}
+\end{equation}
+are compatible in the sense that both the left and right adjoints commute with the projections $\pi$.
+In addition, given $b \in \mathcal{B}$, $b' \in \mathcal{B}^G$
+and $\varphi \colon b \to b'$ a map in $\mathcal{B}$, write
+$G\cdot \varphi \colon G\cdot b \to b'$
+for the adjoint map.
+Then for $c \in \mathcal{C}_b$ and $c' \in \mathcal{C}^G_{b'}$
+one has that the left isomorphism below decomposes
+into the isomorphisms on the right
+\begin{equation}\label{ADJOVADJ EQ}
+\C(c,c') 
+\simeq 
+\C^G(G \cdot c,c')\qquad
+\C_{\varphi}(c,c') 
+\simeq 
+\C^G_{G\cdot\varphi}(G \cdot c,c')
+\end{equation}
+\end{remark}
+
+
 
 
 \begin{definition}\label{FIBMON DEF}
@@ -1489,14 +1529,14 @@ node [name=Kone,swap] {}}
 \draw[->] (1.5,0.8) -- node{$\sigma$} (3,0.8);
 \end{tikzpicture}
 \end{equation}
-Given any map of colors $\varphi \colon \mathfrak{C} \to \mathfrak{D}$, there is a functor
-$\varphi_{!} \colon \Sigma_{\mathfrak{C}} \to \Sigma_{\mathfrak{D}}$
+Given any map of colors $\varphi \colon \mathfrak{C} \to \mathfrak{D}$ there is a functor (abusively written)
+$\varphi \colon \Sigma_{\mathfrak{C}} \to \Sigma_{\mathfrak{D}}$,
 given by 
-$\varphi_{!} (\mathfrak c_1, \dots, \mathfrak c_n; \mathfrak c_0) = (\varphi(\mathfrak c_1),\cdots,\varphi(\mathfrak c_n);\varphi(\mathfrak c_0))$. 
+$\varphi (\mathfrak c_1, \dots, \mathfrak c_n; \mathfrak c_0) = (\varphi(\mathfrak c_1),\cdots,\varphi(\mathfrak c_n);\varphi(\mathfrak c_0))$. 
 \end{definition}
 
 
-\begin{remark}
+\begin{remark}\label{GLOBSIG REM}
 The notation $\vect{C} \sigma^{-1}$
 in \eqref{CSYM EQ1},\eqref{CSYM EQ2}
 reflects the fact that $\Sigma_n$
@@ -1506,6 +1546,7 @@ $\vect{C} \sigma = (\mathfrak{c}_i)\sigma =
 (\mathfrak{c}_{\sigma(i)})$,
 where we make the convention that $\sigma(0)=0$.
 \end{remark}
+
 
 
 \begin{remark}
@@ -1523,6 +1564,27 @@ $\mathfrak{c}_0$.
 
 
 
+\begin{notation}
+We will (slightly abusively) write
+$\Sigma_{\bullet} \to \mathsf{Set}$
+for the Grothendieck construction (see Notation \ref{GROTHCONS NOT})
+of the functor
+$\mathsf{Set} \to \mathsf{Cat}$ given by
+$\mathfrak{C} \mapsto \Sigma_{\mathfrak{C}}$.
+
+More explicitly, 
+the objects of $\Sigma_{\bullet}$
+are the $\vect{C} \in \Sigma_{\mathfrak{C}}$ 
+for some set of colors $\mathfrak{C}$
+and an arrow from
+$\vect{C} \in \Sigma_{\mathfrak{C}}$ to
+$\vect{D} \in \Sigma_{\mathfrak{D}}$
+over $\varphi \colon \mathfrak{C} \to \mathfrak{D}$
+is an arrow
+$\varphi \vect{C} \to \vect{D}$ in $\Sigma_{\mathfrak{D}}$.
+\end{notation}
+
+
 \begin{definition}
 Let $\mathcal{V}$ be a category.
 The category $\mathsf{Sym}_\bullet(\mathcal{V})$ of
@@ -1533,11 +1595,11 @@ The category $\mathsf{Sym}_\bullet(\mathcal{V})$ of
       $\mathfrak{C} \in \mathsf{Set}$ a set of colors and
       $X \colon \Sigma_{\mathfrak{C}}^{op} \to \mathcal{V}$ a functor;
 \item arrows $(\mathfrak C, X) \to (\mathfrak D, Y)$ given by a map 
-      $\varphi \colon \mathfrak{C} \to \mathfrak{D}$ of colors and a natural transformation $X \Rightarrow Y \varphi_!$ as below.
+      $\varphi \colon \mathfrak{C} \to \mathfrak{D}$ of colors and a natural transformation $X \Rightarrow Y \varphi$ as below.
 \begin{equation}
 \begin{tikzcd}[row sep = tiny, column sep = 45pt]
                   \Sigma_{\mathfrak{C}}^{op} \arrow[dr, "X"{name=U}] 
-                  \arrow{dd}[swap]{\varphi_{!}}
+                  \arrow{dd}[swap]{\varphi}
 \\
 	& \mathcal{V}
 \\
@@ -1573,11 +1635,131 @@ Then $\mathsf{Sym}_{\bullet}(\mathcal{V})$ is naturally a (neither wide nor full
 
 
 
-Clearly the natural projection map
-$\mathsf{Sym}_\bullet(\mathcal{V}) \to \mathsf{Set}$
-is a (split) Grothendieck fibration with fibers the categories
+\begin{remark}
+We caution that 
+$\mathsf{Sym}_{\bullet}(\V)$
+is rather different from the presheaf category 
+$\mathsf{Fun}(\Sigma_{\bullet}^{op},\V)$.
+
+Instead, one should think of 
+$\mathsf{Sym}_{\bullet}(\V)$
+as a form of ``fibered presheaves''.
+More precisely, 
+one has a (split) Grothendieck fibration
+$\mathsf{Sym}_{\bullet}(\V) \to \mathsf{Set}$
+with fiber over 
+$\mathfrak{C} \in \mathsf{Set}$
+the presheaf category
 $\Sym_{\mathfrak C}(\V)=
 \mathsf{Fun}(\Sigma_{\mathfrak{C}}^{op},\mathcal{V})$.
+Note that for any map
+$\varphi \colon \mathfrak{C} \to \mathfrak{D}$
+one has adjunctions
+\begin{equation}\label{COLCHADJ EQ}
+\varphi_! \colon \Sym_{\mathfrak C}(\V) 
+\rightleftarrows 
+\Sym_{\mathfrak D}(\V) \colon \varphi^{\**}
+\end{equation}
+where $\varphi^{\**}$
+(resp. $\varphi_!$)
+is precomposition with (left Kan extention along)
+$\varphi\colon 
+\Sigma^{op}_{\mathfrak{C}}
+\to 
+\Sigma^{op}_{\mathfrak{D}}
+$
+so that the Grothendieck fibration
+$\mathsf{Sym}_{\bullet}(\V) \to \mathsf{Set}$
+is also an opfibration. 
+\end{remark}
+
+Building on the previous remark,
+one can define a fibered Yoneda embedding, as in the following,
+where we abbreviate
+$\mathsf{Sym}_{\bullet} = \mathsf{Sym}_{\bullet}(\mathsf{Set})$.
+
+\begin{notation}\label{FIBYON NOT}
+Let $\mathfrak{C} \in \mathsf{Set}$, $\vect{C} \in \Sigma_{\mathfrak{C}}$.
+We write
+$\Sigma_{\mathfrak{C}}[\vect{C}] 
+\in \mathsf{Sym}_{\mathfrak{C}} = \mathsf{Set}^{\Sigma_{\mathfrak{C}}^{op}}$ for the representable presheaf
+\[\Sigma_{\mathfrak{C}}[\vect{C}](-)
+= \Sigma_{\mathfrak{C}}(-,\vect{C}).\]
+Moreover, we define the \emph{fibered Yoneda embedding}
+\begin{equation}\label{FIBYON EQ}
+\Sigma_{\bullet} \xrightarrow{\Sigma_{\bullet}[-]} \mathsf{Sym}_{\bullet}
+\end{equation}
+as $\Sigma_{\mathfrak{C}}[\vect{C}]$
+when evaluated on an object
+$\vect{C} \in \Sigma_{\mathfrak{C}} \subset \Sigma_{\bullet}$
+and, on an arrow 
+$\varphi \vect{C} \to \vect{D}$
+over $\varphi \colon \mathfrak{C} \to \mathfrak{D}$,
+as the natural transformation
+$\Sigma_{\mathfrak{C}}[\vect{C}]
+\Rightarrow
+\varphi^{\**}
+\Sigma_{\mathfrak{D}}[\vect{D}]
+$ given by the natural composites
+\[\Sigma_{\mathfrak{C}}[\vect{C}](-)
+= \Sigma_{\mathfrak{C}}(-,\vect{C})
+\to 
+\Sigma_{\mathfrak{D}}(\varphi(-),\varphi\vect{C})
+\to
+\Sigma_{\mathfrak{D}}(\varphi(-),\vect{D})
+=
+\varphi^{\**} \Sigma_{\mathfrak{D}}[\vect{D}](-).
+\]
+\end{notation}
+
+
+
+\begin{proposition}\label{FIBYONPUSH PROP}
+Let $\vect{C} \in \Sigma_{\mathfrak{C}}$,
+$\varphi \colon \mathfrak{C} \to \mathfrak{D}$
+be a map of colors and consider the adjunction \eqref{COLCHADJ EQ}.
+
+Then the adjoint of the canonical map
+$\Sigma_{\mathfrak{C}}[\vect{C}]
+\to
+\varphi^{\**}\Sigma_{\mathfrak{D}}[\varphi\vect{C}]$
+in $\mathsf{Sym}_{\mathfrak{C}}$
+is an isomorphism
+$\varphi_{!} \Sigma_{\mathfrak{C}}[\vect{C}]
+\xrightarrow{\simeq}
+\Sigma_{\mathfrak{D}}[\varphi\vect{C}]$
+in $\mathsf{Sym}_{\mathfrak{D}}$.
+\end{proposition}
+
+
+Alternatively, this result states that 
+the fibered Yoneda $\Sigma_{\bullet}[-]$
+preserves cocartesian arrows.
+
+
+\begin{proof}
+For $Y \in \mathsf{Sym}_{\mathfrak{D}}$, by the (usual) Yoneda lemma one has isomorphisms
+\begin{equation}\label{TWOYON EQ}
+\mathsf{Sym}_{\mathfrak{D}}
+(\Sigma_{\mathfrak{D}}[\varphi \vect{C}],Y)
+\simeq
+Y(\varphi \vect{C})
+\simeq
+\mathsf{Sym}_{\mathfrak{C}}(\Sigma_{\mathfrak{C}}[\vect{C}],\varphi^{\**}Y)
+\end{equation}
+proving 
+$\Sigma_{\mathfrak{D}}[\varphi \vect{C}] \simeq \varphi_! \Sigma_{\mathfrak{C}}[\vect{C}]$.
+That this identification is adjoint to the canonical map
+$\Sigma_{\mathfrak{C}}[\vect{C}]
+\to
+\varphi^{\**}\Sigma_{\mathfrak{C}}[\varphi\vect{C}]$
+in $\mathsf{Sym}_{\mathfrak{C}}$
+follows since this sends
+$id_{\vect{C}}$ to $id_{\varphi\vect{C}}$
+(and since these identities determine the isomorphisms in \eqref{TWOYON EQ}).
+\end{proof}
+
+
 
 Now let $G$ be a group. Writing 
 $\mathsf{Sym}^G_\bullet(\mathcal{V})
@@ -1732,11 +1914,8 @@ associavity and unitality of $F$ with respect to fiber arrows is equivalent to a
 is equivalent to naturality of the $\phi_{\varphi}$.
 \end{enumerate*}
 
-This finishes the proof that \eqref{FUNBLTICV EQ} has the right objects. The claim that it also has the right arrows is similar.
+This finishes the proof that \eqref{FUNBLTICV EQ} has the correct set of objects. The claim that it also has the correct arrows is similar.
 \end{proof}
-
-
-{\color{red} HERE}
 
 
 
@@ -1766,147 +1945,208 @@ $\mathsf{Sym}^G_{\mathfrak{C}}$.
 However, caution is needed.
 If one forgets the $G$-action on $\mathfrak{C}$,
 then $\vect{C} \in \Sigma_{\mathfrak{C}}$
-likewise induces a representable functor 
-$\Sigma^{op}_{\mathfrak{C}}(\vect{C},-)$
+likewise induces the representable functor 
+$\Sigma_{\mathfrak{C}}[\vect{C}]=\Sigma^{op}_{\mathfrak{C}}(\vect{C},-)$
 in 
-$\mathsf{Sym}_{\mathfrak{C}}$.
+$\mathsf{Sym}_{\mathfrak{C}}$
+as discussed in Notation \ref{FIBYON NOT}.
+%
 As such, our next task is to understand the relation between 
 $\left(G \ltimes \Sigma^{op}_{\mathfrak{C}}\right)(\vect{C},-)$
 and 
-$\Sigma^{op}_{\mathfrak{C}}(\vect{C},-)$.
+$\Sigma_{\mathfrak{C}}[\vect{C}]$
+in such a way that we have analogues of the 
+fibered Yoneda \eqref{FIBYON EQ}
+and Proposition \ref{FIBYONPUSH PROP}.
 
-Following {\color{red} references},
-we introduce the following notation, 
-which adapts 
-the notation 
-$\Omega[T] \in \mathsf{dSet} = \mathsf{Set}^{\Omega^{op}}$
-for the representable presheaf $\Omega[T](S) = \Omega(S,T)$.
+
+As in our previous work in {\color{red} references},
+the key to achieve this will be to extend the
+$\Sigma_{\mathfrak{C}}[\vect{C}]$
+notation to be defined not only for corollas $\vect{C}$
+but also for ``colored forests of corollas''.
+In fact, we will do a little more. 
+In anticipation of our discussion of operads, 
+we will extend this notation by defining 
+$\Sigma_{\mathfrak{C}}[\vect{F}]$
+for $\vect{F}$ a general colored forest (of trees).
+
+
+\begin{definition}
+Let $\mathfrak{C}$ be a set of colors.
+The category $\Phi_{\mathfrak{C}}$ of $\mathfrak{C}$-colored forests has
+\begin{itemize}
+\item objects pairs
+$\vect{F} = (F,\mathfrak{c})$
+where 
+$F\in \Phi$ is a forest
+and 
+$\mathfrak{c}\colon \boldsymbol{E}(F) \to \mathfrak{C}$ 
+is a coloring of its edges;
+\item a map
+$\vect{F}=(F,\mathfrak{c}) \to 
+(F',\mathfrak{c}') = \vect{F'}$
+is a map $\rho \colon F \to F'$ in $\Phi$
+such that
+$\mathfrak{c} = \mathfrak{c}' \rho$.
+\end{itemize}
+If $\varphi\colon \mathfrak{C} \to \mathfrak{D}$ is a map of colors,
+we write
+$\varphi \colon \Phi_{\mathfrak{C}} \to \Phi_{\mathfrak{D}}$
+for the functor sending 
+$\vect{F} = (F,\mathfrak{c})$
+to 
+$\varphi\vect{F} = (F,\varphi\mathfrak{c})$.
+Note that this defines a Grothendieck opfibration
+\begin{equation}\label{PHIBGRO EQ}
+\Phi_{\bullet} \to \mathsf{Set}
+\end{equation}
+whose objects are the $\vect{F} \in \Phi_{\mathfrak{C}}$ for some
+$\mathfrak{C} \in \mathsf{Set}$
+and with an arrow
+from $\vect{F}$ to $\vect{F'}$
+over
+$\varphi \colon \mathfrak{C} \to \mathfrak{D}$
+given by an arrow
+$\varphi \vect{F} \to \vect{F'}$ in $\Phi_{\mathfrak{D}}$.
+\end{definition}
+
+
+For each vertex $v \in \boldsymbol{V}(F)$
+in a forest, 
+we write $F_v$ for the associated corolla.
+Note that given a $\mathfrak{C}$-coloring $\vect{F}$ on $F$
+one one likewise obtains colorings
+$\vect{F}_v$ on $F_v$.
+
 
 
 \begin{notation}
-Let $\mathfrak{C} \in \mathsf{Set}$, $\vect{C} \in \Sigma_{\mathfrak{C}}$.
-We write
-$\Sigma_{\mathfrak{C}}[\vect{C}] 
-\in \mathsf{Sym}_{\mathfrak{C}} = \mathsf{Set}^{\Sigma_{\mathfrak{C}}^{op}}$ for the representable presheaf
-\[\Sigma_{\mathfrak{C}}[\vect{C}](\vect{D})
-= \Sigma_{\mathfrak{C}}(\vect{D},\vect{C}).\]
+Given $\vect{F} \in \Phi_{\mathfrak{C}}$
+we define
+\begin{equation}\label{GENSIGC EQ}
+\Sigma_{\mathfrak{C}}[\vect{F}]=
+\coprod\nolimits^{\mathfrak{C}}_{v \in \boldsymbol{V}(F)} 
+\Sigma_{\mathfrak{C}}[\vect{F}_v]
+\end{equation}
+where we highlight that the coproduct $\amalg^{\mathfrak{C}}$ is fibered, i.e. it takes place in $\mathsf{Sym}_{\mathfrak{C}}$
+rather than $\mathsf{Sym}_{\bullet}$.
 \end{notation}
 
 
 
-
-{\color{red} HERE}
-
-
-
-
-Moreover, similarly to {\color{blue} \cite{BP_edss} (add details)},
-we would like to extend the
-$\Sigma_{\mathfrak{C}}[-]$ representable presheaf notation
-to allow for inputs other than just $\mathfrak{C}$-corollas.
-Firstly, if $\vect{T} \in \Omega_{\mathfrak{C}}$ is a $\mathfrak{C}$-tree, we define 
-$\Sigma_{\mathfrak{C}}[\vect{T}] \in \mathsf{Sym}_{\mathfrak{C}}$
-by
+\begin{remark}
+The representables $\Sigma_{\mathfrak{C}}[-]$ in \eqref{GENSIGC EQ}
+do not quite define a full functor on $\Phi_{\bullet}$
+due to the fact that the only maps of forests 
+sending vertices to vertices are the outer maps.
+Writing $\Phi^o_{\bullet} \hookrightarrow \Phi_{\bullet}$
+for the wide subcategory of those arrows whose underlying maps of uncolored forests are outer,
+one has that \eqref{FIBYON EQ}
+extends to give generalized fibered Yoneda embeddings
+(where the right functor is obtained from the left functor by taking $G$-objects)
 \[
-\Sigma_{\mathfrak{C}}[\vect{T}](\vect{D})
-=\{ \text{outer face $\mathfrak{C}$-maps } \vect{D} \to \vect{T}\}
+\Phi_{\bullet}^o 
+\xrightarrow{\Sigma_{\bullet}[-]}
+\mathsf{Sym}_{\bullet},
+\qquad
+\Phi_{\bullet}^{o,G}
+\xrightarrow{\Sigma_{\bullet}[-]}
+\mathsf{Sym}^G_{\bullet}
 \]
-while for a $\mathfrak{C}$-colored forest
-$\vect{F} \in \Phi_{\mathfrak{C}}$
-with tree component decomposition
-$\vect{F} = \amalg_i \vect{F}_i$
-we set
-\[
-\Sigma_{\mathfrak{C}}[\vect{F}] =
-\coprod\nolimits^{\mathfrak{C}}_i 
-\Sigma_{\mathfrak{C}}[\vect{F}_i]
-\]
-where we highlight that the coproduct $\amalg^{\mathfrak{C}}$ is fibered, i.e. it takes place in $\mathsf{Sym}_{\mathfrak{C}}$.
-
-Second, we wish to define $\Sigma_{\mathfrak C}[\vect T]$ for $\mathfrak C$ and $\vect T$ with compatible $G$-action.
-
-Moreover, note that if $\mathfrak{C}$ is a $G$-set, and we consider a 
-$\mathfrak{C}$-colored $G$-forest
-$\vect{F} \in \Phi^G_{\mathfrak{C}}$
-then one can naturally regard
-$\Sigma_{\mathfrak{C}}[\vect{T}] \in \mathsf{Sym}^G_{\mathfrak{C}}
-= \mathsf{Set}^{G \ltimes \Sigma^{op}_{\mathfrak{C}}}$.
-To see why the semi-direct product is needed, note that the $G$-action on 
-$\vect{F}$
-consists of a $G$-action on the index set $\{i\}$
-together with unital and associative isomorphisms
-$\vect{F_i} \xrightarrow{g} \vect{F}_{gi}$ (acting by $g$ on the coloring of the edges) over the action arrow
-$\{i\} \xrightarrow{g} \{i\}$.
-Since the $\Sigma_{\mathfrak{C}}[\vect{F}_i]$
-are presheaves of fixed color maps, this does not induce isomorphisms
-$\Sigma_{\mathfrak{C}}[\vect{F}_i] \simeq \Sigma_{\mathfrak{C}}[\vect{F}_{gi}]$
-but rather isomorphisms
-$\Sigma_{\mathfrak{C}}[\vect{F}_i] \simeq g^{\**}\Sigma_{\mathfrak{C}}[\vect{F}_{gi}]$.
-In other words, given an outer face $\mathfrak{C}$-map 
-$\vect{D} \to \vect{F}_i$ in the square below (where the top map is the canonical action map)
-there is a unique compatible
-outer face $\mathfrak{C}$-map 
-$g \vect{D} \to \vect{F}_{gi}$
-as on the left, inducing a bijection on the right.
-\begin{equation}
-\begin{tikzcd}
-	\vect{D}  
-	\arrow{d}
-	 \arrow{r}{g}
-&
-	g \vect{D} \arrow[d]
-\\
-	\vect{F}_i \arrow{r}{g}
-&
-	\vect{F}_{gi}
-  \end{tikzcd}
-  \Sigma_{\mathfrak C}[\vect F_i](\vect D) \xrightarrow{g} \Sigma_{\mathfrak C}[\vect F_{gi}](g \vect D).
+which are fibered over $\mathsf{Set}$ and $\mathsf{Set}^G$, respectively.
+Note that Proposition \ref{FIBYONPUSH PROP} automatically generalizes, i.e. one has natural identifications
+\begin{equation}\label{PUSHEQAG EQ}
+\varphi_! \Sigma_{\mathfrak{C}}[\vect{F}] \simeq 
+\Sigma_{\mathfrak{D}}[\varphi \vect{F}]
 \end{equation}
-{\color{red} this diagram takes place in 
-$G\ltimes \Omega_{\mathfrak{C}}$ rather than in 
-$G^{op} \ltimes \Omega_{\mathfrak{C}}$ - I'm starting to think that this is an intrinsic feature, not poor organization}
+for each map of colors
+$\varphi \colon \mathfrak{C} \to \mathfrak{D}$
+(which is an equivariant map in the equivariant case).
+\end{remark}
+
+
+
+
+\begin{notation}
+We write $(-)^{\tau} \colon \Phi \to \Phi_{\bullet}$
+for the \emph{tautological coloring} functor
+which sends $F \in \Phi$ to 
+$F^{\tau} \in \Phi_{\boldsymbol{E}(T)}$
+where
+$F^{\tau} = (F,\mathfrak{t})$ is the underlying forest $F$
+together with the identity coloring
+$\mathfrak{t} \colon \boldsymbol{E}(T) \xrightarrow{=} \boldsymbol{E}(T)$.
+Moreover, we then abbreviate 
+$\Sigma_{\tau}[F] = \Sigma_{\boldsymbol{E}(F)}[F^{\tau}]$.
+\end{notation}
 
 
 \begin{remark}
-Alternatively, the representables
-$\Sigma_{\mathfrak{C}}[-]$
-assemble into a functor fibered over $\Fin$
-\[
-\Sigma_{\bullet}[-] \colon \Phi_{\bullet} \to \mathsf{Sym}_{\bullet}
-\]
-and thus induces a functor fibered over $\Fin^G$
-\[
-\Sigma_{\bullet}[-]^G \colon \Phi_{\bullet}^G \to \mathsf{Sym}_{\bullet}^G
-\]
+For any colored forest $\vect{F}=(F,\mathfrak{c})$,
+regarding $\mathfrak{c} \colon \boldsymbol{E}(T) \to \mathfrak{C}$
+as a change of color map, 
+one has $\vect{F} = \mathfrak{c} F^{\tau}$,
+so that \eqref{PUSHEQAG EQ} then yields that
+\begin{equation}\label{CANPUSH EQ}
+\Sigma_{\mathfrak{C}}[\vect{F}] = 
+\mathfrak{c}_! \Sigma_{\tau}[F]
+\end{equation}
 \end{remark}
 
 
 \begin{definition}
-Given a $G$-set of colors $\mathfrak{C}$
-and a $\mathfrak{C}$-tree $\vect{T}\in \Omega_{\mathfrak{C}}$
-we write $G \cdot_{\mathfrak{C}} \vect{T} \in \Phi^G_{\mathfrak{C}}$
-for the $G$-forest
-\[
-G \cdot_{\mathfrak{C}} \vect{T}
-= 
-\coprod_{g \in G}
-g \vect{T}
-\]
-together with the canonical action maps.
+Let $G$ be a group,
+$\mathfrak{C} \in \mathsf{Set}^G$
+be a $G$-set of colors, 
+and $\vect{C} \in \Sigma_{\mathfrak{C}}$ be a $\mathfrak{C}$-signature/corolla.
+Write
+$\vect{C} = (C,\mathfrak{c})$
+with $C\in \Sigma$ the underlying corolla
+and 
+$\mathfrak{c} \colon \boldsymbol{E}(T) \to \mathfrak{C}$.
+
+Writing 
+$G \cdot \mathfrak{c} \colon G \cdot \boldsymbol{E}(T) \to \mathfrak{C}$
+for the adjoint map, 
+$G \in C \in \Phi^G$
+for the $G$-free forest determined by $C$,
+and noting that
+$\boldsymbol{E}(G \cdot C) \simeq 
+G \cdot \boldsymbol{E}(C)$
+we define $G \cdot_{\mathfrak{C}} \vect{T} \in \Phi^G_{\mathfrak{C}}$ by
+\begin{equation}\label{GCDTCC EQ}
+G \cdot_{\mathfrak{C}} \vect{C} = 
+(G \cdot \mathfrak{c})(G \cdot C)^{\tau}.
+\end{equation}
 \end{definition}
 
 
+
 \begin{remark}
-One can more generally define a functor
+Regarding the $G$-action maps 
+$g \colon \mathfrak{C} \to \mathfrak{C}$,
+one has the more explicit formula
+\[
+G \cdot_{\mathfrak{C}} \vect{C}
+= 
+\coprod_{g \in G}
+g \vect{C}
+\]
+However, in practice
+we will prefer \eqref{GCDTCC EQ} for technical reasons.
+\end{remark}
+
+
+\begin{remark}
+One can moreover extend \eqref{GCDTCC EQ}
+to define a functor
 $G \cdot_{\mathfrak{C}} (-) \colon \Phi_{\mathfrak{C}}
 \to \Phi_{\mathfrak{C}}^G$
 which is the left adjoint to the forgetful functor
 $ \Phi_{\mathfrak{C}}^G
 \to \Phi_{\mathfrak{C}}$.
 \end{remark}
-
-
-
 
 
 \begin{example}
@@ -1977,33 +2217,53 @@ $G \cdot_{\mathfrak{C}} \vect{C}$ to be equal.
 
 
 
-
-\begin{proposition}
-      \label{REPALTDESC REM}
-      For any $G$-set of colors $\mathfrak C$,
-      $\Sigma_{\mathfrak{C}} [G \cdot_{\mathfrak{C}} \vect{C}]$
-      is the representable functor
-      $(G \ltimes \Sigma^{op}_{\mathfrak{C}})(\vect{C},-)$.
+\begin{proposition}\label{REPALTDESC PROP}
+For any $G$-set of colors $\mathfrak C$
+and $\mathfrak{C}$-signature
+$\vect{C} \in \Sigma_{\mathfrak{C}}$
+one has a natural identification
+\[
+(G \ltimes \Sigma^{op}_{\mathfrak{C}})(\vect{C},-)
+\simeq 
+\Sigma_{\mathfrak{C}} [G \cdot_{\mathfrak{C}} \vect{C}].
+\]
 \end{proposition}
+
 \begin{proof}
-      Fix $X \in \mathsf{Sym}^G_{\mathfrak{C}} = \mathsf{Set}^{G \ltimes \Sigma_{\mathfrak{C}}^{op}}$.
-      Unpacking definitions,
-      a map $\Sigma_{\mathfrak{C}} [G \cdot_{\mathfrak{C}} \vect{C}] \to X$
-      consists of an underlying map
-      $\coprod_{g \in G} \Sigma_{\mathfrak{C}}[g \vect{C}] \to X$
-      in $\mathsf{Sym}_{\mathfrak{C}}$ which also respects the $G$-actions.
-      But by Yoneda this is equivalent to a choice of points
-      $x_g \in X(g \vect{C})$ such that, writing
-      $X(g \vect{C}) \xrightarrow{\bar{g}} X(\bar{g} g \vect{C})$ for the $G$-action structure maps of $X$,
-      it is $\bar{g}(x_g) = x_{\bar{g}g}$.
-      
-      But we have now shown that a map 
-      $\Sigma_{\mathfrak{C}} [G \cdot_{\mathfrak{C}} \vect{C}] \to X$
-      is freely determined by a choice of a point $x_e \in X(\vect{C})$,
-      and the result follows.
+Recalling the $C_{\varphi}(-,-)$ notation (cf. Notation \ref{MAPSDEC NOT})
+for maps over $\varphi\colon b \to b'$ we likewise write 
+$\mathsf{Sym}^G_{\varphi}(-,-),\mathsf{Sym}_{\varphi}(-,-)$
+for maps over the map of colors $\varphi$.
+The result now follows from the string of isomorphisms
+(which show that $\vect{C}$ represents
+$\Sigma_{\mathfrak{C}} [G \cdot_{\mathfrak{C}} \vect{C}] \in \mathsf{Set}^{G \ltimes \Sigma^{op}_{\mathfrak{C}}}$)
+\[
+	\mathsf{Sym}^G_{\mathfrak{C}}
+	(\Sigma_{\mathfrak{C}} [G \cdot_{\mathfrak{C}} \vect{C}],X)
+\simeq
+	\mathsf{Sym}^G_{G \cdot \mathfrak{c}}
+	(\Sigma_{\tau} [G \cdot C],X)
+\simeq
+	\mathsf{Sym}_{\mathfrak{c}}
+	(\Sigma_{\tau} [C],X)
+\simeq
+	\mathsf{Sym}_{\mathfrak{C}}
+	(\Sigma_{\mathfrak{C}}[\vect{C}],X)
+=
+	X(\vect{C})
+\]
+where: 
+\begin{enumerate*}[label=(\roman*)]
+\item the first and third steps 
+use the canonical pushforwards \eqref{CANPUSH EQ}
+and (the dual of) Remark \ref{CARTCHAR REM};
+\item
+the second step uses \eqref{ADJOVADJ EQ}
+and the observation that
+$\Sigma_{\tau}[G \cdot C] \simeq G \cdot \Sigma_{\tau}[C]$;
+\item the last step is the Yoneda lemma in $\mathsf{Sym}_{\mathfrak{C}}$.
+\end{enumerate*}
 \end{proof}
-
-
 
 
 
@@ -2014,63 +2274,7 @@ $G \cdot_{\mathfrak{C}} \vect{C}$ to be equal.
 
 
 
-We first discuss some preliminaries.
-Firstly, there is a ``tautological coloring'' functor
-$(-)^{\tau} \colon \Phi \to \Phi_{\bullet}$
-such that for a forest 
-$F \in \Phi$
-the colored forest $F^{\tau}$
-has set of colors $\boldsymbol{E}(F)$ of edges of $F$,
-with coloring being the identity (i.e. sending each edge to itself).
-Moreover, $(-)^{\tau}$ clearly restricts to functors
-$(-)^{\tau} \colon \Omega \to \Omega_{\bullet}$,
-$(-)^{\tau} \colon \Sigma \to \Sigma_{\bullet}$.
-
-
-
-We will adapt the $\Sigma_{\mathfrak{C}}[-]$ notation
-(discussed after Definition \ref{SYMGFV DEF})
-by, for each forest $F \in \Phi$, abbreviating
-$\Sigma_{\tau}[F] = \Sigma_{\boldsymbol{E}(T)}[F^{\tau}] \in \mathsf{Sym}_{\bullet}$.
-
-
-
-
-
-\begin{remark}
-	If $\vect{F} \in \Phi_{\mathfrak{C}}$ is a $\mathfrak{C}$-colored forest and we write $F \in \Phi$ for the underlying forest
-	then one has a canonical map
-	$F^{\tau} \to \vect{F}$ in $\Phi_{\bullet}$
-	which is the underlying identity on forests. In fact, this map is simply the change of color map (i.e. the pushforward in $\Phi_{\bullet}$) along the color map
-	$\boldsymbol{E}(T) \xrightarrow{\mathfrak{c}} \mathfrak{C}$
-	given by the coloring of $\vect {F}$.
-	
-	Moreover, writing 
-	$\mathfrak{c}_! \colon 
-	\mathsf{Sym}_{\boldsymbol{E}(T)} \to
-	\mathsf{Sym}_{\mathfrak{C}}$
-	one then has the identification
-\begin{equation}\label{CANPUSH EQ}
-	\mathfrak{c}_! \left(\Sigma_{\tau}[F]\right) = \Sigma_{\mathfrak{C}}[\vect{F}]
-\end{equation}	
-	
-\end{remark}
-
-
-
-
-\begin{remark}
-	Suppose now that $\vect{C} \in \Sigma_{\mathfrak{C}}$
-	is a $\mathfrak{C}$-corolla with underlying corolla
-	$C \in \Sigma$.
-	Then the underlying forest of 
-	$G \cdot_{\mathfrak{C}} \vect{C}$
-	is the free $G$-forest $G \cdot C$.
-	
-	Moreover, $(G\cdot C)^{\tau} = G \cdot C^{\tau}$,
-	where the second formula refers to the free functor
-	$G \cdot (-) \colon \Phi_{\bullet} \to \Phi^G_{\bullet}$.
-	
+\begin{remark}	
 	Next, note that the automorphism group of 
 	$\Sigma_{\tau}[G\cdot C]$ in $\mathsf{Sym}_{\bullet}^G$
 	is then naturally identified with 
