@@ -820,19 +820,71 @@ $\mathcal{B} \ltimes \mathcal{C}_{\bullet}$
 for the associated (covariant) Grothendieck construction.
 
 More explicitly, this is
-the category with objects pairs 
+the category whose objects 
+with objects pairs 
 $(b,c)$ with $b \in \mathcal{B}$ and $c \in \mathcal{C}_b$,
 and with an arrow
 $(b,c) \to (b',c')$
 given by an arrow 
 $\varphi \colon b \to b'$ in $\mathcal{B}$
 together with an arrow
-$\varphi_! (c) \to c'$ in $\mathcal{C}_{b'}$.
-
-Note that the natural projection
-$\mathcal{B} \ltimes \mathcal{C}_{\bullet} \to \mathcal{B}$
+$f \colon \varphi_! c \to c'$ in $\mathcal{C}_{b'}$.
+%
+Note that the composite of 
+$f \colon \varphi_! c \to c'$ and
+$f' \colon \psi_! c' \to c''$ is given by
+\[
+\psi_! \varphi_! c \xrightarrow{\psi_!f}
+\psi_! c' \xrightarrow{f'}
+ c''.
+\]
+Lastly, note that the natural projection
+$\pi \colon \mathcal{B} \ltimes \mathcal{C}_{\bullet} \to \mathcal{B}$
 is naturally a Grothendieck opfibration.
 \end{notation}
+
+{\color{red} HERE}
+
+
+\begin{remark}\label{GROTHUNPCK REM}
+It can be helpful to simplify notation 
+and write elements $(b,c)$ of $\mathcal{B} \ltimes \mathcal{C}_{\bullet}$ simply as $c$.
+Under this convention we depict arrows in 
+$\mathcal{B} \ltimes \mathcal{C}_{\bullet}$
+as composites $c \rightsquigarrow \varphi_! c \xrightarrow{f} c'$
+where 
+$c \rightsquigarrow \varphi_! c$
+denotes the cocartesian arrow from $c$ to $\varphi_! c$
+and $f$ is the fiber arrow.
+With this convention,
+cocartesian and fiber composites are obvious:
+$c \rightsquigarrow
+\varphi_! c 
+\rightsquigarrow
+\psi_! \varphi_! c$
+equals 
+$c \rightsquigarrow
+(\psi \varphi_!) c$
+while
+$c \xrightarrow{f} c' \xrightarrow{f'} c''$
+equals
+$c \xrightarrow{f'f} c''$.
+The only non-obvious composites are then those of the form
+$c \xrightarrow{f} c' \rightsquigarrow \varphi_! c'$,
+which are determined by the commutativity of the square
+\begin{equation}\label{GROTHUNPCK EQ}
+\begin{tikzcd}
+	c \ar{d}[swap]{f} 
+	\arrow[rightsquigarrow]{r}
+&
+	\varphi_! c \arrow{d}{\varphi_! f}
+\\
+	c' \arrow[rightsquigarrow]{r} &
+	\varphi_! c'
+\end{tikzcd}
+\end{equation}
+\end{remark}
+
 
 
 
@@ -1520,10 +1572,6 @@ Then $\mathsf{Sym}_{\bullet}(\mathcal{V})$ is naturally a (neither wide nor full
 \end{remark}
 
 
-{\color{red} HERE}
-
-
-
 
 Clearly the natural projection map
 $\mathsf{Sym}_\bullet(\mathcal{V}) \to \mathsf{Set}$
@@ -1541,125 +1589,208 @@ the abstract nonsense argument in Remark \ref{FUNISGROTH REM}
 yields that
 $\mathsf{Sym}^G_\bullet(\mathcal{V}) \to \mathsf{Set}^G$
 is again a Grothendieck fibration.
+For each $\mathfrak{C} \in \mathsf{Set}^G$
+we will then write
+$\mathsf{Sym}^G_{\mathfrak{C}}(\V)$
+to denote the fiber of
+$\mathsf{Sym}^G_\bullet(\mathcal{V}) \to \mathsf{Set}^G$
+over $\mathfrak{C}$.
+We caution that 
+$\mathsf{Sym}^G_{\mathfrak{C}}(\V)$
+\emph{is not}
+the category 
+$\left(\mathsf{Sym}_{\mathfrak{C}}(\V)\right)^G$
+of $G$-objects in $\mathsf{Sym}_{\mathfrak{C}}(\V)$
+unless the $G$-action on $\mathfrak{C}$
+happens to be trivial.
 
-{\color{blue} HERE}
-
-
-
-We start with the following, which is a slight strengthening of
+We will thus find it convenient to have a more explicit description of
+$\mathsf{Sym}^G_{\mathfrak{C}}(\V)$,
+provided by the following result, 
+which is a slight strengthening of
 \cite[Lemma A.6]{BP_geo}.
+In fact, we prove a slightly more general description
+for the categories $\mathsf{Cat} \downarrow^l \mathcal{V}$
+in Remark \ref{SUBCATDOWNL REM},
+for which the natural ``source category'' functor
+$\mathsf{Cat} \downarrow^l \mathcal{V} \to \mathsf{Cat}$
+is likewise a split Grothendieck fibration
+with fiber over $\mathcal{C} \in \mathsf{Cat}$
+given by
+$\mathsf{Fun}(\mathcal{C},\mathcal{V})$.
 
 
-\begin{lemma}\label{EQUIVFUNCONV LEM}
-Let $G$ be a group and $\mathfrak{C} \colon G \to \mathsf{Set}$ be a $G$-set (or, more generally, $\mathcal{D}$ a category and 
-$\mathcal{C}_{\bullet}\colon \mathcal{D} \to \mathsf{Cat}$ a functor). Then the category of sections as on the left below (or, more generally, as on the left)
-\begin{equation}
-	\begin{tikzcd}
-		&
-		\mathsf{Sym}(\mathcal{V}) \arrow{d}{\mathsf{fgt}}
-&
-		&
-		\mathsf{Cat}\downarrow^l \mathcal{V} \arrow{d}{\mathsf{fgt}}
-\\
-		G \arrow{r}[swap]{\mathfrak{C}} \arrow[dashed]{ru} &
-		\mathsf{Set}
-&
-		\mathcal{D} \arrow{r}[swap]{\mathcal{C}_{\bullet}} \arrow[dashed]{ru} &
-		\mathsf{Cat}
-	\end{tikzcd}
+
+\begin{proposition}\label{EQUIVFNCON PROP}
+Let $G$ be a group and $\mathfrak{C} \in \mathsf{Set}^G$
+be a $G$-set. Then there is a natural identification
+\[
+\mathsf{Sym}^G_{\mathfrak{C}}(\V)
+\simeq
+\mathsf{Fun}(G \ltimes \Sigma^{op}_{\mathfrak{C}},\V).
+\]
+More generally, 
+for a category $\mathcal{B}$
+the fiber of
+$\left(\mathsf{Cat} \downarrow^l \V \right)^{\mathcal{B}}
+\to \mathsf{Cat}^{\mathcal{B}}$
+over a functor
+$\mathcal{B} \xrightarrow{b \mapsto \mathcal{C}_b} \mathsf{Cat}$
+is given by
+\begin{equation}\label{FUNBLTICV EQ}
+\mathsf{Fun}(\mathcal{B} \ltimes \mathcal{C}_{\bullet},\V).
 \end{equation}
-is isomorphic to the functor category
-$\mathsf{Fun}(G\ltimes \Sigma_{\mathfrak{C}}^{op},\mathcal{V})$
-(or, more generally, $\mathsf{Fun}(\mathcal{D} \ltimes \mathcal{C}_{\bullet},\mathcal{V})$).
-\end{lemma}
+%\begin{equation}
+%	\begin{tikzcd}
+%		&
+%		\mathsf{Sym}(\mathcal{V}) \arrow{d}{\mathsf{fgt}}
+%&
+%		&
+%		\mathsf{Cat}\downarrow^l \mathcal{V} \arrow{d}{\mathsf{fgt}}
+%\\
+%		G \arrow{r}[swap]{\mathfrak{C}} \arrow[dashed]{ru} &
+%		\mathsf{Set}
+%&
+%		\mathcal{D} \arrow{r}[swap]{\mathcal{C}_{\bullet}} \arrow[dashed]{ru} &
+%		\mathsf{Cat}
+%	\end{tikzcd}
+%\end{equation}
+\end{proposition}
+
 
 
 \begin{proof}
-Since there is a natural inclusion
-$\mathsf{Sym}(\mathcal{V}) 
-\subseteq 
-\mathsf{Cat} \downarrow^l \mathcal{V}$
-and the assignment $\mathsf{F} \to \mathsf{Cat}$ 
-given by $\mathfrak{C} \mapsto \Sigma_{\mathfrak{C}}$ 
-is faithful, it suffices to check the more general claim concerning
-$\mathsf{Cat} \downarrow^l \mathcal{V}$.
+It is immediate from the definitions that
+$\mathsf{Sym}^G_{\mathfrak{C}}(\C)$
+matches the fiber of 
+$\left(\mathsf{Cat} \downarrow^l \V \right)^{G}
+\to \mathsf{Cat}^{G}$
+over $\Sigma_{\mathfrak{C}}^{op} \in \mathsf{Cat}^G$,
+so we need only address the general case.
 
-The remainder of the proof is simply a matter of unpacking definitions. For example, in both cases objects consist of collections of functors $\mathcal{C}_d \to \mathcal{V}$ for $d \in \mathcal{D}$ together with natural transformations
-	\begin{equation}
-	\begin{tikzcd}[row sep = tiny, column sep = 35pt]
-		\mathcal{C}_{d} \arrow{dr}[name=U]{} \arrow{dd}[swap]{\mathcal{C}_{f}}
+As in Notation \ref{GROTHCONS NOT},
+let us write $\varphi_! \colon \mathcal{C}_b \to \mathcal{C}_{b'}$
+for the functor induced by the arrow 
+$\varphi_! \colon b \to b'$
+in $\mathcal{B}$.
+Unpacking definitions, an object of 
+$\left(\mathsf{Cat} \downarrow^l \V \right)^{\mathcal{B}}$
+over 
+$\mathcal{C}_{\bullet} \colon \mathcal{B} \to \mathsf{Cat}$
+corresponds to the data of functors
+$\gamma_b \colon \mathcal{C}_b \to \mathcal{V}$ for each $b \in \mathcal{B}$
+and natural transformations
+$\phi_{\varphi} \colon \gamma_b \Rightarrow \gamma_{b'} \varphi_!$
+for each $\varphi \colon b \to b'$ in $\mathcal{B}$
+\begin{equation}\label{EQUIVFUNEX EQ}
+\begin{tikzcd}[row sep = tiny, column sep = 50pt]
+		\mathcal{C}_{b} \arrow{dr}[name=U]{\gamma_b} \arrow{dd}[swap]{\varphi_!}
 	\\
 		& \mathcal{V}
 	\\
-		|[alias=V]| \mathcal{C}_{\bar{d}} \arrow{ur}[swap]{}
+		|[alias=V]| \mathcal{C}_{b'} \arrow{ur}[swap]{\gamma_{b'}}
 	\arrow[Leftarrow, from=V, to=U,shorten >=0.25cm,shorten <=0.25cm
-	,swap
+	,swap,"\phi_{\varphi}"
 	]
-	\end{tikzcd}
-	\end{equation}
-for each arrow $f \colon d \to \bar{d}$ in $\mathcal{D}$, subject to natural unitality and associativity requirements.
+\end{tikzcd}
+\end{equation}
+subject to the requirements that
+$\gamma_b \overset{\phi_{\varphi}}{\Rightarrow}
+\gamma_{b'} \varphi_!
+\overset{\phi_{\psi}\varphi_!}{\Rightarrow}
+\gamma_{b'} \varphi_! \psi_!
+$
+equals 
+$\gamma_b \overset{\phi_{\psi\varphi}}{\Rightarrow}
+\gamma_{b'} \varphi_! \psi_!
+$
+for composable $b \xrightarrow{\varphi} b' \xrightarrow{\psi} b''$
+and that
+$\phi_{id_b} = id_{\gamma_b}$.
+
+We now claim that the data above is exactly the data of a functor
+$F \colon \mathcal{B} \ltimes \mathcal{C}_{\bullet} \to \mathcal{V}$.
+To ease notation, we follow
+Remark \ref{GROTHUNPCK REM}
+and describe arrows in 
+$\mathcal{B} \ltimes \mathcal{C}_{\bullet}$
+as composites
+$c \rightsquigarrow \varphi_! c \xrightarrow{f} c'$.
+On fiber arrows 
+$f\colon c \to c'$ in $\mathcal{C}_b$
+set $F(f) = \gamma_b(f)$
+and on cocartesian arrows set
+$F(c \rightsquigarrow \varphi_! c) =
+(\phi_{\varphi})_c$.
+Then:
+\begin{enumerate*}[label=(\roman*)]
+\item
+associavity and unitality of $F$ with respect to fiber arrows is equivalent to associativity and unitality of the $\gamma_b$;
+\item associavity and unitality of $F$ with respect to the cocartesian arrows is equivalent to the conditions following 
+\eqref{EQUIVFUNEX EQ};
+\item $F$ respecting the commutative squares \eqref{GROTHUNPCK EQ}
+is equivalent to naturality of the $\phi_{\varphi}$.
+\end{enumerate*}
+
+This finishes the proof that \eqref{FUNBLTICV EQ} has the right objects. The claim that it also has the right arrows is similar.
 \end{proof}
 
 
-
-In accordance with the previous lemma, we will represent elements of $\mathsf{Sym}^G(\mathcal{V})$
-by functors
-$G \ltimes \Sigma_{\mathfrak{C}}^{op} \to \mathcal{V}$ for some $\mathfrak{C} \in \mathsf{F}^G$.
+{\color{red} HERE}
 
 
 
+Following the previous result, 
+we will represent $G$-equivariant symmetric sequences
+$X \in \mathsf{Sym}^G_{\mathfrak{C}}(\mathcal{V})$
+for some $\mathfrak{C} \in \mathsf{Set}^G$
+as functors
+$X \colon G \ltimes \Sigma_{\mathfrak{C}}^{op} \to \mathcal{V}$.
+
+Since  
+$\mathsf{Sym}^G_{\mathfrak{C}}(\mathcal{V}) \simeq 
+\V^{G \ltimes \Sigma^{op}}$ is again a functor category, 
+we will find it useful to discuss representable functors.
+In the following discussion 
+we set $\V = \mathsf{Set}$ and abbreviate
+$\mathsf{Sym}^G_{\mathfrak{C}} = \mathsf{Sym}^G_{\mathfrak{C}}(\mathsf{Set})$.
+
+As the objects of 
+$G \ltimes \Sigma^{op}_{\mathfrak{C}}$
+are simply the signatures
+$\vect{C} \in \Sigma_{\mathfrak{C}}$,
+each such signature induces a representable functor
+$\left(G \ltimes \Sigma^{op}_{\mathfrak{C}}\right)(\vect{C},-)$
+in 
+$\mathsf{Sym}^G_{\mathfrak{C}}$.
+However, caution is needed.
+If one forgets the $G$-action on $\mathfrak{C}$,
+then $\vect{C} \in \Sigma_{\mathfrak{C}}$
+likewise induces a representable functor 
+$\Sigma^{op}_{\mathfrak{C}}(\vect{C},-)$
+in 
+$\mathsf{Sym}_{\mathfrak{C}}$.
+As such, our next task is to understand the relation between 
+$\left(G \ltimes \Sigma^{op}_{\mathfrak{C}}\right)(\vect{C},-)$
+and 
+$\Sigma^{op}_{\mathfrak{C}}(\vect{C},-)$.
+
+Following {\color{red} references},
+we introduce the following notation, 
+which adapts 
+the notation 
+$\Omega[T] \in \mathsf{dSet} = \mathsf{Set}^{\Omega^{op}}$
+for the representable presheaf $\Omega[T](S) = \Omega(S,T)$.
 
 
-
-%\begin{remark}\label{SIGACT REM}
-The group $G \times \Sigma_n^{op}$
-naturally acts on the set $\Sigma_{\mathfrak{C},n}$
-of $n$-ary $\mathfrak{C}$-corollas
-$\vect{C} = (\mathfrak{c}_1,\cdots,\mathfrak{c}_n;\mathfrak{c}_0)$
-via the assigment (where $g \in G$, $\sigma \in \Sigma_n$)
-\begin{equation}
-      \label{SIGACT_EQ}
-      g \sigma \vect{C} =
-      g \sigma (\mathfrak{c}_1,\cdots,\mathfrak{c}_n;\mathfrak{c}_0)
-      =
-      (g\mathfrak{c}_{\sigma(1)},\cdots,g\mathfrak{c}_{\sigma(n)};g\mathfrak{c}_{\sigma(0)})
-\end{equation}
-or, more compactly, $g \sigma (\mathfrak{c}_i) = (g \mathfrak{c}_{\sigma(i)})$.
-
-Moreover, the subcategory of $G \ltimes \Sigma^{op}_{\mathfrak{C}}$
-spanned by the $n$-ary corollas is the action groupoid for this action.
-%\end{remark}
-
-
-\begin{definition}
-If a subgroup $\Lambda \leq G \times \Sigma_n^{op}$
-fixes a signature 
-$\vect{C} = (\mathfrak{c}_1,\cdots,\mathfrak{c}_n;\mathfrak{c}_0)$,
-i.e. if
-$g\mathfrak{c}_{\sigma(i)} = \mathfrak{c}_i$
-for all $g \sigma \in \Lambda,0 \leq i \leq n$,
-we say that \textit{$\Lambda$ stabilizes $\vect C$}. % \emph{$\vect{C}$ and $\Lambda$ are compatible}.
-\end{definition}
-
-
-
-\begin{remark}\label{CHOOSESIGN REM}
-Given $\Lambda \leq G \times \Sigma_n^{op}$ 
-the projection to $\Sigma_n^{op}$ yields a
-right action of $\Lambda$ on $\underline{n}_+$.
-
-Writing $\Lambda_i\leq \Lambda$ for the stabilizer of $i \in \underline{n}_{+}$ and $H_i = \pi_G(\Lambda_i)$
-for its projection onto $G$,
-one then has $H_i = g H_{\sigma(i)} g^{-1}$ for all
-$g \sigma \in \Lambda$.
-
-Moreover, it thus follows that the 
-signatures $\vect{C}$ that $\Lambda$ stabilizes
-are in bijection with choices of 
-$H_i$-equivariant colors $\mathfrak{c}_i$ 
-for $i$ ranging over a set of representatives of
-the orbits $\underline{n}_+ /\Lambda$.
-\end{remark}
+\begin{notation}
+Let $\mathfrak{C} \in \mathsf{Set}$, $\vect{C} \in \Sigma_{\mathfrak{C}}$.
+We write
+$\Sigma_{\mathfrak{C}}[\vect{C}] 
+\in \mathsf{Sym}_{\mathfrak{C}} = \mathsf{Set}^{\Sigma_{\mathfrak{C}}^{op}}$ for the representable presheaf
+\[\Sigma_{\mathfrak{C}}[\vect{C}](\vect{D})
+= \Sigma_{\mathfrak{C}}(\vect{D},\vect{C}).\]
+\end{notation}
 
 
 
@@ -1668,17 +1799,6 @@ the orbits $\underline{n}_+ /\Lambda$.
 
 
 
-
-
-
-Firstly, adapting the notation 
-$\Omega[T] \in \mathsf{Set}^{\Omega^{op}}$
-for the representable presheaf $\Omega[T](S) = \Omega(S,T)$,
-we similarly write
-$\Sigma_{\mathfrak{C}}[\vect{C}] 
-\in \mathsf{Sym}_{\mathfrak{C}} = \mathsf{Set}^{\Sigma_{\mathfrak{C}}^{op}}$ for the representable presheaf
-$\Sigma_{\mathfrak{C}}[\vect{C}](\vect{D})
-= \Sigma_{\mathfrak{C}}(\vect{D},\vect{C})$.
 
 Moreover, similarly to {\color{blue} \cite{BP_edss} (add details)},
 we would like to extend the
@@ -1889,6 +2009,185 @@ $G \cdot_{\mathfrak{C}} \vect{C}$ to be equal.
 
 
 {\color{red} HERE}
+
+
+
+
+
+We first discuss some preliminaries.
+Firstly, there is a ``tautological coloring'' functor
+$(-)^{\tau} \colon \Phi \to \Phi_{\bullet}$
+such that for a forest 
+$F \in \Phi$
+the colored forest $F^{\tau}$
+has set of colors $\boldsymbol{E}(F)$ of edges of $F$,
+with coloring being the identity (i.e. sending each edge to itself).
+Moreover, $(-)^{\tau}$ clearly restricts to functors
+$(-)^{\tau} \colon \Omega \to \Omega_{\bullet}$,
+$(-)^{\tau} \colon \Sigma \to \Sigma_{\bullet}$.
+
+
+
+We will adapt the $\Sigma_{\mathfrak{C}}[-]$ notation
+(discussed after Definition \ref{SYMGFV DEF})
+by, for each forest $F \in \Phi$, abbreviating
+$\Sigma_{\tau}[F] = \Sigma_{\boldsymbol{E}(T)}[F^{\tau}] \in \mathsf{Sym}_{\bullet}$.
+
+
+
+
+
+\begin{remark}
+	If $\vect{F} \in \Phi_{\mathfrak{C}}$ is a $\mathfrak{C}$-colored forest and we write $F \in \Phi$ for the underlying forest
+	then one has a canonical map
+	$F^{\tau} \to \vect{F}$ in $\Phi_{\bullet}$
+	which is the underlying identity on forests. In fact, this map is simply the change of color map (i.e. the pushforward in $\Phi_{\bullet}$) along the color map
+	$\boldsymbol{E}(T) \xrightarrow{\mathfrak{c}} \mathfrak{C}$
+	given by the coloring of $\vect {F}$.
+	
+	Moreover, writing 
+	$\mathfrak{c}_! \colon 
+	\mathsf{Sym}_{\boldsymbol{E}(T)} \to
+	\mathsf{Sym}_{\mathfrak{C}}$
+	one then has the identification
+\begin{equation}\label{CANPUSH EQ}
+	\mathfrak{c}_! \left(\Sigma_{\tau}[F]\right) = \Sigma_{\mathfrak{C}}[\vect{F}]
+\end{equation}	
+	
+\end{remark}
+
+
+
+
+\begin{remark}
+	Suppose now that $\vect{C} \in \Sigma_{\mathfrak{C}}$
+	is a $\mathfrak{C}$-corolla with underlying corolla
+	$C \in \Sigma$.
+	Then the underlying forest of 
+	$G \cdot_{\mathfrak{C}} \vect{C}$
+	is the free $G$-forest $G \cdot C$.
+	
+	Moreover, $(G\cdot C)^{\tau} = G \cdot C^{\tau}$,
+	where the second formula refers to the free functor
+	$G \cdot (-) \colon \Phi_{\bullet} \to \Phi^G_{\bullet}$.
+	
+	Next, note that the automorphism group of 
+	$\Sigma_{\tau}[G\cdot C]$ in $\mathsf{Sym}_{\bullet}^G$
+	is then naturally identified with 
+	$G^{op} \times \Sigma_n$ (where we assume $C$ is a $n$-corolla),
+	where we stress that we are including those automorphisms which change colors.
+	
+	The claim that 
+	$\Lambda \leq \mathsf{Aut}_{G \ltimes \Sigma_{\mathfrak{C}}^{op}}(\vect{C}) 
+	\leq G \times \Sigma_{n}^{op}$
+	is then the claim that, for each $\lambda \in \Lambda$ then the left vertical isomorphism in the diagram	
+\[
+\begin{tikzcd}
+	G \cdot C^{\tau} \ar{d}[swap]{\lambda} \ar{r}  
+&
+	G \cdot_{\mathfrak{C}} \vect{C}
+	\ar{d}{\lambda}
+\\
+	G \cdot C^{\tau} \ar{r}
+&
+	G \cdot_{\mathfrak{C}} \vect{C}
+\end{tikzcd}
+\]
+induces the right vertical isomorphism which is moreover a map in 
+$\Phi_{\mathfrak{C}}$.
+
+We now claim that, adapting \eqref{CANPUSH EQ},
+$\Sigma_{\mathfrak{C}}[G\cdot_{\mathfrak{C}} \vect{C}]/\Lambda$
+is a pushout of
+$\Sigma_{\tau}[G\cdot C]/\Lambda$.
+Indeed, this follows from the way colimits in (co)fibered categories are calculated:
+since $\Lambda$ does not act trivially on 
+$\boldsymbol{E}(G\cdot C)$,
+the set of colors of 
+$\Sigma_{\tau}[G\cdot C]/\Lambda$
+is instead given by the orbits
+$\boldsymbol{E}(G\cdot C)/ \Lambda$
+so that, writing 
+$\pi \colon \boldsymbol{E}(G\cdot C) \to \boldsymbol{E}(G\cdot C)/ \Lambda$ one has a natural identification 
+$\Sigma_{\tau}[G\cdot C]/\Lambda \simeq \left(\pi_!\Sigma_{\tau}[G\cdot C]\right)/\Lambda$
+where the second coequalizer now takes place in a fiber category,
+and writing 
+$\phi \colon \boldsymbol{E}(G\cdot C)/ \Lambda \to \mathfrak{C}$
+for the induced map one further has
+\begin{equation}\label{CANPUSHQ EQ}
+\Sigma_{\mathfrak{C}}[G\cdot_{\mathfrak{C}} \vect{C}]/\Lambda
+\simeq
+\phi_! \left( \Sigma_{\tau}[G\cdot C]/\Lambda \right).
+\end{equation}
+\end{remark}
+
+
+
+\eqref{CANPUSHQ EQ} will allow us to minimize  
+the representatives of the generating sets in \eqref{FVGSIGF EQ}
+that are needed to obtain the generating cofibrations in 
+$\mathsf{Op}^G_{\F}(\V)$.
+
+
+
+{\color{red} HERE}
+
+
+
+
+%\begin{remark}\label{SIGACT REM}
+The group $G \times \Sigma_n^{op}$
+naturally acts on the set $\Sigma_{\mathfrak{C},n}$
+of $n$-ary $\mathfrak{C}$-corollas
+$\vect{C} = (\mathfrak{c}_1,\cdots,\mathfrak{c}_n;\mathfrak{c}_0)$
+via the assigment (where $g \in G$, $\sigma \in \Sigma_n$)
+\begin{equation}
+      \label{SIGACT_EQ}
+      g \sigma \vect{C} =
+      g \sigma (\mathfrak{c}_1,\cdots,\mathfrak{c}_n;\mathfrak{c}_0)
+      =
+      (g\mathfrak{c}_{\sigma(1)},\cdots,g\mathfrak{c}_{\sigma(n)};g\mathfrak{c}_{\sigma(0)})
+\end{equation}
+or, more compactly, $g \sigma (\mathfrak{c}_i) = (g \mathfrak{c}_{\sigma(i)})$.
+
+Moreover, the subcategory of $G \ltimes \Sigma^{op}_{\mathfrak{C}}$
+spanned by the $n$-ary corollas is the action groupoid for this action.
+%\end{remark}
+
+
+\begin{definition}
+If a subgroup $\Lambda \leq G \times \Sigma_n^{op}$
+fixes a signature 
+$\vect{C} = (\mathfrak{c}_1,\cdots,\mathfrak{c}_n;\mathfrak{c}_0)$,
+i.e. if
+$g\mathfrak{c}_{\sigma(i)} = \mathfrak{c}_i$
+for all $g \sigma \in \Lambda,0 \leq i \leq n$,
+we say that \textit{$\Lambda$ stabilizes $\vect C$}. 
+% \emph{$\vect{C}$ and $\Lambda$ are compatible}.
+\end{definition}
+
+
+
+\begin{remark}\label{CHOOSESIGN REM}
+Given $\Lambda \leq G \times \Sigma_n^{op}$ 
+the projection to $\Sigma_n^{op}$ yields a
+right action of $\Lambda$ on $\underline{n}_+$.
+
+Writing $\Lambda_i\leq \Lambda$ for the stabilizer of $i \in \underline{n}_{+}$ and $H_i = \pi_G(\Lambda_i)$
+for its projection onto $G$,
+one then has $H_i = g H_{\sigma(i)} g^{-1}$ for all
+$g \sigma \in \Lambda$.
+
+Moreover, it thus follows that the 
+signatures $\vect{C}$ that $\Lambda$ stabilizes
+are in bijection with choices of 
+$H_i$-equivariant colors $\mathfrak{c}_i$ 
+for $i$ ranging over a set of representatives of
+the orbits $\underline{n}_+ /\Lambda$.
+\end{remark}
+
+
+
 
 
 \subsection{Equivariant colored symmetric operads}
@@ -4362,117 +4661,6 @@ However, it turns out that, among all such $\vect{C}$ there is one which is init
 $\vect{C}$ under change of colors.
 
 
-We first discuss some preliminaries.
-Firstly, there is a ``tautological coloring'' functor
-$(-)^{\tau} \colon \Phi \to \Phi_{\bullet}$
-such that for a forest 
-$F \in \Phi$
-the colored forest $F^{\tau}$
-has set of colors $\boldsymbol{E}(F)$ of edges of $F$,
-with coloring being the identity (i.e. sending each edge to itself).
-Moreover, $(-)^{\tau}$ clearly restricts to functors
-$(-)^{\tau} \colon \Omega \to \Omega_{\bullet}$,
-$(-)^{\tau} \colon \Sigma \to \Sigma_{\bullet}$.
-
-
-
-We will adapt the $\Sigma_{\mathfrak{C}}[-]$ notation
-(discussed after Definition \ref{SYMGFV DEF})
-by, for each forest $F \in \Phi$, abbreviating
-$\Sigma_{\tau}[F] = \Sigma_{\boldsymbol{E}(T)}[F^{\tau}] \in \mathsf{Sym}_{\bullet}$.
-
-
-
-
-
-\begin{remark}
-	If $\vect{F} \in \Phi_{\mathfrak{C}}$ is a $\mathfrak{C}$-colored forest and we write $F \in \Phi$ for the underlying forest
-	then one has a canonical map
-	$F^{\tau} \to \vect{F}$ in $\Phi_{\bullet}$
-	which is the underlying identity on forests. In fact, this map is simply the change of color map (i.e. the pushforward in $\Phi_{\bullet}$) along the color map
-	$\boldsymbol{E}(T) \xrightarrow{\mathfrak{c}} \mathfrak{C}$
-	given by the coloring of $\vect {F}$.
-	
-	Moreover, writing 
-	$\mathfrak{c}_! \colon 
-	\mathsf{Sym}_{\boldsymbol{E}(T)} \to
-	\mathsf{Sym}_{\mathfrak{C}}$
-	one then has the identification
-\begin{equation}\label{CANPUSH EQ}
-	\mathfrak{c}_! \left(\Sigma_{\tau}[F]\right) = \Sigma_{\mathfrak{C}}[\vect{F}]
-\end{equation}	
-	
-\end{remark}
-
-
-
-
-\begin{remark}
-	Suppose now that $\vect{C} \in \Sigma_{\mathfrak{C}}$
-	is a $\mathfrak{C}$-corolla with underlying corolla
-	$C \in \Sigma$.
-	Then the underlying forest of 
-	$G \cdot_{\mathfrak{C}} \vect{C}$
-	is the free $G$-forest $G \cdot C$.
-	
-	Moreover, $(G\cdot C)^{\tau} = G \cdot C^{\tau}$,
-	where the second formula refers to the free functor
-	$G \cdot (-) \colon \Phi_{\bullet} \to \Phi^G_{\bullet}$.
-	
-	Next, note that the automorphism group of 
-	$\Sigma_{\tau}[G\cdot C]$ in $\mathsf{Sym}_{\bullet}^G$
-	is then naturally identified with 
-	$G^{op} \times \Sigma_n$ (where we assume $C$ is a $n$-corolla),
-	where we stress that we are including those automorphisms which change colors.
-	
-	The claim that 
-	$\Lambda \leq \mathsf{Aut}_{G \ltimes \Sigma_{\mathfrak{C}}^{op}}(\vect{C}) 
-	\leq G \times \Sigma_{n}^{op}$
-	is then the claim that, for each $\lambda \in \Lambda$ then the left vertical isomorphism in the diagram	
-\[
-\begin{tikzcd}
-	G \cdot C^{\tau} \ar{d}[swap]{\lambda} \ar{r}  
-&
-	G \cdot_{\mathfrak{C}} \vect{C}
-	\ar{d}{\lambda}
-\\
-	G \cdot C^{\tau} \ar{r}
-&
-	G \cdot_{\mathfrak{C}} \vect{C}
-\end{tikzcd}
-\]
-induces the right vertical isomorphism which is moreover a map in 
-$\Phi_{\mathfrak{C}}$.
-
-We now claim that, adapting \eqref{CANPUSH EQ},
-$\Sigma_{\mathfrak{C}}[G\cdot_{\mathfrak{C}} \vect{C}]/\Lambda$
-is a pushout of
-$\Sigma_{\tau}[G\cdot C]/\Lambda$.
-Indeed, this follows from the way colimits in (co)fibered categories are calculated:
-since $\Lambda$ does not act trivially on 
-$\boldsymbol{E}(G\cdot C)$,
-the set of colors of 
-$\Sigma_{\tau}[G\cdot C]/\Lambda$
-is instead given by the orbits
-$\boldsymbol{E}(G\cdot C)/ \Lambda$
-so that, writing 
-$\pi \colon \boldsymbol{E}(G\cdot C) \to \boldsymbol{E}(G\cdot C)/ \Lambda$ one has a natural identification 
-$\Sigma_{\tau}[G\cdot C]/\Lambda \simeq \left(\pi_!\Sigma_{\tau}[G\cdot C]\right)/\Lambda$
-where the second coequalizer now takes place in a fiber category,
-and writing 
-$\phi \colon \boldsymbol{E}(G\cdot C)/ \Lambda \to \mathfrak{C}$
-for the induced map one further has
-\begin{equation}\label{CANPUSHQ EQ}
-\Sigma_{\mathfrak{C}}[G\cdot_{\mathfrak{C}} \vect{C}]/\Lambda
-\simeq
-\phi_! \left( \Sigma_{\tau}[G\cdot C]/\Lambda \right).
-\end{equation}
-\end{remark}
-
-\eqref{CANPUSHQ EQ} will allow us to minimize  
-the representatives of the generating sets in \eqref{FVGSIGF EQ}
-that are needed to obtain the generating cofibrations in 
-$\mathsf{Op}^G_{\F}(\V)$.
 
 Before describing the generating sets, however, we need to address the path-lifting condition.
 Since fibrations in $\mathsf{Op}^G_{\F}(\V)$ are to have the lifting property against all maps $\eta \to \mathbb I$
@@ -9609,7 +9797,7 @@ is also compatible with $G$-equivariance, i.e. it is in fact $\Lan^G$ as above.
 % (\Sigma^{op}_{\bullet},\mathcal{V})
 % \right)^G
 % $.
-Hence, by (the span version of) Lemma \ref{EQUIVFUNCONV LEM},
+Hence, by (the span version of) Proposition \ref{EQUIVFNCON PROP},
 we further have the alternative formula
 \begin{equation}\label{3RDRED EQ}
 \O[u] \simeq
@@ -9697,7 +9885,7 @@ $
 \mathsf{WSpan}_l
 \left(G \ltimes \Sigma_{\bullet}^{op},\mathcal{V}\right)
 $
-from (the analogue of) Lemma \ref{EQUIVFUNCONV LEM},
+from (the analogue of) Proposition \ref{EQUIVFNCON PROP},
 one has that the equivariant monad $N^G$
 is described by the following analogue of \eqref{NCOLOR EQ}
 (see the discussion in \eqref{RHOPURP EQ} for the discussion of the natural transformation
