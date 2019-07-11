@@ -2123,6 +2123,7 @@ G \cdot_{\mathfrak{C}} \vect{C} =
 \end{equation}
 \end{definition}
 
+\todo[inline]{still need to define $\Phi^G_{\mathfrak C}$}
 
 
 \begin{remark}
@@ -4147,7 +4148,7 @@ The generating (trivial) cofibrations
                   \mathcal C \arrow[d]
                   \\
                   \displaystyle{
-                    \coprod_{c \in \mathrm{Ob}(\mathcal C} \widetilde{[1]}
+                    \coprod_{c \in \mathrm{Ob}(\mathcal C)} \widetilde{[1]}
                   }
                   \arrow[r]
                   &
@@ -4344,11 +4345,10 @@ We begin by generalizing the constructions from Equations \eqref{FCAPBARF_EQ}, \
 %       \]
 % \end{proof}
 
-\todo[inline]{introduce $Aut(T)$ and colored-version  earlier}
-
 \begin{remark}[{cf. \cite[Remark 6.48]{BP_geo}}]
-      Let $T \in \Omega$. Then we have a grafting decomposition $T \simeq C \amalg (T_i)$ for $C \in \Sigma$ and $T_i \in \Omega$.
-      Letting $\lambda$ denote the partition $\boldsymbol{L}(C) = \lambda_1 \amalg \dots \amalg \lambda_k$ such that
+      \label{AUTT_REM}
+      Let $T \in \Omega$. Then we have a grafting decomposition $T \simeq R \amalg (T_i)$ for $R \in \Sigma$ and $T_i \in \Omega$.
+      Letting $\lambda$ denote the partition $\boldsymbol{L}(R) = \lambda_1 \amalg \dots \amalg \lambda_k$ such that
       $i$,$j$ are in the same class iff $T_i \simeq T_j$,
       any choice of representatives $i_j \in \lambda_j$ yields a decomposition
       \[
@@ -4358,7 +4358,7 @@ We begin by generalizing the constructions from Equations \eqref{FCAPBARF_EQ}, \
       For $\vect T \in \Omega_{\mathfrak C}$, we have an analogous decomposition of $\vect T$ using a partition $\vect \lambda$,
       and controlling for the repeated $G$-action, we have
       \[
-            \Aut(\vect T) \simeq \big(\Sigma_{|\lambda_1|} \wr_G \Aut(\vect T_{i_1}\big) \times_G^\lrcorner \dots \times_G^\lrcorner \big(\Sigma_{|\lambda_s|} \wr_G \Aut(\vect T_{i_s})\big)
+            \Aut(\vect T) \simeq \big(\Sigma_{|\vect \lambda_1|} \wr_G \Aut(\vect T_{i_1})\big) \times_G^\lrcorner \dots \times_G^\lrcorner \big(\Sigma_{|\vect \lambda_s|} \wr_G \Aut(\vect T_{i_s})\big)
             %\prod_{j=1}^s{}_G \Sigma_{|\lambda_j} \wr_G \Aut(\vect T_{i_j})
       \]
       where $(-) \times_G^\lrcorner (-)$ again denotes the fiber product over $G$.
@@ -4373,45 +4373,39 @@ We begin by generalizing the constructions from Equations \eqref{FCAPBARF_EQ}, \
 
       Now, fix a $(G,\Sigma)$-graph family $\mathcal F = \set{\F_n}$.
       Following \cite[Prop. 6.44, Lemma 6.49]{BP_geo}, for any $T \in \Omega$ and $\vect T \in \Omega_{\mathfrak C}$,
-      we define the following families of subgroups of $G \times \Aut(T)$ and $\Aut(\vect T)$, respectively,
-      using the grafting decomposition as above:
-      \begin{align*}
-        \F_T &= \pi_T^{\**}(\F_C) \cap \left( \F_{T_{i_1}}^{\ltimes_G |\lambda_1|} \sqcap_G \dots \sqcap_G \F_{T_{i_r}}^{\ltimes_G |\lambda_r|} \right),
-        \\
-        \F_{\vect T} &= \pi_{\vect T}^{\**}(\F_{\vect C}) \cap \left( \F_{\vect T_{i_1}}^{\ltimes_G |\lambda_1|} \sqcap_G \dots \sqcap_G \F_{\vect T_{i_s}}^{\ltimes_G |\lambda_s|} \right),
-      \end{align*}
-      with $\pi_{T} \colon G \times \Aut(T) \to G \times \Aut(C)$ and $\pi_{\vect T} \colon \Aut(\vect T) \to \Aut(\vect C)$.
+      we define the family $\F_T$ of subgroups of $G \times \Aut(T)$ by
+      \begin{equation}
+            \label{FT_EQ}
+            \F_T = \pi_T^{\**}(\F_R) \cap \left( \F_{T_{i_1}}^{\ltimes_G |\lambda_1|} \sqcap_G \dots \sqcap_G \F_{T_{i_r}}^{\ltimes_G |\lambda_r|} \right)
+      \end{equation}
+      using the grafting decomposition as above
+      with $\pi_{T} \colon G \times \Aut(T) \to G \times \Aut(R)$ the natural map,
+      and
+      \begin{equation}
+            \label{FVT_EQ}
+            \F_{\vect T} = \phi_{\vect T}^{\**}(\F_T).
+      \end{equation}
 \end{remark}
 
 \begin{lemma}
       \label{FVECTT_LEM}
-      $\F_{\vect T} = \phi_{\vect T}^{\**}(\F_T)$.
+      For any $G$-set $\mathfrak C$ and $\mathfrak C$-colored tree $\vect T$, we have
+      \begin{equation}
+            \label{FVECTT_EQ}
+            \F_{\vect T} =
+            \pi_{\vect T}^{\**}(\F_{\vect R}) \cap
+            \left( \F_{\vect T_{i_1}}^{\ltimes_G |\vect \lambda_1|} \sqcap_G \dots \sqcap_G \F_{\vect T_{i_s}}^{\ltimes_G |\vect \lambda_s|} \right),
+      \end{equation}
+      where $\vect T = \vect R \amalg (\vect T_i)$ and $\vect \lambda$ are a decomposition as in Remark \ref{AUTT_REM},
+      and $\pi_{\vect T} \colon \Aut(\vect T) \to \Aut(\vect R)$ is the natural map.
 \end{lemma}
 \begin{proof}
-      Unpacking \cite[Equation (6.51)]{BP_geo} we have that $\Gamma \leq G \times \Aut(T)$ is in
-      $\left(\F_{T_{i_1}}^{\ltimes_G |\lambda_1|} \sqcap_G \dots \sqcap_G \F_{T_{i_r}}^{\ltimes_G |\lambda_r|} \right)$
-      iff for all $l \in \boldsymbol{L}(C)$, % $l \in \lambda_k$,
-      \[
-            \pi_{G \times \Aut(T_l)}\Bigg( \Gamma \cap \bigg(
-            \left(
-                  \Big(\Sigma_{\set{l}} \times \big(G \times \Aut(T_l)\big) \Big) \times_G^\lrcorner
-                  \Big(\Sigma_{|\lambda_k \setminus \set{l}|} \wr_G \big( G \times \Aut(T_{i_k}) \big) \Big)
-            \right)
-            \times_G^\lrcorner        
-            \sideset{}{^{\lrcorner}_{G}}\prod_{j \neq k} \Big( \Sigma_{|\lambda_j|} \wr_G \big( G \times \Aut(T_{i_j}) \big) \Big)
-            \bigg) \Bigg)
-            \in \F_{T_l}            
-      \]
-
-      
-
-
-
-
-
-
-      
-      First, $\Gamma \leq \Aut(\vect T)$ $\in \F_T \cap \Aut(\vect T)$ iff $\pi_{\vect T}(\Gamma) \in \Aut(\vect C)$, as the following diagram commutes.
+      We unpack \eqref{FT_EQ} and \eqref{FVECTT_EQ}.
+      First, we note that for $\Gamma \leq \Aut(\vect T)$,
+      $\pi_{\vect T}(\Gamma) \in \F_{\vect R}$
+      iff
+      $\pi_T\phi_{\vect T}(\Gamma) \in \F_R$,
+      as $\F_{\vect R} = \phi_{\vect R}^{\**}\F_R$ by \eqref{PHISTAR_EQ} and the following diagram commutes.
       \begin{equation}
             \label{AUTT_EQ}
             \begin{tikzcd}
@@ -4419,88 +4413,153 @@ We begin by generalizing the constructions from Equations \eqref{FCAPBARF_EQ}, \
                   &
                   G \times \Aut(T) \arrow[d, "\pi_T"]
                   \\
-                  \Aut(\vect C) \arrow[r, "\phi_{\vect C}"]
+                  \Aut(\vect R) \arrow[r, "\phi_{\vect R}"]
                   &
-                  G \times \Aut(C).
+                  G \times \Aut(R).
             \end{tikzcd}
       \end{equation}
+      Thus $\phi_{\vect T}^{\**}(F_{\vect R}) = \pi_{\vect T}^{\**}\pi_T^{\**}(\F_R)$, 
+      so it suffices to compare the second parts of \eqref{FT_EQ},\eqref{FVT_EQ}.
       
-      Second, unpacking \cite[Equation (6.51)]{BP_geo} we have that $\Gamma \leq G \times \Aut(T)$ is in
+      For all $1 \leq k \leq r$ and $l \in \boldsymbol{L}(R)$ with $l \in \lambda_k$, 
+      we write
+      $\Sigma_{\lambda_k(l)} \wr_G \big(G \times \Aut(T_{i_k})\big) \leq \Sigma_{|\lambda_k|} \wr_G \big(G \times \Aut(T_{i_k})\big)$
+      for the subgroup 
+      \[
+            \Sigma_{\lambda_k(l)} \wr_G \big(G \times \Aut(T_{i_k})\big) :=
+            \Big(\Sigma_{\set{l}} \times \big(G \times \Aut(T_l)\big) \Big) \times_G^\lrcorner
+            \Big(\Sigma_{|\lambda_k \setminus \set{l}|} \wr_G \big( G \times \Aut(T_{i_k}) \big) \Big)
+      \]
+      of those elements where the $\Sigma_{|\lambda_k|}$-component fixes $l$; similarly denote
+       \[
+            \Sigma_{\vect \lambda_{\bar k}(l)} \wr_G \Aut(\vect T_{i_{\bar k}}) :=
+            \Big(\Sigma_{\set{l}} \times \Aut(\vect T_l) \Big) \times_G^\lrcorner
+            \Big(\Sigma_{|\vect \lambda_{\bar k} \setminus \set{l}|} \wr_G \Aut(\vect T_{i_{\bar k}}) \Big)
+            \leq
+            \Sigma_{|\vect \lambda_{\bar k}|} \wr_G \Aut(\vect T_{i_{\bar k}})
+      \]
+      for $1 \leq \bar k \leq s$.
+      
+      Now, following \cite[Equation (6.51)]{BP_geo},
+      $\Gamma \leq G \times \Aut(T)$ is in
       $\left(\F_{T_{i_1}}^{\ltimes_G |\lambda_1|} \sqcap_G \dots \sqcap_G \F_{T_{i_r}}^{\ltimes_G |\lambda_r|} \right)$
-      iff for all $l \in \boldsymbol{L}(C)$,
+      iff for all $1 \leq k \leq r$ and $l \in \boldsymbol{L}(R)$ with $l \in \lambda_k$,
       \[
-            \pi_{G \times \Aut(T_l)}\Big(
-            \big(\Sigma_{{e} \subseteq \boldsymbol{L}(C)} \times (G \times \Aut(T_l)) \big) \times_G^\lrcorner
-            \big( \Sigma_{\lambda \setminus \set{l}} \wr_G (G \times \Aut(T_j))_{j \neq l} \big)
-            \Big) \in \F_{T_l},
+            \pi_{G \times \Aut(T_l)}\Bigg( \Gamma \cap \bigg(
+            \Big(
+                  \Sigma_{\lambda_k(l)} \wr_G \big(G \times \Aut(T_{i_k})\big)
+                  % \Big(\Sigma_{\set{l}} \times \big(G \times \Aut(T_l)\big) \Big) \times_G^\lrcorner
+                  % \Big(\Sigma_{|\lambda_k \setminus \set{l}|} \wr_G \big( G \times \Aut(T_{i_k}) \big) \Big)
+            \Big)
+            \times_G^\lrcorner        
+            \sideset{}{^{\lrcorner}_{G}}\prod_{j \neq k} \Big( \Sigma_{|\lambda_j|} \wr_G \big( G \times \Aut(T_{i_j}) \big) \Big)
+            \bigg) \Bigg)
+            \in \F_{T_l}            
       \]
-      where $\lambda \setminus \set{l}$ is the induction partition on $\boldsymbol{L}(C) \setminus \set{l}$ and
-      $\pi_{G \times \Aut(T_l)}$ is the observable projection;
-      similarly $\Gamma \leq \Aut(\vect T)$ is in 
-      $\left(\F_{\vect T_{i_1}}^{\ltimes_G |\vect \lambda_1|} \sqcap_G \dots \sqcap_G \F_{\vect T_{i_s}}^{\ltimes_G |\vect \lambda_s|} \right)$
-      iff for all $l \in \boldsymbol{L}(C)$,
+      where $\pi_{G \times \Aut(T_l)}$ is the natural projection to $G \times \Aut(T_l)$.
+      Similarly, $\bar \Gamma \leq \Aut(\vect T)$ is in 
+      $\left(\F_{T_{i_1}}^{\ltimes_G |\lambda_1|} \sqcap_G \dots \sqcap_G \F_{T_{i_r}}^{\ltimes_G |\lambda_r|} \right)$
+      iff for all $1 \leq \bar k \leq s$ and $l \in \boldsymbol{L}(R)$ with $l \in \vect \lambda_{\bar k}$,
+            \[
+            \pi_{\Aut(\vect T_l)}\Bigg( \Gamma \cap \bigg(
+            \Big(
+                  \Sigma_{\vect \lambda_{\bar k}(l)} \wr_G \Aut(\vect T_{i_{\bar k}})
+                  % \Big(\Sigma_{\set{l}} \times \big(G \times \Aut(T_l)\big) \Big) \times_G^\lrcorner
+                  % \Big(\Sigma_{|\lambda_k \setminus \set{l}|} \wr_G \big( G \times \Aut(T_{i_k}) \big) \Big)
+            \Big)
+            \times_G^\lrcorner        
+            \sideset{}{^{\lrcorner}_{G}}\prod_{j \neq {\bar k}} \Big( \Sigma_{|\vect \lambda_j|} \wr_G \Aut(\vect T_{i_j}) \Big)
+            \bigg) \Bigg)
+            \in \F_{T_l}            
+      \]
+      The result then follows as the diagram below commutes
       \[
-            \pi_{\Aut(\vect T_l)}\Big(
-            \big(\Sigma_{{e} \subseteq \boldsymbol{L}(C)} \times \Aut(\vect T_l)) \big) \times_G^\lrcorner
-            \big( \Sigma_{\vect \lambda \setminus \set{l}} \wr_G (\Aut(\vect T_j))_{j \neq l} \big)
-            \Big) \in \F_{\vect T_l}.
+            \begin{tikzcd}
+                  \displaystyle{
+                    \Big(
+                    \Sigma_{\vect \lambda_{\bar k}(l)} \wr_G \Aut(\vect T_{i_{\bar k}})
+                    % \Big(\Sigma_{\set{l}} \times \big(G \times \Aut(T_l)\big) \Big) \times_G^\lrcorner
+                    % \Big(\Sigma_{|\lambda_k \setminus \set{l}|} \wr_G \big( G \times \Aut(T_{i_k}) \big) \Big)
+                    \Big)
+                    \times_G^\lrcorner        
+                    \sideset{}{^{\lrcorner}_{G}}\prod_{j \neq {\bar k}} \Big( \Sigma_{|\vect \lambda_j|} \wr_G \Aut(\vect T_{i_j}) \Big)
+                  }
+                  \arrow[d] \arrow[r, "\pi_{\Aut(\vect T_l)}"]
+                  &[15pt]
+                  \Aut(\vect T_l) \arrow[d, "\phi_{\vect T_l}"]
+                  \\
+                  \displaystyle{
+                    \Big(
+                    \Sigma_{\lambda_k(l)} \wr_G \big(G \times \Aut(T_{i_k})\big)
+                    % \Big(\Sigma_{\set{l}} \times \big(G \times \Aut(T_l)\big) \Big) \times_G^\lrcorner
+                    % \Big(\Sigma_{|\lambda_k \setminus \set{l}|} \wr_G \big( G \times \Aut(T_{i_k}) \big) \Big)
+                    \Big)
+                    \times_G^\lrcorner        
+                    \sideset{}{^{\lrcorner}_{G}}\prod_{j \neq k} \Big( \Sigma_{|\lambda_j|} \wr_G \big( G \times \Aut(T_{i_j}) \big) \Big)
+                  }
+                  \arrow[r, "\pi_{G \times \Aut(T_l)}"]
+                  &
+                  G \times \Aut(T_l)
+            \end{tikzcd}
       \]
-      While the wreath products in the above parenthesized groups may differ due to $\vect \lambda \subseteq \lambda$,
-      the projections clearly commute with the maps $\Aut(\vect T_l) \to G \times \Aut(T_l)$. 
-
-      Finally, $\Gamma \in \F_{\vect T}$ must always be in $\Aut(\vect T)$.
-      %
-      The result follows.
+      where $k$ is the partition index of $\lambda$ with $\vect \lambda_{\bar k} \subseteq \lambda_k$.
 \end{proof}
 
 We use this decomposition of $\F_{\vect T}$ to detect cofibrancy.
 
 \begin{proposition}[{cf. \cite[Prop. 6.52]{BP_geo}}]
       \label{BOXVT_PROP}
-      Suppose $f_s: A_s \to B_s$, $1 \leq s \leq l$, are $\F$-(trivial)-cofibrations in $\Sym(\V)$
+      Suppose $f_a: A_a \to B_a$, $1 \leq a \leq m$, are $\F$-(trivial)-cofibrations in $\Sym(\V)$
       % level $\F$ (trivial) cofibrations in $\Sym(\V)$, i.e. $f_s(\vect C)$ is a (trivial) cofibration in $\V^{\Aut(\vect C)}_{\F_{\vect C}}$ for all signatures $\vect C$.
-      Then for any $\underline{l}$-labeled signature $\vect T \in \Omega^{\underline{l}}_{\mathfrak C}$, the map
+      Then for any $\underline{m}$-labeled $\mathfrak C$-tree $\vect T \in \Omega^{\underline{m}}_{\mathfrak C}$, the map
       \[
-            f^{\square V(T)} = \mathop{\square}\limits_{1 \leq r \leq l} \mathop{\square}\limits_{v \in \boldsymbol{V}_r(T)} f_r(\vect T_v)
+            f^{\square V(T)} = \mathop{\square}\limits_{1 \leq a \leq m} \mathop{\square}\limits_{v \in \boldsymbol{V}_a(T)} f_a(\vect T_v)
       \]
       is a (trivial) cofibration in $\V^{\Aut_{G \ltimes \Omega_{\mathfrak C}}(\vect T)}_{\F_{\vect T}}$.
 \end{proposition}
 \begin{proof}
-      Using the same decomposition as before, we have
+      Using the grafting decomposition $\vect T = \vect R \amalg (\vect T_i)$ as in Remark \ref{AUTT_REM}, we have
       \[
-            f^{\square V(T)} = f_{r_C}(\vect C) \square \mathop{\mathlarger{\square}}\limits_{1 \leq i \leq s}\left(f^{\square V(\vect T_{i_j})}\right)^{\square |\vect \lambda_j|}.
+            f^{\square V(T)} = f_{a_R}(\vect R) \square \mathop{\mathlarger{\square}}\limits_{1 \leq j \leq s}\left(f^{\square V(\vect T_{i_j})}\right)^{\square |\vect \lambda_j|}.
       \]
       Propositions \ref{EQQUILADJ PROP} and \ref{RESGEN PROP} and Lemma \ref{FVECTT_LEM} % 640_LEM
       combine to show that the composite
       \[
-            \V^{\Aut(\vect C)}_{\F_{\vect C}} \times
-            \prod_{i=1}^s
+            \V^{\Aut(\vect R)}_{\F_{\vect R}} \times
             \V^{\Sigma_{|\vect \lambda_1|} \wr_G \Aut(\vect T_1)}_{\F_{\vect T_1}^{\ltimes_G |\vect \lambda_1|}}
-            \times_G^\lrcorner
+            \times %_G^\lrcorner
             \dots
-            \times_G^\lrcorner
+            \times %_G^\lrcorner
             \V^{\Sigma_{|\vect \lambda_s|} \wr_G \Aut(\vect T_s)}_{\F_{\vect T_s}^{\ltimes_G |\vect \lambda_s|}}
             \xrightarrow{\quad \otimes \quad}
             \V^{\Aut(\vect T)}_{\F_{\vect T}}
       \]
       is left Quillen,
       with automorphism groups taking place in $G \ltimes \Omega_{\mathfrak C}$. 
-      The result now follows from Propositions \ref{SIGMAWRGF PROP}(i) and \ref{EQQUILADJ PROP} with the induction hypothesis. % 641_LEM
+      The result now follows by induction on $|V(T)|$ from Propositions \ref{SIGMAWRGF PROP}(i) and \ref{EQQUILADJ PROP}.
 \end{proof}
 
-We recall a key definition from \cite{Per18,BP_geo}.
+For the last step of the proof, we will need a stronger assumption on $\F$.
 \begin{definition}
       \label{WIS_DEF}
-      A \textit{weak indexing system}...
-
+      A $(G,\Sigma)$-graph family $\F = \set{\F_n}$ is a \textit{weak indexing system} if
+      for all $T \in \Omega$ with $\mathsf{lr}(T) = C$,
+      \begin{equation}
+            \label{WIS_EQ}
+            \F_T \subseteq \pi_{\mathsf{lr}(T)}^{\**} \F_C
+      \end{equation}
+      for $\pi_{\mathsf{lr}(T)} \colon G \times \Aut(T) \to G \times \Aut(C)$ the natural map.
 \end{definition}
 
-By \cite[Remark 6.45]{BP_geo}, $\F$ is a weak indexing system iff
-for all $T \in \Omega$ with $\mathsf{lr}(T) = C$,
-\begin{equation}
-      \label{FT_EQ}
-      \F_T \subseteq \pi_{T}^{\**} \F_C.
-\end{equation}
+\begin{remark}
+      Weak indexing systems are a generalization of the notion of \textit{indexing systems} given by \cite[Defn. 3.22]{BH15},
+      and several definitions have been given by the authors
+      (\cite[Defn. 9.5]{Per18}, \cite[Defn. 4.49]{BP_geo}, \cite[Defn. 6.2]{BP_edss}).
+      These descriptions involve the combinatorics of the category of \textit{$G$-trees},
+      which are not needed for this article.
+      However, by \cite[Remark 6.45]{BP_geo}, the above characterization is equivalent.
+\end{remark}
+
 % In particular, by Proposition \ref{EQQUILADJ PROP} the induction map
 %       \[
 %             (\pi_{T})_! \colon \V^{G \times \Aut(T)}_{\F_T} \to \V^{G \times \Aut(C)}_{\F_C},
@@ -4514,21 +4573,30 @@ for all $T \in \Omega$ with $\mathsf{lr}(T) = C$,
       \begin{enumerate}[label = (\roman*)]
       \item $\F$ is a weak indexing system.
       \item For all $G$-sets of colors $\mathfrak C$ and $\mathfrak C$-colored trees $\vect T$ with $\mathsf{lr}(\vect T) = \vect C$, 
-            $\F_{\vect T} \subseteq \pi_{\vect T}^{\**}\F_{\vect C}$.
+            $\F_{\vect T} \subseteq \pi_{\mathsf{\vect T}}^{\**}\F_{\vect C}$
       \end{enumerate}
+      for $\pi_{\mathsf{lr}(\vect T)} \colon \Aut(\vect T) \to \Aut(\vect C)$ the natural map.
 \end{lemma}
 \begin{proof}
       (ii) implies (i) by considering $\mathfrak C = \**$.
-      Conversely,
-      \eqref{FT_EQ} implies
-      $\phi_{\vect T}^{\**}\F_T \subseteq \phi_{\vect T}^{\**}\pi_T^{\**} \F_C$,
-      but $\phi_{\vect T}^{\**}\pi_T^{\**} \F_C = \pi_{\vect T}^{\**}\F_{\vect C}$ by \eqref{PHISTAR_EQ} and \eqref{AUTT_EQ},
-      and thus the result follows by Lemma \ref{FVECTT_LEM}.
+      Conversely, we have
+      \[
+            \F_{\vect T} = 
+            \phi_{\vect T}^{\**}\F_T \subseteq
+            \phi_{\vect T}^{\**}\pi_{\mathsf{lr}(T)}^{\**} \F_C =
+            \pi_{\mathsf{lr}(\vect T)}^{\**} \phi_{\vect C}^{\**} \F_C =
+            \pi_{\mathsf{lr}(\vect T)}^{\**} \F_{\vect C}
+      \]
+      by \eqref{FVT_EQ}, \eqref{WIS_EQ},
+      the commuting square $\phi_{\vect C} \pi_{\mathsf{lr}(\vect T)} = \pi_{\mathsf{lr}(T)} \phi_{\vect T}$,
+      and \eqref{PHISTAR_EQ}.
 \end{proof}
 
 \begin{corollary}
       \label{PIVECTT_COR}
-      The map $(\pi_{\vect T})_! \colon \V^{\Aut(\vect T)}_{\F_{\vect T}} \to \V^{\Aut(\vect C)}_{\F_{\vect C}}$ is left Quillen.
+      For any $\V$ which admits all equivariant model structures, weak indexing system $\F$,
+      $G$-set $\mathfrak C$, and $\mathfrak C$-colored tree $\vect T$ with $\mathsf{lr}(\vect T) = \vect C$,
+      the map $(\pi_{\mathsf{lr}(\vect T)})_! \colon \V^{\Aut(\vect T)}_{\F_{\vect T}} \to \V^{\Aut(\vect C)}_{\F_{\vect C}}$ is left Quillen.
 \end{corollary}
 
 \begin{theorem}
@@ -4571,7 +4639,7 @@ for all $T \in \Omega$ with $\mathsf{lr}(T) = C$,
 \begin{proposition}
       \label{SGS_COF_PROP}
       $\O \to \P$ in $\sOp^G$ is a $\Sigma_G$-cofibration iff it forgets to a $\Sigma$-cofibration in $\sOp$.
-
+      %
       In particular, $\O$ is $\Sigma_G$-cofibrant iff $\O(n)$ has a free $\Sigma_n$-action.
 \end{proposition}
 
