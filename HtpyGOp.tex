@@ -24,7 +24,6 @@
 \usepackage{ifdraft}
 \ifdraft{
   \color[RGB]{63,63,63}
-
   \pagecolor[RGB]{220,220,204}
   \usepackage{showkeys}
   \usepackage{geometry}
@@ -1975,7 +1974,7 @@ $\Sigma_{\mathfrak{C}}[\vect{F}]$
 for $\vect{F}$ a general colored forest (of trees).
 
 
-\begin{definition}
+\begin{definition}\label{COLFOR DEF}
 Let $\mathfrak{C}$ be a set of colors.
 The category $\Phi_{\mathfrak{C}}$ of $\mathfrak{C}$-colored forests has
 \begin{itemize}
@@ -2035,6 +2034,100 @@ we define
 where we highlight that the coproduct $\amalg^{\mathfrak{C}}$ is fibered, i.e. it takes place in $\mathsf{Sym}_{\mathfrak{C}}$
 rather than $\mathsf{Sym}_{\bullet}$.
 \end{notation}
+
+
+
+
+\begin{example}\label{COLFORES EX}
+Let 
+$\mathfrak{C} = \{ \mathfrak{a}, \mathfrak{b}, \mathfrak{c} \}$.
+On the left below we depict a $\mathfrak{C}$-colored forest 
+$\vect{F} = \vect{T} \amalg \vect{S}$
+with tree components $\vect{T},\vect{S}$.
+\begin{equation}
+	\begin{tikzpicture}[auto,grow=up, level distance = 2.2em,
+	every node/.style={font=\scriptsize,inner sep = 2pt}]%
+		\tikzstyle{level 2}=[sibling distance=3em]%
+			\node at (0,0) [font = \normalsize] {$\vect{T}$}%	
+				child{node [dummy] {}%
+					child[level distance = 2.9em]{node [dummy] {}%
+						child{node {}%
+						edge from parent node [swap] {$\mathfrak{c}$}}%
+					edge from parent node [swap,near end] {$\mathfrak{b}$}}%
+					child[level distance = 2.9em]{node [dummy] {}%
+						child[level distance = 2.9em]{node [dummy] {}%
+						edge from parent node [swap,	near end] {$\mathfrak{a}$}}%
+						child[level distance = 2.9em]{node {}%
+						edge from parent node [near end] {$\mathfrak{b}$}}%
+					edge from parent node [near end] {$\mathfrak{a}$}}%
+				edge from parent node [swap] {$\mathfrak{a}$}};%
+			\node at (2,0) [font = \normalsize] {$\vect{S}$}%	
+				child{node [dummy] {}%
+					child[level distance = 2.9em]{node [dummy] {}%
+						child{node [dummy] {}%
+						edge from parent node [swap] {$\mathfrak{c}$}}%
+					edge from parent node [swap] {$\mathfrak{b}$}}%
+				edge from parent node [swap] {$\mathfrak{a}$}};%
+			\node at (4.5,1.5) [font = \normalsize] {$\vect{T}_1$}%	
+				child{node [dummy] {}%
+				edge from parent node [swap] {$\mathfrak{a}$}};%
+			\node at (6.5,1.5) [font = \normalsize] {$\vect{T}_2$}%	
+				child{node [dummy] {}%
+					child{node {}%
+					edge from parent node [swap, near end] {$\mathfrak{a}$}}%
+					child{node {}%
+					edge from parent node [near end] {$\mathfrak{b}$}}%
+				edge from parent node [swap] {$\mathfrak{a}$}};%
+			\node at (8.5,1.5) [font = \normalsize] {$\vect{T}_3$}%	
+				child{node [dummy] {}%
+					child{node {}%
+					edge from parent node [swap] {$\mathfrak{c}$}}%
+				edge from parent node [swap] {$\mathfrak{b}$}};%
+			\node at (10.5,1.5) [font = \normalsize] {$\vect{T}_4$}%	
+				child{node [dummy] {}%
+					child{node {}%
+					edge from parent node [swap, near end] {$\mathfrak{b}$}}%
+					child{node {}%
+					edge from parent node [near end] {$\mathfrak{a}$}}%
+				edge from parent node [swap] {$\mathfrak{a}$}};%
+			\node at (4.5,-0.7) [font = \normalsize] {$\vect{S}_1$}%	
+				child{node [dummy] {}%
+				edge from parent node [swap] {$\mathfrak{c}$}};%
+			\node at (6.5,-0.7) [font = \normalsize] {$\vect{S}_2$}%	
+				child{node [dummy] {}%
+					child{node {}%
+					edge from parent node [swap] {$\mathfrak{c}$}}%
+				edge from parent node [swap] {$\mathfrak{b}$}};%
+			\node at (8.5,-0.7) [font = \normalsize] {$\vect{S}_3$}%	
+				child{node [dummy] {}%
+					child{node {}%
+					edge from parent node [swap] {$\mathfrak{b}$}}%
+				edge from parent node [swap] {$\mathfrak{a}$}};%
+		\draw[decorate,decoration={brace,amplitude=2.5pt}] (2.1,-0.5) -- (-1.1,-0.5) 
+		node[midway,inner sep=4pt,font=\normalsize]{$\vect{F}$}; %
+	\end{tikzpicture}%
+\end{equation}%
+Moreover, on the right we depict the $\mathfrak{C}$-signatures/corollas
+$\vect{T}_i$ and $\vect{S}_j$
+corresponding to the vertices of $T,S$ so that
+\[
+\Sigma_{\mathfrak{C}}[\vect{F}]=
+\Sigma_{\mathfrak{C}}[\vect{T}] 
+\amalg^{\mathfrak{C}}
+\Sigma_{\mathfrak{C}}[\vect{S}]=
+\left(
+\coprod_{1\leq i \leq 4}^{\mathfrak{C}}
+\Sigma_{\mathfrak{C}}[\vect{T}_i] 
+\right)
+\amalg^{\mathfrak{C}}
+\left(
+\coprod_{1\leq j \leq 3}^{\mathfrak{C}}
+\Sigma_{\mathfrak{C}}[\vect{S}_j]
+\right)
+\]
+\end{example}
+
+
 
 
 
@@ -2209,6 +2302,8 @@ for $\vect{C}$ the leftmost corolla.
 					child{node {}%
 					edge from parent node  {$-i\mathfrak{a}$}}%
 				edge from parent node [swap] {$i\mathfrak{b}$}};%
+		\draw[decorate,decoration={brace,amplitude=2.5pt}] (11.2,-0.4) -- (-0.7,-0.4) 
+		node[midway,inner sep=4pt,font=\normalsize]{$G \cdot_{\mathfrak{C}} \vect{C}$}; %
 	\end{tikzpicture}%
 \end{equation}%
 Note that the pairs $\vect{C},-\vect{C}$
@@ -2376,40 +2471,45 @@ for $i$ ranging over a set of representatives of
 the orbits $\underline{n}_+ /\Lambda$.
 \end{remark}
 
-{\color{red} HERE}
-
 
 
 
 \subsection{Equivariant colored symmetric operads}
 
 
-We next describe the fibered monad on $\mathsf{Sym}_\bullet(\mathcal{V})$ such that the fiber algebras are
-$\mathsf{Op}_\bullet(\mathcal{V})$.
+Our goal in this section is to describe the category 
+$\mathsf{Op}^{G}_{\bullet}(\V)$
+of equivariant colored operads in a way suitable for our 
+proof of the main theorems in \S \ref{FIXCOL SEC} and \S \ref{MS_SEC}.
 
-First, much as in Definition \ref{CSYM DEF}, we need colored versions of the tree categories $\Omega$ and $\Omega^0$.
-\todo[inline]{discuss $\Omega$, $\Omega^0$, $\Phi$; leaf-root in preamble}
-Informally, and given a set of colors $\mathfrak C$, 
-one simply lets $\Omega_{\mathfrak{C}}$
-be the category of trees whose edges are decorated by colors in $\mathfrak{C}$, together with color respecting maps.
-More formally, $\Omega_{\mathfrak{C}}$ and $\Omega_{\mathfrak C}^0$ are given by the following pullbacks.
-\begin{equation}
-	\begin{tikzcd}
-		\OC \arrow[d] \arrow[r, "E"] &
-		\mathsf F \wr \mathfrak C \arrow[d]
-                & % ----------
-                \Omega_{\mathfrak C}^0 \arrow[r, "E"] \arrow[d]
-                &
-                \mathsf F \wr \mathfrak C \arrow[d]
-\\
-		\Omega \arrow[r, "E"] &
-		\mathsf F
-                & % ----------
-                \Omega^0 \arrow[r, "E"]
-                &
-                \Fin
-	\end{tikzcd}
-\end{equation}
+We start by considering the non-equivariant case
+$G = \**$,
+for which we will describe
+$\mathsf{Op}_{\bullet}(\V)$
+as the category of fiber algebras over a certain fibered monad $\mathbb{F}$ on 
+$\mathsf{Sym}_\bullet(\mathcal{V})$.
+
+The restrictions of $\mathbb{F}$ to each fiber
+$\mathsf{Sym}_{\mathfrak{C}}(\V)$,
+i.e. the fiber monads $\mathbb{F}_{\mathfrak{C}}$,
+are simply the ``free operad with set of objects $\mathfrak{C}$'' monads,
+which are well known to be defined using 
+$\mathfrak{C}$-colored trees.
+
+As such, cf. Definition \ref{COLFOR DEF},
+we first write 
+$\Omega_{\mathfrak{C}} \subset \Phi_{\mathfrak{C}}$
+for the subcategory of $\mathfrak{C}$-colored forests which happen to be trees,
+as well as 
+$\Omega^0_{\mathfrak{C}} \subseteq \Omega_{\mathfrak{C}}$
+for the wide subcategory whose arrows are the isomorphisms.
+
+
+
+{\color{red} HERE}
+
+
+
 
 
 
@@ -2599,11 +2699,10 @@ We end this subsection with a technical discussion of the interactions of equiva
 $\mathcal{V}$ with the monoidal structure $\otimes$ on $\mathcal{V}$ (cf. \cite[\S 6.2]{BP_geo}),
 culminating in Proposition \ref{SIGMAWRGF PROP}.
 
-{\color{red} HERE}
 
 
 
-\section{Colored operads}
+\section{Colored operads}\label{FIXCOL SEC}
 
 
 When working with the category $\mathsf{Op}_\bullet(\mathcal{V})$ of colored operads
@@ -2689,22 +2788,6 @@ describe the fibered monad $\mathbb F$ (Equation \eqref{FREEOP_EQ}, elaborated i
 and determine the fibers of the equivariant monad $\mathbb F^G$ (Equation \eqref{FGC_EQ}).
 In \S \ref{SYMC_MS_SEC} and \S \ref{OPC_MS_SEC} we build model structures on the color-fixed categories $\mathsf{Sym}^{G,\mathfrak{C}}(\mathcal{V})$ and $\mathsf{Op}^{G,\mathfrak{C}}(\mathcal{V})$,
 using several pieces of equivariant homotopy theory developed in \S \ref{EHT_SEC}.
-
-
-
-
-
-\subsection{Symmetric sequences and colored operads}
-\label{SYMC_SEC}
-
-In this subsection, we first introduce the category $\Sym_\bullet(\V)$ of symmetric sequences.
-Second, we describe the free operad monad on $\Sym_\bullet(\V)$.
-Third, we discuss equivariant considerations of this monad.
-Finally, we consider the change of color functors.
-
-
-
-
 
 
 
