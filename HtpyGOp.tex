@@ -1621,7 +1621,7 @@ given by pairs
 $(\varphi,\phi)$ with 
 $\varphi \colon \mathcal{C} \to \mathcal{D}$ a functor and
 $\phi$ a natural transformation
-\begin{equation}
+\begin{equation}\label{SUBCATDOWNL EQ}
 \begin{tikzcd}[row sep = tiny, column sep = 45pt]
 	\mathcal C \arrow{dr}[name=U]{} \arrow{dd}[swap]{\varphi}
 \\
@@ -1637,7 +1637,7 @@ Then $\mathsf{Sym}_{\bullet}(\mathcal{V})$ is naturally a (neither wide nor full
 
 
 
-\begin{remark}
+\begin{remark}\label{COLCHADJ REM}
 We caution that 
 $\mathsf{Sym}_{\bullet}(\V)$
 is rather different from the presheaf category 
@@ -1675,7 +1675,17 @@ $\mathsf{Sym}_{\bullet}(\V) \to \mathsf{Set}$
 is also an opfibration. 
 \end{remark}
 
-Building on the previous remark,
+
+\begin{remark}\label{SUBCOCART REM}
+The forgetful functor $\mathsf{Cat} \downarrow^l \mathcal{V} \to \mathcal{V}$
+remembering only the source category is likewise both a fibration and an opfibrations, 
+with a diagram \eqref{SUBCATDOWNL EQ}
+being a cartesian arrow if  $\phi$ an isomorphism
+and cocartesian if it is a left Kan extension. 
+\end{remark}
+
+
+Building on Remark \ref{COLCHADJ REM},
 one can define a fibered Yoneda embedding, as in the following,
 where we abbreviate
 $\mathsf{Sym}_{\bullet} = \mathsf{Sym}_{\bullet}(\mathsf{Set})$.
@@ -1927,6 +1937,42 @@ $X \in \mathsf{Sym}^G_{\mathfrak{C}}(\mathcal{V})$
 for some $\mathfrak{C} \in \mathsf{Set}^G$
 as functors
 $X \colon G \ltimes \Sigma_{\mathfrak{C}}^{op} \to \mathcal{V}$.
+
+Similarly, objects of
+$\left( \mathsf{Cat} \downarrow^{l} \mathcal{V} \right)^G$
+are represented by functors $G \ltimes \mathcal{C} \to \V$.
+
+
+\begin{remark}\label{RHOPURP REM}
+Recall that if $\mathcal{C}\in \mathsf{Cat}^G$
+is a category with a $G$-action then 
+$\Sigma \wr \mathcal{C}$
+has a $G$-action where $G$ acts diagonally on tuples $(c_i)$ with $c_i \in \mathcal{C}$.
+Therefore, by applying the 
+$\Sigma \wr (-)$
+construction to the categories
+$\mathsf{Cat} \downarrow^l \V$
+in Remark \ref{SUBCATDOWNL REM}
+(note that that one can apply $\Sigma \wr (-)$
+to the entirety of diagram \eqref{SUBCATDOWNL REM})
+one obtains a description of the functor
+\begin{equation}\label{RHOPURP EQ}
+\begin{tikzcd}[column sep =40,row sep =0]
+	\left( \mathsf{Cat} \downarrow^{l} \mathcal{V} \right)^G
+	\ar{r}{\Sigma \wr (-) } &
+	\left( \mathsf{Cat} \downarrow^{l} \Sigma \wr \mathcal{V} \right)^G
+\\
+	G \ltimes \mathcal{C} \to \mathcal{V} \ar[mapsto]{r} &
+	\left(G \ltimes (\Sigma \wr \mathcal{C}) \to 
+	\Sigma \wr (G \ltimes  \mathcal{C}) \to \Sigma \wr \mathcal{V}\right)
+\end{tikzcd}
+\end{equation}
+where the natural functor
+$G \ltimes (\Sigma \wr \mathcal{C}) \to 
+\Sigma \wr (G \ltimes  \mathcal{C})$
+is the inclusion described in Remark \ref{WRDIAG REM}.
+\end{remark}
+
 
 Since  
 $\mathsf{Sym}^G_{\mathfrak{C}}(\mathcal{V}) \simeq 
@@ -2306,7 +2352,7 @@ for $\vect{C}$ the leftmost corolla.
 	\end{tikzpicture}%
 \end{equation}%
 Note that the pairs $\vect{C},-\vect{C}$
-and  $i\vect{C},-i\vect{C}$ are isomorphic in $\Sigma_{\mathfrak{C}}$
+and $i\vect{C},-i\vect{C}$ are isomorphic in $\Sigma_{\mathfrak{C}}$
 while any other pair such as, say, $\vect{C},i\vect{C}$ is not.
 In general, it is moreover possible for two or more tree components of
 $G \cdot_{\mathfrak{C}} \vect{C}$ to be equal.
@@ -2574,10 +2620,11 @@ We can now provide the ``usual'' formula for the ``free operad monad''
 Letting 
 $X \in \mathsf{Sym}_{\mathfrak{C}}(\V)$
 then for each $\mathfrak{C}$-signature we have
-\[
+\begin{equation}\label{FROPEXP EQ}
 \mathbb{F}_{\mathfrak{C}} X (\vect{C})
 =
-\coprod_{[\vect{T}] \in \mathsf{Iso}(\Omega_{\mathfrak{C}}\downarrow \vect{C})}
+\coprod_{[\vect{T}] \in 
+\mathsf{Iso}(\vect{C} \downarrow \Omega^0_{\mathfrak{C}})}
 \left(
 \left(
 \bigotimes_{v \in \boldsymbol{V}(T)} X(\vect{T}_v)
@@ -2585,124 +2632,155 @@ then for each $\mathfrak{C}$-signature we have
 \cdot_{\mathsf{Aut}_{\Omega_{\mathfrak{C}}}(\vect{T})}
 \mathsf{Aut}_{\Sigma_{\mathfrak{C}}}(\vect{C})
 \right)
-\]
+\end{equation}
 where $\mathsf{Iso}(-)$ denotes isomorphism classes of objects.
 
-
-{\color{red} HERE}
-
-
-
-Adapting the work in {\color{red} \cite{BP_geo}} by keeping track of colors one obtains two key functors
-\[
-\Omega_{\mathfrak{C}}^0 \xrightarrow{\mathsf{lr}} \Sigma_{\mathfrak{C}}
-\qquad \qquad
+However, one drawback of the formula  
+\eqref{FROPEXP EQ}
+is that it is not immediately clear how it should be modified 
+in the equivariant case,
+where $\mathfrak{C}$ is a $G$-set
+and $X \in \mathsf{Sym}^G_{\mathfrak{C}}$
+is a functor 
+$X \colon G \ltimes \Sigma_{\mathfrak{C}}^{op} \to \V$.
+To address this we first repackage \eqref{FROPEXP EQ}, 
+following our approach in {\color{red} \cite{BP_geo}}.
+We first need to define another functor which we call the \emph{vertex functor}.
+As motivation, we note that
+in \eqref{FROPEXP EQ}
+the $\mathsf{Aut}_{\Omega_{\mathfrak{C}}}(\vect{T})$-action
+on the term
+$\bigotimes_{v \in \boldsymbol{V}(T)} X(\vect{T}_v)$
+depends on both permutations 
+of the set $\boldsymbol{V}(T)$
+and on automorphisms of the corollas $\vect{T}_v$.
+As such, rather than regard the vertices of $\vect{T}$ as merely a set
+we define 
+\begin{equation}\label{VFUNDEF EQ}
 \Omega_{\mathfrak{C}}^0 \xrightarrow{\boldsymbol{V}} \Sigma \wr \Sigma_{\mathfrak{C}}
-\]
-which are described as follows.
-Given $\vect{T} \in \Omega^0_{\mathfrak{C}}$, 
-its ``leaf-root''
-$\mathsf{lr}(\vect{T}) \in \Sigma_{\mathfrak{C}}$
-is the only $\mathfrak{C}$-corolla
-admitting a planar tall map
-$\mathsf{lr}(\vect{T}) \to \vect{T}$,
-where by ``tall map'' we mean a map
-which sends leaves to leaves and the root to the root.
-As for the ``vertex'' functor 
-$\boldsymbol{V}$,
-we have
-$\boldsymbol{V}(\vect{T}) = 
-(\vect{T}_v )_{v \in \boldsymbol{V}(T)}$,
-i.e. 
-$\boldsymbol{V}(\vect{T})$ is the tuple of colored corollas indexed by the vertices of $T$. Note that while as an object this is essentially the same as the set of vertices of $T$,
-by regarding it as an object in $\Sigma \wr \Sigma_{\mathfrak{C}}$ rather than just a set we can keep track of extra automorphism data.
+\qquad 
+\vect{T} \mapsto 
+\boldsymbol{V}(\vect{T})=(\vect{T}_v )_{v \in \boldsymbol{V}(T)}
+\end{equation}
+In words, $\boldsymbol{V}(\vect{T})$
+is the tuple of colored corollas indexed by the vertices of $T$. 
+Note that
+by regarding $\boldsymbol{V}(\vect{T})$ as an object in 
+$\Sigma \wr \Sigma_{\mathfrak{C}}$ rather than just a set we can keep track of extra automorphism data.
+
+Noting that both the leaf root and vertex functors are naturally compatible with change of colors 
+$\varphi \colon \mathfrak{C} \to \mathfrak{D}$, 
+we can now provide the following alternative 
+description of \eqref{FROPEXP EQ}.
 
 
-{\color{red} HERE}
-
-
-
-
-{\color{red} HERE}
-
-
-
-which are readily seen to be natural with respect to maps 
-$f \colon \mathfrak{C} \to \mathfrak{D}$.
 
 \begin{definition}
-      Let $\mathcal{V}$ be a closed symmetric monoidal category.
-      The \textit{free operad monad} $\mathbb{F}$ on $\mathsf{Sym}_\bullet(\mathcal{V})$ 
-      assigns to a functor
-      $\Sigma_{\mathfrak{C}}^{op} \xrightarrow{X} \mathcal{V}$
-      the left Kan extension
-      \begin{equation}
-            \label{FREEOP_EQ}
-            \begin{tikzcd}
-                  \Omega^{0,op}_{\mathfrak{C}}
-                  \arrow[d, "\mathsf{lr}"']
-                  \arrow[r, "V"]
-                  &
-                  (\Sigma \wr \Sigma_{\mathfrak{C}})^{op} \arrow[r, "X"]
-                  \arrow[dl, Rightarrow]
-                  &
-                  (\Sigma \wr \V^{op})^{op} \arrow[r, "\otimes"]
-                  &
-                  \V
-                  \\
-                  \Sigma^{op}_{\mathfrak{C}} \arrow[urrr, "\Lan = \mathbb F_{\mathfrak{C}} X = \mathbb F X"']
-            \end{tikzcd}
-      \end{equation}
-\end{definition}
+Let $\mathcal{V}$ be a closed symmetric monoidal category.
 
-A complete discussion and rigorous definition of this monad can be found in Appendix \ref{MONAD_APDX},
-culminating in Definition \ref{COLORMON DEF}.
-
-We formally have an extension of $\mathbb F$ to a monad $\mathbb F^G$ on $\Sym^G_\bullet(\V) = \Sym_\bullet(\V)^G$
-whose category of algebras is equal to $\Op^G_\bullet(\V) = \Op_\bullet(\V)^G$.
-Our next goal is to provide a convenient explicit description of the fibers of $\mathsf{Sym}(\mathcal{V})^G \to \mathsf{F}^G$
-for each $\mathfrak{C} \in \mathsf{F}^G$
-and of the restriction of the monad $\mathbb{F}^G$ to those fibers.
-
-We first note that for any 
-$A \in \mathsf{Cat}^G$ there is a natural transformation
-$G \ltimes \Sigma \wr A \to \Sigma \wr (G \ltimes A)$
-characterized by sending a $G$-action arrow 
-$(a_i) \xrightarrow{g} (g a_i)$
-to the diagonal tuple of $G$-action arrows
-$(a_i \xrightarrow{g} g a_i)$.
-
-Now, as $G$-objects in $\Cat \downarrow^l \V$ are precisely functors of the form $G \ltimes A \to \V$ for $G$-categories $A$,
-this natural transformation can then be used to describe the $G$-equivariant $\Sigma \wr (-)$ functor, via
-\begin{equation}\label{RHOPURP EQ}
-\begin{tikzcd}[column sep =40,row sep =0]
-	\left( \mathsf{Cat} \downarrow^{l} \mathcal{V} \right)^G
-	\ar{r}{\left(\Sigma \wr (-) \right)^G} &
-	\left( \mathsf{Cat} \downarrow^{l} \Sigma \wr \mathcal{V} \right)^G
+The \textit{fibered free operad monad} $\mathbb{F}$ on $\mathsf{Sym}_\bullet(\mathcal{V})$ 
+assigns to 
+$\Sigma_{\mathfrak{C}}^{op} \xrightarrow{X} \mathcal{V}$
+the left Kan extension
+\begin{equation}\label{FREEOP_EQ}
+\begin{tikzcd}[column sep = 50pt]
+	\Omega^{0,op}_{\mathfrak{C}}
+	\arrow[d, "\mathsf{lr}^{op}"']
+	\arrow[r, "\boldsymbol{V}^{op}"]
+&
+	(\Sigma \wr \Sigma_{\mathfrak{C}})^{op} \arrow[r, "(\Sigma \wr X^{op})^{op}"]
+	\arrow[dl, Rightarrow]
+&
+	(\Sigma \wr \V^{op})^{op} \arrow[r, "\otimes"]
+&
+	\V
 \\
-        G \ltimes A \to \mathcal{V} \ar[mapsto]{r} &
-	(G \ltimes \Sigma \wr A \to 
-	\Sigma \wr G \ltimes  A \to \Sigma \wr \mathcal{V})
+	\Sigma^{op}_{\mathfrak{C}}
+	\arrow[urrr, "\Lan = \mathbb F_{\mathfrak{C}} X = \mathbb F X"']
 \end{tikzcd}
 \end{equation}
-and combining this with the observation that Kan extensions along
-$G \ltimes \Omega_{\mathfrak{C}}^0 \to G \ltimes \Sigma_{\mathfrak{C}}$
-are simply the underlying Kan extension along 
-$\Omega_{\mathfrak{C}}^0 \to \Sigma_{\mathfrak{C}}$
-together with equivariance data (cf. \cite[Lemma \ref{TAS-REDUCELAN_LEM}]{BP_TAS}), % (this strengthens Lemma \ref{REDUCELAN LEM} a little),
-one obtains that the monad $\mathbb{F}^G$ applied to 
-$X\colon G \ltimes \Sigma_{\mathfrak{C}}^{op} \to \mathcal{V}$
-is the left Kan extension
+\end{definition}
+The complete discussion of the monad structure
+$\mathbb{F}\mathbb{F} \Rightarrow \mathbb{F}$,
+$id \Rightarrow \mathbb{F}$ is postponed to Appendix \ref{MONAD_APDX},
+culminating in Definition \ref{COLORMON DEF}.
+
+
+\begin{remark}\label{CONVER REM}
+To relate \eqref{FROPEXP EQ} and \eqref{FREEOP_EQ} recall that 
+for any span 
+$\bar{\mathcal{G}} \overset{k}{\leftarrow} \mathcal{G} \xrightarrow{X} \mathcal{V}$
+with $\mathcal{G},\bar{\mathcal{G}}$ groupoids
+one has the formula
+\[\Lan X (\bar{G}) \simeq 
+\colim_{(k(g) \to \bar{g})\in (\mathcal{G} \downarrow \bar{g})} X(g) \simeq
+\coprod_{[k(g) \to \bar{g}] 
+\in \mathsf{Iso}(\mathcal{G} \downarrow \bar{g})}
+\mathsf{Aut}_{\bar{\mathcal{G}}}(\bar{g})
+\cdot_{\mathsf{Aut}_{\mathcal{G}}(g)}
+X(g)
+\]
+where the second equality uses the observation that
+$\mathcal{G} \downarrow \bar{g}$
+is also a groupoid.
+\end{remark}
+
+
+By the abstract nonsense argument in 
+Proposition \ref{DIAGRAMFM_PROP}
+we have that, by taking $G$-objects, 
+$\mathbb{F}$ also induces a fibered monad 
+$\mathbb{F}^G$ on $\mathsf{Sym}^G_{\bullet}(\V)$.
+
+To describe $\mathbb{F}^G$,
+note that \eqref{FREEOP_EQ}
+can be regarded as an arrow in 
+the category $\mathsf{Cat} \downarrow^l \V$
+from Remark \ref{SUBCATDOWNL REM}
+which, being a left Kan extension, is cocartesian over $\mathsf{Cat}$ (cf. Remark \ref{SUBCOCART REM}).
+Hence, if $X \in \mathsf{Sym}_{\bullet}^G(\V)$
+is $G$-equivariant, 
+\eqref{FREEOP_EQ} is then a cocartesian arrow in 
+$\left(\mathsf{Cat} \downarrow^l \V\right)^G$
+over $\mathsf{Cat}^G$.
+By Proposition \ref{EQUIVFNCON PROP},
+we can hence rewrite 
+such a $G$-equivariant \eqref{FREEOP_EQ}
+as the left Kan extension for a span
+$G \ltimes \Sigma^{op}_{\mathfrak{C}}
+\leftarrow 
+G \ltimes \Omega^{0,op}_{\mathfrak{C}}
+\to 
+\V$.
+To describe fully describe this span,
+we need to understand how equivariance 
+affects the top composite in \eqref{FREEOP_EQ},
+with the non-obvious issue being that of understanding
+what happens to the middle map therein, which can be described using
+Remark \ref{RHOPURP REM}.
+
+Putting all of this together we get the following
+(note that the inversion isomorphism
+$G \simeq G^{op}$
+induces isomorphisms
+$G \ltimes \mathcal{C}^{op} \simeq (G \ltimes \mathcal{C})^{op}$).
+
+
+\begin{remark}
+The monad $\mathbb{F}^G$ on $\mathsf{Sym}^G_{\bullet}$
+assigns to 
+$G \ltimes \Sigma^{op}_{\mathfrak{C}} \xrightarrow{X} \V$
+the left Kan extension below.
 \begin{equation}\label{FGC_EQ}
-	\begin{tikzcd}
+	\begin{tikzcd}[column sep = 35pt]
 		G \ltimes \Omega^{0,op}_{\mathfrak{C}}
 		\arrow[d, "\mathsf{lr}"']
-		\arrow[r, "V"]
+		\arrow[r, "G \ltimes \boldsymbol{V}^{op}"]
 	&
-		(G\ltimes \Sigma \wr \Sigma_{\mathfrak{C}})^{op} \arrow{r}
+		G \ltimes (\Sigma \wr \Sigma_{\mathfrak{C}})^{op} \arrow{r}
 		\arrow[dl, Rightarrow]
 	&
-		(\Sigma \wr G\ltimes \Sigma_{\mathfrak{C}})^{op} \arrow[r, "X"]
+		(\Sigma \wr (G^{op} \ltimes \Sigma_{\mathfrak{C}}))^{op} \arrow[r, "(\Sigma \wr X^{op})^{op}"]
 	&
 		(\Sigma \wr \V^{op})^{op} \arrow[r, "\otimes"]
 	&
@@ -2712,6 +2790,44 @@ is the left Kan extension
 	\arrow[urrrr, "\Lan = \mathbb F_{\mathfrak{C}}^G X = \mathbb F^G X"']
 	\end{tikzcd}
 \end{equation}
+\end{remark}
+
+
+
+
+
+
+
+\begin{remark}
+By Remark \ref{CONVER REM} we now have the following analogue of
+\eqref{FROPEXP EQ}.
+\begin{equation}\label{FROPEXPG EQ}
+\mathbb{F}^G_{\mathfrak{C}} X (\vect{C})
+=
+\coprod_{[\vect{T}] \in 
+\mathsf{Iso}(\vect{C} \downarrow G^{op} \ltimes \Omega^0_{\mathfrak{C}})}
+\left(
+\left(
+\bigotimes_{v \in \boldsymbol{V}(T)} X(\vect{T}_v)
+\right)
+\cdot_{\mathsf{Aut}_{G^{op} \ltimes \Omega_{\mathfrak{C}}}(\vect{T})}
+\mathsf{Aut}_{G^{op} \ltimes \Sigma_{\mathfrak{C}}}(\vect{C})
+\right)
+\end{equation}
+In comparing \eqref{FROPEXPG EQ} with \eqref{FROPEXP EQ} note that since 
+$G^{op} \ltimes \Omega^0_{\mathfrak{C}}$
+has more morphisms than
+$\Omega^0_{\mathfrak{C}}$,
+equation \eqref{FROPEXPG EQ} has less coproduct summands than \eqref{FROPEXP EQ},
+though this is compensated by the fact that the inductions
+$(-)\cdot_{\mathsf{Aut}_{G^{op} \ltimes \Omega_{\mathfrak{C}}}(\vect{T})}
+\mathsf{Aut}_{G^{op} \ltimes \Sigma_{\mathfrak{C}}}(\vect{C})$
+are correspondingly larger than the inductions
+$(-)\cdot_{\mathsf{Aut}_{\Omega_{\mathfrak{C}}}(\vect{T})}
+\mathsf{Aut}_{\Sigma_{\mathfrak{C}}}(\vect{C})$.
+\end{remark}
+
+
 
 
 {\color{red} HERE}
