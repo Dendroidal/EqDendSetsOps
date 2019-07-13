@@ -24,7 +24,7 @@
 \usepackage{ifdraft}
 \ifdraft{
   \color[RGB]{63,63,63}
-  \pagecolor[RGB]{220,220,204}
+%  \pagecolor[RGB]{220,220,204}
   \usepackage{showkeys}
   \usepackage{geometry}
   \usepackage{todonotes}
@@ -385,6 +385,24 @@ and both adjoints are compatible the $H$-fixed point functors.
 
 
 
+{\color{blue} HERE}
+
+
+When working with the category $\mathsf{Op}_\bullet(\mathcal{V})$ of colored operads
+it is often useful to consider the subcategories $\mathsf{Op}_{\mathfrak{C}}(\mathcal{V})$
+of those operads with a chosen fixed set of objects
+$\mathfrak{C} \in \mathsf{F}$ and those maps which are the identity on the set $\mathfrak{C}$ of objects.
+In particular, these $\mathsf{Op}_{\mathfrak{C}}(\mathcal{V})$ can be regarded as the category of algebras over a monad 
+$\mathbb{F}_{\mathfrak{C}}$ on a simpler category
+$\mathsf{Sym}_{\mathfrak{C}}(\mathcal{V})$ of $\mathfrak C$-colored symmetric sequences,
+and it has been shown (e.g. \cite{BM07,BB17,WY18,Cav}) that
+$\mathsf{Op}_{\mathfrak{C}}(\mathcal{V})$ often may be equipped with a model structured via transfer across the associated monadic adjunction,
+which may assemble (\cite{BM13,Cav,Mur15}) into a Dwyer-Kan model structure structure on $\mathsf{Op}_\bullet(\mathcal{V})$.
+
+
+
+
+
 
 
 \subsection{Main Results}
@@ -618,30 +636,140 @@ Finally, we compare the conditions of being cofibrant in $\Op^G_\F(\V)$ and $\Sy
 This will be a special case of Theorem \ref{SIGMAG_COF_THM}.
 
 
+
+
 \section{Preliminaries}
 
 
+Much as in the non-equivariant case, 
+our approach to building the model structures
+in Theorem \ref{THMII} on the category
+$\mathsf{Op}^G_{\bullet}(\V)$
+of equivariant operads on all sets of colors
+will be to first build the model structures in Theorem \ref{THMI}
+on the subcategories
+$\mathsf{Op}^G_{\mathfrak{C}}(\V)$
+with a fixed $G$-set of colors $\mathfrak{C}$.
+
+However, the equivariant setting presents some technical challenges that will require us to repackage the non-equivariant narrative of
+\cite{CM13b},\cite{Cav} somewhat.
+
+To see why, recall that \cite{CM13b},\cite{Cav}
+follow a ``work color by color and then assemble'' strategy.
+More precisely, first the model structures on fixed color operads 
+$\mathsf{Op}_{\mathfrak{C}}(\V)$
+are build by identifying these as algebras over a monad
+$\mathbb{F}_{\mathfrak{C}}$
+on the category $\mathsf{Sym}_{\mathfrak{C}}(\V)$
+of fixed color symmetric sequences,
+with maps of operads that do not fix colors
+only appearing afterwards when assembling the model structure on the full category $\mathsf{Op}_{\bullet}(\V)$.
+
+However, when working equivariantly, 
+while the maps in the fixed $G$-set of objects categories 
+$\mathsf{Op}^G_{\mathfrak{C}}(\V)$ do fix colors, 
+the $G$-action on \emph{objects}
+$\O \in \mathsf{Op}^G_{\mathfrak{C}}(\V)$
+involves maps of operads $\O \xrightarrow{g} \O$
+that need not fix colors (unless $\mathfrak{C}$ is a trivial $G$-set).
+In other words, when discussing equivariant operads even the fixed color categories 
+$\mathsf{Op}^G_{\mathfrak{C}}(\V)$
+requires color change data.
+Due to this issue, 
+our approach will be that the transition from the non-equivariant to the equivariant case is easier to describe 
+if we regard the global framework,
+where we consider all colors at once, as the primary framework
+and then restrict to color fixed operads only when needed.
+
+More explicitly, the basis of our approach is to combine the 
+fixed color symmetric sequence categories
+$\mathsf{Sym}_{\mathfrak{C}}(\V)$ for all color sets 
+$\mathfrak{C} \in \mathsf{Set}$
+and change of color data between them into a single category
+$\mathsf{Sym}_{\bullet}(\V)$.
+There is then a Grothendieck fibration
+$\mathsf{Sym}_{\bullet}(\V) \to \mathsf{Set}$
+which records the underlying set of colors,
+and whose fiber over $\mathfrak{C}$ is 
+$\mathsf{Sym}_{\mathfrak{C}}(\V)$.
+Similarly, the monads $\mathbb{F}_{\mathfrak{C}}$ (and change of color data between them) 
+assemble into a single monad $\mathbb{F}$
+on $\mathsf{Sym}_{\bullet}(\V)$
+which is suitably compatible with 
+the Grothendieck fibration 
+$\mathsf{Sym}_{\bullet}(\V) \to \mathsf{Set}$,
+and by considering (a subcategory of) algebras over $\mathbb{F}$
+one obtains the category $\mathsf{Op}_{\bullet}(\V)$
+of colored operads for all colors.
+These fit together as on the left below.
+\begin{equation}\label{FIBADJMON EQ}
+\begin{tikzcd}[row sep = small, column sep = tiny]
+\Sym_\bullet(\V) \arrow[rr, "\mathbb F"] \arrow[dr]
+&&
+\Op_\bullet(\V) \arrow[dl]
+&&& % ----------
+\Sym^G_\bullet(\V) \arrow[rr, "\mathbb F^G"] \arrow[dr]
+&&
+\Op^G_\bullet(\V) \arrow[dl]
+\\
+&
+\mathsf{Set}
+&
+&&& % ----------
+&
+\mathsf{Set}^G
+\end{tikzcd}
+\end{equation}
+Within this global framework, passing to the equivariant case is simply a matter of applying $G$-objects throughout as on the right above, 
+so that one has a Grothendieck fibration
+$\mathsf{Sym}_{\bullet}^G \to \mathsf{Set}^G$
+with a compatible monad $\mathbb{F}^G$
+from which one obtains the category 
+$\mathsf{Op}_{\bullet}(\V)$
+of $G$-equivariant colored operads for all colors. 
+
+
+The plan for this preliminary section is then as follows.
+%
+\S \ref{GROTFIB SEC} recalls the notion of Grothendieck fibration and
+introduces some related constructions that are used throughout.
+%
+\S \ref{FIBCAT_SEC} discusses how the usual notions of adjunction and monad interact with Grothentieck fibrations,
+allowing us to regard the monads
+(and associated adjunctions)
+in \eqref{FIBADJMON EQ}
+as being suitably fibered over $\mathsf{Set}$ and $\mathsf{Set}^G$.
+%
+\S \ref{EQCOSYMSEQ SEC} then applies the abstract theory in 
+\S \ref{GROTFIB SEC},\ref{FIBCAT_SEC}
+to discuss the global categories
+$\mathsf{Sym}_{\bullet}(\V)$,
+$\mathsf{Sym}^G_{\bullet}(\V)$
+of symmetric sequences, 
+with most of the work being devoted to providing 
+explicit descriptions of the equivariant fibers
+$\mathsf{Sym}^G_{\mathfrak{C}}(\V)$
+for $\mathfrak{C} \in \mathsf{Set}^G$
+and of the representable functors in these fibers.
+%
+Lastly, in \S \ref{EQCOSYMSOP SEC}, 
+we describe the fibered monad $\mathbb F$ (Equation \eqref{FREEOP_EQ}, elaborated in Appendix \ref{MONAD_APDX}),
+and determine the fibers of the equivariant monad $\mathbb F^G$ (Equation \eqref{FGC_EQ}).
+
+
+As a side note, we observe that our discussion of fibered category theory will also help streamline our work in the sequel.
+Therein, we will need to establish a Quillen equivalence
+$\tau \colon \mathsf{PreOp}^G \rightleftarrows \mathsf{sOp}^G\colon N$
+between the category of (simplicial) preoperads and
+the category of simplicial operads.
+In that work, the claim that the adjunction is Quillen 
+will be greatly simplified by noting that in both categories 
+the generating (trivial) cofibrations
+can be described using a ``fibered simplicial cotensoring''.
 
 
 
-{\color{red} HERE}
-
-Motivations for discussing fibered category theory:
-\begin{itemize}
-\item the model structure on operads is built by first building fiberwise model structures
-\item however, describing the fibers is awkward
-\item the generating cofibrations of both $\mathsf{sOp}$
-and (the tame model structure on) $\mathsf{PreOp}$
-can be described using a fiberwise simplicial tensor,
-so that the fact that the adjunction
-$\tau \colon \mathsf{PreOp} \rightleftarrows \mathsf{sOp}\colon N$ is Quillen is readily understood by noting that this is a fibered (simplicial) adjunction.
-\end{itemize}
-
-
-
-
-\subsection{Grothendieck fibrations}
-
+\subsection{Grothendieck fibrations}\label{GROTFIB SEC}
 
 
 Recall that a functor 
@@ -1484,6 +1612,7 @@ Both parts follow readily from the definitions.
 
 
 \subsection{Equivariant colored symmetric sequences}
+\label{EQCOSYMSEQ SEC}
 
 
 \begin{definition}\label{CSYM DEF}
@@ -2520,7 +2649,7 @@ the orbits $\underline{n}_+ /\Lambda$.
 
 
 \subsection{Equivariant colored symmetric operads}
-
+\label{EQCOSYMOP SEC}
 
 Our goal in this section is to describe the category 
 $\mathsf{Op}^{G}_{\bullet}(\V)$
@@ -2928,91 +3057,8 @@ culminating in Proposition \ref{SIGMAWRGF PROP}.
 \section{Colored operads}\label{FIXCOL SEC}
 
 
-When working with the category $\mathsf{Op}_\bullet(\mathcal{V})$ of colored operads
-it is often useful to consider the subcategories $\mathsf{Op}_{\mathfrak{C}}(\mathcal{V})$
-of those operads with a chosen fixed set of objects
-$\mathfrak{C} \in \mathsf{F}$ and those maps which are the identity on the set $\mathfrak{C}$ of objects.
-In particular, these $\mathsf{Op}_{\mathfrak{C}}(\mathcal{V})$ can be regarded as the category of algebras over a monad 
-$\mathbb{F}_{\mathfrak{C}}$ on a simpler category
-$\mathsf{Sym}_{\mathfrak{C}}(\mathcal{V})$ of $\mathfrak C$-colored symmetric sequences,
-and it has been shown (e.g. \cite{BM07,BB17,WY18,Cav}) that
-$\mathsf{Op}_{\mathfrak{C}}(\mathcal{V})$ often may be equipped with a model structured via transfer across the associated monadic adjunction,
-which may assemble (\cite{BM13,Cav,Mur15}) into a Dwyer-Kan model structure structure on $\mathsf{Op}_\bullet(\mathcal{V})$.
-
-
-
-{\color{red} HERE}
-
-
-As such, in order to build our desired model structure on the category $\Op^G_\bullet(\V) = \mathsf{Op}(\mathcal{V})^G$ of $G$-equivariant colored operads, one should suitably generalize the discussion in the paragraph above.
-However, a little care is needed, since the objects of a $G$-equivariant operad in $\mathsf{Op}(\mathcal{V})^G$ are now a $G$-set $\mathfrak{C} \in \mathsf{F}^G$, meaning that even when describing the objects of 
-$\mathsf{Op}^G_\bullet(\mathcal{V})$ one must consider maps of 
-$\mathsf{Op}_\bullet(\mathcal{V})$ that are not the identity on objects.
-Additionally, the above cited formal approaches fail to see the automorphisms of
-the evaluations $\O(\vect C)$, % $G$-equivariant symmetric sequences, % objects in $\Sym^G_\bullet(\V)$,
-which is necessary to detect the appropriate notion of weak equivalence in this context.
-
-For these reasons, we find is useful to be able to describe 
-$\mathsf{Op}_\bullet(\mathcal{V})$ 
-in a way that does not explicitly mention the color fixed structures
-$\mathsf{Op}_{\mathfrak{C}}(\mathcal{V}),
-\mathsf{Sym}_{\mathfrak{C}}(\mathcal{V}),
-\mathbb{F}_{\mathfrak{C}}$.
-
-Our solution is as follows: % set-up
-there are Grothendieck fibrations 
-$\mathsf{Op}_\bullet(\mathcal{V}) \to \mathsf{F}$
-(resp. $\mathsf{Sym}_\bullet(\mathcal{V}) \to \mathsf{F}$)
-such that the fibers are precisely the categories 
-$\mathsf{Op}_{\mathfrak{C}}(\mathcal{V})$
-(resp. $\mathsf{Sym}_{\mathfrak{C}}(\mathcal{V})$),
-as well as a monad $\mathbb{F}$ on 
-$\mathsf{Sym}_\bullet(\mathcal{V})$ which is suitably fibered (\S \ref{FIBCAT_SEC}) over $\mathsf{F}$
-such that the category of ``fibered algebras'' is exactly
-$\mathsf{Op}_\bullet(\mathcal{V})$.
-
-\[
-      \begin{tikzcd}[row sep = small, column sep = tiny]
-            \Sym_\bullet(\V) \arrow[rr, "\mathbb F"] \arrow[dr]
-            &&
-            \Op_\bullet(\V) \arrow[dl]
-            &&& % ----------
-            \Sym^G_\bullet(\V) \arrow[rr, "\mathbb F^G"] \arrow[dr]
-            &&
-            \Op^G_\bullet(\V) \arrow[dl]
-            \\
-            &
-            \Fin
-            &
-            &&& % ----------
-            &
-            \Fin^G
-      \end{tikzcd}
-\]
-
-With this set-up, it is then entirely formal using Proposition \ref{DIAGRAMFM_PROP} to show that 
-$\mathsf{Op}^G_\bullet(\mathcal{V}) \to \mathsf{F}^G$
-and
-$\mathsf{Sym}^G_\bullet(\mathcal{V}) \to \mathsf{F}^G$
-are Grothendieck fibrations and that 
-$\mathsf{Op}^G_\bullet(\mathcal{V})$ is the category of fibered algebras for $\mathbb{F}^G$.
-Additionally, by fibering over a fixed $G$-set $\mathfrak{C} \in \mathsf{F}^G$,
-we obtain a description of the subcategory 
-$\mathsf{Op}^{G}_{\mathfrak{C}}(\mathcal{V})$
-of those $G$-operads with $G$-set of objects $\mathfrak{C}$
-as the algebras for a monad $\mathbb{F}^G_{\mathfrak{C}}$
-on a suitable category $\mathsf{Sym}^{G}_{\mathfrak{C}}(\mathcal{V})$
-of symmetric sequences.
-
-
-We elaborate on this narrative in the following section.
-In \S \ref{SYMC_SEC}, we build the category $\Sym(\V)$ % (Definition \ref{SYMV_DEF}),
-describe the fibered monad $\mathbb F$ (Equation \eqref{FREEOP_EQ}, elaborated in Appendix \ref{MONAD_APDX}),
-and determine the fibers of the equivariant monad $\mathbb F^G$ (Equation \eqref{FGC_EQ}).
 In \S \ref{SYMC_MS_SEC} and \S \ref{OPC_MS_SEC} we build model structures on the color-fixed categories $\mathsf{Sym}^{G,\mathfrak{C}}(\mathcal{V})$ and $\mathsf{Op}^{G,\mathfrak{C}}(\mathcal{V})$,
 using several pieces of equivariant homotopy theory developed in \S \ref{EHT_SEC}.
-
-
 
 
 
