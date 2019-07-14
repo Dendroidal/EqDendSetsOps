@@ -3056,6 +3056,8 @@ culminating in Proposition \ref{SIGMAWRGF PROP}.
 
 
 
+
+
 \section{Model structures on operads with fixed set of colors}\label{FIXCOL SEC}
 
 
@@ -3064,12 +3066,180 @@ using several pieces of equivariant homotopy theory developed in \S \ref{EHT_SEC
 
 
 
+
 \subsection{Equivariant homotopy theory}
 \label{EHT_SEC}
 
-{\color{red} HERE}
 
-We begin by generalizing the notion of a family of subgroups of a group $G$.
+\begin{definition}\label{GENMOD DEF}
+Let $\V$ be a model category and $G$ a group.
+
+The \emph{genuine (or fine) model structure} on $G$-objects $\V^G$
+is the model structure (if it exists)
+such that
+$f\colon X \to Y$
+is a weak equivalence (resp. fibration)
+if the fixed point maps
+$f^H\colon X^H \to Y^H$
+are weak equivalences (fibrations) in $\V$
+for all $H \leq G$.
+\end{definition}
+
+
+\begin{notation}
+We write $\mathcal{W}_G$
+to denote the class of genuine weak equivalences in $\V^G$.
+\end{notation}
+
+
+\begin{remark}
+If $\V$ is cofibrantly with 
+$\mathcal{I}$ (resp. $\mathcal{J}$)
+the sets of generating (trivial cofibrations),
+then the genuine model strucutre on $\V^G$,
+should it exist,
+is again cofibrantly generated with generating sets
+\begin{equation}\label{GENGENSETEQ}
+	\mathcal{I}_G = \{G/H \cdot i | H\leq G,i\in \mathcal{I}\}
+\qquad
+	\mathcal{J}_G = \{G/H \cdot j | H\leq G,j\in \mathcal{J}\}.
+\end{equation}
+\end{remark}
+
+
+
+\begin{notation}
+Let $I$ be a class of maps in a model category $\V$.
+We write 
+$I$-cell (resp. $I$-cof)
+to denote the closure of $I$ under pushouts and transfinite composition
+(and, in addition, retracts).
+\end{notation}
+
+
+
+
+
+
+
+\begin{definition}\label{GLOBMONAX_DEF}
+	Let $(\V,\otimes)$ 
+	be a cofibrantly generated monoidal model category.
+		
+	For a finite group $G$, let $\mathcal{J}^{\otimes}_G$ be the set of
+	maps in $\V^G$ given by 
+\[
+\mathcal{J}^{\otimes}_G
+=
+\mathcal J \otimes \V^G
+=
+\{j \otimes X | j \in \mathcal{J},X \in \V^G\}.
+\]
+We refer to the class of maps  
+$\mathcal{J}^{\otimes}_G$-cof in $\V^G$
+as the \emph{$G$-$\otimes$-trivial cofibrations}.
+
+Moreover, we say $\V$ satisfies the \textit{global monoid axiom} if
+$G$-$\otimes$-trivial fibrations are $G$-genuine weak equivalences,
+i.e. if $\mathcal J^{\otimes}_G \text{-cof} \subseteq \mathcal W_G$,
+for all finite groups $G$.
+\end{definition}
+
+
+
+\begin{remark}
+	The global monoid axiom holds provided
+	$\mathcal J^{\otimes}_G \text{-cell} \subseteq \mathcal W_G$
+	for all finite groups $G$.
+\end{remark}
+
+
+\begin{remark}\label{MONAX_REM}
+	Restricting to $G = \**$ the global monoid axiom  
+	recovers the monoid axiom of Schwede-Shipley \cite{SS00}.
+\end{remark}
+
+%\begin{remark}
+%	By adjunction arguments, note that for $A \in \V$ and $B \in \V^G$, we have
+%	\[
+%	(G/H \cdot A) \otimes B \simeq G/G \cdot A \otimes G \cdot_H B \simeq G \cdot_H (A \otimes B),
+%	\]
+%	and thus $\mathcal J \otimes \V^G = \mathcal J_G \otimes \V^G$.
+%\end{remark}
+
+
+We now discuss sufficient conditions 
+for the existence of the genuine model structures in 
+Definition \ref{GENMOD DEF}
+and for the global monoid axiom in 
+Definition \ref{GLOBMONAX_DEF}
+that are easier to check in practice.
+These are given by the following,
+which gives two variations of the 
+\emph{cellular fixed points} conditions of
+\cite[Prop. 2.6]{Ste16}
+which draw inspiration from \cite[Remark 2.7]{Ste16}.
+
+
+\begin{definition}\label{WEAKCELLDEF}
+Let $\V$ (resp. $(\V,\otimes)$)
+be a cofibrantly generated (monoidal) model category.
+
+	We say $\V$ has \textit{weak acyclic cellular fixed points}
+	(resp. \textit{$(\V,\otimes)$ has monoidal weak acyclic cellular fixed points}) if
+	for all finite groups $G$ and subgroups $H \leq G$,
+	the fixed point functor $(-)^H \colon \V^G \to \V$
+\begin{enumerate}[label = (\roman*)]
+	\item preserves direct colimits of maps in $\mathcal J_G$-cof (resp. $\mathcal {J}^{\otimes}_G$-cof);
+	\item preserves pushout diagrams 
+	where one leg is in $\mathcal J_G$ 
+	(resp. in $\mathcal {J}^{\otimes}_G$);
+	\item sends maps in $\mathcal J_G$ to maps in $\mathcal J$-cof (resp. maps in $\mathcal {J}^{\otimes}_G$ to maps in 
+	$(\mathcal{J}^{\otimes}$-cof).
+\end{enumerate}
+\end{definition}
+
+
+\begin{proposition}\label{WEAKCELL PROP}
+	Let $\V$ (resp. $(\V,\otimes)$) be a cofibrantly generated (monoidal) model category.
+	\begin{enumerate}[label=(\roman*)]
+		\item If $\V$ has weak acyclic cellular fixed points, 
+		the genuine model structure on $\V^G$
+		exists for any finite group $G$.
+		\item If $(\V,\otimes)$ has monoidal weak acyclic cellular fixed points and satisfies the usual monoid axiom
+		(cf. Remark \ref{MONAX_REM}),
+		then $\V$ satisfies the global monoid axiom.
+	\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+For (i), we apply \cite[Theorem 2.1.19]{Hov} to the generating sets in 
+\eqref{GENGENSETEQ}.
+All conditions therein are immediate except for
+the requirement that
+$\mathcal{J}_{G}\text{-cell} \subseteq \mathcal{W}_G$,
+which holds since the conditions in Definition \ref{WEAKCELLDEF}
+guarantee that $H$-fixed points of maps in 
+$\mathcal{J}_{G}$-cell are in $\mathcal{J}$-cell.
+
+(ii) is similar. Definition \ref{WEAKCELLDEF}
+implies that $H$-fixed points of maps in 
+$\mathcal{J}^{\otimes}_{G}$-cell are in $\mathcal{J}^{\otimes}$-cell.
+\end{proof}
+
+
+
+
+In addition to the genuine model structures in 
+Definition \ref{GENMOD DEF},
+we will need to consider variations
+where the subgroups $H\leq G$ therein are restricted to a family of subgroups.
+In fact, motivated by the identification
+$\mathsf{Sym}^G_{\mathfrak{C}} \simeq 
+\mathsf{Fun}(G \ltimes \Sigma^{op}_{\mathfrak{C}},\V)$
+in Proposition \ref{EQUIVFNCON PROP},
+we extend the notion of family of subgroups to the context of groupoids.
+
 
 \begin{definition}\label{FAMGROUPOID DEF}
 Let $\G$ be a groupoid.
@@ -3077,185 +3247,137 @@ A family of subgroups of $\G$
 is a collection 
 $\mathcal{F} = \left\{\mathcal{F}_x\ | \ x\in \G\right\}$
 where each $\F_x$ is itself a collection of subgroups
-$\varnothing \leq H \leq Aut(x)$ and such that:
+$H \leq \mathsf{Aut}(x)$ and such that:
 \begin{enumerate}[label = (\roman*)]
 \item if $H \in \F_x$ and $K \leq H$ then $K \in \mathcal{F}_x$;
 \item if $H \in \mathcal{F}_x$
-then for any arrow $x \xrightarrow{g} x'$
+then for any arrow $g \colon x \to x'$
 it is $g H g^{-1} \in \mathcal{F}_{x'}$.
 \end{enumerate}
 \end{definition}
 
 
-
 \begin{remark}
 If $\G$ has a single object, i.e. if $\G$ is a group $G$ regarded as a category with a single object, Definition \ref{FAMGROUPOID DEF} recovers the usual definition of a family of subgroups of $G$ as a collection of subgroups $H\leq G$ closed under inclusion and conjugation.
 
-Moreover, if $\F$ is a family of subgroups of $\G$, each $\F_x$ is a family of subgroups of $Aut(x)$ in the usual sense. 
+Moreover, if $\F$ is a family of subgroups of $\G$, each $\F_x$ is a family of subgroups of $\mathsf{Aut}(x)$ in the usual sense. 
 In fact, $\mathcal{F}$ is completely determined by a choice of families
 $\F_x$ for $x$ ranging over a set of representatives of the isomorphism classes/components of $\G$.
 \end{remark}
 
+
+
 \begin{definition}
-      Given a model category $\V$, a groupoid $\G$, and a family of subgroups $\F$ on $\G$,
-      the \textit{$\F$-model structure} on the category $\V^\G = \Fun(\G, \V)$, denoted $\V^\G_\F$,
-      defines a map $A \to B$ to be a 
-      weak equivalence (resp. fibration) if the maps $A(x)^H \to B(x)^H$ are weak equivalences (fibrations) in $\V$
-      for all $x \in \G$ and $H \in \F_x$.
+	Let $\V$ be a model category, $\G$ a groupoid and 
+	$\F$ a family of subgroups of $\G$.
+
+	The \textit{$\F$-model structure} on $\V^\G = \Fun(\G, \V)$, 
+	which we denote by $\V^\G_\F$,
+	is the model structure (if it exists)
+	such that 
+	$f\colon X \to Y$
+	is a weak equivalence (resp. fibration)
+	if the maps $f(x)^H \colon X(x)^H \to Y(x)^H$ are weak equivalences (fibrations) in $\V$ for all $x \in \G$ and $H \in \F_x$.
 \end{definition}
 
-\begin{remark}
-      \label{SIGMACOF_REM}
-      We note that because $\G$ is a groupoid, cofibrations in this functor category are levelwise:
-      $f \in \V^\G_\F$ is a cofibration iff $f(x)$ is a cofibration in $\V^{\Aut(x)}_{\F_x}$ for all $x \in \G$.
+
+
+\begin{remark}\label{VGFGEN REM}
+	Generalizing \eqref{GENGENSETEQ}, one has that if 
+	$\V$ is cofibrantly generated and 
+	the model structure $\V^{\G}_{\F}$ exists
+	then it is likewise cofibrantly generated with generating sets
+	
+	Letting $\mathcal{I}$ (resp. $\mathcal{J}$)
+	denote the sets of generating (resp. trivial) cofibrations of 
+	$\V$, the sets of generating (trivial) cofibrations of $\V^{\G}_{\F}$ are then given by the sets of maps
+\begin{equation}\label{VGFGEN EQ}
+	\mathcal I_{\F} := \left\{
+	\G(x,-)/H \cdot i
+	\ | \ x \in \G, H \in \F_x, i\in \mathcal{I}
+	\right\}
+	\qquad
+	\mathcal J_{\F} := \left\{
+	\G(x,-)/H \cdot j
+	\ | \ x \in \G, H \in \F_x, j\in \mathcal{J}
+	\right\}.
+\end{equation}
+%	where $x$ ranges over the objects of $\G$, $H$ ranges over $\F_x$,
+%	$i$ ranges over $\mathcal{I}$ and 
+%	$j$ ranges over $\mathcal{J}$.
 \end{remark}
 
-\begin{definition}\label{ALLEQ DEF}
-We say a model category $\V$ \emph{admits all equivariant model structures}
-if all model structures on $\V^{\G}_{\F}$
-exist for all groupoids $\G$ and families $\F$.
-\end{definition}
+
+\begin{remark}\label{SIGMACOF_REM}
+	Since $\G$ is a groupoid 
+	(trivial) cofibrations in $\V^{\G}_{\F}$
+	are characterized pointwise:
+	a map $f$ in $\V^\G_\F$ is a (trivial) cofibration iff $f(x)$ is a (trivial) cofibration in $\V^{\Aut(x)}_{\F_x}$ for all $x \in \G$.
+\end{remark}
 
 
-The following is straightforward.
+
 \begin{proposition}\label{ALLEQ PROP}
 Suppose $\V$ is cofibrantly generated.
-Then $\V$ admits all equivariant model structures iff
-the genuine model structures $\V^G$
+%
+Then the $\V^{\G}_{\F}$
+model structures exist for all 
+groupoids $\G$ and families $\F$
+iff
+the genuine model structures on $\V^G$
 exist for all groups $G$.
+
+In particular, the $\V^{\G}_{\F}$
+model structures exist whenever $\V$ has weak acyclic cellular fixed points.
 \end{proposition}
 
-
-
-
-
-
-The existence of these model structures will be sufficient for Theorem \ref{THMI}.
-However, to prove Theorem \ref{THMII}, in particular Corollary \ref{ALBEETA COR}, we will need
-to assume that these equivariant model structures are relatively well behaved.
-\begin{definition}
-      Suppose $\V$ is a cofibrantly generated model category which admits all equivariant model structures.
-      We say $\V$ has \textit{fixed points which preserve trivial cofibrations} if
-      for all finite groups $G$,
-      the functor $(-)^G \colon \V^G \to \V$ sends genuine trivial cofibrations to trivial cofibrations.
-
-      Notationally, this may be expressed as $\left(\mathcal J_G\text{-cof}\right)^G \subseteq \mathcal J\text{-cof}$.
-\end{definition}
-
-
-This is sufficent to show that $\V$ admits all equivariant model structures.
-\begin{lemma}
-      \label{PTRCOF_LEM}
-      Suppose $\V$ is a cofibrantly generated model category with fixed points which preserve trivial cofibrations.
-      Then $\V$ admits all equivariant model structures.
-\end{lemma}
 \begin{proof}
-      This follows from \cite[Thm. A.1]{Ste16}:
-      Following the numbering there,
-      the necessary smallness condition $(i)$ on $\mathcal I_G$ (resp. $\mathcal J_G$).
-      follows from the fact that
-      fixed points commute with filtered colimits in the category of $G$-sets
-      and the smallness of $\mathcal I$ (resp. $\mathcal J$) relative to $\mathcal I$-cell (resp. $\mathcal J$-cell).
-      % fixed points in $G$-set commute with directed colimits (as long as $G$ is finitely-generated), so
-      % \[
-      %       \lim_\alpha \mathcal C^G(G/H \cdot A, B_\alpha) =
-      %       \lim_\alpha \mathcal C^H(H/H \cdot A, B_\alpha) =
-      %       \left( \lim_\alpha \mathcal C(A, B_\alpha) \right)^H =
-      %       \mathcal C^H(A, \colim_\alpha B_\alpha) =
-      %       \mathcal C^G(G/H \cdot A, \colim_\alpha B_\alpha),
-      % \]
-      % as genuine (trivial) cofibrations are in particular underlying cofibrations.
-      Condition $(ii)$ is exactly that fixed points preserve trivial cofibrations.
+The ``in particular'' claim is Proposition \ref{WEAKCELL PROP}(i).
+
+For the main claim, only the ``if'' direction requires proof.
+Much as in Proposition \ref{WEAKCELL PROP}(i), 
+we consider \cite[Theorem 2.1.19]{Hov99}
+applied to the generating sets in \eqref{VGFGEN EQ},
+and again the only non immediate condition is the requirement
+$\mathcal{J}_{\F}\text{-cell} \subseteq \mathcal{W}_{\F}$,
+where $\mathcal{W}_{\F}$ denotes the weak equivalences 
+in $\V^{\G}_{\F}$.
+By Remark \ref{SIGMACOF_REM} it suffices to show 
+$\mathcal{J}_{\F_x}\text{-cell} \subseteq \mathcal{W}_{\F_x}$
+for all $x \in \G$.
+This now follows since
+\[
+\mathcal{J}_{\F_x}\text{-cell} \subseteq 
+\mathcal{J}_{\Aut(x)}\text{-cell} \subseteq 
+\mathcal{W}_{\Aut(x)} \subseteq 
+\mathcal{W}_{\F_x}
+\]
+where the middle inclusion follows by the existence of the 
+genuine model structure on $\V^{\Aut(x)}$.
 \end{proof}
 
 
 
 
 
-
-
-% The following definition is adapted from \cite{Ste16}.
-
-% \begin{definition}\label{CELLFP_DEF}
-% We say $\V$ has \textit{cellular fixed points} if
-% for all finite groups $G$ and subgroups $H, K \leq G$ one has that:
-% 	\begin{enumerate}[label = (\roman*)]
-% 	\item $(-)^H \colon \V^G \to \V$ preserves direct colimits of diagrams in $\V^G$ where each underlying arrow in $\V$ is a cofibration;
-%       \item $(-)^H \colon \V^G \to \V$ preserves pushouts where one leg is $(G/K) \cdot f$, for $f$ a cofibration in $\V$.
-%       \item for each object $X \in \V$, the natural map $(G/K)^H \cdot X \to ((G/K) \cdot X)^H$ is an isomorphism.
-%       \end{enumerate}
-% \end{definition}
-
-
-% \begin{remark}\label{LEVEL_COF_REM}
-%       A consequence of cofibrantly-generated $\V$ having cellular fixed points
-%       (cf. \cite[Lemma A.3]{Ste16})
-%       (cf. the proof of \cite[Prop. 6.3(i)]{BP_geo})
-%       is that for any genuine (trivial) cofibration $f \in \V^G_{gen}$,
-%       the map $f^H$ is a (trivial) cofibration in $\V$ for all $H \leq G$.
-% \end{remark}
-
-% For any groupoid $\G$ there is an equivalence of categories
-% $\G \simeq \coprod_{[x] \in ob(\G)/\simeq} Aut(x)$,
-% where $ob(\G)/\simeq$
-% denotes isomorphism classes of objects,
-% and thus also equivalences
-% $\V^{\G} \simeq \prod_{[x] \in ob(\G)/\simeq} \V^{Aut(x)}$,
-% so that \cite[Thm. 2.10]{Ste16}
-% immediately implies the following.
-
-
-% \begin{theorem}\label{FMODEL THM}
-%       If $\V$ is a cofibrantly generated model category with cellular fixed points, $\G$ is a groupoid and $\F$ a family of subgroups on $\G$,
-%       then the $\F$-model structure $\V^\G_\F$ exists.
-% \end{theorem}      
-
-\begin{remark}\label{VGFGEN REM}
-	Letting $\mathcal{I}$ (resp. $\mathcal{J}$)
-	denote the sets of generating (resp. trivial) cofibrations of 
-	$\V$, the sets of generating (trivial) cofibrations of $\V^{\G}_{\F}$ are then given by the sets of maps
-\begin{equation}\label{VGFGEN EQ}
-      \mathcal I_\G := \left\{
-            \G(x,-)/H \cdot i
-      \right\}
-      \qquad
-      \mathcal J_\G := \left\{
-            \G(x,-)/H \cdot j
-      \right\}
-\end{equation}
-where $x$ ranges over the objects of $\G$, $H$ ranges over $\F_x$,
-$i$ ranges over $\mathcal{I}$ and 
-$j$ ranges over $\mathcal{J}$.
-\end{remark}
-
-
-
-
-\begin{definition}\label{GENMOD DEF}
-If $\F = \F_{all}$ is the collection of all subgroups of a group $G$, we denote the model structure $\V^{G}_{\F_{all}}$ simply by $\V^G$,
-and refer to it as the \textit{genuine} or \textit{fine} model structure on $\V^G$,
-with genuine (trivial) (co)fibrations and genuine weak equivalences.
-\end{definition}
-
-
 \begin{remark}
 The families of subgroups $\F$ of a groupoid $\G$ 
-form a poset (in fact lattice) under inclusion,
-which we denote $\mathsf{Fam}_{\G}$. 
-
-Given any map of groupoids $\phi\colon \G \to \bar{\G}$
-one obtains a pullback functor
-$\phi^{\**} \colon \mathsf{Fam}_{\bar{\G}} \to \mathsf{Fam}_{\G}$
-defined by
+form a poset (in fact lattice) under inclusion.
+%which we denote $\mathsf{Fam}_{\G}$. 
+Given a map of groupoids $\phi\colon \G \to \bar{\G}$
+and family $\bar{\F}$ of subgroups of $\bar{\G}$
+we have a ``pullback family'' 
+$\phi^{\**} \bar{\F}$ 
+of subgroups of $\G$ given by
 \begin{equation}
       \label{PHISTAR_EQ}
       \left(\phi^{\**} \bar{\F} \right)_{x}
       =
-      \left\{H \leq Aut(x) \ | \ \phi(H) \in \bar{\F}_{\phi(x)}\right\}.
+      \left\{H \leq \Aut(x) \ | \ \phi(H) \in \bar{\F}_{\phi(x)}\right\}.
 \end{equation}
-(in fact, since $\phi^{\**}$ preserves arbitrary unions and intersection of families and 
-$\mathsf{Fam}_{\bar{\G}}$
-is a complete lattice, $\phi^{\**}$ admits both a left and a right adjoint).
+%(in fact, since $\phi^{\**}$ preserves arbitrary unions and intersection of families and 
+%$\mathsf{Fam}_{\bar{\G}}$
+%is a complete lattice, $\phi^{\**}$ admits both a left and a right adjoint).
 %In fact, one further has adjunctions
 %\[
 %	\phi_! \colon
@@ -3286,6 +3408,8 @@ is a complete lattice, $\phi^{\**}$ admits both a left and a right adjoint).
 %	\right\}
 %\]
 \end{remark}
+
+{\color{red} HERE}
 
 The relevance of the previous remark is given by the following result,
 which rephrases \cite[Props. 6.6, 6.7]{BP_geo}.
@@ -4083,38 +4207,9 @@ n_k^{(\O,X,Y)}(\vect{U})=
 \end{equation}
 \end{lemma}
 
-Considering \eqref{NKOXY EQ}, we will need the following additional axiom to prove our first main theorem.
-
-\begin{definition}
-      \label{GLOBMONAX_DEF}
-      Let $\V$ be a cofibrantly generated monoidal model category which admits all equivariant model structures.
-
-      For a finite group $G$, let $\mathcal J^{\otimes}_G$ denote the class of \textit{global $\otimes$-trivial-cofibrations} in $\V^G$,
-      \begin{equation}
-            \label{GLOBMONAX_EQ}
-            \left( \mathcal J \otimes \V^G \right) \text{-cof}.
-      \end{equation}
-      
-      We say $\V$ satisfies the \textit{global monoid axiom} if $\mathcal J^{\otimes}_G$ is contained in $\mathcal W_G$ for all finite groups $G$.
-\end{definition}
-
-\begin{remark}
-      By adjunction arguments, note that for $A \in \V$ and $B \in \V^G$, we have
-      \[
-            (G/H \cdot A) \otimes B \simeq G/G \cdot A \otimes G \cdot_H B \simeq G \cdot_H (A \otimes B),
-      \]
-      and thus $\mathcal J \otimes \V^G = \mathcal J_G \otimes \V^G$.
-\end{remark}
 
 
-
-
-\begin{remark}
-      \label{MONAX_REM}
-      If we only require this for the trivial group $G = \**$, this recovers the usual \textit{monoid axiom} of Schwede-Shipley \cite{SS00}.
-\end{remark}
-
-We can now prove our first main theorem.
+We can now prove our first main result, Theorem \ref{THMI}.
 
 \begin{proof}[Proof of Theorem \ref{THMI}]     
 By \cite[Thm. 11.3.2]{Hir03} we need only show that
@@ -4362,63 +4457,6 @@ $j$ ranges over $\mathcal{J}$.
 
 \subsection{Sufficient conditions}
 
-\todo[inline]{here or later?}
-
-The three strongest hypotheses on $(\V, \otimes)$ for Theorem \ref{THMI} are:
-\begin{itemize}
-\item[(ii)] $\V$ admits equivariant model structures.
-\item[(iv)] $(\V, \otimes)$ has cofibrant symmetric pushout powers.
-\item[(v)] $(\V,\otimes)$ satisfies the global monoid axiom.
-\end{itemize}
-
-In this section, we identify some sufficient conditions for (ii) and (v). 
-
-The following definitions synthesize parts of the \textit{cellularity} conditions of \cite{Ste16} with the monoid axiom (Remark \ref{MONAX_REM}).
-\begin{definition}
-      We say $\V$ has \textit{weak acyclic cellular fixed points} (resp. \textit{monoidal weak acyclic cellular fixed points}) if
-      for all finite groups $G$ and subgroups $H$, the functor $(-)^H \colon \V^G \to \V$
-      \begin{enumerate}[label = (\roman*)]
-      \item preserves direct colimits of maps in $\mathcal J_G$-cof (resp. ($\mathcal J \otimes \V^G$)-cof).
-      \item preserves pushouts of $\mathcal J_G$ (resp. $\mathcal J \otimes \V^G$).
-      \item sends $\mathcal J_G$ to $\mathcal J$-cof (resp. $\mathcal J \otimes \V^G$ to $(\mathcal J \otimes \V)$-cof).
-      \end{enumerate}
-\end{definition}
-
-
-The following are straightforward.
-\begin{lemma}
-      Suppose $\V$ is a cofibrantly generated model category.
-      \begin{enumerate}[label=(\roman*)]
-      \item If $\V$ has weak acyclic cellular fixed points, then $\V$ has fixed points which preserve trivial cofibrations and hence
-            admits all equivariant model structures by Lemma \ref{PTRCOF_LEM}.
-      \item If $\V$ has monoidal weak acyclic cellular fixed points and additionally satisfies the monoid axiom,
-            then $\V$ satisfies the global monoid axiom.
-      \end{enumerate}
-\end{lemma}
-
-\begin{remark}
-      As alluded to in \cite[Remark 2.7]{Ste16}, if $\V$ satisfies the cellularity conditions of \cite[Prop. 2.6]{Ste16}, then $\V$ has weak acyclic cellular fixed points.      
-\end{remark}
-
-\todo[inline]{come back}
-
-Clearly monoidal weak acyclic cellularity implies the non-monoidal condition.
-The converse only holds in specific settings.
-\begin{lemma}
-      \label{JVG_JG_LEM}
-      Suppose $\mathcal J \otimes \V^G \subseteq \mathcal J_G$-cell. Then
-      \begin{enumerate}[label=(\roman*)]
-      \item $\V$ satisfies the global monoid axiom.
-      \item $\V$ has weak acyclic cellular fixed points iff $\V$ has monoidal weak acyclic cellular fixed points.
-      \end{enumerate}
-\end{lemma}
-\begin{proof}
-      This follows by Proposition \ref{EQQUILADJ PROP}.
-\end{proof}
-
-
-
-\todo[inline]{examples?}
 
 \subsubsection*{The category of categories}
 
