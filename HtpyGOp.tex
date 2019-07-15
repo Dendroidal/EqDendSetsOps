@@ -3925,7 +3925,7 @@ Considering \eqref{NKOXY EQ}, we will need the following additional axiom to pro
 
       For a finite group $G$, let $\mathcal J^{\otimes}_G$ denote the class of \textit{global $\otimes$-trivial-cofibrations} in $\V^G$,
       \begin{equation}
-            \label{GLOBMONAX_EQ}
+            \label{GLOMO_EQ}
             \left( \mathcal J \otimes \V^G \right) \text{-cof}.
       \end{equation}
       
@@ -4967,28 +4967,37 @@ For the last step of the proof, we will need a stronger assumption on $\F$.
 
 The previous section built model structures on each category
 $\mathsf{Op}_{\mathfrak{C}}^G(\V)$
-of $G$-equivariant operads with a fixed $G$-set of colors $\mathfrak{C}$.
+of $G$-equivariant operads with a fixed $G$-set of colors $\mathfrak{C}$,
+one for each $(G,\Sigma)$-family $\F$.
 Adapting \cite{BM13,Cav,CM13b}, 
 our goal in this section is to build a model structure on the full category $\mathsf{Op}^G_\bullet(\mathcal{V})$
 of $G$-equivariant operads with varying colors. 
 
 The model structures on $\mathsf{Op}^G_\bullet(\V)$ are characterized by their weak equivalences and fibrations
-({\color{red} see wherever}), 
+(Definition \ref{MODEL_DEFN},
 with both classes of maps described by combining a ``local condition'', i.e. a condition involving the fixed color categories $\mathsf{Op}_{\mathfrak{C}}^G(\V)$,
 with a ``homotopical equivalence condition'',
 i.e. a condition involving equivalences between colors within
 some fixed $\O \in \mathsf{Op}^G_\bullet(\V)$.
 
+This model structure will be built in Sections \ref{MAPSOG_SEC}--\ref{HMTYEQ SEC}.
+\S \ref{MAPSOPG_SEC} introduces several classes of maps of operads,
+\S \ref{GENCOF SEC} produces a generating set of (trivial) cofibrations,
+and \S \ref{TRIVCOF_SEC} concludes in Proposition \ref{J-CELL_PROP} that trivial cofibrations are in fact weak equivalences.
+Sections \ref{EQUIVOBJ_SEC} and \ref{HMTYEQ SEC} explore several notions of essential surjectivity in order to prove 2-out-of-3.
 
+Afterwards, \S \ref{ISOFIB_SEC} characterizes fibrations in certain cases as something more familiar. 
 
-\subsection{Classes of maps in $\mathsf{Op}^G_\bullet(\V)$}
+In order to build these structures, we will need to both strengthen our hypotheses on $\V$ (discussed throughout \S \ref{MS_SEC})
+and on our $(G,\Sigma)$-family $\F$ (needed for Proposition \ref{23HARDCASE PROP})..
+The conditions on $\V$ are significant;
+however, the restriction on $\F$ is fairly small.
 
-We now discuss the several types of maps in 
-$\mathsf{Op}^G_\bullet(\V)$ we will be interested in.
-
-We start with the ``local notions'', 
-i.e. those notions determined by the fixed color categories $\mathsf{Op}_{\mathfrak{C}}^G(\V)$.
-
+\begin{convention}
+      Throughout this section, we assume $(\V, \otimes)$ satisfies the hypotheses of Theorem \ref{THMI}.
+      In particular, we have $\F$-model structures $\Op^G_{\mathfrak C, \F}(\V)$ for all $(G,\Sigma)$-families $\F$,
+      and canonical model structures on $\Cat_{\mathfrak C}(\V)$.
+\end{convention}
 
 \begin{definition}
 Write $G \times \Sigma^{op} \xrightarrow{\pi} 
@@ -4999,6 +5008,16 @@ We say that a family $\F$ of subgroups of $G\times \Sigma^{op}$
 \emph{respects units} if $\F \subseteq \pi^{\**} \iota^{\**} \F$.
 \end{definition}
 
+
+
+
+\subsection{Classes of maps in $\mathsf{Op}^G_\bullet(\V)$}
+\label{MAPSOPG_SEC}
+
+We now discuss the several types of maps in 
+$\mathsf{Op}^G_\bullet(\V)$ we will be interested in,
+starting with the ``local'' notions, 
+i.e. those notions determined by the fixed color categories $\mathsf{Op}_{\mathfrak{C}}^G(\V)$.
 
 \begin{definition}
 Let $\F$ be a $(G, \Sigma)$-family which respects units.
@@ -5024,39 +5043,38 @@ $\mathsf{Op}^G_{\mathfrak{C}}(\V) \hookrightarrow \mathsf{Op}^G_\bullet(\V)$
 for all $\mathfrak{C} \in \mathsf{F}^G$.
 \end{proposition}
 
-We note that this result is formulated to be compatible with semi-model structures.
-If the fibers $\mathsf{Op}^G_{\mathfrak{C}}(\V)$ have full model structures one can replace the role of
-``$\mathcal{J}_{\mathfrak{C}}$'' and ``$\mathcal{I}_{\mathfrak{C}}$''
-with simply ``trivial cofibrations'' and ``cofibrations''.
 
 
 \begin{proof}
 This follows by Remark \ref{COLOR_SQ_REM}(i)
 and the fact that the pullback functors
 $f^{\**} \colon \mathsf{Op}^G_{\mathfrak{D},\F}(\V)
-\to \mathsf{Op}^G_{\mathfrak{C},F}(\V)$
+\to \mathsf{Op}^G_{\mathfrak{C},\F}(\V)$
 preserve (trivial) fibrations.
 \end{proof}
 
 
 
 
-We next turn to the homotopical notions of essential surjectivity and isofibration, which concern equivalences between objects within some 
+We next turn to homotopical notions of essential surjectivity and isofibration, which concern equivalences between objects within some 
 $\O \in \mathsf{Op}^G_\bullet(\V)$.
 We first recall some definitions from \cite{BM13}.
 As usual, we let $1_\V$ and $\emptyset$ denote, respectively, the unit object and initial object of $\V$.
 
 \begin{notation}
-We write $\mathbbm{1}$ (resp. $\widetilde{\mathbbm{1}}$)
-for the $\V$-category which represents arrows (resp. isomorphisms):
-it has two objects $0,1$
-and mapping objects
-$\mathbbm{1}(i,j)= 1_{\V}$
-if $i \leq j$
-and 
-$\mathbbm{1}(1,0)= \emptyset$
-(resp. $\widetilde{\mathbbm{1}}(i,j)= 1_{\V}$ for all $i,j$)
-and composition defined by the natural isomorphisms.
+      We write $\mathbbm{1}$ (resp. $\widetilde{\mathbbm{1}}$)
+      for the $\V$-category which represents arrows (resp. isomorphisms):
+      it has two objects $0,1$
+      and mapping objects
+      $\mathbbm{1}(i,j)= 1_{\V}$
+      if $i \leq j$
+      and 
+      $\mathbbm{1}(1,0)= \emptyset$
+      (resp. $\widetilde{\mathbbm{1}}(i,j)= 1_{\V}$ for all $i,j$)
+      and composition defined by the natural isomorphisms.
+
+      More simply, we write $\eta$ for the $\V$-category which represents objects,
+      with a single object $\**$ and $\eta(\**,\**) = 1_\V$.
 \end{notation}
 
 
@@ -5088,8 +5106,8 @@ We say a functor $F: \mathcal C \to \mathcal D$ in $\Cat(\V)$ is
 \begin{itemize}
 \item \textit{path-lifting}
 	if it has the right lifting property against all maps of the form
-	$\{0\} \to \I$, $\{1\} \to \I$
-	where $\I$ is a $\V$-interval; 
+	$\eta \xrightarrow{0} \I$, $\eta \xrightarrow{1} \I$
+	where $\I$ is a $\V$-interval;
 \item \textit{essentially surjective} 
 	if for any object $d \in \mathcal{D}$
 	there is an object $c \in \mathcal{C}$,
@@ -5154,7 +5172,7 @@ We say a map $F: \O \to \P$ in $\mathsf{Op}^G_\bullet(\V)$ is:
 
 Our goal in the remainder of this section will be to prove that, 
 under suitable assumptions, 
-Definition \ref{MODEL_DEFN} describes a (semi-)model structure on 
+Definition \ref{MODEL_DEFN} describes a model structure on 
 $\mathsf{Op}^G_\bullet(\V)$, which we denote by
 $\mathsf{Op}^G_{\bullet, \F}(\V)$.
 
@@ -5164,20 +5182,21 @@ adapting \cite[4.8]{Cav}, \cite[2.3]{BM13}, \cite[1.18]{CM13b}.
 \begin{proposition}\label{FTRIVCHAR PROP}
 A map in $F: \O \to \P$ in $\mathsf{Op}^G_\bullet(\V)$ is 
 a $\F$-trivial fibration (i.e. both a $\F$-fibrations and a $\F$-weak equivalence) 
-iff it is a local $\F$-trivial fibration which is surjective on 
-$H$-fixed colors for all $H \in \F_1$.
+iff it is a local $\F$-trivial fibration
+such that the induced map on $H$-fixed colors is surjective
+for all $H \in \F_1$.
 \end{proposition}
 
 
 \begin{proof}
-If is enough to show that,
+It is enough to show that,
 if $F \colon \O \to \P$ is a local $\F$-trivial fibration,
 then $F$ is both $\F$-path lifting and $\F$-essentially surjective
-iff it is is surjective on $H$-fixed colors for $H \in \F_1$.
+iff  the induced map on $H$-fixed colors is surjective for all $H \in \F_1$.
 
-For the ``if'' direction, it is immediate that if $F$ is
+For the ``if'' direction, it is immediate that $F$ is
 $\F$-essentially surjective, so it remains to show that
-the maps $\O^H\to \P^J$
+the maps $\O^H\to \P^H$
 have the right lifting property against the maps
 $\eta \to \mathbb{I}$.
 But this follows by factoring the latter maps as
@@ -5187,8 +5206,8 @@ $\eta \to \eta \amalg \eta$ follows from surjectivity on $H$-fixed objects while
 $\eta \amalg \eta \to \mathbb{I}$
 follows from Proposition \ref{LOCALTCHAR PROP}.
 
-For the ``only if direction'', let $y \in \P^H$ be a $H$-fixed object with $H \in \F_1$.
-$\F$-essential surjectivity yields $x \in \O^H$ and map 
+For the ``only if direction'', let $y \in \P^H$ be an $H$-fixed object with $H \in \F_1$.
+$\F$-essential surjectivity yields an $x \in \O^H$ and map 
 $i \colon \mathbb{I} \to \P^H$
 with $i(0)=F(x)$, $i(1)=y$.
 The $\F$-path lifting property then gives a lift $\tilde{i}$ as below, 
@@ -5263,7 +5282,7 @@ for $\F$-trivial fibrations is indeed an iff.
       This follows from Proposition \ref{FTRIVCHAR PROP} and Remark \ref{FIBERGLMOD REM}(ii).
 \end{proof}
 
-The remainder of this section will be spent proving Theorem \ref{THMII}
+We prove Theorem \ref{THMII} in the subsections below,
 by showing that the classes of maps in Definition \ref{MODEL_DEFN}
 do indeed define a model structure on $\mathsf{Op}^G{\V}$.
 The following is the outline of the proof.
@@ -5284,7 +5303,7 @@ $\F$-trivial fibrations prescribed by
 Definition \ref{MODEL_DEFN}
 is Proposition \ref{FTRIVCHAR PROP}, 
 establishing conditions (5),(6) in Theorem \ref{THMII}.
-Moreover, Lemma \ref{POINT_4_LEMMA} establishes (4).
+Moreover, Lemma \ref{POINT_4_LEMMA} and Proposition \ref{J-CELL_PROP} establishes (4).
 
 (2),(3) follow since colimits in $\mathsf{Op}^G_\bullet(\V)$ are created in $\Op(\V)$, and it holds non-equivariantly.
 
@@ -5303,7 +5322,8 @@ which is Proposition \ref{2OUTOF3 PROP}.
 Our next step in proving that the classes of maps in Definition \ref{MODEL_DEFN}
 define a model structure will be to identify sets of generating cofibrations and generating trivial cofibrations.
 
-Proposition \ref{LOCALTCHAR PROP} suggests that one might want to include the generating sets of maps for the fibers 
+{\color{OliveGreen} % ------------------------------ OLIVEGREEN ------------------------------
+  Proposition \ref{LOCALTCHAR PROP} suggests that one might want to include the generating sets of maps for the fibers 
 $\mathsf{Op}^G_{\mathfrak{C},\F}(\V)$
 in the generating sets of maps for 
 $\mathsf{Op}^G_{\F}(\V)$.
@@ -5380,7 +5400,7 @@ $\mathsf{Op}^G_{\F}(\V)$.
 
 
 {\color{blue} HERE}
-
+} % ------------------------------ OLIVEGREEN ------------------------------
 
 Before describing the generating sets, however, we need to address the path-lifting condition.
 Since fibrations in $\mathsf{Op}^G_{\F}(\V)$ are to have the lifting property against all maps $\eta \to \mathbb I$
@@ -5503,13 +5523,13 @@ for $n \geq 0$, $\Lambda \in \F_n$ and $j \in \mathcal{J}$.
 \end{definition}
 
 
-\begin{remark}
-	The required claim that the maps with the right lifting property against (TC1) and (TC2) are the $\F$-fibrations as defined by
-	Definition \ref{MODEL_DEFN} follows from 
-	Propositions \ref{LOCALTCHAR PROP} and \ref{GENIN PROP},
-	while the claim that the maps with the lifting property against (C1) and (C2) are the $\F$-trivial fibrations follows from
-	Proposition \ref{FTRIVCHAR PROP}.
-\end{remark}
+% \begin{remark}
+% 	The required claim that the maps with the right lifting property against (TC1) and (TC2) are the $\F$-fibrations as defined by
+% 	Definition \ref{MODEL_DEFN} follows from 
+% 	Propositions \ref{LOCALTCHAR PROP} and \ref{GENIN PROP},
+% 	while the claim that the maps with the lifting property against (C1) and (C2) are the $\F$-trivial fibrations follows from
+% 	Proposition \ref{FTRIVCHAR PROP}.
+% \end{remark}
 
 
 
@@ -5540,15 +5560,17 @@ the second map is in the saturation of (C2).
 
 
 \subsection{Interval cofibrancy and trivial cofibrations}
+\label{TRIVCOF_SEC}
 
-
+In this section we establish Proposition \ref{J-CELL_PROP},
+that relative $\mathcal J_\F$-cells are $\F$-weak equivalences.
 We start by recalling the following, 
 which is a challenging technical result in \cite{BM13}.
 
 \begin{theorem}
 [Interval Cofibrancy Theorem; cf. {\cite[Thm. 1.15]{BM13}}]
 \label{INTCOF THM}
-Suppose $\V$ is {\color{blue} adequate} with cofibrant unit.
+Suppose $\V$ is satisfies the monoid axiom and has cofibrant unit.
 Then for any cofibrant $\mathbb{I} \in \mathsf{Cat}_{\{0,1\}}(\V)$
 one has that 
 $\mathbb{I}(0,0)$ %and $\mathbb{I}(1,1)$
@@ -5556,6 +5578,11 @@ is a cofibrant monoid, i.e. cofibrant
 in $ \mathsf{Cat}_{\{0\}}(\V)$.
 \end{theorem}
 
+We have selected a particular hypothesis which is sufficient for the proof from \cite{BM13}.
+Their choice reflects a desire to have a consistent and constant set of general hypotheses throughout their paper;
+we have chosen in this paper a slightly different set of a hypotheses.
+
+\todo[inline]{after Main Results, include a thm-review; e.g. monoid axiom implies $\Cat_{\mathfrak C}(\V)$ has the canonical model structure}
 
 \begin{remark}
 By symmetry, one must also have that $\mathbb{I}(1,1)$ is cofibrant.
@@ -5568,6 +5595,8 @@ but not needed for our application.
 \end{remark}
 
 
+
+
 We note that the Interval Cofibrancy Theorem is a particular case of the following conjecture when $\mathfrak{C} \to \mathfrak{D}$
 is the inclusion $\{0\} \to \{0,1\}$.
 
@@ -5577,13 +5606,13 @@ Let $f \colon \mathfrak{C} \to \mathfrak{D}$
 be an injection of colors.
 Then the functors
 \[
-	\mathsf{Cat}_{\mathfrak{D},\F}^G
+	\mathsf{Cat}_{\mathfrak{D},\F}^G(\V)
 	\xrightarrow{f^{\**}}
-	\mathsf{Cat}_{\mathfrak{C},\F}^G
+	\mathsf{Cat}_{\mathfrak{C},\F}^G(\V)
 \qquad
-	\mathsf{Op}_{\mathfrak{D},\F}^G
+	\mathsf{Op}_{\mathfrak{D},\F}^G(\V)
 	\xrightarrow{f^{\**}}
-	\mathsf{Op}_{\mathfrak{C},\F}^G
+	\mathsf{Op}_{\mathfrak{C},\F}^G(\V)
 \]
 preserve cofibrations between cofibrant objects.
 \end{conjecture}
@@ -5593,12 +5622,12 @@ preserve cofibrations between cofibrant objects.
 
 \begin{remark}
 To see why Conjecture \ref{CATOP CONJ} is at least plausible,
-we claim that $f^{\**}$ does at least send generating cofibrations to generating cofibrations, 
+we claim that $f^{\**}$ sends generating cofibrations to generating cofibrations, 
 which is essentially tantamount to it sending free objects to free objects.
 To see this, consider the simplest example 
 where the inclusion of colors is 
 $f \colon \{0\} \to \{0,1\}$
-and $\mathbb{F}_{\{0,1\}}X \in \mathsf{Cat}_{\{0,1\}}$ be free.
+and $\mathbb{F}_{\{0,1\}}X \in \mathsf{Cat}_{\{0,1\}}$ is free.
 Then one can check that $f^{\**} \mathbb{F}_{\{0,1\}}X \in \mathsf{Cat}_{\{0\}}$ is the free monoid
 \begin{equation}\label{PULLFREEEX EQ}
 	f^{\**} \mathbb{F}_{\{0,1\}}X
@@ -5630,12 +5659,12 @@ $\mathfrak{D} \setminus \mathfrak{C}$.
 It is then straightforward to check that, under mild assumptions on $\V$,
 $f^{\**} \mathbb{F}_{\mathfrak{D}} X$
 will be a (trivial) cofibration in 
-$\mathsf{Cat}^G_{\mathfrak{C},\F}$
-(resp. $\mathsf{Cat}^G_{\mathfrak{C},\F}$))
+$\mathsf{Cat}^G_{\mathfrak{C},\F}(\V)$
+(resp. $\mathsf{Op}^G_{\mathfrak{C},\F}(\V)$))
 when $\mathbb{F}_{\mathfrak{D}} X$
 is a generating (trivial) cofibration
-in $\mathsf{Cat}^G_{\mathfrak{D},\F}$
-(resp. $\mathsf{Cat}^G_{\mathfrak{D},\F}$)).
+in $\mathsf{Cat}^G_{\mathfrak{D},\F}(\V)$
+(resp. $\mathsf{Op}^G_{\mathfrak{D},\F}(\V)$)).
 However, the argument just given \emph{does not} constitute a proof of Conjecture \ref{CATOP CONJ}
 since $f^{\**}$ does not preserve pushouts, 
 so that to truly prove Conjecture \ref{CATOP CONJ}
@@ -5648,8 +5677,8 @@ $j^{\**} \colon \mathsf{Op}_{\mathfrak{C},\F}^G
 \to \mathsf{Cat}_{\mathfrak{C},\F}^G$
 preseves cofibrations between cofibrant objects,
 and again one has that $j^{\**}$ 
-sends generating (trivial) cofibrations to (trivial) cofibrations but,
-since we are working with operads with $0$-ary operations/units,
+sends generating (trivial) cofibrations to (trivial) cofibrations.
+However, as we are working with operads with $0$-ary operations, % /units,
 $j^{\**}$ does not preserve pushouts
 (indeed, this would be roughly tantamount to the claim that trees with a single leaf are linear trees, which is not true if we work with trees that may have stumps).
 \end{remark}
@@ -5703,13 +5732,13 @@ but we will not need to know this)
 The original proof of this result \cite[Lemma 1.16]{BM13} makes use of the cofibrancy of modules condition for
 $\mathbb{I}(0,1),\mathbb{I}(1,0)$
 in \cite[Thm 1.15]{BM13}.
-Here we present an alternative argument requiring only the cofibrancy of $\mathbb{I}(0,0)$ as a monoid
-included in our formulation of Theorem \ref{INTCOF THM}.
+Here we present an alternative argument requiring only the cofibrancy of $\mathbb{I}(0,0)$ as a monoid,
+as included in our formulation of Theorem \ref{INTCOF THM}.
 
 
 \begin{proof}
 Since $\mathbb{I},\mathbb{J}$ are cofibrant and the $\partial_{i,!}$
-preserve cofibrations,
+preserve cofibrations by Remark \ref{OP_MAP REM} and Corollary \ref{SYMADJ_COR}\ref{SYMCOCHADJ_LBL},
 the coproduct 
 $\partial_{2,!} \mathbb{I} \amalg \partial_{0,!} \mathbb{J}$
 is a homotopy coproduct, 
@@ -5729,14 +5758,14 @@ One then has a map
 which we will show to be a weak equivalence.
 
 Firstly, by applying Corollary \ref{FGTPUSH COR} twice,
-one has that $\mathbb{K}(1,1)= \mathbb{I}(1,1) \amalg \mathbb{J}(1,1)$
+one has that $\mathbb{K}(1,1)= \mathbb{I}(1,1) \amalg \mathbb{J}(0,0)$
 where the coproduct is taken in $\Cat_{\{1\}}(\V)$.
-Since Theorem \ref{INTCOF THM} says $\mathbb{I}(1,1),\mathbb{J}(1,1)$
+Since Theorem \ref{INTCOF THM} says $\mathbb{I}(1,1),\mathbb{J}(0,0)$
 are acyclic cofibrant (i.e. weakly equivalent to the inital object $1_{\V}$),
 so is $\mathbb{K}(1,1)$.
 
 
-Next, note that our assumption on $\mathbb{I},\mathbb{J}$
+Next, note that our additional assumption on $\mathbb{I},\mathbb{J}$
 allows us to find factorizations
 of the identity $1_{\V} \xrightarrow{=} 1_{\V}$
 \[
@@ -5762,7 +5791,7 @@ of the identity $1_{\V} \xrightarrow{=} 1_{\V}$
 \]
 such that $\alpha,\beta,\bar{\alpha},\bar{\beta}$ induce, 
 upon inclusion into $\mathbb{K}$,
-homotopy equivalences between $1$ and $0,2$ in either direction. 
+homotopy equivalences between $1$ and $0$ or $2$ in either direction. 
 For any choice of $i,j$ in $\{0,1,2\}$,
 composing with $\alpha,\beta,\bar{\alpha},\bar{\beta}$
 as appropriate gives top horizontal weak equivalences as above
@@ -5788,7 +5817,7 @@ showing that $\mathbb{K} \to \widetilde{\mathbbm{2}}$, as desired.
 
 
 \begin{lemma}[cf. {\cite[4.17]{Cav}}]
-\label{TRANSCOMP_ES_LEM}
+      \label{TRANSCOMP_ES_LEM}
       Transfinite composition of $\F$-essentially surjective maps in $\Op^G_\bullet(\V)$ is $\F$-essentially surjective.
 \end{lemma}
 
@@ -5805,10 +5834,10 @@ that the composite maps $\bar{F}_{\alpha} \colon \O_0 \to \O_{\alpha}$
 are $\F$-essentially surjective. Fix $H \in \F_1$.
 
 For a sucessor ordinal $\alpha+1$, given $c \in \O_{\alpha+1}^H$
-one can find $b \in \O(\alpha)^H$ and map from an interval 
+one can find $b \in \O_\alpha^H$ and map from an interval 
 $\mathbb{J} \xrightarrow{j} \O_{\alpha+1}^H$ with $j(0) = F_{\alpha}(b),j(1)=c$
 and, by the induction hypothesis, can likewise find
-$a \in \O(0)^H$ and map from an interval $\mathbb{I} \xrightarrow{i} \O_0^H$
+$a \in \O_0^H$ and map from an interval $\mathbb{I} \xrightarrow{i} \O_\alpha^H$
 with $i(0)=\bar{F}_{\alpha}a,i(1)=b$.
 The amalgamated map
 $\mathbb{I} \star \mathbb{J} \xrightarrow{F_{\alpha}i \star j} \O_{\alpha+1}^H$
@@ -5824,36 +5853,38 @@ with $i(0) = F_{\bar{\alpha}}a,i(1) = \bar{b}$ yields the result.
 
 
 \begin{proposition}[{c.f. \cite[4.20]{Cav}}]\label{J-CELL_PROP}
-      Suppose $\V$ satisfies {\color{blue} conditions}. Then $J_{\F}$-cells are $\F$-weak equivalences.
+      Suppose $\V$ satisfies {\color{blue} the conditions of Theorem \ref{THMI}}.
+      Then $J_{\F}$-cells are $\F$-weak equivalences.
 \end{proposition}
 
 
 \begin{proof}
-We first consider the case of a pushout
-\begin{equation}\label{JUSTAPUSH EQ}
-\begin{tikzcd}
-		 \bullet \ar{r}{a} \arrow{d}[swap]{j}
-	&
-		\O \arrow{d}
-\\
-		\bullet \ar{r} 
-	&
-		\P
-\end{tikzcd}
-\end{equation}
-where $j$ is one of the generating trivial cofibrations of $\mathsf{Op}^G_{\F}$ as described in Definition \ref{OPGENCOF DEF}.
-
-Firstly, $j$ happens to be a map in (TC2), then by Remark \ref{COLOR_SQ_REM}(ii)
-this pushout can alternatively be calculated as the pushout of $a_! j$
-in the fixed color category $\mathsf{Op}^{G}_{\mathfrak C_{\O}}(\V)$.
-But then since $a_!$ is left Quillen (cf. Corollary \ref{OPADJ_COR}\ref{OPCOCHADJ_LBL}) % Remark \ref{OPCOCHADJ REM}
-this is the pushout of a trivial cofibration in the fiber model structure
-$\mathsf{Op}^{G}_{\mathfrak C_{\O},\F}(\V)$ so that by Remark \ref{FIBERGLMOD REM} it is also a $\F$-weak equivalence in 
-$\mathsf{Op}^{G}(\V)$.
-	
-Secondly, in the more interesting case where $j$ is a map in (TC1), 
-i.e. of the form $G/H \cdot (\eta \to \mathbb{G})$ for $\mathbb{G}$ a $\V$-interval,
-we split the pushout as a composition of two pushouts 
+      By the global monoid axiom \eqref{GLOMO_EQ} and Lemma \ref{TRANSCOMP_ES_LEM}, it suffices to show that every pushout
+      \begin{equation}\label{JUSTAPUSH EQ}
+            \begin{tikzcd}
+                  \bullet \ar{r}{a} \arrow{d}[swap]{j}
+                  &
+                  \O \arrow{d}
+                  \\
+                  \bullet \ar{r} 
+                  &
+                  \P
+            \end{tikzcd}
+      \end{equation}
+      where $j$ is one of the generating trivial cofibrations of $\mathsf{Op}^G_{\F}$ as described in Definition \ref{OPGENCOF DEF},
+      the map $\O \to \P$ is a levelwise global $\otimes$-trivial cofibration and essentially surjective.
+      
+      Firstly, $j$ happens to be a map in (TC2), then by Remark \ref{COLOR_SQ_REM}(ii)
+      this pushout can alternatively be calculated as the pushout of $a_! j$
+      in the fixed color category $\mathsf{Op}^{G}_{\mathfrak C_{\O}}(\V)$.
+      But then since $a_!$ is left Quillen (cf. Corollary \ref{OPADJ_COR}\ref{OPCOCHADJ_LBL}) % Remark \ref{OPCOCHADJ REM}
+      this is the pushout of a trivial cofibration in the fiber model structure
+      $\mathsf{Op}^{G}_{\mathfrak C_{\O},\F}(\V)$,
+      so that the claim follows by Remarks \ref{FIBERGLMOD REM} and \ref{GOTC_REM}.
+      
+      Secondly, in the more interesting case where $j$ is a map in (TC1), 
+      i.e. of the form $G/H \cdot (\eta \to \mathbb{G})$ for $\mathbb{G}$ a $\V$-interval,
+      we split the pushout as a composition of two pushouts 
       \begin{equation}\label{BROKENPUSH EQ}
             \begin{tikzcd}
                   G/H \cdot \eta \arrow[r, "a"] \arrow[d, "G/H \cdot \phi"']
@@ -5872,22 +5903,23 @@ we split the pushout as a composition of two pushouts
             \end{tikzcd}
       \end{equation}
       where $\mathbb{G}_{\set{0}}$ is the full $\V$-subcategory of $\mathbb{G}$ spanned by the object $0$.
-      It now suffices to show that both $\phi'$ and $\psi'$ are $\F$-weak equivalences.
-
-For the top pushout in \eqref{BROKENPUSH EQ}, Theorem \ref{INTCOF THM} imples that $\eta \to \mathbb{G}$
-is a trivial cofibration in $\mathsf{Cat}_{\{0\}}(\V)$
-so that since Corollary \ref{OPADJ_COR}\ref{OPCOMBADJ_LBL} % Remark \ref{OPCOMBADJ REM}
-says that $G/H \cdot (-) \colon \mathsf{Cat}_{\{0\}}(\V) \to \mathsf{Cat}^G_{G/H,\F}(\V)$ is left Quillen
-we have that $G/H \cdot \phi$ is a $\F$-trivial cofibration with fixed objects,
-so that the (TC2) argument above implies $\phi'$ is a $\F$-weak equivalence.
-
-
-Now consider the bottom pushout in \eqref{BROKENPUSH EQ}.
-Since $\psi$ is a local isomorphism (i.e. $\mathbb{G}_{\{0\}} \to \psi^{\**}\mathbb{G}$ is an isomorphism),
-so is $G/H \cdot \psi$ and thus by Corollary \ref{LOCALISO_COR} (see also \cite[Prop. B.22]{Cav})
-the map $\psi' \colon \O' \to \mathcal{P}$
-is itself a local isomorphism, and thus certainly a local $\F$-weak equivalence.
-%
+      It now suffices to show that the claim individually for $\phi'$ and $\psi'$.
+      
+      For the top pushout in \eqref{BROKENPUSH EQ}, Theorem \ref{INTCOF THM} imples that $\eta \to \mathbb{G}$
+      is a trivial cofibration in $\mathsf{Cat}_{\{0\}}(\V)$
+      so that since Corollary \ref{OPADJ_COR}\ref{OPCOMBADJ_LBL} % Remark \ref{OPCOMBADJ REM}
+      says that $G/H \cdot (-) \colon \mathsf{Cat}_{\{0\}}(\V) \to \mathsf{Cat}^G_{G/H,\F}(\V)$ is left Quillen
+      we have that $G/H \cdot \phi$ is a $\F$-trivial cofibration with fixed objects,
+      so that the (TC2) argument above implies $\phi'$ is
+      an $\F$-weak equivalence and a levelwise global $\otimes$-trivial cofibration.
+      
+      
+      Now consider the bottom pushout in \eqref{BROKENPUSH EQ}.
+      Since $\psi$ is a local isomorphism (i.e. $\mathbb{G}_{\{0\}} \to \psi^{\**}\mathbb{G}$ is an isomorphism),
+      so is $G/H \cdot \psi$ and thus by Corollary \ref{LOCALISO_COR} (see also \cite[Prop. B.22]{Cav})
+      the map $\psi' \colon \O' \to \mathcal{P}$
+      is itself a local isomorphism, and thus certainly a local $\F$-weak equivalence and a levelwise global $\otimes$-trivial cofibration.
+      % 
 To address $\F$-essential surjectivity, 
 we write $[g]_0$ and $[g]_1$ for $[g] \in G/H$
 to denote the objects of $G/H \cdot \mathbb{G}$,
@@ -5921,18 +5953,18 @@ establishing $\F$-essential surjectivity.
 %            \end{tikzcd}
 %      \end{equation}
 
-To finish the proof, we need to show that transfinite compositions of pushouts as in \eqref{JUSTAPUSH EQ}
-are again $\F$-weak equivalences.
-$\F$-essential surjectivity has already been established in Lemma \ref{TRANSCOMP_ES_LEM}.
-As for the fact that transfinite composites are local $\F$-weak equivalences,
-it suffices to show that for $j':\O \to \P$ as in \eqref{JUSTAPUSH EQ} and each signature $\vect{C}$
-the map $\O(\vect{C}) \to \P(j'(\vect{C}))$ is a {\color{blue} $\otimes$-cofibration} in $\V^{\mathsf{Aut}_{G\ltimes \Sigma_{\mathfrak{C}}^{op}}(\vect{C})}$.
-But not both the (TC1) and (TC2) cases follow from the fact that this holds for pushouts of cofibrations in the fiber categories 
-$\mathsf{Op}^{G}_{\mathfrak C_{\O},\F}(\V)$
-(note that the lower square in \eqref{BROKENPUSH EQ}
-does not affect this question, since $\psi'$ is a local isomorphism).
+% To finish the proof, we need to show that transfinite compositions of pushouts as in \eqref{JUSTAPUSH EQ}
+% are again $\F$-weak equivalences.
+% $\F$-essential surjectivity has already been established in Lemma \ref{TRANSCOMP_ES_LEM}.
+% As for the fact that transfinite composites are local $\F$-weak equivalences,
+% it suffices to show that for $j':\O \to \P$ as in \eqref{JUSTAPUSH EQ} and each signature $\vect{C}$
+% the map $\O(\vect{C}) \to \P(j'(\vect{C}))$ is a {\color{blue} $\otimes$-cofibration} in $\V^{\mathsf{Aut}_{G\ltimes \Sigma_{\mathfrak{C}}^{op}}(\vect{C})}$.
+% But not both the (TC1) and (TC2) cases follow from the fact that this holds for pushouts of cofibrations in the fiber categories 
+% $\mathsf{Op}^{G}_{\mathfrak C_{\O},\F}(\V)$
+% (note that the lower square in \eqref{BROKENPUSH EQ}
+% does not affect this question, since $\psi'$ is a local isomorphism).
 
-(\color{blue} implicit in this argument is the fact that $\otimes$-cofibrations are compatible with pull-backs along homomorphisms 
+(\color{red} implicit in this argument is the fact that $\otimes$-cofibrations are compatible with pull-backs along homomorphisms 
 $G \to \bar{G}$).
 \end{proof}
 
@@ -5972,14 +6004,15 @@ $G \to \bar{G}$).
 
 \subsection{Equivalences of objects}
 
-One of the main challenges in showing that the classes in Definition \ref{MODEL_DEFN} is to show that the prescribed 
+One of the main challenges in showing that the classes in Definition \ref{MODEL_DEFN} define a model structure
+is to show that the prescribed 
 $\F$-weak equivalences satisfy $2$-out-of-$3$,
-with the main difficulty being the fact that essential surjectivity is 
+with the primary difficulty arising from the fact that essential surjectivity is 
 defined using $\V$-intervals.
 To address this, we will relate our prescribed weak equivalences
 with the so called Dwyer-Kan equivalences,
 for which $2$-out-of-$3$ is easier to establish
-(although, at in our intended equivariant setting, 
+(although, in our intended equivariant setting, 
 this claim requires a little more care than it does non-equivariantly).
 
 
@@ -6001,24 +6034,7 @@ $\mathcal C$ in $\Cat_{\mathfrak{C}}(\V)$.
 \end{definition}
 
 
-\begin{remark}
-$\pi_0\colon \mathsf{Cat}_{\mathfrak{C}}(\V)
-\to \mathsf{Cat}_{\mathfrak{C}}(\mathsf{Set})$ is functorial,
-i.e. a $\V$-functor
-$\mathcal{C} \to \mathcal{D}$
-induces a functor 
-$\pi_0\mathcal{C} \to \pi_0\mathcal{D}$.
-Moreover, $\pi_0$ sends weak equivalences to isomorphisms.
-\end{remark}
-
-\begin{remark}
-Since any two fibrant replacements are connected by a zigzag of weak equivalences,
-(the isomorphism class of) $\pi_0 \mathcal{C}$ does not depend on the choice of fibrant replacement $\mathcal{C}_f$.
-\end{remark}
-
-
-
-\begin{remark}
+% \begin{remark}
 The composition $[g]\circ [f]$
 in $\pi_0(\mathcal{C})$
 of classes $[f],[g]$
@@ -6033,8 +6049,29 @@ is given by the class $[gf]$, where $gf$ denotes the composite
 	\mathcal{C}_f({c',c''}) \otimes  \mathcal{C}_f({c,c'}) \xrightarrow{\circ}
 	\mathcal{C}_f({c,c''}).
 \]
-Note that the claim that this respects equivalence classes uses the fact that $1_{\mathcal{V}}$ is cofibrant.
+Note that the proof that this respects equivalence classes uses the assumption that $1_{\mathcal{V}}$ is cofibrant.
+% \end{remark}
+
+% \begin{remark}
+Moreover, since any two fibrant replacements are connected by a zigzag of weak equivalences,
+(the isomorphism class of) $\pi_0 \mathcal{C}$ does not depend on the choice of fibrant replacement $\mathcal{C}_f$.
+% \end{remark}
+
+
+\begin{remark}
+      The assignment
+      $\pi_0\colon \mathsf{Cat}_{\mathfrak{C}}(\V)
+\to \mathsf{Cat}_{\mathfrak{C}}(\mathsf{Set})$ is functorial,
+i.e. a $\V$-functor
+$\mathcal{C} \to \mathcal{D}$
+induces a functor 
+$\pi_0\mathcal{C} \to \pi_0\mathcal{D}$.
+Moreover, $\pi_0$ sends weak equivalences to isomorphisms.
 \end{remark}
+
+
+
+
 
 
 
@@ -6081,7 +6118,7 @@ The condition that $c,c'$ are equivalent can then be restated as saying that
 there is a $\V$-interval $\mathbb{I}$
 together with some map $\mathbb{I} \to \iota^{\**}_{c,c'}\mathcal{C}$ in $\mathsf{Cat}_{\{0,1\}}(\V)$. 
 
-Moreover, we can also restate the notion of virtual equivalence.
+We can similarly restate the notion of virtual equivalence.
 Since a $\V$-interval $\mathbb{I}$ is a cofibrant replacement of $\widetilde{\mathbbm{1}}$ in $\mathsf{Cat}_{\{0,1\}}(\V)$
 while $\iota^{\**}_{c,c'} \mathcal{C}_f$ is a fibrant replacement of $\iota^{\**}_{c,c'} \mathcal{C}$,
 the condition that $c,c'$ are virtually equivalent is precisely the statement that
@@ -6141,7 +6178,7 @@ $\pi_0 \widetilde{\mathbbm{1}} \simeq \pi_0 \mathbb{I} \to \pi_0 \mathcal{C}$ so
 virtual equivalence implies homotopy equivalence.
 
 Moreover, \cite{BM13,Cav} show that, under suitable assumptions on $\V$, the converse implications also hold, as summarized below.
-We discuss these converse results {\color{red} later \S \ref{DK_SEC}}.
+We discuss these converse results below.
 \begin{equation}\label{BASCOMP EQ}
 \begin{tikzcd}[column sep = large]
             \mbox{equivalent}
@@ -6167,8 +6204,8 @@ If $\V$ is right proper, then two colors are virtually equivalent iff they are e
 Let $c,c'$ be two colors and (following Remark \ref{VIRTEQRESTA REM})
 let $\mathbb{I} \overset{\sim}{\twoheadrightarrow} \iota_{c,c'} \mathcal{C}_F$
 exhibit a virtual equivalence between them, where we note
-that we can assume the map is a fibration in $\mathsf{Cat}_{\{0,1\}}(\C)$
-(thanks to a "factorization into trivial cofibration followed by fibration" argument).
+that we can assume the map is a fibration in $\mathsf{Cat}_{\{0,1\}}(\mathcal )$
+using the factorization of any map into trivial cofibration followed by a fibration.
 Forming the pullback
 \begin{equation}
 \begin{tikzcd}
@@ -6184,7 +6221,7 @@ Forming the pullback
 right properness of $\V$ implies 
 that $\mathbb{I}' \to \mathbb{I}$ is a weak equivalence in 
 $\mathsf{Cat}_{\{0,1\}}(\V)$
-and thus choosing a cofibran replacement
+and thus choosing a cofibrant replacement
 $\mathbb{I}'_c \to \mathbb{I}'$
 shows that $c,c'$ are equivalent.
 \end{proof}
@@ -6197,7 +6234,7 @@ We now discuss the necessary requirement for homotopy equivalence and virtual eq
 Informally, this will be the case provided that any isomorphism 
 $c \to c'$ in $\pi_0 \mathcal{C}$
 can be suitably lifted to map 
-$\mathbb{I} \to \C_f$ for some $\V$-interval $\mathbb{I}$.
+$\mathbb{I} \to \mathcal C_f$ for some $\V$-interval $\mathbb{I}$.
 The following definition makes this idea precise, (cf. \cite[\S 2]{BM13}.
 % originally due to Boardman-Vogt \cite{BV73}, and extended by Berger-Moerdijk \cite{BM13}.
 
@@ -6244,13 +6281,13 @@ and we thus refer to this as the \emph{natural isomorphism}.
 As such (and ignoring the more technical requirements),
 Definition \ref{COH DEF} loosely says that  
 $\mathbbm{1} \to \mathbb{I}$
-is natural if the map $1{\V} = \mathbbm{1}(0,1) \to \mathbb{I}(1,0)$
+is natural if the map $1_{\V} = \mathbbm{1}(0,1) \to \mathbb{I}(0,1)$
 represents the natural isomorphism,
 and that the homotopy equivalence $\alpha$ is coherent
-if there exists a map $\mathcal{I} \to \C_f$
+if there exists a map $\mathbb{I} \to \mathcal C_f$
 such that
 $\pi_0 \widetilde{\mathbbm{1}} = 
-\pi_0 \mathcal{I} \to\pi_0 \C$
+\pi_0 \mathbb{I} \to \pi_0 \mathcal C$
 sends the natural isomorphism to (the class of) $\alpha$.
 
 If, in addition, $\V$ is also right proper, we can slightly strengthen this observation, as follows.
@@ -6272,47 +6309,51 @@ sends the canonical isomorphism to $[\alpha]$.
 
 \begin{proof}
 By coherence we can find a factorization of 
-$\alpha$ as on the bottom below.
-Moreover,  we are free to assume 
-$\mathbb{I} \to \mathcal{C}_f$
-is a local fibration
-(if this was not the case, we could perform a factorization
-$\mathbb{I} \overset{\sim}{\rightarrowtail} 
-\widetilde{\mathbb{I}} \to \mathcal{C}_f$,
-then replace $\mathbb{I}$ with $\widetilde{\mathbb{I}}$).
-\begin{equation}
-\begin{tikzcd}[column sep = 45pt]
-	\mathbb{I}'_c
-	\arrow[dashed]{r}
-&
-	\mathbb{I}' \ar[dashed]{d} \ar[dashed]{r}
-&
-	\mathcal{C} \ar{d}{\sim}
-\\
-	\mathbbm{1}
-	\arrow[rightarrowtail]{r}
-&
-	\mathbb{I} \ar[twoheadrightarrow]{r}
-&
-	\mathcal{C}_f
-\end{tikzcd}
-\end{equation}
-Writing
-$\mathbb{I}' = \mathbb{I} \times_{\mathcal{D}_f} \mathcal{D}$
-for the pullback,
-right properness of $\V$
-implies that $\mathbb{I}' \to \mathbb{I}$
-is a weak equivalence, 
-so that by choosing a cofibrant replacement
-$\mathbb{I}'_c$ in $\mathsf{Cat}_{\{0,1\}}(\mathcal{V})$
-we have that $\mathbb{I}'_c$ is a $\V$-interval.
-Noting that the map
-$\pi_0 \mathbb{I}'_c \to \pi_0 
-\mathcal{C}$
-is naturally identified with
-$\pi_0 \mathbb{I} \to \pi_0 
-\mathcal{C}_f$
-finishes the proof.
+$\alpha$ as below. % on the bottom below.
+\[
+      \1 \rightarrowtail \mathbb I \twoheadrightarrow \mathcal C_f
+\]
+The result then holds following the proof of Proposition \ref{RIGHTPROPER PROP}.
+% Moreover,  we are free to assume 
+% $\mathbb{I} \to \mathcal{C}_f$
+% is a local fibration
+% (if this was not the case, we could perform a factorization
+% $\mathbb{I} \overset{\sim}{\rightarrowtail} 
+% \widetilde{\mathbb{I}} \to \mathcal{C}_f$,
+% then replace $\mathbb{I}$ with $\widetilde{\mathbb{I}}$).
+% \begin{equation}
+% \begin{tikzcd}[column sep = 45pt]
+% 	\mathbb{I}'_c
+% 	\arrow[dashed]{r}
+% &
+% 	\mathbb{I}' \ar[dashed]{d} \ar[dashed]{r}
+% &
+% 	\mathcal{C} \ar{d}{\sim}
+% \\
+% 	\mathbbm{1}
+% 	\arrow[rightarrowtail]{r}
+% &
+% 	\mathbb{I} \ar[twoheadrightarrow]{r}
+% &
+% 	\mathcal{C}_f
+% \end{tikzcd}
+% \end{equation}
+% Writing
+% $\mathbb{I}' = \mathbb{I} \times_{\mathcal{D}_f} \mathcal{D}$
+% for the pullback,
+% right properness of $\V$
+% implies that $\mathbb{I}' \to \mathbb{I}$
+% is a weak equivalence, 
+% so that by choosing a cofibrant replacement
+% $\mathbb{I}'_c$ in $\mathsf{Cat}_{\{0,1\}}(\mathcal{V})$
+% we have that $\mathbb{I}'_c$ is a $\V$-interval.
+% Noting that the map
+% $\pi_0 \mathbb{I}'_c \to \pi_0 
+% \mathcal{C}$
+% is naturally identified with
+% $\pi_0 \mathbb{I} \to \pi_0 
+% \mathcal{C}_f$
+% finishes the proof.
 \end{proof}
 
 
@@ -6320,7 +6361,7 @@ finishes the proof.
 
 
 Berger and Moerdijk then prove the following,
-which depends on a careful analysis of the $W$-construction applied to 
+which depends on a careful and technical analysis of the $W$-construction applied to 
 $\widetilde{\mathbbm{1}}$.
 
 
@@ -6328,7 +6369,8 @@ $\widetilde{\mathbbm{1}}$.
 
 \begin{proposition}[{cf. \cite[Prop. 2.24]{BM13}}]
 \label{COHAX PROP}
-If $\V$ is an {\color{blue} adequate} monoidal model category with cofibrant unit then $\V$ satisfies the coherence axiom.
+If $\V$ is a monoidal model category {\color{blue} which satisfies the monoid axiom and has cofibrant unit},
+then $\V$ satisfies the coherence axiom.
 \end{proposition}
 
 
@@ -6440,7 +6482,7 @@ implies $\bar{F}F$ is $\F$-essentially surjective
 while in the
 $\F$-Dwyer Kan equivalence case
 Remark \ref{CATEQUIV REM}
-and $2$-out-of-$3$ for (unenriched categories)
+and $2$-out-of-$3$ for $\Cat_\bullet(\V)$ % (unenriched categories)
 implies 
 $\bar{F}F$ is $\F$-$\pi_0$-essentially surjective.
 
@@ -6519,7 +6561,8 @@ Proposition \ref{23HARDCASE PROP} below
 (note that, by Remark \ref{FEWFDK REM}, 
 only the $\F$-Dwyer Kan equivalence case needs be considered),
 and dedicate the entirety of \S \ref{HMTYEQ SEC}
-to proving that result.
+to proving that result;
+it is also this case which requires that $\F$ respects units.
 
 
 Lastly, we address (ii).
@@ -6552,8 +6595,7 @@ But (ii) is now immediate from (i).
 \subsection{Homotopy equivalences and fully faithfulness}
 \label{HMTYEQ SEC}
 
-The following is essentially the equivariant analogue of
-\cite[Lemma 4.14]{Cav}.
+We prove the missing claim from the proof of Proposition \ref{2OUTOF3 PROP}.
 
 \begin{proposition}\label{23HARDCASE PROP}
 Let $\F$ be a $(G,\Sigma)$-family which respects units. 
@@ -6574,8 +6616,8 @@ If $F$ and $\bar{F}F$ are $\F$-Dwyer-Kan equivalences
 then $\bar{F}$ is a local $\F$-weak equivalence.
 \end{proposition}
 
-The proof of this result will mostly adapt the proof of the non-equivariant case,
-but one must be more careful since equivariance introduced a address a number of subtleties.
+The proof of this result will mostly adapt the proof of the non-equivariant analogue, \cite[Lemma 4.14]{Cav},
+but one must be more careful since equivariance introduces a number of subtleties.
 Moreover, these subtleties are (for the most part)
 present even when $\V = \mathsf{Set}$
 with weak equivalences the isomorphisms.
@@ -6590,9 +6632,9 @@ Let $G = \{1,i,-1,-i\} \simeq \mathbb{Z}_{/4}$
 be the group of quartic roots of unit and
 $\mathfrak{C} = \{\mathfrak{a}, \mathfrak{b}, i \mathfrak{b}, 
 \mathfrak{c} \}$ where we implicitly have
-$i\mathfrak{a} = \mathfrak{a}$,
+$i\mathfrak{a} = -\mathfrak a = \mathfrak{a}$,
 $-\mathfrak{b} = \mathfrak{b}$,
-$i\mathfrak{c} = \mathfrak{c}$.
+$i\mathfrak{c} = -\mathfrak c = \mathfrak{c}$.
 Consider the $\mathfrak{C}$-corollas below.
 \begin{equation}
 	\begin{tikzpicture}[auto,grow=up, level distance = 2.2em,
@@ -6638,7 +6680,7 @@ $\P(\vect{B}) \to \mathcal{Q}(\bar{F}(\vect{B}))$
 is also an isomorphism, 
 one must further impose an essential surjectivity requirement on $F$.
 For concreteness,
-suppose there was an isomorphism
+suppose there were an isomorphism
 $\alpha \colon \mathfrak{b} \to \mathfrak{c}$
 in $\P$
 (note that $\alpha \in \P(\mathfrak{b};\mathfrak{c})$).
@@ -6674,7 +6716,7 @@ is indeed an isomorphism.
 
 Our discussion thus far has ignored a key feature of the equivariant setting: the choice of the $(G,\Sigma)$-family $\F$
 (or, more precisely, our discussion above covers the case of $\F$ the naive/coarse family consisting of only the trivial subgroups).
-Given such $\F$, 
+Given a general such $\F$, 
 and assuming $F$ and $\bar{F} F$ are $\F$-local isomorphisms,
 it is again clear that
 $\P(\vect{C})^{\Lambda} \to \mathcal{Q}(\bar{F}(\vect{C}))^{\Lambda}$
@@ -6683,12 +6725,12 @@ And, yet again, to conclude that
 $\P(\vect{B})^{\Lambda} \to \mathcal{Q}(\bar{F}(\vect{B}))^{\Lambda}$
 is also an isomorphism for $\Lambda \in \F_{\vect{B}}$ we will further need to impose an essential surjectivity requirement on $F$.
 As it turns out, the exact requirement on $F$ depends on 
-$\Lambda \leq G \times \Sigma_4^{op}$ itself so that, for concreteness, we set (we write $(g,\sigma) \in G \times \Sigma_4^{op}$ simply as $g\sigma$)
+$\Lambda \leq G \times \Sigma_4^{op}$ itself so that, for concreteness, we set (writing $(g,\sigma) \in G \times \Sigma_4^{op}$ simply as $g\sigma$)
 \[
 \Lambda = \langle (14)(23), i (12)(34) \rangle.
 \]
 and assume that $\Lambda \in \F_4$.
-Note that $\Lambda$ fixes both 
+Note that $\Lambda$ stabilizes both 
 $\vect{B}$ and $\vect{C}$
 (cf. \eqref{SIGACT_EQ})
 so that 
@@ -6745,7 +6787,7 @@ Let $\P \in \mathsf{Op}^G_\bullet(\mathfrak{C})$ be an operad,
 $\vect{B}=(\mathfrak{b}_1,\cdots,\mathfrak{b}_n;\mathfrak{b}_0),\vect{C}=(\mathfrak{c}_1,\cdots,\mathfrak{c}_n;\mathfrak{c}_0)$ be $\mathfrak{C}$-signatures,
 and suppose 
 $\Lambda \leq G \times \Sigma_n^{op}$
-acts on both $\vect{B},\vect{C}$, i.e. 
+stablizes both $\vect{B},\vect{C}$, i.e. 
 $\Lambda \leq \mathsf{Aut}_{G\ltimes \Sigma_{\mathfrak{C}}^{op}}(\vect{B})$, 
 $\Lambda \leq \mathsf{Aut}_{G\ltimes \Sigma_{\mathfrak{C}}^{op}}(\vect{C})$.
 
@@ -6815,7 +6857,7 @@ Hence $\Lambda$-equivariance of the left map in
 follows by functoriality of 
 $\Sigma_n^{op} \wr \V \xrightarrow{\otimes} \V$. 
 
-To check that the left map in \eqref{LAMBEQMAPS EQ}
+To check that the right map in \eqref{LAMBEQMAPS EQ}
 is also $\Lambda$-equivariant,
 consider the $\mathfrak{C}$-trees below, including the signatures
 $\vect{B},\vect{C}$.
@@ -6860,15 +6902,17 @@ node [name=Kone,swap] {}}
 		\draw [dotted,thick] (Kone) -- (Kn) ;
 \end{tikzpicture}
 \]
-Clearly the fact that 
+Clearly the fact that $\Lambda$ stabilizes
 $\vect{B},\vect{C}$
-are $\Lambda$-equivariant implies that so it $\vect{T}$.
+implies that $\Lambda$ stablizes $\vect{T}$ as well.
 Thus $\Lambda$-equivariance of the right map in 
 \eqref{LAMBEQMAPS EQ}
-follows since the middle term is
+follows
+by the functoriality of the composition law $\mathbb F \P \to \P$ for the operad $\P$:
+$\vect B = \mathsf{lr}(\vect T)$,
+and the middle term
 $\bigotimes_{v \in \boldsymbol{V}(T)} \P(\vect{T}_v)$
-and $\vect{B} = \mathsf{lr}(\vect{T})$,
-compatibly with the $\Lambda$-action.
+is a component of $\mathbb F \P(\vect B) \in \$V^{\Aut_{G \ltimes \Sigma_{\mathfrak C}}(\vect B)}$.. 
 \end{proof}
 
 
@@ -6880,7 +6924,7 @@ one has that a choice of
 $\kappa_i$ as in Lemma \ref{LAMBEQMAPS LEM}
 is in bijection with a 
 choice of $H_i$-equivariant maps
-$\kappa)i \colon \mathbb{K} \to \mathcal{P}(\mathfrak{b}_i;\mathfrak{c}_i)$ for $i$ ranging over a set of representatives of
+$\kappa_i \colon \mathbb{K} \to \mathcal{P}(\mathfrak{b}_i;\mathfrak{c}_i)$ for $i$ ranging over a set of representatives of
 $\underline{n}_+/\Lambda$.
 \end{remark}
 
@@ -6998,12 +7042,12 @@ $\P(\vect{C})^\Lambda$.
 	\arrow{u}[swap]{(\bar{\eta}_i)^{\**}}
 \end{tikzcd}
 \end{equation}
-We now need to check the canonical map
+We need to check the canonical map
 $\P(\vect{B})^\Lambda \otimes 
 \left(\mathbb{C}^{\otimes n}\right)^{\Lambda}
 \to \P(\vect{B})^\Lambda$
 induced by $\mathbb{C} \to 1_{\V}$
-is a weak equivalence, and by $2$-out-of-$3$ it suffices to show that one of the sections
+is a weak equivalence, and by $2$-out-of-$3$ it suffices to show this for one of the sections
 $\P(\vect{B})^\Lambda \to
 \P(\vect{B})^\Lambda \otimes 
 \left(\mathbb{C}^{\otimes n}\right)^{\Lambda}$.
@@ -7016,6 +7060,14 @@ is a cofibration in $\V$,
 and thus the desired claim follows by the monoid axiom.
 \end{proof}
 
+\begin{remark}
+      For this particular result, we could have instead assumed that $\V$ is cellular in the sense of \cite{Ste16}..
+      A particular consequence of this assumption is that not only does $\V$ admit all equivariant model structures,
+      but if $X \in \V^G$ is $\F$-cofibrant, then $X^H \in \V$ is cofibrant for all $H \in \F$.
+      In the above proof, we may reduce to the case where $\P$ is cofibrant,
+      and then the above fact would be sufficent for us to conclude that
+      $\P(\vect B)^{\Lambda} \otimes (\mathbb C^{\otimes n})^{\Lambda}$ is a cylinder.
+\end{remark}
 
 
 
@@ -7101,7 +7153,7 @@ Next write $\vect{A} = \{\mathfrak{a}_1,\cdots,\mathfrak{a}_n;\mathfrak{a}_0\}$
 for the $\mathfrak{C}_{\O}$-signature determined by the 
 $\mathfrak{a}_i$, where we again use Remark \ref{CHOOSESIGN REM}
 (recall that the $\mathfrak{a}_i$ were only chosen for $i$ in a set of representatives of $\underline{n}_+/\Lambda$),
-which moreover implies that $\vect{A}$ and $\Lambda$ are compatible, i.e. $\Lambda \in \F_{\vect{A}}$.
+which moreover implies that $\Lambda$ stabilizes $\vect A$, and so $\Lambda \in \F_{\vect{A}}$.
 The result now follows applying $2$-out-of-$3$ to both the following diagram (where the arrows marked $\sim$ are weak equivalences by assumption) and \eqref{23SQDIAG EQ},
 yielding that $\P(\vect{C})^{\Lambda} \to \mathcal{Q}(\bar{F}(\vect{C}))^{\Lambda}$
 is also a weak equivalence, as desired.
@@ -11019,6 +11071,14 @@ We record a particular consequence of the above.
 
 
 \textbf{THMII}
+
+
+We note that Proposition \ref{LOCALTCHAR PROP} is formulated to be compatible with semi-model structures.
+If the fibers $\mathsf{Op}^G_{\mathfrak{C}}(\V)$ have full model structures one can replace the role of
+``$\mathcal{J}_{\mathfrak{C}}$'' and ``$\mathcal{I}_{\mathfrak{C}}$''
+with simply ``trivial cofibrations'' and ``cofibrations''.
+
+\todo[inline]{come back}
 
 \begin{remark}
       In \cite{BM13}, the Interval Cofibrancy Theorem does not appear to use the full power of ``adequate'' model categories -
