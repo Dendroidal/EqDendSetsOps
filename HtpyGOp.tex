@@ -3258,7 +3258,7 @@ be a cofibrantly generated (monoidal) model category.
 	where one leg is in $\mathcal J_G$ 
 	(resp. in $\mathcal {J}^{\otimes}_G$);
 	\item sends maps in $\mathcal J_G$ to maps in $\mathcal J$-cof (resp. maps in $\mathcal {J}^{\otimes}_G$ to maps in 
-	$(\mathcal{J}^{\otimes}$-cof).
+	$\mathcal{J}^{\otimes}$-cof).
 \end{enumerate}
 \end{definition}
 
@@ -3574,6 +3574,11 @@ the projections)
 \end{equation}
 \end{proposition}
 
+We note that the intersection of families is compatible with pullbacks as in \eqref{PHISTAR_EQ}, as
+\begin{equation}
+      \label{PHIFCAPBARF_EQ}
+      \phi^{\**}\left( \F \sqcap \bar \F \right) = \phi^{\**}\F \sqcap \phi^{\**} \bar \F.
+\end{equation}
 
 Unpacking the definition of left Quillen bifunctor,
 Proposition \ref{RESGEN PROP}
@@ -4607,8 +4612,150 @@ The proof will follow from analysis similar to \cite[\S 6]{BP_geo}.
       for $\phi_{\vect T} \colon \Aut{\vect T} \to G \times \Aut(T)$ the map induced by the functor $G \ltimes \Omega_{\mathfrak C} \to G \times \Omega$.
 \end{definition}
 
-This presentation of $\F_T$ differs slightly from the original treatment in \cite[Prop. 6.44]{BP_geo},
-however it is clear that they are equivalent.
+This presentation of $\F_T$ differs slightly from the original treatment in \cite[Prop. 6.44]{BP_geo}.
+
+\begin{remark}
+      \label{FT_REM}
+      We can recover $\F_T$, $\F_{\vect T}$ inductively as levels of a family of subgroups of $G \times \Omega^{op}$, $G \ltimes \Omega_{\mathfrak C}^{op}$.
+      
+      Let $\Omega_{\leq n} \subseteq \Omega$, $\Omega_{\mathfrak C, \leq n} \subseteq \Omega_{\mathfrak C}$ denote
+      the subcategories spanned by those trees $T$, $\vect T$ with $|V(T)|,|V(\vect T)| \leq n$.
+      For $n = 0$, define $\F_{\leq 0} = \phi_0^{\**}\F$ for $\phi_0 \colon G \xrightarrow{1} G \times \Sigma^{op}$;
+      for $n = 1$, $\F_{\leq 1} = \F$.
+      %
+      Now, suppose $\F_{\leq n}$ has been defined as a family of subgroups of $G \times \Omega_{\leq n}^{op}$,
+      and suppose $T \in \Omega$ has $|V(T)| = n+1$.
+      $T$ has a grafting decomposition $T = R \amalg (T_i)_{1 \leq i \leq r}$, and for all $i$, $|V(T_i)| \leq n$.
+      Moreover, the automorphism group of $T$ is detected by this tuple $(T_i)$,
+      \[
+            \Aut_{G \times \Omega^{op}}(T) = \Aut_{\Sigma_r \wr (G \times \Omega^{op})}\left((T_i)_{1 \leq i \leq r}\right)
+      \]
+      as is the family $\F_T$:
+      \begin{equation}
+            \label{FT_IND_EQ}
+            \F_T = \left(\Delta_r^{\**}(\F_{\leq n}^{\ltimes r})\right)_{(T_i)} \cap \pi_T^{\**} \F_R,
+      \end{equation}
+      where $\Delta_r \colon G \times \Sigma_r \wr \Omega_{\leq n}^{op} \to \Sigma_r \wr (G \times \Omega_{\leq n}^{op})$ and
+      $\phi_T \colon \Aut(T) \to \Aut(R)$ are the natural homomorphisms.
+
+      Now, for $\vect T \in G \ltimes \Omega_{\mathfrak C}^{op}$ with underlying tree $T \in \Omega$, we have a parallel decomposition
+      $\vect T = \vect R \amalg (\vect T_i)_{1 \leq i \leq r}$.
+      If $|V(\vect T)| \leq n$, \eqref{FVT_EQ} and \eqref{FT_IND_EQ} combined with \eqref{PHIFCAPBARF_EQ} imply      
+      \begin{equation}
+            \label{FVECTT1_EQ}
+            \F_{\vect T} = \phi_{\vect T}^{\**} \left(
+                  \left( \Delta_r^{\**}(\F_{\leq n}^{\ltimes r})\right)_{(T_i)}
+            \right) \cap \phi_{\vect T}\pi_T^{\**}\F_{R}.
+      \end{equation}
+      Noting that
+      \[
+            \Aut_{G \ltimes \Omega_{\mathfrak C}^{op}}(\vect T)
+            =
+            \Aut_{G \ltimes(\Sigma_r \wr \Omega_{\mathfrak C}^{op})}\left( (\vect T_i)_{1 \leq i \leq r} \right)
+      \]
+      and that the two diagrams below commute,
+      \begin{equation}
+            \label{AUTT_EQ}
+            \begin{tikzcd}
+                  \Aut_{G \ltimes \Omega_{\mathfrak C}^{op}}(\vect T) \arrow[d, "\pi_{\vect T}"'] \arrow[r, "\phi_{\vect T}"]
+                  &
+                  \Aut_{G \times \Omega^{op}}(T) \arrow[d, "\pi_T"]
+                  & % ----------
+                  G \ltimes \left( \Sigma_r \wr \Omega_{\mathfrak C, \leq n}^{op} \right) \arrow[d, "\Delta_r"'] \arrow[r,"\phi"]
+                  &
+                  G \times \Sigma_r \wr \Omega_{\leq n}^{op} \arrow[d, "\Delta_r"]
+                  \\
+                  \Aut_{G \ltimes \Omega_{\mathfrak C}^{op}}(\vect R) \arrow[r, "\phi_{\vect R}"]
+                  &
+                  \Aut_{G \times \Omega^{op}}(R)
+                  & % ----------
+                  \Sigma_r \wr \left( G \ltimes \Omega_{\mathfrak C, \leq n}^{op} \right) \arrow[r, "\phi"]
+                  &
+                  \Sigma_r \wr \left( G \times \Omega_{\leq n}^{op} \right)
+            \end{tikzcd}
+      \end{equation}
+      we conclude
+      \begin{equation}
+            \label{FVECTT2_EQ}
+            \F_{\vect T} =
+            \left( \Delta_r^{\**} \left( (\phi_{\leq n}^{\**} \F_{\leq n})^{\ltimes r} \right) \right)_{(\vect T_i)_{1 \leq i \leq r}}
+            \cap
+            \pi_{\vect T}^{\**} \F_{\vect R}
+      \end{equation}
+      for $\Aut(\vect T) \xrightarrow{\pi_{\vect T}} \Aut(\vect R)$ the natural homomorphism.
+\end{remark}
+
+\begin{definition}
+      Given a $(G,\Sigma)$-family $\F$, we let $\F$ also denote the family of subgroups of $G \ltimes \Omega_{\mathfrak C, \leq n}^{op}$
+      determined by the $\F_{\vect T}$ for any $n \geq 0$.
+\end{definition}
+
+We can use this decomposition to detect cofibrancy.
+%
+For full generality, for any $m \geq 0$, we define a \textit{coherent $\underline{m}$-labeling} on a tree $T \in \Omega$
+to be an assignment
+\[
+      \boldsymbol{E}(T) / \Aut_{G \ltimes \Omega^{op}}(T) \longto \underline{m} = \set{1,2,\dots,m}.
+\]
+Similarly, a \textit{coherent $\underline{m}$-labeling} on a colored tree $\vect T \in \Omega_{\mathfrak C}$
+is a coherent $\underline{m}$-labeling on the underlying tree $T \in \Omega$.
+We denote the category of coherently $\underline{m}$-labeled $\mathfrak C$-trees and label-preserving isomorphisms by $\Omega^{\underline{m}}_{\mathfrak C}$.
+
+\begin{remark}
+      \label{COHMLBL_REM}
+      The coherence of $\underline{m}$-labeling of a $\mathfrak C$-tree $\vect T$ implies that
+      \[
+            \Aut_{G \ltimes \Omega_{\mathfrak C}^{\underline{m},op}}(\vect T) = \Aut_{G \ltimes \Omega_{\mathfrak C}^{op}}(\vect T).
+      \]
+\end{remark}
+
+\begin{definition}
+      Suppose we are given a collection of morphisms $f_a: A_a \to B_a$, $1 \leq a \leq m$, in $\Sym_{\mathfrak C}^G(\V)$.
+      Define $\hat f \in \V^{G \ltimes \Omega_{\mathfrak C}^{\underline{m},op}}$ by
+      \[
+            \hat f(\vect T) = \mathop{\square}\limits_{1 \leq a \leq m} \mathop{\square}\limits_{v \in \boldsymbol{V}_a(T)} f_a(\vect T_v)
+      \]      
+\end{definition}
+
+The following is the $\mathfrak C$-colored analogue of \cite[Prop. 6.52]{BP_geo}.
+As opposed to reproving this result by hand, we use the families of groupoids discussion above to provide a new proof which works in all generalities.
+
+\begin{proposition}
+      \label{BOXVT_PROP}
+      Suppose $f_a: A_a \to B_a$, $1 \leq a \leq m$, are (trivial) $\F$-cofibrations in $\Sym_{\mathfrak C}^G(\V)$.
+      % level $\F$ (trivial) cofibrations in $\Sym(\V)$, i.e. $f_s(\vect C)$ is a (trivial) cofibration in $\V^{\Aut(\vect C)}_{\F_{\vect C}}$ for all signatures $\vect C$.
+      Then $\hat f$ is an (trivial) $\F$-cofibration in $\V^{G \ltimes \Omega_{\mathfrak C}^{\underline{m},op}}_{\F}$.
+      %
+      In particular, for any $\underline{m}$-labeled $\mathfrak C$-tree $\vect T \in \Omega^{\underline{m}}_{\mathfrak C}$, the map
+      \[
+            \hat f(\vect T) = \mathop{\square}\limits_{1 \leq a \leq m} \mathop{\square}\limits_{v \in \boldsymbol{V}_a(T)} f_a(\vect T_v)
+      \]
+      is a (trivial) cofibration in $\V^{\Aut_{G \ltimes \Omega_{\mathfrak C}}(\vect T)}_{\F_{\vect T}}$.
+\end{proposition}
+
+\begin{proof}
+      As in Remark \ref{FT_REM}, we go by induction on $n = |V(\vect T)|$.
+      The base cases $n = 0$ and $n=1$ are immediate.
+
+      For induction, suppose $\hat f$ is a (trivial) $\F$-cofibration in $\V^{G \ltimes \Omega_{\mathfrak C, \leq n}^{op}}_{\F}$,
+      and that $\vect T \in G \ltimes \Omega_{\mathfrak C}^{\underline{m},op}$, $\vect T = \vect R \amalg (\vect T_i)$ with $|V(\vect T)| = n+1$.
+      By Proposition \ref{EQQUILADJ PROP}, \eqref{FVECTT2_EQ}, and Remark \ref{COHMLBL_REM}, we have left Quillen functors
+      \[
+            \V^{\Sigma_r \wr \left(G \ltimes \left(\Omega_{\mathfrak C, \leq n}^{\underline{m}}\right)^{op}\right)}_{\F^{\ltimes r}}
+            \xrightarrow{\quad \Delta_r^{\**} \quad}
+            \V^{G \ltimes \Sigma_r \wr \left(\Omega_{\mathfrak C, \leq n}^{\underline{m}}\right)^{op}}_{\Delta_r^{\**}\F^{\ltimes r}}
+            \xrightarrow{\quad ev_{(\vect T_i)} \quad}
+            \V^{\Aut(\vect T)}_{\F_{\vect T}},
+      \]
+      thus Proposition \ref{SIGMAWRGF PROP}(i) implies
+      $f^{\square r}\left((\vect T_i)_{1 \leq i \leq r}\right)$ is a (trivial) $\F_{\vect T}$-cofibration in $\V^{\Aut(\vect T)}_{\F_{\vect T}}$.
+      More easily, $f(\vect C)$ is a (trivial) $\F_{\vect T}$-cofibration in $\V^{\Aut(\vect T)}_{\F_{\vect T}}$.
+
+      The result then follows from Proposition \ref{RESGEN PROP}.      
+\end{proof}
+
+\todo[inline]{come back}
+
 
 
 {\color{Orange}
@@ -4914,7 +5061,7 @@ however it is clear that they are equivalent.
 
 \begin{proposition} %[{cf. \cite[Prop. 6.52]{BP_geo}}]
       \label{BOXVT_PROP}
-      Suppose $f_a: A_a \to B_a$, $1 \leq a \leq m$, are $\F$-(trivial)-cofibrations in $\Sym(\V)$
+      Suppose $f_a: A_a \to B_a$, $1 \leq a \leq m$, are (trivial) $\F$-cofibrations in $\Sym(\V)$
       % level $\F$ (trivial) cofibrations in $\Sym(\V)$, i.e. $f_s(\vect C)$ is a (trivial) cofibration in $\V^{\Aut(\vect C)}_{\F_{\vect C}}$ for all signatures $\vect C$.
       Then for any $\underline{m}$-labeled $\mathfrak C$-tree $\vect T \in \Omega^{\underline{m}}_{\mathfrak C}$, the map
       \[
@@ -5204,7 +5351,7 @@ is a $\F_{\mathfrak{C}_{\O}}$-weak equivalence (resp. $\F_{\mathfrak{C}_{\O}}$-f
 \end{definition}
 
 
-Local $\F$-(trivial) fibrations admit the following alternative characterization.
+Local (trivial) $\F$-fibrations admit the following alternative characterization.
 
 
 
@@ -11238,7 +11385,7 @@ We record a particular consequence of the above.
       let $\mathfrak C$ be a $G$-set, and $f: \O \to \P$ a map in $\Op^{G,\mathfrak C}(\V)$.
       If $f$ is a (trivial) cofibration in $\Op^{G, \mathfrak C}_\F(\V)$ for some $(G, \Sigma)$-family $\F$,
       and $\O$ is level $\F$-cofibrant, then
-      $f(\vect C)$ is an $\F$-(trivial) cofibration in $\V^{\Aut(\vect C)}_{\F_{\vect C}}$ for all $\mathfrak C$-signatures $\vect C \in G \ltimes \Sigma_{\mathfrak C}$.
+      $f(\vect C)$ is a (trivial) $\F$-cofibration in $\V^{\Aut(\vect C)}_{\F_{\vect C}}$ for all $\mathfrak C$-signatures $\vect C \in G \ltimes \Sigma_{\mathfrak C}$.
 \end{corollary}
 
 
@@ -11295,9 +11442,9 @@ The proofs of Proposition \ref{J-CELL_PROP} and Corollary \ref{ALBEETA COR} may 
 \end{proposition}
 \begin{proof}
       The proof of Proposition \ref{J-CELL_PROP} implies that for any generating trivial cofibration,
-      the pushout is either an $\F$-trivial cofibration or a composite of an $\F$-trivial cofibration with an essentially surjective local isomorphism.
+      the pushout is either a trivial $\F$-cofibration or a composite of an trivial $\F$-cofibration with an essentially surjective local isomorphism.
       If we started with a cofibrant source, each pushout map will have a cofibrant source,
-      and hence by Corollary \ref{LGC_COR} each of these maps will be a level $\F$-trivial cofibration.
+      and hence by Corollary \ref{LGC_COR} each of these maps will be a level trivial $\F$-cofibration.
       As level genuine trivial cofibrations and essentially surjective maps are closed under transfinite composition, the result holds.
 \end{proof}
 
