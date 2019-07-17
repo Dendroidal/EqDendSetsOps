@@ -24,7 +24,7 @@
 \usepackage{ifdraft}
 \ifdraft{
   \color[RGB]{63,63,63}
-%  \pagecolor[RGB]{220,220,204}
+  \pagecolor[RGB]{220,220,204}
   \usepackage{showkeys}
   \usepackage{geometry}
   \usepackage{todonotes}
@@ -269,6 +269,10 @@ cd,patterns,calc}
       Things and stuff
 \end{abstract}
 
+\begin{itemize}
+\item $\sim$ vs $\simeq$?
+\end{itemize}
+
 \tableofcontents
 
 
@@ -404,6 +408,17 @@ which may assemble (\cite{BM13,Cav,Mur15}) into a Dwyer-Kan model structure stru
       fully expect that the analogous statements would hold true.
 \end{remark}
 
+  \begin{remark}
+        \cite{BM13a} builds ``canonical'' model structures after specifying
+        fibrant objects as locally fibrant objects and
+        trivial fibrations as surjective local trivial fibrations.
+        
+        \cite{Mur15} builds ``Dwyer-Kan'' model structure after specifying
+        weak equivalences as Dwyer-Kan equivaalences and
+        trivial fibrations as surjective local trivial fibrations.
+        
+        \cite{Sta14} shows under certain hypotheses these two notions exist and agree.
+\end{remark}
 
 
 
@@ -3278,8 +3293,9 @@ be a cofibrantly generated (monoidal) model category.
 \begin{proof}
 For (i), we apply \cite[Theorem 2.1.19]{Hov} to the generating sets in 
 \eqref{GENGENSETEQ}.
-All conditions therein are immediate except for
-the requirement that
+All conditions therein are immediate 
+% (in $\Set$, fixed points commute with all direct limits)
+except for the requirement that
 $\mathcal{J}_{G}\text{-cell} \subseteq \mathcal{W}_G$,
 which holds since the conditions in Definition \ref{WEAKCELL DEF}
 guarantee that $H$-fixed points of maps in 
@@ -7104,7 +7120,7 @@ with general weak equivalences).
 However, this argument fails: not only are the intermediate mapping sets
 in \eqref{ITERWE EQ} not $\Lambda$-equivariant, so that the intermediate maps therein can not possibly be $\Lambda$-equivariant,
 neither is it necessarily the case that the composite isomorphism
-$\P(\vect{C}) \simeq \P(\vect{B})$ is $\Lambda$-equivariant
+$\P(\vect{C}) \sim \P(\vect{B})$ is $\Lambda$-equivariant
 unless one makes a further assumption on the isomorphism
 $\alpha\colon \mathfrak{b} \to \mathfrak{c}$.
 Indeed, since $\Lambda$
@@ -7119,7 +7135,7 @@ It is then straightforward to check that if $-\alpha = \alpha$
 then the composite in \eqref{ITERWE EQ}
 is indeed $\Lambda$-equivariant
 (this follows from Lemma \ref{LAMBEQMAPS LEM} below, which discusses the general case), showing that indeed
-$\P(\vect{C})^{\Lambda} \simeq \P(\vect{B})^{\Lambda}$.
+$\P(\vect{C})^{\Lambda} \sim \P(\vect{B})^{\Lambda}$.
 \end{example}
 
 
@@ -7284,7 +7300,7 @@ $\underline{n}_+/\Lambda$.
 
 In the next result we let $\mathbb{C}$ denote a good cylinder object for $1_{\V}$, 
 i.e. one has a factorization
-$1_{\V} \amalg 1_{\V} \rightarrowtail \mathbb{C} \xrightarrow{\sim} $
+$1_{\V} \amalg 1_{\V} \rightarrowtail \mathbb{C} \xrightarrow{\sim} 1_{\V}$
 of the fold map with the first map a cofibration
 and the second map a weak equivalence.
 
@@ -7527,6 +7543,28 @@ is also a weak equivalence, as desired.
 
 \subsection{Characterizing isofibrations}\label{ISOFIB_SEC}
 
+There is another natural notion of a fibration, parallel to Dwyer-Kan equivalences and $\F$-$\pi_0$-essential surjectivity,
+namely isofibrations.
+\begin{definition}
+      Ket $\F$ be a $(G,\Sigma)$-family which has enough units.
+      We say a map $\O \to \P$ in $\Op_\bullet^G(\V)$ is an \textit{$\F$-$\pi_0$-isofibration} if
+      it is a local $\F$-fibration and
+      $j^{\**}\pi_0 \O^H \to j^{\**}\pi_0\P^H$
+      is an isofibration of categories for all $H \in \F_1$.
+\end{definition}
+
+We show that, in particular under the hypotheses needed to prove Theorem \ref{THMII},
+these two notions coincide (Propositions \ref{ISOFIBEASY PROP} and \ref{ISOFIBHARD PROP}).
+
+\begin{remark}
+      We warn that \cite[Remark 2.14]{BM13} gives the impression that this characterization of fibrations
+      is immediate from the coherence axiom.
+      As this section attests, there are sublties to this claim, even non-equivariantly.
+\end{remark}
+
+We begin, following \cite{Ber07b}, by analyzing the interactions of lifting problems and the homotopy relation,
+culminating in an understanding of homotopy equivalences in a pullback of categories (Lemma \ref{HOMINPULL LEM}).
+
 
 \begin{remark}\label{FACTMAPLIFT REM}
 Letting $\V$ be any model category and $Y\in \V$,
@@ -7755,7 +7793,17 @@ applied to the following.
 \end{equation}
 \end{proof}
 
-
+To consider ``homotopies of homotopies'', we need an extension of the notion of a cylinder.
+\begin{definition}
+      For any ordered finite set $I$, let $\mathbb C_I$ denote an object in $\V$ equipped with a factorization of the $I$-fold fold map
+      \[
+            \coprod_I 1_\V \rightarrowtail \mathbb C_I \overset{\sim}{\twoheadrightarrow} 1_\V.
+      \]
+      
+      For any map of sets $J \to I$, we have an induced weak equivalence $\mathbb C_J \xrightarrow{\sim} \mathbb C_I$ using lifting conditions.
+      Moreover, if we fix a set $I$, we may choose models for $\mathbb C_J$ for all $J \subseteq I$ such that
+      the map $\mathbb C_J \to \mathbb C_{\bar J}$ is a trivial cofibration for all $J \to \bar J$ with $J,\bar J \subseteq I$.
+\end{definition}
 
 \begin{lemma}\label{HOMTPOFHOMTP LEM}
 Let $\mathcal{D} \in \mathsf{Cat}_{\{0,1\}}(\V)$
@@ -7839,6 +7887,7 @@ Using this $\bar{\mathcal{H}}$ we now consider the right diagram,
 &
 \end{tikzcd}
 \end{equation}
+\todo[inline]{how is that pushout map a cofibration?}
 where $B$ making the top left triangle exists by Lemma \ref{TRANSFLIFT LEMMA}.
 Moreover, note that while 
 $\alpha^{\**}B$ and $\bar{\mathcal{H}}_{\mathbb{C}_{\{1,2\}}}$
@@ -7847,7 +7896,7 @@ we nonetheless know that these are homotopic maps
 in $\V_{\left(\mathbb{C}_{\{1\}} \amalg \mathbb{C}_{\{2\}}\right)/}$.
 Now consider the following lifting problems, 
 where
-where $\mathbb{C}_{\partial \Delta[2]}$ denotes the informal ``union''
+where $\mathbb{C}_{\partial \Delta[2]}$ denotes the colimit % informal ``union''
 $\mathbb{C}_{\{1,2\}} \cup \mathbb{C}_{\{0,2\}} \cup \mathbb{C}_{\{0,1\}}$
 \begin{equation}\label{GOTTALIFT EQ}
 \begin{tikzcd}[column sep = 65pt]
@@ -8386,7 +8435,7 @@ The generating (trivial) cofibrations
             \begin{tikzcd}
                   \mathcal A \arrow[d, "i"', rightarrowtail] \arrow[r, "F"]
                   &
-                  \mathcal C \arrow[d, "p", "\simeq"']
+                  \mathcal C \arrow[d, "p", "\sim"']
                   \\
                   \mathcal B \arrow[r, "\bar F"]
                   &
@@ -8404,7 +8453,7 @@ The generating (trivial) cofibrations
       On morphisms, for $b,b' \in \mathcal B$, define $h$ as the composite
       \[
             \mathcal B(b,b') \longto
-            \mathcal D(\bar F(b), \bar F(b')) = \mathcal D(ph(b),ph(b')) \xleftarrow{\simeq}
+            \mathcal D(\bar F(b), \bar F(b')) = \mathcal D(ph(b),ph(b')) \xleftarrow{\sim}
             \mathcal C(h(b), h(b')).
       \]
       It is straightforward to check that this is $G$-equivariant and functorial,
