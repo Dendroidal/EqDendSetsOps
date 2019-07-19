@@ -24,7 +24,7 @@
 \usepackage{ifdraft}
 \ifdraft{
   \color[RGB]{63,63,63}
-  \pagecolor[RGB]{220,220,204}
+%  \pagecolor[RGB]{220,220,204}
   \usepackage{showkeys}
   \usepackage{geometry}
   \usepackage{todonotes}
@@ -661,7 +661,7 @@ are weak equivalences/trivial fibrations in the canonical model structure on the
 
 
 
-\begin{remark}
+\begin{remark}\label{FIBSALT REM}
 	In light of Remark \ref{WETRFCAN REM}, 
 	it is natural to ask if the fibrations from Theorem \ref{THMII}
 	admit a similar description.
@@ -7727,17 +7727,418 @@ is also a weak equivalence, as desired.
 
 \subsection{Characterizing fibrations}\label{ISOFIB_SEC}
 
-{\color{red} HERE}
 
-There is another natural notion of fibration, parallel to Dwyer-Kan equivalences and $\F$-$\pi_0$-essential surjectivity,
-namely isofibrations.
+In addition to the fibrations in Definition \ref{MODEL_DEFN},
+and as noted in Remark \ref{FIBSALT REM},
+there is another natural notion of fibration
+which parallels the notion of Dwyer-Kan equivalence
+by replacing the 
+$\F$-path lifting condition
+with the analogue condition on
+$j^{\**} \pi_0(-)$ categories.
+
+
 \begin{definition}
 	Let $\F$ be a $(G,\Sigma)$-family which has enough units.
+	
 	We say a map $\O \to \P$ in $\Op_\bullet^G(\V)$ is an \textit{$\F$-$\pi_0$-isofibration} if
 	it is a local $\F$-fibration and
 	$j^{\**}\pi_0 \O^H \to j^{\**}\pi_0\P^H$
 	is an isofibration of categories for all $H \in \F_1$.
 \end{definition}
+
+
+Our goal in this section is to compare the 
+notions of $\F$-fibration and $\F$-$\pi_0$-fibration.
+
+We start with the easier direction.
+
+
+\begin{proposition}[{cf. \cite[Props. 2.3]{Ber07b}}]
+	\label{ISOFIBEASY PROP}
+	$\F$ be a $(G,\Sigma)$-family and 
+	suppose $\V$ satisfies the coherence axiom
+	and let 
+	$F: \O \to \P$ in $\Op^G_\F(\V)$
+	be $\F$-path lifting.
+	
+	Then $F$ is also an $\F$-$\pi_0$-isofibration
+	provided that either $\mathcal{P}$ is $\F$-fibrant
+	or $\V$ is right proper.
+\end{proposition}
+
+
+\begin{proof}
+	Note first that we can reduce to 
+	the case of $F \colon \mathcal{C} \to \mathcal{D}$
+	a map in $\mathsf{Cat}_{\bullet} (\V)$.
+
+	Given $a \in \mathcal{C}$
+	and isomorphism $[\alpha]$ in $\pi_0 \mathcal{D}$
+	with $[\alpha](0)=F(a)$,
+	using either the definition of coherence 
+	if $\mathcal{D}$ is fibrant or 
+	Proposition \ref{ALTCOH PROP}
+	we obtain a bottom horizontal map below 
+\begin{equation}
+	\begin{tikzcd}[column sep = 45pt]
+	\eta \ar{d} \ar{r}{a}
+&
+	\mathcal{C} \ar{d}{F}
+	\\
+	\mathbb{J} \ar{r} \ar[dashed]{ru}
+&
+	\mathcal{D}
+	\end{tikzcd}
+\end{equation}
+	such that $\pi_0 \mathbb{J} \to \pi_0\mathcal{D}$
+	maps the natural isomorphism $[id_{1_{\V}}]$ to $[\alpha]$.
+	And since the lift in the diagram exists due to $F$ being path lifting,
+	the image $[\bar{\alpha}]$
+	of the natural isomorphism $[id_{1_{\V}}]$
+	under $\pi_0 \mathbb{J} \to \pi_0\mathcal{C}$
+	lifts $[\alpha]$
+	and satisfies $[\bar{\alpha}](0) = a$,
+	showing that
+	$\pi_0 \mathcal{C} \to \pi_0 \mathcal{D}$
+	is indeed an isofibration.
+\end{proof}
+
+
+
+
+Proposition \ref{ISOFIBEASY PROP}
+implies that, if $\V$ is right proper,
+all $\F$-fibrations $F \colon \mathcal{O} \to \mathcal{P}$ are $\F$-isofibrations.
+%
+We now turn to the converse direction, which
+is given by Proposition \ref{ISOFIBHARD PROP}, 
+but will require some preparation.
+We first list two necessary lemmas.
+
+
+
+\begin{lemma}[{cf. \cite[Lemma 2.6]{Ber07b}}]
+	\label{TRANSFLIFT LEMMA}
+	Let $\V$ be a model category and consider the diagram below, 
+	where the map marked $\sim$ is a weak equivalences, 
+	$\rightarrowtail$ is a cofibration
+	and $\twoheadrightarrow$ is a fibration.
+\begin{equation}\label{TRANSFLIFT EQ}
+\begin{tikzcd}[column sep = 45pt]
+	A
+	\ar{d}
+	\arrow[equal]{r}
+&
+	A \ar{r}
+	\arrow[rightarrowtail]{d}
+&
+	X \arrow[twoheadrightarrow]{d}
+\\
+	B'
+	\arrow{r}[swap]{\sim}
+&
+	B\ar{r}
+&
+	Y
+\end{tikzcd}
+\end{equation}
+Then a lift $B \to X$ %in the left square
+exists iff
+a lift $B' \to X$ %in the total square 
+exists.
+\end{lemma}
+
+
+\begin{remark}\label{UNDEROVER REM}
+	Recall (cf. \cite[Rem. 3.10]{DS95})
+	that for any $A \in \V$ the undercategory $\V_{A/}$
+	has a model structure such that a map is a 
+	weak equivalence or (co)fibration iff it becomes one under the 
+	forgetful functor
+	$\V_{A/} \to \V$ given by $(A \to X) \mapsto X$,
+	and dually for overcategories $\V_{/Y}$.
+	
+	Hence, for any map $A \to Y$,
+	the category 
+	$\V_{A//Y} = \left(\V_{A/}\right)_{/(A\to Y)}$
+	of factorizations $A \to C \to Y$
+	likewise has a model structure determined by the forgetful functor
+	$\V_{A//Y} \to \V$.
+\end{remark}
+
+
+\begin{proof}[Proof of Lemma \ref{TRANSFLIFT LEMMA}]
+	\cite{Ber07b} provides a very explicit argument, so here we give a quick abstract argument based on Remark \ref{UNDEROVER REM}.
+	
+	Only the ``if'' direction requires proof.
+	A lift $B' \to X$ implies that,
+	in the homotopy category of $\V_{A//Y}$, it is
+	$\Ho \V_{A//Y}(B',X) \neq \emptyset$. 
+	And since $B,B'$ are weak equivalent in 
+	$\V_{A//Y}$, it is also 
+	$\Ho \V_{A//Y}(B,X) \neq \emptyset$.
+	But the (co)fibrancy assumptions in \eqref{TRANSFLIFT EQ}
+	say that $B$ is cofibrant in $\V_{A//Y}$ while 
+	$X$ is fibrant, so any map $\Ho \V_{A//Y}(B,X) \neq \emptyset$
+	is represented by an actual lift $B \to X$.
+\end{proof}
+
+
+
+\begin{lemma}\label{HOMINPULL LEM}
+	Consider a diagram 
+	in $\mathsf{Cat}_{\{0,1\}}(\V)$
+	\begin{equation}
+	\begin{tikzcd}[column sep = 45pt]
+	\mathbbm{1}
+	\arrow{d}[swap]{\bar{\alpha}}
+	\arrow{r}{\alpha}
+	&
+	\mathcal{C}
+	\arrow[twoheadrightarrow]{d}{F}
+	\\
+	\bar{\mathcal{C}}
+	\arrow{r}[swap]{\bar{F}}
+	&
+	\mathcal{D}
+	\end{tikzcd}
+	\end{equation}
+	such that $\alpha,\bar{\alpha}$ encode homotopy equivalences in 
+	$\mathcal{C}, \bar{\mathcal{C}}$ and
+	$F \colon \mathcal{C} \twoheadrightarrow \mathcal{D}$
+	is a (local) fibration.
+	
+	Then the induced map 
+	$\mathbbm{1} \xrightarrow{(\alpha,\bar{\alpha})}
+	\mathcal{C} \times_{\mathcal{D}}\bar{\mathcal{C}}$
+	encodes a homotopy equivalence in $\mathcal{C} \times_{\mathcal{D}}\bar{\mathcal{C}}$
+	provided that:
+	\begin{enumerate*}[label = (\roman*)]
+		\item $\mathcal{D}$ is fibrant;
+		\item $\V$ is right proper.
+	\end{enumerate*}
+\end{lemma}
+
+The proof of Lemma \ref{HOMINPULL LEM} requires some analysis
+and is postponed to the end of the section.
+
+
+We now discuss a further assumption on 
+the unit $1_{\V}$ which is needed to guarantee that 
+\emph{all} $\F$-$\pi_0$-fibrations are $\F$-fibrations.
+
+
+\begin{definition}
+	Let $\V$ be a model category with $A$ a cofibrant object and 
+	$X$ any object.
+	We say \emph{$X$ is fibrant with respect to $A$}
+	if a fibrant replacement $X\to X_f$
+	induces an isomorphism
+	\[
+	[A,X] \xrightarrow{\simeq} [A,X_f] = \Ho \V (A,X)
+	\]
+	of left homotopy classes of maps.
+	Explicit, this means any 
+	map $A \xrightarrow{[f]} X$ in $\Ho \V (A,X)$
+	is represented by a map 
+	$A \xrightarrow{f} X$ in $\V$
+	and that if $[f]=[g]$ there is an exhibiting left homotopy
+	$A \otimes \mathbb{C} \xrightarrow{H} X$. 
+\end{definition}
+
+
+\begin{example}
+	In $\V=\mathsf{sSet}$ with the Kan model structure 
+	all objects are fibrant with respect to $\** = 1_{\V}$.
+%	
+	Further, fibrant objects are clearly ``fibrant with respect to any cofibrant object''.
+	Hence, in the canonical model structures on 
+	$\mathsf{Set}, \mathsf{Cat}, \mathsf{Top}$
+	one likewise has that all objects are fibrant with respect to the unit $1_{\V}$.
+\end{example}
+
+
+\begin{remark}\label{RELFIBLIFT REM}
+	Suppose $F\colon X \to Y$ is a fibration between two objects
+	which are fibrant with respect to $A$.
+	Then, given 
+	$f\colon A \to X$ and $g \colon A \to Y$
+	such that
+	$[Ff] = [g]$
+	one can find 
+	$f'\colon A \to X$ such that $Ff' =g$.
+	Indeed, this follows from the existence of a 
+	lift in 
+	\begin{equation}
+	\begin{tikzcd}[column sep = 45pt]
+	A \ar{d} \ar{r}{f}
+	&
+	X \ar[twoheadrightarrow]{d}{F}
+	\\
+	A \otimes \mathbb{C} \ar{r}[swap]{H} \ar[dashed]{ru}
+	&
+	Y
+	\end{tikzcd}
+	\end{equation}
+	where $H$ is a left homotopy between $Ff$ and $g$.
+\end{remark}
+
+
+We can finally prove the following partial converse to Proposition \ref{ISOFIBEASY PROP}, 
+adapting \cite[Prop. 2.5]{Ber07b}.
+
+
+\begin{proposition}[{\cite[Prop. 2.5]{Ber07b}}]
+	\label{ISOFIBHARD PROP}
+	Let $\F$ be a $(G,\Sigma)$-family which has enough units.
+	Moreover, suppose $\V$ has cofibrant unit
+	and satisfies the coherence axiom,
+	and let $F: \O \to \P$ in $\Op^G_\F(\V)$
+	be an $\F$-isofibration.
+	
+	Then $F$ is also an $\F$-fibration
+	provided that either:
+	\begin{enumerate*}[label = (\roman*)]
+		\item $\P$ is fibrant or;
+		\item $\V$ is right proper and
+		all objects in $\V$ are fibrant with respect to $1_{\V}$.
+	\end{enumerate*}
+\end{proposition}
+
+
+\begin{proof}
+As before, we reduce to 
+the case of $F \colon \mathcal{C} \to \mathcal{D}$
+an isofibration in $\mathsf{Cat}_{\bullet}(\V)$.
+And since $F$ is a local fibration by assumption, 
+the task is to show that if
+$F$ is a $\pi_0$-isofibration then it is also path lifting, 
+i.e. that we can solve any lifting problem as on the left below
+(where $\mathbb{J}$ is an interval, as usual).
+\begin{equation}\label{FIRSTRED EQ}
+	\begin{tikzcd}[column sep = 45pt]
+	\eta \ar{d} \ar{r}{a}
+&
+	\mathcal{C} \ar{d}{F}
+&%%
+&
+&
+	\iota^{\**}_{a,b} \mathcal{C} \ar[twoheadrightarrow]{d}
+\\
+	\mathbb{J} \ar{r} \ar[dashed]{ru}
+&
+	\mathcal{D}
+&%%
+	\mathbb{J} \ar[rightarrowtail]{r}{\sim}
+&
+	\mathbb{J}' \ar[twoheadrightarrow]{r} \ar[dashed]{ru}
+&
+	\iota^{\**}_{Fa,Fb} \mathcal{D}
+\end{tikzcd}
+\end{equation}
+
+{\color{red} HERE}
+
+	Writing $[\alpha]$ for the image in
+	$\pi_0 \mathcal{D}$
+	for the image of the natural isomorphism
+	in $\pi_0 \mathbb{I}$,
+	the fact that $F$ is an isofibration
+	yields a lifted isomorphism
+	$[\bar{\alpha}]$ in $\pi_0 \mathcal{C}$
+	between $a$ and some other object $b$.
+	This allows us to form the right lifting problem 
+	in $\mathsf{Cat}_{\{0,1\}}(\V)$
+	on the right of 
+	\eqref{FIRSTRED EQ}
+	(where we factor the bottom map as a trivial cofibration followed by fibration),
+	and it is clearly suffices to solve this alternate problem.
+	
+	We now claim that we can form a diagram in $\mathsf{Cat}_{\{0,1\}}(\V)$ as on given left below
+	\begin{equation}\label{GETMAP EQ}
+	\begin{tikzcd}
+	\mathbbm{1} \ar{d} \ar{r}
+	&
+	\iota^{\**}_{a,b} \mathcal{C} \ar[twoheadrightarrow]{d}
+	\\
+	\mathbb{I}' \ar[twoheadrightarrow]{r} 
+	&
+	\iota^{\**}_{Fa,Fb} \mathcal{D}
+	\end{tikzcd}
+	\end{equation}
+	and for which $\mathbbm{1} \to \mathbb{I}'$
+	represents the canonical isomorphism of 
+	$\pi_0 \mathbb{I}'$ 
+	and 
+	$\mathbbm{1} \to \iota^{\**}_{a,b} \mathcal{C}$
+	represents the isomorphism $[\bar{\alpha}]$ in $\mathcal{C}$.
+	Indeed, in either case our assumptions guarantee that 
+	the mapping objects of all three of 
+	$\mathbb{I}',\iota^{\**}_{Fa,Fb} \mathcal{D},\iota^{\**}_{a,b} \mathcal{C}$
+	are fibrant with respect to $1_{\V}$,
+	so one can certainly choose maps 
+	$\mathbbm{1} \to \mathbb{I}'$,
+	$\mathbbm{1} \to \iota^{\**}_{a,b} \mathcal{C}$
+	representing the canonical isomorphism and $[\alpha]$, 
+	though a priori one has no guarantee that the composites 
+	$\mathbbm{1} \to \mathbb{I}' \to \iota^{\**}_{Fa,Fb} \mathcal{D}$,
+	$\mathbbm{1} \to \iota^{\**}_{a,b} \mathcal{C} \to
+	\iota^{\**}_{Fa,Fb} \mathcal{D}$
+	coincide.
+	Nonetheless, since both composites represent 
+	$[\alpha]$,
+	by Remark \ref{RELFIBLIFT REM}
+	we can made the square commute by replacing one of the maps up to homotopy.
+	
+	We now form the following solid diagram
+	\begin{equation}
+	\begin{tikzcd}
+	\mathbb{I}'' \ar[dashed]{r}
+	&
+	\mathcal{E} \ar{d} \ar{r}
+	&
+	\iota^{\**}_{a,b} \mathcal{C} \ar[twoheadrightarrow]{d}
+	\\
+	&
+	\mathbb{I}' \ar[twoheadrightarrow]{r} 
+	&
+	\iota^{\**}_{Fa,Fb} \mathcal{D}
+	\end{tikzcd}
+	\end{equation}
+	where $\mathcal{E}$ is simply the pullback.
+	The diagram 
+	\eqref{GETMAP EQ}
+	yields a map $\mathbbm{1} \to \mathcal{E}$ which,
+	by Lemma \ref{HOMINPULL LEM},
+	encodes a homotopy equivalence.
+	Therefore, using either the definition of coherence in case (i) or Proposition \ref{ALTCOH PROP} in case (ii),
+	we obtain the map from an interval 
+	$\mathbb{I}'' \to \mathcal{E}$
+	with the property that 
+	the composite 
+	$\mathbb{I}'' \to \mathcal{E} \to \mathbb{I}'$
+	sends the natural isomorphism to itself, 
+	and is thus a weak equivalence of intervals.
+	
+	But the desired lift now follows from 
+	Lemma \ref{TRANSFLIFT LEMMA}(i)
+	applied to the model category
+	$\mathsf{Cat}_{\{0,1\}}(\V)$
+	with $A$ the initial object,
+	$B' \xrightarrow{\sim} B$ the map
+	$\mathbb{I}'' \xrightarrow{\sim} \mathbb{I}'$
+	and $X \twoheadrightarrow Y$
+	the map 
+	$\iota^{\**}_{a,b} \mathcal{C}
+	\twoheadrightarrow
+	\iota^{\**}_{Fa,Fb} \mathcal{D}$,
+	finishing the proof.
+\end{proof}
+
+
+
+{\color{red} HERE}
 
 We show that, in particular under the hypotheses needed to prove Theorem \ref{THMII},
 these two notions coincide (Propositions \ref{ISOFIBEASY PROP} and \ref{ISOFIBHARD PROP}).
@@ -7809,82 +8210,6 @@ and map $A' \to X$ with fibrant $X$,
 
 
 
-\begin{lemma}[{cf. \cite[Lemma 2.6]{Ber07b}}]
-\label{TRANSFLIFT LEMMA}
-Let $\V$ be a model category and consider diagrams as below, 
-where maps marked $\sim$ are weak equivalences, 
-maps $\rightarrowtail$ are cofibrations
-and maps $\twoheadrightarrow$ are fibrations.
-\begin{equation}\label{TRANSFLIFT EQ}
-\begin{tikzcd}[column sep = 45pt]
-	A
-	\ar{d}
-	\arrow[equal]{r}
-&
-	A \ar{r}
-	\arrow[rightarrowtail]{d}
-&
-	X \arrow[twoheadrightarrow]{d}
-&%
-	A
-	\ar[rightarrowtail]{d}
-	\arrow{r}
-&
-	X
-	\arrow[twoheadrightarrow]{d} \ar{r}{\sim}
-&
-	X' \ar{d}
-\\
-	B'
-	\arrow{r}[swap]{\sim}
-&
-	B\ar{r}
-&
-	Y
-&%
-	B
-	\arrow{r}
-&
-	Y \ar[equal]{r}
-&
-	Y
-\end{tikzcd}
-\end{equation}
-Then:
-\begin{enumerate}[label=(\roman*)]
-\item in the left diagram, 
-a lift $B \to X$ %in the left square
-exists iff
-a lift $B' \to X$ %in the total square 
-exists;
-\item in the right diagram, 
-a lift $B \to X$ %in the right square 
-exists iff
-a lift $B \to X'$ %in the total square 
-exists.
-\end{enumerate}
-\end{lemma}
-
-
-\begin{proof}
-The claims are dual, so it suffices to show (i). Moreover, the ``only if'' direction is obvious.
-For the ``if'' direction,
-consider the model structure on factorizations  
-$\V_{A//Y}$
-in Remark \ref{FACTMAPLIFT REM} where, to ease notation, 
-we refer to an object $A \to C \to Y$ in $\V_{A//Y}$
-simply as $C$.
-The existence of a lift $B' \to X$ now implies that,
-in the homotopy category of $\V_{A//Y}$, it is
-$\Ho \V_{A//Y}(B',X) \neq \emptyset$.
-And since $B,B'$ are weak equivalent in 
-$\V_{A//Y}$, it is also 
-$\Ho \V_{A//Y}(B,X) \neq \emptyset$.
-But now notice that the (co)fibrancy assumptions in \eqref{TRANSFLIFT EQ}
-say that $B$ is cofibrant in $\V_{A//Y}$ while 
-$X$ is fibrant, so that any map $\Ho \V_{A//Y}(B,X) \neq \emptyset$
-must be represented by an actual lift $B \to X$.
-\end{proof}
 
 
 \begin{remark}\label{NOTMATCH REM}
@@ -8107,43 +8432,9 @@ to give the desired lift $\mathcal{H}$.
 
 
 
-\begin{lemma}\label{HOMINPULL LEM}
-%Suppose $\V$ is right proper and 
-Consider a diagram 
-in $\mathsf{Cat}_{\{0,1\}}(\V)$
-\begin{equation}
-\begin{tikzcd}[column sep = 45pt]
-	\mathbbm{1}
-	\arrow{d}[swap]{\bar{\alpha}}
-	\arrow{r}{\alpha}
-&
-	\mathcal{C}
-	\arrow[twoheadrightarrow]{d}{F}
-\\
-	\bar{\mathcal{C}}
-	\arrow{r}[swap]{\bar{F}}
-&
-	\mathcal{D}
-\end{tikzcd}
-\end{equation}
-such that $\alpha,\bar{\alpha}$ encode homotopy equivalences in 
-$\mathcal{C}, \bar{\mathcal{C}}$ and
-$F \colon \mathcal{C} \twoheadrightarrow \mathcal{D}$
-is a (local) fibration.
-
-Then the induced map 
-$\mathbbm{1} \xrightarrow{(\alpha,\bar{\alpha})}
-\mathcal{C} \times_{\mathcal{D}}\bar{\mathcal{C}}$
-encodes a homotopy equivalence in $\mathcal{C} \times_{\mathcal{D}}\bar{\mathcal{C}}$
-provided that:
-\begin{enumerate*}[label = (\roman*)]
-\item $\mathcal{D}$ is fibrant;
-\item $\V$ is right proper.
-\end{enumerate*}
-\end{lemma}
 
 
-\begin{proof}
+\begin{proof}[Proof of Lemma \ref{HOMINPULL LEM}]
 Note first that, since $\V$ is right proper and $F$ is a fibration,
 the pullback $\mathcal{C} \times_{\mathcal{D}}\bar{\mathcal{C}}$
 is a homotopy pullback,
@@ -8249,272 +8540,10 @@ $(H',\bar{H}) \colon \mathbb{C} \to
 
 
 
-\begin{proposition}[{cf. \cite[Props. 2.3]{Ber07b}}]
-      \label{ISOFIBEASY PROP}
-$\F$ be a $(G,\Sigma)$-family and 
-suppose $\V$ satisfies the coherence axiom
-and let 
-$F: \O \to \P$ in $\Op^G_\F(\V)$
-be $\F$-path lifting.
-
-Then $F$ is also an $\F$-$\pi_0$-isofibration
-provided that either $\mathcal{P}$ is $\F$-fibrant
-or $\V$ is right proper.
-\end{proposition}
-
-
-\begin{proof}
-Note first that we can reduce to 
-the case of $F \colon \mathcal{C} \to \mathcal{D}$
-a map in $\mathsf{Cat}_{\V}$.
-
-Given $a \in \mathcal{C}$
-and isomorphism $[\alpha] \colon \widetilde{\mathbbm{1}} \to \pi_0 \mathcal{D}$
-with $[\alpha](0)=F(a)$,
-using either the definition of coherence 
-if $\mathcal{D}$ is fibrant or 
-Proposition \ref{ALTCOH PROP}
-we obtain a left horizontal map below 
-\begin{equation}
-\begin{tikzcd}[column sep = 45pt]
-	\eta \ar{d} \ar{r}{a}
-&
-	\mathcal{C} \ar{d}{F}
-\\
-	\mathbb{I} \ar{r} \ar[dashed]{ru}
-&
-	\mathcal{D}
-\end{tikzcd}
-\end{equation}
-such that $\pi_0 \mathbb{I} \to \pi_0\mathcal{D}$
-maps the natural isomorphism to $[\alpha]$.
-And since the lift in the diagram exists since $F$ is path lifting,
-the image $[\bar{\alpha}]$
-of the natural isomorphism
-under $\pi_0 \mathbb{I} \to \pi_0\mathcal{C}$
-lifts $[\alpha]$
-and satisfies $[\bar{\alpha}](0) = a$, as required.
-\end{proof}
-
-
-
-Proposition \ref{ISOFIBEASY PROP}
-implies that, provided $\V$ is right proper,
-all $\F$-fibrations $F \colon \mathcal{O} \to \mathcal{P}$ are $\F$-isofibrations.
-%
-For the converse statement, 
-one needs a further assumption on 
-the unit $1_{\V}$.
-
-
-\begin{definition}
-Let $\V$ be a model category with $A$ a cofibrant object and 
-$X$ any object.
-We say \emph{$X$ is fibrant with respect to $A$}
-if a fibrant replacement $X\to X_f$
-induces an isomorphism
-\[
-[A,X] \xrightarrow{\simeq} [A,X_f] = \Ho \V (A,X)
-\]
-between left homotopy classes of maps.
-More explicit, this means that any 
-map $A \xrightarrow{[f]} X$ in $\Ho \V (A,X)$
-can be represented by a map 
-$A \xrightarrow{f} X$ in $\V$
-and that if $[f]=[g]$ there exists an exhibiting left homotopy
-$A \otimes \mathbb{C} \xrightarrow{H} X$. 
-\end{definition}
-
-
-\begin{example}
-For the Kan model structure on $\V=\mathsf{sSet}$
-all objects or fibrant with respect to $\** = 1_{\V}$.
-
-Moreover, fibrant objects are clearly ``fibrant with respect to any cofibrant object''.
-Hence, in the canonical model structures on 
-$\mathsf{Set}, \mathsf{Cat}, \mathsf{Top}$
-one likewise has that all objects are fibrant with respect to the unit
-$1_{\V}$.
-\end{example}
-
-
-\begin{remark}\label{RELFIBLIFT REM}
-Suppose $F\colon X \to Y$ is a fibration between two objects
-which are fibrant with respect to $A$.
-Then, given 
-$f\colon A \to X$ and $g \colon A \to Y$
-such that
-$[Ff] = [g]$
-one can find 
-$f'\colon A \to X$ such that $Ff' =g$.
-Indeed, this follows from the existence of a 
-lift in 
-\begin{equation}
-\begin{tikzcd}[column sep = 45pt]
-	A \ar{d} \ar{r}{f}
-&
-	X \ar[twoheadrightarrow]{d}{F}
-\\
-	A \otimes \mathbb{C} \ar{r}[swap]{H} \ar[dashed]{ru}
-&
-	Y
-\end{tikzcd}
-\end{equation}
-where $H$ is an homotopy between $Ff$ and $g$.
-\end{remark}
 
 
 
 
-We can finally prove the following, which adapts
-\cite[Props. 2.5]{Ber07b}.
-
-\begin{proposition}[{\cite[Prop. 2.5]{Ber07b}}]
-\label{ISOFIBHARD PROP}
-Let $\F$ be a $(G,\Sigma)$-family which has enough units.
-Moreover, suppose $\V$ has cofibrant unit,
-and satisfies the coherence axiom,
-and let $F: \O \to \P$ in $\Op^G_\F(\V)$
-be a $\F$-isofibration.
-
-Then $F$ is also a $\F$-fibration
-provided that either:
-\begin{enumerate*}[label = (\roman*)]
-\item $\P$ is fibrant or;
-\item $\V$ is right proper and
-all objects in $\V$ are fibrant with respect to $1_{\V}$.
-\end{enumerate*}
-\end{proposition}
-
-
-\begin{proof}
-Since we are assuming $F$ is a local $\F$-fibration,
-the task is to show that if $\F$ if 
-a $\F$-$\pi_0$-isofibration then it is also 
-$\F$-path lifting.
-
-Note that, as before, we reduce to 
-the case of $F \colon \mathcal{C} \to \mathcal{D}$
-an isofibration in $\mathsf{Cat}_{\V}$.
-
-Our goal is now to show that we can solve any lifting problem 
-as on the left below.
-\begin{equation}\label{FIRSTRED EQ}
-\begin{tikzcd}[column sep = 45pt]
-	\eta \ar{d} \ar{r}{a}
-&
-	\mathcal{C} \ar{d}{F}
-&%%
-&
-&
-	\iota^{\**}_{a,b} \mathcal{C} \ar[twoheadrightarrow]{d}
-\\
-	\mathbb{I} \ar{r} \ar[dashed]{ru}
-&
-	\mathcal{D}
-&%%
-	\mathbb{I} \ar[rightarrowtail]{r}{\sim}
-&
-	\mathbb{I}' \ar[twoheadrightarrow]{r} \ar[dashed]{ru}
-&
-	\iota^{\**}_{Fa,Fb} \mathcal{D}
-\end{tikzcd}
-\end{equation}
-Writing $[\alpha]$ for the image in
-$\pi_0 \mathcal{D}$
-for the image of the natural isomorphism
-in $\pi_0 \mathbb{I}$,
-the fact that $F$ is an isofibration
-yields a lifted isomorphism
-$[\bar{\alpha}]$ in $\pi_0 \mathcal{C}$
-between $a$ and some other object $b$.
-This allows us to form the right lifting problem 
-in $\mathsf{Cat}_{\{0,1\}}(\V)$
-on the right of 
-\eqref{FIRSTRED EQ}
-(where we factor the bottom map as a trivial cofibration followed by fibration),
-and it is clearly suffices to solve this alternate problem.
-
-We now claim that we can form a diagram in $\mathsf{Cat}_{\{0,1\}}(\V)$ as on given left below
-\begin{equation}\label{GETMAP EQ}
-\begin{tikzcd}
-	\mathbbm{1} \ar{d} \ar{r}
-&
-	\iota^{\**}_{a,b} \mathcal{C} \ar[twoheadrightarrow]{d}
-\\
-	\mathbb{I}' \ar[twoheadrightarrow]{r} 
-&
-	\iota^{\**}_{Fa,Fb} \mathcal{D}
-\end{tikzcd}
-\end{equation}
-and for which $\mathbbm{1} \to \mathbb{I}'$
-represents the canonical isomorphism of 
-$\pi_0 \mathbb{I}'$ 
-and 
-$\mathbbm{1} \to \iota^{\**}_{a,b} \mathcal{C}$
-represents the isomorphism $[\bar{\alpha}]$ in $\mathcal{C}$.
-Indeed, in either case our assumptions guarantee that 
-the mapping objects of all three of 
-$\mathbb{I}',\iota^{\**}_{Fa,Fb} \mathcal{D},\iota^{\**}_{a,b} \mathcal{C}$
-are fibrant with respect to $1_{\V}$,
-so one can certainly choose maps 
-$\mathbbm{1} \to \mathbb{I}'$,
-$\mathbbm{1} \to \iota^{\**}_{a,b} \mathcal{C}$
-representing the canonical isomorphism and $[\alpha]$, 
-though a priori one has no guarantee that the composites 
-$\mathbbm{1} \to \mathbb{I}' \to \iota^{\**}_{Fa,Fb} \mathcal{D}$,
-$\mathbbm{1} \to \iota^{\**}_{a,b} \mathcal{C} \to
-\iota^{\**}_{Fa,Fb} \mathcal{D}$
-coincide.
-Nonetheless, since both composites represent 
-$[\alpha]$,
-by Remark \ref{RELFIBLIFT REM}
-we can made the square commute by replacing one of the maps up to homotopy.
-
-We now form the following solid diagram
-\begin{equation}
-\begin{tikzcd}
-	\mathbb{I}'' \ar[dashed]{r}
-&
-	\mathcal{E} \ar{d} \ar{r}
-&
-	\iota^{\**}_{a,b} \mathcal{C} \ar[twoheadrightarrow]{d}
-\\
-	&
-	\mathbb{I}' \ar[twoheadrightarrow]{r} 
-&
-	\iota^{\**}_{Fa,Fb} \mathcal{D}
-\end{tikzcd}
-\end{equation}
-where $\mathcal{E}$ is simply the pullback.
-The diagram 
-\eqref{GETMAP EQ}
-yields a map $\mathbbm{1} \to \mathcal{E}$ which,
-by Lemma \ref{HOMINPULL LEM},
-encodes a homotopy equivalence.
-Therefore, using either the definition of coherence in case (i) or Proposition \ref{ALTCOH PROP} in case (ii),
-we obtain the map from an interval 
-$\mathbb{I}'' \to \mathcal{E}$
-with the property that 
-the composite 
-$\mathbb{I}'' \to \mathcal{E} \to \mathbb{I}'$
-sends the natural isomorphism to itself, 
-and is thus a weak equivalence of intervals.
-
-But the desired lift now follows from 
-Lemma \ref{TRANSFLIFT LEMMA}(i)
-applied to the model category
-$\mathsf{Cat}_{\{0,1\}}(\V)$
-with $A$ the initial object,
-$B' \xrightarrow{\sim} B$ the map
-$\mathbb{I}'' \xrightarrow{\sim} \mathbb{I}'$
-and $X \twoheadrightarrow Y$
-the map 
-$\iota^{\**}_{a,b} \mathcal{C}
-\twoheadrightarrow
-\iota^{\**}_{Fa,Fb} \mathcal{D}$,
-finishing the proof.
-\end{proof}
 
 
 
