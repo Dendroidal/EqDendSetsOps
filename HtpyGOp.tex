@@ -24,7 +24,7 @@
 \usepackage{ifdraft}
 \ifdraft{
   \color[RGB]{63,63,63}
-%  \pagecolor[RGB]{220,220,204}
+  \pagecolor[RGB]{220,220,204}
   \usepackage{showkeys}
   \usepackage{geometry}
   \usepackage{todonotes}
@@ -306,9 +306,9 @@ and shows with some additional assumptions that, in particular, $\Op_{\mathfrak 
         \\
         \cite{WY18} & $\spadesuit$ axiom & symmetric colored operads are admissible
         \\
-        \cite{BB13} & monoid axiom & tame polynomial monads are admissible
+        \cite{BB17} & monoid axiom & tame polynomial monads are admissible
         \\
-        \cite{PS14} & (symmetric) $h$-monoidal plus technical & (symmetric) colored operads are admissible
+        \cite{PS18} & (symmetric) $h$-monoidal plus technical & (symmetric) colored operads are admissible
       \end{tabular}
 \end{center}
 
@@ -319,7 +319,7 @@ Moreover, there is a flexibility over precisely what the defining features of th
         \textbf{Source} & \textbf{assumptions} & \textbf{model structure} \\ \hline
         \cite{Ber07b},\cite{CM13b} & $\V = \sSet$ & \begin{tabular}[t]{@{}c@{}} weak equivalences: DK-equivalences \\ fibrations: isofibrations \end{tabular}
         \\
-        \cite{BM12},\cite{Cav} & ``adequate'' plus technical & \begin{tabular}[t]{@{}c@{}} fibrant objects: locally fibrant objects \\ trivial fibrations: local trivial fibrations which are surjective on objects \\ \textit{weak equivalences: DK-equivalences} \end{tabular}
+        \cite{BM13},\cite{Cav} & ``adequate'' plus technical & \begin{tabular}[t]{@{}c@{}} fibrant objects: locally fibrant objects \\ trivial fibrations: local trivial fibrations which are surjective on objects \\ \textit{weak equivalences: DK-equivalences} \end{tabular}
         \\
         \cite{Mur15} & monoid axiom & \begin{tabular}[t]{@{}c@{}} weak equivalences: DK-equivalences \\ trivial fibrations: local trivial fibrations which are surjective on objects \end{tabular}
         \\
@@ -697,7 +697,7 @@ this produces $G$-model structures on $\V$-enriched categories with a fixed set 
 Finally, we compare the conditions of being cofibrant in $\Op^G_\F(\V)$ and $\Sym^G_\F(\V)$.
 \begin{customthm}{III}\label{THMIII}
 	Suppose $\V$ satisfies the hypotheses in Theorem \ref{THMI},
-	and let $\F$ be a weak indexing system (Definition \ref{WIS_DEF}).
+	and let $\F$ be a pseudo indexing system (Definition \ref{PIS_DEF}).
 	If $\O \in \Op^G_\F(\V)$ is cofibrant, then the underlying symmetric sequence $U\O$ is cofibrant in $\Sym^G_\F(\V)$.
 \end{customthm}
 This will be a special case of Theorem \ref{SIGMAG_COF_THM}.
@@ -4652,7 +4652,7 @@ We say $\F$ is a \emph{pseudo indexing system} if
 \end{definition}
 
 {\color{blue} note that this is not assuming $\F$ is a graph family}
-
+\todo[inline]{the definition given below also does not depend on $\F$ being a $(G,\Sigma)$-graph family. this is a good synthesis}
 
 \vskip 15pt
 
@@ -4688,31 +4688,65 @@ Rephrasing, Theorem \ref{THMIII} says that for a special class of $(G,\Sigma)$-f
 The proof will follow from analysis similar to \cite[\S 6]{BP_geo}.
 
 First, we extend any $(G,\Sigma)$-family to a family of subgroups of $G \ltimes \Omega_{\mathfrak C}^{op}$ for any $G$-set $\mathfrak C$.
-\begin{definition}
-      Fix a $(G,\Sigma)$-family $\F = \set{\F_n}$, and let $\vect T \in G \ltimes \Omega_{\mathfrak C}^{op}$.
-      Define the family $\F_{\vect T}$ of $\Aut_{G \ltimes \Omega_{\mathfrak C}^{op}}(\vect T)$ to be
-      those $\Gamma$ such that, for all vertices $v \in V(\vect T)$,
-      $\pi_{\vect T_v}(\Gamma) \in \F_{\vect T_v} = \phi_{\vect T_v}^{\**}\F_{T_v}$;
-      that is,
-      \[
-            \phi_{\vect T_v} \pi_{\vect T_v}(\Gamma) = \pi_{\vect T} \phi_{T_v}(\Gamma) \in \F_{T_v}
-      \]
-      using the commuting square
-      \begin{equation}
-            \label{AUTT_EQ}
-            \begin{tikzcd}
-                  \Aut_{G \ltimes \Omega_{\mathfrak C}^{op}}(\vect T) \arrow[d, "\pi_{\vect T_v}"'] \arrow[r, "\phi_{\vect T}"]
-                  &
-                  \Aut_{G \times \Omega^{op}}(T) \arrow[d, "\pi_{T_v}"]
-                  \\
-                  \Aut_{G \ltimes \Omega_{\mathfrak C}^{op}}(\vect T_v) \arrow[r, "\phi_{\vect T_v}"]
-                  &
-                  \Aut_{G \times \Omega^{op}}(T_v)
-            \end{tikzcd}
-      \end{equation}
 
-      Denote by $\hat \F = \hat \F_{\mathfrak C}$ the family $\set{\F_{\vect T}}$ of subgroups of $G \ltimes \Omega_{\mathfrak C}^{op}$.
+\begin{definition}
+      Given a family 
+      $\F$ in the groupoid $\G$
+      let $\F^{\ltimes}$
+      be the family in
+      $\Sigma \wr \G \simeq \coprod_{n \geq 0} \Sigma_{n} \wr \G$
+      given by the union 
+      $\coprod_{n \geq 0} \F^{\ltimes n}$
+      (where we note that $\F^{\ltimes 0}$ is the family of ``all'' subgroups of $\Sigma_0$).
 \end{definition}
+
+For any $G$-set $\mathfrak C$, we write  
+\[
+      \mathsf{lr}_{\mathfrak{C}} \colon 
+      G^{op} \ltimes \Omega^0_{\mathfrak{C}}
+      \to
+      G^{op} \ltimes \Sigma_{\mathfrak{C}}
+      \qquad
+      \boldsymbol{V}_{\mathfrak{C}} \colon 
+      G^{op} \ltimes \Omega^0_{\mathfrak{C}}
+      \to
+      G^{op} \ltimes (\Sigma \wr \Sigma_{\mathfrak{C}})
+      \to
+      \Sigma \wr  (G^{op}  \ltimes \Sigma_{\mathfrak{C}})
+\]
+for the natural extensions of the leaf-roof and vertex map {\color{red} from *earlier reference*}.
+
+\begin{definition}
+      Fix a $(G,\Sigma)$-family $\F = \set{\F_n}$.
+      Define the family $\hat \F = \hat \F_{\mathfrak C}$ of subgroups of $G \ltimes \Omega_{\mathfrak C}^{op}$ to be the pullback
+      \[
+            \hat \F_{\mathfrak C} = \boldsymbol{V}_{\mathfrak C}^{\**} \phi_{\mathfrak C}^{\**} \F^\ltimes
+      \]
+      for $\phi_{\mathfrak C} \colon G \ltimes \Sigma_{\mathfrak C}^{op} \to G \times \Sigma^{op}$
+      the natural map.
+\end{definition}
+
+Unpacking, we see that for any $\mathfrak C$-tree $\vect T$,
+$\F_{\vect T} = \hat \F_{\vect T}$ is the family of subgroups of $\Aut_{G \ltimes \Omega_{\mathfrak C}^{op}}(\vect T)$ consisting of
+those $\Gamma$ such that, for all vertices $v \in V(\vect T)$,
+$\pi_{\vect T_v}(\Gamma) \in \F_{\vect T_v} = \phi_{\vect T_v}^{\**}\F_{T_v}$.
+% that is,
+% \[
+%       \phi_{\vect T_v} \pi_{\vect T_v}(\Gamma) = \pi_{\vect T} \phi_{T_v}(\Gamma) \in \F_{T_v}
+% \]
+% using the commuting square
+% \begin{equation}
+%       \label{AUTT_EQ}
+%       \begin{tikzcd}
+%             \Aut_{G \ltimes \Omega_{\mathfrak C}^{op}}(\vect T) \arrow[d, "\pi_{\vect T_v}"'] \arrow[r, "\phi_{\vect T}"]
+%             &
+%             \Aut_{G \times \Omega^{op}}(T) \arrow[d, "\pi_{T_v}"]
+%             \\
+%             \Aut_{G \ltimes \Omega_{\mathfrak C}^{op}}(\vect T_v) \arrow[r, "\phi_{\vect T_v}"]
+%             &
+%             \Aut_{G \times \Omega^{op}}(T_v)
+%       \end{tikzcd}
+% \end{equation}
 
 \begin{remark}
       When $\mathfrak C = \**$ and $\F$ is a $(G,\Sigma)$-graph family (Definition \ref{GRAPHSUB_DEF}), 
@@ -4725,55 +4759,67 @@ First, we extend any $(G,\Sigma)$-family to a family of subgroups of $G \ltimes 
       we have
       \begin{equation}
             \label{FVT_EQ}
-            \hat \F_{\mathfrak C} = \phi_{\mathfrak C}^{\**}\hat \F,
+            \hat \F_{\mathfrak C} = \phi_{\mathfrak C}^{\**}\hat \F_{\set{\**}},
             \qquad
             \F_{\vect T} = \phi_{\vect T}^{\**}(\F_T)
       \end{equation}
       for
-      \[
-            G \ltimes \Omega_{\mathfrak C}^{op} \xrightarrow{\ \phi_{\mathfrak C} \ } G \times \Omega^{op},
-            \qquad
-            \Aut_{G \ltimes \Omega_{\mathfrak C}^{op}}(\vect T) \xrightarrow{\ \phi_{\vect T} \ } \Aut_{G \times \Omega^{op}}(T).
-      \]
+      $ \phi_{\mathfrak C}  \colon G \ltimes \Omega_{\mathfrak C}^{op} \to G \times \Omega^{op}$.
+      % \[
+      %       G \ltimes \Omega_{\mathfrak C}^{op} \xrightarrow{\ \phi_{\mathfrak C} \ } G \times \Omega^{op},
+      %       \qquad
+      %       \Aut_{G \ltimes \Omega_{\mathfrak C}^{op}}(\vect T) \xrightarrow{\ \phi_{\vect T} \ } \Aut_{G \times \Omega^{op}}(T).
+      % \]
 \end{remark}
 
 \begin{remark}
       \label{FT_REM}
-      We can additionally recover $\F_{\vect T}$ using an inductive definition of $\hat \F$.
-      For $n \geq 0$, let $\Omega_{\mathfrak C, \leq n} \subseteq \Omega_{\mathfrak C}$ denote
-      the subcategory spanned by those trees $\vect T$ with $|V(\vect T)| \leq n$.
-      We extend $\F$ to a families $\F_{\leq n}$ of subgroups of $G \ltimes \Omega_{\mathfrak C, \leq n}^{op}$,
-      with $\F_{\leq \infty} = \hat \F$. 
-      
-      Define $\F_{\leq 0} = \phi_0^{\**}\F$ for $\phi_{\leq 0} \colon G \to G \times \Sigma^{op}$, $\phi_{\leq 0}(\**) = (\**,1)$,
-      and $\F_{\leq 1} = \F$.
+      We can additionally define $\hat \F_{\mathfrak C}$ and recover each $\F_{\vect T}$ inductively.
       %
-      Now suppose $\F_{\leq n}$ has been defined as a family of subgroups of $G \times \Omega_{\mathfrak C, \leq n}^{op}$,
-      and suppose $\vect T \in \Omega_{\mathfrak C}$ has $|V(T)| = n+1$.
-      $\vect T$ has a grafting decomposition $\vect T = \vect R \amalg (\vect T_i)_{1 \leq i \leq r}$
+      For $w \geq 0$, let $\Omega_{\mathfrak C, \leq w} \subseteq \Omega_{\mathfrak C}$ denote
+      the subcategory spanned by those trees $\vect T$ with $|V(\vect T)| \leq w$.
+      We extend $\F$ to a families $\F_{\mathfrak C, \leq w}$ of subgroups of $G \ltimes \Omega_{\mathfrak C, \leq w}^{op}$,
+      with $\F_{\mathfrak C, \leq \infty} = \hat \F_{\mathfrak C}$. 
+      
+      Define $\F_{\mathfrak C ,\leq 0} = \phi_0^{\**}\F_{\mathfrak C}$ for $\phi_{\leq 0} \colon G \to G \times \Sigma^{op}$, $\phi_{\leq 0}(\**) = (\**,1)$,
+      and $\F_{\mathfrak C, \leq 1} = \F_{\mathfrak C}$.
+      %
+      Now suppose $\F_{\mathfrak C, \leq w}$ has been defined as a family of subgroups of $G \times \Omega_{\mathfrak C, \leq w}^{op}$.
+      Any $\vect T \in \Omega_{\mathfrak C}$ with $|V(T)| = w+1$ has a grafting decompoisition
+      $\vect T = \vect R \amalg (\vect T_i)_{1 \leq i \leq r}$
       (cf. \cite[Example 3.34]{BP_geo})
-      with $\vect R \in \Sigma_{\mathfrak C}$ and $\vect T_i \in \Omega_{\mathfrak C, \leq n}$.
+      with $\vect R \in \Sigma_{\mathfrak C}$ and $\vect T_i \in \Omega_{\mathfrak C, \leq w}$.
       The automorphism group of $T$ is detected by this tuple $(T_i)$:
       \[
-            \Aut_{G \times \Omega_{\mathfrak C}^{op}}(\vect T) = \Aut_{G \ltimes \Sigma_r \wr \Omega_{\mathfrak C, \leq n}^{op})}\left((\vect T_i)_{1 \leq i \leq r}\right),
+            \Aut_{G \times \Omega_{\mathfrak C}^{op}}(\vect T) = \Aut_{G \ltimes \Sigma_r \wr \Omega_{\mathfrak C, \leq w}^{op})}\left((\vect T_i)_{1 \leq i \leq r}\right).
       \]
-      and moreover the family $\F_{\vect T}$ is detected by this decomposition:
-      \begin{equation}
-            \label{FVECTT2_EQ}
-            \F_{\vect T} =
-            \left( \Delta_r^{\**} \left( \F_{\leq n}^{\ltimes r} \right) \right)_{(\vect T_i)_{1 \leq i \leq r}}
-            \ \cap \
-            \pi_{\vect T_R}^{\**} \F_{\vect R}
-      \end{equation}
-      for
+      All together, this decomposition defines a functor
       \[
-            G \times \Sigma_r \wr \Omega_{\mathfrak C, \leq n}^{op} \xrightarrow{\ \Delta_r \ }
-            \Sigma_r \wr \left(G \ltimes \Omega_{\mathfrak C, \leq n}^{op}\right),
-            \qquad
-            \Aut(\vect T) \xrightarrow{\ \pi_{\vect T_R} \ } \Aut(\vect R).
+            \boldsymbol{V}_{\mathfrak C}^{\leq w+1} \colon
+            G \ltimes \Omega_{\mathfrak C, \leq w+1}^{op} \xrightarrow{\boldsymbol{V}_{Root}}
+            G \ltimes \left( \Sigma \wr \Omega_{\mathfrak C, \leq w}^{op} \times \Sigma_{\mathfrak C}^{op} \right) \xrightarrow{\Delta}
+            \Sigma \wr \left( G \ltimes \Omega_{\mathfrak C, \leq w}^{op} \right)
       \]
-      
-\end{remark}
+      and we define define
+      \[
+            \F_{\mathfrak C, \leq w+1} = \left(\boldsymbol{V}_{\mathfrak C, \leq w+1}\right)^{\**}\left(\F_{\mathfrak C, \leq w}^{\ltimes}\right).
+      \]
+% Explicitly, the family $\F_{\vect T}$ is detected by this decomposition as
+%       \begin{equation}
+%             \label{FVECTT2_EQ}
+%             \F_{\vect T} =
+%             \left( \Delta_r^{\**} \left( \F^{\leq w}^{\ltimes r} \right) \right)_{(\vect T_i)_{1 \leq i \leq r}}
+%             \ \cap \
+%             \pi_{\vect T_R}^{\**} \F_{\vect R}
+%       \end{equation}
+%       for
+%       \[
+%             G \times \Sigma_r \wr \Omega_{\mathfrak C, \leq w}^{op} \xrightarrow{\ \Delta_r \ }
+%             \Sigma_r \wr \left(G \ltimes \Omega_{\mathfrak C, \leq w}^{op}\right),
+%             \qquad
+%             \Aut(\vect T) \xrightarrow{\ \pi_{\vect T_R} \ } \Aut(\vect R).
+%       \]
+\end{remark}      
 
 We can use this inductive decomposition to detect cofibrancy.
 %
@@ -4795,9 +4841,10 @@ Denote the category of coherently $\underline{m}$-labeled $\mathfrak C$-trees an
 \begin{definition}
       Suppose we are given a collection of morphisms $f_a: A_a \to B_a$, $1 \leq a \leq m$, in $\Sym_{\mathfrak C}^G(\V)$.
       Define $\hat f \in \V^{G \ltimes \Omega_{\mathfrak C}^{\underline{m},op}}$ by
-      \[
+      \begin{equation}
+            \label{HATFVECTT_EQ}
             \hat f(\vect T) = \mathop{\square}\limits_{1 \leq a \leq m} \mathop{\square}\limits_{v \in \boldsymbol{V}_a(T)} f_a(\vect T_v)
-      \]      
+      \end{equation}
 \end{definition}
 
 The following is the $\mathfrak C$-colored analogue of \cite[Prop. 6.52]{BP_geo}.
@@ -4809,34 +4856,46 @@ As opposed to reproving this result by hand, we provide a new proof use the fami
       % level $\F$ (trivial) cofibrations in $\Sym(\V)$, i.e. $f_s(\vect C)$ is a (trivial) cofibration in $\V^{\Aut(\vect C)}_{\F_{\vect C}}$ for all signatures $\vect C$.
       Then $\hat f$ is an $\F$-cofibration in $\V^{G \ltimes \Omega_{\mathfrak C}^{\underline{m},op}}_{\F}$,     
       %
-      In particular, for any $\underline{m}$-labeled $\mathfrak C$-tree $\vect T \in \Omega^{\underline{m}}_{\mathfrak C}$, the map
-      \[
-            \hat f(\vect T) = \mathop{\square}\limits_{1 \leq a \leq m} \mathop{\square}\limits_{v \in \boldsymbol{V}_a(T)} f_a(\vect T_v)
-      \]
+      In particular, for any $\underline{m}$-labeled $\mathfrak C$-tree $\vect T \in \Omega^{\underline{m}}_{\mathfrak C}$,
+      \eqref{HATFVECTT_EQ}
       is a (trivial) cofibration in $\V^{\Aut_{G \ltimes \Omega_{\mathfrak C}}(\vect T)}_{\F_{\vect T}}$.
-      Moreover, $\hat f(\vect T)$ is a trivial cofibration if any of the $f_a(\vect T_v)$ are.
+      Moreover, $\hat f(\vect T)$ is a trivial cofibration if any $f_a$ is for any label $1 \leq a \leq m$ present in $\vect T$.
 \end{proposition}
-
 \begin{proof}
       As in Remark \ref{FT_REM}, we go by induction on $n = |V(\vect T)|$.
       The base cases $n = 0$ and $n=1$ are immediate.
 
-      For induction, suppose $\hat f$ is a $\F$-cofibration in $\V^{G \ltimes \Omega_{\mathfrak C, \leq n}^{op}}_{\F}$,
-      and that $\vect T \in G \ltimes \Omega_{\mathfrak C}^{\underline{m},op}$ with $\vect T = \vect R \amalg (\vect T_i)$ and $|V(\vect T)| = n+1$.
-      By Proposition \ref{EQQUILADJ PROP}, \eqref{FVECTT2_EQ}, and Remark \ref{COHMLBL_REM}, we have left Quillen functors
+      For induction, suppose $\hat f$ is a $\F$-cofibration in $\V^{G \ltimes \Omega_{\mathfrak C, \leq w}^{op}}_{\F}$.
+      Proposition \ref{SIGMAWRGF PROP}(i) then implies
+      $\hat f^{\square} \in \V^{\Sigma \wr (G \ltimes \Omega_{\mathfrak C, \leq w}^{\underline{m},op})}_{\F_{\mathfrak C, \leq w}^{\ltimes}}$
+      is a cofibration.
+      The result then follows from Remarks \ref{FT_REM} and \ref{COHMLBL_REM}, as the composite functor
       \[
-            \V^{\Sigma_r \wr \left(G \ltimes \left(\Omega_{\mathfrak C, \leq n}^{\underline{m}}\right)^{op}\right)}_{\F^{\ltimes r}}
-            \xrightarrow{\quad \Delta_r^{\**} \quad}
-            \V^{G \ltimes \Sigma_r \wr \left(\Omega_{\mathfrak C, \leq n}^{\underline{m}}\right)^{op}}_{\Delta_r^{\**}\F^{\ltimes r}}
-            \xrightarrow{\quad ev_{(\vect T_i)} \quad}
-            \V^{\Aut(\vect T)}_{\F_{\vect T}},
+            \V^{\Sigma \wr (G \ltimes \Omega_{\mathfrak C, \leq w}^{\underline{m},op})}_{\F_{\mathfrak C, \leq w}^{\ltimes}}
+            % \xrightarrow{\Delta^{\**}}
+            % \V^{G \ltimes \left( \Sigma \wr \Omega_{\mathfrak C, \leq w}^{\op} \times \Sigma_{\mathfrak C}^{op} \right)}_{\Delta^{\**}\F_{\mathfrak C, w}^{\ltimes}}
+            % \xrightarrow{\boldsymbol{V}_{Root}}
+            \xrightarrow{\boldsymbol{V}_{\mathfrak C, \leq w+1}}
+            \V^{G \ltimes \Omega_{\mathfrak C, \leq w+1}^{\underline{m},op}}_{\F_{\mathfrak C, \leq w+1}}
       \]
-      thus Proposition \ref{SIGMAWRGF PROP}(i) implies
-      $\hat f^{\square r}\left((\vect T_i)_{1 \leq i \leq r}\right)$ is a $\F_{\vect T}$-cofibration in $\V^{\Aut(\vect T)}_{\F_{\vect T}}$.
-      More easily, $f(\vect R)$ is a $\F_{\vect T}$-cofibration in $\V^{\Aut(\vect T)}_{\F_{\vect T}}$.
+      is left Quillen by Propositions \ref{EQQUILADJ PROP} and \ref{RESGEN PROP}.
 
-      Proposition \ref{RESGEN PROP} then implies that
-      $\hat f(\vect T) = f(\vect R) \square f^{\square r}\left( (\vect T_i)_{1 \leq i \leq r} \right)$ is as well, finishing the proof.
+      The moreover follows by an analogous induction.
+      % Let $\vect T \in G \ltimes \Omega_{\mathfrak C}^{\underline{m},op}$ with $\vect T = \vect R \amalg (\vect T_i)$ and $|V(\vect T)| = n+1$.
+      % By Proposition \ref{EQQUILADJ PROP}, \eqref{FVECTT2_EQ}, and Remark \ref{COHMLBL_REM}, we have left Quillen functors
+      % \[
+      %       \V^{\Sigma_r \wr \left(G \ltimes \left(\Omega_{\mathfrak C, \leq w}^{\underline{m}}\right)^{op}\right)}_{\F^{\ltimes r}}
+      %       \xrightarrow{\quad \Delta_r^{\**} \quad}
+      %       \V^{G \ltimes \Sigma_r \wr \left(\Omega_{\mathfrak C, \leq w}^{\underline{m}}\right)^{op}}_{\Delta_r^{\**}\F^{\ltimes r}}
+      %       \xrightarrow{\quad ev_{(\vect T_i)} \quad}
+      %       \V^{\Aut(\vect T)}_{\F_{\vect T}},
+      % \]
+      % thus Proposition \ref{SIGMAWRGF PROP}(i) implies
+      % $\hat f^{\square r}\left((\vect T_i)_{1 \leq i \leq r}\right)$ is a $\F_{\vect T}$-cofibration in $\V^{\Aut(\vect T)}_{\F_{\vect T}}$.
+      % More easily, $f(\vect R)$ is a $\F_{\vect T}$-cofibration in $\V^{\Aut(\vect T)}_{\F_{\vect T}}$.
+
+      % Proposition \ref{RESGEN PROP} then implies that
+      % $\hat f(\vect T) = f(\vect R) \square f^{\square r}\left( (\vect T_i)_{1 \leq i \leq r} \right)$ is as well, finishing the proof.
 \end{proof}
 
 
@@ -5135,79 +5194,120 @@ As opposed to reproving this result by hand, we provide a new proof use the fami
 
 For the last step of the proof of Theorem \ref{THMIII}, we  will need to restrict our $(G,\Sigma)$-families significantly.
 
-
 \begin{definition}
-      \label{GRAPHSUB_DEF}
-      A subgroup $\Gamma \leq G \times \Sigma_n^{op}$ is a \textit{$G$-graph subgroup} if
-      $\Gamma \cap \Sigma_n^{op} = \**$;
-      that is, if $\Gamma$ consists of elements of the from $(h, \phi(h)^{-1})$
-      for $h \in H \leq G$ and $H \xrightarrow{\phi} \Sigma_n$.
+      \label{PIS_DEF}
+      A $(G,\Sigma)$-family $\F$ is called a \textit{pseudo indexing system} if
+      \[
+            \hat \F_{\set{\**}} \subseteq \pi_{\mathsf{lr}}^{\**}\F,
+      \]
+      for $\pi_{\mathsf{lr}} \colon G \times \Omega^{op} \to G \times \Sigma^{op}$.
+\end{definition}
+
+Equivalently,
+\begin{equation}
+      \label{PIS_EQ}
+      \F_{T} \subseteq \pi_{\mathsf{lr}(T)}^{\**} \F_{\mathsf{lr}(T)}
+\end{equation}
+for all $T \in \Omega$,
+$\pi_{\mathsf{lr}(T)} \colon \Aut_{G \times \Omega^{op}}(T) \to \Aut_{G \times \Omega^{op}}(\mathsf{lr}(T))$.
+
+
+
+% \begin{definition}
+%       \label{GRAPHSUB_DEF}
+%       A subgroup $\Gamma \leq G \times \Sigma_n^{op}$ is a \textit{$G$-graph subgroup} if
+%       $\Gamma \cap \Sigma_n^{op} = \**$;
+%       that is, if $\Gamma$ consists of elements of the from $(h, \phi(h)^{-1})$
+%       for $h \in H \leq G$ and $H \xrightarrow{\phi} \Sigma_n$.
       
-      We write $\mathcal{F}^{\Gamma} = \set{\mathcal{F}_n^{\Gamma}}$
-      for the $(G,\Sigma)$-family of $G$-graph subgroups.
+%       We write $\mathcal{F}^{\Gamma} = \set{\mathcal{F}_n^{\Gamma}}$
+%       for the $(G,\Sigma)$-family of $G$-graph subgroups.
 
-      A \textit{$(G,\Sigma)$-graph family} is any $(G,\Sigma)$-family $\mathcal F = \set{\F_n}$ consisting of subfamilies of $\F^\Gamma$.
-\end{definition}
+%       A \textit{$(G,\Sigma)$-graph family} is any $(G,\Sigma)$-family $\mathcal F = \set{\F_n}$ consisting of subfamilies of $\F^\Gamma$.
+% \end{definition}
 
-We consider a very special class of $(G,\Sigma)$-graph families.
+% We consider a very special class of $(G,\Sigma)$-graph families.
 
-\begin{definition}
-      \label{WIS_DEF}
-      A $(G,\Sigma)$-graph family $\F = \set{\F_n}$ is a \textit{weak indexing system} if
-      for all $T \in \Omega = \Omega_{\set{\**}}$ with $\mathsf{lr}(T) = C$,
-      \begin{equation}
-            \label{WIS_EQ}
-            \F_T \subseteq \pi_{\mathsf{lr}(T)}^{\**} \F_C
-      \end{equation}
-      for $\pi_{\mathsf{lr}(T)} \colon G \times \Aut_{\Omega^{op}}(T) \to G \times \Aut_{\Omega^{op}}(C)$ the natural map.
-\end{definition}
+% \begin{definition}
+%       \label{WIS_DEF}
+%       A $(G,\Sigma)$-graph family $\F = \set{\F_n}$ is a \textit{weak indexing system} if
+%       for all $T \in \Omega = \Omega_{\set{\**}}$ with $\mathsf{lr}(T) = C$,
+%       \begin{equation}
+%             \label{WIS_EQ}
+%             \F_T \subseteq \pi_{\mathsf{lr}(T)}^{\**} \F_C
+%       \end{equation}
+%       for $\pi_{\mathsf{lr}(T)} \colon G \times \Aut_{\Omega^{op}}(T) \to G \times \Aut_{\Omega^{op}}(C)$ the natural map.
+% \end{definition}
 
-\begin{example}
-      For any group $G$, $\F^\Gamma$ is a weak indexing system.
-\end{example}
+% \begin{example}
+%       For any group $G$, $\F^\Gamma$ is a weak indexing system.
+% \end{example}
+
+% \begin{remark}
+%       Weak indexing systems are a generalization of the notion of \textit{indexing systems} given by \cite[Defn. 3.22]{BH15},
+%       and several definitions have been given by the authors
+%       (\cite[Defn. 9.5]{Per18}, \cite[Defn. 4.49]{BP_geo}, \cite[Defn. 6.2]{BP_edss});
+%       additional context and motivation can be found at each of these locations.
+      
+%       The descriptions as written previously involve the combinatorics of a certain category $\Omega_G$ of \textit{$G$-trees} or certain closure conditions under operations of finite sets,
+%       neither of which will be needed for this article.
+%       However, by \cite[Remark 6.45]{BP_geo}, the above characterization is the same as those already given.
+% \end{remark}
 
 \begin{remark}
-      Weak indexing systems are a generalization of the notion of \textit{indexing systems} given by \cite[Defn. 3.22]{BH15},
-      and several definitions have been given by the authors
+      Pseudo indexing systems are a generalization of the notion of \textit{indexing systems} introduced by Blumberg-Hill \cite[Defn. 3.22]{BH15}.
+      Moreover, they encompase the notion of \textit{weak indexing system} given by the authors
       (\cite[Defn. 9.5]{Per18}, \cite[Defn. 4.49]{BP_geo}, \cite[Defn. 6.2]{BP_edss});
-      additional context and motivation can be found at each of these locations.
-      
-      The descriptions as written previously involve the combinatorics of a certain category $\Omega_G$ of \textit{$G$-trees} or certain closure conditions under operations of finite sets,
-      neither of which will be needed for this article.
-      However, by \cite[Remark 6.45]{BP_geo}, the above characterization is the same as those already given.
+      the two notions are in agreement by \cite[Remark 6.45]{BP_geo} when each $\F_n$ is a collection of \textit{$G$-graph subgroups} of $G \times \Sigma_n$.
+
+      Additional context and motivation for these definitions can be found at the above citations.
 \end{remark}
 
 This condition is equivalent to the seemingly stronger condition where $\mathfrak C$ is allowed to be any $G$-set.
 \begin{lemma}
       Let $\F$ be a $(G,\Sigma)$-graph family. Then the following are equivalent.
       \begin{enumerate}[label = (\roman*)]
-      \item $\F$ is a weak indexing system.
-      \item For all $G$-sets $\mathfrak C$ and $\mathfrak C$-trees $\vect T$ with $\mathsf{lr}(\vect T) = \vect C$, 
-            $\F_{\vect T} \subseteq \pi_{\mathsf{lr}(\vect T)}^{\**}\F_{\vect C}$
-            for $\pi_{\mathsf{lr}(\vect T)} \colon \Aut(\vect T) \to \Aut(\vect C)$.
+      \item $\F$ is a pseudo indexing system.
+      \item For all $G$-sets $\mathfrak C$,
+            $\hat \F \subseteq \pi_{\mathfrak C, \mathsf{lr}}^{\**} \phi_{\mathfrak C}^{\**} \F$
+            for $\pi_{\mathfrak C, \mathsf{lr}} \colon G \ltimes \Omega_{\mathfrak C}^{op} \to G \ltimes \Sigma_{\mathfrak C}^{op}$.
       \end{enumerate}
-
 \end{lemma}
+
+\begin{remark}
+      (ii) is equivalent to these statement that
+      for each $\mathfrak C$-trees $\vect T$ with $\mathsf{lr}(\vect T) = \vect C$,
+      $\F_{\vect T} \subseteq \pi_{\mathsf{lr}(\vect T)}^{\**}\F_{\vect C}$
+      for $\pi_{\mathsf{lr}(\vect T)} \colon \Aut_{G \ltimes \Omega_{\mathfrak C}^{op}}(\vect T) \to \Aut_{G \ltimes \Sigma_{\mathfrak C}^{op}}(\vect C)$.
+\end{remark}
+
 \begin{proof}
       (ii) implies (i) by letting $\mathfrak C = \**$.
       Conversely, we have
       \[
-            \F_{\vect T} = 
-            \phi_{\vect T}^{\**}\F_T \subseteq
-            \phi_{\vect T}^{\**}\pi_{\mathsf{lr}(T)}^{\**} \F_C =
-            \pi_{\mathsf{lr}(\vect T)}^{\**} \phi_{\vect C}^{\**} \F_C =
-            \pi_{\mathsf{lr}(\vect T)}^{\**} \F_{\vect C}
+            \hat \F_{\mathfrak C} =
+            \phi_{\mathfrak C}^{\**} \hat \F_{\set{\**}} \subseteq
+            \phi_{\mathfrak C}^{\**} \pi_{\mathsf{lr}}^{\**} \F =
+            \pi_{\mathsf{lr}, \mathfrak C}^{\**} \phi_{\mathfrak C}^{\**} \F
       \]
-      by \eqref{FVT_EQ}, \eqref{WIS_EQ},
-      the commuting square $\phi_{\vect C} \pi_{\mathsf{lr}(\vect T)} = \pi_{\mathsf{lr}(T)} \phi_{\vect T}$,
-      and \eqref{PHISTAR_EQ}.
+      by \eqref{FVT_EQ} and \eqref{PIS_EQ}.
+      % \[
+      %       \F_{\vect T} = 
+      %       \phi_{\vect T}^{\**}\F_T \subseteq
+      %       \phi_{\vect T}^{\**}\pi_{\mathsf{lr}(T)}^{\**} \F_C =
+      %       \pi_{\mathsf{lr}(\vect T)}^{\**} \phi_{\vect C}^{\**} \F_C =
+      %       \pi_{\mathsf{lr}(\vect T)}^{\**} \F_{\vect C}
+      % \]
+      % by \eqref{FVT_EQ}, \eqref{WIS_EQ},
+      % the commuting square $\phi_{\vect C} \pi_{\mathsf{lr}(\vect T)} = \pi_{\mathsf{lr}(T)} \phi_{\vect T}$,
+      % and \eqref{PHISTAR_EQ}.
 \end{proof}
 
-The following result is then immediate from Proposition \ref{EQQUILADJ PROP}.
+The following result is then immediate.
 \begin{corollary}
       \label{PIVECTT_COR}
       Suppose $\V$ admits all equivariant model structures,
-      and let $\F$ be a weak indexing system,
+      and let $\F$ be a pseudo indexing system,
       $\mathfrak C$ a $G$-set,
       and $\vect T$ a $\mathfrak C$-tree with $\mathsf{lr}(\vect T) = \vect C$.
       Then the map
@@ -5230,6 +5330,7 @@ The following result is then immediate from Proposition \ref{EQQUILADJ PROP}.
 \end{proof}
 
 
+\todo[inline]{come back}
 
 
 
