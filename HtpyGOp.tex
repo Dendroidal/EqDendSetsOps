@@ -252,7 +252,7 @@ cd,patterns,calc}
 
 % ---- Title --------
 
-\title{On the homotopy theory of equivariant enriched operads}
+\title{On the homotopy theory of equivariant operads}
 
 \author{Peter Bonventre, Lu\'is A. Pereira}%
 
@@ -2931,7 +2931,7 @@ description of \eqref{FROPEXP EQ}.
 
 
 
-\begin{definition}
+\begin{definition}\label{FREEOP DEF}
 Let $\mathcal{V}$ be a closed symmetric monoidal category.
 
 The \textit{fibered free operad monad} $\mathbb{F}$ on $\mathsf{Sym}_\bullet(\mathcal{V})$ 
@@ -4018,7 +4018,7 @@ the canonical forgetful functor.
 
 
 
-\begin{remark}
+\begin{remark}\label{FAMC_DEF_REM}
 The functors
 $\pi_{\mathfrak{C}} \colon
 G \ltimes \Sigma_{\mathfrak{C}}^{op} \to
@@ -4345,7 +4345,7 @@ and $\boldsymbol{V}^{in}$ is the tuple containing only the inert vertices.
 
 
 
-\begin{lemma}
+\begin{lemma}\label{OURE LEM}
 Fix a $G$-set of colors $\mathfrak{C}$ and let
 $u\colon X \to Y$ be a map in $\mathsf{Sym}^G_{\mathfrak{C}}(\V)$
 and
@@ -4714,7 +4714,7 @@ For any $G$-set $\mathfrak C$, we write
       \to
       \Sigma \wr  (G^{op}  \ltimes \Sigma_{\mathfrak{C}})
 \]
-for the natural extensions of the leaf-roof and vertex map {\color{red} from *earlier reference*}.
+for the natural extensions of the leaf-roof and vertex map {\color{blue} from *earlier reference*}.
 
 \begin{definition}
       Fix a $(G,\Sigma)$-family $\F = \set{\F_n}$.
@@ -4725,6 +4725,8 @@ for the natural extensions of the leaf-roof and vertex map {\color{red} from *ea
       for $\phi_{\mathfrak C} \colon G \ltimes \Sigma_{\mathfrak C}^{op} \to G \times \Sigma^{op}$
       the natural map.
 \end{definition}
+
+{\color{red} Luis: the $\phi_{\mathfrak{C}}$ notation you are using here clashes with the $\pi_{\mathfrak{C}}$ notation from Remark \ref{FAMC_DEF_REM}. Fix this.}
 
 Unpacking, we see that for any $\mathfrak C$-tree $\vect T$,
 $\F_{\vect T} = \hat \F_{\vect T}$ is the family of subgroups of $\Aut_{G \ltimes \Omega_{\mathfrak C}^{op}}(\vect T)$ consisting of
@@ -4747,6 +4749,13 @@ $\pi_{\vect T_v}(\Gamma) \in \F_{\vect T_v} = \phi_{\vect T_v}^{\**}\F_{T_v}$.
 %             \Aut_{G \times \Omega^{op}}(T_v)
 %       \end{tikzcd}
 % \end{equation}
+
+
+{\color{red} Luis: What does 
+	$\pi_{\vect T_v}(\Gamma)$ mean? 
+	I have a strong suspicion that you are not referring to the right thing.
+}
+
 
 \begin{remark}
       When $\mathfrak C = \**$ and $\F$ is a $(G,\Sigma)$-graph family (Definition \ref{GRAPHSUB_DEF}), 
@@ -4821,6 +4830,9 @@ $\pi_{\vect T_v}(\Gamma) \in \F_{\vect T_v} = \phi_{\vect T_v}^{\**}\F_{T_v}$.
 %       \]
 \end{remark}      
 
+
+
+
 We can use this inductive decomposition to detect cofibrancy.
 %
 For full generality, given any $m \geq 0$, we define a \textit{coherent $\underline{m}$-labeling} on a $\mathfrak C$-tree $\vect T \in \Omega_{\mathfrak C}$
@@ -4829,6 +4841,31 @@ to be an assignment
       \boldsymbol{E}(\vect T) / \Aut_{G \ltimes \Omega_{\mathfrak C}^{op}}(T) \longto \underline{m} = \set{1,2,\dots,m}.
 \]
 Denote the category of coherently $\underline{m}$-labeled $\mathfrak C$-trees and label-preserving isomorphisms by $\Omega^{\underline{m}}_{\mathfrak C}$.
+
+{\color{red} Luis: Surely $\boldsymbol{E}(\vect T)$ should be $\boldsymbol{V}(\vect T)$
+}
+
+
+{\color{red} Luis: This is a very poor choice. 
+	There is no reason to restrict the labeling according to the automorphisms, when you can instead restrict the automorphisms according to the labelings, which gives a more general result.
+}
+
+
+
+{\color{red}Luis:
+	$\Omega^{\underline{m}}_{\mathfrak{C}}$ will admit (either as is currently or using the more general definition in the previous comment)
+	a vertex functor
+	\[
+	\Omega^{\underline{m}}_{\mathfrak{C}}
+	\xrightarrow{\boldsymbol{V}}
+	\Sigma \wr \left(\coprod_m \Sigma_{\mathfrak{C}} \right)
+	\]
+	and analogously for when there are $G$-actions.
+	Using this alternate vertex functor one should be able to completely sidestep the need to do induction over the trees at all.
+	I.e. Remark \ref{FT_REM} should not be needed 
+	for anything.
+	Fix the argument by removing all the unnecessary discussion related to Remark \ref{FT_REM}.
+}
 
 \begin{remark}
       \label{COHMLBL_REM}
@@ -8826,9 +8863,22 @@ The generating (trivial) cofibrations
 \section{The monad for free colored operads}
 \label{MONAD_APDX}
 
+This appendix is fairly technical.
+Its goal is to complete Definition \ref{FREEOP DEF}
+by fully describing the monad structure 
+on the fibered free operad monad $\mathbb{F}$
+of \eqref{FREEOP_EQ},
+and to use this to prove some technical results used in the rest of the paper, 
+most notably the key filtration result in Lemma \ref{OURE LEM}.
 
-Our main goal in this appendix is to establish some necessary technical results concerning the category $\mathsf{Op}(\mathcal{V})$ of colored operads,
-building off the work from \cite{BP_geo}.
+
+
+
+
+
+
+
+Our approach builds off our previous work in \cite{BP_geo}.
 We begin by establishing technical definitions and relations which are the key constituents of the monad in \S \ref{CSTRINGS_SEC} and \S \ref{WRACONST SEC}.
 In \S \ref{NONEQMON SEC}, we construct the monad describing colored operads $\Op(\V)$, as well as provide a useful filtration on free extensions of operads.
 In \S \ref{EQMON_SEC}, we upgrade these discussions to the equivariant case.
@@ -8839,6 +8889,27 @@ In \S \ref{EQMON_SEC}, we upgrade these discussions to the equivariant case.
 
 \subsection{Colored strings}
 \label{CSTRINGS_SEC}
+
+{\color{red} HERE}
+
+\[
+\left(
+(c_{1,1},\cdots,c_{1,n_1}),
+(c_{2,1},\cdots,c_{2,n_2}),
+\cdots,
+(c_{k,1},\cdots,c_{k,n_k})
+\right)
+\mapsto
+\left(
+c_{1,1},\cdots,c_{1,n_1},
+c_{2,1},\cdots,c_{2,n_2},
+\cdots,
+c_{k,1},\cdots,c_{k,n_k}
+\right)
+\]
+
+{\color{red} HERE}
+
 
 
 Throughout we will let $\Omega$ denote the dendroidal category of trees, introduced in \cite{MW07}.
