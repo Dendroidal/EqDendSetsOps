@@ -286,10 +286,59 @@ cd,patterns,calc}
 
 Colored operads and their algebras have become increasing relevant and utilized by the algebraic topology and related communities in recent years.
 Moreover, the variety of categories in which these operads live has also expanded.
-Finally, a desire to understand and control the interaction of algebra and homotopy theory has fueled a wave of papers analyzing
+Finally, a desire to understand and control the interaction of algebra and homotopy theory has fueled a wave of research analyzing
 model structures and other homotopical features of the categories of enriched operads and their algebras.
 
-We bring this expansion to the equivariant setting.
+
+We take an orthogonal approach, in that we wish to generalize the type of weak equivalences we can allow, NOT what input category we can use
+(in fact, our hypotheses are very restrictive).
+All of the above theories are naive/levelwise, ignoring all the isotropy inherent in symmetric operads.
+
+- It's not just what Stephan does, there is in fact a ton of interaction between the equivariance and the algebra of operads, which for example one doesn't see when only working with categories.
+
+
+
+We build model structures on the category of $G$-objects in (symmetric, colored) operads.
+
+
+
+
+
+\todo[inline]{this is way too technical. introduce things for a bit first!}
+
+This seemingly small addition exposes a number of new challenges.
+%
+First, the non-equivariant homotopy theories do not take into account any of the isotropy information already present in symmetric operads,
+so macherinery must be build to actively detect this behavior.
+%
+Second, the constituent pieces themselves are more complicated to describe.
+For example, producing answers to the basic question
+``what is the natural category of $G$-operads with a single fixed set of colors/objects, and how can these pieces interact?''
+demands a certain amount of sublty.
+
+As opposed to facing these questions individually,
+in this paper we have chosen a perspective which provides answers to them all formally and simultaneously.
+The theme runs throughout the entirety of this article:
+whenever possible, we construct/package algebraic and homotopy theoretic data universally/abstractly across all relevant fields, and only piece this information apart afterwards.
+
+This comes in three main examples:
+\begin{itemize}
+\item fibered categories/adjunctions/monads
+\item families of subgroups of groupoids
+\item fibered Yoneda Lemma / universal symmetric sequences
+\end{itemize}
+
+There are several advantages to this perspective:
+\begin{itemize}
+\item formal properties do not need to be checked by hand for each particular case
+\item definitions become particular cases of general phenomenon, and often we can recover/compare different perspectives formally by moving across fibers
+\item proofs are streamlined due to the vast amount of formality.
+\end{itemize}
+
+Morever, this is \textit{required} to discuss the equivariant setting - ``fiberwise'' discussions are only really fiberwise after forgetting the $G$-action. The $G$-action moves all the pieces around.
+
+The most compelling example of this is the definitions of symmetric sequences and operads.
+
 \todo[inline]{come back}
 
 \subsection{Lit review}
@@ -317,13 +366,16 @@ Moreover, there is a flexibility over precisely what the defining features of th
 \begin{center}
       \begin{tabular}[h]{c | c | c}
         \textbf{Source} & \textbf{assumptions} & \textbf{model structure} \\ \hline
-        \cite{Ber07b},\cite{CM13b} & $\V = \sSet$ & \begin{tabular}[t]{@{}c@{}} weak equivalences: DK-equivalences \\ fibrations: isofibrations \end{tabular}
+        \cite{Ber07b},\cite{CM13b} & $\V = \sSet$ & \begin{tabular}[t]{@{}c@{}} weak equivs: DK-equivs \\ fibrations: isofibs \end{tabular}
         \\
-        \cite{BM13},\cite{Cav} & ``adequate'' plus technical & \begin{tabular}[t]{@{}c@{}} fibrant objects: locally fibrant objects \\ trivial fibrations: local trivial fibrations which are surjective on objects \\ \textit{weak equivalences: DK-equivalences} \end{tabular}
+        \cite{BM13},\cite{Cav} & ``adequate'' plus technical & \begin{tabular}[t]{@{}c@{}} fibrant objects: locally fibrant \\ trivial fibs: surj local trivial fibs \\ \textit{weak equivalences: DK-equivs} \end{tabular}
         \\
-        \cite{Mur15} & monoid axiom & \begin{tabular}[t]{@{}c@{}} weak equivalences: DK-equivalences \\ trivial fibrations: local trivial fibrations which are surjective on objects \end{tabular}
+        \cite{Mur15} & monoid axiom & \begin{tabular}[t]{@{}c@{}} weak equivs: DK-equivs \\ trivial fibs: surj local trivial fibs \end{tabular}
         \\
-        \cite{Sta14} & monoid axiom, simplicial, plus weak equivalences closed under transfinite (lazy) \begin{tabular}[t]{@{}c@{}} weak equivalences: DK-equivalences \\ fibrations: isofibrations \end{tabular}
+        \cite{Sta14} & \begin{tabular}[t]{@{}c@{}} monoid axiom, simplicial \\ weak equivs closed under transfinite (lazy) 
+                       \end{tabular}
+                        &
+                          \begin{tabular}[t]{@{}c@{}} weak equivs: DK-equivs \\ fibs: isofibs \end{tabular}
       \end{tabular}
 \end{center}
 
@@ -556,6 +608,19 @@ exists provided that:
 \end{enumerate}
 \end{customthm}
 
+One would like that cofibrant operads in $\Op^G_{\mathfrak C, \F}(\V)$ forget to cofibrant symmetric sequences in $\Sym^G_{\mathfrak C, \F}(\V)$.
+However, as has occured in previous scenarios
+(e.g. \cite[{Remark 6.64}]{BP_geo} or \cite[Prop. 4.10]{GW18})
+this only holds for a restricted class of $(G,\Sigma)$-families.
+\begin{customthm}{II}\label{THMII}
+	Suppose $\V$ satisfies the hypotheses in Theorem \ref{THMI},
+	and let $\F$ be a pseudo indexing system (Definition \ref{PIS_DEF}).
+	If $\O \in \Op^G_\F(\V)$ is cofibrant, then the underlying symmetric sequence $U\O$ is cofibrant in $\Sym^G_\F(\V)$.
+\end{customthm}
+This will be a special case of Theorem \ref{SIGMAG_COF_THM}.
+Our class of pseudo indexing systems is generally larger than
+the class of weak indexing systems \cite[Defn. 4.49]{BP_geo}
+(or equivalently, the class of realizable sequences \cite[Defn. 4.6]{GW18}).
 
 
 The fixed color model structures
@@ -594,8 +659,8 @@ we can now state our main result.
 
 
 
-\begin{customthm}{II}
-      \label{THMII}
+\begin{customthm}{III}
+      \label{THMIII}
 Fix a $G$-set of colors $\mathfrak{C}$
 and a $(G,\Sigma)$-family $\F = \set{\F_n}_{n \geq 0}$
 which has enough units.
@@ -608,7 +673,7 @@ $F\colon \mathcal{O} \to \mathcal{P}$
 is a Dwyer-Kan weak equivalence (resp. trivial fibration) if
 \begin{itemize}
 \item the maps
-\begin{equation}\label{THMII1ST EQ}
+\begin{equation}\label{THMIII1ST EQ}
 	\O(\vect{C})^{\Lambda} \to \mathcal{P}(F(\vect{C}))^{\Lambda}
 \end{equation}
 are Kan equivalences (trivial Kan fibrations)
@@ -617,7 +682,7 @@ for all $\mathfrak{C}$-signatures $\vect{C}$
 and $\Lambda \in \F$ which stabilizes $\vect{C}$;
 \item 
 the maps of (unenriched) categories
-\begin{equation}\label{THMII2ND EQ}
+\begin{equation}\label{THMIII2ND EQ}
 \pi_0 j^{\**} \O^H 
 \to 
 \pi_0 j^{\**} \mathcal{P}^H 
@@ -628,7 +693,7 @@ for all $H \in \F_1$.
 More generally, a model structure on 
 $\Op^G(\V)$
 with weak equivalences/trivial fibrations determined as in 
-\eqref{THMII1ST EQ},\eqref{THMII2ND EQ}
+\eqref{THMIII1ST EQ},\eqref{THMIII2ND EQ}
 exists provided $(\V,\otimes)$ satisfies conditions
 (i),(ii),(iii),(iv),(v) in Theorem \ref{THMI}
 as well as:
@@ -648,14 +713,14 @@ as well as:
 
 \begin{remark}\label{WETRFCAN REM}
 The requirement that the maps in 
-\eqref{THMII1ST EQ}
+\eqref{THMIII1ST EQ}
 are weak equivalences implies in particular that the maps in
-\eqref{THMII2ND EQ}
+\eqref{THMIII2ND EQ}
 are fully faithful.
-Therefore, the condition following \eqref{THMII2ND EQ}
+Therefore, the condition following \eqref{THMIII2ND EQ}
 can be restated as saying that those maps are
 equivalences of categories (resp. equivalences of categories that are surjective on objects) or, in other words,
-that the maps in \eqref{THMII2ND EQ}
+that the maps in \eqref{THMIII2ND EQ}
 are weak equivalences/trivial fibrations in the canonical model structure on the category $\mathsf{Cat}$ of unenriched categories.
 \end{remark}
 
@@ -663,16 +728,16 @@ are weak equivalences/trivial fibrations in the canonical model structure on the
 
 \begin{remark}\label{FIBSALT REM}
 	In light of Remark \ref{WETRFCAN REM}, 
-	it is natural to ask if the fibrations from Theorem \ref{THMII}
+	it is natural to ask if the fibrations from Theorem \ref{THMIII}
 	admit a similar description.
 	
 	I.e. we may ask if a map $F\colon \O \to \mathcal{P}$
-	is a fibration in the sense of Theorem \ref{THMII}
+	is a fibration in the sense of Theorem \ref{THMIII}
 	iff the maps in 
-	\eqref{THMII1ST EQ}
+	\eqref{THMIII1ST EQ}
 	are Kan fibrations in $\mathsf{sSet}$
 	and the maps in
-	\eqref{THMII2ND EQ}
+	\eqref{THMIII2ND EQ}
 	are isofibrations (i.e. fibrations in the canonical model structure in $\mathsf{Cat}$).
 	
 	However, at our level of generality we can only guarantee the 
@@ -695,24 +760,18 @@ this produces $G$-model structures on $\V$-enriched categories with a fixed set 
 \todo[inline]{talk about families for categories - only $\F_1$-matters, and so we are recovering Stephan (not Caviglia) (equivariantly or not - say what the trivial family is for $G = \**$)}
 \todo[inline]{talk about what conditions we do or do not need for these restrictions}
 
-Finally, we compare the conditions of being cofibrant in $\Op^G_\F(\V)$ and $\Sym^G_\F(\V)$.
-\begin{customthm}{III}\label{THMIII}
-	Suppose $\V$ satisfies the hypotheses in Theorem \ref{THMI},
-	and let $\F$ be a pseudo indexing system (Definition \ref{PIS_DEF}).
-	If $\O \in \Op^G_\F(\V)$ is cofibrant, then the underlying symmetric sequence $U\O$ is cofibrant in $\Sym^G_\F(\V)$.
-\end{customthm}
-This will be a special case of Theorem \ref{SIGMAG_COF_THM}.
 
 \todo[inline]{remark about semi-model structures}
 
 \todo[inline]{talk about techinical features needed from Berger-Moerdijk? work similiar things into interval cofibrancy statement}
+
 
 \section{Preliminaries}
 
 
 Much as in the non-equivariant case, 
 our approach to building the model structures
-in Theorem \ref{THMII} on the category
+in Theorem \ref{THMIII} on the category
 $\mathsf{Op}^G_{\bullet}(\V)$
 of equivariant operads on all sets of colors
 will be to first build the model structures in Theorem \ref{THMI}
@@ -3764,7 +3823,7 @@ for all $\Lambda \leq \Aut_{\Sigma_n \wr \bar{\mathcal G}}(x_i))$.
 
 \begin{lemma}[cf. {\cite[Prop. 6.22]{BP_geo}}]
 \label{LTIMESNMINC LEM}
-Let $\F$ be a family in the groupoid $\G$ and write
+Let $\F$ be a family of subgroups in the groupoid $\G$ and write
 $\iota \colon \left(\Sigma_n \wr \G\right) \times \left(\Sigma_m \wr \G\right) \to \Sigma_{n+m} \wr \G$ for the standard inclusion.
 Then 
 \begin{equation}\label{LTIMESNMINC EQ}
@@ -4058,8 +4117,8 @@ we will be interested in three main examples of $(G,\Sigma)$-families:
       (in which case the $\F^{all}_{\mathfrak{C}}$ are also the families of all subgroups), which is useful mainly for technical purposes.
       
 \item Secondly, there is the family of $\F^{\Gamma}$
-      of $G$-graph subgroups (further discussed in Definition \ref{GRAPHSUB_DEF}), where $\F^{\Gamma}_n$
-      consists of the subgroups
+      of $G$-graph subgroups (Definition \ref{GRAPHSUB_DEF})
+      where $\F^{\Gamma}_n$ consists of the subgroups
       $\Gamma \leq G \times \Sigma_n^{op}$
       such that $\Gamma \cap \Sigma_n^{op} = \{\**\}$.
       We note that the elements of such $\Gamma$
@@ -4383,7 +4442,7 @@ where each map $\O_{k-1} \to \O_k$ fits into a pushout
 \begin{equation}\label{OUPUSHRE EQ}
 \begin{tikzcd}
 	\bullet 
-	\arrow{d}[swap]{\left(G \ltimes \mathsf{lr}^{op}\right)_!
+	\arrow{d}[swap]{\mathsf{lr}^{op}_!
 	n_k^{(\O,X,Y)}}
 	 \arrow[r]
 &
@@ -4396,7 +4455,7 @@ where each map $\O_{k-1} \to \O_k$ fits into a pushout
 \end{equation}
 where 
 $
-\left(G \ltimes \mathsf{lr}^{op}\right)_! \colon
+\mathsf{lr}^{op}_! \colon
 \mathcal{V}^{G \ltimes \Omega^a_{\mathfrak{C}}[k]^{op}}
 \to
 \mathcal{V}^{G \ltimes \Sigma_{\mathfrak{C}}^{op}}
@@ -4613,24 +4672,21 @@ $j$ ranges over $\mathcal{J}$.
 
 
 
-
 \newpage
 \subsection{Weak indexing systems and $\Sigma_G$-cofibrancy}
 \label{INDSYS SEC}
 
 
-Our aim in this section is to prove Theorem \ref{THMIII},
+Our aim in this section is to prove Theorem \ref{THMII},
 which says that, for certain $(G,\Sigma)$-families $\F$, the forgetful functor
 $\Op^G_{\mathfrak C, \F}(\V) \to \Sym^G_{\mathfrak C, \F}(\V)$ preserves cofibrant objects for all $G$-sets $\mathfrak C$.
-Specifically, this result is a special case of Theorem \ref{SIGMAG_COF_THM},
-with Proposition \ref{BOXVT_PROP} the key technical step in the proof.
-
-
+More generally, we may consider underlying cofibrations.
 
 \begin{definition}
       For any $(G,\Sigma)$-family $\F$, we say a map $\O \to \P$ in $\Op^G_{\mathfrak C}(\V)$
       is a \textit{$\Sigma_\F$-cofibration}
-      if the underlying map is a cofibration in $\Sym^G_{\mathfrak C, \F}(\V)$.
+      if the underlying map is a cofibration in $\Sym^G_{\mathfrak C, \F}(\V)$;
+      similarly, $\O$ is \textit{$\Sigma_\F$-cofibrant} if the map $\eta_{\mathfrak C} \to \O$ is a $\Sigma_\F$-cofibration.
 \end{definition}
 
 \begin{remark}
@@ -4640,21 +4696,25 @@ with Proposition \ref{BOXVT_PROP} the key technical step in the proof.
       for all $\mathfrak C$-signatures $\vect C$.
 \end{remark}     
 
-% \begin{example}
-%       All generating cofibrations of $\Op^G(\sSet)$ are $\Sigma_G$-cofibrations,
-%       as all subgroups of $G$-graph subgroups are again $G$-graph subgroups, and the genuine cofibrations in $\sSet^G_{gen}$ are the monomorphisms.
-% \end{example}
+Rephrasing, Theorem \ref{THMII} says that for a special class of $(G,\Sigma)$-familes $\F$, $\F$-cofibrant operads are $\Sigma_\F$-cofibrant.
+This result will follow as a special case of Theorem \ref{SIGMAG_COF_THM} below.
 
-Rephrasing, Theorem \ref{THMIII} says that for a special class of $(G,\Sigma)$-familes $\F$, $\F$-cofibrant operads are $\Sigma_\F$-cofibrant.
-The proof will follow from analysis similar to \cite[\S 6]{BP_geo}.
+\begin{remark}
+      Theorem \ref{SIGMAG_COF_THM} is the $\mathfrak C$-colored analogue to \cite[{Remark 6.64, after Theorem 6.59}]{BP_geo}.
+      While we could have chosen to reprove the results in \cite[\S 6]{BP_geo} by hand for colored operads,
+      we instead extend our homotopy theory for groupoids analysis from \S \ref{EHT_SEC} to provide a
+      new proof which is significantly cleaner and more hands-off.
+      In particular, the $\mathfrak C$-colored analogue of \cite[Prop. 6.52]{BP_geo}, which required significant effort there,
+      will come for almost for free using formal manipulation of families of subgroups of groupoids.
+\end{remark}
 
-First, we extend any $(G,\Sigma)$-family to a family of subgroups of $G \ltimes \Omega_{\mathfrak C}^{op}$ for any $G$-set $\mathfrak C$.
+To begin, we extend any $(G,\Sigma)$-family to a family of subgroups of $G \ltimes \Omega_{\mathfrak C}^{op}$ for any $G$-set $\mathfrak C$.
 
 \begin{definition}
       Given a family 
-      $\F$ in the groupoid $\G$
+      $\F$ of subgroups in groupoid $\G$,
       let $\F^{\ltimes}$
-      be the family in
+      be the family of subgroups in
       $\Sigma \wr \G \simeq \coprod_{n \geq 0} \Sigma_{n} \wr \G$
       given by the union 
       $\coprod_{n \geq 0} \F^{\ltimes n}$
@@ -4662,11 +4722,12 @@ First, we extend any $(G,\Sigma)$-family to a family of subgroups of $G \ltimes 
 \end{definition}
 
 For any $G$-set $\mathfrak C$, we write  
-\[
+\begin{equation}
+      \label{LRCVC_EQ}
       \mathsf{lr}_{\mathfrak{C}} \colon 
       G^{op} \ltimes \Omega^0_{\mathfrak{C}}
       \to
-      G^{op} \ltimes \Sigma_{\mathfrak{C}}
+      G^{op} \ltimes \Sigma_{\mathfrak{C}},
       \qquad
       \boldsymbol{V}_{\mathfrak{C}} \colon 
       G^{op} \ltimes \Omega^0_{\mathfrak{C}}
@@ -4674,7 +4735,7 @@ For any $G$-set $\mathfrak C$, we write
       G^{op} \ltimes (\Sigma \wr \Sigma_{\mathfrak{C}})
       \to
       \Sigma \wr  (G^{op}  \ltimes \Sigma_{\mathfrak{C}})
-\]
+\end{equation}
 for the natural extensions of the leaf-roof and vertex map {\color{blue} from *earlier reference*}.
 
 \begin{definition}
@@ -4699,10 +4760,8 @@ for the natural extensions of the leaf-roof and vertex map {\color{blue} from *e
             \hat \F_{\mathfrak C} =
             % \boldsymbol{V}_{\mathfrak C}^{\**} \pi_{\mathfrak C}^{\**} (\F^{\ltimes}) =
             \pi_{\mathfrak C}^{\**}\hat \F_{\set{\**}},
-            \qquad
-            \F_{\vect T} = \pi_{\vect T}^{\**}(\F_T)
       \end{equation}
-      for $\pi_{\vect T} \colon \Aut_{G \ltimes \Omega_{\mathfrak C}^{op}}(\vect T) \to \Aut_{G \times \Omega_{\set{\**}}^{op}}(T)$.
+      for $\pi_{\mathfrak C} \colon G \ltimes \Omega_{\mathfrak C}^{0,op} \to G \times \Omega^{0,op}$.
 \end{remark}
 
 
@@ -4735,7 +4794,7 @@ for the natural extensions of the leaf-roof and vertex map {\color{blue} from *e
 % --------------------------------------------------------------------------------
 
 \begin{remark}
-      When $\mathfrak C = \**$ and $\F$ is a {\color{blue} $(G,\Sigma)$-graph family (Definition \ref{GRAPHSUB_DEF})},
+      When $\mathfrak C = \**$ and $\F$ is a \textit{family of $G$-corollas} \cite[Defn. 4.44]{BP_geo},
       this is simply a repackaging of the original definition of $\F_T$ from \cite[Prop. 6.44]{BP_geo}.
 \end{remark}
 
@@ -4744,31 +4803,50 @@ for the natural extensions of the leaf-roof and vertex map {\color{blue} from *e
 
 
 
-This description is suitable for detecting cofibrancy.
+This description is well suited to detect cofibrancy.
 %
 For full generality, given any $m \geq 0$, we define a \textit{$\underline{m}$-labeling} on a $\mathfrak C$-tree $\vect T \in \Omega_{\mathfrak C}$
 to be an assignment
 \[
       \boldsymbol{V}(\vect T) \longto \underline{m} = \set{1,2,\dots,m}.
 \]
-Denote the category of $\underline{m}$-labeled $\mathfrak C$-trees and label-preserving isomorphisms maps by $\Omega^{\underline{m}}_{\mathfrak C}$.
+Denote the category of $\underline{m}$-labeled $\mathfrak C$-trees and label-preserving isomorphisms by $\Omega^{\underline{m}}_{\mathfrak C}$.
 
 \begin{remark}
-      Similarly to Definition \ref{HATFC_DEF}, a $(G,\Sigma)$-family $\F$ induces familes
-      $\F_{\mathfrak C}^{\underline{m}}$ and $\hat \F_{\mathfrak C}^{\underline{m}}$ on
-      $G \ltimes \Sigma_{\mathfrak C}^{\underline{m},op}$ and $G \ltimes \Omega_{\mathfrak C}^{\underline{m},op}$, respectively.
-      Defining $\nabla_m$, $\boldsymbol{V}_{\mathfrak C}^{\underline{m}}$ to be the natural functors below,
-      \[
-            G \ltimes \Omega_{\mathfrak C}^{\underline{m},op} \xrightarrow{\ \boldsymbol{V}_{\mathfrak C}^{\underline{m}} \ }
-            \Sigma \wr \left( \coprod_m G \ltimes \Sigma_{\mathfrak C}^{op} \right) \xrightarrow{\ \nabla_m \ }
-            \Sigma \wr \left( G \ltimes \Sigma_{\mathfrak C}^{op} \right)         
-      \]
-      we define
-            \[
-            \F_{\mathfrak C}^{\underline{m}} = \nabla_m^{\**}\F_{\mathfrak C},
-            \qquad
-            \hat \F_{\mathfrak C}^{\underline{m}} = \left(\boldsymbol{V}_{\mathfrak C}^{\underline{m}}\right)^{\**} \F_{\mathfrak C}^{\underline{m}},
-      \]
+      % Similarly to Definition \ref{HATFC_DEF}, a $(G,\Sigma)$-family $\F$ induces familes
+      % $\F_{\mathfrak C}^{\underline{m}}$ and $\hat \F_{\mathfrak C}^{\underline{m}}$ on
+      % $G \ltimes \Sigma_{\mathfrak C}^{\underline{m},op}$ and $G \ltimes \Omega_{\mathfrak C}^{\underline{m},op}$, respectively.
+      We have the following commuting cube for each $m \geq 1$ and $G$-set $\mathfrak C$,
+      \begin{equation}
+            \label{FCM_SQ_EQ}
+            \begin{tikzcd}
+                  G \ltimes \Omega_{\mathfrak C}^{\underline{m},op}
+                  \arrow[rr, "\boldsymbol{V}_{\mathfrak C}^{\underline{m}}"] \arrow[dr] \arrow[dd, "\nabla_m"']
+                  &&
+                  \Sigma \wr \left( \displaystyle{\coprod_m} G \ltimes \Sigma_{\mathfrak C}^{op} \right)
+                  \arrow[dr] \arrow[dd, "\nabla_m", near start]
+                  \\
+                  &
+                  G \ltimes \Omega^{\underline{m},op}
+                  \arrow[rr, crossing over, near start, "\boldsymbol{V}^{\underline{m}}"]
+                  &&
+                  \Sigma \wr \left( \displaystyle{\coprod_m} G \ltimes \Sigma^{op} \right)
+                  \arrow[dd, "\nabla_m"]
+                  \\
+                  G \ltimes \Omega_{\mathfrak C}^{0,op}
+                  \arrow[rr, near start, "\boldsymbol{V}_{\mathfrak C}"] \arrow[dr]
+                  &&
+                  \Sigma \wr \left( G \ltimes \Sigma_{\mathfrak C}^{op} \right)
+                  \arrow[dr]
+                  \\
+                  &
+                  G \ltimes \Omega^{0,op}
+                  \arrow[rr, "\boldsymbol{V}"]
+                  \arrow[uu, leftarrow, crossing over, "\nabla_m"', near end]
+                  &&
+                  \Sigma \wr \left( G \ltimes \Sigma^{op} \right)      
+            \end{tikzcd}
+      \end{equation}
       % \begin{equation}
       %       \label{FCM_EQ}
       %       \begin{tikzcd}
@@ -4807,46 +4885,50 @@ Denote the category of $\underline{m}$-labeled $\mathfrak C$-trees and label-pre
       %       = \left(\boldsymbol{V}_{\mathfrak C}^{\underline{m}}\right)^{\**} \nabla_m^{\**} \F_{\mathfrak C}^{\ltimes}
       %       = \left(\boldsymbol{V}_{\mathfrak C}^{\underline{m}}\right)^{\**}\left(\left(\F_{\mathfrak C}^{\underline{m}}\right)^\ltimes\right)
       % \]
-      % (using \eqref{PHIFLTIMES_EQ} for the last equality),
-      so that
+      with $\nabla_m$ denoting either the fold map or the forgetful functor,
+      and $\boldsymbol{V}_{\mathfrak C}^{\underline{m}}$ the functor defined analogously to \eqref{LRCVC_EQ}.
+
+      Similarly to Definition \ref{HATFC_DEF}, a $(G,\Sigma)$-family $\F$ induces familes of subgroups
+      $\nabla^{\**}\F_{\mathfrak C} = \F_{\mathfrak C}^{\amalg m}$ in $\amalg_m G \ltimes \Sigma_{\mathfrak C}^{op}$ and
+      $\F^{\ltimes}$ in $\Sigma \wr (G \ltimes \Sigma^{op})$.
+      Via pullback, these themselves induce families (potentially different) on the groupoids present in \eqref{FCM_SQ_EQ}.
+      However, \eqref{PHIFLTIMES_EQ} implies these agree with those previously defined on the groupoids in the bottom square
+      and induce equal families on those groupoids in the top square.
+      Specifically, we have the family $\hat \F_{\mathfrak C}^{\underline{m}}$ of $G \ltimes \Omega_{\mathfrak C}^{\underline{m},op}$ given by either pullback below,
       \begin{equation}
+            \label{FCM_EQ}
+            \F_{\mathfrak C}^{\underline{m}} =
+            \nabla_m^{\**}\F_{\mathfrak C} = 
+            \left(\boldsymbol{V}_{\mathfrak C}^{\underline{m}}\right)^{\**}\left(\left(\F_{\mathfrak C}^{\underline{m}}\right)^\ltimes\right)
+      \end{equation}
+      so that
+       \begin{equation}
             \label{VCM_LQ_EQ}
             \left(\boldsymbol{V}_{\mathfrak C}^{\underline{m}}\right)^{\**} \colon
-            \V^{\Sigma \wr \left( \coprod_m G \ltimes \Sigma_{\mathfrak C}^{op} \right)}_{\left(\F_{\mathfrak C}^{\underline{m}} \right)^{\ltimes}}
+            \V^{\Sigma \wr \left( \coprod_m G \ltimes \Sigma_{\mathfrak C}^{op} \right)}_{\left(\F_{\mathfrak C}^{\amalg m} \right)^{\ltimes}}
             \longto
             \V^{G \ltimes \Omega_{\mathfrak C}^{\underline{m},op}}_{\hat \F_{\mathfrak C}^{\underline{m}}}
       \end{equation}
       is left Quillen by Proposition \ref{EQQUILADJ PROP}.
 \end{remark}
 
+% The following is the $\mathfrak C$-colored analogue of \cite[Prop. 6.52]{BP_geo}.
+% As opposed to reproving this result by hand, we provide a new proof use the families of groupoids discussion above.
 
-\begin{definition}
-      Suppose we are given a collection of morphisms $f_a: A_a \to B_a$, $1 \leq a \leq m$, in $\Sym_{\mathfrak C}^G(\V)$.
-      Define $\hat f \in \V^{G \ltimes \Omega_{\mathfrak C}^{\underline{m},op}}$ by
-      \begin{equation}
-            \label{HATFVECTT_EQ}
-            \hat f(\vect T) = \mathop{\square}\limits_{1 \leq a \leq m} \mathop{\square}\limits_{v \in \boldsymbol{V}_a(T)} f_a(\vect T_v)
-      \end{equation}
-\end{definition}
-
-The following is the $\mathfrak C$-colored analogue of \cite[Prop. 6.52]{BP_geo}.
-As opposed to reproving this result by hand, we provide a new proof use the families of groupoids discussion above.
-
-\begin{proposition}
-      \label{BOXVT_PROP}
-      Suppose $f_a: A_a \to B_a$, $1 \leq a \leq m$, are (trivial) $\F$-cofibrations in $\Sym_{\mathfrak C}^G(\V)$.
-      % level $\F$ (trivial) cofibrations in $\Sym(\V)$, i.e. $f_s(\vect C)$ is a (trivial) cofibration in $\V^{\Aut(\vect C)}_{\F_{\vect C}}$ for all signatures $\vect C$.
-      Then $\hat f$ is a (trivial) $\F$-cofibration in $\V^{G \ltimes \Omega_{\mathfrak C}^{\underline{m},op}}_{\hat \F_{\mathfrak C}^{\underline{m}}}$.
-      %
-      In particular, for any $\underline{m}$-labeled $\mathfrak C$-tree $\vect T \in \Omega^{\underline{m}}_{\mathfrak C}$,
-      \eqref{HATFVECTT_EQ}
-      is a (trivial) cofibration in $\V^{\Aut_{G \ltimes \Omega_{\mathfrak C}^{\underline{m}}}(\vect T)}_{\F_{\vect T}}$.
-\end{proposition}
-\begin{proof}
-      As Remark \ref{SIGMACOF_REM} implies that $(f_a)$ is a cofibration in
-      $\V^{\amalg_m G \ltimes \Sigma_{\mathfrak C}^{op}}_{\nabla_m^{\**}\F}$,
-      the result follows from Proposition \ref{SIGMAWRGF PROP}(ii) and \eqref{VCM_LQ_EQ}.
-\end{proof}
+% \begin{proposition}
+%       \label{BOXVT_PROP}
+%       Suppose $f_a: A_a \to B_a$, $1 \leq a \leq m$, are (trivial) $\F$-cofibrations in $\Sym_{\mathfrak C}^G(\V)$.
+%       Then $\hat f$ is a (trivial) $\F$-cofibration in $\V^{G \ltimes \Omega_{\mathfrak C}^{\underline{m},op}}_{\hat \F_{\mathfrak C}^{\underline{m}}}$.
+%       %
+%       In particular, for any $\underline{m}$-labeled $\mathfrak C$-tree $\vect T \in \Omega^{\underline{m}}_{\mathfrak C}$,
+%       \eqref{HATFVECTT_EQ}
+%       is a (trivial) cofibration in $\V^{\Aut_{G \ltimes \Omega_{\mathfrak C}^{\underline{m}}}(\vect T)}_{\F_{\vect T}}$.
+% \end{proposition}
+% \begin{proof}
+%       As Remark \ref{SIGMACOF_REM} implies that $(f_a)$ is a cofibration in
+%       $\V^{\amalg_m G \ltimes \Sigma_{\mathfrak C}^{op}}_{\nabla_m^{\**}\F}$,
+%       the result follows from Proposition \ref{SIGMAWRGF PROP}(ii) and \eqref{VCM_LQ_EQ}.
+% \end{proof}
 
 
 
@@ -5212,170 +5294,150 @@ As opposed to reproving this result by hand, we provide a new proof use the fami
 % ------------------------------ *ALTERNATIVE ROUTES TO BOXVT_PROP* ------------------------------
 % ---------------------------------------------------------------------------------------------
 
-For the last step of the proof of Theorem \ref{THMIII}, we  will need to restrict our $(G,\Sigma)$-families significantly.
+For the second half of the proof of Theorem \ref{THMII}, we will need to restrict our $(G,\Sigma)$-families significantly.
 
 \begin{definition}
       \label{PIS_DEF}
       A $(G,\Sigma)$-family $\F$ is called a \textit{pseudo indexing system} if
       \begin{equation}
             \label{PIS_EQ}
-            \hat \F_{\set{\**}} \subseteq \pi_{\mathsf{lr}}^{\**}\F,
+            \hat \F_{\set{\**}} \subseteq \mathsf{lr}^{\**}\F,
       \end{equation}
-      for $\pi_{\mathsf{lr}} \colon G \times \Omega^{op} \to G \times \Sigma^{op}$.
+      for $\mathsf{lr} \colon G \times \Omega^{0,op} \to G \times \Sigma^{op}$.
 \end{definition}
-
-Equivalently,
-$\F_{T} \subseteq \pi_{\mathsf{lr}(T)}^{\**} \F_{\mathsf{lr}(T)}$
-for all $T \in \Omega$,
-with
-$\pi_{\mathsf{lr}(T)} \colon \Aut_{G \times \Omega^{op}}(T) \to \Aut_{G \times \Omega^{op}}(\mathsf{lr}(T))$.
-
-% \begin{definition}
-%       \label{GRAPHSUB_DEF}
-%       A subgroup $\Gamma \leq G \times \Sigma_n^{op}$ is a \textit{$G$-graph subgroup} if
-%       $\Gamma \cap \Sigma_n^{op} = \**$;
-%       that is, if $\Gamma$ consists of elements of the from $(h, \phi(h)^{-1})$
-%       for $h \in H \leq G$ and $H \xrightarrow{\phi} \Sigma_n$.
-      
-%       We write $\mathcal{F}^{\Gamma} = \set{\mathcal{F}_n^{\Gamma}}$
-%       for the $(G,\Sigma)$-family of $G$-graph subgroups.
-
-%       A \textit{$(G,\Sigma)$-graph family} is any $(G,\Sigma)$-family $\mathcal F = \set{\F_n}$ consisting of subfamilies of $\F^\Gamma$.
-% \end{definition}
-
-% We consider a very special class of $(G,\Sigma)$-graph families.
-
-% \begin{definition}
-%       \label{WIS_DEF}
-%       A $(G,\Sigma)$-graph family $\F = \set{\F_n}$ is a \textit{weak indexing system} if
-%       for all $T \in \Omega = \Omega_{\set{\**}}$ with $\mathsf{lr}(T) = C$,
-%       \begin{equation}
-%             \label{WIS_EQ}
-%             \F_T \subseteq \pi_{\mathsf{lr}(T)}^{\**} \F_C
-%       \end{equation}
-%       for $\pi_{\mathsf{lr}(T)} \colon G \times \Aut_{\Omega^{op}}(T) \to G \times \Aut_{\Omega^{op}}(C)$ the natural map.
-% \end{definition}
-
-% \begin{example}
-%       For any group $G$, $\F^\Gamma$ is a weak indexing system.
-% \end{example}
-
-% \begin{remark}
-%       Weak indexing systems are a generalization of the notion of \textit{indexing systems} given by \cite[Defn. 3.22]{BH15},
-%       and several definitions have been given by the authors
-%       (\cite[Defn. 9.5]{Per18}, \cite[Defn. 4.49]{BP_geo}, \cite[Defn. 6.2]{BP_edss});
-%       additional context and motivation can be found at each of these locations.
-      
-%       The descriptions as written previously involve the combinatorics of a certain category $\Omega_G$ of \textit{$G$-trees} or certain closure conditions under operations of finite sets,
-%       neither of which will be needed for this article.
-%       However, by \cite[Remark 6.45]{BP_geo}, the above characterization is the same as those already given.
-% \end{remark}
 
 \begin{remark}
       Pseudo indexing systems are a generalization of the notion of \textit{indexing systems} introduced by Blumberg-Hill \cite[Defn. 3.22]{BH15}.
       Moreover, they encompase the notion of \textit{weak indexing system} given by the authors
       (\cite[Defn. 9.5]{Per18}, \cite[Defn. 4.49]{BP_geo}, \cite[Defn. 6.2]{BP_edss});
-      the two notions are in agreement by \cite[Remark 6.45]{BP_geo} when each $\F_n$ is a collection of \textit{$G$-graph subgroups} of $G \times \Sigma_n$.
+      the two notions are in agreement by \cite[Remark 6.45]{BP_geo} when each $\F_n$ is a collection of \textit{$G$-graph subgroups} (Definition \ref{GRAPHSUB_DEF}) of $G \times \Sigma_n$.
 
       Additional context and motivation for these definitions can be found at the above citations.
 \end{remark}
 
-This condition is equivalent to the seemingly stronger condition where $\mathfrak C$ is allowed to be any $G$-set.
-\begin{lemma}
-      Let $\F$ be a $(G,\Sigma)$-graph family. Then the following are equivalent.
-      \begin{enumerate}[label = (\roman*)]
-      \item $\F$ is a pseudo indexing system.
-      \item For all $G$-sets $\mathfrak C$,
-            $\hat \F \subseteq \pi_{\mathfrak C, \mathsf{lr}}^{\**} \phi_{\mathfrak C}^{\**} \F$
-            for $\pi_{\mathfrak C, \mathsf{lr}} \colon G \ltimes \Omega_{\mathfrak C}^{op} \to G \ltimes \Sigma_{\mathfrak C}^{op}$.
-      \end{enumerate}
-\end{lemma}
+% This condition is equivalent to the seemingly stronger condition where $\mathfrak C$ is allowed to be any $G$-set.
+% \begin{lemma}
+%       Let $\F$ be a $(G,\Sigma)$-graph family. Then the following are equivalent.
+%       \begin{enumerate}[label = (\roman*)]
+%       \item $\F$ is a pseudo indexing system.
+%       \item For all $G$-sets $\mathfrak C$,
+%             $\hat \F \subseteq \mathsf{lr}_{\mathfrak C}^{\**} \phi_{\mathfrak C}^{\**} \F$
+%             for $\mathsf{lr}_{\mathfrak C} \colon G \ltimes \Omega_{\mathfrak C}^{0,op} \to G \ltimes \Sigma_{\mathfrak C}^{op}$.
+%       \end{enumerate}
+% \end{lemma}
+% \begin{proof}
+%       (ii) implies (i) by letting $\mathfrak C = \**$.
+%       Conversely, we have
+%       \[
+%             \hat \F_{\mathfrak C} =
+%             \pi_{\mathfrak C}^{\**} \hat \F_{\set{\**}} \subseteq
+%             \pi_{\mathfrak C}^{\**} \mathsf{lr}^{\**} \F =
+%             \mathsf{lr}_{\mathfrak C}^{\**} \pi_{\mathfrak C}^{\**} \F
+%       \]
+%       by \eqref{FVT_EQ} and \eqref{PIS_EQ} and the commuting square $\mathsf{lr}\pi_{\mathfrak C} = \pi_{\mathfrak C}\mathsf{lr}_{\mathfrak C}$.
+%       % \[
+%       %       \F_{\vect T} = 
+%       %       \phi_{\vect T}^{\**}\F_T \subseteq
+%       %       \phi_{\vect T}^{\**}\pi_{\mathsf{lr}(T)}^{\**} \F_C =
+%       %       \pi_{\mathsf{lr}(\vect T)}^{\**} \phi_{\vect C}^{\**} \F_C =
+%       %       \pi_{\mathsf{lr}(\vect T)}^{\**} \F_{\vect C}
+%       % \]
+%       % by \eqref{FVT_EQ}, \eqref{WIS_EQ},
+%       % the commuting square $\phi_{\vect C} \pi_{\mathsf{lr}(\vect T)} = \pi_{\mathsf{lr}(T)} \phi_{\vect T}$,
+%       % and \eqref{PHISTAR_EQ}.
+% \end{proof}
 
-\begin{remark}
-      (ii) is equivalent to these statement that
-      for each $\mathfrak C$-trees $\vect T$ with $\mathsf{lr}(\vect T) = \vect C$,
-      $\F_{\vect T} \subseteq \pi_{\mathsf{lr}(\vect T)}^{\**}\F_{\vect C}$
-      for $\pi_{\mathsf{lr}(\vect T)} \colon \Aut_{G \ltimes \Omega_{\mathfrak C}^{op}}(\vect T) \to \Aut_{G \ltimes \Sigma_{\mathfrak C}^{op}}(\vect C)$.
-\end{remark}
-
-\begin{proof}
-      (ii) implies (i) by letting $\mathfrak C = \**$.
-      Conversely, we have
-      \[
-            \hat \F_{\mathfrak C} =
-            \pi_{\mathfrak C}^{\**} \hat \F_{\set{\**}} \subseteq
-            \pi_{\mathfrak C}^{\**} \pi_{\mathsf{lr}}^{\**} \F =
-            \pi_{\mathsf{lr}, \mathfrak C}^{\**} \pi_{\mathfrak C}^{\**} \F
-      \]
-      by \eqref{FVT_EQ} and \eqref{PIS_EQ}.
-      % \[
-      %       \F_{\vect T} = 
-      %       \phi_{\vect T}^{\**}\F_T \subseteq
-      %       \phi_{\vect T}^{\**}\pi_{\mathsf{lr}(T)}^{\**} \F_C =
-      %       \pi_{\mathsf{lr}(\vect T)}^{\**} \phi_{\vect C}^{\**} \F_C =
-      %       \pi_{\mathsf{lr}(\vect T)}^{\**} \F_{\vect C}
-      % \]
-      % by \eqref{FVT_EQ}, \eqref{WIS_EQ},
-      % the commuting square $\phi_{\vect C} \pi_{\mathsf{lr}(\vect T)} = \pi_{\mathsf{lr}(T)} \phi_{\vect T}$,
-      % and \eqref{PHISTAR_EQ}.
-\end{proof}
-
-The following result is then immediate.
-\begin{corollary}
-      \label{PIVECTT_COR}
-      Suppose $\V$ admits all equivariant model structures,
-      and let $\F$ be a pseudo indexing system,
-      $\mathfrak C$ a $G$-set,
-      and $\vect T$ a $\mathfrak C$-tree with $\mathsf{lr}(\vect T) = \vect C$.
-      Then the map
-      $(\pi_{\mathsf{lr}(\vect T)})_! \colon \V^{\Aut(\vect T)}_{\F_{\vect T}} \to \V^{\Aut(\vect C)}_{\F_{\vect C}}$
-      is left Quillen.
-\end{corollary}
+% The following result is then immediate.
+% \begin{corollary}
+%       \label{PIVECTT_COR}
+%       Suppose $\V$ admits all equivariant model structures,
+%       and let $\F$ be a pseudo indexing system,
+%       $\mathfrak C$ a $G$-set,
+%       and $\vect T$ a $\mathfrak C$-tree with $\mathsf{lr}(\vect T) = \vect C$.
+%       Then the map
+%       $(\pi_{\mathsf{lr}(\vect T)})_! \colon \V^{\Aut(\vect T)}_{\F_{\vect T}} \to \V^{\Aut(\vect C)}_{\F_{\vect C}}$
+%       is left Quillen.
+% \end{corollary}
 
 We can now prove the main result of this section.
 
 \begin{theorem}
       \label{SIGMAG_COF_THM}
       Suppose $(\V, \otimes)$ satisfies the assumptions of Theorem \ref{THMI},
-      and let $\F$ be a weak indexing system.
-      If $f \colon \O \to \P$ is a cofibration such that $\O$ is $\Sigma_\F$-cofibrant, then $f$ is a $\Sigma_\F$-cofibration.
+      and let $\F$ be a pseudo indexing system.
+      If $f \colon \O \to \P$ is an $\F$-cofibration in $\Op^G_{\mathfrak C, \F}(\V)$ and $\O$ is $\Sigma_\F$-cofibrant,
+      then $f$ is a $\Sigma_\F$-cofibration.
 \end{theorem}
 \begin{proof}
-      Using the notation from \eqref{NKOXY EQ},
-      $n_k^{\O,X,Y}(\vect U)$ is a cofibration in $\V^{\Aut_{G \ltimes \Omega_{\mathfrak C}^{\underline{2},op}}(\vect U)}_{\F_{\vect U}}$
-      by Proposition \ref{BOXVT_PROP}.
-      However, the vertex labelings of alternating trees are equivariant in the sense that
-      $\Aut_{G \ltimes \Omega_{\mathfrak C}^{\underline{2},op}}(\vect U) = \Aut_{G \ltimes \Omega_{\mathfrak C}^{op}}(\vect U)$.
-      The result then follows from
-      the filtration \eqref{NKOXY EQ}/\eqref{FILTPUSHG EQ}, Proposition \ref{EQQUILADJ PROP}, and Corollary \ref{PIVECTT_COR}.
+      It suffices to show that free operadic extensions $\O \to \O[u]$ as in \eqref{OURE EQ},
+      or more accurately the filtration pieces $\O_{k-1} \to \O_k$, are $\Sigma_\F$-cofibrations
+      whenever $\O$ is $\Sigma_\F$-cofibrant and $u \colon X \to Y$ is an $\F$-cofibration in $\Sym^G_{\mathfrak C,\F}(\V)$.
+      
+      The maps $\varnothing \to \O$ and $u \colon X \to Y$ define a cofibration $(\O,u)$ in $\V^{\amalg_2 G \ltimes \Sigma_{\mathfrak C}^{op}}_{\F_{\mathfrak C}^{\amalg 2}}$ by Remark \ref{SIGMACOF_REM}.
+      Letting $U^{a}_{\underline{2}} \colon G \ltimes \Omega_{\mathfrak C}^{a}[k]^{op} \to G \ltimes \Omega_{\mathfrak C}^{\underline{2},op}$
+      denote the forgetful functor from $k$-inert alternating trees to $\underline{2}$-labeled trees,
+      (where active and inert vertices are given different labels),
+      we have that the functor $n_k^{\O,X,Y} \colon G \ltimes \Omega_{\mathfrak C}^{a}[k]^{op} \to \V$ from \eqref{NKOXY EQ} is given by
+      \[
+            n_k^{\O,X,Y} = \left(U^{a}_{\underline{2}}\right)^{\**} \left(\boldsymbol{V}_{\mathfrak C}^{\underline{2}}\right)^{\**}
+            \left( \left(\O,u\right)^{\square} \right),
+      \]
+      and by Proposition \ref{SIGMAWRGF_PROP}(ii) this is a $\left(U^{a}_{\underline{2}}\right)^{\**} \hat \F_{\mathfrak C}^{\underline{2}}$-cofibration.
+      
+      Since $\F$ is a pseudo indexing system, \eqref{PIS_EQ} and \eqref{FCM_EQ} imply
+      \[
+            \left(U^{a}_{\underline{2}}\right)^{\**} \hat \F_{\mathfrak C}^{\underline{2}}
+            = \left(U^{a}_{\underline{2}}\right)^{\**}\nabla_2^{\**} \hat \F_{\mathfrak C}
+            = \left(U^{a}_{\underline{2}}\right)^{\**}\nabla_2^{\**} \pi_{\mathfrak C}^{\**} \hat F
+            \subseteq
+            \left(U^{a}_{\underline{2}}\right)^{\**}\nabla_2^{\**} \pi_{\mathfrak C}^{\**} \mathsf{lr}^{\**} \F
+            =  \left(U^{a}_{\underline{2}}\right)^{\**}\nabla_2^{\**} \mathsf{lr}_{\mathfrak C}^{\**}\F_{\mathfrak C}
+      \]
+      Thus $(\O_{k-1} \to \O_k) = \mathsf{lr}^{op}_! n_k^{\O, X,Y}$ is a cofibration in $\V^{G \ltimes \Sigma_{\mathfrak C}^{op}}_{\F_{\mathfrak C}} = \Sym^G_{\mathfrak C, \F}(\V)$, as desired.
 \end{proof}
+
+\begin{proof}[Proof of Theorem \ref{THMII}]
+      This is an immediate corollary of Theorem \ref{SIGMAG_COF_THM},
+      as the hypotheses imply that the initial $\mathfrak C$-colored operad $\eta_{\mathfrak C}$ is $\Sigma_\F$-cofibrant.
+\end{proof}
+
 
 
 \todo[inline]{come back}
 
 
 
-\begin{example}
-      We end this section by specifying to $\V = \sSet$ and determining a characterization of $\Sigma_{\F^\Gamma}$-cofibrant operads.
-      Recall that for any group $G$ and family of subgroups $\F$,
-      $K \to L$ in $\sSet^{G}_\F$ is an $\F$-cofibration iff $L_n \setminus K_n$ has isotropy in $\F$; i.e. for all $x \in L_n \setminus K-n$, $\Stab_{G}(x) \in \F$ (e.g. \cite[Prop. 2.16]{Ste16}).
-      % 
-      We also note the easy observation that for any set $A$ with an action of $G \times \Sigma$,
-      $A$ has isotropy in the family $\F^\Gamma$ of $G$-graph subgroups
-      iff
-      $A$ is $\Sigma$-free.
-      % 
-      Thus $K \to L$ in $\sSet^{G \times \Sigma}_{\F^\Gamma}$ is an $\F^\Gamma$-cofibration
-      iff
-      it forgets to a cofibration in $\sSet^\Sigma_{proj}$ the coarse model structure.
+\subsubsection*{$\Sigma_{\F^{\Gamma}}$-cofibrancy in $\Op^G_{\mathfrak C}(\sSet)$}
+
+We end this section by specifying to $\V = \sSet$ and determining a characterization of $\Sigma_{\F^\Gamma}$-cofibrant operads.
+First, we recall the notion of a $G$-graph subgroup (e.g. \cite[Defn. 6.34]{BP_geo}).
+\begin{definition}
+      \label{GRAPHSUB_DEF}
+      A subgroup $\Gamma \leq G \times \Sigma_n^{op}$ is called a \textit{$G$-graph subgroup} if
+      $\Gamma \cap \Sigma_n^{op} = \**$.
+      Equivalently, $\Gamma$ is of the form $\set{(h, \alpha(h)^{-1})}$ for $h \in H$ for some subgroup $H \leq G$ and $\alpha \colon H \to \Sigma_n$ a homomorphism.
+
+      Let $\F_n^\Gamma$ denote the family of $G$-graph subgroups of $G \times \Sigma_n$, and $\F^\Gamma = \set{\F_n^{\Gamma}}$ the $(G,\Sigma)$-family of $G$-graph subgroups.
+\end{definition}
+
+Now, recall that for any group $G$ and family of subgroups $\F$,
+$K \to L$ in $\sSet^{G}_\F$ is an $\F$-cofibration iff $L_n \setminus K_n$ has isotropy in $\F$; i.e. for all $x \in L_n \setminus K-n$, $\Stab_{G}(x) \in \F$ (e.g. \cite[Prop. 2.16]{Ste16}).
+% 
+We also note the easy observation that for any set $A$ with an action of $G \times \Sigma$,
+$A$ has isotropy in the family $\F^\Gamma$ of $G$-graph subgroups
+iff
+$A$ is $\Sigma$-free.
+% 
+Thus $K \to L$ in $\sSet^{G \times \Sigma}_{\F^\Gamma}$ is an $\F^\Gamma$-cofibration
+iff
+it forgets to a cofibration in $\sSet^\Sigma_{proj}$ the coarse model structure.
+
+More generally, if $\Lambda \leq G \times \Sigma$ and $\F^\Gamma_{\Lambda} = \F^\Gamma \cap \Lambda$,
+then $K \to L$ in $\sSet^{\Lambda}_{\F^\Gamma_\Lambda}$ is an $\F^\Gamma_\Lambda$-cofibration
+iff
+it forgets to a cofibration in $\sSet^{\pi_{\Sigma}\Lambda}_{proj}$ the coarse model structure.
       
-      More generally, if $\Lambda \leq G \times \Sigma$ and $\F^\Gamma_{\Lambda} = \F^\Gamma \cap \Lambda$,
-      then $K \to L$ in $\sSet^{\Lambda}_{\F^\Gamma_\Lambda}$ is an $\F^\Gamma_\Lambda$-cofibration
-      iff
-      it forgets to a cofibration in $\sSet^{\pi_{\Sigma}\Lambda}_{proj}$ the coarse model structure.
-      
-      All together, we conclude the following (cf. \cite[Remark 6.7]{Per18}, \cite[discussion before Thm. 2.31]{BP_edss}).
-\end{example}
+All together, we conclude the following (cf. \cite[Remark 6.7]{Per18}, \cite[discussion before Thm. 2.31]{BP_edss}).
 
 \begin{proposition}
       \label{SGS_COF_PROP}
@@ -5415,7 +5477,7 @@ $\mathsf{Op}_{\mathfrak{C}}^G(\V)$
 of $G$-equivariant operads with a fixed $G$-set of colors $\mathfrak{C}$.
 Adapting \cite{BM13,Cav,CM13b},
 our main goal in this section is 
-to prove our main result, Theorem \ref{THMII},
+to prove our main result, Theorem \ref{THMIII},
 which uses the model structures of Theorem \ref{THMI}
 to build,
 for each suitable $(G,\Sigma)$-family $\F$ 
@@ -5424,16 +5486,16 @@ a model structure on the full category $\mathsf{Op}^G_\bullet(\mathcal{V})$
 of $G$-equivariant operads with varying $G$-sets of colors. 
 
 
-As stated in the formulation of Theorem \ref{THMII},
+As stated in the formulation of Theorem \ref{THMIII},
 the weak equivalences and trivial fibrations 
 in $\mathsf{Op}^G_\bullet(\V)$
 are characterized by combining
 a ``local condition'' which involves the fixed color categories $\mathsf{Op}_{\mathfrak{C}}^G(\V)$,
-as in \eqref{THMII1ST EQ},
+as in \eqref{THMIII1ST EQ},
 with some form of ``surjectivity on objects'',
-as in \eqref{THMII2ND EQ}.
+as in \eqref{THMIII2ND EQ}.
 However, the essential surjectivity condition for 
-weak equivalences in \eqref{THMII2ND EQ}
+weak equivalences in \eqref{THMIII2ND EQ}
 has a key technical drawback: 
 using this condition 
 it is unclear how to select a generating set of trivial cofibrations 
@@ -5496,9 +5558,9 @@ it is $\pi(H) \in \F_1$.
 
 Informally, the role of this condition 
 is to ensure that the essential surjectivity requirement in 
-\eqref{THMII2ND EQ} is strong enough
+\eqref{THMIII2ND EQ} is strong enough
 to ensure that the mapping spaces
-$\O(\vect{C})^{\Lambda}$ in \eqref{THMII1ST EQ}
+$\O(\vect{C})^{\Lambda}$ in \eqref{THMIII1ST EQ}
 for $\Lambda \in \F$
 are homotopically well behaved when replacing colors 
 in the signature $\vect{C}$. 
@@ -5658,14 +5720,14 @@ Throughout the remainder of \S \ref{MS_SEC}
 we will prove that 
 Definition \ref{MODEL_DEFN} describes the model structure on 
 $\mathsf{Op}^G_\bullet(\V)$
-in Theorem \ref{THMII},
+in Theorem \ref{THMIII},
 which we denote by
 $\mathsf{Op}^G_{\bullet, \F}(\V)$.
 
 
 
 We first show that $\F$-trivial fibrations
-indeed satisfy the characterization given in Theorem \ref{THMII},
+indeed satisfy the characterization given in Theorem \ref{THMIII},
 adapting \cite[4.8]{Cav}, \cite[2.3]{BM13}, \cite[1.18]{CM13b}.
 
 \begin{proposition}\label{FTRIVCHAR PROP}
@@ -5787,13 +5849,13 @@ for $\F$-trivial fibrations is indeed an iff.
 \end{proof}
 
 
-We prove Theorem \ref{THMII} in the subsections below,
+We prove Theorem \ref{THMIII} in the subsections below,
 by showing that the classes of maps in Definition \ref{MODEL_DEFN}
 do indeed define a model structure on $\mathsf{Op}^G{\V}$.
 The following is the outline of the proof.
 
 
-\begin{proof}[proof of Theorem \ref{THMII}]
+\begin{proof}[proof of Theorem \ref{THMIII}]
 We will verify the conditions in 
 \cite[Theorem 2.1.19]{Hov}, and we write (1),(2),(3),etc for the conditions therein.
 
@@ -5826,7 +5888,7 @@ Condition (1), i.e. the $2$-out-of-$3$ condition for $\F$-weak equivalences,
 is Proposition \ref{2OUTOF3 PROP}.
 
 Lastly, the fact that the weak equivalences in 
-Theorem \ref{THMII}
+Theorem \ref{THMIII}
 match the weak equivalences in
 Definition \ref{MODEL_DEFN} is given by 
 Corollary \ref{WEDKEQ COR}.
@@ -6573,7 +6635,7 @@ defined using $\V$-intervals.
 %
 To address this, in this section we relate the $\F$-weak equivalences
 in Definition \ref{MODEL_DEFN} with the $\F$-Dwyer-Kan equivalences
-in the formulation of Theorem \ref{THMII},
+in the formulation of Theorem \ref{THMIII},
 for which $2$-out-of-$3$ is easier to establish
 (although, in the equivariant setting, 
 this claim requires more care than it does non-equivariantly).
@@ -6935,7 +6997,7 @@ Replacing the notion of equivalence of objects
 in Definition \ref{MODEL_DEFN}
 with that of homotopy equivalence, 
 one obtains the notion of Dwyer-Kan equivalence
-in the formulation of Theorem \ref{THMII}.
+in the formulation of Theorem \ref{THMIII}.
 
 
 \begin{definition}\label{DKEQUIV_DEF}
