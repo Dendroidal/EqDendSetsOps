@@ -1086,7 +1086,7 @@ which are determined by the commutativity of the square
 
 
 
-\begin{remark}
+\begin{remark}\label{SPLITOPFIB REM}
 If $\pi \colon \mathcal{C} \to \mathcal{B}$
 is an opfibration then, by (the dual of) Remark \ref{COMPSEMI REM},
 for any cleavage one must have associativity isomorphisms
@@ -8872,13 +8872,28 @@ and to use this to prove some technical results used in the rest of the paper,
 most notably the key filtration result in Lemma \ref{OURE LEM}.
 
 
+Our approach builds off our previous work in \cite{BP_geo},
+and is motivated by the fact that the left Kan extension in \eqref{FREEOP_EQ} makes the monad structure somewhat awkward to describe and work with directly.
+As such, our strategy is to note that there is an adjunction 
+\begin{equation}\label{SPANSYMADJ EQ}
+\mathsf{Lan} \colon
+\mathsf{WSpan}^l(\Sigma_{\bullet}^{op},\mathcal{V}) 
+	\rightleftarrows
+\mathsf{Sym}_{\bullet}(\mathcal{V})
+\colon \iota
+\end{equation}
+that identifies $\mathsf{Sym}_{\bullet}(\V)$ 
+as a reflexive subcategory of a larger category 
+$\mathsf{WSpan}^l(\Sigma_{\bullet}^{op},\mathcal{V})$
+of spans, with the left Kan extension being the reflection.
+We then build a monad $N$ on the larger category 
+$\mathsf{WSpan}^l(\Sigma_{\bullet}^{op},\mathcal{V})$
+and show that this monad can be transferred to 
+$\mathsf{Sym}_{\bullet}(\mathcal{V})$.
 
 
 
 
-
-
-Our approach builds off our previous work in \cite{BP_geo}.
 We begin by establishing technical definitions and relations which are the key constituents of the monad in \S \ref{CSTRINGS_SEC} and \S \ref{WRACONST SEC}.
 In \S \ref{NONEQMON SEC}, we construct the monad describing colored operads $\Op(\V)$, as well as provide a useful filtration on free extensions of operads.
 In \S \ref{EQMON_SEC}, we upgrade these discussions to the equivariant case.
@@ -8892,7 +8907,7 @@ In \S \ref{EQMON_SEC}, we upgrade these discussions to the equivariant case.
 
 
 We now recall and adapt many 
-of the key notions \cite{BP_geo}.
+of the key notions from \cite{BP_geo}.
 
 Firstly, just as in \S \ref{EQCOSYMOP SEC}
 we write 
@@ -9062,7 +9077,6 @@ satisfying the cosimplicial identities.
 Explicitly, $\sigma^i$ concatenates the $(i+1)$-th and $(i+2)$-th coordinates
 and $\delta^j$ inserts a unary coordinate in the $(j+1)$-th position.
 
-{\color{red} HERE}
 
 
 \begin{definition}
@@ -9543,9 +9557,8 @@ For $0 \leq i < k \leq j \leq n$
 
 \subsection{The $(-)\wr A$ construction}\label{WRACONST SEC}
 
-{\color{red} HERE}
 
-One of the key ideas used in \cite{BP_geo} when describing the monad on spans was the use of categories 
+One of the key ingredients used in \cite{BP_geo} when describing the monad on spans (cf. \eqref{SPANSYMADJ EQ}) is the use of categories 
 $\Omega^n \wr A$ defined by pullbacks diagrams of the form
 \begin{equation}\label{WRASAMPLE EQ}
 \begin{tikzcd}
@@ -9560,9 +9573,19 @@ Moreover, these categories are related by analogues of the operators $d^i$, $s^j
 which satisfy all the analogues of the compatibilities 
 listed in Propositions \ref{CATDIAG PROP} and \ref{CATDIAG2 PROP}.
 
-In \cite{BP_geo} these analogue operators were built via a somewhat adhoc method, but here we will prefer a more systematic approach which regards the $(-) \wr A$ construction as an extension and refinement of the pullback operation in $\Cat$.
-% sort of $2$-categorical pullback functor.
-We first introduce relevant $2$-categories.
+In \cite{BP_geo} these analogue operators were built via a somewhat adhoc method, but here we will prefer a more systematic approach which regards the $(-) \wr A$ construction as a $2$-categorical extension of the pullback operation in $\Cat$.
+We first introduce the necessary $2$-categories,
+which are a variation of the 
+$\mathsf{Cat}\downarrow^l \V$
+categories of Remark \ref{SUBCATDOWNL REM} with regard to 
+a split Grothendieck fibration $\mathcal{E} \to \mathcal{B}$,
+cf. Remark \ref{SPLITOPFIB REM}.
+In the following, we refer to the arrows 
+$\varphi^{\**}e \to e$ in
+the chosen cleavage of $\mathcal{E}$ as the \emph{pullback arrows}.
+
+
+
 
 
 \begin{definition}
@@ -9575,11 +9598,11 @@ We write $\mathsf{Cat}\downarrow^r_{\mathcal{B}} \mathcal{E}$ for the $2$-catego
 	$F \colon \mathcal{C} \to \mathcal{E}$
 	to
 	$F' \colon \mathcal{C}' \to \mathcal{E}$
-	is a pair $(f,\phi)$
-	formed by a functor $f\colon \mathcal{C} \to \mathcal{C}'$ and a natural transformation $\phi \colon F' f \Rightarrow F$ consisting of pullback arrows\footnote{Recall that the data of a split Grothendieck fibration includes a chosen and fixed system of cartesian morphisms we call \textit{pullback} arrows.} over $\mathcal{B}$
+	is a pair $(\varphi,\phi)$
+	formed by a functor $\varphi\colon \mathcal{C} \to \mathcal{C}'$ and a natural transformation $\phi \colon F' \varphi \Rightarrow F$ consisting of pullback arrows over $\mathcal{B}$
 		\begin{equation}
 		\begin{tikzcd}[row sep = tiny, column sep = 35pt]
-			\mathcal{C} \arrow{dr}[name=U]{F} \arrow{dd}[swap]{f}
+			\mathcal{C} \arrow{dr}[name=U]{F} \arrow{dd}[swap]{\varphi}
 		\\
 			& \mathcal{E}
 		\\
@@ -9589,17 +9612,18 @@ We write $\mathsf{Cat}\downarrow^r_{\mathcal{B}} \mathcal{E}$ for the $2$-catego
 		]
 		\end{tikzcd}
 		\end{equation}
-	\item a $2$-arrow from $(f,\phi)$ to $(f',\phi')$ is a $2$-arrow $\varphi \colon f \to f'$ such that
-	$\phi' \circ F' \varphi = \phi$.
+
+	\item a $2$-arrow from $(\varphi,\phi)$ to $(\varphi',\phi')$ is a $2$-arrow $\Phi \colon \varphi \Rightarrow \varphi'$ such that
+	$\phi' \circ F' \Phi = \phi$.
 		\begin{equation}
 		\begin{tikzcd}[column sep = 50pt]
 			\mathcal{C} \arrow{dr}[name=U]{F} 
-			\arrow[bend right]{dd}[swap]{f}[name=F]{}
-			\arrow[bend left]{dd}{f'}[swap,name=FF]{}
+			\arrow[bend right]{dd}[swap]{\varphi}[name=F]{}
+			\arrow[bend left]{dd}{\varphi'}[swap,name=FF]{}
 			&
 		&
 			\mathcal{C} \arrow{dr}[name=U2]{F} 
-			\arrow[bend right]{dd}[swap]{f}
+			\arrow[bend right]{dd}[swap]{\varphi}
 			&
 		\\
 			& \mathcal{E}
@@ -9615,7 +9639,7 @@ We write $\mathsf{Cat}\downarrow^r_{\mathcal{B}} \mathcal{E}$ for the $2$-catego
 		,swap,"\phi'"
 		]
 		\arrow[Rightarrow, from=F, to=FF,shorten >=0.0cm,shorten <=0.0cm
-		,swap,"\varphi"
+		,swap,"\Phi"
 		]
 		\arrow[Rightarrow, from=V2, to=U2,shorten >=0.25cm,shorten <=0.25cm
 		,swap,"\phi"
@@ -9625,9 +9649,11 @@ We write $\mathsf{Cat}\downarrow^r_{\mathcal{B}} \mathcal{E}$ for the $2$-catego
 \end{itemize}
 \end{definition}
 
+
 Given a map $\rho \colon \mathcal{E} \to \mathcal{F}$
-of split Grothendieck fibrations over $\mathcal{B}$,
-we now define a pullback $2$-functor on weak right spans
+of split Grothendieck fibrations over $\mathcal{B}$
+(i.e. $\rho$ sends pullback arrows to pullback arrows),
+we now define a pullback $2$-functor 
 \begin{equation}\label{WSPANPULL EQ}
 \rho^{\**} \colon
 \mathsf{Cat} \downarrow^r_\mathcal{B} \mathcal{F} 
@@ -9642,12 +9668,12 @@ $\rho^{\**}(\mathcal{C} \to \mathcal{F})=
 $.
 
 On $1$-arrows, i.e. pairs 
-$(f,\phi \colon F_2 \circ f \Rightarrow F_1)$
+$(\varphi,\phi \colon F_2 \circ \varphi \Rightarrow F_1)$
 as in the bottom of the diagram below
 \[
 \begin{tikzcd}[column sep = 20pt, row sep = small]
 	\mathcal{C}_1 \times_{\mathcal{F}} \mathcal{E} 
-	\ar{rrrrr}[name=toE]{}[near end]{E_1} \ar[dashed]{rd}[swap]{\bar{f}} \ar{dd}[swap]{\pi}
+	\ar{rrrrr}[name=toE]{}[near end]{E_1} \ar[dashed]{rd}[swap]{\bar{\varphi}} \ar{dd}[swap]{\pi}
 	&&&
 	&&
 	\mathcal{E}  \ar{dd}{\rho}
@@ -9656,7 +9682,7 @@ as in the bottom of the diagram below
 	|[alias=DBE]|
 	\mathcal{C}_2 \times_{\mathcal{F}} \mathcal{E} \ar{rrrru}[swap]{E_2}
 \\
-	\mathcal{C}_1 \ar{rrrrr}[name=toB]{}[near end]{F_1} \ar{rd}[swap]{f}
+	\mathcal{C}_1 \ar{rrrrr}[name=toB]{}[near end]{F_1} \ar{rd}[swap]{\varphi}
 	&&&
 	&&
 	\mathcal{F} 
@@ -9670,11 +9696,11 @@ as in the bottom of the diagram below
 	\arrow[from=DBE, to=D, crossing over, near start, "\pi"]
 \end{tikzcd}
 \]
-we define $\rho^{\**}(f,\phi)$ as the only possible choice of dashed data
-$(\bar{f},\bar{\phi})$
+we define $\rho^{\**}(\varphi,\phi)$ as the only possible choice of dashed data
+$(\bar{\varphi},\bar{\phi})$
 such that $\bar{\phi}$ consists of pullback arrows over $\mathcal{B}$
 and the diagram commutes in the sense that
-$\pi \bar{f} = f \pi$ and 
+$\pi \bar{\varphi} = \varphi \pi$ and 
 $\rho \bar{\phi} = \phi \pi$.
 %\begin{equation}
 %\begin{tikzcd}[row sep = tiny, column sep = 35pt]
@@ -9688,18 +9714,16 @@ $\rho \bar{\phi} = \phi \pi$.
 %]
 %\end{tikzcd}
 %\end{equation}
+
+
 Alternatively, one has the explicit formula
 \[
-\rho^{\**} (f,\phi)=
+\rho^{\**} (\varphi,\phi)=
 \left(
-	\left( f \pi,
+	\left( \varphi \pi,
 	\left( \phi \pi \right)^{\**} E_1 \right),
 	\left( \phi \pi \right)^{\**} E_1 \Rightarrow E_1
-  \right)
-  ,
-  \qquad
-  \bar f(c,e) = (f(c), \phi_c^{\**}(e)),
-  \quad \bar \phi_{c,e} \colon \phi_c^{\**}(e) \to e.
+\right).
 \]
 
 %writing 
@@ -9711,8 +9735,7 @@ Alternatively, one has the explicit formula
 %for the projections
 
 
-
-Lastly, on a $2$-arrow $\varphi \colon (f,\phi) \Rightarrow (f',\phi')$
+Lastly, on a $2$-arrow $\Phi \colon (\varphi,\phi) \Rightarrow (\varphi',\phi')$
 as on the bottom of the leftmost diagram below
 \begin{equation}\label{PULL2ARR EQ}
 \begin{tikzcd}[column sep = 16pt, row sep = 17pt]
@@ -9766,16 +9789,16 @@ as on the bottom of the leftmost diagram below
 ]
 \arrow[Rightarrow, from=D, to=toB, shorten <=0.15cm,shorten >=0.15cm,swap,"\phi'"]
 \arrow[Rightarrow, from=D2, to=toB2, shorten <=0.15cm,shorten >=0.15cm,swap,"\phi"]
-\arrow[Rightarrow, from=F, to=FF, shorten <=0cm,shorten >=0cm,swap,"\varphi"]
-\arrow[Rightarrow, from=FFE, to=FE, shorten <=0cm,shorten >=0cm,swap,dashed,"\bar{\varphi}"]
+\arrow[Rightarrow, from=F, to=FF, shorten <=0cm,shorten >=0cm,swap,"\Phi"]
+\arrow[Rightarrow, from=FFE, to=FE, shorten <=0cm,shorten >=0cm,swap,dashed,"\bar{\Phi}"]
 \arrow[from=DBE, to=D, crossing over,near start,"\pi"]
 \arrow[from=DBE2, to=D2, crossing over]
 \end{tikzcd}
 \end{equation}
-we define $\rho^{\**}(\varphi)$
-as the only choice of dashed $\bar{\varphi}$
-such that $\bar{\phi}' \circ E_2\bar{\varphi} = \bar{\phi}$
-and $\pi \bar{\varphi} = \varphi \pi$.
+we define $\rho^{\**}(\Phi)$
+as the only choice of dashed $\bar{\Phi}$
+such that $\bar{\phi}' \circ E_2\bar{\Phi} = \bar{\phi}$
+and $\pi \bar{\Phi} = \Phi \pi$.
 
 %one sets $\pi^{\**} \varphi (c,b,e)$ to be the unique dashed arrow in the left diagram below that lifts $\varphi(c)$.
 %\[
@@ -9796,14 +9819,17 @@ and $\pi \bar{\varphi} = \varphi \pi$.
 %The associativity and unitality conditions of $\rho^{\**}$ are straightforward.
 
 
-
-%Alternatively, $\pi^{\**}\varphi$ this is the unique dashed natural transformation in the left diagram below such that the left section commutes 
+%Alternatively, $\pi^{\**}\varphi$ is the unique dashed natural transformation in the left diagram below such that the left section commutes 
 %(meaning that the two natural transformations between the two functors
 %$\mathcal{C}_1 \times_{\mathcal{B}} \mathcal{E} 
 %\rightrightarrows \mathcal{C}_2$ coincide) and 
 %the top composite natural transformation is 
 %$\pi^{\**} \phi$.
 
+
+\vskip 10pt
+
+{\color{red} HERE}
 
 
 We are now ready to generalize the $(-) \wr A$
