@@ -4389,6 +4389,91 @@ in such a way that adjacent vertices are in different sides of the partition and
 Its maps are informally described as tall maps of trees that 
 ``send inert vertices to inert vertices''.
 
+
+
+\begin{example}\label{ALTMAP EX}
+	The following depicts an alternating map between alternating trees
+	in $\Omega^a$.
+	Active vertices are black $\bullet$ and inert vertives are white $\circ$.
+	\[
+	\begin{tikzpicture}[grow=up,auto,level distance=2.3em,every node/.style = {font=\footnotesize},dummy/.style={circle,draw,inner sep=0pt,minimum size=2.1mm}]
+	\tikzstyle{level 2}=[sibling distance = 4em]
+	\tikzstyle{level 3}=[sibling distance = 3em]
+	\tikzstyle{level 4}=[sibling distance = 1.5em]
+	\node at (0,0.75) [font = \normalsize] {$T$}
+	child{node [dummy,fill = black] {}
+		child{node [dummy,fill=white] {}
+			child{node [dummy,fill = black] {}
+				child
+				child
+			}
+			child{node [dummy,fill = black] {}
+				edge from parent node [near end] {$d$}}
+			edge from parent node [swap] {$e$}}
+		child{node [dummy,fill=white] {}
+			edge from parent node [swap, near end] {$c$}}
+		child{node [dummy,fill=white] {}
+			child{node [dummy,fill = black] {}
+				child
+				edge from parent node [swap, near end] {$a\phantom{d}$}}
+			child{node [dummy,fill = black] {}
+				child
+				child
+			}
+			edge from parent node {$b$}}
+	};
+	\begin{scope}[level distance=1.75em]
+	\tikzstyle{level 3}=[sibling distance = 6em]
+	\tikzstyle{level 4}=[sibling distance = 4em]
+	\tikzstyle{level 5}=[sibling distance = 3em]
+	\tikzstyle{level 6}=[sibling distance = 1.5em]
+	\tikzstyle{level 7}=[sibling distance = 1em]
+	\node at (8,0) [font = \normalsize] {$S$}
+	child{node [dummy,fill = black] {}
+		child{node [dummy,fill = white] {}
+			child{node [dummy,fill = black] {}
+				child{node [dummy,fill=white] {}
+					child{node [dummy,fill = black] {}
+						child
+						child
+					}
+					child{node [dummy,fill = black] {}
+						child{node [dummy,fill=white] {}
+							child{node [dummy,fill = black] {}}
+							child{node [dummy,fill = black] {}}
+						}
+						child{node [dummy,fill=white] {}}
+						edge from parent node [near end] {$d$}}
+					edge from parent node [swap] {$e\phantom{1}$}}
+			}
+			child{node [dummy,fill = black] {}
+				child{node [dummy,fill=white] {}
+					edge from parent node [swap, near end] {$c\phantom{1}$}}
+				child{node [dummy,fill=white] {}
+					child{node [dummy,fill = black] {}
+						child{node [dummy,fill=white] {}
+							child{node [dummy,fill = black] {}
+								child
+							}
+						}
+						edge from parent node [swap,near end] {$a\phantom{d}$}}
+					child{node [dummy,fill = black] {}
+						child
+						child
+					}
+					edge from parent node [near end] {$\phantom{1}b$}}
+			}
+		}
+	};
+	\end{scope}
+	\draw [->] (2.5,2) -- node [swap] {$f$} (5,2);
+	\end{tikzpicture}
+	\]
+\end{example}
+
+
+
+
 Furthermore, we write
 $\Omega_{\mathfrak C}^a[k] \subseteq \Omega_{\mathfrak C}^a$
 for the full subcategory of $\vect{T}$ such that 
@@ -11288,16 +11373,16 @@ which we call the \textit{extension tree category}
 and denote
 $\OC^e$, has as objects the 
 $\{\O,X,Y\}$-labeled trees
-and as arrows tall maps $\varphi \colon T \to S$ such that
+and as arrows tall maps $f \colon \vect{T} \to \vect{S}$ such that
 \begin{enumerate}[label=(\roman*)]
-\item if $T_v$ has a $X$-label, then 
-$S_v \in \Sigma_{\mathfrak{C}}$ and
-$S_v $ has a $X$-label;
-\item if $T_v$ has a $Y$-label, then 
-$S_v \in \Sigma_{\mathfrak{C}}$ and
-$S_v $ has either a $X$-label or a $Y$-label;
-\item if $T_v$ has a $\O$-label, then 
-$S_v $ has only $X$ and $\O$ labels.
+\item if $\vect{T}_v$ has a $X$-label, 
+then $\vect{S}_v \in \Sigma_{\mathfrak{C}}$ and
+$\vect{S}_v $ has a $X$-label;
+\item if $\vect{T}_v$ has a $Y$-label, then 
+$\vect{S}_v \in \Sigma_{\mathfrak{C}}$ and
+$\vect{S}_v $ has either a $X$-label or a $Y$-label;
+\item if $\vect{T}_v$ has a $\O$-label, then 
+$\vect{S}_v $ has only $X$ and $\O$ labels.
 \end{enumerate}
 \end{proposition}
 
@@ -11310,12 +11395,11 @@ in the $n$ direction is the category
 $\Omega^{t,\lambda_l}_{\mathfrak{C}}$
 with objects the $\langle \langle l \rangle \rangle$-labeled trees and  maps the tall label maps which are inert on colors other than $-\infty$/$\O$ (cf. \cite[Rem. 5.36]{BP_geo}).
 Moreover, maps 
-$T \to S$
+$\vect{T} \to \vect{S}$
 in 
 $\Omega^e_{\mathfrak{C}}$
-canonically factor 
-as
-$T \to T' \to S$
+canonically factor as
+$\vect{T} \to \vect{T'} \to \vect{S}$
 where the first map is a a relabel map (i.e. an underlying isomorphism of trees that simply changes labels) and the second map is a label map, 
 so that the result follows from the observation that relabel maps in 
 $\Omega^e_{\mathfrak{C}}$
@@ -11341,7 +11425,7 @@ to yield
 	\Sigma_{\mathfrak C}\right)^{op}} N^{(\O,X,Y)}
 \end{equation}
 
-{\color{red} HERE}
+
 
 The desired filtration \eqref{FILT EQ} will now be obtained by
 first replacing $\Omega_{\mathfrak C}^e$ in \eqref{2NDRED EQ} with a suitable subcategory $\widehat{\Omega}_{\mathfrak C}^{e}$,
@@ -11363,10 +11447,15 @@ $\widehat{\Omega}_{\mathfrak C}^{e}$ itself.
 % $\widehat{\Omega}_{\mathfrak C}^{e}$ itself.
 
 
+{\color{red} HERE}
+
+
 \begin{definition}
-      Let
+Let
 $\widehat{\Omega}_{\mathfrak C}^{e} \hookrightarrow \Omega_{\mathfrak C}^{e}$
-denote the full subcategory of those labeled trees whose underlying tree is alternating, active nodes are labeled by $\O$ 
+denote the full subcategory of those labeled trees whose underlying tree is alternating
+(cf. Example \ref{ALTMAP EX} and the preceding discussion),
+active nodes are labeled by $\O$ 
 and inert nodes are labeled by $X$ or $Y$.
 
 Moreover, writing $|T| = |V^X(T)|+ |V^Y(T)|$, we let
@@ -11471,7 +11560,7 @@ one obtains the right pushout
 
 
 Lastly, Remark \ref{OEFIB REM} allows us to 
-rewrite the left vertical map of can extensions in \eqref{FILTLAN EQ}
+rewrite the left vertical map of Kan extensions in \eqref{FILTLAN EQ}
 
 
 \begin{proposition}[{cf. \cite[Prop. 5.66]{BP_geo}}]
