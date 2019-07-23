@@ -11736,9 +11736,6 @@ is that \eqref{FILTPUSH EQ} has more coproduct summands while
 has larger inductions.
 \end{remark}
 
-{\color{red} HERE}
-
-
 
 
 %\begin{remark}
@@ -11803,60 +11800,59 @@ has larger inductions.
 
 
 
-\subsection{Injective change of color}
+\subsection{Injective change of color and pushouts of operads}
 
-In this subsection, we provide a description of the left adjoint $\check f_! \colon \Op^{\mathfrak D} \to \Op^{\mathfrak C}$
-from Remark \ref{OP_MAP REM}
-for an \textit{inclusion} $f \colon \mathfrak C \to \mathfrak D$ of colors,
-and explore the interaction of the change of color functors $f_!$,$f^{\**}$ with free operads and pushouts.
-
-
-
-
-
-
+This subsection is dedicated to proving
+Corollary \ref{LOCALISO_COR} below,
+which was used 
+during the proof of Proposition \ref{J-CELL_PROP}
+in \S \ref{TRIVCOF_SEC},
+and deals with pushouts in 
+$\mathsf{Op}_{\bullet}(\V)$
+whose maps are injective on colors.
 
 
 
-\subsubsection{Pushouts and injective change of color}
 
-In this subsection, we show that, for any inclusions $f \colon \mathfrak C \to \mathfrak D$ of colors,
-the the right adjoint $f^{\**}$ preserves pushouts of operads where one leg is in the image of $\check f_! = f_!$.
 
 First note that, by a variation of the arguments in \eqref{OU EQ1}, \eqref{1STRED EQ}, \eqref{2NDRED EQ},
 any pushout 
 \[
 \begin{tikzcd}
-	A \ar{r} \ar{d} & \mathcal{O} \ar{d}
+	\mathcal{A} \ar{r} \ar{d} & \mathcal{O} \ar{d}
 \\
-	B \ar{r} & \mathcal{P}
+	\mathcal{B} \ar{r} & \mathcal{P}
 \end{tikzcd}
 \]
-has a description
+in $\mathsf{Op}_{\mathfrak{C}}(\V) $has a description
 \begin{align*}
   \mathcal{P}
   &
     \simeq \colim_{[l] \in \Delta^{op}} 
-    B_l \left( \O, A, A, A, B \right)
+    B_l \left( \O, \mathcal{A}, \mathcal{A}, \mathcal{A}, \mathcal{B} \right)
   \\
   &
     \simeq \colim_{[l] \in \Delta^{op},[n] \in \Delta^{op}} 
-    B_l \left( \mathbb F^{\circ n+1} \O, \mathbb F^{\circ n+1} A, 
-    \mathbb F^{\circ n+1} A, \mathbb F^{\circ n+1} A, \mathbb F^{\circ n+1} B \right)
+    B_l \left( 
+    \mathbb F^{\circ n+1} \O, 
+    \mathbb F^{\circ n+1} \mathcal{A}, 
+    \mathbb F^{\circ n+1} \mathcal{A}, 
+    \mathbb F^{\circ n+1} \mathcal{A}, 
+    \mathbb F^{\circ n+1} \mathcal{B} \right)
 \\
 &
     \simeq \colim_{[l] \in \Delta^{op},[n] \in \Delta^{op}} 
     \mathsf{Lan} N \circ \left( N^{\circ n} \iota \O 
-		\amalg_{\mathsf{F}}
-	\left( N^{\circ n} \iota X\right)^{\amalg_{\mathsf{F}} 2l +1}
-		\amalg_{\mathsf{F}}
-	N^{\circ n} \iota Y \right)
+		\amalg_{\mathsf{Set}}
+	\left( N^{\circ n} \iota \mathcal{A}\right)^{\amalg_{\mathsf{Set}} 2l +1}
+		\amalg_{\mathsf{Set}}
+	N^{\circ n} \iota \mathcal{B} \right)
 \\
 &	
 	\simeq
 	\mathop{\colim}\limits_{(\Delta \times \Delta)^{op}}
 \left(
-	\mathsf{Lan}_{\left(\Omega_{\mathfrak C}^{n,\lambda^a_l} \to \Sigma_{\mathfrak C}\right)^{op}} N_{n,l}^{(\O,A,B)}
+	\mathsf{Lan}_{\left(\Omega_{\mathfrak C}^{n,\lambda^a_l} \to \Sigma_{\mathfrak C}\right)^{op}} N_{n,l}^{(\O,\mathcal{A},\mathcal{B})}
 \right)
 \\
 &	
@@ -11870,152 +11866,190 @@ where the partition $\lambda^a_l$ in the fourth line is the fully-active partiti
 and, similarly to Proposition \ref{EXTENTREE PROP},
 the double realization
 $\OC^p \simeq |\Omega_{\mathfrak C}^{n,\lambda^a_l}|$
-%
-%in $\mathsf{Op}^{\mathfrak{C}}$ can be described as a left Kan extension
-%\[
-%\begin{tikzcd}
-%	\Omega_{\mathfrak{C}}^{p,op} \ar{rr}{N^{(B,A,\mathcal{O})}} \ar{d}[swap]{\mathsf{lr}} &&
-%	\mathcal{V}
-%\\
-%	\Sigma_{\mathfrak{C}}^{op} \ar[dashed]{rru}[swap]{\mathcal{P}}
-%\end{tikzcd}
-%\]
-%Where $\Omega^p_{\mathfrak{C}}$ 
 is the category whose objects are the
-$\{\mathcal{O},A,B\}$-labeled trees
-%$T \in \Omega_{\mathfrak{C}}$ together with a map
-%$V(T) \to \{\mathcal{O},A,B\}$ (i.e. a labeling of the vertices of $T$ by $\{\mathcal{O},A,B\}$)
-and whose arrows are tall maps $T \to S$ such that
+$\{\mathcal{O},\mathcal{A},\mathcal{B}\}$-labeled trees
+and whose arrows are tall maps $\vect{T} \to \vect{S}$ such that
+
+
 \begin{enumerate}[label=(\roman*)]
-\item if $v \in V(T)$ is $A$-labeled, then all vertices in $S_{v}$ are $A$-labeled
-\item if $v \in V(T)$ is $B$-labeled, then all vertices in $S_{v}$ are either $A$-labeled or $B$-labeled
-\item if $v \in V(T)$ is $\mathcal{O}$-labeled, then all vertices in $S_{v}$ are either $A$-labeled or $\mathcal{O}$-labeled
+\item if $v \in \boldsymbol{V}(T)$ is $\mathcal{A}$-labeled,
+ then all vertices in $\vect{S}_{v}$ are $\mathcal{A}$-labeled;
+\item if $v \in \boldsymbol{V}(T)$ is $\mathcal{B}$-labeled,
+ then all vertices in $\vect{S}_{v}$ are either $\mathcal{A}$-labeled or $\mathcal{B}$-labeled;
+\item if $v \in \boldsymbol{V}(T)$ is $\mathcal{O}$-labeled, then all vertices in $\vect{S}_{v}$ are either $\mathcal{A}$-labeled or $\mathcal{O}$-labeled.
 \end{enumerate}
 Moreover, one has the formula
 \begin{equation}\label{NBAO EQ}
-N^{(B,A,\mathcal{O})}(T) = 
-\left(\bigotimes_{v \in V_B(T)} B(T_v) \right) \otimes
-\left(\bigotimes_{v \in V_A(T)} A(T_v) \right) \otimes
-\left(\bigotimes_{v \in V_{\mathcal{O}}(T)} \mathcal{O}(T_v) \right)
+N^{(\mathcal{O},\mathcal{A},\mathcal{B})}(\vect{T}) = 
+\left(\bigotimes_{v \in \boldsymbol{V}_{\mathcal{O}}(T)} \mathcal{O}(\vect{T}_v) \right)
+	\otimes
+\left(\bigotimes_{v \in \boldsymbol{V}_{\mathcal{A}}(T)} \mathcal{A}(\vect{T}_v) \right)
+	\otimes
+\left(\bigotimes_{v \in \boldsymbol{V}_{\mathcal{B}}(T)} \mathcal{B}(\vect{T}_v) \right).
 \end{equation}
 
 
 
+In the following, recall that if 
+$\varphi \colon \mathfrak{C} \hookrightarrow \mathfrak{D}$
+is injective, then
+$\varphi_! = \check{\varphi}_!$
+{\color{red} (say more)}.
+
 
 
 \begin{lemma}\label{BASICPUSH LEMMA}
-Let $f \colon \mathfrak{C} \hookrightarrow \mathfrak{D}$ be an injective map of colors, $A \to B$ a map in $\mathsf{Op}^{\mathfrak{C}}$
-and $\mathcal{O} \in \mathsf{Op}^{\mathfrak{D}}$.
-
-Then if the leftmost diagram in $\mathsf{Op}^{\mathfrak{D}}$ is a pushout, so is the adjoint rightmost diagram in $\mathsf{Op}^{\mathfrak{C}}$.
+Let $\varphi \colon \mathfrak{C} \hookrightarrow \mathfrak{D}$ be an injective map of colors, 
+$\mathcal{A} \to \mathcal{B}$ a map in 
+$\mathsf{Op}_{\mathfrak{C}}(\V)$,
+and
+$\mathcal{O} \in \mathsf{Op}_{\mathfrak{D}}(\V)$.
+%
+Then if the leftmost diagram below in 
+$\mathsf{Op}_{\mathfrak{D}}(\V)$ is a pushout,
+so is the adjoint rightmost diagram in $\mathsf{Op}_{\mathfrak{C}}(\V)$.
 \[
 \begin{tikzcd}
-	f_! A \ar{r} \ar{d} & \mathcal{O} \ar{d}
+	\varphi_! \mathcal{A} \ar{r} \ar{d} & \mathcal{O} \ar{d}
 &
-	A \ar{r} \ar{d} & f^{\**} \mathcal{O} \ar{d}
+	\mathcal{A} \ar{r} \ar{d} & \varphi^{\**} \mathcal{O} \ar{d}
 \\
-	f_! B \ar{r} & \mathcal{P}
+	\varphi_! \mathcal{B} \ar{r} & \mathcal{P}
 &
-	B \ar{r} & f^{\**} \mathcal{P}
+	\mathcal{B} \ar{r} & \varphi^{\**} \mathcal{P}
 \end{tikzcd}
 \]
 \end{lemma}
 
 
-\begin{proof}[Proof of Lemma \ref{BASICPUSH LEMMA}]
+
+\begin{proof}%[Proof of Lemma \ref{BASICPUSH LEMMA}]
 
 We start by noting that the top composite in the diagram
 \[
 \begin{tikzcd}
-	\Omega_{\mathfrak{C}}^{p,op} \ar{r}{f_{\**}} \ar{d}[swap]{\mathsf{lr}} &
-	\Omega_{\mathfrak{D}}^{p,op} \ar{rr}{N^{(f_!B,f_!A,\mathcal{O})}} \ar{d}[swap]{\mathsf{lr}} &&
+	\Omega_{\mathfrak{C}}^{p,op} \ar{r}{\varphi} \ar{d}[swap]{\mathsf{lr}} &
+	\Omega_{\mathfrak{D}}^{p,op} 
+	\ar{rr}{N^{(\mathcal{O},\varphi_!\mathcal{A},\varphi_!\mathcal{B})}}
+	\ar{d}[swap]{\mathsf{lr}} &&
 	\mathcal{V}
 \\
-	\Sigma_{\mathfrak{C}}^{op} \ar{r}{f_{\**}} &
-	\Sigma_{\mathfrak{D}}^{op} %\ar[dashed]{rru}[swap]{\mathcal{P}}
+	\Sigma_{\mathfrak{C}}^{op} \ar{r}{\varphi} &
+	\Sigma_{\mathfrak{D}}^{op} 
 \end{tikzcd}
 \]
-is $N^{(B,A,f^{\**}\mathcal{O})}$ by Remark \ref{OP_MAP REM}, so that our intended result is that the induced map
+is $N^{(\varphi^{\**}\mathcal{O},\mathcal{A},\mathcal{B})}$
+by Remark \ref{OP_MAP REM}, 
+so that our intended result is equivalent to showing that the map
 \begin{equation}\label{LANISO EQ}
 	\mathsf{Lan}_{\Omega_{\mathfrak{C}}^{p,op} \to \Sigma_{\mathfrak{C}}^{op}}
-	N^{(B,A,f^{\**}\mathcal{O})}
+	N^{(\varphi^{\**}\mathcal{O},\mathcal{A},\mathcal{B})}
 \xrightarrow{\simeq}
 \left(
 	\mathsf{Lan}_{\Omega_{\mathfrak{D}}^{p,op} \to \Sigma_{\mathfrak{D}}^{op}}
-	N^{(f_!B,f_!A,\mathcal{O})}
-\right) \circ f_{\**}
+	N^{(\mathcal{O},\varphi_!\mathcal{A},\varphi_!\mathcal{A})}
+\right) \circ \varphi 
 \end{equation}
-is an isomorphism. To see this, first let $\widehat{\Omega}^p_{\mathfrak{D}}$
+is an isomorphism.
+%
+To see this, first let $\widehat{\Omega}^p_{\mathfrak{D}}$
 be the full subcategory of $\Omega^p_{\mathfrak{D}}$
 such that if 
-$v \in V(T)$ is $A$ or $B$-labeled then $T_v \in \Sigma_{\mathfrak C}$.
-It follows from \eqref{NBAO EQ} and Remark \ref{OP_MAP REM} that $N^{(f_! B, f_! A, \mathcal{O})}(T) = \emptyset$ whenever $T \not \in \widehat{\Omega}^p_{\mathfrak{D}}$,
+$v \in \boldsymbol{V}(T)$ is 
+$\mathcal{A}$ or $\mathcal{B}$-labeled then 
+$\vect{T}_v \in \Sigma_{\mathfrak C}$.
+
+
+
+It follows from \eqref{NBAO EQ} that 
+$N^{(\mathcal{O}, \varphi_! \mathcal{A}, \varphi_! \mathcal{B})}(\vect{T}) =
+ \emptyset$ whenever $\vect{T} \not \in \widehat{\Omega}^p_{\mathfrak{D}}$,
 and it is straightforward to check that 
 $\widehat{\Omega}^p_{\mathfrak{D}}$
-is a sieve of $\Omega^p_{\mathfrak{D}}$, i.e. for any map $T \to S$ in $\Omega^p_{\mathfrak{D}}$ such that $S \in \widehat{\Omega}^p_{\mathfrak{D}}$ then $T \in \widehat{\Omega}^p_{\mathfrak{D}}$.
-From this is follows that 
-$N^{(f_!B,f_!A,\mathcal{O})}$
+is a sieve of $\Omega^p_{\mathfrak{D}}$, 
+i.e. for any map $\vect{T} \to \vect{S}$ 
+in $\Omega^p_{\mathfrak{D}}$ such that 
+$\vect{S} \in \widehat{\Omega}^p_{\mathfrak{D}}$ then 
+$\vect{T} \in \widehat{\Omega}^p_{\mathfrak{D}}$.
+It then follows that 
+$N^{(\mathcal{O}, \varphi_! \mathcal{A}, \varphi_! \mathcal{B})}$
 is the left Kan extension of its restriction to 
 $\widehat{\Omega}^p_{\mathfrak{D}}$, 
 so we are free to replace
 $\Omega^p_{\mathfrak{D}}$
 with
 $\widehat{\Omega}^p_{\mathfrak{D}}$
-in \eqref{LANISO EQ}.
+in the rightmost Kan extension in \eqref{LANISO EQ}.
 
-The result now follows by noting that,
-for each $C \in \Sigma_{\mathfrak{C}}$
-the inclusion
-$(C \downarrow \Omega^p_{\mathfrak{C}})
+
+
+We now note that for each 
+$\vect{C} \in \Sigma_{\mathfrak{C}}$
+the inclusion of undercategories
+$(\vect{C} \downarrow \Omega^p_{\mathfrak{C}})
 \to
-(C \downarrow \widehat{\Omega}^p_{\mathfrak{D}})
+(\vect{C} \downarrow \widehat{\Omega}^p_{\mathfrak{D}})
 $
-has a right adjoint given by the assignment $T \mapsto T - E_{\mathfrak{D} \setminus \mathfrak{C}}(T)$,
+has a left adjoint given by the assignment 
+$\vect{T} \mapsto \vect{T} - 
+\boldsymbol{E}_{\mathfrak{D} \setminus \mathfrak{C}}(\vect{T})$,
 where 
-$E_{\mathfrak{D} \setminus \mathfrak{C}}(T)$ is the set of edges not in $\mathfrak{C}$ (the fact that this has a natural labeling follows since all the edges being collapsed must connect $\mathcal{O}$-vertices, so that there is no ambiguity as to how to label the vertices of $T - E_{\mathfrak{D} \setminus \mathfrak{C}}(T)$).
+$\boldsymbol{E}_{\mathfrak{D} \setminus \mathfrak{C}}(\vect{T})$
+is the set of edges of $\vect{T}$ whose colors are not in $\mathfrak{C}$
+(the fact that this has a natural vertex labeling follows since all the edges being collapsed must connect $\mathcal{O}$-vertices, so there is no ambiguity as to how to label the vertices of $\vect{T} - \boldsymbol{E}_{\mathfrak{D} \setminus \mathfrak{C}}(\vect{T})$).
+But this shows that the opposite maps 
+$(\vect{C} \downarrow \Omega^p_{\mathfrak{C}})^{op}
+\to
+(\vect{C} \downarrow \widehat{\Omega}^p_{\mathfrak{D}})^{op}$
+are final, 
+and since \eqref{LANISO EQ} is 
+are computed via colimits over these (opposite) undercategories, the result follows.
 \end{proof}
 
 
 \begin{corollary}\label{FGTPUSH COR}
-Suppose that $f,g$ on the left pushout diagram below are both injective on colors.
+Suppose that $F,G$ on the left pushout diagram below are both injective on colors.
 \[
 \begin{tikzcd}
-	A \ar{r}{f} \ar{d}[swap]{g} & \mathcal{O} \ar{d}
+	\mathcal{A} \ar{r}{F} \ar{d}[swap]{G} & \mathcal{O} \ar{d}
 &
-	A \ar{r} \ar{d}[swap]{g} & f^{\**} \mathcal{O} \ar{d}
+	\mathcal{A} \ar{r} \ar{d}[swap]{G} & F^{\**} \mathcal{O} \ar{d}
 \\
-	B \ar{r}{\tilde{f}} & \mathcal{P}
+	\mathcal{B} \ar{r}{\bar{F}} & \mathcal{P}
 &
-	B \ar{r} & \tilde{f}^{\**} \mathcal{P}
+	\mathcal{B} \ar{r} & \bar{F}^{\**} \mathcal{P}
 \end{tikzcd}
 \]
 Then the rightmost diagram is also a pushout diagram.
 \end{corollary}
 
 \begin{proof}
-This follows by adding to both $A$ and $\mathcal{O}$ a disjoint trivial operad with object set $\mathfrak{C}(B) \setminus \mathfrak{C}(A)$. In doing so one does not alter the pushout, but the map $g$ now becomes a fixed color map, so that the previous result can be applied to the left pushout.
+This follows by adding to both $\mathcal{A}$ and $\mathcal{O}$ a disjoint trivial operad on the object set
+$\mathfrak{C}_{\mathcal{B}} \setminus \mathfrak{C}_{\mathcal{A}})$.
+In doing so one does not alter the left pushout, but the map $G$ now becomes a fixed color map, so that
+Lemma \ref{BASICPUSH LEMMA} can be applied.
 \end{proof}
 
 
-\begin{corollary}
-      \label{LOCALISO_COR}
-      Suppose that we have a pushout in $\Op(\V)$ such that $f,g$ are both injective on colors.
-      \[
-            \begin{tikzcd}
-                  A \arrow[d, "g"'] \arrow[r, "f"]
-                  &
-                  \O \arrow[d]
-                  \\
-                  B \arrow[r]
-                  &
-                  \P
-            \end{tikzcd}
-      \]
-      If $A \to B$ is a local isomorphism, then so is $\O \to \P$.
+
+\begin{corollary}\label{LOCALISO_COR}
+ Suppose that we have a pushout in $\Op_{\bullet}(\V)$ such that $F,G$ are both injective on colors.
+\[
+\begin{tikzcd}
+	\mathcal{A} \arrow[d, "G"'] \arrow[r, "F"]
+&
+	\O \arrow[d]
+\\
+	\mathcal{B} \arrow[r]
+&
+	\P
+\end{tikzcd}
+\]
+	If $\mathcal{A} \to \mathcal{O}$ is a local isomorphism, then so is $\mathcal{B} \to \P$.
 \end{corollary}
+
 \begin{proof}
-      A map $g: A \to B$ is a local isomorphism iff $A \to g^{\**}B$ is an isomorphism in $\Op^{\mathfrak C(A)}(\V)$.
-      Thus the result follows by applying Corollary \ref{FGTPUSH COR} with the notations of $B$ and $\O$ switched.      
+	This is immediate from Corollary \ref{FGTPUSH COR}.      
 \end{proof}
 
 
