@@ -24,7 +24,7 @@
 \usepackage{ifdraft}
 \ifdraft{
   \color[RGB]{63,63,63}
-  \pagecolor[RGB]{220,220,204}
+%  \pagecolor[RGB]{220,220,204}
   \usepackage{showkeys}
   \usepackage{geometry}
   \usepackage{todonotes}
@@ -10667,11 +10667,9 @@ $\mathbb{F} = \mathsf{Lan} N \iota$ and multiplication and unit given by
 
 
 
-{\color{red} HERE}
 
 
-\subsection{Pushouts of operads}
-\label{PUSHOUT_SEC}
+\subsection{Free extensions of operads}\label{PUSHOUT_SEC}
 
 
 Our goal in this section will be to understand free operad extensions, i.e. pushouts of the form 
@@ -10686,13 +10684,15 @@ Our goal in this section will be to understand free operad extensions, i.e. push
 	\O[u].
 \end{tikzcd}
 \end{equation}
-where $u \colon X \to Y$ is a map of symmetric sequences.
-Moreover, we will require that \eqref{OU EQ} is a fibered diagram over $\mathsf{F}$, i.e. that all maps therein are the identity on colors.
-However, rather than fix the set of colors, 
-we will find it convenient to consider all colors simultaneously, 
+where $u \colon X \to Y$ is a map of symmetric sequences,
+and where we moreover require that \eqref{OU EQ} is a fibered diagram over $\mathsf{Set}$, i.e. that all maps therein are the identity on colors.
+
+Moreover, in order to understand the equivariant case, 
+we will \emph{not} fix the set of colors,  
+but rather consider all colors simultaneously, 
 and note that our constructions are natural 
 on \eqref{OU EQ} with respect to change of colors.
-More explicitly, this will mean that our work in this section will be natural with regard to commutative diagrams
+More explicitly, this means that our work in this section will be natural with regard to commutative diagrams
 \begin{equation}\label{COLORCHNAT EQ}
 	\begin{tikzcd}
 		X \arrow[r, "u"',swap] \arrow[d]
@@ -10712,7 +10712,8 @@ More explicitly, this will mean that our work in this section will be natural wi
 		\O'
 	\end{tikzcd}
 \end{equation}
-where all vertical maps induce the same map on objects.
+where all vertical maps induce the same map 
+$\varphi \colon \mathfrak{C} \to \mathfrak{D}$ on objects.
 
 
 To understand the pushouts \eqref{OU EQ},
@@ -10721,22 +10722,22 @@ we will produce a filtration
       \O = \O_0 \into \O_1 \into \O_2 \into \dots \into \colim_k \O_k = \O[u]
 \end{equation}
 of the underlying symmetric sequences, i.e. with 
-$\mathcal{O}_i \in \mathsf{Sym}(\mathcal{V})$
+$\mathcal{O}_i \in \mathsf{Sym}_{\bullet}(\mathcal{V})$
 (and all maps in \eqref{FILT EQ} will, again, be the identity on colors).
 
 
-Writing $\amalg_{\mathsf{F}}$ and $\mathbin{\check\amalg}_{\mathsf{F}}$
+Writing $\amalg_{\mathsf{Set}}$ and $\mathbin{\check\amalg}_{\mathsf{Set}}$
 for the fibered coproducts in 
-$\mathsf{Sym}(\mathcal{V})$ and
-$\mathsf{Op}(\mathcal{V})$
-(i.e. these are the coproducts within each fiber over $\mathsf{F}$, rather than the coproducts in the overall categories)
+$\mathsf{Sym}_{\bullet}(\mathcal{V})$ and
+$\mathsf{Op}_{\bullet}(\mathcal{V})$
+(i.e. these are the coproducts within each fiber over $\mathsf{Set}$, rather than the coproducts in the overall categories)
 the discussion in $(5.3)$ through $(5.7)$ of \cite{BP_geo}
 yields that
 \begin{align*}
   \O[u]
   &
     \simeq \mathrm{coeq}\left(
-          \O \mathbin{\check\amalg_{\mathsf{F}}} \mathbb F X \mathbin{\check\amalg}_{\mathsf{F}} \mathbb F Y \rightrightarrows \O \mathbin{\check\amalg}_{\mathsf{F}} \mathbb F Y
+          \O \mathbin{\check\amalg_{\mathsf{Set}}} \mathbb F X \mathbin{\check\amalg}_{\mathsf{Set}} \mathbb F Y \rightrightarrows \O \mathbin{\check\amalg}_{\mathsf{Set}} \mathbb F Y
           \right)
   \\
   &
@@ -10749,28 +10750,30 @@ yields that
   \\
   &
     \simeq \colim_{[l] \in \Delta^{op},[n] \in \Delta^{op}} 
-    \mathsf{Lan} N \circ \left( N^{\circ n} \iota \O \amalg_{\mathsf{F}} \iota X^{\amalg_{\mathsf{F}} 2l +1} \amalg_{\mathsf{F}} \iota Y \right),
+    \mathsf{Lan} N \circ \left( N^{\circ n} \iota \O \amalg_{\mathsf{Set}} \iota X^{\amalg_{\mathsf{Set}} 2l +1} \amalg_{\mathsf{Set}} \iota Y \right),
     \stepcounter{equation}\tag{\theequation}\label{OU EQ1}
     % =: \colim_{n,l} \mathsf{Lan} \hat N_{n,l}^{(\O,X,Y)},
 \end{align*}
 where $B_{\bullet}$ denotes the \textit{double bar construction}
-with respect to $\mathbin{\check\amalg}_{\mathsf{F}}$,
+with respect to $\mathbin{\check\amalg}_{\mathsf{Set}}$,
 $\mathbb{F}^{\bullet +1} \mathcal{O}$ denotes the simplicial resolution of $\mathcal{O}$, 
-and $N$ is the span monad in Definition \ref{NCOLOR DEF}.
+and $N$ is the monad on spans in Definition \ref{NCOLOR DEF}.
 Crucially, we note that colimits over $\Delta^{op}$
 are computed by the reflexive coequalizer determined by levels $0$ and $1$, 
 so that the colimits in \eqref{OU EQ1}
-can be computed in $\mathsf{Sym}(\mathcal{V})$
-rather than in $\mathsf{Op}(\mathcal{V})$.
-
+can be computed in $\mathsf{Sym}_{\bullet}(\mathcal{V})$
+rather than in $\mathsf{Op}_{\bullet}(\mathcal{V})$.
 
 By construction,
-$N \left(N^{\circ n} \iota \O \amalg_{\mathsf{F}} \iota X^{\amalg_{\mathsf{F}} 2l +1}\amalg_{\mathsf{F}} \iota Y \right)$
+$N \left(N^{\circ n} \iota \O \amalg_{\mathsf{Set}} \iota X^{\amalg_{\mathsf{Set}} 2l +1}\amalg_{\mathsf{Set}} \iota Y \right)$
 denotes a certain span
 $\Sigma_{\mathfrak{C}}^{op} \leftarrow 
-\left(\Omega^{n,\lambda_l}_{\mathfrak{C}}\right)^{op} \to \mathcal{V}$,
-and, after we properly identify $\Omega_{\mathfrak C}^{n, \lambda_l}$ in \S \ref{LCS_SEC},
-we can then apply (the natural analogue of)
+\left(\Omega^{n,\lambda_l}_{\mathfrak{C}}\right)^{op} \to \mathcal{V}$
+which we will explicitly identify 
+%$\Omega_{\mathfrak C}^{n, \lambda_l}$
+in \S \ref{LCS_SEC}.
+This will then allows us to 
+apply (the natural analogue of)
 \cite[Prop. 5.37]{BP_geo}
 along each simplicial direction
 to convert the last line of \eqref{OU EQ1}
@@ -10779,12 +10782,14 @@ over a single span
 $\Sigma_{\mathfrak{C}}^{op} \leftarrow 
 \left|\Omega^{n,\lambda_l}_{\mathfrak{C}}\right|^{op} \to \mathcal{V}$.
 
+
 The task of describing 
 $\Omega^{n,\lambda_l}_{\mathfrak{C}}$
-is similar to the upshot of Proposition \ref{ASSOCIDS PROP}, which shows that
+is similar to the spirit of Proposition \ref{ASSOCIDS PROP}, which shows that
 $N^{\circ n+1}$ is naturally calculated using the
 $\Omega_{\mathfrak{C}}^{n} \wr (-)$ 
 construction.
+
 
 Indeed, we will do a little more. For $\lambda = \lambda_a \amalg \lambda_i$
 a partition of $\set{1,2,\dots,l}$
@@ -10803,36 +10808,59 @@ A_k & \text{if } k\in \lambda_i
 \]
 where we note that $N^{\times \lambda}$
 preserves the fibered product
-$\left(\mathsf{WSpan}_l(\Sigma_{\bullet}^{op},\mathcal{V})\right)^{\times_{\mathsf{F}} l}$,
-i.e. the subcategory consisting of those tuples $(A_j)$ with the same objects in $\mathsf{F}$ (and similarly for maps), and we will slightly abuse notation by also writing 
+$\left(\mathsf{WSpan}_l(\Sigma_{\bullet}^{op},\mathcal{V})\right)^{\times_{\mathsf{Set}} l}$,
+i.e. the subcategory consisting of those tuples $(A_j)$ with the same set of objects $\mathfrak{C} \in \mathsf{Set}$ (and likewise for maps), and we will slightly abuse notation by also writing 
 $N^{\times \lambda}$
 for the monad restricted to this subcategory.
 
 
-\subsubsection{Labeled colored strings}
+
+\subsubsection*{Labeled colored strings}
 \label{LCS_SEC}
 
-The categories $\Omega_{\mathfrak C}^{n,s,\lambda}$ in the following definition will then represent
-the functors
-$N^{\circ s+1} \circ \coprod_{\mathsf{F}} \circ \left(N^{\times \lambda}\right)^{\circ n-s}$.
+Let $l \geq 1$. A \emph{$l$-labelling} of a tree $\vect{T} \in \Omega_{\mathfrak{C}}$ is a map
+$\boldsymbol{V}(T) \to \{1,\cdots,l\}\}$.
+Further, a map 
+$\vect{T} \to \vect{S}$ of labeled trees
+is called a \emph{label map}
+if all the vertices in $\vect{S}_v$
+have the same label as $v$
+for all $v \in \boldsymbol{V}(T)$.
+Lastly, given a subset $\lambda_i \subseteq \{1,\cdots,l\}$,
+a label map 
+$\vect{T} \to \vect{S}$
+is called \emph{$\lambda_i$-inert}
+if $\vect{S}_v$ is a corolla whenever the label of
+$v \in \boldsymbol{V}(T)$ is in $\lambda_i$.
 
  
+
+The categories $\Omega_{\mathfrak C}^{n,s,\lambda}$ in the following definition will represent
+the functors
+$N^{\circ s+1} \circ \coprod_{\mathsf{Set}} \circ \left(N^{\times \lambda}\right)^{\circ n-s}$.
+
+
 
 \begin{definition}[{cf. \cite[Defn. 5.10]{BP_geo}}]\label{CLPS DEF}
       Given $-1 \leq s \leq n$, $l \geq 0$, and a partition $\lambda = \lambda_a \amalg \lambda_i$ of $\set{1,2,\dots,l}$,
       define $\Omega_{\mathfrak C}^{n,s,\lambda}$ to have as objects
 $n$-planar strings
 \begin{equation}
-	T_{-1} \xrightarrow{\varphi_0} T_0 \xrightarrow{\varphi_1} T_1 \xrightarrow{\varphi_2} \dots
-	T_{s} \xrightarrow{\varphi_{s+1}} T_{s+1} \xrightarrow{\varphi_{s+2}}  \dots
-	\xrightarrow{\varphi_n} T_n
+	\mathsf{lr}(\vect{T}_0)=
+	\vect{T}_{-1} \xrightarrow{f_0} \vect{T}_0 
+	\xrightarrow{f_1} \vect{T}_1 
+	\xrightarrow{f_2} \dots
+	\vect{T}_{s} \xrightarrow{f_{s+1}} \vect{T}_{s+1}
+	\xrightarrow{f_{s+2}}  \dots
+	\xrightarrow{f_n} \vect{T}_n
 \end{equation}
-together with $l$-labelings of $T_s, T_{s+1}, \cdots, T_n$
+together with $l$-labelings of $\vect{T}_s, \vect{T}_{s+1}, \cdots, \vect{T}_n$
 such that
-$\varphi_{r}, r>s$ are $\lambda_i$-inert label maps.
+$f_{r}, r>s$ are $\lambda_i$-inert label maps.
 
 Arrows in $\Omega_{\mathfrak C}^{n,s,\lambda}$
-are tuples of isomorphisms $\left(\pi_r \colon T_r \to T'_r\right)$
+are tuples of isomorphisms 
+$\left(\pi_r \colon \vect{T}_r \to \vect{T}'_r\right)$
 such that $\pi_r,r \geq s$ are label maps.
 
 Further, for any $s<0$ or $n<s'$, we write
@@ -10847,13 +10875,14 @@ Further, for any $s<0$ or $n<s'$, we write
 
 We now discuss the functors relating the $\Omega_{\mathfrak{C}}^{n,s,\lambda}$ categories. Firstly, for 
 $s \leq s'$ 
-and map of labels $g \colon \{1,\cdots,l'\} \to \{1,\cdots,l\}$
-such that $\lambda'_a \subseteq g^{-1}\left( \lambda_a\right)$
+and map of labels 
+$\gamma \colon \{1,\cdots,l'\} \to \{1,\cdots,l\}$
+such that $\lambda'_a \subseteq \gamma^{-1}\left( \lambda_a\right)$
 there are natural functors
 \[
 \Omega_{\mathfrak{C}}^{n,s,\lambda} \to \Omega_{\mathfrak{C}}^{n,s',\lambda},
 \qquad
-\Omega_{\mathfrak{C}}^{n,s,\lambda'} \xrightarrow{g_{\**}} \Omega_{\mathfrak{C}}^{n,s,\lambda}.
+\Omega_{\mathfrak{C}}^{n,s,\lambda'} \xrightarrow{\gamma} \Omega_{\mathfrak{C}}^{n,s,\lambda}.
 \]
 Second, by keeping track of labels on vertices,
 the usual functors from \S \ref{CSTRINGS_SEC} relating the categories 
@@ -10861,24 +10890,25 @@ $\Omega^n_{\mathfrak{C}}$ extend to the categories
 $\Omega_{\mathfrak{C}}^{n,s,\lambda}$. Indeed, for 
 $k \leq n$
 and 
-$f \colon \mathfrak{C} \to \mathfrak{D}$ a map of colors
+$\varphi \colon \mathfrak{C} \to \mathfrak{D}$ a map of colors
 one has functors
 \begin{equation}\label{FGTLABEL EQ}
 \Omega_{\mathfrak{C}}^{n,s,\lambda} \xrightarrow{\boldsymbol{V}^k} \Sigma \wr\Omega_{\mathfrak{C}}^{n-k-1,s-k-1,\lambda},
 \qquad
-\Omega_{\mathfrak{C}}^{n,s,\lambda} \xrightarrow{f_{\**}} \Omega_{\mathfrak{D}}^{n,s,\lambda}.
+\Omega_{\mathfrak{C}}^{n,s,\lambda} \xrightarrow{\varphi} \Omega_{\mathfrak{D}}^{n,s,\lambda}.
 \end{equation}
-Lastly, one also has simplicial operators $d_i$, $s_j$, 
-but some care is needed with the way these interact with the index $s$. To do so, defining functions $d_i,s_j\colon \mathbb{Z} \to \mathbb{Z}$ by
+
+Lastly, one also has simplicial operators $d^i$, $s^j$, 
+but some care is needed with the way these interact with the index $s$. To do so, defining functions $d^i,s^j\colon \mathbb{Z} \to \mathbb{Z}$ by
 \begin{equation}\label{SIMPLEXP EQ}
- d_i(s) = 
+ d^i(s) = 
 \begin{cases}
 s-1, & i<s
 \\
 s, & s\leq i
 \end{cases}
 \qquad
-s_j(s) = 
+s^j(s) = 
 \begin{cases}
 s+1, & j<s
 \\
@@ -10887,9 +10917,9 @@ s, & s\leq j
 \end{equation}
 one has simplicial operators
 \[
-\Omega_{\mathfrak{C}}^{n,s,\lambda} \xrightarrow{d_i} \Sigma \wr\Omega_{\mathfrak{C}}^{n,d_i(s),\lambda},
+\Omega_{\mathfrak{C}}^{n,s,\lambda} \xrightarrow{d^i} \Sigma \wr\Omega_{\mathfrak{C}}^{n,d^i(s),\lambda},
 \qquad
-\Omega_{\mathfrak{C}}^{n,s,\lambda} \xrightarrow{s_j} \Sigma \wr\Omega_{\mathfrak{C}}^{n,s_j(s),\lambda},
+\Omega_{\mathfrak{C}}^{n,s,\lambda} \xrightarrow{s^j} \Sigma \wr\Omega_{\mathfrak{C}}^{n,s^j(s),\lambda},
 \]
 for $0\leq i \leq n$ and $-1\leq j \leq n$.
 In practice, we will prefer to suppress $s$ from the notation,
@@ -10918,20 +10948,22 @@ generalize to natural isomorphisms
 (note that the right vertical map is an identity even if
 $s-k-1 \neq d_i(s)-k$, since that can only occur if $s\leq i \leq k$, implying that the rightmost terms are both $\Sigma \wr \Omega_{\mathfrak{C}}^{n-k-1,-1,\lambda}$).
 
+
+
 \begin{remark}
 We now discuss the naturality of the given functors on the categories
 $\Omega_{\mathfrak{C}}^{n,s,\lambda}$ just described.
 \begin{enumerate}[label=(\roman*)]
 \item by keeping track of vertex labels, all the analogues of the properties in Propositions \ref{CATDIAG PROP} and \ref{CATDIAG2 PROP} extend (note that this includes the pullback claims in 
-Proposition \ref{CATDIAG PROP}(ii))
-\item the change of color functors $f_{\**}$, change of label functors $g_{\**}$, and the forgetful functors in
+Proposition \ref{CATDIAG PROP}(ii)).
+\item the change of color functors $\varphi$, change of label functors $\gamma$, and the forgetful functors in
 \eqref{FGTLABEL EQ} are all natural with respect to each other.
-\item $d_i$, $s_j$, $\boldsymbol{V}^k$
-and $\pi_{i,k}$, are natural with respect to the change of label functors $g_{\**}$ and the forgetful functors in
+\item $d^i$, $s^j$, $\boldsymbol{V}^k$
+and $\pi_{i,k}$, are natural with respect to the change of color functors $\varphi$, change of label functors $\gamma$ and the forgetful functors in
 \eqref{FGTLABEL EQ}, 
 in the sense that they satisfy the analogues of the properties in 
 Proposition \ref{CATDIAG PROP}(iii) with 
-the role of $f_{\**}$ replaced with the latter functors.
+the role of $\varphi$ replaced with the latter functors.
 \item
 For $k \leq s \leq s'$ the following squares are pullback squares
 \[
@@ -10966,7 +10998,7 @@ $\Sigma \wr \amalg_j A_j \to \Sigma \wr \Sigma_{\mathfrak{C}}^{\amalg l}$.
  
 In particular, for all $-1\leq s \leq n$, this defines categories
 $\Omega^{n,s,\lambda}_{\mathfrak{C}} \wr (A_j)$ via pullbacks
-(note that the $s \leq n$ restriction guarantees that the target of the lower $\boldsymbol{V}^n$ is indeed $\Sigma \wr \Sigma_{\mathfrak{C}}^{\amalg l}$).
+(note that the $s \leq n$ restriction guarantees that the target of the lower $\boldsymbol{V}^n$ is indeed $\Sigma \wr \Sigma_{\mathfrak{C}}^{\amalg l}$)
 \begin{equation}\label{WRAJSAMPLE EQ}
 \begin{tikzcd}
 	\Omega^{n,s,\lambda}_{\mathfrak{C}} \wr (A_j) \ar{r}{\boldsymbol{V}^n} \ar{d} &
@@ -10976,87 +11008,117 @@ $\Omega^{n,s,\lambda}_{\mathfrak{C}} \wr (A_j)$ via pullbacks
 	\Sigma \wr \Sigma_{\mathfrak{C}}^{\amalg l}
 \end{tikzcd}
 \end{equation}
-along with analogues of $d_i$ (for $i<n$), $s_j$, $\boldsymbol{V}^k$, $\pi_{i,k}$
+along with analogues of $d^i$ (for $i<n$), $s^j$, $\boldsymbol{V}^k$, $\pi_{i,k}$
 and of the forgetful functors in \eqref{FGTLABEL EQ}
 (cf. the discussion following \eqref{WRADEF EQ}).
 \end{definition}
+
  
 
 \begin{proposition}\label{SPANPIECEJ PROP}
 A tuple of commutative squares
 \begin{equation}\label{SPANPIECEJ EQ}
 \begin{tikzcd}
-	A_j \ar{d} \ar{r}{f} &  \ar{d} B_j
+	A_j \ar{d} \ar{r}{\varphi} &  \ar{d} B_j
 \\
-	\Sigma_{\mathfrak{C}} \ar{r}[swap]{f} & \Sigma_{\mathfrak{D}}
+	\Sigma_{\mathfrak{C}} \ar{r}[swap]{\varphi} & \Sigma_{\mathfrak{D}}
 \end{tikzcd}
 \end{equation}
 induces natural maps 
-$f_{\**} \colon
+$\varphi \colon
 \Omega_{\mathfrak{C}}^{n,\bullet,\lambda} \wr (A_j) \to 
 \Omega_{\mathfrak{D}}^{n,\bullet,\lambda} \wr (B_j) $.
 
 Similarly, a map of tuples $A_j \to B_{g(j)}$ for 
-$g \colon \{1,\cdots,l\} \to \{1,\cdots,l'\}$
+$\gamma \colon \{1,\cdots,l\} \to \{1,\cdots,l'\}$
 induces natural maps 
-$g_{\**} \colon
+$\gamma \colon
 \Omega_{\mathfrak{C}}^{n,\bullet,\lambda} \wr (A_j) \to 
 \Omega_{\mathfrak{C}}^{n,\bullet,\lambda'} \wr (B_{j'}) $.
 
-Moreover, both $f_{\**}$ and $g_{\**}$ satisfy the analogues of the commutativity properties in Proposition \ref{SPANPIECE PROP}.
-In particular, the diagrams below commute.
+
+Moreover, both $\varphi$ and $\gamma$ satisfy the analogues of the commutativity properties in Proposition \ref{SPANPIECE PROP}.
+In particular, the diagrams below commutes.
 \[
 \begin{tikzcd}[column sep = 4pt, row sep = small]
 	\Omega^{n,\bullet,\lambda}_{\mathfrak{C}} \wr (A_j)
-	\ar{rrrrr}[name=toE]{\boldsymbol{V}^k} \ar{rd}[swap]{d^i} \ar{dd}[swap]{f_{\**}}
+	\ar{rrrrr}[name=toE2,near end]{\boldsymbol{V}^k} \ar{rd}[swap]{d^i} \ar{dd}[swap]{\varphi \gamma}
 	&&&
 	&&
-	\Sigma \wr \Omega^{n-k-1,\bullet,\lambda}_{\mathfrak{C}} \wr (A_j) \ar{dd}{f_{\**}}
-&
-	\Omega^{n,\bullet,\lambda}_{\mathfrak{C}} \wr (A_j)
-	\ar{rrrrr}[name=toE2]{\boldsymbol{V}^k} \ar{rd}[swap]{d^i} \ar{dd}[swap]{f_{\**}}
-	&&&
-	&&
-	\Sigma \wr \Omega^{n-k-1,\bullet,\lambda}_{\mathfrak{C}} \wr (A_j) \ar{dd}{f_{\**}}
+	\Sigma \wr \Omega^{n-k-1,\bullet,\lambda}_{\mathfrak{C}} \wr (A_j) \ar{dd}{\varphi \gamma}
 \\
-	&
-	|[alias=DBE]|
-	\Omega^{n-1,\bullet,\lambda}_{\mathfrak{C}} \wr (A_j) \ar{rrrru}[swap]{\boldsymbol{V}^{k-1}}
-	&&&&
-&
 	&
 	|[alias=DBE2]|
 	\Omega^{n-1,\bullet,\lambda}_{\mathfrak{C}} \wr (A_j) \ar{rrrru}[swap]{\boldsymbol{V}^{k-1}}
 \\
-	\Omega^{n,\bullet,\lambda}_{\mathfrak{D}} \wr (B_j) \ar{rrrrr}[name=toB]{\boldsymbol{V}^k} \ar{rd}[swap]{d^i}
+	\Omega^{n,\bullet,\lambda'}_{\mathfrak{D}} \wr (B_{j'}) \ar{rrrrr}[name=toB2, near end]{\boldsymbol{V}^k} \ar{rd}[swap]{d^i}
 	&&&
 	&&
-	\Sigma \wr \Omega^{n-k-1,\bullet,\lambda}_{\mathfrak{D}} \wr (B_j)
-&
-	\Omega^{n,\bullet,\lambda'}_{\mathfrak{C}} \wr (B_{j'}) \ar{rrrrr}[name=toB2]{\boldsymbol{V}^k} \ar{rd}[swap]{d^i}
-	&&&
-	&&
-	\Sigma \wr \Omega^{n-k-1,\bullet,\lambda'}_{\mathfrak{C}} \wr (B_{j'})
+	\Sigma \wr \Omega^{n-k-1,\bullet,\lambda'}_{\mathfrak{D}} \wr (B_{j'})
 \\
 	&
-	|[alias=D]| \Omega^{n-1,\bullet,\lambda}_{\mathfrak{D}} \wr (B_j) \ar{rrrru}[swap]{\boldsymbol{V}^{k-1}}
-	&&&&
-&
-	&
-	|[alias=D2]| \Omega^{n-1,\bullet,\lambda'}_{\mathfrak{C}} \wr (B_{j'}) \ar{rrrru}[swap]{\boldsymbol{V}^{k-1}}
-\arrow[Leftrightarrow, from=DBE, to=toE, shorten <=0.15cm,shorten >=0.15cm
-,swap,"\pi"
-]
-	\arrow[Leftrightarrow, from=D, to=toB, shorten <=0.15cm,shorten >=0.15cm,swap,"\pi"]
-	\arrow[from=DBE, to=D, crossing over, near start, swap, "f_{\**}"]
+	|[alias=D2]| \Omega^{n-1,\bullet,\lambda'}_{\mathfrak{D}} \wr (B_{j'}) \ar{rrrru}[swap]{\boldsymbol{V}^{k-1}}
 \arrow[Leftrightarrow, from=DBE2, to=toE2, shorten <=0.15cm,shorten >=0.15cm
 ,swap,"\pi"
 ]
 	\arrow[Leftrightarrow, from=D2, to=toB2, shorten <=0.15cm,shorten >=0.15cm,swap,"\pi"]
-	\arrow[from=DBE2, to=D2, crossing over, near start, swap, "f_{\**}"]
+	\arrow[from=DBE2, to=D2, crossing over, near start, swap, "\varphi \gamma"]
 \end{tikzcd}
 \]
+%\[
+%\begin{tikzcd}[column sep = 4pt, row sep = small]
+%\Omega^{n,\bullet,\lambda}_{\mathfrak{C}} \wr (A_j)
+%\ar{rrrrr}[name=toE]{\boldsymbol{V}^k} \ar{rd}[swap]{d^i} \ar{dd}[swap]{f_{\**}}
+%&&&
+%&&
+%\Sigma \wr \Omega^{n-k-1,\bullet,\lambda}_{\mathfrak{C}} \wr (A_j) \ar{dd}{f_{\**}}
+%&
+%\Omega^{n,\bullet,\lambda}_{\mathfrak{C}} \wr (A_j)
+%\ar{rrrrr}[name=toE2]{\boldsymbol{V}^k} \ar{rd}[swap]{d^i} \ar{dd}[swap]{f_{\**}}
+%&&&
+%&&
+%\Sigma \wr \Omega^{n-k-1,\bullet,\lambda}_{\mathfrak{C}} \wr (A_j) \ar{dd}{f_{\**}}
+%\\
+%&
+%|[alias=DBE]|
+%\Omega^{n-1,\bullet,\lambda}_{\mathfrak{C}} \wr (A_j) \ar{rrrru}[swap]{\boldsymbol{V}^{k-1}}
+%&&&&
+%&
+%&
+%|[alias=DBE2]|
+%\Omega^{n-1,\bullet,\lambda}_{\mathfrak{C}} \wr (A_j) \ar{rrrru}[swap]{\boldsymbol{V}^{k-1}}
+%\\
+%\Omega^{n,\bullet,\lambda}_{\mathfrak{D}} \wr (B_j) \ar{rrrrr}[name=toB]{\boldsymbol{V}^k} \ar{rd}[swap]{d^i}
+%&&&
+%&&
+%\Sigma \wr \Omega^{n-k-1,\bullet,\lambda}_{\mathfrak{D}} \wr (B_j)
+%&
+%\Omega^{n,\bullet,\lambda'}_{\mathfrak{C}} \wr (B_{j'}) \ar{rrrrr}[name=toB2]{\boldsymbol{V}^k} \ar{rd}[swap]{d^i}
+%&&&
+%&&
+%\Sigma \wr \Omega^{n-k-1,\bullet,\lambda'}_{\mathfrak{C}} \wr (B_{j'})
+%\\
+%&
+%|[alias=D]| \Omega^{n-1,\bullet,\lambda}_{\mathfrak{D}} \wr (B_j) \ar{rrrru}[swap]{\boldsymbol{V}^{k-1}}
+%&&&&
+%&
+%&
+%|[alias=D2]| \Omega^{n-1,\bullet,\lambda'}_{\mathfrak{C}} \wr (B_{j'}) \ar{rrrru}[swap]{\boldsymbol{V}^{k-1}}
+%\arrow[Leftrightarrow, from=DBE, to=toE, shorten <=0.15cm,shorten >=0.15cm
+%,swap,"\pi"
+%]
+%\arrow[Leftrightarrow, from=D, to=toB, shorten <=0.15cm,shorten >=0.15cm,swap,"\pi"]
+%\arrow[from=DBE, to=D, crossing over, near start, swap, "f_{\**}"]
+%\arrow[Leftrightarrow, from=DBE2, to=toE2, shorten <=0.15cm,shorten >=0.15cm
+%,swap,"\pi"
+%]
+%\arrow[Leftrightarrow, from=D2, to=toB2, shorten <=0.15cm,shorten >=0.15cm,swap,"\pi"]
+%\arrow[from=DBE2, to=D2, crossing over, near start, swap, "f_{\**}"]
+%\end{tikzcd}
+%\]
 \end{proposition}
+
+
 
 \begin{proof}
 This follows by repeating the argument in the proof of Proposition \ref{SPANPIECE PROP}.
@@ -11072,7 +11134,7 @@ we can regard the
 $\Omega_{\mathfrak{C}}^{n,s,\lambda} \wr (-)$
 construction as a functor
 $\left(\mathsf{Cat}\downarrow \Sigma_{\mathfrak{C}}\right)^{\times l}
-\to \mathsf{Cat}\downarrow \Sigma_{\mathfrak{C}}$
+\to \mathsf{Cat}\downarrow \Sigma_{\mathfrak{C}}$.
 
 \begin{corollary}[{cf. \cite[Cor. 5.32]{BP_geo}}]
       \label{LABIDEN_COR}
@@ -11160,10 +11222,14 @@ Much as in Proposition \ref{ASSOCIDS PROP}, this follows by noting that all squa
       \end{equation}
 \end{proof}
 
-\subsubsection{Filtration of free extensions}
+
+
+\subsubsection*{Filtration of free extensions}
 \label{EQMON_SEC}
 
-We now return to discussing free extensions \eqref{OU EQ}.
+
+
+We now return to discussing the free extensions in \eqref{OU EQ}.
 %
 Let $\lambda_l$ denote the partition on 
 \[
@@ -11174,13 +11240,13 @@ Let $\lambda_l$ denote the partition on
 such that $\left(\lambda_l\right)_a = \{-\infty\}$,
 and define $N_{n,l}^{(\O,X,Y)}$ to be the opposite of the composite
 \[
-      \Omega_{\mathfrak C}^{n,0,\lambda_l} \xrightarrow{(\boldsymbol{V}^0)^{\circ n}}
+      \Omega_{\mathfrak C}^{n,0,\lambda_l} \xrightarrow{(\boldsymbol{V}^0)^{\circ n+1}}
       \Sigma^{\wr n} \wr \coprod_{\langle \langle l \rangle \rangle} \Sigma_{\mathfrak C} \xrightarrow{(\O,X,\dots,X,Y)}
       \Sigma^{\wr n} \wr \V^{op} \xrightarrow{\otimes}
       \V^{op}.
 \]
 The upshot of \S \ref{LCS_SEC}, in particular Corollary \ref{LABIDEN_COR}, is that
-$\mbox{$N \left(N^{\circ n} \iota \O \amalg_{\mathsf{F}} \iota X^{\amalg_{\mathsf{F}} 2l +1}\amalg_{\mathsf{F}} \iota Y \right)$}$
+$\mbox{$N \left(N^{\circ n} \iota \O \amalg_{\mathsf{Set}} \iota X^{\amalg_{\mathsf{Set}} 2l +1}\amalg_{\mathsf{Set}} \iota Y \right)$}$
 is the span
 $\mbox{$\Sigma_{\mathfrak C}^{op} \xleftarrow{\mathsf{lr}} (\Omega_{\mathfrak C}^{n,0,\lambda_l})^{op} \xrightarrow{N_{n,l}^{(\O,X,Y)}} \V$}$,
 and hence following \eqref{OU EQ1} we conclude that
@@ -11226,12 +11292,12 @@ and as arrows tall maps $\varphi \colon T \to S$ such that
 \begin{enumerate}[label=(\roman*)]
 \item if $T_v$ has a $X$-label, then 
 $S_v \in \Sigma_{\mathfrak{C}}$ and
-$S_v \in \Sigma_{\mathfrak{C}}$ has a $X$-label;
+$S_v $ has a $X$-label;
 \item if $T_v$ has a $Y$-label, then 
 $S_v \in \Sigma_{\mathfrak{C}}$ and
-$S_v \in \Sigma_{\mathfrak{C}}$ has either a $X$-label or a $Y$-label;
+$S_v $ has either a $X$-label or a $Y$-label;
 \item if $T_v$ has a $\O$-label, then 
-$S_v \in \Sigma_{\mathfrak{C}}$ has only $X$ and $\O$ label;
+$S_v $ has only $X$ and $\O$ labels.
 \end{enumerate}
 \end{proposition}
 
@@ -11242,7 +11308,7 @@ Firstly, it is straightforward to check that for each fixed $l$,
 the realization $|\Omega^{n,\lambda_l}|$
 in the $n$ direction is the category 
 $\Omega^{t,\lambda_l}_{\mathfrak{C}}$
-with objects the $\langle \langle l \rangle \rangle$-labeled trees and and maps the tall label maps which are inert on colors other than $-\infty$/$\O$ (cf. \cite[Rem. 5.36]{BP_geo}).
+with objects the $\langle \langle l \rangle \rangle$-labeled trees and  maps the tall label maps which are inert on colors other than $-\infty$/$\O$ (cf. \cite[Rem. 5.36]{BP_geo}).
 Moreover, maps 
 $T \to S$
 in 
@@ -11260,19 +11326,22 @@ $\Omega^{t,\lambda_0}$.
 \end{proof}
 
 
+
 We note that the proof of \cite[Prop 5.37]{BP_geo} % RANTRANS PROP
 holds when replacing $\Omega_G$ with $\Omega_{\mathfrak C}$,
 and we thus 
-apply it
+apply it to
 \eqref{1STRED EQ}
-(note that the ``natural transformation component of differential operators are isomorphisms for the $n$ direction follows from \eqref{NMONMULTTR EQ} and \eqref{NMONIDTR EQ}''
-while in the $l$ direction it follows since the associate maps of tuples (cf. Proposition \ref{SPANPIECEJ PROP}) are the identity in each coordinate)
+(note that the ``natural transformation component of differential operators are isomorphisms'' condition for the $n$ direction follows from \eqref{NMONMULTTR EQ} and \eqref{NMONIDTR EQ}
+while in the $l$ direction it follows since the associated maps of tuples (cf. Proposition \ref{SPANPIECEJ PROP}) are the identity in each coordinate)
 to yield
 \begin{equation}\label{2NDRED EQ}
 \O[u] \simeq
 	\mathsf{Lan}_{\left(\Omega_{\mathfrak C}^{e} \to
 	\Sigma_{\mathfrak C}\right)^{op}} N^{(\O,X,Y)}
 \end{equation}
+
+{\color{red} HERE}
 
 The desired filtration \eqref{FILT EQ} will now be obtained by
 first replacing $\Omega_{\mathfrak C}^e$ in \eqref{2NDRED EQ} with a suitable subcategory $\widehat{\Omega}_{\mathfrak C}^{e}$,
