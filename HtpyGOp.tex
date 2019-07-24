@@ -4539,18 +4539,19 @@ whose proof is postponed to the end of Appendix \S \ref{PUSHOUT_SEC}.
 %culminating in Proposition \ref{FILTPUSHG PROP}.
 The following discussion and lemma summarizes the properties of the filtration we will use.
 
-
-We denote by $\Omega^a_{\mathfrak{C}}$
-a variant of the category of trees, 
-which we refer to as ``alternating trees''.
-Its objects can be thought of as trees $\vect{T}$ 
-whose set of vertices is partitioned into ``active'' and ``inert'' vertices,
-$\boldsymbol{V}(\vect T) = 
-\boldsymbol{V}^{ac}(\vect T) \amalg \boldsymbol{V}^{in}(\vect T)$,
-in such a way that adjacent vertices are in different sides of the partition and the ``outer vertices'' (i.e. those adjacent to a leaf or root) are active.
-Its maps are informally described as tall maps of trees that 
-``send inert vertices to inert vertices''.
-
+\begin{notation}
+      \label{ALTOMEGA_NOT}
+      We denote by $\Omega^a_{\mathfrak{C}}$
+      a variant of the category of trees, 
+      which we refer to as ``alternating trees''.
+      Its objects can be thought of as trees $\vect{T}$ 
+      whose set of vertices is partitioned into ``active'' and ``inert'' vertices,
+      $\boldsymbol{V}(\vect T) = 
+      \boldsymbol{V}^{ac}(\vect T) \amalg \boldsymbol{V}^{in}(\vect T)$,
+      in such a way that adjacent vertices are in different sides of the partition and the ``outer vertices'' (i.e. those adjacent to a leaf or root) are active.
+      Its maps are informally described as tall maps of trees that 
+      ``send inert vertices to inert vertices''.
+\end{notation}
 
 
 \begin{example}\label{ALTMAP EX}
@@ -4923,7 +4924,6 @@ $j$ ranges over $\mathcal{J}$.
 \subsection{Pseudo indexing systems and underlying cofibrancy}
 \label{INDSYS SEC}
 
-
 Our aim in this section is to prove Theorem \ref{THMII},
 which says that, for certain $(G,\Sigma)$-families $\F$, the forgetful functor
 $\Op^G_{\mathfrak C, \F}(\V) \to \Sym^G_{\mathfrak C, \F}(\V)$ preserves cofibrant objects for all $G$-sets $\mathfrak C$.
@@ -4944,10 +4944,57 @@ More generally, we may consider underlying cofibrations.
 \end{remark}     
 
 Rephrasing, Theorem \ref{THMII} says that for a special class of $(G,\Sigma)$-familes $\F$, $\F$-cofibrant operads are $\Sigma_\F$-cofibrant.
-This result will follow as a special case of Theorem \ref{SIGMAG_COF_THM} below.
+We describe this special class now.
+
+\begin{definition}
+      For any $G$-set $\mathfrak C$, let $\boldsymbol{V}_{\mathfrak C}$ denote the composite of the first two horizontal maps in \eqref{FGC_EQ}.
+      \begin{equation}
+            \label{VC_EQ}
+            \boldsymbol{V}_{\mathfrak{C}} \colon 
+            G \ltimes \Omega_{\mathfrak{C}}^{0,op}
+            \xrightarrow{\ G \ltimes \boldsymbol{V}^{op} \ }
+            G \ltimes \left(\Sigma \wr \Sigma_{\mathfrak{C}}\right)^{op}
+            \xrightarrow{\ \Delta \ }
+            \left( \Sigma \wr  \left(G  \ltimes \Sigma_{\mathfrak{C}}^{op} \right)^{op} \right)^{op}
+      \end{equation}
+      If $\mathfrak C = \**$, we abuse notation slightly and simply write $\boldsymbol{V}$. 
+\end{definition}
+
+\begin{definition}
+      \label{PIS_DEF}
+      A $(G,\Sigma)$-family $\F$ is called a \textit{pseudo indexing system} if
+      \begin{equation}
+            \label{PIS_EQ}
+            \boldsymbol{V}^{\**} \F^\ltimes \subseteq \mathsf{lr}^{\**}\F,
+      \end{equation}
+      for $\F^\ltimes$ defined as in \eqref{FWRNXI EQ},
+      and $\mathsf{lr} \colon G \times \Omega^{0,op} \to G \times \Sigma^{op}$.
+\end{definition}
 
 \begin{remark}
-      Theorem \ref{SIGMAG_COF_THM} is the $\mathfrak C$-colored analogue to \cite[{Remark 6.64, after Theorem 6.59}]{BP_geo}.
+      Pseudo indexing systems are a generalization of the notion of \textit{indexing systems} introduced by Blumberg-Hill \cite[Defn. 3.22]{BH15}.
+      Moreover, they encompase the notion of \textit{weak indexing system} given by the authors
+      (\cite[Defn. 9.5]{Per18}, \cite[Defn. 4.49]{BP_geo}, \cite[Defn. 6.2]{BP_edss});
+      the two notions are in agreement by \cite[Remark 6.45]{BP_geo} when
+      $\F$ is a $(G,\Sigma)$-graph family (Definition \ref{GRAPHSUB_DEF}).
+
+      Briefly, indexing systems $\F$ correspond to the many distinct possible notions of
+      ``equivariant commutative monoids up to coherent homotopy'',
+      encoded by an $\F$-universal simplicial $G$-operad with a single color.
+      Additional context and motivation can be found at the above citations.
+\end{remark}
+
+We can now prove the main result of this section.
+\begin{theorem}
+      \label{SIGMAG_COF_THM}
+      Suppose $(\V, \otimes)$ satisfies the assumptions of Theorem \ref{THMI},
+      and let $\F$ be a pseudo indexing system.
+      If $f \colon \O \to \P$ is an $\F$-cofibration in $\Op^G_{\mathfrak C, \F}(\V)$ and $\O$ is $\Sigma_\F$-cofibrant,
+      then $f$ is a $\Sigma_\F$-cofibration.
+\end{theorem}
+
+\begin{remark}
+      Theorem \ref{SIGMAG_COF_THM} is the $\mathfrak C$-colored analogue to \cite[{Remark 6.64 with Theorem 6.59}]{BP_geo}.
       While we could have chosen to reprove the results in \cite[\S 6]{BP_geo} by hand for colored operads,
       we instead extend our homotopy theory for groupoids analysis from \S \ref{EHT_SEC} to provide a
       new proof which is significantly cleaner and more hands-off.
@@ -4955,71 +5002,88 @@ This result will follow as a special case of Theorem \ref{SIGMAG_COF_THM} below.
       will come almost for free using formal manipulation of families of subgroups of groupoids.
 \end{remark}
 
-To begin, we extend any $(G,\Sigma)$-family to a family of subgroups of $G \ltimes \Omega_{\mathfrak C}^{op}$.
-
-\todo[inline]{GO THROUGH AND FIX THE OPS}
-We write
-\begin{equation}
-      \label{VC_EQ}
-      \boldsymbol{V}_{\mathfrak{C}} \colon 
-      G \ltimes \Omega_{\mathfrak{C}}^{0,op}
-      \xrightarrow{\ G \ltimes \boldsymbol{V}^{op} \ }
-      G \ltimes \left(\Sigma \wr \Sigma_{\mathfrak{C}}\right)^{op}
-      \xrightarrow{\ \Delta \ }
-      \left( \Sigma \wr  \left(G  \ltimes \Sigma_{\mathfrak{C}}^{op} \right)^{op} \right)^{op}
-\end{equation}
-for the natural composite from \eqref{FGC_EQ}
-(we note that the diagonal inclusion $\Delta$ does have the correct variance as written:
-a map $(x_i) \to (y_i)$ in the source is given by a tuple $(g, \sigma^{op}, (y_i \to g x_{\sigma i})_i)$
-while a map in the target is given by a tuple $(\sigma^{op}, (g_i, y_i \to g_i x_{\sigma i}))_i$,
-with compositition as expected with $g \circ h = gh$ and $\sigma^{op} \circ \tau^{op} = (\tau \sigma)^{op}$).
-
-% For any $G$-set $\mathfrak C$, we write  
-% \begin{equation}
-%       \label{LRCVC_EQ}
-%       \mathsf{lr}_{\mathfrak{C}} \colon 
-%       G^{op} \ltimes \Omega^0_{\mathfrak{C}}
-%       \to
-%       G^{op} \ltimes \Sigma_{\mathfrak{C}},
-%       \qquad
-%       \boldsymbol{V}_{\mathfrak{C}} \colon 
-%       G^{op} \ltimes \Omega^0_{\mathfrak{C}}
-%       \to
-%       G^{op} \ltimes (\Sigma \wr \Sigma_{\mathfrak{C}})
-%       \to
-%       \Sigma \wr  (G^{op}  \ltimes \Sigma_{\mathfrak{C}})
-% \end{equation}
-for the natural extensions of the leaf-roof and vertex map {\color{blue} from *earlier reference*}.
-
-\begin{definition}
-      \label{HATFC_DEF}
-      Given a $(G,\Sigma)$-family $\F$ and a $G$-set $\mathfrak C$,
-      we define the family $\hat \F_{\mathfrak C}$ of subgroups of $G \ltimes \Omega_{\mathfrak C}^{op}$ to be the pullback
+\begin{proof}
+      It suffices to show that free operadic extensions $\O \to \O[u]$ as in \eqref{OURE EQ},
+      or more accurately the filtration pieces $\O_{k-1} \to \O_k$, are $\Sigma_\F$-cofibrations
+      whenever $\O$ is $\Sigma_\F$-cofibrant and $u \colon X \to Y$ is an $\F$-cofibration in $\Sym^G_{\mathfrak C,\F}(\V)$.
+      
+      First, consider the following commuting cube of groupoids
+      \begin{equation}
+            \label{FCA_SQ_EQ}
+            \begin{tikzcd}
+                  G \ltimes \Omega_{\mathfrak C}^{0,a,op}
+                  \arrow[rr, "\boldsymbol{V}_{\mathfrak C}^{a}"] \arrow[dr] \arrow[dd, "\pi_{\mathfrak C,a}"']
+                  &&
+                  \Sigma \wr \left( \displaystyle{\coprod_2} G \ltimes \Sigma_{\mathfrak C}^{op} \right)
+                  \arrow[dr] \arrow[dd, "\Sigma \wr \nabla_2", near start]
+                  \\
+                  &
+                  G \ltimes \Omega^{a,op}
+                  \arrow[rr, crossing over, near start, "\boldsymbol{V}^{a}"]
+                  &&
+                  \Sigma \wr \left( \displaystyle{\coprod_2} G \ltimes \Sigma^{op} \right)
+                  \arrow[dd, "\Sigma \wr \nabla_2"]
+                  \\
+                  G \ltimes \Omega_{\mathfrak C}^{0,op}
+                  \arrow[rr, near start, "\boldsymbol{V}_{\mathfrak C}"] \arrow[dr, "\pi_{\mathfrak C}"']
+                  &&
+                  \Sigma \wr \left( G \ltimes \Sigma_{\mathfrak C}^{op} \right)
+                  \arrow[dr, "\Sigma \wr \pi_{\mathfrak C}"]
+                  \\
+                  &
+                  G \ltimes \Omega^{0,op}
+                  \arrow[rr, "\boldsymbol{V}"]
+                  \arrow[uu, leftarrow, crossing over, "\pi_a"', near end]
+                  &&
+                  \Sigma \wr \left( G \ltimes \Sigma^{op} \right)      
+            \end{tikzcd}
+      \end{equation}
+      where $\Omega_{\mathfrak C}^{0,a}$ is the category of alternating trees from Notation \ref{ALTOMEGA_NOT},
+      and $\boldsymbol{V}_{\mathfrak C}^{a}$ is defined analogously to $\boldsymbol{V}_{\mathfrak C}$ from \eqref{VC_EQ} but where active and intert vertices are separated.
+      
+      Since $\F$ is a pseudo indexing system, \eqref{PHIFLTIMES_EQ}, \eqref{PIS_EQ}, and \eqref{FCA_SQ_EQ} imply
       \[
-            \hat \F_{\mathfrak C}  =
-            \boldsymbol{V}_{\mathfrak C}^{\**} \left(\F_{\mathfrak C}^\ltimes\right) =
-            \boldsymbol{V}_{\mathfrak C}^{\**} \left(\pi_{\mathfrak C}^{\**} \F \right)^\ltimes
+            \left(\boldsymbol{V}_{\mathfrak C}^{a}\right)^{\**} \left( (\nabla_2^{\**} \F_{\mathfrak C})^\ltimes \right)
+            = \left(\boldsymbol{V}_{\mathfrak C}^{a}\right)^{\**}  (\Sigma \wr \nabla_2)^{\**} (\Sigma \wr \pi_{\mathfrak C})^{\**} \F^\ltimes
+            = \pi_{\mathfrak C,a}^{\**} \pi_{\mathfrak C}^{\**} \boldsymbol{V}^{\**} \F^{\ltimes}
+            \subseteq
+            \pi_{\mathfrak C, a}^{\**} \pi_{\mathfrak C}^{\**} \mathsf{lr}^{\**} \F
+            = \pi_{\mathfrak C, a}^{\**} \mathsf{lr}_{\mathfrak C}^{\**} \F_{\mathfrak C}
       \]
-      for $\boldsymbol{V}_{\mathfrak C} \colon: G \ltimes \Omega_{\mathfrak C}^{0,op} \to \Sigma \wr (G \ltimes \Sigma_{\mathfrak C}^{op})$
-      and $\pi_{\mathfrak C} \colon G \ltimes \Sigma_{\mathfrak C}^{op} \to G \times \Sigma^{op}$
-      as in \eqref{VC_EQ} and Definition \ref{GSFAM_DEF}.     
-\end{definition}
+      and hence the left Kan extension
+      \[
+            \mathsf{lr}_! = \left(\pi_{\mathfrak C, a}^{\**} \mathsf{lr}_{\mathfrak C}^{\**} \right)_!
+      \]
+      sends
+      $(\boldsymbol{V}_{\mathfrak C}^{a})^{\**}\left( (\nabla_2^{\**} \F_{\mathfrak C})^\ltimes \right)$-cofibrations in $\V^{G \ltimes \Omega_{\mathfrak C}^{a,op}}$
+      to
+      $\F_{\mathfrak C}$-cofibrations in $\V^{G \ltimes \Sigma_{\mathfrak C}^{op}}_{\F_{\mathfrak C}} = \Sym^G_{\mathfrak C, \F}(\V)$
+      by Proposition \ref{EQQUILADJ PROP}.
+
+      Second, the maps $\varnothing \to \O$ and $u \colon X \to Y$ define a $\nabla_2^{\**}\F_{\mathfrak C}$-cofibration $(\O,u)$ in $\V^{\amalg_2 G \ltimes \Sigma_{\mathfrak C}^{op}}$ by Remark \ref{SIGMACOF_REM}.
+      Moreover, the functor $n_k^{\O,X,Y} \colon G \ltimes \Omega_{\mathfrak C}^{a}[k]^{op} \to \V$ from \eqref{NKOXY EQ} is given by
+      \[
+            n_k^{\O,X,Y} = \left( \boldsymbol{V}_{\mathfrak C}^{a}\right)^{\**}
+            \left( \left(\O,u\right)^{\square} \right).
+      \]
+      By Propositions \ref{SIGMAWRGF PROP}(ii) and \ref{EQQUILADJ PROP},
+      this is a $(\boldsymbol{V}_{\mathfrak a}^{a})^{\**}\left( (\nabla_2^{\**} \F_{\mathfrak C})^\ltimes \right)$-cofibration.
+      
+      Combining these two facts, we have that
+      $(\O_{k-1} \to \O_k) = \mathsf{lr}_! n_k^{\O, X,Y}$ is an $\F_{\mathfrak C}$-cofibration, as desired.
+\end{proof}
+
+\begin{proof}[Proof of Theorem \ref{THMII}]
+      This is an immediate corollary of Theorem \ref{SIGMAG_COF_THM},
+      as the hypotheses imply that the initial $\mathfrak C$-colored operad $\eta_{\mathfrak C}$ is $\Sigma_\F$-cofibrant.
+\end{proof}
 
 \begin{remark}
-      We can recover each $\hat \F_{\mathfrak C}$ from $\hat \F = \hat \F_{\set{\**}}$.
-      Since $\boldsymbol{V}\pi_{\mathfrak C} = (\Sigma \wr \pi_{\mathfrak C}) \boldsymbol{V}_{\mathfrak C}$,
-      \eqref{PHIFLTIMES_EQ} implies
-      \begin{equation}
-            \label{FVT_EQ}
-            \hat \F_{\mathfrak C} =
-            % \boldsymbol{V}_{\mathfrak C}^{\**} \pi_{\mathfrak C}^{\**} (\F^{\ltimes}) =
-            \pi_{\mathfrak C}^{\**}\hat \F_{\set{\**}},
-      \end{equation}
-      for $\pi_{\mathfrak C} \colon G \ltimes \Omega_{\mathfrak C}^{0,op} \to G \times \Omega^{0,op}$.
+      When $\F$ is a \textit{family of $G$-corollas} \cite[Defn. 4.44]{BP_geo},
+      the family $(\boldsymbol{V}^{\**}\F^\ltimes)_T$ agrees the family $\F_T$ from \cite[Prop. 6.44]{BP_geo} for any tree $T$.
 \end{remark}
 
-
-% ------------------------------ MORE EXPLICIT DESCRIPTION FOR GRAPH SUBGROUPS ------------------------------
+% ------------------------------ EXPLICIT DESCRIPTION FOR $F_T$ WHERE $F$ IS A GRAPH FAMILY  ------------------------------
 % \begin{remark}
 %       When $\F$ is a {\color{blue} $(G,\Sigma)$-graph family (that is, a \textit{family of $G$-vertices})},
 %       we can unpack this definition explicitly as follows.
@@ -5047,125 +5111,11 @@ for the natural extensions of the leaf-roof and vertex map {\color{blue} from *e
 % \end{remark}
 % --------------------------------------------------------------------------------
 
-\begin{remark}
-      When $\mathfrak C = \**$ and $\F$ is a $(G,\Sigma)$-graph family (Definition \ref{GRAPHSUB_DEF}),
-      % a \textit{family of $G$-corollas} \cite[Defn. 4.44]{BP_geo},
-      this is simply a repackaging of the original definition of $\F_T$ from \cite[Prop. 6.44]{BP_geo}.
-\end{remark}
 
 
 
 
 
-
-This description is well suited to detect cofibrancy.
-%
-For full generality, given any $m \geq 0$, we define a \textit{$\underline{m}$-labeling} on a $\mathfrak C$-tree $\vect T \in \Omega_{\mathfrak C}$
-to be an assignment
-\[
-      \boldsymbol{V}(\vect T) \longto \underline{m} = \set{1,2,\dots,m}.
-\]
-Denote the category of $\underline{m}$-labeled $\mathfrak C$-trees and label-preserving isomorphisms by $\Omega^{\underline{m}}_{\mathfrak C}$.
-
-\begin{remark}
-      % Similarly to Definition \ref{HATFC_DEF}, a $(G,\Sigma)$-family $\F$ induces familes
-      % $\F_{\mathfrak C}^{\underline{m}}$ and $\hat \F_{\mathfrak C}^{\underline{m}}$ on
-      % $G \ltimes \Sigma_{\mathfrak C}^{\underline{m},op}$ and $G \ltimes \Omega_{\mathfrak C}^{\underline{m},op}$, respectively.
-      We have the following commuting cube for each $m \geq 1$ and $G$-set $\mathfrak C$,
-      \begin{equation}
-            \label{FCM_SQ_EQ}
-            \begin{tikzcd}
-                  G \ltimes \Omega_{\mathfrak C}^{\underline{m},op}
-                  \arrow[rr, "\boldsymbol{V}_{\mathfrak C}^{\underline{m}}"] \arrow[dr] \arrow[dd, "\nabla_m"']
-                  &&
-                  \Sigma \wr \left( \displaystyle{\coprod_m} G \ltimes \Sigma_{\mathfrak C}^{op} \right)
-                  \arrow[dr] \arrow[dd, "\nabla_m", near start]
-                  \\
-                  &
-                  G \ltimes \Omega^{\underline{m},op}
-                  \arrow[rr, crossing over, near start, "\boldsymbol{V}^{\underline{m}}"]
-                  &&
-                  \Sigma \wr \left( \displaystyle{\coprod_m} G \ltimes \Sigma^{op} \right)
-                  \arrow[dd, "\nabla_m"]
-                  \\
-                  G \ltimes \Omega_{\mathfrak C}^{0,op}
-                  \arrow[rr, near start, "\boldsymbol{V}_{\mathfrak C}"] \arrow[dr]
-                  &&
-                  \Sigma \wr \left( G \ltimes \Sigma_{\mathfrak C}^{op} \right)
-                  \arrow[dr]
-                  \\
-                  &
-                  G \ltimes \Omega^{0,op}
-                  \arrow[rr, "\boldsymbol{V}"]
-                  \arrow[uu, leftarrow, crossing over, "\nabla_m"', near end]
-                  &&
-                  \Sigma \wr \left( G \ltimes \Sigma^{op} \right)      
-            \end{tikzcd}
-      \end{equation}
-      % \begin{equation}
-      %       \label{FCM_EQ}
-      %       \begin{tikzcd}
-      %             \Sigma \wr \left( G \ltimes \Sigma_{\mathfrak C}^{op} \right)
-      %             &
-      %             G \ltimes \Omega_{\mathfrak C}^{0,op} \arrow[l, "\boldsymbol{V}_{\mathfrak C}"']
-      %             % & % ----------
-      %             % \V^{\Sigma \wr \left( G \ltimes \Sigma_{\mathfrak C}^{op} \right)}_{\F_{\mathfrak C}^\ltimes} \arrow[r, "\boldsymbol{V}_{\mathfrak C}^{\**}"] \arrow[d, "\nabla_m^{\**}"']
-      %             % &
-      %             % \V^{G \ltimes \Omega_{\mathfrak C}^{0,op}}_{\hat \F_{\mathfrak C}} \arrow[d, "\nabla_m^{\**}"]
-      %             \\
-      %             \displaystyle{
-      %               \Sigma \wr \left( \coprod_m G \ltimes \Sigma_{\mathfrak C}^{op} \right)
-      %             }
-      %             \arrow[u, "\nabla_m"]
-      %             &
-      %             G \ltimes \Omega_{\mathfrak C}^{\underline{m},op} \arrow[u, "\nabla_m"'] \arrow[l, "\boldsymbol{V}^{\underline{m}}_{\mathfrak C}"]
-      %             % & % ----------
-      %             % \V^{\Sigma \wr \left( \coprod_m G \ltimes \Sigma_{\mathfrak C}^{op} \right)}_{\left(\F_{\mathfrak C}^{\underline{m}} \right)^{\ltimes}}
-      %             % \arrow[r, "{\left(\boldsymbol{V}^{\underline{m}}_{\mathfrak C}\right)^{\**}}"]
-      %             % &
-      %             % \V^{G \ltimes \Omega_{\mathfrak C}^{\underline{m},op}}_{\hat \F_{\mathfrak C}^{\underline{m}}}
-      %       \end{tikzcd}
-      % \end{equation}
-      % We now define
-      % \[
-      %       \F_{\mathfrak C}^{\underline{m}} = \nabla_m^{\**}\F_{\mathfrak C},
-      %       \qquad
-      %       \hat \F_{\mathfrak C}^{\underline{m}} = \nabla_m^{\**}\hat \F_{\mathfrak C}.
-      % \]
-      % However, since \eqref{FCM_EQ} commutes, we have
-      % \[
-      %       \hat \F_{\mathfrak C}^{\underline{m}}
-      %       = \nabla_m^{\**} \hat \F_{\mathfrak C}
-      %       = \nabla_m^{\**} \boldsymbol{V}_{\mathfrak C}^{\**} \F_{\mathfrak C}^\ltimes
-      %       = \left(\boldsymbol{V}_{\mathfrak C}^{\underline{m}}\right)^{\**} \nabla_m^{\**} \F_{\mathfrak C}^{\ltimes}
-      %       = \left(\boldsymbol{V}_{\mathfrak C}^{\underline{m}}\right)^{\**}\left(\left(\F_{\mathfrak C}^{\underline{m}}\right)^\ltimes\right)
-      % \]
-      with $\nabla_m$ denoting either the fold map or the forgetful functor,
-      and $\boldsymbol{V}_{\mathfrak C}^{\underline{m}}$ the functor defined analogously to \eqref{LC_EQ}.
-
-      Similarly to Definition \ref{HATFC_DEF}, a $(G,\Sigma)$-family $\F$ induces familes of subgroups
-      $\nabla^{\**}\F_{\mathfrak C} = \F_{\mathfrak C}^{\amalg m}$ in $\amalg_m G \ltimes \Sigma_{\mathfrak C}^{op}$ and
-      $\F^{\ltimes}$ in $\Sigma \wr (G \ltimes \Sigma^{op})$.
-      Via pullback, these themselves induce families (potentially different) on the groupoids present in \eqref{FCM_SQ_EQ}.
-      However, \eqref{PHIFLTIMES_EQ} implies these induced families agree with those previously defined on the groupoids in the bottom square
-      and induce equal families on those groupoids in the top square.
-      Specifically, we have the family $\hat \F_{\mathfrak C}^{\underline{m}}$ of $G \ltimes \Omega_{\mathfrak C}^{\underline{m},op}$ given by either pullback below,
-      \begin{equation}
-            \label{FCM_EQ}
-            \hat \F_{\mathfrak C}^{\underline{m}} =
-            \nabla_m^{\**} \hat \F_{\mathfrak C} = 
-            \left(\boldsymbol{V}_{\mathfrak C}^{\underline{m}}\right)^{\**}\left(\left(\F_{\mathfrak C}^{\underline{m}}\right)^\ltimes\right)
-      \end{equation}
-      so that
-       \begin{equation}
-            \label{VCM_LQ_EQ}
-            \left(\boldsymbol{V}_{\mathfrak C}^{\underline{m}}\right)^{\**} \colon
-            \V^{\Sigma \wr \left( \coprod_m G \ltimes \Sigma_{\mathfrak C}^{op} \right)}_{\left(\F_{\mathfrak C}^{\amalg m} \right)^{\ltimes}}
-            \longto
-            \V^{G \ltimes \Omega_{\mathfrak C}^{\underline{m},op}}_{\hat \F_{\mathfrak C}^{\underline{m}}}
-      \end{equation}
-      is left Quillen by Proposition \ref{EQQUILADJ PROP}.
-\end{remark}
 
 % The following is the $\mathfrak C$-colored analogue of \cite[Prop. 6.52]{BP_geo}.
 % As opposed to reproving this result by hand, we provide a new proof use the families of groupoids discussion above.
@@ -5549,30 +5499,30 @@ Denote the category of $\underline{m}$-labeled $\mathfrak C$-trees and label-pre
 % ------------------------------ *ALTERNATIVE ROUTES TO BOXVT_PROP* ------------------------------
 % ---------------------------------------------------------------------------------------------
 
-For the second half of the proof of Theorem \ref{THMII}, we will need to restrict our $(G,\Sigma)$-families significantly.
+% For the second half of the proof of Theorem \ref{THMII}, we will need to restrict our $(G,\Sigma)$-families significantly.
 
-\begin{definition}
-      \label{PIS_DEF}
-      A $(G,\Sigma)$-family $\F$ is called a \textit{pseudo indexing system} if
-      \begin{equation}
-            \label{PIS_EQ}
-            \hat \F \subseteq \mathsf{lr}^{\**}\F,
-      \end{equation}
-      for $\mathsf{lr} \colon G \times \Omega^{0,op} \to G \times \Sigma^{op}$.
-\end{definition}
+% \begin{definition}
+%       \label{PIS_DEF}
+%       A $(G,\Sigma)$-family $\F$ is called a \textit{pseudo indexing system} if
+%       \begin{equation}
+%             \label{PIS_EQ}
+%             \hat \F \subseteq \mathsf{lr}^{\**}\F,
+%       \end{equation}
+%       for $\mathsf{lr} \colon G \times \Omega^{0,op} \to G \times \Sigma^{op}$.
+% \end{definition}
 
-\begin{remark}
-      Pseudo indexing systems are a generalization of the notion of \textit{indexing systems} introduced by Blumberg-Hill \cite[Defn. 3.22]{BH15}.
-      Moreover, they encompase the notion of \textit{weak indexing system} given by the authors
-      (\cite[Defn. 9.5]{Per18}, \cite[Defn. 4.49]{BP_geo}, \cite[Defn. 6.2]{BP_edss});
-      the two notions are in agreement by \cite[Remark 6.45]{BP_geo} when
-      $\F$ is a $(G,\Sigma)$-graph family (Definition \ref{GRAPHSUB_DEF}).
+% \begin{remark}
+%       Pseudo indexing systems are a generalization of the notion of \textit{indexing systems} introduced by Blumberg-Hill \cite[Defn. 3.22]{BH15}.
+%       Moreover, they encompase the notion of \textit{weak indexing system} given by the authors
+%       (\cite[Defn. 9.5]{Per18}, \cite[Defn. 4.49]{BP_geo}, \cite[Defn. 6.2]{BP_edss});
+%       the two notions are in agreement by \cite[Remark 6.45]{BP_geo} when
+%       $\F$ is a $(G,\Sigma)$-graph family (Definition \ref{GRAPHSUB_DEF}).
 
-      Briefly, indexing systems $\F$ correspond to the many distinct possible notions of
-      ``equivariant commutative monoids up to coherent homotopy'',
-      encoded by an $\F$-universal simplicial $G$-operad with a single color.
-      Additional context and motivation can be found at the above citations.
-\end{remark}
+%       Briefly, indexing systems $\F$ correspond to the many distinct possible notions of
+%       ``equivariant commutative monoids up to coherent homotopy'',
+%       encoded by an $\F$-universal simplicial $G$-operad with a single color.
+%       Additional context and motivation can be found at the above citations.
+% \end{remark}
 
 % This condition is equivalent to the seemingly stronger condition where $\mathfrak C$ is allowed to be any $G$-set.
 % \begin{lemma}
@@ -5618,106 +5568,9 @@ For the second half of the proof of Theorem \ref{THMII}, we will need to restric
 %       is left Quillen.
 % \end{corollary}
 
-We can now prove the main result of this section.
-
-\begin{theorem}
-      \label{SIGMAG_COF_THM}
-      Suppose $(\V, \otimes)$ satisfies the assumptions of Theorem \ref{THMI},
-      and let $\F$ be a pseudo indexing system.
-      If $f \colon \O \to \P$ is an $\F$-cofibration in $\Op^G_{\mathfrak C, \F}(\V)$ and $\O$ is $\Sigma_\F$-cofibrant,
-      then $f$ is a $\Sigma_\F$-cofibration.
-\end{theorem}
-\begin{proof}
-      It suffices to show that free operadic extensions $\O \to \O[u]$ as in \eqref{OURE EQ},
-      or more accurately the filtration pieces $\O_{k-1} \to \O_k$, are $\Sigma_\F$-cofibrations
-      whenever $\O$ is $\Sigma_\F$-cofibrant and $u \colon X \to Y$ is an $\F$-cofibration in $\Sym^G_{\mathfrak C,\F}(\V)$.
-      
-      The maps $\varnothing \to \O$ and $u \colon X \to Y$ define a cofibration $(\O,u)$ in $\V^{\amalg_2 G \ltimes \Sigma_{\mathfrak C}^{op}}_{\F_{\mathfrak C}^{\amalg 2}}$ by Remark \ref{SIGMACOF_REM}.
-      Letting $U^{a}_{\underline{2}} \colon G \ltimes \Omega_{\mathfrak C}^{a}[k]^{op} \to G \ltimes \Omega_{\mathfrak C}^{\underline{2},op}$
-      denote the forgetful functor from $k$-inert alternating trees to $\underline{2}$-labeled trees,
-      (where active and inert vertices are given different labels),
-      we have that the functor $n_k^{\O,X,Y} \colon G \ltimes \Omega_{\mathfrak C}^{a}[k]^{op} \to \V$ from \eqref{NKOXY EQ} is given by
-      \[
-            n_k^{\O,X,Y} = \left(U^{a}_{\underline{2}}\right)^{\**} \left(\boldsymbol{V}_{\mathfrak C}^{\underline{2}}\right)^{\**}
-            \left( \left(\O,u\right)^{\square} \right).
-      \]
-      By Propositions \ref{SIGMAWRGF PROP}(ii) and \ref{EQQUILADJ PROP} and \eqref{VCM_LQ_EQ},
-      this is a $\left(U^{a}_{\underline{2}}\right)^{\**} \hat \F_{\mathfrak C}^{\underline{2}}$-cofibration.
-      
-      Since $\F$ is a pseudo indexing system, \eqref{PIS_EQ} and \eqref{FCM_EQ} imply
-      \[
-            \hat \F_{\mathfrak C}^{\underline{2}}
-            = \nabla_2^{\**} \hat \F_{\mathfrak C}
-            = \nabla_2^{\**} \pi_{\mathfrak C}^{\**} \hat F
-            \subseteq
-            \nabla_2^{\**} \pi_{\mathfrak C}^{\**} \mathsf{lr}^{\**} \F
-            =  \nabla_2^{\**} \mathsf{lr}_{\mathfrak C}^{\**}\F_{\mathfrak C}
-      \]
-      and hence
-      \[
-            \mathsf{lr}_! = \left((U^{a}_{\underline{2}})^{\**} \nabla_2^{\**} \mathsf{lr}_{\mathfrak C}^{\**} \right)_!
-            \colon
-            \V^{G \ltimes \Sigma-{\mathfrak C}^{a,op}}_{(U^a_{\underline{2}})^{\**}\hat \F_{\mathfrak C}^{\underline{2}}}
-            \longto
-            \V^{G \ltimes \Sigma_{\mathfrak C}^{op}}_{\F_{\mathfrak C}}
-      \]
-      is left Quillen by Proposition \ref{EQQUILADJ PROP}.
-      Thus $(\O_{k-1} \to \O_k) = \mathsf{lr}_! n_k^{\O, X,Y}$ is a cofibration in $\V^{G \ltimes \Sigma_{\mathfrak C}^{op}}_{\F_{\mathfrak C}} = \Sym^G_{\mathfrak C, \F}(\V)$, as desired.
-\end{proof}
-
-\begin{proof}[Proof of Theorem \ref{THMII}]
-      This is an immediate corollary of Theorem \ref{SIGMAG_COF_THM},
-      as the hypotheses imply that the initial $\mathfrak C$-colored operad $\eta_{\mathfrak C}$ is $\Sigma_\F$-cofibrant.
-\end{proof}
-
 
 
 \todo[inline]{come back}
-
-
-
-\subsubsection*{Underlying cofibrancy in $\Op^G_{\mathfrak C}(\sSet)$}
-
-We end this section by specifying to $\V = \sSet$ and determining a characterization of $\Sigma_{\F^\Gamma}$-cofibrant operads.
-First, we recall the notion of a $G$-graph subgroup (e.g. \cite[Defn. 6.34]{BP_geo}).
-\begin{definition}
-      \label{GRAPHSUB_DEF}
-      A subgroup $\Gamma \leq G \times \Sigma_n^{op}$ is called a \textit{$G$-graph subgroup} if
-      $\Gamma \cap \Sigma_n^{op} = \**$.
-      Equivalently, $\Gamma$ is of the form $\set{(h, \alpha(h)^{-1})}$ for $h \in H$ for some subgroup $H \leq G$ and $\alpha \colon H \to \Sigma_n$ a homomorphism.
-
-      Let $\F_n^\Gamma$ denote the family of $G$-graph subgroups of $G \times \Sigma_n$, and $\F^\Gamma = \set{\F_n^{\Gamma}}$ the $(G,\Sigma)$-family of $G$-graph subgroups.
-      More generally, we call any subfamily of $\F^{\Gamma}$ a \textit{$(G,\Sigma)$-graph family}\footnote{These have previously been called \textit{families of $G$-corollas} \cite[Defn. 4.44]{BP_geo} and \textit{$G$-vertex families} \cite[Defn. 9.3]{Per18}.}.
-\end{definition}
-
-Now, recall (e.g. \cite[Prop. 2.16]{Ste16}) that for any group $G$ and family of subgroups $\F$,
-$K \to L$ in $\sSet^{G}_\F$ is an $\F$-cofibration iff $L_n \setminus K_n$ has isotropy in $\F$; i.e. for all $x \in L_n \setminus K-n$, $\Stab_{G}(x) \in \F$. 
-% 
-We also note the easy observation that for any set $A$ with an action of $G \times \Sigma$,
-$A$ has isotropy in the family $\F^\Gamma$ of $G$-graph subgroups
-iff
-$A$ is $\Sigma$-free.
-% 
-Thus $K \to L$ in $\sSet^{G \times \Sigma}_{\F^\Gamma}$ is an $\F^\Gamma$-cofibration
-iff
-it forgets to a cofibration in the coarse model structure $\sSet^\Sigma_{proj}$.
-
-More generally, if $\Lambda \leq G \times \Sigma$ and $\F^\Gamma_{\Lambda} = \F^\Gamma \cap \Lambda$,
-then $K \to L$ in $\sSet^{\Lambda}_{\F^\Gamma_\Lambda}$ is an $\F^\Gamma_\Lambda$-cofibration
-iff
-it forgets to a cofibration in the coarse model structure $\sSet^{\pi_{\Sigma}\Lambda}_{proj}$.
-      
-All together, we conclude the following (cf. \cite[Remark 6.7]{Per18}, \cite[discussion before Thm. 2.31]{BP_edss}).
-
-\begin{proposition}
-      \label{SGS_COF_PROP}
-      $\O \to \P$ in $\Op_\bullet^G(\sSet)$ is a $\Sigma_{\F^\Gamma}$-cofibration iff
-      it forgets to a $\Sigma$-cofibration in $\Op_\bullet(\sSet)$
-      (i.e. it forgets to a cofibration in $\Sym_\bullet(\sSet)$).
-      %
-      Equivalently, $\O$ is $\Sigma_{\F^\Gamma}$-cofibrant iff $\O(n)$ has a free $\Sigma_n$-action.
-\end{proposition}
-
 
 
 
