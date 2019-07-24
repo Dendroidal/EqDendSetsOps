@@ -24,7 +24,7 @@
 \usepackage{ifdraft}
 \ifdraft{
   \color[RGB]{63,63,63}
-%  \pagecolor[RGB]{220,220,204}
+  \pagecolor[RGB]{220,220,204}
   \usepackage{showkeys}
   \usepackage{geometry}
   \usepackage{todonotes}
@@ -390,16 +390,52 @@ as enriched operads.
 
 {\color{red} HERE}
 
-Colored operads and their algebras have become increasing relevant and utilized by the algebraic topology and related communities in recent years.
-Moreover, the variety of categories in which these operads live has also expanded.
-Finally, a desire to understand and control the interaction of algebra and homotopy theory has fueled a wave of research analyzing
-model structures and other homotopical features of the categories of enriched operads and their algebras.
+Colored operads and their algebras have become increasing relevant and utilized by the algebraic topology and related communities.
+A desire to understand and control the interaction of algebra and homotopy theory has fueled a wave of research analyzing
+model structures and other homotopical features of categories of enriched operads and their algebras.
 
 
-We take an orthogonal approach, in that we wish to generalize the type of weak equivalences we can allow, NOT what input category we can use
-(in fact, our hypotheses are very restrictive).
-All of the above axiomatic theories are naive/levelwise, ignoring all the isotropy inherent in symmetric operads,
-and equivarinat model structures have only been considered for particular categories, namely spaces and simplicial sets (\cite[Thm. 3.1]{GW18}, \cite[Prop. 3.3.12]{Rez96}).
+
+The majority of this research,
+beginning with \cite{SS00} and \cite{BM03} and including e.g. \cite{BM07,Mur11,Whi14,Wh16,BB17,PS18,WY18},
+has focused on establishing axiomatic frameworks --- i.e., sets of hypotheses on some model category $\V$ ---
+such that, in particular, the category $\Op(\V)$ of operads enriched in $\V$
+has a model structure lifted from $\V$.
+In these cases, $\O \to \P$ is a weak equivalence or fibration iff $\O(n) \to \P(n)$ is so in $\V$ for all $n \geq 0$.
+% the categories of $\O$-algebras has a model structure lifted from $\V$ for some (possibly many-colored) operad $\O$ in $\V$.
+% In these cases, if $\O$ has a set $\mathfrak C$ of colors, a map $X \to Y$ of $\O$-algebras is a weak equivalence or fibration in the lifted model structure
+% iff $X(c) \to Y(c)$ is so in $\V$ for all colors $c$ of $\O$.
+
+
+
+These results often also endow lifted model structures on categories $\Op_{\mathfrak C}(\V)$ of so-called colored operads, otherwise known as multicategories, with a fixed set $\mathfrak C$ of colors.
+% The category of $\mathfrak C$-colored operads is itself an algebra over an operad whose colors are $\mathfrak C$-signatures
+% $\vect C = (c_1,\dots, c_n;c_0)$, $(n+1)$-tuples of elements of $\mathfrak C$.
+% As such, the above frameworks establish model structures on each category $\Op_{\mathfrak C}(\V)$.
+One may then ask whether these assemble into a single model structure on all operads.
+This task has received significantly less attention,
+but began with simplicial categories with Dwyer and Kan \cite{DK80}, formalized in Bergner's work \cite{Ber07b}, and by \cite{CM13b,Cav} has been extended to operads.
+
+
+
+One common aspect of all of the above cited results is that the theories they produce are ``naive'':
+the levels $\O(n)$ have an action of the symmetric group $\Sigma_n$ on $n$ letters,
+but the model structures above ignore the isotropy of the operations\footnote{We record that this isn't necessarily a mistake, and in fact this allows certain features of these theories to work.
+  For example,
+  for $\V$ the category of spaces,
+  one has that any cofibrant replacement of the commutative operad is always an $E_\infty$-operad in the sense of \cite{May72}.
+}
+% Does the Rezk model structure detect algebras?
+This prevents these theories from detecting necessary features in the equivariant context.
+\todo[inline]{$N_\infty$-buisness}
+
+
+
+
+In this paper, we develop an axiomatic system which allows us to build model structures with
+weak equivalences which detect isotropy coming from a collection of families.
+
+Equivarinat model structures have only been considered for particular categories, namely spaces and simplicial sets (\cite[Thm. 3.1]{GW18}, \cite[Prop. 3.3.12]{Rez96}).
 
 - It's not just what Stephan does, there is in fact a ton of interaction between the equivariance and the algebra of operads, which for example one doesn't see when only working with categories.
 
@@ -3181,22 +3217,9 @@ To describe fully describe this span,
 we need to understand how equivariance 
 affects the top composite in \eqref{FREEOP_EQ},
 with the non-obvious issue being that of understanding
-what happens to the middle map \todo{middle map? or first map?}
+what happens to the middle map
 therein, which can be described using
-Remark \ref{RHOPURP REM}:
-We write
-\begin{equation}
-      \label{VC_EQ}
-      \boldsymbol{V}_{\mathfrak{C}} \colon 
-      G^{op} \ltimes \Omega^0_{\mathfrak{C}}
-      \to
-      G^{op} \ltimes (\Sigma \wr \Sigma_{\mathfrak{C}})
-      \to
-      \Sigma \wr  (G^{op}  \ltimes \Sigma_{\mathfrak{C}})
-\end{equation}
-for the natural composite.
-\todo[inline]{come back - figure out the ops}
-
+Remark \ref{RHOPURP REM}.
 Putting all of this together we get the following
 (note that the inversion isomorphism
 $G \simeq G^{op}$
@@ -3204,31 +3227,32 @@ induces isomorphisms
 $G \ltimes \mathcal{C}^{op} \simeq (G \ltimes \mathcal{C})^{op}$).
 
 
-\begin{remark}\label{FGC REM}
-The monad $\mathbb{F}^G$ on $\mathsf{Sym}^G_{\bullet}$
-assigns to 
-$G \ltimes \Sigma^{op}_{\mathfrak{C}} \xrightarrow{X} \V$
-the left Kan extension below.
-\begin{equation}\label{FGC_EQ}
-	\begin{tikzcd} % [column sep = 35pt]
-		G \ltimes \Omega^{0,op}_{\mathfrak{C}}
-		\arrow[d, "\mathsf{lr}_{\mathfrak C}"']
-		\arrow[r, "G \ltimes \boldsymbol{V}^{op}"]
-	&[15pt]
-		G \ltimes (\Sigma \wr \Sigma_{\mathfrak{C}})^{op} \arrow{r}
-		\arrow[dl, Rightarrow]
-	&
-		(\Sigma \wr (G^{op} \ltimes \Sigma_{\mathfrak{C}}))^{op} \arrow[r, "(\Sigma \wr X^{op})^{op}"]
-	&[15pt]
-		(\Sigma \wr \V^{op})^{op} \arrow[r, "\otimes"]
-	&
-		\V
-\\
-	G\ltimes\Sigma^{op}_{\mathfrak{C}}
-	\arrow[urrrr, "\Lan = \mathbb F_{\mathfrak{C}}^G X = \mathbb F^G X"']
-	\end{tikzcd}
-\end{equation}
-\end{remark}
+\begin{proposition}\label{FGC PROP}
+      The monad $\mathbb{F}^G$ on $\mathsf{Sym}^G_{\bullet}(\V)$
+      assigns to 
+      $G \ltimes \Sigma^{op}_{\mathfrak{C}} \xrightarrow{X} \V$
+      the left Kan extension below.
+      \begin{equation}\label{FGC_EQ}
+            \begin{tikzcd}[column sep = 35pt]
+                  G \ltimes \Omega^{0,op}_{\mathfrak{C}}
+                  \arrow[d, "\mathsf{lr}_{\mathfrak C}"']
+                  \arrow[r, "G \ltimes \boldsymbol{V}^{op}"]
+                  &[15pt]
+                  G \ltimes (\Sigma \wr \Sigma_{\mathfrak{C}})^{op} \arrow{r}
+                  \arrow[dl, Rightarrow, shorten >=0.15cm,shorten <=0.15cm]
+                  &
+                  \left( \Sigma \wr \left( G^{op} \ltimes \Sigma_{\mathfrak{C}} \right) \right)^{op}
+                  \arrow[r, "(\Sigma \wr X^{op})^{op}"]
+                  &[15pt]
+                  \left(\Sigma \wr \V^{op}\right)^{op} \arrow[r, "\otimes"]
+                  &
+                  \V
+                  \\
+                  G\ltimes\Sigma^{op}_{\mathfrak{C}}
+                  \arrow[urrrr, "\Lan = \mathbb F_{\mathfrak{C}}^G X = \mathbb F^G X"', end anchor = south west]
+            \end{tikzcd}
+      \end{equation}
+\end{proposition}
 
 
 
@@ -4504,7 +4528,7 @@ $\mathsf{Sym}^G_{\mathfrak{C}}$ is.
 %
 We recall that $\mathbb{F}^G_{\mathfrak{C}}$
 denotes the fiber monad of $\mathbb{F}^G$ on the $\mathfrak{C}$ fiber
-discussed in Remark \ref{FGC REM}
+discussed in Proposition \ref{FGC PROP}
 (and further fleshed out in {\color{red} Definition \ref{COLORMON DEF} (more detail needed)}).
 
 
@@ -4896,7 +4920,7 @@ $j$ ranges over $\mathcal{J}$.
 
 
 \newpage
-\subsection{Pseudo indexing systems and $\Sigma_\F$-cofibrancy}
+\subsection{Pseudo indexing systems and underlying cofibrancy}
 \label{INDSYS SEC}
 
 
@@ -4933,6 +4957,23 @@ This result will follow as a special case of Theorem \ref{SIGMAG_COF_THM} below.
 
 To begin, we extend any $(G,\Sigma)$-family to a family of subgroups of $G \ltimes \Omega_{\mathfrak C}^{op}$.
 
+\todo[inline]{GO THROUGH AND FIX THE OPS}
+We write
+\begin{equation}
+      \label{VC_EQ}
+      \boldsymbol{V}_{\mathfrak{C}} \colon 
+      G \ltimes \Omega_{\mathfrak{C}}^{0,op}
+      \xrightarrow{\ G \ltimes \boldsymbol{V}^{op} \ }
+      G \ltimes \left(\Sigma \wr \Sigma_{\mathfrak{C}}\right)^{op}
+      \xrightarrow{\ \Delta \ }
+      \left( \Sigma \wr  \left(G  \ltimes \Sigma_{\mathfrak{C}}^{op} \right)^{op} \right)^{op}
+\end{equation}
+for the natural composite from \eqref{FGC_EQ}
+(we note that the diagonal inclusion $\Delta$ does have the correct variance as written:
+a map $(x_i) \to (y_i)$ in the source is given by a tuple $(g, \sigma^{op}, (y_i \to g x_{\sigma i})_i)$
+while a map in the target is given by a tuple $(\sigma^{op}, (g_i, y_i \to g_i x_{\sigma i}))_i$,
+with compositition as expected with $g \circ h = gh$ and $\sigma^{op} \circ \tau^{op} = (\tau \sigma)^{op}$).
+
 % For any $G$-set $\mathfrak C$, we write  
 % \begin{equation}
 %       \label{LRCVC_EQ}
@@ -4948,7 +4989,7 @@ To begin, we extend any $(G,\Sigma)$-family to a family of subgroups of $G \ltim
 %       \to
 %       \Sigma \wr  (G^{op}  \ltimes \Sigma_{\mathfrak{C}})
 % \end{equation}
-% for the natural extensions of the leaf-roof and vertex map {\color{blue} from *earlier reference*}.
+for the natural extensions of the leaf-roof and vertex map {\color{blue} from *earlier reference*}.
 
 \begin{definition}
       \label{HATFC_DEF}
@@ -5100,7 +5141,7 @@ Denote the category of $\underline{m}$-labeled $\mathfrak C$-trees and label-pre
       %       = \left(\boldsymbol{V}_{\mathfrak C}^{\underline{m}}\right)^{\**}\left(\left(\F_{\mathfrak C}^{\underline{m}}\right)^\ltimes\right)
       % \]
       with $\nabla_m$ denoting either the fold map or the forgetful functor,
-      and $\boldsymbol{V}_{\mathfrak C}^{\underline{m}}$ the functor defined analogously to \eqref{LRCVC_EQ}.
+      and $\boldsymbol{V}_{\mathfrak C}^{\underline{m}}$ the functor defined analogously to \eqref{LC_EQ}.
 
       Similarly to Definition \ref{HATFC_DEF}, a $(G,\Sigma)$-family $\F$ induces familes of subgroups
       $\nabla^{\**}\F_{\mathfrak C} = \F_{\mathfrak C}^{\amalg m}$ in $\amalg_m G \ltimes \Sigma_{\mathfrak C}^{op}$ and
@@ -5111,8 +5152,8 @@ Denote the category of $\underline{m}$-labeled $\mathfrak C$-trees and label-pre
       Specifically, we have the family $\hat \F_{\mathfrak C}^{\underline{m}}$ of $G \ltimes \Omega_{\mathfrak C}^{\underline{m},op}$ given by either pullback below,
       \begin{equation}
             \label{FCM_EQ}
-            \F_{\mathfrak C}^{\underline{m}} =
-            \nabla_m^{\**}\F_{\mathfrak C} = 
+            \hat \F_{\mathfrak C}^{\underline{m}} =
+            \nabla_m^{\**} \hat \F_{\mathfrak C} = 
             \left(\boldsymbol{V}_{\mathfrak C}^{\underline{m}}\right)^{\**}\left(\left(\F_{\mathfrak C}^{\underline{m}}\right)^\ltimes\right)
       \end{equation}
       so that
@@ -5605,12 +5646,12 @@ We can now prove the main result of this section.
       
       Since $\F$ is a pseudo indexing system, \eqref{PIS_EQ} and \eqref{FCM_EQ} imply
       \[
-            \left(U^{a}_{\underline{2}}\right)^{\**} \hat \F_{\mathfrak C}^{\underline{2}}
-            = \left(U^{a}_{\underline{2}}\right)^{\**}\nabla_2^{\**} \hat \F_{\mathfrak C}
-            = \left(U^{a}_{\underline{2}}\right)^{\**}\nabla_2^{\**} \pi_{\mathfrak C}^{\**} \hat F
+            \hat \F_{\mathfrak C}^{\underline{2}}
+            = \nabla_2^{\**} \hat \F_{\mathfrak C}
+            = \nabla_2^{\**} \pi_{\mathfrak C}^{\**} \hat F
             \subseteq
-            \left(U^{a}_{\underline{2}}\right)^{\**}\nabla_2^{\**} \pi_{\mathfrak C}^{\**} \mathsf{lr}^{\**} \F
-            =  \left(U^{a}_{\underline{2}}\right)^{\**}\nabla_2^{\**} \mathsf{lr}_{\mathfrak C}^{\**}\F_{\mathfrak C}
+            \nabla_2^{\**} \pi_{\mathfrak C}^{\**} \mathsf{lr}^{\**} \F
+            =  \nabla_2^{\**} \mathsf{lr}_{\mathfrak C}^{\**}\F_{\mathfrak C}
       \]
       and hence
       \[
@@ -5635,7 +5676,7 @@ We can now prove the main result of this section.
 
 
 
-\subsubsection*{$\Sigma_{\F^{\Gamma}}$-cofibrancy in $\Op^G_{\mathfrak C}(\sSet)$}
+\subsubsection*{Underlying cofibrancy in $\Op^G_{\mathfrak C}(\sSet)$}
 
 We end this section by specifying to $\V = \sSet$ and determining a characterization of $\Sigma_{\F^\Gamma}$-cofibrant operads.
 First, we recall the notion of a $G$-graph subgroup (e.g. \cite[Defn. 6.34]{BP_geo}).
