@@ -24,7 +24,7 @@
 \usepackage{ifdraft}
 \ifdraft{
   \color[RGB]{63,63,63}
-  \pagecolor[RGB]{220,220,204}
+%  \pagecolor[RGB]{220,220,204}
   \usepackage{showkeys}
   \usepackage{geometry}
   \usepackage{todonotes}
@@ -402,7 +402,7 @@ extends the graph equivalence model structures of
 \cite[Thm. I]{BP_geo}, \cite[Thm. 3.1]{GW18}
 from the context of single colored operads 
 to the context of all colored operads/multicategories.
-Alternatively, Theorem \ref{THMIII} extends the well known model structures of on all colored operads in
+Alternatively, Theorem \ref{THMIII} extends the well known model structures of on all colored operads (and maps that change colors) in
 \cite[Thm 1.14]{CM13b} {\color{red} also, add Robertson}
 from the non-equivariant context to the 
 equivariant context.
@@ -455,7 +455,57 @@ and we will finally establish the Quillen adjunction in
 \eqref{BPMAINTHM EQ}
 in the sequel to this paper.
 
-
+Much as in the single colored case,
+building our desired model structure
+on $\mathsf{sOp}^G_{\bullet}$
+is again non formal,
+but the colored case brings a few new notable nuances.
+Firstly, since 
+$\mathsf{sOp}_{\bullet}^G$
+is the category of $G$-objects on 
+$\mathsf{sOp}_{\bullet}$
+and the latter
+includes maps that change colors,
+the group $G$ typically acts non-trivially
+on the colors $\mathfrak{C}_{\mathcal{O}}$
+of a colored $G$- operad
+$\O \in \mathsf{sOp}_{\bullet}^G$.
+By contrast, in the category
+$\mathsf{Op}_{\bullet}(\mathsf{sSet}^G)$
+of colored operads in $\mathsf{sSet}^G$
+the group $G$ never acts on objects (or, equivalently, acts trivially).
+As such there is a proper inclusion
+$\mathsf{Op}_{\bullet}(\mathsf{sSet}^G)
+\subsetneq \mathsf{sOp}_{\bullet}^G$,
+so the model structure on 
+$\mathsf{sOp}_{\bullet}^G$
+can not be built using the enriched colored operad results of \cite{Cav}.
+Secondly, just as in the single colored case 
+one could also try to build a model structure
+on $\mathsf{sOp}^G_{\bullet}$
+by applying 
+\cite[Prop 2.6]{Ste16}
+to the model structure on $\mathsf{sOp}^G$.
+Yet again such an approach would not produce
+the correct notion of equivalences as suggested by graph subgroups,
+but it is worth nothing that this here is intrinsically operadic
+and does not occur when working with categories.
+Indeed, the inclusion
+$\mathsf{sCat}^G_{\bullet} \subset 
+\mathsf{sOp}^G_{\bullet}$
+of $G$-equivariant colored categories into 
+$G$-equivariant colored operads
+identifies
+$\mathsf{sCat}^G_{\bullet} \subset 
+\mathsf{sOp}^G_{\bullet} \downarrow \**$
+as the overcategory over the terminal category $\**$.
+Hence, our desired model structure on 
+$\mathsf{sOp}^G_{\bullet}$
+produces a model structure on 
+$\mathsf{sCat}^G_{\bullet}$
+which \emph{does} coincide with the model structure obtained by applying
+\cite[Prop. 2.6]{Ste16}
+to the usual model structure on $\mathsf{sCat}_{\bullet}$.
 
 
 
@@ -608,80 +658,6 @@ Moreover, there is a flexibility over precisely what the defining features of th
 
 \subsection{Remainders (equivariant operads explicitly)}
 
-\begin{definition}
-      A \textit{$\mathfrak C$-colored operad} in $\V$ 
-      is a $\mathfrak C$-symmetric sequence $\O$ along with appropriate composition laws.
-      Explicitly, this consists of the following data:
-      \begin{itemize} %{enumerate}[label = (\arabic*)]
-      \item An object $\O(\ksi) \in \V$ for each signature $\ksi$.
-      \item For all signatures $\ksi \in \mathfrak C^{\times n+1}$ and $\sigma \in \Sigma_n$,
-            unital and associative times maps $\O(\xi) \to \O(\sigma \cdot \xi)$,
-            where $\Sigma_n$ acts on the first $n$ coordinates of $\mathfrak C^{\times n+1}$;
-            i.e., maps
-            \begin{equation}
-                  \O(c_1, \ldots, c_n; c_0) \xrightarrow{\sigma} \O(c_{\sigma^{-1}(1)}, \ldots, c_{\sigma^{-1}(n)}; c_0).
-            \end{equation}
-      \item For each $c \in \mathfrak C$, a \textit{unit} $1_c \in \O(c;c)$.                        
-      \item For all compatible signatures $\ksi$, $\ksi_1$, $\dots$, $\ksi_n$,
-            \textit{composition} maps
-            \begin{equation}
-                  \O(\xi) \otimes \O(\xi_1) \otimes \ldots \otimes \O(\xi_n) \to \O(\xi \circ (\xi_i)),
-            \end{equation}
-            which are unital, associative, and appropriately $\Sigma$-equivariant.
-      \end{itemize}
-\end{definition}
-
-
-
-
-\begin{example}
-      Now, for $\Op(\V)$,
-      we see that an object $\O \in \Op^G(\V)$ consists of the following data:
-      \begin{enumerate}[label = (\arabic*), start = 0]
-      \item A $G$-set $\mathfrak C = \mathfrak C_{\O}$ of colors.
-      \item For each $\mathfrak C$-signature $\ksi$, an object $\O(\ksi) \in \V$.
-      \item \label{SACTION_LBL}
-            For all signatures $\ksi \in \mathfrak C^{\times n + 1}$ and $\sigma \in \Sigma_n$,
-            maps $\O(\ksi) \to \O(\sigma \cdot \ksi)$
-            which are unital and associative.
-      \item \label{GUNIT_LBL} 
-            For each $c \in \mathfrak{C}$, a \textit{unit} $1_c \in \O(c;c)$.
-      \item \label{COMP_LBL}
-            For all compatible signatures $\ksi, \ksi_1,\dots, \ksi_n$,
-            \textit{composition maps} $\O(\ksi) \otimes \O(\ksi_1) \otimes \dots \otimes \O(\ksi_n) \to \O(\ksi \circ (\ksi_i))$
-            which are unital, associative, and appropriately $\Sigma$-equivariant
-      \item \label{GACTION_LBL}
-            For all $g \in G$, maps $\O(\ksi) \to g^{\**}\O(\ksi) = \O(g \cdot \ksi)$
-            (with $G$ acting on $\mathfrak C^{\times n+1}$ diagonally)
-            which are unital and associative, and which commute with the composition maps
-            (note that if $\ksi, (\ksi_i)$ are compatible, then so are $g \ksi, (g \ksi_i)$).
-      \end{enumerate}
-      Synthesizing, we may combine \ref{SACTION_LBL} and \ref{GACTION_LBL} into
-      \begin{enumerate}
-      \item[($2'$)] For all signatures $\xi \in \mathfrak C^{\times n+1}$ and $(g,\sigma) \in G\times \Sigma_n$, maps
-            $\O(\xi) \to \O((g,\sigma)\cdot \xi)$
-            which are unital and associative.
-      \end{enumerate}
-      
-      and replace \ref{GUNIT_LBL} and \ref{COMP_LBL} with
-      \begin{enumerate}
-      \item[($3'$)] For each $c \in \mathfrak C$, a $G_c$-fixed unit $1_c \in \O(c;c)^{G_c}$.
-      \item[($4'$)] For all compatible signatures $\ksi, (\ksi_i)$,
-            composition maps $\O(\ksi) \otimes \bigotimes_i \O(\ksi_i) \to \O(\ksi \circ (\ksi_i))$
-            which are unital, associative, $G$-equivariant, and appropriately $\Sigma$-equivariant.
-      \end{enumerate}
-\end{example}
-
-
-
-
-
-\begin{remark}
-      Unlike in the single-colored case, $\Op^G(\V)$ does \textit{not} coincide with the category of colored operads in $\V^G$.
-      Indeed, objects in $\Op(\V^G)$ have a fixed $G$-set of colors,
-      and each level $\O(\xi)$ has an action by the full group $G$
-      (though only a partial action by $\Sigma_{|\xi|}$).
-\end{remark}
 
 
 
