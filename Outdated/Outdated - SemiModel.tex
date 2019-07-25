@@ -106,6 +106,9 @@ cf.  }
 \newcommand{\UV}{\underline{\mathcal V}}
 \newcommand{\UC}{\underline{\mathfrak C}}
 
+\usepackage{harpoon}
+\newcommand{\vect}[1]{\text{\overrightharp{\ensuremath{#1}}}}
+
 
 % ---- Title --------
 
@@ -132,231 +135,285 @@ cf.  }
 
 
 
-
 \section{Semi-model structures}
+\label{SMS_SEC}
 
-Weaker versions of our main results hold in more generality.
-Namely, if we only desire semi-model structures on $\Op^G_{\mathfrak C}$ and $\Op^G$, we may
-remove the global monoid axiom condition.
-\todo[inline]{is this entirely true?}
-
+Our main results Theorems \ref{THMI} and \ref{THMIII} can be weakened to hold in broader settings.
+Namely, if we only desire semi-model structures on $\Op^G_{\mathfrak C}(\V)$ and $\Op_\bullet^G(\V)$, we may
+remove the global monoid axiom condition (as long as we mildly strengthen an assumption on $\V^G$).
 
 \subsection{Semi-model categories}
 
-We recall the definition of a semi-model category, following \cite{Spi01,Wh16}.
+We briefly recall the definition of a semi-model category, following \cite{Spi01,Wh16}.
 
-\begin{definition}
-	Given a class of maps $ I$ in a category $\mathcal D$, we let
-	\begin{enumerate}[label = (\roman*)]
-		\item \textit{$ I$-inj} denote the class of maps with the right lifting property with respect to $ I$.
-		\item \textit{$ I$-cof} denote the class of maps with the left lifting property with respect to $ I$-inj.
-		\item \textit{$ I$-cell} denote the class of maps of transfinite compositions of pushouts of maps in $ I$.
-	\end{enumerate}
-	
-	Now suppose $\mathcal D$ has an initial object.
-	Given a second class of maps $ J$, let \textit{$ J$-ccd} denote
-	the subclass of $ J$-cell with $ I$-cofibrant domains
-	(i.e. $x \to y$ in $ J$-cell is in $ J$-ccd iff the map $\varnothing \to x$ is in $ I$-cof).
-\end{definition}
+\begin{notation}[cf. Notation \ref{CELL_NOT}]
+      Given a class of maps $\mathcal I$ in a category $\mathcal D$, let
+      $\mathcal I$-inj denote the class of maps with the right lifting property with respect to $\mathcal I$.
+      % $\mathcal I$-cof is then equal to the class of maps with the left lifting property with respect to $\mathcal I$-inj.
+      
+      Suppose further that $\mathcal D$ has an initial object, and fix a second class of maps $\mathcal J$.
+      We let $\mathcal J$-ccd denote
+      the subclass of $\mathcal J$-cell with $\mathcal I$-cofibrant domains
+      (i.e. $x \to y$ in $\mathcal J$-cell is in $\mathcal J$-ccd iff the map $\varnothing \to x$ is in $\mathcal I$-cof).
+\end{notation}
 
-\begin{definition}
-	Suppose $\mathcal D$ is a category closed under all small limits and colimits.
-	% Given an adjunction $F \colon \mathcal M \rightleftarrows \colon U \mathcal D$ with $\mathcal M$ a model category,
-	A \textit{semi-model structure} on $\mathcal D$ consists of
-	subcateogries of weak equivalences, cofibrations, and fibrations, such that:
-	\begin{enumerate}[label = (\roman*)]
-		% \item $U$ preserves fibrations and trivial fibrations.
-		\item Weak equivalences are closed under two-out-of-three, and all three chosen subcategories are closed under retracts.
-		\item Every map in $\mathcal D$ can be functorially factored into a cofibration followed by a trivial fibration.
-		Every map in $\mathcal D$ whose domain is \textbf{cofibrant} in $\mathcal D$ can be functorially factored into a trivial cofibration followed by a fibration.
-		\item Cofibrations in $\mathcal D$ have the left lifting property with respect to trivial fibrations.
-		Trivial cofibrations in $\mathcal D$ whose domain is \textbf{cofibrant} in $\mathcal D$ have the left lifting property with respect to fibrations.
-		% \item The initial object in $\mathcal D$ is cofibrant in $\mathcal D$.
-		\item Fibrations and trivial fibrations are closed under pullback.
-	\end{enumerate}
+Let $\mathcal D$ be a category with all small limits and colimits.
+A \textit{semi-model structure} on $\mathcal D$ consists of
+subcateogries of weak equivalences, cofibrations, and fibrations,
+which satisfy all the axioms of a Quillen model category with the following two modifications:
+\begin{itemize}
+\item Every map in $\mathcal D$ whose domain is \textbf{cofibrant} in $\mathcal D$
+      can be functorially factored into a trivial cofibration followed by a fibration.
+\item Trivial cofibrations in $\mathcal D$ whose domain is \textbf{cofibrant} in $\mathcal D$
+      have the left lifting property with respect to fibrations.
+\end{itemize}
+
+A semi-model category $\mathcal D$ is \textit{cofibrantly generated} if there exist sets of maps $\mathcal I$, $\mathcal J$ such that
+\begin{enumerate}[label=(\roman*)]
+\item $\mathcal I$-inj is the class of trivial cofibrations, and $\mathcal J$-inj is the class of fibrations;
+\item the domains of $\mathcal I$ are small relative to $\mathcal I$-cell;
+\item the domains of $\mathcal J$ are small relative to $\mathcal J$-ccd.
+\end{enumerate}
+
+
+
+% \begin{definition}
+% 	Suppose $\mathcal D$ is a category closed under all small limits and colimits.
+% 	% Given an adjunction $F \colon \mathcal M \rightleftarrows \colon U \mathcal D$ with $\mathcal M$ a model category,
+% 	A \textit{semi-model structure} on $\mathcal D$ consists of
+% 	subcateogries of weak equivalences, cofibrations, and fibrations, such that:
+% 	\begin{enumerate}[label = (\roman*)]
+% 		% \item $U$ preserves fibrations and trivial fibrations.
+% 		\item Weak equivalences are closed under two-out-of-three, and all three chosen subcategories are closed under retracts.
+% 		\item Every map in $\mathcal D$ can be functorially factored into a cofibration followed by a trivial fibration.
+% 		Every map in $\mathcal D$ whose domain is \textbf{cofibrant} in $\mathcal D$ can be functorially factored into a trivial cofibration followed by a fibration.
+% 		\item Cofibrations in $\mathcal D$ have the left lifting property with respect to trivial fibrations.
+% 		Trivial cofibrations in $\mathcal D$ whose domain is \textbf{cofibrant} in $\mathcal D$ have the left lifting property with respect to fibrations.
+% 		% \item The initial object in $\mathcal D$ is cofibrant in $\mathcal D$.
+% 		\item Fibrations and trivial fibrations are closed under pullback.
+% 	\end{enumerate}
 	
-	A \textit{semi-model category} is such a category $\mathcal D$ equipped with a semi-model structure.
+% 	A \textit{semi-model category} is such a category $\mathcal D$ equipped with a semi-model structure.
 	
-	A semi-model category $\mathcal D$ is \textit{cofibrantly generated} if there exist sets of maps $ I$, $ J$ such that
-	\begin{enumerate}[label = (\roman*)]
-		\item $ I$-inj is the class of trivial cofibrations, and $ J$-inj is the class of fibrations; and
-		\item the domains of $ I$ are small relative to $ I$-cell, and
-		\item the domains of $ J$ are small relative to $ J$-ccd.
-	\end{enumerate}
-\end{definition}
+% 	A semi-model category $\mathcal D$ is \textit{cofibrantly generated} if there exist sets of maps $\mathcal I$, $\mathcal J$ such that
+% 	\begin{enumerate}[label = (\roman*)]
+% 		\item $\mathcal I$-inj is the class of trivial cofibrations, and $\mathcal J$-inj is the class of fibrations; and
+% 		\item the domains of $\mathcal I$ are small relative to $\mathcal I$-cell, and
+% 		\item the domains of $\mathcal J$ are small relative to $\mathcal J$-ccd.
+% 	\end{enumerate}
+% \end{definition}
 
 \begin{remark}
-	In \cite{Spi01,Wh16}, these semi-model structures come equipped with an adjunction $\mathcal M \rightleftarrows \mathcal D$ with $\mathcal M$ a model category,
-	with the added condition that $U$ preserves (trivial) fibrations.
-	Our definition is a special case, where $\mathcal M$ is the terminal category with its unique model strucutre,
-	and the left adjoint is the inclusion of the initial object.
+      This definition is actually a special case of the definitions from \cite{Spi01,Wh16},
+      where the necessary adjunction $\mathcal D \leftrightarrows \mathcal M$
+      has $\mathcal M$ as the terminal category, the right adjoint is the unique map, and the left adjoint is the inclusion of the initial object.
+% 	In \cite{Spi01,Wh16}, these semi-model structures come equipped with an adjunction $\mathcal M \rightleftarrows \mathcal D$ with $\mathcal M$ a model category,
+% 	with the added condition that $U$ preserves (trivial) fibrations.
+% 	Our definition is a special case, where $\mathcal M$ is the terminal category with its unique model strucutre,
+% 	and the left adjoint is the inclusion of the initial object.
 	
-	In all of the examples from White and Spitzweck, these adjunctions actually induce the semi-model structure on $\mathcal D$;
-	however, this extra data is not necessary to generalize much of \cite{Hov99} to this context.
+% 	In all of the examples from White and Spitzweck, these adjunctions actually induce the semi-model structure on $\mathcal D$;
+% 	however, this extra data is not necessary to generalize much of \cite{Hov99} to this context.
 \end{remark}
 
-The following is immediate from the Retract Argument \cite[Lemma 1.1.9]{Hov99}.
-\begin{lemma}
-	A map is a trivial fibration (resp. cofibration) iff it has the right (resp. left) lifting property with respect to cofibrations (resp. trivial fibrations).
-	
-	A map with cofibrant source is a fibration (resp. trivial cofibration) iff it has the right (resp. left) lifting property with respect to trivial cofibrations (resp. fibrations).
-\end{lemma}
+Semi-model structures shares several of the nice properties of model categories:
+\begin{enumerate}[label=(\roman*)]
+\item There is a well-defined notion of cofibrant replacement: $\varnothing \rightarrowtail x_c \overset{\sim}{\twoheadrightarrow} x$.
+\item Over- and under-categories $\mathcal D \downarrow x$, $x \downarrow \mathcal D$ inhert semi-model structures.
+\item A map is a trivial fibration (resp. cofibration) iff it has the right (resp. left) lifting property with respect to cofibrations (resp. trivial fibrations).
+\item A map with cofibrant source is a fibration (resp. trivial cofibration) iff it has the right (resp. left) lifting property with respect to trivial cofibrations (resp. fibrations).
+\end{enumerate}
+These last two follow from the Retract Argument \cite[Lemma 1.1.9]{Hov99}.
 
-The existence result \cite[Theorem 2.1.19]{Hov99} immediately generalizes to the semi-model categorical context,
-as the (proof of the) small object argument \cite[Lemma 2.1.14]{Hov99} implies that
-if the domains of $J$ are small relative to $J$-ccd,
-then any map in $\mathcal D$ with cofibrant source may be factored into a map in $J$-ccd followed by a map in $J$-inj.
+Moreover, the existence result \cite[Theorem 2.1.19]{Hov99} generalizes to the semi-model categorical context:
+The (proof of the) small object argument \cite[Lemma 2.1.14]{Hov99} implies that
+if the domains of $\mathcal J$ are small relative to $\mathcal J$-ccd,
+then any map in $\mathcal D$ with cofibrant source may be factored into a map in $\mathcal J$-ccd followed by a map in $J$-inj.
 \begin{theorem}\label{SEMIMS_THM}
 	Suppose $\mathcal D$ is a category with all small limits and colimits.
 	Suppose $\mathcal W$ is a subcategory of $\mathcal D$, and $I$ and $J$ are sets of maps of $\mathcal D$.
 	Then there is a cofibrantly generated semi-model structure on $\mathcal D$ with
-	$I$ (resp. $J$) the set of generating (trivial) cofibrations, and weak equivalences $\mathcal W$ iff:
+	$\mathcal I$ (resp. $\mathcal J$) the set of generating (trivial) cofibrations, and weak equivalences $\mathcal W$ iff:
 	\begin{enumerate}[label = (\roman*)]
 		\item $\mathcal W$ is closed under two-out-of-three and retracts.
-		\item The domains of $I$ (resp. $J$) are small relative to $I$-cell (resp. $J$-ccd).
-		\item $J\text{-ccd} \subseteq \mathcal W \cap I\text{-cof}$.
-		\item $I$-inj $\subseteq$ $\mathcal W \cap J$-inj.
-		\item Either $\mathcal W \cap I\text{-cof} \subseteq J\textit{-cof}$ or $\mathcal W \cap J\text{-inj} \subseteq I\text{-inj}.$.
+		\item The domains of $\mathcal I$ (resp. $\mathcal J$) are small relative to $\mathcal I$-cell (resp. $\mathcal J$-ccd).
+		\item $\mathcal J\text{-ccd} \subseteq \mathcal W \cap \mathcal I\text{-cof}$.
+		\item $\mathcal I$-inj $\subseteq$ $\mathcal W \cap \mathcal J$-inj.
+		\item Either $\mathcal W \cap \mathcal I\text{-cof} \subseteq \mathcal J\textit{-cof}$
+                      or $\mathcal W \cap \mathcal J\text{-inj} \subseteq \mathcal I\text{-inj}.$.
 	\end{enumerate}
 \end{theorem}
 
 
-\subsection{Results}
+\subsection{Semi-model categorical results}
 
-The main results Theorem \ref{THMI} and Theorem \ref{THMII}, adapted to the semi-model structure context, follow with only minimal changes.
-We highlight these in this section.
+Semi-model categorical adaptations of Theorems \ref{THMI} and \ref{THMII}, written as Theorems \ref{THMI_S} and \ref{THMIII_S} below,
+follow from the previously given proofs with minimal changes.
+We highlight the important alterations below.
 
-First, we stengthen ``admits all equivariant model structures'' to ``acyclic cofibrant fixed points'' for the first result.
-\begin{theorem}
-	\label{THM1_S}
-	Suppose $(\V,\otimes)$
-	\begin{enumerate}[label = (\roman*)]
-		\item is a cofibrantly generated model category;
-		\item is a closed monoidal model category with cofibrant unit;
-		\item has ayclic cofibrant fixed points;
-		\item has cofibranty symmetric pushout powers.
-	\end{enumerate}
-	Then for any $(G, \Sigma)$-family $\F$,
-	the $\F$-semi-model structure exists on $\Op^G_{\mathfrak C}(\V)$. 
-\end{theorem}
+\begin{customthm}{I-S}
+      \label{THM1_S}
+      Suppose $(\V,\otimes)$ satisfies conditions $(i),(ii),(iii),(iv)$ from Theorem \ref{THMI}.
+      Then for any $(G, \Sigma)$-family $\F$,
+      there exists a semi-model structure on $\Op_{\mathfrak C}^G(\V)$ such that a map $\O \to \P$ is a weak equivalence (resp. fibration) if the maps in \eqref{THMI_EQ} are so in $\V$
+      for all $\mathfrak C$-signatures $\vect C$ and $\Lambda \in \F$ which stabilize $\vect C$.
+\end{customthm}
 \begin{proof}
-	Following \cite[Thm. 2.2.2]{WY18} it suffices to consider show that free extensions $\O \to \O[u]$ as in \eqref{OURE EQ} with $\O$ cofibrant in $\mathsf{Op}^G_{\mathfrak C}$ are weak equivalences.
-	The proof for $\V = \sSet$ would then suffice, provided we could show that $\O$ must also be cofibrant in $\Sym^G_{\mathfrak C}(\V)$.
-	This follows by induction on the cell complex decomposition of $\O$,
-	with the base case stating that the initial operad $\mathbb{F}\emptyset$ is cofibrant in $\mathsf{Sym}^G_{\mathfrak{C}}$
-	following from the assumption that $\mathcal{V}$ has a cofibrant unit
-	and the induction step following from the already established cofibrancy of the maps $\O \to \O[u]$ in $\mathsf{Sym}^G_{\mathfrak{C}}$.
+      Following \cite[Thm. 2.2.2]{WY18} it suffices to consider show that free extensions $\O \to \O[u]$ as in \eqref{OURE EQ} with $\O$ cofibrant in $\mathsf{Op}^G_{\mathfrak C}(\V)$ are weak equivalences.
+      The proof given in \S \ref{OPC_MS_SEC} suffices
+      provided we can show that $\O$ must also be cofibrant in $\Sym^G_{\mathfrak C}(\V)$,
+      as an application of Proposition \ref{RESGEN PROP} would then imply 
+      $n_k^{\O,X,Y}$ is a genuine trivial cofibration in $\V^{G \ltimes \Omega_{\mathfrak C}^{a,op}[k]}$.
+      This claim follows by induction on the cell complex decomposition of $\O$,
+      with the base case stating that the initial operad $\mathbb{F}\emptyset$ is cofibrant in $\mathsf{Sym}^G_{\mathfrak{C}}(\V)$
+      following from the assumption that $\mathcal{V}$ has a cofibrant unit
+      and the induction step following from the already established cofibrancy of the maps $\O \to \O[u]$ in $\mathsf{Sym}^G_{\mathfrak{C}}(\V)$.
 \end{proof}
 
-We record a particular consequence of the above.
+We have the following analogue of Lemma \ref{GOTC_LEM}.
 \begin{corollary}
-	\label{LGC_COR}
-	Suppose $(\V, \otimes)$ satisfies the hypotheses of Theorem \ref{THM1_S},
-	let $\mathfrak C$ be a $G$-set, and $f: \O \to \P$ a map in $\Op^{G,\mathfrak C}(\V)$.
-	If $f$ is a (trivial) cofibration in $\Op^{G, \mathfrak C}_\F(\V)$ for some $(G, \Sigma)$-family $\F$,
-	and $\O$ is level $\F$-cofibrant, then
-	$f(\vect C)$ is a (trivial) $\F$-cofibration in $\V^{\Aut(\vect C)}_{\F_{\vect C}}$ for all $\mathfrak C$-signatures $\vect C \in G \ltimes \Sigma_{\mathfrak C}$.
+      \label{LGC_COR}
+      $\F$-(trivial) cofibrations in $\Op_{\mathfrak C}^G(\V)$ with cofibrant source are
+      underlying equivariant (trivial) $\F$-cofibrations in $\Sym_{\mathfrak C}^G(\V)$.
+      % Suppose $(\V, \otimes)$ satisfies the hypotheses of Theorem \ref{THM1_S},
+      % let $\mathfrak C$ be a $G$-set, and $f: \O \to \P$ a map in $\Op^{G,\mathfrak C}(\V)$.
+      % If $f$ is a (trivial) cofibration in $\Op^{G, \mathfrak C}_\F(\V)$ for some $(G, \Sigma)$-family $\F$,
+      % and $\O$ is level $\F$-cofibrant, then
+      % $f(\vect C)$ is a (trivial) $\F$-cofibration in $\V^{\Aut(\vect C)}_{\F_{\vect C}}$ for all $\mathfrak C$-signatures $\vect C \in G \ltimes \Sigma_{\mathfrak C}$.
 \end{corollary}
-
-
-\begin{corollary}
-	\label{CATV_MC_COR}
-	Suppose $(\V, \otimes)$ satisfies the hypotheses of Theorem \ref{THM1_S},
-	Then we have induced (semi)-model structures on $\Cat^{G}_{ \mathfrak C}(\V) = \Op^{G}_{\mathfrak C}(\V) \downarrow \**$,
-	so in particular we have cofibrant replacements in $\Cat_{\mathfrak C}(\V)$ for any set $\mathfrak C$.
-\end{corollary}
-
-% \begin{remark}
-%       \label{TOP_FULL_REM}
-%       The category $\Op^{G,\mathfrak C}(\Top)$ actually has full model structures lifted from $\Sym^{G, \mathfrak C}_\F(\Top)$
-%       for any $(G, \Sigma)$-family $\F$,
-%       using an argument analogous to \cite[Thm. 3.1]{GW18}.
-% \end{remark}
-
-
-\textbf{THMII}
-
-
-We note that Proposition \ref{LOCALTCHAR PROP} is formulated to be compatible with semi-model structures.
-If the fibers $\mathsf{Op}^G_{\mathfrak{C}}(\V)$ have full model structures one can replace the role of
-``$\mathcal{J}_{\mathfrak{C}}$'' and ``$\mathcal{I}_{\mathfrak{C}}$''
-with simply ``trivial cofibrations'' and ``cofibrations''.
-
-\todo[inline]{come back}
 
 \begin{remark}
-	In \cite{BM13}, the Interval Cofibrancy Theorem does not appear to use the full power of ``adequate'' model categories -
-	specifically, it appears that $\otimes$-perfectness is not applied,
-	and thus it suffices to assume that the category of algebras over any non-symmetric operad has the induced model structure.
-	It appears this too can be weakened:
-	in particular, the proof never factors a map into a trivial cofibration followed by a weak equivalence,
-	and only uses cofibrant replacement or pushouts of cofibrations between cofibrant objects.
-	These operations all make sense in the language of a semi-model category.
-	Thus we conclude that Interval Cofibrancy Theorem holds whenever the category of algebras over any non-symmetric operad has the induced semi-model structure. 
-	
-	A similar analysis holds true for the $W$-construction from \cite{BM06}.
-	
-	This allows us to immediately conclude that, for any $\V$ satisfying the hypotheses of Theorem \ref{THM1_S}:
-	\begin{enumerate}[label=(\roman*)]
-		\item (Virtual) equivalence of objects (Definition \ref{EQUIV_DEF}) is an equivalence relation.
-		\item Transfinite composites of $\F$-essentially surjective maps in $\Op^G_\bullet(\V)$ are $\F$-essentially surjective.
-		\item $\V$ satifies the coherence axiom.
-	\end{enumerate}
+      As before, Theorem \ref{I_S} implies the existence of induced semi-model structures on
+      $\Cat^{G}_{ \mathfrak C}(\V) = \Op^{G}_{\mathfrak C}(\V) \downarrow \**$;
+      in particular we have cofibrant replacements in $\Cat_{\mathfrak C}(\V)$ for any set $\mathfrak C$.
 \end{remark}
 
-The two majors steps in the proof of Theorem \ref{THMII} are that  relative $\mathcal J_\F$-cells are $\F$-weak equivalences, and 2-out-of-3.
-The proofs of Proposition \ref{J-CELL_PROP} and Corollary \ref{ALBEETA COR} may be modified accordingly.
+We note that the proof of Theorem \ref{THMII} works as written when $\Op_{\mathfrak C, \F}^G(\V)$ only has a semi-model structure.
+Thus we have the following strengthening.
+\begin{customthm}{II}\label{THMII-S}
+	Suppose $\V$ satisfies conditions $(i),(ii),(iii),(iv)$ from Theorem \ref{THMI},
+	and let $\F$ be a pseudo indexing system (Definition \ref{PIS_DEF}).
+	If $\O \in \Op^G_\F(\V)$ is $\F$-cofibrant, then the underlying symmetric sequence is $\F$-cofibrant in $\Sym^G_\F(\V)$.
+\end{customthm}
+
+
+
+Moving on to the semi-model structure on the total category $\Op_{\bullet, \F}^G(\V)$,
+we note Proposition \ref{LOCALTCHAR PROP} applies as written, and thus
+Definition \ref{OPGENCOF DEF} defines generating (trivial) cofibrations in the semi-model context as well.
+% is formulated to be compatible with semi-model structures.
+% If the fibers $\mathsf{Op}^G_{\mathfrak{C}}(\V)$ have full model structures one can replace the role of
+% ``$\mathcal{J}_{\mathfrak{C}}$'' and ``$\mathcal{I}_{\mathfrak{C}}$''
+% with simply ``trivial cofibrations'' and ``cofibrations''.
+
+Now, the two major steps in the proof of Theorem \ref{THMIII} are that
+\begin{itemize}
+\item relative $\mathcal J_\F$-cells are $\F$-weak equivalences (Proposition \ref{J-CELL_PROP}), and
+\item weak equivalences satisfy 2-out-of-3 (Proposition \ref{2OUTOF3 PROP}).
+\end{itemize}
+The proof of these results and the discussion surrounding them may be modified accordingly. %  Corollary \ref{ALBEETA COR} 
+
+First, we contend with the Interval Cofibrancy Theorem \ref{INTCOF THM}.
+\begin{remark}
+      As noted in \S \ref{TRIVCOF_SEC}, the hypotheses needed for the proof of the Interval Cofibrancy Theorem in \cite{BM13}
+      are the existence of several model structures.
+      This in fact may be further weakened:
+      the proof never factors a map into a trivial cofibration followed by a weak equivalence,
+      and only uses cofibrant replacement or pushouts of cofibrations between cofibrant objects.
+      These operations all make sense in the language of a semi-model category,
+      and thus the Interval Cofibrancy Theorem and Interval Amalgamation Lemma \ref{AMALGLEM LEM}
+      hold whenever the canonical semi-model structures on $\Cat_{\mathfrak C}(\V)$ exist;
+      in particular, the hypotheses of Theorem \ref{THMI_S} suffice.
+\end{remark}
+
+% \begin{theorem}
+%       \label{INTCOF-S THM}
+%       Let $(\V, \otimes)$ be a cofibrantly generated monoidal model category for which
+%       the canonical semi-model structures on $\Cat_{\mathfrak C}(\V)$ exist.
+%       If $\mathbb J \in \Cat_{\set{0,1}}(\V)$ is cofibrant then
+%       $\mathbb J(0,0)$ is cofibrant in $\Cat_{\set{0}}(\V)$.
+% \end{theorem}
+
+This is sufficient to prove the semi-model structure analogue of Proposition \ref{J-CELL_PROP}.
 
 \begin{proposition}
-	Relative $\mathcal J_\F$-cells with $\F$-cofibrant source are $\F$-weak equivalences.
+      Suppose $(\V,\otimes)$ satisfies the hypotheses from Theorem \ref{THMI_S}.
+      Then maps in the saturation of $(TC1),(TC2)$ with with $\F$-cofibrant source are $\F$-weak equivalences.
 \end{proposition}
-
 \begin{proof}
-	The proof of Proposition \ref{J-CELL_PROP} implies that for any generating trivial cofibration,
+	The proof of Proposition \ref{J-CELL_PROP} implies that for any generating trivial $\F$-cofibration,
 	the pushout is either a trivial $\F$-cofibration or a composite of an trivial $\F$-cofibration with an essentially surjective local isomorphism.
-	If we started with a cofibrant source, each pushout map will have a cofibrant source,
+	If we begin with a cofibrant source, each pushout map will have a cofibrant source,
 	and hence by Corollary \ref{LGC_COR} each of these maps will be a level trivial $\F$-cofibration.
-	As level genuine trivial cofibrations and essentially surjective maps are closed under transfinite composition, the result holds.
+        As level genuine trivial cofibrations and essentially surjective maps are closed under transfinite composition by Lemma \ref{TRANSCOMP_ES_LEM},
+        the result holds.
 \end{proof}
+
+
+
+Next, we consider equivalences of objects.
+We note that, in a semi-model category, an arbitrary object $x$ need not have a map to it's fibrant replacement,
+and instead there exists a zig-zag of weak equivalences
+\[
+      x \overset{\sim}{\twoheadleftarrow} x_c \overset{\sim}{\rightarrowtail} x_f.
+\]
+However, this is sufficent for our analysis, as most often we are considering maps from a cofibrant object $\mathbb J$ into our arbitrary category $\mathcal C$.
+In particular, we have that the definitions of (virtually, homotopy) equivalent make sense in the semi-model category $\Cat(\V)$,
+and that they are nested as in Remark \ref{EQUIVNEST_REM}.
+The rest of \S \ref{EQUIVOBJ_SEC} follows as written.
+
+Now, the technical work in \S \ref{HMTYEQ SEC} for finishing Proposition \ref{2OUTOF3 PROP} culminates in Corollary \ref{ALBEETA COR}.
+In particular, the proof of this result explicitly uses both the monoid axiom and
+condition $(vii)$ from Theorem \ref{THMIII}, a strengthening of our assumptions on the model categories $\V^G$.
+In the semi-model structure context, we no longer use the monoid axiom,
+but we will require an mildly stronger assumption on the model categories $\V^G$:
+\begin{itemize}
+\item[(vii')] For any group $G$, fixed points $(-)^G \colon \V^G \to \V$ send genuine (trivial) cofibrations to (trivial) cofibrations.
+\end{itemize}
 
 \begin{proposition}
-	Suppose that $\V$ has cofibrant pushout power and acyclic cofibrant fixed points,
-	and $\P, \vect B, \vect C, \Lambda$ as in Corollary \ref{ALBEETA COR}.
-	Then the conclusions of Corollary \ref{ALBEETA COR} hold.
+      \label{ALBEETA_S COR}
+      Suppose that $\V$ satisfies conditions $(i),(ii),(iii),(iv)$ from Theorem \ref{THMI} and $(vii')$.
+      Let $\P, \vect B, \vect C, \Lambda$ be as in Corollary \ref{ALBEETA COR}.
+      Then the conclusions of Corollary \ref{ALBEETA COR} hold.
 \end{proposition}
 \begin{proof}
-	Using a zig-zag of weak equivlances, we may assume $\P$ is $\F$-bifibrant.
-	But then $\P$ is level genuine cofibrant by Corollary \ref{LGC_COR},
-	and hence $\P(\vect B)^\Lambda$ is cofibrant.
-	Thus we replace the use of the 
+      The proof as written works in this more general context, provided that we can show that
+      $\P(\vect B)^{\Lambda} \otimes (\mathbb C^{\otimes n})^\Lambda \to \P(\vect B)^{\Lambda}$
+      is a weak equivalence.
+      
+      Using a zig-zag of weak equivalences, we may assume $\P$ is bifibrant.
+      But then $\P$ is level genuine cofibrant by Corollary \ref{LGC_COR},
+      and hence $\P(\vect B)^\Lambda$ is cofibrant by assumption.
+      The claim then follows since $\V$ satisfies the pushout product axiom.
 \end{proof}
 
-The result of \S 4 follows as in the regular model structure case.
+\begin{remark}
+      The proof of Proposition \ref{WEAKCELL PROP} implies that
+      weak acyclic cellular fixed points (Definition \ref{WEAKCELL DEF})
+      suffices for the equivariant assumption $(vii)$ in Corollary \ref{ALBEETA COR}.
+      Similarly, if $(-)^H$ additionally satisfies the analogous assumptions
+      replacing $\mathcal J_G$ and $\mathcal J$-cof with $\mathcal I_G$ and $\mathcal I$-cof,
+      then the equivariant assumption $(vii')$ in Proposition \ref{ALBEETA_S COR} holds.      
+\end{remark}
 
-\begin{theorem}
-	\label{THMII_S}
-	Let $(\V,\otimes)$ denote a closed symmetric monoidal category such that
-	$(\V, \otimes)$:
-	\begin{enumerate}[label = (\roman*)]
-		\item is a cofibrantly generated model category;
-		\item is a closed monoidal model category with cofibrant unit;
-		\item admits all equivariant model structures and has acyclic cofibrant fixed points;
-		\item has cofibranty symmetric pushout powers.
-	\end{enumerate}
-	
-	Let $\F = \set{\F_n}_{n \geq 0}$ a $(G, \Sigma)$-family which has enough units.
-	Then there exists a semi-model structure on $\Op^G_\bullet(\V)$, denoted $\Op^G_{\bullet,\F}(\V)$,
-	with weak equivalences and fibrations defined as in Theorem \ref{THMII}.
-	% such that
-	% a map $F \colon \O \to \O'$ is a weak equivalence if
-	% \begin{enumerate}[label = (\alph*)]
-	% \item $\O \to F^{\**}\O'$ is a weak equivalence in $\Op^G_{\mathfrak C(\O), \F}(\V)$ and
-	% \item $\pi_0(j^{\**}F^H)$ is essentially surjective for all $H \in \F_1$.
-	% \end{enumerate}
-\end{theorem}
+The remaining parts of \S \ref{HMTYEQ SEC} follow as written.
+Thus, replacing the use of \cite[Thm. 2.1.19]{Hov99} with Theorem \ref{SEMIMS_THM},
+we may conclude the semi-model structure analogue of our main result.
 
-
-\todo[inline]{come back}
+\begin{customthm}{III-S}
+      \label{THMIII_S}
+      For any $(G,\Sigma)$-family $\F$ with enough units,
+      an $\F$-semi-model structure on $\Op^G(\V)$ with weak equivalences/trivial fibrations determined as in
+      \eqref{THMIII1ST EQ}, \eqref{THMIII2ND EQ} exists provided
+      $(\V, \otimes)$ satisfies conditions $(i),(ii),(iii),(iv)$ in Theorem \ref{THMI_S} and additionally
+      \begin{enumerate}[label = (\roman*)]
+            \setcounter{enumi}{5}
+      \item $\V$ is right proper
+      \item[(vii')] for any group $G$, fixed points $(-)^G \colon \V^G \to \V$ send genuine (trivial) cofibrations to (trivial) cofibrations;
+      \item[(viii)] $(\V, \otimes)$ has a generating set of intervals.
+      \end{enumerate}
+\end{customthm}
 
 
 
