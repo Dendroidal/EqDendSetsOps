@@ -1,0 +1,334 @@
+\documentclass[a4paper,10pt
+%,draft
+%, final
+]{article}%
+
+\pdfcompresslevel=0
+\pdfobjcompresslevel=0
+
+\usepackage[hidelinks]{hyperref}
+\hypersetup{
+  % colorlinks,
+  final,
+  pdftitle={Equivariant Dendroidal Segal Spaces},
+  pdfauthor={Bonventre, P. and Pereira, L. A.},
+  % pdfsubject={Your subject here},
+  % pdfkeywords={keyword1, keyword2},
+  linktoc=page
+}
+%\usepackage[open=false]{bookmark}
+
+\input{commands.tex}%
+
+
+%-------- Tikz ---------------------------
+
+\usepackage{tikz}%
+\usetikzlibrary{matrix,arrows,decorations.pathmorphing,
+cd,patterns,calc}
+\tikzset{%
+  treenode/.style = {shape=rectangle, rounded corners,%
+                     draw, align=center,%
+                     top color=white, bottom color=blue!20},%
+  root/.style     = {treenode, font=\Large, bottom color=red!30},%
+  env/.style      = {treenode, font=\ttfamily\normalsize},%
+  dummy/.style    = {circle,draw,inner sep=0pt,minimum size=2mm}%
+}%
+
+\usetikzlibrary[decorations.pathreplacing]
+
+
+
+% ---- Commands on draft --------
+
+\usepackage{ifdraft}
+\ifdraft{
+  \color[RGB]{63,63,63}
+  % \pagecolor[rgb]{0.5,0.5,0.5}
+  \pagecolor[RGB]{220,220,204}
+  % \color[rgb]{1,1,1}
+}
+
+
+\usepackage[draft]{showkeys}
+\usepackage{todonotes}%[obeyDraft]
+
+
+% ----- Labels Changed? --------
+
+\makeatletter
+
+\def\@testdef #1#2#3{%
+  \def\reserved@a{#3}\expandafter \ifx \csname #1@#2\endcsname
+  \reserved@a  \else
+  \typeout{^^Jlabel #2 changed:^^J%
+    \meaning\reserved@a^^J%
+    \expandafter\meaning\csname #1@#2\endcsname^^J}%
+  \@tempswatrue \fi}
+
+\makeatother
+
+
+% ---- Commands --------
+
+% new symbols
+
+\newcommand{\mycircled}[2][none]{%
+  \mathbin{
+    \tikz[baseline=(a.base)]\node[draw,circle,inner sep=-1.5pt, outer sep=0pt,fill=#1](a){\ensuremath #2\strut};
+cf.  }
+}
+\newcommand{\owr}{\mycircled{\wr}}
+
+% replace symbols
+
+\renewcommand{\hat}{\widehat}
+
+% random
+
+\renewcommand{\F}{\mathcal F}
+\newcommand{\Q}{\mathcal Q}
+
+\newcommand{\lltimes}{\underline{\ltimes}}
+
+
+% detecting $\V$-categories:
+
+\newcommand{\I}{\mathbb I}
+\newcommand{\J}{\mathbb J}
+\renewcommand{\1}{\eta}%{\ensuremath{\mathbb{id}}}
+
+% lazy shortcuts
+
+\newcommand{\SC}{\Sigma_{\mathfrak C}}
+\newcommand{\OC}{\Omega_{\mathfrak C}}
+
+\newcommand{\UV}{\underline{\mathcal V}}
+\newcommand{\UC}{\underline{\mathfrak C}}
+
+\usepackage{harpoon}
+\newcommand{\vect}[1]{\text{\overrightharp{\ensuremath{#1}}}}
+
+
+% ---- Title --------
+
+\title{Equivariant Segal operads, simplicial operads, and dendroidal sets}
+
+\author{Peter Bonventre, Lu\'is A. Pereira}%
+
+\date{\today}
+
+
+% ---- Document body --------
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+      Things and stuff
+\end{abstract}
+
+\tableofcontents
+
+
+
+
+
+
+
+
+\subsection{Remainders from \S 1}
+
+
+
+
+The majority of this research,
+beginning with \cite{SS00} and \cite{BM03} and including e.g. \cite{BM07,Mur11,Whi14,Wh16,BB17,PS18,WY18},
+has focused on establishing axiomatic frameworks --- i.e., sets of hypotheses on some model category $\V$ ---
+such that, in particular, the category $\Op(\V)$ of operads enriched in $\V$
+has a model structure lifted from $\V$.
+In these cases, $\O \to \P$ is a weak equivalence or fibration iff $\O(n) \to \P(n)$ is so in $\V$ for all $n \geq 0$.
+% the categories of $\O$-algebras has a model structure lifted from $\V$ for some (possibly many-colored) operad $\O$ in $\V$.
+% In these cases, if $\O$ has a set $\mathfrak C$ of colors, a map $X \to Y$ of $\O$-algebras is a weak equivalence or fibration in the lifted model structure
+% iff $X(c) \to Y(c)$ is so in $\V$ for all colors $c$ of $\O$.
+
+
+
+These results often also endow lifted model structures on categories $\Op_{\mathfrak C}(\V)$ of so-called colored operads, otherwise known as multicategories, with a fixed set $\mathfrak C$ of colors.
+% The category of $\mathfrak C$-colored operads is itself an algebra over an operad whose colors are $\mathfrak C$-signatures
+% $\vect C = (c_1,\dots, c_n;c_0)$, $(n+1)$-tuples of elements of $\mathfrak C$.
+% As such, the above frameworks establish model structures on each category $\Op_{\mathfrak C}(\V)$.
+One may then ask whether these assemble into a single model structure on all operads.
+This task has received significantly less attention,
+but began with simplicial categories with Dwyer and Kan \cite{DK80}, formalized in Bergner's work \cite{Ber07b}, and by \cite{CM13b,Cav} has been extended to operads.
+
+
+
+One common aspect of all of the above cited results is that the theories they produce are ``naive'':
+the levels $\O(n)$ have an action of the symmetric group $\Sigma_n$ on $n$ letters,
+but the model structures above ignore the isotropy of the operations.
+% Does the Rezk model structure detect algebras?
+This prevents these theories from detecting necessary features in the equivariant context.
+\todo[inline]{$N_\infty$-buisness}
+
+
+
+
+In this paper, we develop an axiomatic system which allows us to build model structures with
+weak equivalences which detect isotropy coming from a collection of families.
+
+Equivarinat model structures have only been considered for particular categories, namely spaces and simplicial sets (\cite[Thm. 3.1]{GW18}, \cite[Prop. 3.3.12]{Rez96}).
+
+- It's not just what Stephan does, there is in fact a ton of interaction between the equivariance and the algebra of operads, which for example one doesn't see when only working with categories.
+
+
+
+We build model structures on the category of $G$-objects in (symmetric, colored) operads.
+
+
+
+
+
+\todo[inline]{this is way too technical. introduce things for a bit first!}
+
+This seemingly small addition exposes a number of new challenges.
+%
+First, the non-equivariant homotopy theories do not take into account any of the isotropy information already present in symmetric operads,
+so macherinery must be build to actively detect this behavior.
+%
+Second, the constituent pieces themselves are more complicated to describe.
+For example, producing answers to the basic question
+``what is the natural category of $G$-operads with a single fixed set of colors/objects, and how can these pieces interact?''
+demands a certain amount of sublty.
+
+As opposed to facing these questions individually,
+in this paper we have chosen a perspective which provides answers to them all formally and simultaneously.
+The theme runs throughout the entirety of this article:
+whenever possible, we construct/package algebraic and homotopy theoretic data universally/abstractly across all relevant fields, and only piece this information apart afterwards.
+
+This comes in three main examples:
+\begin{itemize}
+	\item fibered categories/adjunctions/monads
+	\item families of subgroups of groupoids
+	\item fibered Yoneda Lemma / universal symmetric sequences
+\end{itemize}
+
+There are several advantages to this perspective:
+\begin{itemize}
+	\item formal properties do not need to be checked by hand for each particular case
+	\item definitions become particular cases of general phenomenon, and often we can recover/compare different perspectives formally by moving across fibers
+	\item proofs are streamlined due to the vast amount of formality.
+\end{itemize}
+
+Morever, this is \textit{required} to discuss the equivariant setting - ``fiberwise'' discussions are only really fiberwise after forgetting the $G$-action. The $G$-action moves all the pieces around.
+
+The most compelling example of this is the definitions of symmetric sequences and operads.
+
+\todo[inline]{come back}
+
+\subsubsection*{Lit review}
+
+Each of the following starts with a category $\V$ which is a cofibrantly generated, closed symmetric monoidal model category $\V$,
+and shows with some additional assumptions that, in particular, $\Op_{\mathfrak C}(\V)$ can be edowed with the model structure transfered from $\Sym_{\mathfrak C}(\V)$ for all sets $\mathfrak C$.
+
+\begin{center}
+	\begin{tabular}[h]{c | c | c}
+		\textbf{Source} & \textbf{assumptions} & \textbf{conclusions} \\ \hline
+		\cite{Mur11} & monoid axiom & non-symmetric colored operads are admissible
+		\\
+		\cite{BM03}, \cite{BM07} & \begin{tabular}[t]{@{}c@{}} cofibrant unit, sym mon fib replacement, \\ (cocomm) coalg interval \end{tabular} & (symmetric) colored operads are admissible
+		\\
+		\cite{WY18} & $\spadesuit$ axiom & symmetric colored operads are admissible
+		\\
+		\cite{BB17} & monoid axiom & tame polynomial monads are admissible
+		\\
+		\cite{PS18} & (symmetric) $h$-monoidal plus technical & (symmetric) colored operads are admissible
+	\end{tabular}
+\end{center}
+
+Assembling these into a single model category $\Cat_\bullet(\V)$, $\Op_\bullet(\V)$, requires a significant amount of additional work.
+Moreover, there is a flexibility over precisely what the defining features of the model structure should be.
+\begin{center}
+	\begin{tabular}[h]{c | c | c}
+		\textbf{Source} & \textbf{assumptions} & \textbf{model structure} \\ \hline
+		\cite{Ber07b},\cite{CM13b} & $\V = \sSet$ & \begin{tabular}[t]{@{}c@{}} weak equivs: DK-equivs \\ fibrations: isofibs \end{tabular}
+		\\
+		\cite{BM13},\cite{Cav} & ``adequate'' plus technical & \begin{tabular}[t]{@{}c@{}} fibrant objects: locally fibrant \\ trivial fibs: surj local trivial fibs \\ \textit{weak equivalences: DK-equivs} \end{tabular}
+		\\
+		\cite{Mur15} & monoid axiom & \begin{tabular}[t]{@{}c@{}} weak equivs: DK-equivs \\ trivial fibs: surj local trivial fibs \end{tabular}
+		\\
+		\cite{Sta14} & \begin{tabular}[t]{@{}c@{}} monoid axiom, simplicial \\ weak equivs closed under transfinite (lazy) 
+		\end{tabular}
+		&
+		\begin{tabular}[t]{@{}c@{}} weak equivs: DK-equivs \\ fibs: isofibs \end{tabular}
+	\end{tabular}
+\end{center}
+
+
+
+
+\subsubsection*{Remainders}
+
+
+
+\begin{remark}
+	We have inclusion-forgetful fibered adjunctions
+	\begin{equation}\label{JSTAR_CAT_EQ}
+	\begin{tikzcd}
+	\Cat^{G}(\V)
+	\arrow[shift left]{r}{j_!}
+	\arrow[d, "{(-)^H}"']
+	&
+	\Op^{G}(\V)
+	\arrow[shift left]{l}{j^{\**}}
+	\arrow{d}{(-)^H}
+	\\
+	\Cat(\V)
+	\arrow[shift left]{r}{j_!}
+	&
+	\Op(\V)
+	\arrow[shift left]{l}{j^{\**}}
+	\end{tikzcd}
+	\end{equation}
+	where $j^{\**}$ forgets all non-unary operations and
+	$j_!$ is the inclusion $\Cat^G(\V) = \Op^G_\bullet(\V) \downarrow \eta \into \Op^G_\bullet(\V)$,
+	and both adjoints are compatible the $H$-fixed point functors.
+\end{remark}
+
+
+
+\begin{remark}
+	We note that if $\V$ satisfies the global monoid axiom and has cofibrant symmetric pushout powers,
+	then in particular it satisfies condition $\spadesuit$ of \cite[Thm. 6.1.1]{WY18}:
+	First note that
+	\[
+	X \otimes_{\Sigma_n} (\Sigma_n / H \cdot j) = X/H \cdot j \in \mathcal J^{\otimes} \subseteq \mathcal W
+	\]
+	for any $H \leq \Sigma_n$ and $j \in \mathcal J$ a generating trivial cofibration of $\V$.
+	But since $\otimes$ commutes with colimits in each variable
+	and $u^{\square n}$ is a trivial cofibration in $\V^{\Sigma_n}$ for any trivial cofibration $u$ of $\V$,
+	the claim follows.
+	
+	As we mentioned at the begining of this section, the result of \cite[Thm. 6.1.1]{WY18} is insufficent for our purposes,
+	as it only includes the case where
+	the $(G,\Sigma)$-family $\F$ consists only of the trivial subgroup in each level.
+\end{remark}
+
+
+
+
+
+
+\bibliography{biblio-new}{}
+\bibliographystyle{amsalpha2}
+
+
+
+\end{document}
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
