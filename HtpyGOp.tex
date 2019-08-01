@@ -24,7 +24,7 @@
 \usepackage{ifdraft}
 \ifdraft{
   \color[RGB]{63,63,63}
-%  \pagecolor[RGB]{220,220,204}
+  \pagecolor[RGB]{220,220,204}
   \usepackage{showkeys}
   \usepackage{geometry}
   \usepackage{todonotes}
@@ -1027,8 +1027,7 @@ example where our results do not apply.
 	However, we believe that with some care 
 	both of these problems could be sidestepped 
 	if necessary. 
-	On the one hand, 
-	{\color{red} Gutierrez-Vogt}
+	On the one hand, \cite{GV12}
 	show that the non-cofibrancy of the unit 
 	does not prevent the existence of fixed color model structures,
 	while on the other, 
@@ -3403,7 +3402,7 @@ for the wide subcategory whose arrows are the isomorphisms.
 Next, following \cite[Notation 3.33]{BP_geo}
 there is a ``colored arity functor''
 \begin{equation}\label{LRDEF EQ}
-\Omega_{\mathfrak{C}}^0 \xrightarrow{\mathsf{lr}} \Sigma_{\mathfrak{C}}
+\Omega_{\mathfrak C}^0 \xrightarrow{\mathsf{lr}_{\mathfrak C}} \Sigma_{\mathfrak{C}}
 \end{equation}
 which we call the \emph{leaf-root functor}, described as follows.
 Given $\vect{T} \in \Omega^0_{\mathfrak{C}}$, 
@@ -3454,6 +3453,23 @@ $\mathsf{lr}(\eta_{\mathfrak{c}}) = (\mathfrak{c};\mathfrak{c})$,
 which is the corolla with two edges (a leaf and a root) both labeled by $\mathfrak{c}$.
 \end{remark}
 
+\begin{remark}
+      The colored leaf-root functor is in fact fibered over $\mathsf{Set}^G$:
+      For any map of colors $\phi \colon \mathfrak C \to \mathfrak D$, we have
+      the following commuting diagram.
+      \begin{equation}
+            \label{COLORLR_EQ}
+            \begin{tikzcd}
+                  \Omega_{\mathfrak C}^0 \arrow[r, "\phi"] \arrow[d, "\mathsf{lr}_{\mathfrak C}"']
+                  &
+                  \Omega_{\mathfrak D}^0 \arrow[d, "\mathsf{lr}_{\mathfrak D}"]
+                  \\
+                  \Sigma_{\mathfrak C} \arrow[r, "\phi"]
+                  &
+                  \Sigma_{\mathfrak D}
+            \end{tikzcd}
+      \end{equation}
+\end{remark}
 
 For each $\mathfrak{C}$-signature $\vect{C}$,
 we write $\vect{C} \downarrow \Omega_{\mathfrak{C}}^0$
@@ -3623,7 +3639,7 @@ $G \ltimes \mathcal{C}^{op} \simeq (G \ltimes \mathcal{C})^{op}$).
 \begin{equation}\label{FGC_EQ}
 \begin{tikzcd}[column sep = 28pt]
 	G \ltimes \Omega^{0,op}_{\mathfrak{C}}
-	\arrow[d, "\mathsf{lr}_{\mathfrak C}"']
+	\arrow[d, "G \ltimes \mathsf{lr}_{\mathfrak C}^{op}"']
 	\arrow[r, "G \ltimes \boldsymbol{V}^{op}"]
 &[6pt]
 	G \ltimes (\Sigma \wr \Sigma_{\mathfrak{C}})^{op} \arrow{r}
@@ -4981,7 +4997,7 @@ turns out to be a groupoid.
 Adapting \eqref{LRDEF EQ} and \eqref{VFUNDEF EQ}, 
 we have functors
 \[
-\mathsf{lr} \colon
+\mathsf{lr}_{\mathfrak C}^{a} \colon
 \Omega^a_{\mathfrak{C}}[k]
 \to
 \Sigma_{\mathfrak{C}}
@@ -4991,7 +5007,7 @@ we have functors
 \to
 \Sigma_k \wr \Sigma_{\mathfrak{C}}
 \]
-where $\mathsf{lr}$ is defined as before (one just ignores the vertex partition data)
+where $\mathsf{lr}_{\mathfrak C}^{a}$ is defined as before (one just ignores the vertex partition data)
 and $\boldsymbol{V}^{in}$ is the tuple containing only the inert vertices.
 
 
@@ -5023,7 +5039,7 @@ where each map $\O_{k-1} \to \O_k$ fits into a pushout
 \begin{equation}\label{OUPUSHRE EQ}
 \begin{tikzcd}
 	\bullet 
-	\arrow{d}[swap]{\mathsf{lr}^{op}_!
+	\arrow{d}[swap]{\left(\mathsf{lr}_{\mathfrak C}^{a,op}\right)_!
 	n_k^{(\O,X,Y)}}
 	 \arrow[r]
 &
@@ -5036,7 +5052,7 @@ where each map $\O_{k-1} \to \O_k$ fits into a pushout
 \end{equation}
 where 
 $
-\mathsf{lr}^{op}_! \colon
+\left(\mathsf{lr}_{\mathfrak C}^{a,op}\right)_! \colon
 \mathcal{V}^{G \ltimes \Omega^a_{\mathfrak{C}}[k]^{op}}
 \to
 \mathcal{V}^{G \ltimes \Sigma_{\mathfrak{C}}^{op}}
@@ -5063,15 +5079,6 @@ n_k^{(\O,X,Y)}(\vect{T})=
 \end{equation}
 \end{lemma}
 
-\begin{remark}
-      We unpack $\boldsymbol{V}^{\**}\F^\ltimes$.
-      For any $T \in \Omega$ and $v \in \boldsymbol{V}(T)$, let $\Aut_{v}(T) \leq \Aut(T)$ denote the subgroup which fixes the root of $T_v$.
-      We note that we have a homomorphism $\pi_{T_v} \colon \Aut_v(T) \to \Aut(T_v)$ that does not extend to all of $\Aut(T)$.
-
-      Now, given a $(G,\Sigma)$-family $\F$ and a subgroup $ \Gamma \leq G \times \Aut(T)$, we see that
-      $\Gamma \in \F_T = (\boldsymbol{V}^{\**}\F^\ltimes)_T$ iff
-      $\pi_{T_v}\left( \Gamma \cap (G \times \Aut_{v}(T)) \right) \in \F_{T_v}$.       
-\end{remark}
 
 We can now prove our first main result, Theorem \ref{THMI}.
 
@@ -5263,7 +5270,7 @@ in Definition \ref{CSPP_DEF} and Theorem \ref{THMI}.
 
 
 \begin{remark}\label{THMISM REM}
-	If $\O$ in \eqref{OURE EQ}
+        If $\O$ in \eqref{OURE EQ}
 	is known to be underlying genuine cofibrant in 
 	$\mathsf{Sym}^{G}_{\mathfrak{C}}(\V)$ 
 	then, replacing the use of the global monoid axiom with 
@@ -5289,7 +5296,7 @@ in Definition \ref{CSPP_DEF} and Theorem \ref{THMI}.
 	the semi-model structure analogue of Theorem \ref{THMI}
 	does not require the global monoid axiom.
 \end{remark}
-
+  
 
 
 
@@ -5381,9 +5388,6 @@ in $G^{op} \times \Sigma$.
 	and $\mathsf{lr} \colon G^{op} \times \Omega^{0} \to G^{op} \times \Sigma$.
 \end{definition}
 
-
-
-
 \begin{remark}
 	Pseudo indexing systems generalize the
 	\textit{weak indexing systems} in our previous work
@@ -5391,11 +5395,39 @@ in $G^{op} \times \Sigma$.
 	which are themselves a generalization of the 
 	\textit{indexing systems} introduced by Blumberg-Hill \cite[Defn. 3.22]{BH15}.
 	
-	More precisely, a weak indexing system is precisely a pseudo indexing system consisting of $G$-graph subgroups (e.g. \cite[Defn. 6.34]{BP_geo}).
+	More precisely, \cite[Remark 6.45]{BP_geo} implies that
+        a weak indexing system is precisely a pseudo indexing system consisting of $G$-graph subgroups (e.g. \cite[Defn. 6.34]{BP_geo}).
 %      Briefly, indexing systems $\F$ correspond to the many distinct possible notions of
 %      ``equivariant commutative monoids up to coherent homotopy'',
 %      encoded by an $\F$-universal simplicial $G$-operad with a single color.
 %      Additional context and motivation can be found at the above citations.
+\end{remark}
+
+\begin{remark}
+      We unpack $\boldsymbol{V}^{\**}\F^\ltimes$.
+      For any $T \in \Omega$ and $v \in \boldsymbol{V}(T)$, let $\Aut_{v}(T) \leq \Aut(T)$ denote the subgroup which fixes the root of $T_v$.
+      Then we have homomorphism $\pi_{T_v} \colon \Aut_v(T) \to \Aut(T_v)$
+      that does not extend over the inclusion $i_v \colon \Aut_v(T) \to \Aut(T)$.
+      Now, given a $(G,\Sigma)$-family $\F$ and a subgroup $ \Gamma \leq G \times \Aut(T)$, 
+      $\Gamma \in (\boldsymbol{V}^{\**}\F^\ltimes)_T$ iff
+      $\pi_{T_v}\left( \Gamma \cap (G \times \Aut_{v}(T)) \right) \in \F_{T_v}$.
+      % Equivalently, \mbox{$\F_T = \bigcap_{v \in \boldsymbol{V}} (G \times \pi_{T_v})^{\**}(G \times i_v)_! \F_{T_v}$}
+      % where we note that since $i_v$ is injective, $(i_v)_! = (i_v)_{\**}$.
+      
+      Following \cite[Remark 6.46]{BP_geo}, we note that
+      when $\F$ is a \textit{family of $G$-corollas} (\cite[Defn. 4.44]{BP_geo}),
+      the family $(\boldsymbol{V}^{\**}\F^\ltimes)_T$ agrees the family $\F_T$ from \cite[Prop. 6.44]{BP_geo} for any tree $T$.
+\end{remark}
+
+\begin{remark}
+      \label{PIS_REM}
+      The opposite inclusion to \eqref{PIS_EQ} always holds:
+      Letting $i \colon G^{op} \times \Sigma \to \Sigma \wr (G^{op} \times \Sigma)$ denote the inclusion of the unary tuples,
+      it is clear that $\F \subseteq i^{\**}\F^\ltimes$, and so
+      $\mathsf{lr}^{\**} \F \subseteq \mathsf{lr}^{\**}i^{\**}\F^\ltimes = \boldsymbol{V}^{\**} \F^\ltimes$.
+      
+      Thus $\F$ is a pseudo indexing system iff we have an equality
+      $\boldsymbol{V}^{\**} \F^\ltimes = \mathsf{lr}^{\**}\F$.
 \end{remark}
 
 
@@ -5412,7 +5444,7 @@ We can now prove the main result of this section, which is a stronger version of
 \end{theorem}
 
 \begin{remark}
-	Theorem \ref{SIGMAG_COF_THM} is the colored analogue to {\color{red} \cite[{Remark 6.64 with Theorem 6.59}]{BP_geo}}.
+	Theorem \ref{SIGMAG_COF_THM} is the colored analogue to {\color{red} \cite[{Remark 6.64 after Theorem 6.59}]{BP_geo}}.
 	However, our proof here will be significantly simpler since we have established 
 	Proposition \ref{SIGMAWRGF PROP} for all groupoids, 
 	while in \cite{BP_geo}
@@ -5421,6 +5453,8 @@ We can now prove the main result of this section, which is a stronger version of
 \end{remark}
 
 {\color{red} HERE}
+
+
 
 \begin{proof}
 	It suffices to show that free operad extensions $\O \to \O[u]$ as in \eqref{OURE EQ},
@@ -5431,55 +5465,96 @@ We can now prove the main result of this section, which is a stronger version of
       \begin{equation}
             \label{FCA_SQ_EQ}
             \begin{tikzcd}
-                  G \ltimes \Omega_{\mathfrak C}^{0,a,op}
-                  \arrow[rr, "\boldsymbol{V}_{\mathfrak C}^{a}"] \arrow[dr] \arrow[dd, "\pi_{\mathfrak C,a}"']
+                  G^{op} \ltimes \Omega_{\mathfrak C}^{0,a}
+                  \arrow[rr, "\boldsymbol{V}_{\mathfrak C}^{a}"] \arrow[dr] \arrow[dd, "\pi_{\mathfrak C}^a"']
                   &&
-                  \Sigma \wr \left( \displaystyle{\coprod_2} G \ltimes \Sigma_{\mathfrak C}^{op} \right)
-                  \arrow[dr] \arrow[dd, "\Sigma \wr \nabla_2", near start]
+                  \Sigma \wr \left( \displaystyle{\coprod_2} G^{op} \ltimes \Sigma_{\mathfrak C} \right)
+                  \arrow[dr] \arrow[dd, "\Sigma \wr \nabla_{\mathfrak C}", near start]
                   \\
                   &
-                  G \ltimes \Omega^{a,op}
+                  G^{op} \ltimes \Omega^{a}
                   \arrow[rr, crossing over, near start, "\boldsymbol{V}^{a}"]
                   &&
-                  \Sigma \wr \left( \displaystyle{\coprod_2} G \ltimes \Sigma^{op} \right)
-                  \arrow[dd, "\Sigma \wr \nabla_2"]
+                  \Sigma \wr \left( \displaystyle{\coprod_2} G^{op} \ltimes \Sigma \right)
+                  \arrow[dd, "\Sigma \wr \nabla"]
                   \\
-                  G \ltimes \Omega_{\mathfrak C}^{0,op}
+                  G^{op} \ltimes \Omega_{\mathfrak C}^{0}
                   \arrow[rr, near start, "\boldsymbol{V}_{\mathfrak C}"] \arrow[dr, "\pi_{\mathfrak C}"']
                   &&
-                  \Sigma \wr \left( G \ltimes \Sigma_{\mathfrak C}^{op} \right)
+                  \Sigma \wr \left( G^{op} \ltimes \Sigma_{\mathfrak C} \right)
                   \arrow[dr, "\Sigma \wr \pi_{\mathfrak C}"]
                   \\
                   &
-                  G \ltimes \Omega^{0,op}
+                  G^{op} \ltimes \Omega^{0}
                   \arrow[rr, "\boldsymbol{V}"]
-                  \arrow[uu, leftarrow, crossing over, "\pi_a"', near end]
+                  \arrow[uu, leftarrow, crossing over, "\pi^a"', near end]
                   &&
-                  \Sigma \wr \left( G \ltimes \Sigma^{op} \right)      
+                  \Sigma \wr \left( G^{op} \ltimes \Sigma \right)      
+            \end{tikzcd}
+      \end{equation}
+      \begin{equation}
+            \begin{tikzcd}[column sep = small]
+                  G^{op} \ltimes \Omega_{\mathfrak C}^{0,a}
+                  \arrow[r] \arrow[d, "\pi_{\mathfrak C}^a"']
+                  &
+                  G^{op} \ltimes \Omega^{0,a} \arrow[r, "\boldsymbol{V}^a"]
+                  \arrow[d, "\pi^a"]
+                  &
+                  \Sigma \wr \left( \displaystyle{\coprod_2} G^{op} \ltimes \Sigma \right)
+                  \arrow[d, "\Sigma \wr \nabla"]
+                  & % ----------
+                  G^{op} \ltimes \Omega_{\mathfrak C}^{0,a} \arrow[r, "\boldsymbol{V}_{\mathfrak C}^{a}"]
+                  \arrow[d, "\pi_{\mathfrak C}^a"']
+                  &
+                  \Sigma \wr \left( \displaystyle{\coprod_2} G^{op} \ltimes \Sigma_{\mathfrak C} \right)
+                  \arrow[d, "\Sigma \wr \nabla_{\mathfrak C}"] \arrow[r]
+                  &
+                  \Sigma \wr \left( \displaystyle{\coprod_2} G^{op} \ltimes \Sigma \right)
+                  \arrow[d, "\Sigma \wr \nabla"]
+                  \\
+                  G^{op} \ltimes \Omega_{\mathfrak C}^{0} \arrow[r, "\pi_{\mathfrak C}"] \arrow[d, "\mathsf{lr}_{\mathfrak C}"]
+                  &
+                  G^{op} \ltimes \Omega^{0} \arrow[r, "\boldsymbol{V}"] \arrow[d, "\mathsf{lr}"]
+                  &
+                  \Sigma \wr \left( G^{op} \ltimes \Sigma \right)
+                  & % ----------
+                  G^{op} \ltimes \Omega_{\mathfrak C}^{0} \arrow[r, "\boldsymbol{V}_{\mathfrak C}"]
+                  &
+                  \Sigma \wr \left( G^{op} \ltimes \Sigma_{\mathfrak C} \right) \arrow[r, "\Sigma \wr \pi_{\mathfrak C}"]
+                  &
+                  \Sigma \wr \left( G^{op} \ltimes \Sigma \right)
+                  \\
+                  G^{op} \ltimes \Sigma_{\mathfrak C} \arrow[r, "\pi_{\mathfrak C}"]
+                  &
+                  G^{op} \times \Sigma
             \end{tikzcd}
       \end{equation}
       where $\Omega_{\mathfrak C}^{0,a}$ is the category of alternating trees discussed in \S \ref{OPC_MS_SEC},
       and $\boldsymbol{V}_{\mathfrak C}^{a}$ is defined analogously to $\boldsymbol{V}_{\mathfrak C}$ from \eqref{VC_EQ} but where active and intert vertices are separated.
       
-      Since $\F$ is a pseudo indexing system, \eqref{PHIFLTIMES_EQ}, \eqref{PIS_EQ}, and \eqref{FCA_SQ_EQ} imply
+      Since $\F$ is a pseudo indexing system, we have
       \[
-            \left(\boldsymbol{V}_{\mathfrak C}^{a}\right)^{\**} \left( (\nabla_2^{\**} \F_{\mathfrak C})^\ltimes \right)
-            = \left(\boldsymbol{V}_{\mathfrak C}^{a}\right)^{\**}  (\Sigma \wr \nabla_2)^{\**} (\Sigma \wr \pi_{\mathfrak C})^{\**} \F^\ltimes
-            = \pi_{\mathfrak C,a}^{\**} \pi_{\mathfrak C}^{\**} \boldsymbol{V}^{\**} \F^{\ltimes}
-            \subseteq
-            \pi_{\mathfrak C, a}^{\**} \pi_{\mathfrak C}^{\**} \mathsf{lr}^{\**} \F
-            = \pi_{\mathfrak C, a}^{\**} \mathsf{lr}_{\mathfrak C}^{\**} \F_{\mathfrak C}
+            \left(\boldsymbol{V}_{\mathfrak C}^{a}\right)^{\**} \left( (\nabla_{\mathfrak C}^{\**} \F_{\mathfrak C})^\ltimes \right)
+            = \left(\boldsymbol{V}_{\mathfrak C}^{a}\right)^{\**}  (\Sigma \wr \nabla_{\mathfrak C})^{\**} (\Sigma \wr \pi_{\mathfrak C})^{\**} \F^\ltimes
+            = \left( \pi_{\mathfrak C}^a \right)^{\**} \pi_{\mathfrak C}^{\**} \boldsymbol{V}^{\**} \F^{\ltimes}
+            = \left(\pi_{\mathfrak C}^a\right)^{\**} \pi_{\mathfrak C}^{\**} \mathsf{lr}^{\**} \F
+            = \left(\pi_{\mathfrak C}^a\right)^{\**} \mathsf{lr}_{\mathfrak C}^{\**} \F_{\mathfrak C}
       \]
-      and hence the left Kan extension
-      $\left(\pi_{\mathfrak C, a} \mathsf{lr}_{\mathfrak C} \right)_!$
+      where the equalities follow from, in order,
+      \eqref{PHIFLTIMES_EQ}, \eqref{FCA_SQ_EQ}, Remark \eqref{PIS_REM}, and \eqref{COLORLR_EQ}.
+      Hence the (opposite) left Kan extension
+      \[
+            \left(\mathsf{lr}_{\mathfrak C}^{a,op}\right)_!
+            = \left(\mathsf{lr}_{\mathfrak C}^{op} \pi_{\mathfrak C}^{a,op} \right)_!
+      \]
       sends
-      $(\boldsymbol{V}_{\mathfrak C}^{a})^{\**}\left( (\nabla_2^{\**} \F_{\mathfrak C})^\ltimes \right)$-cofibrations in $\V^{G \ltimes \Omega_{\mathfrak C}^{a,op}}$
+      $\left(\boldsymbol{V}_{\mathfrak C}^{a}\right)^{\**}\left( (\nabla_{\mathfrak C}^{\**} \F_{\mathfrak C})^\ltimes \right)$-cofibrations in $\V^{G \ltimes \Omega_{\mathfrak C}^{a,op}}$
       to
       $\F_{\mathfrak C}$-cofibrations in $\V^{G \ltimes \Sigma_{\mathfrak C}^{op}}_{\F_{\mathfrak C}} = \Sym^G_{\mathfrak C, \F}(\V)$
       by Proposition \ref{EQQUILADJ PROP}.
 
       Second, we have % the maps $\varnothing \to \O$ and $u \colon X \to Y$ define
-      a $\nabla_2^{\**}\F_{\mathfrak C}$-cofibration
+      a $\nabla_{\mathfrak C}^{\**}\F_{\mathfrak C}$-cofibration
       $(\O,u) = (\varnothing \to \O) \amalg (X \xrightarrow{u} Y)$ in $\V^{\amalg_2 G \ltimes \Sigma_{\mathfrak C}^{op}}$ by Remark \ref{SIGMACOF_REM}.
       Moreover, the functor $n_k^{\O,X,Y} \colon G \ltimes \Omega_{\mathfrak C}^{a}[k]^{op} \to \V$ from \eqref{NKOXY EQ} is given by
       \[
@@ -5487,22 +5562,20 @@ We can now prove the main result of this section, which is a stronger version of
             \left( \left(\O,u\right)^{\square} \right).
       \]
       By Propositions \ref{SIGMAWRGF PROP}(ii) and \ref{EQQUILADJ PROP},
-      this is a $(\boldsymbol{V}_{\mathfrak a}^{a})^{\**}\left( (\nabla_2^{\**} \F_{\mathfrak C})^\ltimes \right)$-cofibration.
+      this is a $(\boldsymbol{V}_{\mathfrak C}^{a})^{\**}\left( (\nabla_{\mathfrak C}^{\**} \F_{\mathfrak C})^\ltimes \right)$-cofibration.
       
       Combining these two facts with \eqref{OUPUSHRE EQ}, we have that
-      $(\O_{k-1} \to \O_k) =  \left(\pi_{\mathfrak C, a} \mathsf{lr}_{\mathfrak C} \right)_! n_k^{\O, X,Y}$
+      the pushout $(\O_{k-1} \to \O_k)$ of $\left(\mathsf{lr}_{\mathfrak C}^{a,op} \right)_! n_k^{\O, X,Y}$
       is an $\F_{\mathfrak C}$-cofibration, as desired.
 \end{proof}
+
+
 
 \begin{proof}[Proof of Theorem \ref{THMII}]
       This is an immediate corollary of Theorem \ref{SIGMAG_COF_THM},
       as the hypotheses imply that the initial $\mathfrak C$-colored operad $\eta_{\mathfrak C}$ is $\Sigma_\F$-cofibrant.
 \end{proof}
 
-\begin{remark}
-      When $\F$ is a \textit{family of $G$-corollas} \cite[Defn. 4.44]{BP_geo},
-      the family $(\boldsymbol{V}^{\**}\F^\ltimes)_T$ agrees the family $\F_T$ from \cite[Prop. 6.44]{BP_geo} for any tree $T$.
-\end{remark}
 
 % ------------------------------ EXPLICIT DESCRIPTION FOR $F_T$ WHERE $F$ IS A GRAPH FAMILY  ------------------------------
 % \begin{remark}
