@@ -1056,678 +1056,6 @@ It then follows from \cite[Thm. 5.48, Cor. 5.51]{BP_edss} that the complete equi
 
 
 
-\section{The tame model structure}
-\label{TAME_SEC}
-
-In this section, we build an auxiliary model structure on preoperads, Quillen equivalent to the one recalled in \S \ref{SPREOP_SEC},
-as well as prove Proposition \ref{KEYPR PROP},
-the main tool which allows us to show that the nerve $\sOp^G \to \mathsf{PreOp}^G$ is an equivalence of homotopy theories.
-
-
-
-\begin{definition}
-	The \textit{colored tensor product} 
-\[
-\begin{tikzcd}[row sep = 0, column sep = 40pt]
-	\mathsf{PreOp}^G \times \mathsf{sSet} \ar{r}{(-)\otimes_{\mathsf{F}}(-)} &
-	\mathsf{PreOp}^G
-\end{tikzcd}
-\]
-is defined by $(X \otimes_{\mathsf{F}} K)(T) = X(T) \times K$
-whenever $T$ is a non-linear tree (equivalently, 
-$\mathsf{Hom}_{\Omega}(T,\eta)=\emptyset$) and
-is defined by the following pushout when $T=[n]$ is linear.
-\[
-\begin{tikzcd}
-	X(\eta) \times K \ar{r} \ar{d} \arrow[dr, phantom, "\ulcorner", very near start]  &
-	X(\eta) \ar{d}
-\\
-	X([n]) \times K \ar{r} & 
-	(X \otimes_{\mathsf{F}} K)([n]) 
-\end{tikzcd}
-\]
-\end{definition}
-
-\begin{remark}
-More concisely, $X \otimes_{\mathsf{F}} K$ is defined by the pushout in $\mathsf{sdSet}^G$
-\[
-\begin{tikzcd}
-	\left(\mathsf{sk}_{\eta}X \right) \times K \ar{r} \ar{d} \arrow[dr, phantom, "\ulcorner", very near start]  &
-	\mathsf{sk}_{\eta}X \ar{d}
-\\
-	X \times K \ar{r} & 
-	X \otimes_{\mathsf{F}} K,
-\end{tikzcd}
-\]
-where $\mathsf{sk}_{\eta}X$ is the 0-skeleton of $X$ in the equivariant dendroidal Reedy direction;
-explicitly, $\mathsf{sk}_{\eta}X(U) = X(\eta)$ if $U = [n]$ is a linear tree, and $\varnothing$ otherwise.
-\end{remark}
-
-
-
-
-\begin{lemma}
-      \label{TAUOTIMES_LEM}
-      For all $X \in \mathsf{PreOp}^G$ and $K \in \sSet$, $\tau(X \otimes_\Fin K) = \tau(X) \otimes_\Fin K$,
-      with the second $\otimes_\Fin$ the (fiberwise) simplicial tensoring of $\sOp^G$ defined as in Example \ref{TENS_EX}.
-\end{lemma}
-\begin{proof}
-      We want to show the square of left adjoints on the left below commutes;
-      instead, we show the square of right adjoints on the right commutes,
-      \[
-            \begin{tikzcd}
-                  \mathsf{PreOp}^G \arrow[d, "\tau"'] \arrow[r, "{(-) \otimes_\Fin K}"]
-                  &
-                  \mathsf{PreOp}^G \arrow[d, "\tau"]
-                  & % ----------
-                  \mathsf{PreOp}^G
-                  &
-                  \mathsf{PreOp}^G \arrow[l, "\set{K,-}_\Fin"']
-                  \\
-                  \sOp^G \arrow[r, "{(-) \otimes_\Fin K}"]
-                  &
-                  \sOp^G
-                  & %----------
-                  \sOp^G \arrow[u, "N"]
-                  &
-                  \sOp^G \arrow[l, "\set{K,-}_\Fin"'] \arrow[u, "N"']
-            \end{tikzcd}
-      \]
-      where $\set{K, X}_\Fin$ on $\mathsf{PreOp}^G$ is the right adjoint of $\otimes_\Fin$ defined as the pullback
-      \[
-            \begin{tikzcd}
-                  \set{K,Y}_\Fin \arrow[d] \arrow[r]
-                  &
-                  \mathsf{csk}_\eta Y \arrow[d]
-                  \\
-                  \Map(K, Y) \arrow[r]
-                  &
-                  \Map(K, \mathsf{csk}_\eta Y)
-            \end{tikzcd}
-      \]
-      and $\Map(K, Y) \in \mathsf{PreOp}^G$ is defined by $\Map(K,Y)(T) = \Map(K, Y(T))$.
-
-      We observe that $N\set{K,\O}(U)$ consists of a choice of $\mathfrak C_\O$-signatures $(\vect C_v)$ for each $v \in V(U)$ plus choices of maps $\phi_v \in \Map(K, \O(\vect C_v))$.
-      This differs from $\Map(K, N\O)$ precisely in that these choices of signatures are made universally for each $v \in V(U)$,
-      which is exactly the condition imposed by the pullback.
-\end{proof}
-
-\begin{remark}
-      In \cite[\S 71.]{CM13b}, $\Omega(T) \otimes_\Fin K \in \sOp$ and $\Omega[T] \otimes_\Fin K \in \mathsf{PreOp}$ were denoted $T[K]$, $\Omega[K,T]$ respectively, and were constructed by hand.
-\end{remark}
-
-\begin{remark}
-For fixed $K \in \mathsf{sSet}$, the functor
-$(-) \otimes_{\mathsf{F}} K
-\colon \mathsf{PreOp}^G \to \mathsf{PreOp}^G$
-preserves all colimits. % (indeed, it is not hard to build the right adjoint explicitly).
-
-However, for a fixed $X \in \mathsf{PreOp}^G$,
-the functor 
-$X \otimes_{\mathsf{F}} (-)
-\colon \mathsf{sSet} \to \mathsf{PreOp}^G$
-does not preserve all colimits.
-In particular, this functor can not preserve coproducts since, writing 
-$\mathfrak{C} = X(\eta)$ for the $G$-set of objects of $X$,
-the image of $X \otimes_{\mathsf{F}} (-)$ is entirely contained in the subcategory
-$\mathsf{PreOp}^{G,\mathfrak{C}} \subset
-\mathsf{PreOp}^G$
-of preoperads with $G$-set of objects $\mathfrak{C}$ and maps which are the identity on objects. 
-Instead, one has that the functor 
-\[
-X \otimes_{\mathsf{F}} (-) \colon
-\mathsf{sSet} \to \mathsf{PreOp}^{G,\mathfrak{C}}
-\]
-does preserve colimits. 
-In practice, this means that some standard arguments concerning tensor products can only be applied after adjusting the objects of the relevant preoperads
-({\color{red} see later}).
-\end{remark}
-
-
-\begin{remark}\label{COLORTENSGAM REM}
-Let $X \to Y$ be any map in $\mathsf{PreOp}^G$
-which is the identity on colors and 
-$K \in \mathsf{sSet}$. Then the squares below are pushout squares in $\mathsf{sdSet}^G$.
-Moreover, whenever $K$ is connected the rightmost horizontal maps are isomorphisms.
-\[
-\begin{tikzcd}
-	X \times K \ar{r} \ar{d} 
-	\arrow[dr, phantom, "\ulcorner", very near start] &
-	\gamma_! \left( X \times K \right) \ar{r} \ar{d} 
-	\arrow[dr, phantom, "\ulcorner", very near start] &
-	X \otimes_{\mathsf{F}} K \ar{d}
-\\
-	Y \times K \ar{r} &
-	\gamma_! \left( Y \times K \right) \ar{r} &
-	Y \otimes_{\mathsf{F}} K
-\end{tikzcd}
-\]
-\end{remark}
-
-
-\begin{definition}
-	Let $f \colon \mathfrak{C} \to \mathfrak{D}$
-	be a map of $G$-sets (of colors).
-	We define adjoint functors
-\[
-	f_{!} \colon
-	\mathsf{PreOp}^{G,\mathfrak{C}}
-\rightleftarrows
-	\mathsf{PreOp}^{G,\mathfrak{D}}
-	\colon f^{\**}
-\]
-via the pushout and pullback squares
-(note that $\mathsf{sk}_{\eta} f_! A$ depends only on 
-$\mathfrak{C}$ while 
-$\mathsf{csk}_{\eta} f^{\**} X$ depends only on
-$\mathfrak{D}$)
-\[
-\begin{tikzcd}
-	\mathsf{sk}_{\eta} A \ar{r} \ar{d} \arrow[dr, phantom, "\ulcorner", very near start]  &
-	\mathsf{sk}_{\eta} f_! A \ar{d}
-&&
-	f^{\**} X \ar{r} \ar{d} &
-	X \ar{d}
-\\
-	A \ar{r} & 
-	f_! A
-&&
-	\mathsf{csk}_{\eta} f^{\**} X \ar{r} & 
-	\mathsf{csk}_{\eta} X
-	\arrow[ul, phantom, "\lrcorner", very near start]
-\end{tikzcd}
-\]
-\end{definition}
-
-
-
-\begin{remark}\label{SLIMOD REM}
-Noting that for every fibrant 
-$\tilde{X} \in \mathsf{PreOp}^G$
-any equivalence in $\tilde{X}$ is in the image of a map
-$J \to \tilde{X}$, 
-a slight modification of the proof of Lemma \ref{INTER_LEM}
-shows that for any Segal operad $X$
-any equivalence in $X$ is in the image of a countable, contractible
-$I \in \mathsf{PreOp}^G$
-such that $\eta \amalg \eta \to I$
-is a tame cofibration.
-\end{remark}
-
-
-
-{\color{red} HERE}
-
-
-
-\begin{theorem}[{cf. \cite[Thm. 7.19]{CM13b}}]\label{TAMEMS_THM}
-	There is a model structure on 
-	$\mathsf{PreOp}^G$,
-	called the \emph{tame model structure},
-	such that:
-\begin{itemize}
-	\item the weak equivalences are the complete equivalences (i.e. detected by inclusion into 
-	$\mathsf{sdSet}^G$);
-	\item generating cofibrations are given by the maps
-\begin{itemize}
-	\item[(TC1)] $G/H \cdot \left(\emptyset \to\Omega[\eta]\right)$ for $H\leq G$;
-	\item[(TC2)] $\Omega[C] \otimes_{\mathsf{Set}} \left(\partial \Delta[n] \to \Delta[n]\right)$ for $C \in \Sigma_G$, $n \geq 0$;
-	\item[(TC3)] 
-$\left( Sc[T] \to \Omega[T] \right) 
-\square_{\mathsf{Set}} 
-\left(\partial \Delta[n] \to \Delta[n]\right)$ for $T \in \Omega_G$, $n \geq 0$.
-	\end{itemize}
-\end{itemize}
-Furthermore, one has generating anodyne cofibrations the maps
-\begin{itemize}
-	\item[(TA1)] $G/H \cdot 
-	\left(\Omega[\eta] \to I \right)$ for $H \leq G$,
-	and $\Omega[\eta] \to I$ a weak equivalence in $\mathsf{PreOp}$ such that $I(\eta) = \{0,1\}$, $\Omega[\eta] \amalg \Omega[\eta] \to I$ is a tame cofibration, and $I$ is countable;
-	\item[(TA2)] $\Omega[C] \otimes_{\mathsf{Set}}\left(\Lambda^i[n] \to \Delta[n]\right)$ for $C \in \Sigma_G$, $0 \leq i \leq n$;
-	\item[(TA3)] 
-$\left( Sc[T] \to \Omega[T] \right) 
-\square_{\mathsf{Set}} 
-\left(\partial \Delta[n] \to \Delta[n]\right)$ for $T \in \Omega_G$, $n \geq 0$.
-	\end{itemize}
-\end{theorem}
-
-{\color{red} HERE}
-
-\begin{lemma}
-      \label{TAMECOFCOF_LEM}
-      Tame cofibrations and anodyne maps are normal cofibrations and trivial cofibrations in $\mathsf{PreOp}^G$, respectively.
-\end{lemma}
-\begin{proof}
-      $(TC2)$ and $(TC3)$ with $n = 0$, and $(TC1)$ and $(TA1)$ for all $n$, are immediate.
-      $(TC2)$ and $(TC3)$ with $n \geq 2$, and $(TA2)$ for all $n$, follow by Equation \eqref{GAMMASH EQ} and Remark \ref{COLORTENSGAM REM}.
-      $(TC2)$ with $n = 1$ follows since $\Omega[C] \otimes_\Fin \Delta[1]$ is $G$-normal by \eqref{GAMMASH EQ}, and by hand we see that the map $\Omega[C] \otimes_{\Fin}(\partial \Delta[1] \to \Delta[1])$ is monic.
-      For $(TC3)$ with $n=1$, consider the pair of diagrams below, with $K \to L$ in $\sSet$.
-      \[
-            \begin{tikzcd}
-                  Sc[T] \times K \arrow[d] \arrow[r]
-                  &
-                  \Omega[T] \times K \arrow[d]
-                  & % ----------
-                  Sc[T] \times K \arrow[r] \arrow[d]
-                  &
-                  \Omega[T] \times K \arrow[d]
-                  \\
-                  Sc[T] \otimes_\Fin K \arrow[r] \arrow[d]
-                  &
-                  \Omega[T] \otimes_\Fin K \arrow[d]
-                  & % ----------
-                  Sc[T] \times L \arrow[r] \arrow[d]
-                  &
-                  Q^\times \arrow[r] \arrow[d]
-                  &
-                  \Omega[T] \times L \arrow[d]
-                  \\
-                  Sc[T] \otimes_\Fin L \arrow[r]
-                  &
-                  Q^\otimes
-                  & % ----------
-                  Sc[T] \otimes_\Fin L \arrow[r]
-                  &
-                  Q^\otimes \arrow[r, "{(TC3)}"]
-                  &
-                  \Omega[T] \otimes_\Fin L.
-            \end{tikzcd}
-      \]
-      Using Remark \ref{COLORTENSGAM REM}, we see that all three squares on the left are pushouts (with the bottom square a pushout by definition).
-      This rectangle may be factored as on the right with the bottom-left square a pushout (and the top square a pushout by definition),
-      and when $L$ is connected, the bottom rectange is a pushout using Remark \ref{COLORTENSGAM REM} and Equation \eqref{GAMMASH EQ}.
-      We conclude that the rightmost square is also a pushout.
-      But when $K \to L$ is $\partial \Delta[n] \to \Delta[n]$ for $n \geq 1$,
-      the top horizontal map is simply $(\partial \Delta[n] \to \Delta[n]) \square (Sc[T] \to \Omega[T])$,
-      and hence the bottom horizontal map $(TC3)$ is a G-normal monomorphism that is also a simplicial equivalence, hence a trivial cofibration.
-\end{proof}
-
-{\color{red} HERE}
-
-\begin{proof}[Proof of Theorem \ref{TAMEMS_THM}]
-	We will verify the conditions in 
-	\cite[Prop. 1.3]{Sta14},
-	which is a variation of 
-	J. Smith's theorem \cite[Thm. 1.7]{Bek00}
-	that includes 
-	
-	{\color{red} HERE}
-\end{proof}
-
-{\color{red} HERE}
-
-
-\begin{proof}[Proof of Theorem \ref{TAMEMS_THM}]
-	The existence of the model structure will follow by applying J. Smith's theorem \cite[Thm. 1.7]{Bek00}. Conditions c0 and c2 therein are inherited from $\mathsf{sdSet}^G$
-	and the technical ``solution set condition'' c3 follows from
-	\cite[Prop. 1.15]{Bek00} since weak equivalences are accessible, being the preimage by $\gamma^{\**}$ if the weak equivalences in 
-	$\mathsf{sdSet}^G$ 
-	(see \cite[Cor. A.2.6.5]{Lur09} and \cite[Cor. A.2.6.6]{Lur09}).
-	
-	For c1, we must show that any map $X \to Y$ with the right lifting property against (TC1), (TC2), (TC3) is a weak equivalence.
-	Writing $f \colon \mathfrak{C} \to \mathfrak{D}$ for the underlying map of colors,
-	consider the factorization $X \to f^{\**}Y \to Y$.
-	Note that since maps out of (TC1) depend only on objects and both of (TC2) and (TC3) consist of maps which are identities on objects,
-	$X \to Y$ will have the right lifting property against (TC1) iff 
-	$f^{\**} X \to Y$ does
-	and the right lifting property against 
-	(TC2) and (TC3) iff $X \to f^{\**}Y$ does.
-	
-Note now that $f^{\**} Y \to Y$ has the right lifting proper against all maps 
-	$\left(\partial \Omega[T] \to \Omega[T] \right) \times \Delta[n]$.
-	Indeed, if $T \simeq G/H \cdot \eta$ is a stick, this is precisely the lifting condition agains (TC1), and otherwise it follows automatically since $\left(\partial \Omega[T] \to \Omega[T] \right) \times \Delta[n]$ is the identity on objects.
-	Therefore, the levels 
-	$\left(f^{\**} Y \right)_n \to Y_n$ are trivial fibrations in 
-	$\mathsf{dSet}^G$, showing that 
-	$f^{\**} Y \to Y$ is a dendroidal equivalence, 
-	and thus a complete equivalence. 
-	
-	Since the maps in both of (TC2) and (TC3) are the identity on objects, $X \to Y$ has the right lifting property against these maps iff $X \to f^{\**}Y$ does.
-The lifting property against (TC2) then says that the maps
-$X(\Omega[C]) \to f^{\**} Y (\Omega[C])$
-are trivial Kan fibrations for all $G$-corollas $C \in \Sigma_G$,
-and thus so are the maps
-$X(Sc[T]) \to f^{\**} Y (Sc[T])$ for all $G$-trees $T \in \Omega_G$.
-But it then follows from the lifting property against
-(TC3) that the maps 
-$X(\Omega[T]) \to f^{\**} Y (\Omega[T])$
-are trivial Kan fibrations for all $G$-trees,
-showing that $X \to f^{\**} Y$ is a simplicial equivalence, and thus a complete equivalence. 
-\[
-\begin{tikzcd}
-	X(\Omega[T]) \ar{r} \ar[->>]{d}{\sim} &
-	X(Sc[T]) \ar{r} \ar[->>]{d}{\sim} &
-	\prod_{v \in \boldsymbol{V}_G(T)} X(\Omega[T_v])
-	\ar[->>]{d}{\sim}
-\\
-	f^{\**} Y(\Omega[T]) \ar{r} &
-	f^{\**} Y(Sc[T]) \ar{r} \ar{d} &
-	\prod_{v \in \boldsymbol{V}_G(T)} f^{\**} Y
-	(\Omega[T_v]) \ar{d}
-	\arrow[ul, phantom, "\lrcorner", very near start]
-\\
-	&
-	\prod_{(G/H_i \cdot e_i) \in \boldsymbol{E}_G(T)} 
-	\mathfrak{C}^{H_i} \ar{r}  &
-	\prod_{v \in \boldsymbol{V}_G(T)}
-	\prod_{(G/H_i \cdot e_i) \in \boldsymbol{E}_G(T_v)} 
-	\mathfrak{C}^{H_i} 
-	\arrow[ul, phantom, "\lrcorner", very near start]
-\end{tikzcd}
-\]
-This completes the proof of c1, establishing the existence of the tame model structure.
-
-We now turn to the ``further'' claim considering the claimed generating anodyne cofibrations, i.e., 
-we wish to show that the maps in 
-(TA1), (TA2), (TA3) satisfy the conditions in
-Lemma \ref{SEMICOF LEM}.
-
-We first check condition (i).
-The case of maps in (TC1) is tautological.
-Since $\Lambda^{i}[n]$ is connected, 
-the maps in (TA2) have the form
-$\gamma_{!} 
-\left( \Omega[C] \times
-\left( \Lambda^i[n] \to \Delta[n] \right) \right)$,
-and are thus weak equivalences thanks to the pushouts
-in Remark \ref{COLORTENSGAM REM}.
-As for (TA3), it follows from Remark \ref{COLORTENSGAM REM}
-that the maps
-$\left( Sc[T] \to \Omega[T] \right) \otimes \partial \Delta[n]$
-and 
-$\left( Sc[T] \to \Omega[T] \right) \otimes \Delta[n]$
-are trivial cofibrations, so that the claim follows from a standard pushout and 2-out-of-3 argument.
-
-We now turn to condition (ii).
-The lifting condition against (TA3) says that $J$-fibrant objects are such that the maps $X(\Omega[T]) \to X(Sc[T])$
-are trivial fibrations, and thus that such $X$ are Segal operads.
-Therefore, by Remark \ref{SEOPDK REM} it suffices to check that $J$-fibrations between Segal operads which are also DK equivalences are in fact trivial fibrations, i.e. that they have the right lifting property against the maps in (TC1),(TC2),(TC3).
-Given $X \to Y$ a $J$-fibration with $J$-fibrant $Y$,
-the lifting property against (TC3) is tautological since 
-(TC3) equals (TA3).
-Next, the lifting property against (TA2) says that the maps
-$X(\Omega[T]) \to f^{\**} Y(\Omega[T])$
-are Kan fibrations, and the DK condition says that these are Kan equivalences,
-so that we conclude that such maps have the right lifting property against (TC2).
-Lastly, given any lifting problem against a map in (TC1),
-essential surjectivity and Remark \ref{SLIMOD REM}
-produce a lifting problem against a map in (TA1) which has a solution, providing a solution to the original problem.
-\end{proof}
-
-
-{\color{red} To show that maps in (TA3) are normal cofibrations one can use a pushout of projective cofibrant cubes argument.}
-
-
-\begin{theorem}
-      The identity map is a left Quillen equivalence from the tame model structure to the normal model structure on $\mathsf{PreOp}^G$.
-\end{theorem}
-\begin{proof}
-      We argue by Corollary \ref{SIMPLQUILL COR}.
-      Lemma \ref{TAMECOFCOF_LEM} says that the left adjoint preserves cofibrations and anodyne maps.
-      The standard adjunction argument then implies that the right adjoint preserves fibrations between fibrant objects.
-\end{proof}
-
-
-\subsection{Comparison with $\sOp^G$}
-
-\begin{lemma}
-      \label{OMEGATTAME_LEM}
-      For all $T \in \Omega_G$, $\Omega[T] \in \mathsf{PreOp}^G$ is tame cofibrant.
-\end{lemma}
-\begin{proof}
-      From (TC3) with $n=0$, it suffices to show that $Sc[T]$ is tame cofibrant.
-      By (TC1), $\amalg_{Ge \in \boldsymbol{E}_G(T)} \Omega[Ge \cdot \eta]$ is tame cofibrant.
-      Now, (TC2) with $n=0$ says that $\partial \Omega[C] \to \Omega[C]$ is a tame cofibration,
-      and thus the result follows via the following pushout.
-      \[
-            \begin{tikzcd}
-                  \displaystyle{
-                    \coprod_{Gv \in \boldsymbol{V}_G(T)} \partial\Omega[T_{Gv}]
-                  }
-                  \arrow[d] \arrow[r]
-                  &
-                  \displaystyle{
-                    \coprod_{Ge \in \boldsymbol{E}_G(T)} \Omega[Ge \cdot \eta]
-                  }
-                  \arrow[d]
-                  \\
-                  \displaystyle{
-                    \coprod_{Gv \in \boldsymbol{V}_G(T)} \Omega[T_{Gv}]
-                  }
-                  \arrow[r]
-                  &
-                  Sc[T]
-            \end{tikzcd}
-            \]
-\end{proof}
-
-
-\begin{remark}
-      \label{TAUCOFIB_REM}        
-      We note that by Lemma \ref{TAUOTIMES_LEM}, $\tau \colon \mathsf{PreOp}^G \to \sOp^G$
-      sends the collection of arrows in (TC1) and (TC2) surjectively onto the collection of generating cofibrations \eqref{SSETGENCOF_EQ}:
-      \begin{gather*}
-            \tau\Big(\varnothing \to G/H \cdot \Omega[\eta]\Big) = \Big(\varnothing \to \Omega(G/H \cdot \eta)\Big),
-            \\
-            \tau\Big(\Omega[C] \otimes_\Fin (\partial \Delta[n] \to \Delta[n])\Big) =
-            \Omega(C) \otimes_\Fin \big(\partial \Delta[n] \to \Delta[n]\Big).
-            % = \mathbb F_{\Gamma_C} \Big( \Gamma_C / \Gamma_C \cdot (\partial \Delta[n] \to \Delta[n]) \Big)
-      \end{gather*}
-      % where $\Gamma_C$ is the graph subgroup of $G \times \Sigma_n$ such that $C \simeq G \cdot C_n / \Gamma$, and
-      % $\mathbb F_\Gamma: \sSet^\Gamma \to \sOp^G$ is as in the discussion around \eqref{FGAMMA_EQ}.
-      Moreover, as $\tau$ sends (TC3) to isomorphisms, $\tau$ also preserves all cofibrations.
-\end{remark}
-
-The following results are adapted from \cite{JT07} (see Proposition 7.15 therein). 
-
-
-\begin{proposition}
-	A cofibration $A \to B$ is a weak equivalence iff it has the left lifting property against all fibrations between fibrant objects.
-\end{proposition}
-
-\begin{proof}
-	Let $B \xrightarrow{\sim} \tilde{B}$ be a fibrant replacement and
-	let $A \xrightarrow{\sim} \tilde{A} \twoheadrightarrow \tilde{B}$
-	be a factorization of the composite $A \to \tilde{B}$ 
-	as a trivial cofibration followed by a fibration.
-	One then has a lift in the diagram
-\[
-\begin{tikzcd}
-	A \ar{r}{\sim} \ar[>->]{d} & \tilde{A} \ar[->>]{d}
-\\
-	B \ar{r}{\sim} \ar[dashed]{ru} & \tilde{B}
-\end{tikzcd}
-\]
-where the top and bottom horizontal maps are weak equivalences. 
-But then the 2-out-of-6 property for weak equivalences says that all maps are weak equivalences.
-\end{proof}
-
-
-\begin{corollary}\label{SIMPLQUILL COR}
-An adjunction 
-\[
-F \colon \mathcal{C}
-	\rightleftarrows
-\mathcal{D} \colon G
-\]
-between model categories is a Quillen adjunction
-provided that $F$ preserves cofibrations
-and $G$ preserves fibrations between fibrant objects.
-\end{corollary}
-
-
-\begin{lemma}
-	Let $A \to B$ be a tame cofibration between tame cofibrant objects in $\mathsf{PreOp}^G$, 
-	$\mathcal{O} \in \mathsf{sOp}^G$ a $\Sigma$-cofibrant 
-	$G$-operad,
-	and consider a pushout diagram in $\mathsf{sOp}^G$ of the form
-\[
-\begin{tikzcd}
-	\tau A \ar{r} \ar{d} & \mathcal{O} \ar{d}
-\\
-	\tau B \ar{r} & \mathcal{P}
-\end{tikzcd}
-\]
-	Then $\mathcal{O} \to \mathcal{P}$ is a $\Sigma$-cofibration and 
-\begin{equation}\label{UNITEQUIV EQ}
-B \amalg_{A} N \mathcal{O}
-	\to 
-N \mathcal{P}
-\end{equation}
-is a weak equivalence.
-\end{lemma}
-
-\begin{proof}
-	We first consider the case where $A\to B$ is in one of (TC1),(TC2),(TC3). 
-	
-	The (TC1) case is immediate, 
-	since $\mathcal{O} \to \mathcal{O} \amalg G/H \cdot \Omega(\eta)$ is a $\Sigma$-cofibration and
-	\eqref{UNITEQUIV EQ}
-	is the isomorphism
-	$N\mathcal{O} \amalg G/H\cdot \Omega[\eta] \simeq 
-	N\left( \mathcal{O} \amalg G/H \cdot \Omega(\eta) \right)$.
-
-	The (TC3) case is also straightforward:
-	since $\tau A \to \tau B$ is an isomorphism, one can take 
-	$\mathcal{O}=\mathcal{P}$, so that 
-	\eqref{UNITEQUIV EQ}
-        becomes a section of the map
-	$N \mathcal{O} \to B \amalg_{A} N \mathcal{O}$, which is a trivial cofibration (it is a pushout of $A \to B$),
-	and 2-out-of-3 hence implies that \eqref{UNITEQUIV EQ} is a weak equivalence.
-
-	The most interesting case is then (TC2), in which case
-        Corllary \ref{SIGMAG_COF_COR} and Remark \ref{TAUCOFIB_REM}
-        imply that $\mathcal{O} \to \mathcal{P}$ is a $\Sigma$-cofibration,
-	and further each of the levels
-        $(B \amalg_{A} N \mathcal{O})_n
-        \to 
-        (N \mathcal{P})_n$
-        for $n \geq 0$
-        is an equivalence in $\mathsf{dSet}^G$ by (an iteration of)
-        Proposition \ref{KEYPR PROP} \todo{come back},        
-        showing that \eqref{UNITEQUIV EQ} is in fact a dendroidal equivalence, and thus also a complete equivalence.
-        
-        We now turn to the case of $A \to B$ a general tame cofibration between tame cofibrant objects.
-	As usual, $A \to B$ is a retract of a transfinite composition of pushouts of generating cofibrations.
-	Since the conclusions of the result are invariant under retracts,
-	we are free to assume that $A \to B$ is a transfinite composite
-\[
-A = A_0 \to A_1 \to A_2 \to \cdots \to A_{\beta} \to 
-colim_{\beta < \kappa} A_{\beta} = B.
-\]
-where each map $A_{\beta} \to A_{\beta +1}$ is a pushout of a map in one of (TC1),(TC2),(TC3).
-
-Defining $\mathcal{O}_{\beta}$ by replacing $A \to B$ with $A \to A_{\beta}$ in the pushout,
-$\mathcal{O} \to \mathcal{P}$ becomes the transfinite composite of the maps $\mathcal{O}_{\beta} \to \mathcal{O}_{\beta + 1}$
-and \eqref{UNITEQUIV EQ} becomes
-$
-colim_{\beta < \kappa} \left( 
-N \mathcal{O} \amalg_{N \tau A} N \tau A_{\beta}
-	\to 
-N \mathcal{O}_{\beta}
-\right)
-$.
-It thus suffices to show, by induction on $\beta < \kappa$, 
-that the maps $\mathcal{O}_{\beta} \to \mathcal{O}_{\beta + 1}$ are $\Sigma$-cofibrations and that the maps 
-$N \mathcal{O} \amalg_{N \tau A} N \tau A_{\beta}
-	\to 
-N \mathcal{O}_{\beta}$
-are weak equivalences
-(that this last condition suffices follows since
-filtered colimits of weak equivalences in $\mathsf{PreOp}^G$ are weak equivalences by Lemma \ref{FCOLIM_WE2_LEM} ({\color{red} add this})).
-Consider now the following diagrams.
-\[
-\begin{tikzcd}
-	\tau A \ar{r} \ar{d} & \mathcal{O} \ar{d}
-&&
-	A_{\beta} \amalg_{A} N \mathcal{O}
-	\ar[>->]{r} \ar{d}[swap]{\sim} &
-	A_{\beta+1} \amalg_{A} N \mathcal{O}
-	\ar{d}[swap]{\sim}
-\\
-	\tau A_{\beta} \ar{r} \ar{d} & \mathcal{O}_{\beta} \ar{d}
-&&
-	N \mathcal{O}_{\beta} \ar[>->]{r} &
-	A_{\beta+1} \amalg_{A_{\beta}} N \mathcal{O}_{\beta} \ar{d}
-\\
-	\tau A_{\beta + 1} \ar{r} & \mathcal{O}_{\beta + 1}
-&&
-	&
-	N \mathcal{O}_{\beta+1}
-\end{tikzcd}
-\]
-The induction hypothesis states that
-$\mathcal{O} \to \mathcal{O}_{\beta}$ is a $\Sigma$-cofibration and that the map
-$A_{\beta} \amalg_A N \mathcal{O} \to \mathcal{O}_{\beta}$ is a weak equivalence.
-Therefore, $\mathcal{O}_{\beta}$ is $\Sigma$-cofibrant 
-and the both vertical maps marked $\sim$ in the rightmost diagram above are weak equivalences 
-(this uses the fact that $\mathsf{PreOp}^G$ is left proper),
-and thus the induction step will follow provided that the result holds for
-the map $A_{\beta} \to A_{\beta + 1}$ and $\mathcal{O}_{\beta}$.
-But $A_{\beta} \to A_{\beta + 1}$ is assumed to be a pushout of a map in (TC1),(TC2),(TC3), in which case the result is already known, and thus noting that the result is clearly invariant under pushouts finishes the proof.
-\end{proof}
-
-Setting $A = \emptyset $, $\mathcal{O}= \emptyset$ in the previous result yields the following.
-
-\begin{corollary}\label{KEYEQUIV COR}
-      If $B \in \mathsf{PreOp}^G$ is tame cofibrant, then 
-      $B \to N \tau B$ is a weak equivalence.
-\end{corollary}
-
-
-\begin{proposition}\label{PREQUIEQUIV PROP}
-The adjunction
-\[
-	\tau \colon \mathsf{PreOp}^G_{\text{tame}}
-		\rightleftarrows 
-	\mathsf{sOp}^G \colon N
-\]
-is a Quillen equivalence.
-\end{proposition}
-
-
-\begin{proof}
-Firstly, note that $N$ preserves and detects weak equivalences.
-Indeed, this follows since all objects in the image of $N$ are Segal operads, so that by Remark \ref{SEOPDK REM} a map in the image of $N$ is a weak equivalence iff it is a Dwyer-Kan equivalence;
-It is clear that $N$ preserves and reflects fully-faithful maps,
-and as we compute that $i_G^{\**}ho(N\O)(G/H)$ is the simplicial set $N j^{\**}\pi_0(\O^H)$
-with $j^{\**}\colon \Op \to \Cat$ the forgetful functor,
-$N$ preserves and reflects essentially surjective maps.
-
-Next, we show that this is a Quillen adjunction using Corollary \ref{SIMPLQUILL COR}.
-We see $\tau$ preserves cofibrations by Remark \ref{TAUCOFIB_REM}.
-% The claim that $\tau$ preserves cofibrations follows since
-% $\tau$ sends the maps in (TC1) and (TC2) to generating cofibrations of $\mathsf{sOp}^G$ and the maps in (TC3) to isomorphisms.
-For the claim that $N$ preserves fibrations between fibrant,
-we use a somewhat indirect argument
-(though we note that a direct argument is also possible,
-by showing that fibrations between fibrant objects in $\mathsf{PreOp}^G$
-also satisfy a ``local fibration plus isofibration'' description).
-By Corollary \ref{KEYEQUIV COR} and 2-out-of-3, 
-one has that for any trivial tame cofibration between tame cofibrant objects
-$A \to B$, the map $N \tau A \to N \tau B$ is a weak equivalence, and thus so is $\tau A \to \tau B$.
-This shows that $\tau$ sends all maps in (TA1),(TA2),(TA3)
-to trivial cofibrations, and since these maps detect fibrations between fibrant objects in $\mathsf{PreOp}^G$, 
-the standard adjunction argument shows that 
-$N$ indeed preserves fibrations between fibrant objects.
-
-For the Quillen equivalence claim, 
-let $B \in \mathsf{PreOp}^G$ be tame cofibrant and
-$\mathcal{O} \in \mathsf{sOp}^G$ be fibrant.
-We must show that the leftmost map below is a weak equivalence iff its adjoint, which is the rightmost composite, is.
-\[
-	\tau B \to \mathcal{O},
-\qquad
-	B \xrightarrow{\sim} N \tau B \to N \mathcal{O}
-\]
-This is immediate from Corollary \ref{KEYEQUIV COR}
-and the fact that $N$ preserves and detects weak equivalences.
-\end{proof}
-
-
-
-
-
 
 
 \newpage
@@ -2827,6 +2155,690 @@ one has that, writing $C \simeq G \cdot_H C_{\star}$ one has the alternative pus
 
 
 \newpage
+
+
+
+
+
+
+
+\section{The tame model structure}
+\label{TAME_SEC}
+
+In this section, we build an auxiliary model structure on preoperads, Quillen equivalent to the model structure discussed in \S \ref{SPREOP_SEC}.
+
+
+\begin{definition}
+	The \textit{fibered simplicial tensoring} 
+	\[
+	\begin{tikzcd}[row sep = 0, column sep = 40pt]
+	\mathsf{PreOp}^G \times \mathsf{sSet} \ar{r}{(-)\otimes_{\mathsf{Set}}(-)} &
+	\mathsf{PreOp}^G
+	\end{tikzcd}
+	\]
+	is defined by $(X \otimes_{\mathsf{Set}} K)(T) = X(T) \times K$
+	whenever $T$ is a non-linear tree (equivalently, 
+	$\mathsf{Hom}_{\Omega}(T,\eta)=\emptyset$) and
+	is defined by the following pushout when $T=[n]$ is linear.
+	\[
+	\begin{tikzcd}
+	X(\eta) \times K \ar{r} \ar{d} \arrow[dr, phantom, "\ulcorner", very near start]  &
+	X(\eta) \ar{d}
+	\\
+	X([n]) \times K \ar{r} & 
+	(X \otimes_{\mathsf{F}} K)([n]) 
+	\end{tikzcd}
+	\]
+\end{definition}
+
+{\color{red} HERE}
+
+\begin{remark}
+	More concisely, $X \otimes_{\mathsf{F}} K$ is defined by the pushout in $\mathsf{sdSet}^G$
+	\[
+	\begin{tikzcd}
+	\left(\mathsf{sk}_{\eta}X \right) \times K \ar{r} \ar{d} \arrow[dr, phantom, "\ulcorner", very near start]  &
+	\mathsf{sk}_{\eta}X \ar{d}
+	\\
+	X \times K \ar{r} & 
+	X \otimes_{\mathsf{F}} K,
+	\end{tikzcd}
+	\]
+	where $\mathsf{sk}_{\eta}X$ is the 0-skeleton of $X$ in the equivariant dendroidal Reedy direction;
+	explicitly, $\mathsf{sk}_{\eta}X(U) = X(\eta)$ if $U = [n]$ is a linear tree, 
+	and $X(T) = \emptyset$ if $T$ is non-linear.
+\end{remark}
+
+
+
+
+\begin{lemma}
+	\label{TAUOTIMES_LEM}
+	For all $X \in \mathsf{PreOp}^G$ and $K \in \sSet$, $\tau(X \otimes_\Fin K) = \tau(X) \otimes_\Fin K$,
+	with the second $\otimes_\Fin$ the (fiberwise) simplicial tensoring of $\sOp^G$ defined as in Example \ref{TENS_EX}.
+\end{lemma}
+\begin{proof}
+	We want to show the square of left adjoints on the left below commutes;
+	instead, we show the square of right adjoints on the right commutes,
+	\[
+	\begin{tikzcd}
+	\mathsf{PreOp}^G \arrow[d, "\tau"'] \arrow[r, "{(-) \otimes_\Fin K}"]
+	&
+	\mathsf{PreOp}^G \arrow[d, "\tau"]
+	& % ----------
+	\mathsf{PreOp}^G
+	&
+	\mathsf{PreOp}^G \arrow[l, "\set{K,-}_\Fin"']
+	\\
+	\sOp^G \arrow[r, "{(-) \otimes_\Fin K}"]
+	&
+	\sOp^G
+	& %----------
+	\sOp^G \arrow[u, "N"]
+	&
+	\sOp^G \arrow[l, "\set{K,-}_\Fin"'] \arrow[u, "N"']
+	\end{tikzcd}
+	\]
+	where $\set{K, X}_\Fin$ on $\mathsf{PreOp}^G$ is the right adjoint of $\otimes_\Fin$ defined as the pullback
+	\[
+	\begin{tikzcd}
+	\set{K,Y}_\Fin \arrow[d] \arrow[r]
+	&
+	\mathsf{csk}_\eta Y \arrow[d]
+	\\
+	\Map(K, Y) \arrow[r]
+	&
+	\Map(K, \mathsf{csk}_\eta Y)
+	\end{tikzcd}
+	\]
+	and $\Map(K, Y) \in \mathsf{PreOp}^G$ is defined by $\Map(K,Y)(T) = \Map(K, Y(T))$.
+	
+	We observe that $N\set{K,\O}(U)$ consists of a choice of $\mathfrak C_\O$-signatures $(\vect C_v)$ for each $v \in V(U)$ plus choices of maps $\phi_v \in \Map(K, \O(\vect C_v))$.
+	This differs from $\Map(K, N\O)$ precisely in that these choices of signatures are made universally for each $v \in V(U)$,
+	which is exactly the condition imposed by the pullback.
+\end{proof}
+
+\begin{remark}
+	In \cite[\S 71.]{CM13b}, $\Omega(T) \otimes_\Fin K \in \sOp$ and $\Omega[T] \otimes_\Fin K \in \mathsf{PreOp}$ were denoted $T[K]$, $\Omega[K,T]$ respectively, and were constructed by hand.
+\end{remark}
+
+\begin{remark}
+	For fixed $K \in \mathsf{sSet}$, the functor
+	$(-) \otimes_{\mathsf{F}} K
+	\colon \mathsf{PreOp}^G \to \mathsf{PreOp}^G$
+	preserves all colimits. % (indeed, it is not hard to build the right adjoint explicitly).
+	
+	However, for a fixed $X \in \mathsf{PreOp}^G$,
+	the functor 
+	$X \otimes_{\mathsf{F}} (-)
+	\colon \mathsf{sSet} \to \mathsf{PreOp}^G$
+	does not preserve all colimits.
+	In particular, this functor can not preserve coproducts since, writing 
+	$\mathfrak{C} = X(\eta)$ for the $G$-set of objects of $X$,
+	the image of $X \otimes_{\mathsf{F}} (-)$ is entirely contained in the subcategory
+	$\mathsf{PreOp}^{G,\mathfrak{C}} \subset
+	\mathsf{PreOp}^G$
+	of preoperads with $G$-set of objects $\mathfrak{C}$ and maps which are the identity on objects. 
+	Instead, one has that the functor 
+	\[
+	X \otimes_{\mathsf{F}} (-) \colon
+	\mathsf{sSet} \to \mathsf{PreOp}^{G,\mathfrak{C}}
+	\]
+	does preserve colimits. 
+	In practice, this means that some standard arguments concerning tensor products can only be applied after adjusting the objects of the relevant preoperads
+	({\color{red} see later}).
+\end{remark}
+
+
+\begin{remark}\label{COLORTENSGAM REM}
+	Let $X \to Y$ be any map in $\mathsf{PreOp}^G$
+	which is the identity on colors and 
+	$K \in \mathsf{sSet}$. Then the squares below are pushout squares in $\mathsf{sdSet}^G$.
+	Moreover, whenever $K$ is connected the rightmost horizontal maps are isomorphisms.
+	\[
+	\begin{tikzcd}
+	X \times K \ar{r} \ar{d} 
+	\arrow[dr, phantom, "\ulcorner", very near start] &
+	\gamma_! \left( X \times K \right) \ar{r} \ar{d} 
+	\arrow[dr, phantom, "\ulcorner", very near start] &
+	X \otimes_{\mathsf{F}} K \ar{d}
+	\\
+	Y \times K \ar{r} &
+	\gamma_! \left( Y \times K \right) \ar{r} &
+	Y \otimes_{\mathsf{F}} K
+	\end{tikzcd}
+	\]
+\end{remark}
+
+
+\begin{definition}
+	Let $f \colon \mathfrak{C} \to \mathfrak{D}$
+	be a map of $G$-sets (of colors).
+	We define adjoint functors
+	\[
+	f_{!} \colon
+	\mathsf{PreOp}^{G,\mathfrak{C}}
+	\rightleftarrows
+	\mathsf{PreOp}^{G,\mathfrak{D}}
+	\colon f^{\**}
+	\]
+	via the pushout and pullback squares
+	(note that $\mathsf{sk}_{\eta} f_! A$ depends only on 
+	$\mathfrak{C}$ while 
+	$\mathsf{csk}_{\eta} f^{\**} X$ depends only on
+	$\mathfrak{D}$)
+	\[
+	\begin{tikzcd}
+	\mathsf{sk}_{\eta} A \ar{r} \ar{d} \arrow[dr, phantom, "\ulcorner", very near start]  &
+	\mathsf{sk}_{\eta} f_! A \ar{d}
+	&&
+	f^{\**} X \ar{r} \ar{d} &
+	X \ar{d}
+	\\
+	A \ar{r} & 
+	f_! A
+	&&
+	\mathsf{csk}_{\eta} f^{\**} X \ar{r} & 
+	\mathsf{csk}_{\eta} X
+	\arrow[ul, phantom, "\lrcorner", very near start]
+	\end{tikzcd}
+	\]
+\end{definition}
+
+
+
+\begin{remark}\label{SLIMOD REM}
+	Noting that for every fibrant 
+	$\tilde{X} \in \mathsf{PreOp}^G$
+	any equivalence in $\tilde{X}$ is in the image of a map
+	$J \to \tilde{X}$, 
+	a slight modification of the proof of Lemma \ref{INTER_LEM}
+	shows that for any Segal operad $X$
+	any equivalence in $X$ is in the image of a countable, contractible
+	$I \in \mathsf{PreOp}^G$
+	such that $\eta \amalg \eta \to I$
+	is a tame cofibration.
+\end{remark}
+
+
+
+{\color{red} HERE}
+
+
+
+\begin{theorem}[{cf. \cite[Thm. 7.19]{CM13b}}]\label{TAMEMS_THM}
+	There is a model structure on 
+	$\mathsf{PreOp}^G$,
+	called the \emph{tame model structure},
+	such that:
+	\begin{itemize}
+		\item the weak equivalences are the complete equivalences (i.e. detected by inclusion into 
+		$\mathsf{sdSet}^G$);
+		\item generating cofibrations are given by the maps
+		\begin{itemize}
+			\item[(TC1)] $G/H \cdot \left(\emptyset \to\Omega[\eta]\right)$ for $H\leq G$;
+			\item[(TC2)] $\Omega[C] \otimes_{\mathsf{Set}} \left(\partial \Delta[n] \to \Delta[n]\right)$ for $C \in \Sigma_G$, $n \geq 0$;
+			\item[(TC3)] 
+			$\left( Sc[T] \to \Omega[T] \right) 
+			\square_{\mathsf{Set}} 
+			\left(\partial \Delta[n] \to \Delta[n]\right)$ for $T \in \Omega_G$, $n \geq 0$.
+		\end{itemize}
+	\end{itemize}
+	Furthermore, one has generating anodyne cofibrations the maps
+	\begin{itemize}
+		\item[(TA1)] $G/H \cdot 
+		\left(\Omega[\eta] \to I \right)$ for $H \leq G$,
+		and $\Omega[\eta] \to I$ a weak equivalence in $\mathsf{PreOp}$ such that $I(\eta) = \{0,1\}$, $\Omega[\eta] \amalg \Omega[\eta] \to I$ is a tame cofibration, and $I$ is countable;
+		\item[(TA2)] $\Omega[C] \otimes_{\mathsf{Set}}\left(\Lambda^i[n] \to \Delta[n]\right)$ for $C \in \Sigma_G$, $0 \leq i \leq n$;
+		\item[(TA3)] 
+		$\left( Sc[T] \to \Omega[T] \right) 
+		\square_{\mathsf{Set}} 
+		\left(\partial \Delta[n] \to \Delta[n]\right)$ for $T \in \Omega_G$, $n \geq 0$.
+	\end{itemize}
+\end{theorem}
+
+{\color{red} HERE}
+
+\begin{lemma}
+	\label{TAMECOFCOF_LEM}
+	Tame cofibrations and anodyne maps are normal cofibrations and trivial cofibrations in $\mathsf{PreOp}^G$, respectively.
+\end{lemma}
+\begin{proof}
+	$(TC2)$ and $(TC3)$ with $n = 0$, and $(TC1)$ and $(TA1)$ for all $n$, are immediate.
+	$(TC2)$ and $(TC3)$ with $n \geq 2$, and $(TA2)$ for all $n$, follow by Equation \eqref{GAMMASH EQ} and Remark \ref{COLORTENSGAM REM}.
+	$(TC2)$ with $n = 1$ follows since $\Omega[C] \otimes_\Fin \Delta[1]$ is $G$-normal by \eqref{GAMMASH EQ}, and by hand we see that the map $\Omega[C] \otimes_{\Fin}(\partial \Delta[1] \to \Delta[1])$ is monic.
+	For $(TC3)$ with $n=1$, consider the pair of diagrams below, with $K \to L$ in $\sSet$.
+	\[
+	\begin{tikzcd}
+	Sc[T] \times K \arrow[d] \arrow[r]
+	&
+	\Omega[T] \times K \arrow[d]
+	& % ----------
+	Sc[T] \times K \arrow[r] \arrow[d]
+	&
+	\Omega[T] \times K \arrow[d]
+	\\
+	Sc[T] \otimes_\Fin K \arrow[r] \arrow[d]
+	&
+	\Omega[T] \otimes_\Fin K \arrow[d]
+	& % ----------
+	Sc[T] \times L \arrow[r] \arrow[d]
+	&
+	Q^\times \arrow[r] \arrow[d]
+	&
+	\Omega[T] \times L \arrow[d]
+	\\
+	Sc[T] \otimes_\Fin L \arrow[r]
+	&
+	Q^\otimes
+	& % ----------
+	Sc[T] \otimes_\Fin L \arrow[r]
+	&
+	Q^\otimes \arrow[r, "{(TC3)}"]
+	&
+	\Omega[T] \otimes_\Fin L.
+	\end{tikzcd}
+	\]
+	Using Remark \ref{COLORTENSGAM REM}, we see that all three squares on the left are pushouts (with the bottom square a pushout by definition).
+	This rectangle may be factored as on the right with the bottom-left square a pushout (and the top square a pushout by definition),
+	and when $L$ is connected, the bottom rectange is a pushout using Remark \ref{COLORTENSGAM REM} and Equation \eqref{GAMMASH EQ}.
+	We conclude that the rightmost square is also a pushout.
+	But when $K \to L$ is $\partial \Delta[n] \to \Delta[n]$ for $n \geq 1$,
+	the top horizontal map is simply $(\partial \Delta[n] \to \Delta[n]) \square (Sc[T] \to \Omega[T])$,
+	and hence the bottom horizontal map $(TC3)$ is a G-normal monomorphism that is also a simplicial equivalence, hence a trivial cofibration.
+\end{proof}
+
+{\color{red} HERE}
+
+\begin{proof}[Proof of Theorem \ref{TAMEMS_THM}]
+	We will verify the conditions in 
+	\cite[Prop. 1.3]{Sta14},
+	which is a variation of 
+	J. Smith's theorem \cite[Thm. 1.7]{Bek00}
+	that includes 
+	
+	{\color{red} HERE}
+\end{proof}
+
+{\color{red} HERE}
+
+
+\begin{proof}[Proof of Theorem \ref{TAMEMS_THM}]
+	The existence of the model structure will follow by applying J. Smith's theorem \cite[Thm. 1.7]{Bek00}. Conditions c0 and c2 therein are inherited from $\mathsf{sdSet}^G$
+	and the technical ``solution set condition'' c3 follows from
+	\cite[Prop. 1.15]{Bek00} since weak equivalences are accessible, being the preimage by $\gamma^{\**}$ if the weak equivalences in 
+	$\mathsf{sdSet}^G$ 
+	(see \cite[Cor. A.2.6.5]{Lur09} and \cite[Cor. A.2.6.6]{Lur09}).
+	
+	For c1, we must show that any map $X \to Y$ with the right lifting property against (TC1), (TC2), (TC3) is a weak equivalence.
+	Writing $f \colon \mathfrak{C} \to \mathfrak{D}$ for the underlying map of colors,
+	consider the factorization $X \to f^{\**}Y \to Y$.
+	Note that since maps out of (TC1) depend only on objects and both of (TC2) and (TC3) consist of maps which are identities on objects,
+	$X \to Y$ will have the right lifting property against (TC1) iff 
+	$f^{\**} X \to Y$ does
+	and the right lifting property against 
+	(TC2) and (TC3) iff $X \to f^{\**}Y$ does.
+	
+	Note now that $f^{\**} Y \to Y$ has the right lifting proper against all maps 
+	$\left(\partial \Omega[T] \to \Omega[T] \right) \times \Delta[n]$.
+	Indeed, if $T \simeq G/H \cdot \eta$ is a stick, this is precisely the lifting condition agains (TC1), and otherwise it follows automatically since $\left(\partial \Omega[T] \to \Omega[T] \right) \times \Delta[n]$ is the identity on objects.
+	Therefore, the levels 
+	$\left(f^{\**} Y \right)_n \to Y_n$ are trivial fibrations in 
+	$\mathsf{dSet}^G$, showing that 
+	$f^{\**} Y \to Y$ is a dendroidal equivalence, 
+	and thus a complete equivalence. 
+	
+	Since the maps in both of (TC2) and (TC3) are the identity on objects, $X \to Y$ has the right lifting property against these maps iff $X \to f^{\**}Y$ does.
+	The lifting property against (TC2) then says that the maps
+	$X(\Omega[C]) \to f^{\**} Y (\Omega[C])$
+	are trivial Kan fibrations for all $G$-corollas $C \in \Sigma_G$,
+	and thus so are the maps
+	$X(Sc[T]) \to f^{\**} Y (Sc[T])$ for all $G$-trees $T \in \Omega_G$.
+	But it then follows from the lifting property against
+	(TC3) that the maps 
+	$X(\Omega[T]) \to f^{\**} Y (\Omega[T])$
+	are trivial Kan fibrations for all $G$-trees,
+	showing that $X \to f^{\**} Y$ is a simplicial equivalence, and thus a complete equivalence. 
+	\[
+	\begin{tikzcd}
+	X(\Omega[T]) \ar{r} \ar[->>]{d}{\sim} &
+	X(Sc[T]) \ar{r} \ar[->>]{d}{\sim} &
+	\prod_{v \in \boldsymbol{V}_G(T)} X(\Omega[T_v])
+	\ar[->>]{d}{\sim}
+	\\
+	f^{\**} Y(\Omega[T]) \ar{r} &
+	f^{\**} Y(Sc[T]) \ar{r} \ar{d} &
+	\prod_{v \in \boldsymbol{V}_G(T)} f^{\**} Y
+	(\Omega[T_v]) \ar{d}
+	\arrow[ul, phantom, "\lrcorner", very near start]
+	\\
+	&
+	\prod_{(G/H_i \cdot e_i) \in \boldsymbol{E}_G(T)} 
+	\mathfrak{C}^{H_i} \ar{r}  &
+	\prod_{v \in \boldsymbol{V}_G(T)}
+	\prod_{(G/H_i \cdot e_i) \in \boldsymbol{E}_G(T_v)} 
+	\mathfrak{C}^{H_i} 
+	\arrow[ul, phantom, "\lrcorner", very near start]
+	\end{tikzcd}
+	\]
+	This completes the proof of c1, establishing the existence of the tame model structure.
+	
+	We now turn to the ``further'' claim considering the claimed generating anodyne cofibrations, i.e., 
+	we wish to show that the maps in 
+	(TA1), (TA2), (TA3) satisfy the conditions in
+	Lemma \ref{SEMICOF LEM}.
+	
+	We first check condition (i).
+	The case of maps in (TC1) is tautological.
+	Since $\Lambda^{i}[n]$ is connected, 
+	the maps in (TA2) have the form
+	$\gamma_{!} 
+	\left( \Omega[C] \times
+	\left( \Lambda^i[n] \to \Delta[n] \right) \right)$,
+	and are thus weak equivalences thanks to the pushouts
+	in Remark \ref{COLORTENSGAM REM}.
+	As for (TA3), it follows from Remark \ref{COLORTENSGAM REM}
+	that the maps
+	$\left( Sc[T] \to \Omega[T] \right) \otimes \partial \Delta[n]$
+	and 
+	$\left( Sc[T] \to \Omega[T] \right) \otimes \Delta[n]$
+	are trivial cofibrations, so that the claim follows from a standard pushout and 2-out-of-3 argument.
+	
+	We now turn to condition (ii).
+	The lifting condition against (TA3) says that $J$-fibrant objects are such that the maps $X(\Omega[T]) \to X(Sc[T])$
+	are trivial fibrations, and thus that such $X$ are Segal operads.
+	Therefore, by Remark \ref{SEOPDK REM} it suffices to check that $J$-fibrations between Segal operads which are also DK equivalences are in fact trivial fibrations, i.e. that they have the right lifting property against the maps in (TC1),(TC2),(TC3).
+	Given $X \to Y$ a $J$-fibration with $J$-fibrant $Y$,
+	the lifting property against (TC3) is tautological since 
+	(TC3) equals (TA3).
+	Next, the lifting property against (TA2) says that the maps
+	$X(\Omega[T]) \to f^{\**} Y(\Omega[T])$
+	are Kan fibrations, and the DK condition says that these are Kan equivalences,
+	so that we conclude that such maps have the right lifting property against (TC2).
+	Lastly, given any lifting problem against a map in (TC1),
+	essential surjectivity and Remark \ref{SLIMOD REM}
+	produce a lifting problem against a map in (TA1) which has a solution, providing a solution to the original problem.
+\end{proof}
+
+
+{\color{red} To show that maps in (TA3) are normal cofibrations one can use a pushout of projective cofibrant cubes argument.}
+
+
+\begin{theorem}
+	The identity map is a left Quillen equivalence from the tame model structure to the normal model structure on $\mathsf{PreOp}^G$.
+\end{theorem}
+\begin{proof}
+	We argue by Corollary \ref{SIMPLQUILL COR}.
+	Lemma \ref{TAMECOFCOF_LEM} says that the left adjoint preserves cofibrations and anodyne maps.
+	The standard adjunction argument then implies that the right adjoint preserves fibrations between fibrant objects.
+\end{proof}
+
+
+\subsection{Comparison with $\sOp^G$}
+
+\begin{lemma}
+	\label{OMEGATTAME_LEM}
+	For all $T \in \Omega_G$, $\Omega[T] \in \mathsf{PreOp}^G$ is tame cofibrant.
+\end{lemma}
+\begin{proof}
+	From (TC3) with $n=0$, it suffices to show that $Sc[T]$ is tame cofibrant.
+	By (TC1), $\amalg_{Ge \in \boldsymbol{E}_G(T)} \Omega[Ge \cdot \eta]$ is tame cofibrant.
+	Now, (TC2) with $n=0$ says that $\partial \Omega[C] \to \Omega[C]$ is a tame cofibration,
+	and thus the result follows via the following pushout.
+	\[
+	\begin{tikzcd}
+	\displaystyle{
+		\coprod_{Gv \in \boldsymbol{V}_G(T)} \partial\Omega[T_{Gv}]
+	}
+	\arrow[d] \arrow[r]
+	&
+	\displaystyle{
+		\coprod_{Ge \in \boldsymbol{E}_G(T)} \Omega[Ge \cdot \eta]
+	}
+	\arrow[d]
+	\\
+	\displaystyle{
+		\coprod_{Gv \in \boldsymbol{V}_G(T)} \Omega[T_{Gv}]
+	}
+	\arrow[r]
+	&
+	Sc[T]
+	\end{tikzcd}
+	\]
+\end{proof}
+
+
+\begin{remark}
+	\label{TAUCOFIB_REM}        
+	We note that by Lemma \ref{TAUOTIMES_LEM}, $\tau \colon \mathsf{PreOp}^G \to \sOp^G$
+	sends the collection of arrows in (TC1) and (TC2) surjectively onto the collection of generating cofibrations \eqref{SSETGENCOF_EQ}:
+	\begin{gather*}
+	\tau\Big(\varnothing \to G/H \cdot \Omega[\eta]\Big) = \Big(\varnothing \to \Omega(G/H \cdot \eta)\Big),
+	\\
+	\tau\Big(\Omega[C] \otimes_\Fin (\partial \Delta[n] \to \Delta[n])\Big) =
+	\Omega(C) \otimes_\Fin \big(\partial \Delta[n] \to \Delta[n]\Big).
+	% = \mathbb F_{\Gamma_C} \Big( \Gamma_C / \Gamma_C \cdot (\partial \Delta[n] \to \Delta[n]) \Big)
+	\end{gather*}
+	% where $\Gamma_C$ is the graph subgroup of $G \times \Sigma_n$ such that $C \simeq G \cdot C_n / \Gamma$, and
+	% $\mathbb F_\Gamma: \sSet^\Gamma \to \sOp^G$ is as in the discussion around \eqref{FGAMMA_EQ}.
+	Moreover, as $\tau$ sends (TC3) to isomorphisms, $\tau$ also preserves all cofibrations.
+\end{remark}
+
+The following results are adapted from \cite{JT07} (see Proposition 7.15 therein). 
+
+
+\begin{proposition}
+	A cofibration $A \to B$ is a weak equivalence iff it has the left lifting property against all fibrations between fibrant objects.
+\end{proposition}
+
+\begin{proof}
+	Let $B \xrightarrow{\sim} \tilde{B}$ be a fibrant replacement and
+	let $A \xrightarrow{\sim} \tilde{A} \twoheadrightarrow \tilde{B}$
+	be a factorization of the composite $A \to \tilde{B}$ 
+	as a trivial cofibration followed by a fibration.
+	One then has a lift in the diagram
+	\[
+	\begin{tikzcd}
+	A \ar{r}{\sim} \ar[>->]{d} & \tilde{A} \ar[->>]{d}
+	\\
+	B \ar{r}{\sim} \ar[dashed]{ru} & \tilde{B}
+	\end{tikzcd}
+	\]
+	where the top and bottom horizontal maps are weak equivalences. 
+	But then the 2-out-of-6 property for weak equivalences says that all maps are weak equivalences.
+\end{proof}
+
+
+\begin{corollary}\label{SIMPLQUILL COR}
+	An adjunction 
+	\[
+	F \colon \mathcal{C}
+	\rightleftarrows
+	\mathcal{D} \colon G
+	\]
+	between model categories is a Quillen adjunction
+	provided that $F$ preserves cofibrations
+	and $G$ preserves fibrations between fibrant objects.
+\end{corollary}
+
+
+\begin{lemma}
+	Let $A \to B$ be a tame cofibration between tame cofibrant objects in $\mathsf{PreOp}^G$, 
+	$\mathcal{O} \in \mathsf{sOp}^G$ a $\Sigma$-cofibrant 
+	$G$-operad,
+	and consider a pushout diagram in $\mathsf{sOp}^G$ of the form
+	\[
+	\begin{tikzcd}
+	\tau A \ar{r} \ar{d} & \mathcal{O} \ar{d}
+	\\
+	\tau B \ar{r} & \mathcal{P}
+	\end{tikzcd}
+	\]
+	Then $\mathcal{O} \to \mathcal{P}$ is a $\Sigma$-cofibration and 
+	\begin{equation}\label{UNITEQUIV EQ}
+	B \amalg_{A} N \mathcal{O}
+	\to 
+	N \mathcal{P}
+	\end{equation}
+	is a weak equivalence.
+\end{lemma}
+
+\begin{proof}
+	We first consider the case where $A\to B$ is in one of (TC1),(TC2),(TC3). 
+	
+	The (TC1) case is immediate, 
+	since $\mathcal{O} \to \mathcal{O} \amalg G/H \cdot \Omega(\eta)$ is a $\Sigma$-cofibration and
+	\eqref{UNITEQUIV EQ}
+	is the isomorphism
+	$N\mathcal{O} \amalg G/H\cdot \Omega[\eta] \simeq 
+	N\left( \mathcal{O} \amalg G/H \cdot \Omega(\eta) \right)$.
+	
+	The (TC3) case is also straightforward:
+	since $\tau A \to \tau B$ is an isomorphism, one can take 
+	$\mathcal{O}=\mathcal{P}$, so that 
+	\eqref{UNITEQUIV EQ}
+	becomes a section of the map
+	$N \mathcal{O} \to B \amalg_{A} N \mathcal{O}$, which is a trivial cofibration (it is a pushout of $A \to B$),
+	and 2-out-of-3 hence implies that \eqref{UNITEQUIV EQ} is a weak equivalence.
+	
+	The most interesting case is then (TC2), in which case
+	Corllary \ref{SIGMAG_COF_COR} and Remark \ref{TAUCOFIB_REM}
+	imply that $\mathcal{O} \to \mathcal{P}$ is a $\Sigma$-cofibration,
+	and further each of the levels
+	$(B \amalg_{A} N \mathcal{O})_n
+	\to 
+	(N \mathcal{P})_n$
+	for $n \geq 0$
+	is an equivalence in $\mathsf{dSet}^G$ by (an iteration of)
+	Proposition \ref{KEYPR PROP} \todo{come back},        
+	showing that \eqref{UNITEQUIV EQ} is in fact a dendroidal equivalence, and thus also a complete equivalence.
+	
+	We now turn to the case of $A \to B$ a general tame cofibration between tame cofibrant objects.
+	As usual, $A \to B$ is a retract of a transfinite composition of pushouts of generating cofibrations.
+	Since the conclusions of the result are invariant under retracts,
+	we are free to assume that $A \to B$ is a transfinite composite
+	\[
+	A = A_0 \to A_1 \to A_2 \to \cdots \to A_{\beta} \to 
+	colim_{\beta < \kappa} A_{\beta} = B.
+	\]
+	where each map $A_{\beta} \to A_{\beta +1}$ is a pushout of a map in one of (TC1),(TC2),(TC3).
+	
+	Defining $\mathcal{O}_{\beta}$ by replacing $A \to B$ with $A \to A_{\beta}$ in the pushout,
+	$\mathcal{O} \to \mathcal{P}$ becomes the transfinite composite of the maps $\mathcal{O}_{\beta} \to \mathcal{O}_{\beta + 1}$
+	and \eqref{UNITEQUIV EQ} becomes
+	$
+	colim_{\beta < \kappa} \left( 
+	N \mathcal{O} \amalg_{N \tau A} N \tau A_{\beta}
+	\to 
+	N \mathcal{O}_{\beta}
+	\right)
+	$.
+	It thus suffices to show, by induction on $\beta < \kappa$, 
+	that the maps $\mathcal{O}_{\beta} \to \mathcal{O}_{\beta + 1}$ are $\Sigma$-cofibrations and that the maps 
+	$N \mathcal{O} \amalg_{N \tau A} N \tau A_{\beta}
+	\to 
+	N \mathcal{O}_{\beta}$
+	are weak equivalences
+	(that this last condition suffices follows since
+	filtered colimits of weak equivalences in $\mathsf{PreOp}^G$ are weak equivalences by Lemma \ref{FCOLIM_WE2_LEM} ({\color{red} add this})).
+	Consider now the following diagrams.
+	\[
+	\begin{tikzcd}
+	\tau A \ar{r} \ar{d} & \mathcal{O} \ar{d}
+	&&
+	A_{\beta} \amalg_{A} N \mathcal{O}
+	\ar[>->]{r} \ar{d}[swap]{\sim} &
+	A_{\beta+1} \amalg_{A} N \mathcal{O}
+	\ar{d}[swap]{\sim}
+	\\
+	\tau A_{\beta} \ar{r} \ar{d} & \mathcal{O}_{\beta} \ar{d}
+	&&
+	N \mathcal{O}_{\beta} \ar[>->]{r} &
+	A_{\beta+1} \amalg_{A_{\beta}} N \mathcal{O}_{\beta} \ar{d}
+	\\
+	\tau A_{\beta + 1} \ar{r} & \mathcal{O}_{\beta + 1}
+	&&
+	&
+	N \mathcal{O}_{\beta+1}
+	\end{tikzcd}
+	\]
+	The induction hypothesis states that
+	$\mathcal{O} \to \mathcal{O}_{\beta}$ is a $\Sigma$-cofibration and that the map
+	$A_{\beta} \amalg_A N \mathcal{O} \to \mathcal{O}_{\beta}$ is a weak equivalence.
+	Therefore, $\mathcal{O}_{\beta}$ is $\Sigma$-cofibrant 
+	and the both vertical maps marked $\sim$ in the rightmost diagram above are weak equivalences 
+	(this uses the fact that $\mathsf{PreOp}^G$ is left proper),
+	and thus the induction step will follow provided that the result holds for
+	the map $A_{\beta} \to A_{\beta + 1}$ and $\mathcal{O}_{\beta}$.
+	But $A_{\beta} \to A_{\beta + 1}$ is assumed to be a pushout of a map in (TC1),(TC2),(TC3), in which case the result is already known, and thus noting that the result is clearly invariant under pushouts finishes the proof.
+\end{proof}
+
+Setting $A = \emptyset $, $\mathcal{O}= \emptyset$ in the previous result yields the following.
+
+\begin{corollary}\label{KEYEQUIV COR}
+	If $B \in \mathsf{PreOp}^G$ is tame cofibrant, then 
+	$B \to N \tau B$ is a weak equivalence.
+\end{corollary}
+
+
+\begin{proposition}\label{PREQUIEQUIV PROP}
+	The adjunction
+	\[
+	\tau \colon \mathsf{PreOp}^G_{\text{tame}}
+	\rightleftarrows 
+	\mathsf{sOp}^G \colon N
+	\]
+	is a Quillen equivalence.
+\end{proposition}
+
+
+\begin{proof}
+	Firstly, note that $N$ preserves and detects weak equivalences.
+	Indeed, this follows since all objects in the image of $N$ are Segal operads, so that by Remark \ref{SEOPDK REM} a map in the image of $N$ is a weak equivalence iff it is a Dwyer-Kan equivalence;
+	It is clear that $N$ preserves and reflects fully-faithful maps,
+	and as we compute that $i_G^{\**}ho(N\O)(G/H)$ is the simplicial set $N j^{\**}\pi_0(\O^H)$
+	with $j^{\**}\colon \Op \to \Cat$ the forgetful functor,
+	$N$ preserves and reflects essentially surjective maps.
+	
+	Next, we show that this is a Quillen adjunction using Corollary \ref{SIMPLQUILL COR}.
+	We see $\tau$ preserves cofibrations by Remark \ref{TAUCOFIB_REM}.
+	% The claim that $\tau$ preserves cofibrations follows since
+	% $\tau$ sends the maps in (TC1) and (TC2) to generating cofibrations of $\mathsf{sOp}^G$ and the maps in (TC3) to isomorphisms.
+	For the claim that $N$ preserves fibrations between fibrant,
+	we use a somewhat indirect argument
+	(though we note that a direct argument is also possible,
+	by showing that fibrations between fibrant objects in $\mathsf{PreOp}^G$
+	also satisfy a ``local fibration plus isofibration'' description).
+	By Corollary \ref{KEYEQUIV COR} and 2-out-of-3, 
+	one has that for any trivial tame cofibration between tame cofibrant objects
+	$A \to B$, the map $N \tau A \to N \tau B$ is a weak equivalence, and thus so is $\tau A \to \tau B$.
+	This shows that $\tau$ sends all maps in (TA1),(TA2),(TA3)
+	to trivial cofibrations, and since these maps detect fibrations between fibrant objects in $\mathsf{PreOp}^G$, 
+	the standard adjunction argument shows that 
+	$N$ indeed preserves fibrations between fibrant objects.
+	
+	For the Quillen equivalence claim, 
+	let $B \in \mathsf{PreOp}^G$ be tame cofibrant and
+	$\mathcal{O} \in \mathsf{sOp}^G$ be fibrant.
+	We must show that the leftmost map below is a weak equivalence iff its adjoint, which is the rightmost composite, is.
+	\[
+	\tau B \to \mathcal{O},
+	\qquad
+	B \xrightarrow{\sim} N \tau B \to N \mathcal{O}
+	\]
+	This is immediate from Corollary \ref{KEYEQUIV COR}
+	and the fact that $N$ preserves and detects weak equivalences.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
 
 \section{The Quillen equivalence}
 \label{QE_SEC}
