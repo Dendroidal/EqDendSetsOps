@@ -3,6 +3,25 @@
 %, final
 ]{article}%
 
+
+% ---- Commands on draft --------
+
+\usepackage[dvipsnames]{xcolor}% adds colors
+\usepackage{ifdraft}
+\ifdraft{
+  \color[RGB]{63,63,63}
+  \pagecolor[RGB]{220,220,204}
+  \usepackage{showkeys}
+  \usepackage{geometry}
+  \usepackage{todonotes}
+}
+{
+  \usepackage[notref]{showkeys}
+  \usepackage[margin=1in]{geometry}
+  \usepackage[disable]{todonotes}
+  \usepackage[fontsize=12pt]{scrextend}
+}
+
 \pdfcompresslevel=0
 \pdfobjcompresslevel=0
 
@@ -35,7 +54,6 @@
 \usepackage[normalem]{ulem}%
 \usepackage{dsfont}%
 \usepackage{bbm}%
-\usepackage[dvipsnames]{xcolor}% adds colors
 
 
 %----- Enumerate ---------------------------------------------
@@ -66,22 +84,6 @@ cd,patterns,calc}
 
 
 
-% ---- Commands on draft --------
-
-\usepackage{ifdraft}
-\ifdraft{
-  \color[RGB]{63,63,63}
-%  \pagecolor[RGB]{220,220,204}
-  \usepackage{showkeys}
-  \usepackage{geometry}
-  \usepackage{todonotes}
-}
-{
-  \usepackage[notref]{showkeys}
-  \usepackage[margin=1in]{geometry}
-  \usepackage[disable]{todonotes}
-  \usepackage[fontsize=12pt]{scrextend}
-}
 
 
 % ----- Labels Changed? --------
@@ -487,269 +489,10 @@ and $\mathsf{sOp}^G$ the category of $G$-objects in $\sOp$.
       Describe.
 \end{definition}
 
+\subsubsection{$\Sigma$-cofibrancy}
 
 
-\subsubsection*{$\Sigma_G$-cofibrations}
-
-\begin{definition}
-      \label{GRAPHSUB_DEF}
-      Given a $\mathfrak{C}$-signature $\vect C$, 
-      a subgroup 
-      $\Gamma \leq \mathsf{Aut}_{G \ltimes \Sigma_{\mathfrak{C}}^{op}}(\vect C)$
-      is called a \textit{$G$-graph subgroup} if
-      $\Gamma \cap \mathsf{Aut}_{\Sigma_{\mathfrak{C}}^{op}}(\vect C) = \**$;
-      i.e. if $\Gamma$ is a $G$-graph subgroup when consider as a subgroup of $G \times \Sigma_{|\vect C|}$.
-      
-      We write $\mathcal{F}^{\Gamma} = \{\mathcal{F}^{\Gamma}_{\vect C}\}$
-      for the collection of families of $G$-graph subgroups.
-
-      A \textit{$G$-graph family} is any collection $\mathcal F = \set{\F_{\vect C}}$ of subfamilies of $\F^\Gamma$.
-\end{definition}
-
-\begin{definition}
-      We say a map $F \colon X \to Y$ in $\Sym(\sSet)$ is a \textit{$\Sigma_G$-cofibration}
-      $F(\vect C)\colon \O(\vect C) \to \P(F_0(\vect C))$ is an $\mathcal F^\Gamma_{\vect C}$-cofibration in $\sSet^{\Aut(\vect C)}_{\F^\Gamma_{\vect  C}}$
-      for all signatures $\vect C$.
-      
-      We say a map $F \colon \O \to \P$ in $\sOp^G$ is a \textit{$\Sigma_G$-cofibration} if
-      the map on underlying symmetric sequences is.
-\end{definition}
-
-\begin{example}
-      All generating cofibrations of $\sOp^G$ are $\Sigma_G$-cofibrations,
-      as all subgroups of $G$-graph subgroups are again $G$-graph subgroups, and the genuine cofibrations in $\sSet^G_{gen}$ are the monomorphisms.
-\end{example}
-
-STUFF
-
-\begin{definition}
-      We generalize the constructions in \cite[6.13, 6.19, 6.37]{BP_geo}.
-      
-      Let $\mathcal F$, $\bar{\mathcal F}$ be $G$-graph families of $\Lambda \leq G \times \Sigma$ and $\bar\Lambda \leq G \times \bar \Sigma$, respectively.
-      We define the following four families:
-      \begin{enumerate}[label = (\roman*)]
-      \item $\mathcal \F \sqcap \bar{\mathcal F} := \pi^{\**}(\F) \cap \bar\pi^{\**}(\bar \F)$ of $\Lambda \times \bar \Lambda$,
-      \item $\mathcal F \sqcap_G \bar \F := \Delta^{\**}(\F \sqcap \bar\F)$ of $\Lambda \times_G^\lrcorner \bar\Lambda$,
-      \item $\F^{\ltimes n} := (i_e)_{\**}\big(\pi_{e,\Lambda}^{\**}(\F)\big)$ of $\Sigma_n \wr \Lambda$,
-      \item $\F^{\ltimes_G n} := (\Sigma_n \wr \Delta)^{\**}(\F^{\ltimes n})$  of $\Sigma_G \wr_G \Lambda$,
-      \end{enumerate}
-      where $\pi$, $\bar\pi$, $\Delta$, $\pi_{e, \Lambda}$, $i_e$, $\Sigma_n \wr \Delta$ are the natural maps below,
-      with $(-) \times_G^\lrcorner (-)$ denoting the fiber product over the projections $\Delta,\bar\Delta \to G$.
-      \[
-            \begin{tikzcd}
-                  \Lambda
-                  &
-                  \Lambda \times \bar \Lambda \arrow[r, "\bar\pi"] \arrow[l, "\pi"']
-                  &
-                  \bar\Lambda
-                  \\
-                  &
-                  \Lambda \times_G^\lrcorner \bar\Lambda \arrow[u, "\Delta"]
-            \end{tikzcd}
-      \]
-      \[
-            \Lambda \xleftarrow{\pi_{e,\Lambda}}
-            \Sigma_{\lambda_e} \wr \Lambda = (\Sigma_{\set{e}} \times \Lambda) \times \Sigma_{\underline{n} \setminus e} \wr \Lambda \xrightarrow{i_e}
-            \Sigma_n \wr \Lambda \xleftarrow{\Sigma_n \wr \Delta}
-            \Sigma_n \wr_G \Lambda = \Sigma_n \ltimes \Lambda^{\times_G^\lrcorner n}
-      \]
-\end{definition}
-
-\begin{proposition}[{cf. \cite[Prop. 6.40]{BP_geo}}]
-      \label{640_LEM}
-      We have left Quillen functors as below by \cite[Prop. 6.6, 6.14, 6.6]{BP_geo}.
-      \[
-            \V^{\Lambda}_\F \times \V^{\bar \Lambda}_{\bar \F} \longto
-            \V^{\Lambda \times \bar\Lambda}_{\pi^{\**}(\F)} \times \V^{\Lambda \times \bar\Lambda}_{\bar\pi^{\**}(\bar \F)} \xrightarrow{\otimes}
-            \V^{\Lambda \times \bar\Lambda}_{\F \sqcap \bar \F} \longto
-            \V^{\Lambda \times_G^\lrcorner \bar\Lambda}_{\F \sqcap_G \bar\F}.
-      \]
-\end{proposition}
-
-\begin{proposition}[{cf. \cite[Prop. 6.41]{BP_geo}}]
-      \label{641_LEM}
-      If $f$ is an $\F$ (trivial) cofibration in $\V^{\Lambda}_\F$, then $f^{\square n}$ is an $\F^{\ltimes_G n}$ (trivial) cofibration in $\V^{\Sigma_n \wr_G \Lambda}_{\F^{\ltimes_G n}}$.
-\end{proposition}
-\begin{proof}
-      We have a composite of left Quillen functors by \cite[Prop. 6.24, 6.6]{BP_geo}.
-      \[
-            \V^{\Lambda}_{\F} \longto \V^{\Sigma_n \wr \Lambda}_{\F^{\ltimes n}} \longto \V^{\Sigma_n \wr_G \Lambda}_{\F^{\ltimes_G n}}.
-      \]
-\end{proof}
-
-\todo[inline]{introduce $Aut(T)$ and colored-version  earlier}
-
-\begin{remark}[{cf. \cite[Remark 6.48]{BP_geo}}]
-      Let $T \in \Omega$. Then we have a grafting decomposition $T \simeq C \amalg (T_i)$ for $C \in \Sigma$ and $T_i \in \Omega$.
-      If we let $\lambda$ denote the partition $\boldsymbol{L}(C) = \lambda_1 \amalg \dots \amalg \lambda_k$ such that
-      $i$,$j$ are in the same class iff $T_i \simeq T_j$,
-      and pick representatives $i_j \in \lambda_j$, we thus have a decomposition
-      \[
-            \Aut(T) \simeq \Sigma_{|\lambda_1|} \wr \Aut(T_{i_1}) \times \dots \times \Sigma_{|\lambda_r|} \wr \Aut(T_{i_r}).
-      \]
-      
-      For $\vect T \in \Omega_{\mathfrak C}$, we have an analogous decomposition of $\vect T$ using a partition $\vect \lambda$,
-      and controlling for the repeated $G$-action, we have
-      \[
-            \Aut(\vect T) \simeq \big(\Sigma_{|\lambda_1|} \wr_G \Aut(\vect T_{i_1}\big) \times_G^\lrcorner \dots \times_G^\lrcorner \big(\Sigma_{|\lambda_s|} \wr_G \Aut(\vect T_{i_s})\big)
-            %\prod_{j=1}^s{}_G \Sigma_{|\lambda_j} \wr_G \Aut(\vect T_{i_j})
-      \]
-      where $(-) \times_G^\lrcorner (-)$ again denotes the fiber product over $G$. 
-\end{remark}
-
-\begin{remark}
-      For any $\vect T \in G \ltimes \Omega_{\mathfrak C}$ with underlying tree $T \in \Omega$,
-      we have a natural map $\phi: \Aut(\vect T) \to G \times \Aut(T)$ induced by the forgetful functor $G \ltimes \Omega_{\mathfrak C} \to G \times \Omega$.
-
-      Now, fix a $G$-graph family $\mathcal F = \set{\F_n}$.
-      Following \cite[Prop. 6.44, Lemma 6.49]{BP_geo}, for any $T \in \Omega$ and $\vect T \in \Omega_{\mathfrak C}$,
-      we define the following families of subgroups of $G \times \Aut(T)$ and $\Aut(\vect T)$, respectively,
-      using the grafting decomposition as above:
-      \begin{align*}
-        \F_T &= \pi_C^{\**}(\F_C) \cap \left( \F_{T_{i_1}}^{\ltimes_G |\lambda_1|} \sqcap_G \dots \sqcap_G \F_{T_{i_r}}^{\ltimes_G |\lambda_r|} \right),
-        \\
-        \F_{\vect T} &= \pi_{\vect C}^{\**}(\F_{\vect C}) \cap \left( \F_{\vect T_{i_1}}^{\ltimes_G |\lambda_1|} \sqcap_G \dots \sqcap_G \F_{\vect T_{i_s}}^{\ltimes_G |\lambda_s|} \right),
-      \end{align*}
-      with $\pi_C \colon G \times \Aut(T) \to G \times \Aut(C)$ and $\pi_{\vect C} \colon \Aut(\vect T) \to \Aut(\vect C)$.
-\end{remark}
-
-\begin{lemma}
-      \label{FVECTT_LEM}
-      $\F_{\vect T} = \phi^{\**}(\F_T)$.
-\end{lemma}
-\begin{proof}
-      First, $\Gamma \in \F_T \cap \Aut(\vect T)$ iff $\pi_C(\Gamma) \in \Aut(\vect C)$, as the following diagram commutes.
-      \[
-            \begin{tikzcd}
-                  \Aut(\vect T) \arrow[d] \arrow[r]
-                  &
-                  G \times \Aut(T) \arrow[d]
-                  \\
-                  \Aut(\vect C) \arrow[r]
-                  &
-                  G \times \Aut(C).
-            \end{tikzcd}
-      \]
-      
-      Second, \cite[Equation (6.51)]{BP_geo} says that $\Gamma \leq G \times \Aut(T)$ is in
-      $\left(\F_{T_{i_1}}^{\ltimes_G |\lambda_1|} \sqcap_G \dots \sqcap_G \F_{T_{i_r}}^{\ltimes_G |\lambda_r|} \right)$
-      iff for all $l \in \boldsymbol{L}(C)$,
-      \[
-            \pi_{G \times \Aut(T_l)}\Big(
-            \big(\Sigma_{{e} \subseteq \boldsymbol{L}(C)} \times (G \times \Aut(T_l)) \big) \times_G^\lrcorner
-            \big( \Sigma_{\lambda \setminus \set{l}} \wr_G (G \times \Aut(T_j))_{j \neq l} \big)
-            \Big) \in \F_{T_l},
-      \]
-      where $\lambda \setminus \set{l}$ is the induction partition on $\boldsymbol{L}(C) \setminus \set{l}$ and $\pi_{G \times \Aut(T_l)}$ is the observable projection;
-      similarly $\Gamma \leq \Aut(\vect T)$ is in 
-      $\left(\F_{\vect T_{i_1}}^{\ltimes_G |\vect \lambda_1|} \sqcap_G \dots \sqcap_G \F_{\vect T_{i_s}}^{\ltimes_G |\vect \lambda_s|} \right)$
-      iff for all $l \in \boldsymbol{L}(C)$,
-      \[
-            \pi_{G \times \Aut(T_l)}\Big(
-            \big(\Sigma_{{e} \subseteq \boldsymbol{L}(C)} \times \Aut(\vect T_l)) \big) \times_G^\lrcorner
-            \big( \Sigma_{\vect \lambda \setminus \set{l}} \wr_G (\Aut(\vect T_j))_{j \neq l} \big)
-            \Big) \in \F_{\vect T_l}.
-      \]
-      While the wreath products in the above parenthesized groups may differ due to $\vect \lambda \subseteq \lambda$,
-      the projections clearly commute with the maps $\Aut(\vect T_l) \to G \times \Aut(T_l)$. 
-
-      Finally, $\Gamma \in \F_{\vect T}$ must always be in $\Aut(\vect T)$.
-
-      The result follows.
-\end{proof}
-
-\begin{proposition}[{cf. \cite[Prop. 6.52]{BP_geo}}]
-      \label{BOXVT_PROP}
-      Suppose $f_s: A_s \to B_s$, $1 \leq s \leq l$, are level $\F$ (trivial) cofibrations in $\Sym(\V)$, i.e. $f_s(\vect C)$ is a (trivial) cofibration in $\V^{\Aut(\vect C)}_{\F_{\vect C}}$ for all signatures $\vect C$.
-      Then for any $\underline{l}$-labeled signature $\vect T \in \Omega^{\underline{l}}_{\mathfrak C}$, the map
-      \[
-            f^{\square V(T)} = \mathop{\square}\limits_{1 \leq r \leq l} \mathop{\square}\limits_{v \in \boldsymbol{V}_r(T)} f_r(\vect T_v)
-      \]
-      is a (trivial) cofibration in $\V^{\Aut_{G \ltimes \Omega_{\mathfrak C}}(\vect T)}_{\F_{\vect T}}$.
-\end{proposition}
-\begin{proof}
-      Using the same decomposition as before, we have
-      \[
-            f^{\square V(T)} = f_{r_C}(\vect C) \square \mathop{\mathlarger{\square}}\limits_{1 \leq i \leq s}\left(f^{\square V(\vect T_{i_j})}\right)^{\square |\vect \lambda_j|}.
-      \]
-      Lemmas \ref{640_LEM}, \ref{FVECTT_LEM} and Proposition \ref{RESGEN PROP} combine to show that the composite
-      \[
-            \V^{\Aut(\vect C)}_{\F_{\vect C}} \times
-            \prod_{i=1}^s
-            \V^{\Sigma_{|\vect \lambda_1|} \wr_G \Aut(\vect T_1)}_{\F_{\vect T_1}^{\ltimes_G |\vect \lambda_1|}}
-            \times_G^\lrcorner
-            \dots
-            \times_G^\lrcorner
-            \V^{\Sigma_{|\vect \lambda_s|} \wr_G \Aut(\vect T_s)}_{\F_{\vect T_s}^{\ltimes_G |\vect \lambda_s|}}
-            \xrightarrow{\quad \otimes \quad}
-            \V^{\Aut(\vect T)}_{\F_{\vect T}}
-      \]
-      is left Quillen,
-      with automorphism groups taking place in $G \ltimes \Omega_{\mathfrak C}$. 
-      The result now follows from Lemma \ref{641_LEM} and the induction hypothesis.
-\end{proof}
-
-
-\begin{corollary}
-      \label{SIGMAG_COF_COR}
-      If $f \colon \O \to \P$ is a cofibration such that $\O$ is $\Sigma_G$-cofibrant, then $f$ is a $\Sigma_G$-cofibration.
-\end{corollary}
-\begin{proof}
-      Using the filtration from Proposition \ref{FILTPUSHG PROP},
-      this follows from Proposition \ref{BOXVT_PROP}, Lemma \ref{RESGEN PROP}, and the fact that all generating cofibrations in $\sOp^G$ are $\Sigma_G$-cofibrations between $\Sigma_G$-cofibrant objects.
-\end{proof}
-
-We now consider the case $\V = \sSet$.
-The following is immediate.
-\begin{corollary}
-      If $\O \in \sOp^G$ is cofibrant, then $\O$ is $\Sigma_G$-cofibrant.
-\end{corollary}
-
-
-Now, recall that for any group $G$ and family of subgroups $\F$,
-$K \to L$ in $\sSet^{G}_\F$ is an $\F$-cofibration iff $L_n \setminus K_n$ has isotropy in $\F$; i.e. for all $x \in L_n \setminus K-n$, $\Stab_{G}(x) \in \F$.
-% 
-But we also note the easy observation that for any set $A$ with an action of $G \times \Sigma$,
-$A$ has isotropy in the family $\F^\Gamma$ of $G$-graph subgroups
-iff
-$A$ is $\Sigma$-free.
-% 
-Thus $K \to L$ in $\sSet^{G \times \Sigma}_{\F^\Gamma}$ is an $\F^\Gamma$-cofibration
-iff
-it forgets to a cofibration in $\sSet^\Sigma_{proj}$ the coarse model structure.
-
-More generally, if $\Upsilon \leq G \times \Sigma$ and $\F^\Gamma_{\Upsilon} = \F^\Gamma \cap \Upsilon$,
-then $K \to L$ in $\sSet^{\Upsilon}_{\F^\Gamma_\Upsilon}$ is an $\F^\Gamma_\Upsilon$-cofibration
-iff
-it forgets to a cofibration in $\sSet^{\pi_{\Sigma}\Upsilon}_{proj}$ the coarse model structure.
-
-All together, we conclude the following (cf. \cite[Remark 6.7]{Per18}, \cite[discussion before Thm. 2.31]{BP_edss}).
-\begin{proposition}
-      \label{SGS_COF_PROP}
-      $\O \to \P$ in $\sOp^G$ is a $\Sigma_G$-cofibration iff it forgets to a $\Sigma$-cofibration in $\sOp$.
-
-      In particular, $\O$ is $\Sigma_G$-cofibrant iff $\O(n)$ has a free $\Sigma_n$-action.
-\end{proposition}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\subsubsection*{other stuff}
+\subsubsection{other stuff}
 
 \todo[inline]{where does this go?}
 
