@@ -1,4 +1,4 @@
-\documentclass[a4paper,12pt
+\documentclass[a4paper,10pt
 ,draft
 % ,final
 ]{article}%
@@ -26,7 +26,7 @@
   \color[RGB]{63,63,63}
   \pagecolor[RGB]{220,220,204}
   \usepackage[notref]{showkeys}
-  \usepackage[margin=1in]{geometry}
+  \usepackage{geometry}
   \usepackage{todonotes}
 }
 {
@@ -1074,7 +1074,7 @@ example where our results do not apply.
 	Theorems \ref{THMI}, \ref{THMII}, \ref{THMIII}
 	would at best represent only an intermediate step
 	towards the ``genuine'' results
-	for equivariant colored spectal operads.
+	for equivariant colored spectral operads.
 
 	More generally,
 	for an arbitrary model category $\V$,
@@ -1518,7 +1518,7 @@ The plan for this preliminary section is then as follows.
 \S \ref{GROTFIB SEC} recalls the notion of Grothendieck fibration and
 introduces some related constructions that are used throughout.
 %
-\S \ref{FIBCAT_SEC} discusses how the usual notions of adjunction and monad interact with Grothentieck fibrations,
+\S \ref{FIBCAT_SEC} discusses how the usual notions of adjunction and monad interact with Grothendieck fibrations,
 allowing us to regard the monads
 (and associated adjunctions)
 in \eqref{FIBADJMON EQ}
@@ -2053,7 +2053,7 @@ Then \eqref{LIMINFIB EQ} implies that one further has
 Let 
 $\pi \colon \mathcal{C} \to \mathcal{B}$,
 $\pi \colon \mathcal{D} \to \mathcal{B}$
-be funtors with a common target.
+be functors with a common target.
 A \emph{fibered adjunction} is an adjunction
 \[
 L \colon \mathcal{C} \rightleftarrows \mathcal{D} \colon R
@@ -2440,7 +2440,12 @@ Both parts follow readily from the definitions.
 \subsection{Equivariant colored symmetric sequences}
 \label{EQCOSYMSEQ SEC}
 
+Every operad has an underlying symmetric sequence by forgetting the algebraic structure.
+In this subsection, we describe this underlying categorical data 
+in a way which integrates smoothly with the fibered monad perspective (cf. Remark \ref{COLCHADJ REM}).
 
+We begin in the non-equivariant setting.
+In this case, objects in $\Sym_\bullet(\V)$ can be described as presheaves on natural generalizations of the symmetric category.
 \begin{definition}\label{CSYM DEF}
 	Let $\mathfrak {C} \in \mathsf{Set}$ be a fixed set of colors (or objects).
 	A tuple
@@ -2619,7 +2624,7 @@ one has adjunctions
 \end{equation}
 where $\varphi^{\**}$
 (resp. $\varphi_!$)
-is precomposition with (left Kan extention along)
+is precomposition with (left Kan extension along)
 $\varphi\colon 
 \Sigma^{op}_{\mathfrak{C}}
 \to 
@@ -2874,8 +2879,8 @@ $F(c \rightsquigarrow \varphi_! c) =
 Then:
 \begin{enumerate*}[label=(\roman*)]
 \item
-associavity and unitality of $F$ with respect to fiber arrows is equivalent to associativity and unitality of the $\gamma_b$;
-\item associavity and unitality of $F$ with respect to the cocartesian arrows is equivalent to the conditions following 
+associativity and unitality of $F$ with respect to fiber arrows is equivalent to associativity and unitality of the $\gamma_b$;
+\item associativity and unitality of $F$ with respect to the cocartesian arrows is equivalent to the conditions following 
 \eqref{EQUIVFUNEX EQ};
 \item $F$ respecting the commutative squares \eqref{GROTHUNPCK EQ}
 is equivalent to naturality of the $\phi_{\varphi}$.
@@ -2929,6 +2934,7 @@ is the inclusion described in Remark \ref{WRDIAG REM}.
 \end{remark}
 
 
+\subsubsection*{Representable functors}
 Since  
 $\mathsf{Sym}^G_{\mathfrak{C}}(\mathcal{V}) \simeq 
 \V^{G \ltimes \Sigma^{op}}$ is again a functor category, 
@@ -3385,7 +3391,7 @@ the group $G \times \Sigma_n^{op}$
 acts on the set $\Sigma_{\mathfrak{C},n}$
 of $n$-ary $\mathfrak{C}$-signatures
 $\vect{C} = (\mathfrak{c}_1,\cdots,\mathfrak{c}_n;\mathfrak{c}_0)$
-via the assigment (where $g \in G$ acts on the left and $\sigma \in \Sigma_n$ on the right)
+via the assignment (where $g \in G$ acts on the left and $\sigma \in \Sigma_n$ on the right)
 \begin{equation}\label{SIGACT_EQ}
 	g \vect{C} \sigma =
 	g (\mathfrak{c}_1,\cdots,\mathfrak{c}_n;\mathfrak{c}_0) \sigma
@@ -3926,12 +3932,36 @@ In \S \ref{SYMC_MS_SEC} and \S \ref{OPC_MS_SEC} we build model structures on the
 $\mathsf{Sym}^G_{\mathfrak{C}}(\mathcal{V})$ and $\mathsf{Op}^G_{\mathfrak{C}}(\mathcal{V})$,
 using several pieces of equivariant homotopy theory developed in \S \ref{EHT_SEC}.
 
+Specifically, our goal in this section is the prove Theorems \ref{THMI} and \ref{THMII};
+that is, to build compatible model structures on the fiber categories $\Op_{\mathfrak C}^G(\V)$ of operads with a fixed $G$-set of colors.
+As noted in the introduction, this cannot be achieved via an application of the formal machinery of e.g. \cite{Ste16} or \cite{BM03}, as
+\[
+      \Op_{\mathfrak C}(\V^G) \neq \Op_{\mathfrak C}^G(\V) \neq \left(\Op_{\mathfrak C}(\V)\right)^G
+\]
+unless $\mathfrak C$ has a trivial $G$-action.
+Instead, we will transfer the model structure from the category $\Sym_{\mathfrak C}^G(\V) = \Fun(G \ltimes \Sigma_{\mathfrak C}^{op}, \V)$ of $\mathfrak C$-colored symmetric sequences.
+However, we will not be using the projective model structures on these functor categories, as this will not provide the desired weak equivalences on operads.
+To build the correct model structures on $\Sym_{\mathfrak C}^G(\V)$, we will
+extend the definition and analysis of the various model structures on the category $\V^G$ of $G$-objects in $\V$ determined by a family of subgroups of $G$
+from a group $G$ to an arbitrary groupoid $\G$.
+This analysis will further streamline our analysis of the naturality of these model structures, as well as
+their homotopical interactions with each other and tensor products.
 
+This section is organized as follows.
+In \S \ref{EHT_SEC} we introduce the global monoid axiom,
+and conduct our analysis of the homotopy theory of $\G$-objects in $\V$, culminating in Proposition \ref{SIGMAWRGF PROP}.
+We also provide sufficient conditions for the existence of these model structure and the satisfaction of the global monoid axiom and other suitably nice properties in Propositions \ref{WEAKCELL PROP} and \ref{ALLEQ PROP}.
 
+Next, in \S \ref{SYMC_MS_SEC}, we apply \S \ref{EHT_SEC} to the categories $G \ltimes \Sigma_{\mathfrak C}^{op}$, 
+in such a way that the model structures on the fibers $\Sym_{\mathfrak C}^G(\V)$ are compatible with the fibration $\Sym_\bullet^G(\V) \to \Set^G$.
+In \S \ref{OPC_MS_SEC}, we apply the results of Appendix \ref{MONAD_APDX}, given in Lemma \ref{OURE LEM},
+to transfer these model structures to $\Op_{\mathfrak C}^G(\V)$ and prove Theorem \ref{THMI}.
+We end with a proof of Theorem \ref{THMII} in \S \ref{MS_SEC} by a careful synthesis of the proof of Theorem \ref{THMI} with the theory from \S \ref{EHT_SEC}. 
 
 \subsection{Equivariant homotopy theory}
 \label{EHT_SEC}
 
+We begin by recalling the genuine model structure on the category $\V^G$ of $G$-objects in $\V$.
 
 \begin{definition}\label{GENMOD DEF}
 Let $\V$ be a model category and $G$ a group.
@@ -3958,7 +3988,7 @@ to denote the class of genuine weak equivalences in $\V^G$.
 If $\V$ is cofibrantly generated with 
 $\mathcal{I}$ (resp. $\mathcal{J}$)
 the sets of generating (trivial) cofibrations,
-then the genuine model strucutre on $\V^G$,
+then the genuine model structure on $\V^G$,
 should it exist,
 is again cofibrantly generated with generating sets
 \begin{equation}\label{GENGENSETEQ}
@@ -4356,7 +4386,7 @@ The following is immediate from
 Suppose $(\V, \otimes)$ is a closed monoidal model category which is cofibrantly generated and that the model structures appearing below exist.
 Further, let $\G, \bar{\G}$ be groupoids and $\F,\bar{\F}$
 families of subgroups of $\G, \bar{\G}$.
-Then $\otimes$ incudes a left Quillen bifunctor
+Then $\otimes$ includes a left Quillen bifunctor
 \[
 	\V^{\G}_{\F} \times \V^{\bar \G}_{\bar{\F}} \xrightarrow{\otimes} \V^{\G \times \bar \G}_{\F \sqcap \bar{\F}}
 \]
@@ -4560,11 +4590,11 @@ Then:
 \begin{enumerate}[label=(\roman*)]
 \item if $f$ is a (trivial) $\F$-cofibration in $\V^{\G}$
 then $f^{\square n}$ is a (trivial)
-$\F^{\ltimes n}$-cofibration in $\V^{\Sigma \wr \G}$;
+$\F^{\ltimes n}$-cofibration in $\V^{\Sigma_n \wr \G}$;
 \item if $f$ is a (trivial) $\F$-cofibration between $\F$-cofibrant objects in $\V^{\G}$
 then $f^{\otimes n}$ is a (trivial)
 $\F^{\ltimes n}$-cofibration
-between $\F^{\ltimes n}$-cofibrant objects in $\V^{\Sigma \wr \G}$.
+between $\F^{\ltimes n}$-cofibrant objects in $\V^{\Sigma_n \wr \G}$.
 \end{enumerate}
 \end{proposition}
 
@@ -4738,9 +4768,10 @@ $\mathsf{Sym}^G_{\mathfrak{C}}(\V)
 in Proposition \ref{EQUIVFNCON PROP}
 we will now apply the framework in the previous section 
 to the groupoids
-$\mathfrak{C} \in \mathsf{F}^G$.
-so as to build model structures on the categories 
-$\mathsf{Sym}^G_{\mathfrak{C}}(\V)$.
+$\G = G \ltimes \Sigma_{\mathfrak C}^{op}$.
+% $\mathfrak{C} \in \mathsf{F}^G$
+% so as to build model structures on the categories 
+% $\mathsf{Sym}^G_{\mathfrak{C}}(\V)$.
 %
 Notably, our choices of families will be such that 
 change of colors $f\colon \mathfrak{C} \to \mathfrak{D}$ 
@@ -4792,8 +4823,8 @@ In this paper and the sequel \cite{BP_TAS},
 we will be interested in three main examples of $(G,\Sigma)$-families:
 
 \begin{enumerate}[label = (\alph*)]
-\item First, there is the family $\F_{all}$ of all the subgroups of $G \times \Sigma^{op}$
-      (in which case the $(\F_{all})_{\mathfrak{C}}$ are also the families of all subgroups), which is useful mainly for technical purposes.
+\item First, there is the family $\F^{all}$ of all the subgroups of $G \times \Sigma^{op}$
+      (in which case the $\F^{all}_{\mathfrak{C}}$ are also the families of all subgroups), which is useful mainly for technical purposes.
       
 \item Secondly, there is the family of $\F^{\Gamma}$
       of $G$-graph subgroups (e.g. \cite[Defn. 6.34]{BP_geo})
@@ -4946,7 +4977,7 @@ combining \eqref{VGFGEN EQ} with the
 $\Sigma_{\mathfrak{C}}[G \cdot_{\mathfrak{C}} \vect{C}]$ notation
 for the representable functors 
 in Proposition \ref{REPALTDESC PROP}
-one has that the generating (trivial) cofibratons of
+one has that the generating (trivial) cofibrations of
 $\V^{G \ltimes \Sigma_{\mathfrak{C}}^{op}}_{\F_{\mathfrak{C}}}$
 are the sets of maps
 \begin{equation}\label{VGSIGF EQ}
@@ -5073,7 +5104,7 @@ Its maps are informally described as tall maps of trees that
 \begin{example}\label{ALTMAP EX}
 	The following depicts an alternating map between alternating trees
 	in $\Omega^a$.
-	Active vertices are black $\bullet$ and inert vertives are white $\circ$.
+	Active vertices are black $\bullet$ and inert vertices are white $\circ$.
 	\[
 	\begin{tikzpicture}[grow=up,auto,level distance=2.3em,every node/.style = {font=\footnotesize},dummy/.style={circle,draw,inner sep=0pt,minimum size=2.1mm}]
 	\tikzstyle{level 2}=[sibling distance = 4em]
@@ -5270,7 +5301,7 @@ all maps in
 $(\mathbb{F}^G_{\mathfrak{C}}\mathcal{J}_{\mathfrak{C},\mathcal{F}})$-cell
 are $\F$-weak equivalences in $\mathsf{Sym}^G_{\mathfrak{C}}(\V)$.
 Moreover, since trivial $\F$-cofibrations are genuine trivial cofibrations and 
-genuine weak equivalences are $\F$-weak equivalences, one needs only consider the genuine case, i.e. the case of $\F_{all}$ the family of all subgroups (this repeats the argument in \eqref{FAMTOGEN EQ}).
+genuine weak equivalences are $\F$-weak equivalences, one needs only consider the genuine case, i.e. the case of $\F^{all}$ the family of all subgroups (this repeats the argument in \eqref{FAMTOGEN EQ}).
 
 
 Since we are assuming $\V$ satisfies the global monoidal axiom, 
@@ -5439,7 +5470,7 @@ in Definition \ref{CSPP_DEF} and Theorem \ref{THMI}.
 \begin{remark}\label{THMISM REM}
 	If $\O$ in \eqref{OURE EQ}
 	is known to be underlying genuine cofibrant
-	(i.e. $\F_{all}$-cofibrant) in 
+	(i.e. $\F^{all}$-cofibrant) in 
 	$\mathsf{Sym}^{G}_{\mathfrak{C}}(\V)$ 
 	then, replacing the use of the global monoid axiom with 
 	Proposition \ref{RESGEN PROP},
@@ -5452,12 +5483,13 @@ in Definition \ref{CSPP_DEF} and Theorem \ref{THMI}.
 	(rather than just genuine $\otimes$-trivial cofibrations).
 	
 	On the other hand, conditions (i),(ii),(iii),(iv) in Theorem \ref{THMI}
-	suffice to show that if $\O$ is $\mathcal{F}_{all}$-cofibrant in 
+	suffice to show that if $\O$ is $\mathcal{F}^{all}$-cofibrant in 
 	$\mathsf{Op}^G_{\mathfrak{C}}(\V)$
-	then it is underlying $\mathcal{F}_{all}$-cofibrant in 
+	then it is underlying $\mathcal{F}^{all}$-cofibrant in 
 	$\mathsf{Sym}^G_{\mathfrak{C}}(\V)$
 	(this follows either by the proof of Theorem \ref{THMII} in \S \ref{INDSYS SEC},
-	or by repeating the argument in the proof of Theorem \ref{THMI} but now with $u \in \mathcal{I}_{\mathfrak{C},\F_{all}}$
+	or by repeating the argument in the proof of Theorem \ref{THMI} but now with $u \in \mathcal{I}_{\mathfrak{C},\F^{all}}$
+        \todo{check this formatting}
 	a generating cofibration).
 	
 	Therefore, by \cite[Thm. 2.2.2]{WY18},
@@ -5769,41 +5801,41 @@ denotes the fold map.
 %            \end{tikzcd}
 %      \end{equation}
 \begin{equation}\label{FCA_SQ_EQ}
-\begin{tikzcd}[column sep = small]
-G^{o} \ltimes \Omega_{\mathfrak C}^{a}[k]
-\arrow[r] \arrow[d, "\pi_{\mathfrak C}^a"']
-&
-G^{o} \ltimes \Omega^{a}[k] \arrow[r, "\boldsymbol{V}^a"]
-\arrow[d, "\pi^a"]
-&
-\Sigma \wr (G^{o} \ltimes \Sigma)^{\amalg 2}
-\arrow[d, "\Sigma \wr \nabla"]
-& % ----------
-G^{o} \ltimes \Omega_{\mathfrak C}^{a}[k] \arrow[r, "\boldsymbol{V}_{\mathfrak C}^{a}"]
-\arrow[d, "\pi_{\mathfrak C}^a"']
-&
-\Sigma \wr ( G^{o} \ltimes \Sigma_{\mathfrak C} )^{\amalg 2}
-\arrow[d, "\Sigma \wr \nabla_{\mathfrak C}"] \arrow[r]
-&
-\Sigma \wr ( G^{o} \ltimes \Sigma )^{\amalg 2}
-\arrow[d, "\Sigma \wr \nabla"]
-\\
-G^{o} \ltimes \Omega_{\mathfrak C}^{0} \arrow[r, "\pi_{\mathfrak C}"] \arrow{d}[swap]{\mathsf{lr}_{\mathfrak C}}
-&
-G^{o} \ltimes \Omega^{0} \arrow[r, "\boldsymbol{V}"] \arrow[d, "\mathsf{lr}"]
-&
-\Sigma \wr \left( G^{o} \ltimes \Sigma \right)
-& % ----------
-G^{o} \ltimes \Omega_{\mathfrak C}^{0} \arrow[r, "\boldsymbol{V}_{\mathfrak C}"]
-&
-\Sigma \wr \left( G^{o} \ltimes \Sigma_{\mathfrak C} \right) \arrow[r, "\Sigma \wr \pi_{\mathfrak C}"]
-&
-\Sigma \wr \left( G^{o} \ltimes \Sigma \right)
-\\
-G^{o} \ltimes \Sigma_{\mathfrak C} \arrow[r, "\pi_{\mathfrak C}"]
-&
-G^{o} \times \Sigma
-\end{tikzcd}
+      \begin{tikzcd}[column sep = small]
+            G^{o} \ltimes \Omega_{\mathfrak C}^{a}[k]
+            \arrow[r] \arrow[d, "\pi_{\mathfrak C}^a"']
+            &
+            G^{o} \ltimes \Omega^{a}[k] \arrow[r, "\boldsymbol{V}^a"]
+            \arrow[d, "\pi^a"]
+            &
+            \Sigma \wr (G^{o} \ltimes \Sigma)^{\amalg 2}
+            \arrow[d, "\Sigma \wr \nabla"]
+            & % ----------
+            G^{o} \ltimes \Omega_{\mathfrak C}^{a}[k] \arrow[r, "\boldsymbol{V}_{\mathfrak C}^{a}"]
+            \arrow[d, "\pi_{\mathfrak C}^a"']
+            &
+            \Sigma \wr ( G^{o} \ltimes \Sigma_{\mathfrak C} )^{\amalg 2}
+            \arrow[d, "\Sigma \wr \nabla_{\mathfrak C}"] \arrow[r]
+            &
+            \Sigma \wr ( G^{o} \ltimes \Sigma )^{\amalg 2}
+            \arrow[d, "\Sigma \wr \nabla"]
+            \\
+            G^{o} \ltimes \Omega_{\mathfrak C}^{0} \arrow[r, "\pi_{\mathfrak C}"] \arrow{d}[swap]{\mathsf{lr}_{\mathfrak C}}
+            &
+            G^{o} \ltimes \Omega^{0} \arrow[r, "\boldsymbol{V}"] \arrow[d, "\mathsf{lr}"]
+            &
+            \Sigma \wr \left( G^{o} \ltimes \Sigma \right)
+            & % ----------
+            G^{o} \ltimes \Omega_{\mathfrak C}^{0} \arrow[r, "\boldsymbol{V}_{\mathfrak C}"]
+            &
+            \Sigma \wr \left( G^{o} \ltimes \Sigma_{\mathfrak C} \right) \arrow[r, "\Sigma \wr \pi_{\mathfrak C}"]
+            &
+            \Sigma \wr \left( G^{o} \ltimes \Sigma \right)
+            \\
+            G^{o} \ltimes \Sigma_{\mathfrak C} \arrow[r, "\pi_{\mathfrak C}"]
+            &
+            G^{o} \times \Sigma
+      \end{tikzcd}
 \end{equation}
 We now have a sequence of identifications
 \begin{equation}\label{VSTREWRT EQ}
@@ -5832,13 +5864,6 @@ Moreover, there are identifications
 where the first step again uses the definition of $\F_{\mathfrak{C}}$
 and the second the commutativity of the left bottom square in 
 \eqref{FCA_SQ_EQ}.
-
-\todo[inline]{I don't think \eqref{FCA_SQ_EQ} is any clearer this way.
-  First, it is too wide.
-  Second, ``commutativity of the top sections'' is not enough - we are using both the commutativitiy AND the fact that the top rectangles coincide. As a cube, this is simply ``the diagram commutes''.
-  Third, the left bottom square is in \eqref{COLORLR_EQ}, which fits nicely in the discussion already from \S 2.
-}
-\todo[inline]{the splitting of the equations I agree is clearer}
 
 It now follows from \eqref{VSTREWRT EQ},\eqref{LRSTR EQ}
 that if $\F$ is a pseudo indexing system,
@@ -6654,7 +6679,7 @@ We say a functor $F: \mathcal C \to \mathcal D$ in $\Cat(\V)$ is
 We now adapt the previous definition for $G$-operads.
 Recall that $j^{\**} \colon \mathsf{Op}^G_\bullet(\V) \to \mathsf{Cat}^G_{\bullet}(\V)$
 denotes the functor that forgets all non-unary operations and that, moreover, 
-$j^{\**}$ comutes with all fixed points $(-)^H$.
+$j^{\**}$ commutes with all fixed points $(-)^H$.
 
 
 
@@ -7446,7 +7471,7 @@ We argue by transfinite induction on $\alpha \leq \kappa$
 that the composite maps $\bar{F}_{\alpha} \colon \O_0 \to \O_{\alpha}$
 are $\F$-essentially surjective. Fix $H \in \F_1$.
 
-For a sucessor ordinal $\alpha+1$, given $c \in \O_{\alpha+1}^H$
+For a successor ordinal $\alpha+1$, given $c \in \O_{\alpha+1}^H$
 one can find $b \in \O_\alpha^H$ and map from an interval 
 $\mathbb{J} \xrightarrow{j} \O_{\alpha+1}^H$ with $j(0) = F_{\alpha}(b),j(1)=c$
 and, by the induction hypothesis, can likewise find
@@ -7506,7 +7531,7 @@ since these are preserved under pullback
 
 \begin{proof}
 	We reduce to the case
-	$\F=\F_{all}$ as that makes (TC1),(TC2) in (Definition \ref{OPGENCOF DEF}) as large as possible 
+	$\F=\F^{all}$ as that makes (TC1),(TC2) in (Definition \ref{OPGENCOF DEF}) as large as possible 
 	and $\mathcal{F}$-weak equivalences as small as possible
 	(compare with \eqref{FAMTOGEN EQ} and the proof of Theorem \ref{THMI}).
 		
@@ -7527,7 +7552,7 @@ since these are preserved under pullback
 	where $j$ is one of the generating trivial cofibrations 
 	in (TC1),(TC2) 
 	one has that 
-	$\O \to \mathcal{P}$ is both a local genuine $\otimes$-trivial cofibration and $\F_{all}$-essentially surjective.
+	$\O \to \mathcal{P}$ is both a local genuine $\otimes$-trivial cofibration and $\F^{all}$-essentially surjective.
 
 	Firstly, if $j$ happens to be a map in (TC2)
 	then this pushout
@@ -7548,7 +7573,7 @@ since these are preserved under pullback
       this is the pushout of a trivial cofibration in the fiber model structure
       $\mathsf{Op}^{G}_{\mathfrak C_{\O},\F}(\V)$.
 	The essential surjectivity claim is then obvious,
-	while the $\otimes$-trival cofibration
+	while the $\otimes$-trivial cofibration
 	claim follows from 
 %so that the claim follows by Proposition \ref{FIBERGLMOD PROP} and
 	Remark \ref{GOTC_REM}.
@@ -7578,14 +7603,14 @@ since these are preserved under pullback
       It now suffices to show that the properties hold individually for $\phi'$ and $\psi'$.
  
       
-      For the top pushout in \eqref{BROKENPUSH EQ}, Theorem \ref{INTCOF THM} imples that $\eta \to \mathbb{G}$
+      For the top pushout in \eqref{BROKENPUSH EQ}, Theorem \ref{INTCOF THM} implies that $\eta \to \mathbb{G}$
       is a trivial cofibration in $\mathsf{Cat}_{\{0\}}(\V)$
       so that, since Corollary \ref{OPADJ_COR}\ref{OPCOMBADJ_LBL} % Remark \ref{OPCOMBADJ REM}
-      says that $G/H \cdot (-) \colon \mathsf{Cat}_{\{0\}}(\V) \to \mathsf{Cat}^G_{G/H,\F_{all}}(\V)$ is left Quillen,
-      we have that $G/H \cdot \phi$ is a $\F_{all}$-trivial cofibration with fixed objects,
+      says that $G/H \cdot (-) \colon \mathsf{Cat}_{\{0\}}(\V) \to \mathsf{Cat}^G_{G/H,\F^{all}}(\V)$\todo{check this formatting} is left Quillen,
+      we have that $G/H \cdot \phi$ is a $\F^{all}$-trivial cofibration with fixed objects,
       and thus the (TC2) argument above implies $\phi'$ is
       a local genuine $\otimes$-trivial cofibration and
-      $\F_{all}$-essentially surjective.
+      $\F^{all}$-essentially surjective.
       
 	Now consider the bottom pushout in \eqref{BROKENPUSH EQ}.
 	Since $\psi$ is a local isomorphism (i.e. $\mathbb{G}_{\{0\}} \to \psi^{\**}\mathbb{G}$ is an isomorphism),
@@ -7593,7 +7618,7 @@ since these are preserved under pullback
 	the map $\psi' \colon \O' \to \mathcal{P}$
 	is itself a local isomorphism, and thus certainly a local genuine $\otimes$-trivial cofibration.
 % 
-	To address $\F_{all}$-essential surjectivity, 
+	To address $\F^{all}$-essential surjectivity, 
 	we write $[g]_0$ and $[g]_1$ for $[g] \in G/H$
 	to denote the objects of $G/H \cdot \mathbb{G}$,
 	so that $\C_{\P} = \C_{\O} \amalg \{[g]_1\}_{[g] \in G/H}$.
@@ -7605,7 +7630,7 @@ since these are preserved under pullback
 	Writing $i$ for the composite 
 	$\mathbb{G} \xrightarrow{[g]} \left(G/H \cdot \mathbb{G}\right)^K \to \P^K$
 	one then has $i(0) = a([g]_0)$ and $i(1)=[g]_1$,
-	establishing $\F_{all}$-essential surjectivity.
+	establishing $\F^{all}$-essential surjectivity.
 \end{proof}
 
 
@@ -8547,7 +8572,7 @@ node [name=Kone,swap] {}}
 \]
 Clearly the fact that $\Lambda$ stabilizes
 $\vect{B},\vect{C}$
-implies that $\Lambda$ stablizes $\vect{T}$ as well.
+implies that $\Lambda$ stabilizes $\vect{T}$ as well.
 Thus the $\Lambda$-equivariance of the right map in 
 \eqref{LAMBEQMAPS EQ}
 follows by noting that said map is the multiplication
@@ -10116,7 +10141,7 @@ $\varphi \colon \mathfrak{C} \to \mathfrak{D}$ one has commutative diagrams
 
 
 The following lists the compatibilities between the $\pi_{i,k}$ isomorphisms, 
-which are extensions of the additivity of $\boldsymbol{V}^k$ in \eqref{VKADD EQ} and of the simpicial identities between the $d^i$, $s^j$ operators.
+which are extensions of the additivity of $\boldsymbol{V}^k$ in \eqref{VKADD EQ} and of the simplicial identities between the $d^i$, $s^j$ operators.
 
 
 
@@ -10398,7 +10423,7 @@ Moreover, these categories are related by analogues of the operators $d^i$, $s^j
 which satisfy all the analogues of the compatibilities 
 listed in Propositions \ref{CATDIAG PROP} and \ref{CATDIAG2 PROP}.
 
-In \cite{BP_geo} these analogue operators were built via a somewhat adhoc method, but here we will prefer a more systematic approach which regards the $(-) \wr A$ construction as a $2$-categorical extension of the pullback operation in $\Cat$.
+In \cite{BP_geo} these analogue operators were built via a somewhat ad-hoc method, but here we will prefer a more systematic approach which regards the $(-) \wr A$ construction as a $2$-categorical extension of the pullback operation in $\Cat$.
 We first introduce the necessary $2$-categories,
 which are a variation of the 
 $\mathsf{Cat}\downarrow^l \V$
@@ -11600,7 +11625,7 @@ for the monad restricted to this subcategory.
 \subsubsection*{Labeled colored strings}
 \label{LCS_SEC}
 
-Let $l \geq 1$. A \emph{$l$-labelling} of a tree $\vect{T} \in \Omega_{\mathfrak{C}}$ is a map
+Let $l \geq 1$. A \emph{$l$-labeling} of a tree $\vect{T} \in \Omega_{\mathfrak{C}}$ is a map
 $\boldsymbol{V}(T) \to \{1,\cdots,l\}\}$.
 Further, a map 
 $\vect{T} \to \vect{S}$ of labeled trees
@@ -12386,7 +12411,7 @@ Q^{in}_{\vect{T}}[u]
 \end{equation}
 
 Moreover, analogously to in Remark \ref{FROPEXPG REM},
-the constrast between
+the contrast between
 \eqref{FILTPUSH EQ} and \eqref{FILTPUSHG EQ}
 is that \eqref{FILTPUSH EQ} has more coproduct summands while 
 \eqref{FILTPUSHG EQ}
