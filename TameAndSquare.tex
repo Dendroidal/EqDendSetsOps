@@ -1904,6 +1904,9 @@ one has that, writing $C \simeq G \cdot_H C_{\star}$ one has the alternative pus
 In this section, we build an auxiliary model structure on preoperads, Quillen equivalent to the model structure discussed in \S \ref{SPREOP_SEC}.
 
 
+\subsection{Definition and existence}
+
+
 \begin{definition}
 	The \textit{fibered simplicial tensoring} 
 	\[
@@ -1912,87 +1915,42 @@ In this section, we build an auxiliary model structure on preoperads, Quillen eq
 	\mathsf{PreOp}^G
 	\end{tikzcd}
 	\]
-	is defined by $(X \otimes_{\mathsf{Set}} K)(T) = X(T) \times K$
-	whenever $T$ is a non-linear tree (equivalently, 
-	$\mathsf{Hom}_{\Omega}(T,\eta)=\emptyset$) and
-	is defined by the following pushout when $T=[n]$ is linear.
+	is defined by $(X \otimes_{\mathsf{Set}} K)(U) = X(U) \times K$
+	whenever $U$ is a non-linear tree (equivalently, 
+	$\mathsf{Hom}_{\Omega}(U,\eta)=\emptyset$) and
+	is defined by the following pushout when $U=[n]$ is linear.
 	\[
 	\begin{tikzcd}
 	X(\eta) \times K \ar{r} \ar{d} \arrow[dr, phantom, "\ulcorner", very near start]  &
 	X(\eta) \ar{d}
 	\\
 	X([n]) \times K \ar{r} & 
-	(X \otimes_{\mathsf{F}} K)([n]) 
+	(X \otimes_{\mathsf{Set}} K)([n]) 
 	\end{tikzcd}
 	\]
 \end{definition}
 
-{\color{red} HERE}
+
 
 \begin{remark}
-	More concisely, $X \otimes_{\mathsf{F}} K$ is defined by the pushout in $\mathsf{sdSet}^G$
+	More concisely, $X \otimes_{\mathsf{Set}} K$ is given by the pushout in $\mathsf{sdSet}^G$
 	\[
 	\begin{tikzcd}
 	\left(\mathsf{sk}_{\eta}X \right) \times K \ar{r} \ar{d} \arrow[dr, phantom, "\ulcorner", very near start]  &
 	\mathsf{sk}_{\eta}X \ar{d}
 	\\
 	X \times K \ar{r} & 
-	X \otimes_{\mathsf{F}} K,
+	X \otimes_{\mathsf{Set}} K,
 	\end{tikzcd}
 	\]
-	where $\mathsf{sk}_{\eta}X$ is the 0-skeleton of $X$ in the equivariant dendroidal Reedy direction;
-	explicitly, $\mathsf{sk}_{\eta}X(U) = X(\eta)$ if $U = [n]$ is a linear tree, 
-	and $X(T) = \emptyset$ if $T$ is non-linear.
+	where $\mathsf{sk}_{\eta}X$ is the 0-skeleton of $X$ in the equivariant dendroidal Reedy direction.
+	Explicitly, $\mathsf{sk}_{\eta}X(U) = X(\eta)$ if $U = [n]$ is a linear tree, 
+	and $X(U) = \emptyset$ if $U$ is non-linear.
 \end{remark}
 
+{\color{red} HERE}
 
 
-
-\begin{lemma}
-	\label{TAUOTIMES_LEM}
-	For all $X \in \mathsf{PreOp}^G$ and $K \in \sSet$, $\tau(X \otimes_\Fin K) = \tau(X) \otimes_\Fin K$,
-	with the second $\otimes_\Fin$ the (fiberwise) simplicial tensoring of $\sOp^G$ defined as in Example \ref{TENS_EX}.
-\end{lemma}
-\begin{proof}
-	We want to show the square of left adjoints on the left below commutes;
-	instead, we show the square of right adjoints on the right commutes,
-	\[
-	\begin{tikzcd}
-	\mathsf{PreOp}^G \arrow[d, "\tau"'] \arrow[r, "{(-) \otimes_\Fin K}"]
-	&
-	\mathsf{PreOp}^G \arrow[d, "\tau"]
-	& % ----------
-	\mathsf{PreOp}^G
-	&
-	\mathsf{PreOp}^G \arrow[l, "\set{K,-}_\Fin"']
-	\\
-	\sOp^G \arrow[r, "{(-) \otimes_\Fin K}"]
-	&
-	\sOp^G
-	& %----------
-	\sOp^G \arrow[u, "N"]
-	&
-	\sOp^G \arrow[l, "\set{K,-}_\Fin"'] \arrow[u, "N"']
-	\end{tikzcd}
-	\]
-	where $\set{K, X}_\Fin$ on $\mathsf{PreOp}^G$ is the right adjoint of $\otimes_\Fin$ defined as the pullback
-	\[
-	\begin{tikzcd}
-	\set{K,Y}_\Fin \arrow[d] \arrow[r]
-	&
-	\mathsf{csk}_\eta Y \arrow[d]
-	\\
-	\Map(K, Y) \arrow[r]
-	&
-	\Map(K, \mathsf{csk}_\eta Y)
-	\end{tikzcd}
-	\]
-	and $\Map(K, Y) \in \mathsf{PreOp}^G$ is defined by $\Map(K,Y)(T) = \Map(K, Y(T))$.
-	
-	We observe that $N\set{K,\O}(U)$ consists of a choice of $\mathfrak C_\O$-signatures $(\vect C_v)$ for each $v \in V(U)$ plus choices of maps $\phi_v \in \Map(K, \O(\vect C_v))$.
-	This differs from $\Map(K, N\O)$ precisely in that these choices of signatures are made universally for each $v \in V(U)$,
-	which is exactly the condition imposed by the pullback.
-\end{proof}
 
 \begin{remark}
 	In \cite[\S 71.]{CM13b}, $\Omega(T) \otimes_\Fin K \in \sOp$ and $\Omega[T] \otimes_\Fin K \in \mathsf{PreOp}$ were denoted $T[K]$, $\Omega[K,T]$ respectively, and were constructed by hand.
@@ -2053,9 +2011,9 @@ In this section, we build an auxiliary model structure on preoperads, Quillen eq
 	We define adjoint functors
 	\[
 	f_{!} \colon
-	\mathsf{PreOp}^{G,\mathfrak{C}}
+	\mathsf{PreOp}^{G}_{\mathfrak{C}}
 	\rightleftarrows
-	\mathsf{PreOp}^{G,\mathfrak{D}}
+	\mathsf{PreOp}^{G}_{\mathfrak{D}}
 	\colon f^{\**}
 	\]
 	via the pushout and pullback squares
@@ -2083,22 +2041,31 @@ In this section, we build an auxiliary model structure on preoperads, Quillen eq
 
 
 
+\begin{definition}
+	$I \in \mathsf{PreCat}\simeq \mathsf{PreOp} \downarrow \Omega[\eta]$ 
+	is called a \emph{pseudo-interval}
+	if $I(\eta) = \{0,1\}$,
+	the map 
+	$\Omega[\eta] \amalg \Omega[\eta] \to I$
+	is a cofibration and the map
+	$I \to \Omega[\eta]$
+	is a weak equivalence.
+\end{definition}
+
+
+
 \begin{remark}\label{SLIMOD REM}
 	Noting that for every fibrant 
 	$\tilde{X} \in \mathsf{PreOp}^G$
-	any equivalence in $\tilde{X}$ is in the image of a map
-	$J \to \tilde{X}$, 
+	any $H$-equivalence in $\tilde{X}$ is in the image of a map
+	$J \to \tilde{X}^H$, 
 	a slight modification of the proof of Lemma \ref{INTER_LEM}
 	shows that for any Segal operad $X$
-	any equivalence in $X$ is in the image of a countable, contractible
-	$I \in \mathsf{PreOp}^G$
-	such that $\eta \amalg \eta \to I$
-	is a tame cofibration.
+	any $H$-equivalence in $X$ is in the image of a map
+	$I \to X^H$
+	with $I \in \mathsf{PreCat}$ a countable pseudo-interval.
 \end{remark}
 
-
-
-{\color{red} HERE}
 
 
 
@@ -2116,18 +2083,22 @@ In this section, we build an auxiliary model structure on preoperads, Quillen eq
 	Moreover, the \emph{generating tame anodyne cofibrations} in $\mathsf{PreOp}^G$ consist of the maps
 \begin{itemize}
 	\item[(TA1)] $G/H \cdot 
-	\left(\Omega[\eta] \to I \right)$ for $H \leq G$,
-	and $\Omega[\eta] \to I$ a weak equivalence in $\mathsf{PreOp}$ such that $I(\eta) = \{0,1\}$, $\Omega[\eta] \amalg \Omega[\eta] \to I$ is a tame cofibration, and $I$ is countable;
+	\left(\Omega[\eta] \to I \right)$ for $H \leq G$
+	and $I \in \mathsf{PreCat}$
+	a countable pseudo-interval;
 	\item[(TA2)] $\Omega[C] \otimes_{\mathsf{Set}}\left(\Lambda^i[n] \to \Delta[n]\right)$ for $C \in \Sigma_G$, $0 \leq i \leq n$;
 	\item[(TA3)] 
 	$\left( Sc[T] \to \Omega[T] \right) 
 	\square_{\mathsf{Set}} 
 	\left(\partial \Delta[n] \to \Delta[n]\right)$ for $T \in \Omega_G$, $n \geq 0$.
 \end{itemize}
+We refer to maps in the saturation of (TC1),(TC2),(TC3)
+as \emph{tame cofibrations}
+and to maps in the saturation of (TA1),(TA2),(TA3)
+as \emph{tame anodyne cofibrations}.
 \end{definition}
 
 
-{\color{red} HERE}
 
 
 \begin{theorem}[{cf. \cite[Thm. 7.19]{CM13b}}]\label{TAMEMS_THM}
@@ -2142,7 +2113,7 @@ In this section, we build an auxiliary model structure on preoperads, Quillen eq
 	\item $X \in \mathsf{PreOp}^G$ is fibrant iff
 	the map $X \to \**$ has the right lifting property against 
 	(TA1),(TA2),(TA3);
-	\item a map $X \to Y$ between fibrant object is a fibration iff
+	\item a map $X \to Y$ between fibrant objects is a fibration iff
 it has the right lifting property against 
 (TA1),(TA2),(TA3).
 \end{itemize}
@@ -2150,9 +2121,8 @@ it has the right lifting property against
 
 {\color{red} HERE}
 
-\begin{lemma}
-	\label{TAMECOFCOF_LEM}
-	Tame cofibrations and anodyne maps are normal cofibrations and trivial cofibrations in $\mathsf{PreOp}^G$, respectively.
+\begin{lemma}\label{TAMECOFCOF_LEM}
+	Tame cofibrations (resp. tame anodyne cofibrations) are  cofibrations (resp. trivial cofibrations) in the normal model structure on $\mathsf{PreOp}^G$.
 \end{lemma}
 \begin{proof}
 	$(TC2)$ and $(TC3)$ with $n = 0$, and $(TC1)$ and $(TA1)$ for all $n$, are immediate.
@@ -2202,18 +2172,18 @@ it has the right lifting property against
 {\color{red} HERE}
 
 \begin{proof}[Proof of Theorem \ref{TAMEMS_THM}]
-	We will verify the conditions in 
+	We will verify the conditions c0,c1,nc0,nc1,nc2 in 
 	\cite[Prop. 1.3]{Sta14},
 	which is a variation of 
 	J. Smith's theorem \cite[Thm. 1.7]{Bek00}
 	that includes a further criterion for detecting 
 	fibrations between fibrant objects.
-	We set $I$ to consist of the maps in (TC1),(TC2),(TC3)
-	and $J$ to consist of the maps in (TA1),(TA2),(TA3).
-	
-	That the weak equivalences are accessible follows since they are the preimage by $\gamma^{\**}$ of the weak equivalences in 
+
+	{\color{blue} mention locally presentable}
+	That the weak equivalences in $\mathsf{PreOp^G}$ are accessible follows since they are the preimage by $\gamma^{\**}$ of the weak equivalences in 
 	$\mathsf{sdSet}^G$ 
 	(see \cite[Cor. A.2.6.5]{Lur09} and \cite[Cor. A.2.6.6]{Lur09}).
+
 	
 	Conditions c0 and nc0 therein are equivalent to the $2$-out-of-$6$
 	condition for weak equivalences, and are thus inherited 
@@ -2590,8 +2560,55 @@ Setting $A = \emptyset $, $\mathcal{O}= \emptyset$ in the previous result yields
 
 
 
+\subsection{to be rewritten}
 
 
+
+\begin{lemma}
+	\label{TAUOTIMES_LEM}
+	For all $X \in \mathsf{PreOp}^G$ and $K \in \sSet$, $\tau(X \otimes_\Fin K) = \tau(X) \otimes_\Fin K$,
+	with the second $\otimes_\Fin$ the (fiberwise) simplicial tensoring of $\sOp^G$ defined as in Example \ref{TENS_EX}.
+\end{lemma}
+\begin{proof}
+	We want to show the square of left adjoints on the left below commutes;
+	instead, we show the square of right adjoints on the right commutes,
+	\[
+	\begin{tikzcd}
+	\mathsf{PreOp}^G \arrow[d, "\tau"'] \arrow[r, "{(-) \otimes_\Fin K}"]
+	&
+	\mathsf{PreOp}^G \arrow[d, "\tau"]
+	& % ----------
+	\mathsf{PreOp}^G
+	&
+	\mathsf{PreOp}^G \arrow[l, "\set{K,-}_\Fin"']
+	\\
+	\sOp^G \arrow[r, "{(-) \otimes_\Fin K}"]
+	&
+	\sOp^G
+	& %----------
+	\sOp^G \arrow[u, "N"]
+	&
+	\sOp^G \arrow[l, "\set{K,-}_\Fin"'] \arrow[u, "N"']
+	\end{tikzcd}
+	\]
+	where $\set{K, X}_\Fin$ on $\mathsf{PreOp}^G$ is the right adjoint of $\otimes_\Fin$ defined as the pullback
+	\[
+	\begin{tikzcd}
+	\set{K,Y}_\Fin \arrow[d] \arrow[r]
+	&
+	\mathsf{csk}_\eta Y \arrow[d]
+	\\
+	\Map(K, Y) \arrow[r]
+	&
+	\Map(K, \mathsf{csk}_\eta Y)
+	\end{tikzcd}
+	\]
+	and $\Map(K, Y) \in \mathsf{PreOp}^G$ is defined by $\Map(K,Y)(T) = \Map(K, Y(T))$.
+	
+	We observe that $N\set{K,\O}(U)$ consists of a choice of $\mathfrak C_\O$-signatures $(\vect C_v)$ for each $v \in V(U)$ plus choices of maps $\phi_v \in \Map(K, \O(\vect C_v))$.
+	This differs from $\Map(K, N\O)$ precisely in that these choices of signatures are made universally for each $v \in V(U)$,
+	which is exactly the condition imposed by the pullback.
+\end{proof}
 
 
 
@@ -3452,107 +3469,6 @@ For COMUOTOHOM PROP: replace all instances of $\Omega_G$ with $\Omega_{\mathcal 
 \newpage
 
 \section{Scratchwork}
-
-
-
-
-\subsection{Semi-cofibrantly generated}
-
-
-The following codifies a formal argument implicit in the proof of \cite[Thm. 7.19]{CM13b}.
-
-\begin{definition}
-Given a set $J$ of maps that admit the small object argument, we say that $X \in \mathcal{M}$ is \textit{$J$-fibrant} if $X \to \**$ has the right lifting property against maps in $J$.
-
-Further, given $D$ a class of maps in $\mathcal{M}$,
-we write $D_{J\text{-fib}} \subseteq D$ to denote 
-the subclass of maps whose target is $J$-fibrant.
-\end{definition}
-
-\begin{lemma}\label{SEMICOF LEM}
-	Let $\mathcal{M}$ be a model category with $(C,W,F)$
-	the corresponding classes of cofibrations, weak equivalences and fibrations. 
-	Further, $J$ be a set of maps admitting the small object argument and such that:
-\begin{itemize}
-	\item[(i)] $J \subseteq C \cap W$;
-	\item[(ii)] 
-	$\left(J^{\boxslash} \cap W \right)_{J\text{-fib}}
-	\subseteq \left( F \cap W \right)_{J\text{-fib}}$.
-\end{itemize}
-Then one further has that:
-\begin{itemize}
-	\item[(a)]
-	$\left(\prescript{\boxslash}{}{\left(J^{\boxslash}\right)}\right)_{J\text{-fib}}
-	= 
-	\left( C \cap W \right)_{J\text{-fib}}$;
-	\item[(b)]
-	$\left(J^{\boxslash} \right)_{J\text{-fib}}
-	= F_{J\text{-fib}}$.
-\end{itemize}
-\end{lemma}
-
-\begin{remark}
-Rephrasing (b), one has that the fibrant objects of $\mathcal{M}$ are precisely the $J$-fibrant objects
-and thus that the fibrations between fibrant objects are precisely the $J$-fibrations.
-\end{remark}
-
-\begin{proof}
-	To check (a), recalling first that 
-	$\prescript{\boxslash}{}{\left(J^{\boxslash}\right)}$
-	is the saturation of $J$, one has that (i) in fact implies 
-	$\prescript{\boxslash}{}{\left(J^{\boxslash}\right)}
-		\subseteq C \cap W $.
-	For the converse direction, given a trivial cofibration
-	$A \to Y$ with $J$-fibrant target,
-	form the factorization 
-	$A \to X \to Y$ as a 
-	$J$-cofibration followed by a $J$-fibration. 
-	By the first direction the map $A\to X$ is a weak equivalence, and thus by 2-out-of-3 so is $X \to Y$.
-	But then by (ii) the map $X \to Y$ is a trivial fibration, so that the lifting below exists,
-	showing that $A \to Y$ is a retract of $A \to X$, and thus also in the saturation $\prescript{\boxslash}{}{\left(J^{\boxslash}\right)}$, 
-	as desired.
-\[
-\begin{tikzcd}
-	A \ar[>->]{r}{J} \ar[>->]{d}[swap]{\sim}&
-	X \ar[->>]{d}{J}
-%& &
-%	A \ar[>->]{r}{\sim} \ar[>->]{d}[swap]{\sim}&
-%	Y \ar[->>]{d}{\sim}
-\\
-	Y \ar[equal]{r} \ar[dashed]{ru} & Y
-%& &
-%	X \ar[equal]{r} \ar[dashed]{ru} & X
-\end{tikzcd}
-\]
-
-To check (b), one direction is again immediate from (i),
-since $J^{\boxslash} \supseteq (C \cap W)^{\boxslash} = F$.
-For the converse direction, it suffices to show that 
-a $J$-fibration $X\to Y$ with $J$-fibrant target has the right lifting property against trivial cofibrations, as on the left diagram below.
-After factoring the bottom horizontal map as a $J$-cofibration followed by a $J$-fibration as on the right diagram, it suffices to shows that a lift $B' \to X$ exists.
-But since $B'$ is $J$-fibrant, this follows from (a), which shows that the composite $A \to B \to B'$ is a $J$-cofibration.
-\[
-\begin{tikzcd}
-	A \ar{r} \ar[>->]{d}[swap]{\sim}&
-	X \ar[->>]{d}{J}
-&&
-	A \ar{rr} \ar[>->]{d}[swap]{\sim}&&
-	X \ar[->>]{d}{J}
-\\
-	B \ar{r} \ar[dashed]{ru} & Y
-&&
-	B \ar[>->]{r}[swap]{J} &
-	B' \ar[->>]{r}[swap]{J} \ar[dashed]{ru}
-	& Y
-\end{tikzcd}
-\]
-\end{proof}
-
-\begin{remark}
-	Analyzing the proof above, one is free to replace the class of fibrant objects with any other class that is compatible with $J$-fibrations, in the sense that if 
-	$X \to Y$ is a $J$-fibration and $Y$ is in the class, then so is $X$.
-\end{remark}
-
 
 
 
