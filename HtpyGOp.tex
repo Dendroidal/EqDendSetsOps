@@ -24,7 +24,7 @@
 \usepackage{ifdraft}
 \ifdraft{
   \color[RGB]{63,63,63}
-  \pagecolor[RGB]{220,220,204}
+%  \pagecolor[RGB]{220,220,204}
   \usepackage[notref]{showkeys}
   \usepackage{geometry}
   \usepackage{todonotes}
@@ -50,7 +50,7 @@
 % \usepackage[T1]{fontenc}
 % \usepackage[english]{babel}
 % \usepackage{fouriernc}
-% \DeclareMathAlphabet{\mathscr}{U}{mathrsfs}{m}{n}`
+% \DeclareMathAlphabet{\mathscr}{U}{mathrsfs}{m}{n}
 
 \usepackage[normalem]{ulem}%
 \usepackage{dsfont}%
@@ -373,7 +373,6 @@ in \eqref{GRAPHEQ EQ}
 was established independently as a particular case of both
 \cite[Thm. I]{BP_geo} and \cite[Thm. 3.1]{GW18}.
 It seems worth noting that these results are somewhat non formal.
-% \footnote{Thm 3.1 is non-formal wrt \cite{Ste16} or \cite{BM03}, but \textit{is} formal in the sense that the transfer argument from $\Sym^G_{\**}(\Top^G)$ is an easy application of Quillen's path object argument. The difficulty comes in addressing the analogue of THMII.}
 On the one hand, using the description 
 $\mathsf{sOp}_{\**}^G \simeq \mathsf{Op}_{\**}(\mathsf{sSet}^G)$
 as single colored operads enriched in 
@@ -422,7 +421,7 @@ the combinatorics of which encode
 composition of operations in an operad.
 That project then culminates in the existence of a Quillen equivalence
 \begin{equation}\label{CMMAINTHM EQ}
-	\mathsf{dSet} \rightleftarrows \mathsf{sOp}_{\bullet}
+	W_!\colon \mathsf{dSet} \rightleftarrows \mathsf{sOp}_{\bullet} \colon hcN
 \end{equation}
 where 
 $\mathsf{sOp}_{\bullet}$
@@ -432,7 +431,7 @@ that colors/objects are allowed to change),
 $\mathsf{dSet} = \mathsf{Set}^{\Omega^{op}}$
 is the category of presheaves on $\Omega$
 equipped with the model structure for which the fibrant objects are the so called $\infty$-operads,
-and the right adjoint is an operadic generalization of the homotopy coherent nerve of \cite{Cor82} (cf. \cite{Joy}, \cite[\S 1.1.5]{Lur09}).
+and the right adjoint $hcN$ is an operadic generalization of the homotopy coherent nerve of \cite{Cor82} (cf. \cite{Joy}, \cite[\S 1.1.5]{Lur09}).
 
 Similarly, the project this paper belongs to is based on the identification by the authors of a category
 $\Omega_G$ of \emph{$G$-trees},
@@ -885,8 +884,9 @@ are weak equivalences/trivial fibrations in the canonical model structure on the
 	are only required to hold if the trivial cofibration 
 	has cofibrant source \cite[\S 2.2]{WY18}.
 	We note that, in particular, semi-model structures suffice for 
-	performing cofibrant and bifibrant replacements.
-        % \todo[inline]{fibrant replacements aren't perfect, in that we only have a zig-zag connecting $x$ with $x_f$.}
+	performing %cofibrant and 
+	bifibrant replacements.
+
         
 	The semi-model structure analogues of 
 	Theorems \ref{THMI},\ref{THMII},\ref{THMIII}
@@ -2440,12 +2440,12 @@ Both parts follow readily from the definitions.
 \subsection{Equivariant colored symmetric sequences}
 \label{EQCOSYMSEQ SEC}
 
-Every operad has an underlying symmetric sequence by forgetting the algebraic structure.
-In this subsection, we describe this underlying categorical data 
-in a way which integrates smoothly with the fibered monad perspective (cf. Remark \ref{COLCHADJ REM}).
+We now discuss the categories
+$\mathsf{Sym}_{\bullet}(\V)$,
+$\mathsf{Sym}^G_{\bullet}(\V)$
+of symmetric sequences appearing in \eqref{FIBADJMON EQ}.
 
-We begin in the non-equivariant setting.
-In this case, objects in $\Sym_\bullet(\V)$ can be described as presheaves on natural generalizations of the symmetric category.
+
 \begin{definition}\label{CSYM DEF}
 	Let $\mathfrak {C} \in \mathsf{Set}$ be a fixed set of colors (or objects).
 	A tuple
@@ -3928,40 +3928,74 @@ $(-)\cdot_{\mathsf{Aut}_{\Omega_{\mathfrak{C}}}(\vect{T})}
 \section{Model structures on equivariant operads with fixed set of colors}\label{FIXCOL SEC}
 
 
-In \S \ref{SYMC_MS_SEC} and \S \ref{OPC_MS_SEC} we build model structures on the color-fixed categories
-$\mathsf{Sym}^G_{\mathfrak{C}}(\mathcal{V})$ and $\mathsf{Op}^G_{\mathfrak{C}}(\mathcal{V})$,
-using several pieces of equivariant homotopy theory developed in \S \ref{EHT_SEC}.
+The overall goal of this section is to prove 
+Theorems \ref{THMI} and \ref{THMII},
+which are our main results in the color fixed context.
 
-Specifically, our goal in this section is the prove Theorems \ref{THMI} and \ref{THMII};
-that is, to build compatible model structures on the fiber categories $\Op_{\mathfrak C}^G(\V)$ of operads with a fixed $G$-set of colors.
-As noted in the introduction, this cannot be achieved via an application of the formal machinery of e.g. \cite{Ste16} or \cite{BM03}, as
-\[
-      \Op_{\mathfrak C}(\V^G) \neq \Op_{\mathfrak C}^G(\V) \neq \left(\Op_{\mathfrak C}(\V)\right)^G
-\]
-unless $\mathfrak C$ has a trivial $G$-action.
-Instead, we will transfer the model structure from the category $\Sym_{\mathfrak C}^G(\V) = \Fun(G \ltimes \Sigma_{\mathfrak C}^{op}, \V)$ of $\mathfrak C$-colored symmetric sequences.
-However, we will not be using the projective model structures on these functor categories, as this will not provide the desired weak equivalences on operads.
-To build the correct model structures on $\Sym_{\mathfrak C}^G(\V)$, we will
-extend the definition and analysis of the various model structures on the category $\V^G$ of $G$-objects in $\V$ determined by a family of subgroups of $G$
-from a group $G$ to an arbitrary groupoid $\G$.
-This analysis will further streamline our analysis of the naturality of these model structures, as well as
-their homotopical interactions with each other and tensor products.
+As discussed in the introduction to \S \ref{PRE SEC},
+in the non-equivariant context the model structures on 
+color fixed operads $\mathsf{Op}_{\mathfrak{C}}(\V)$
+are obtained by via transfer from model structures on the categories
+$\mathsf{Sym}_{\mathfrak{C}}(\V)$
+of color fixed symmetric sequences.
+Likewise, our model structures 
+on color fixed equivariant operads 
+$\mathsf{Op}^G_{\mathfrak{C}}(\V)$
+will be transferred from model structures on 
+color fixed equivariant symmetric sequences
+$\mathsf{Sym}^G_{\mathfrak{C}}(\V)$
+where, just as in \eqref{THMI_EQ},
+the weak equivalences in 
+$\mathsf{Sym}^G_{\mathfrak{C}}(\V)$
+are determined by a $(G,\Sigma)$-family
+(cf. Definition \ref{FAM1ST DEF}).
+This section is then organized as follows.
 
-This section is organized as follows.
-In \S \ref{EHT_SEC} we introduce the global monoid axiom,
-and conduct our analysis of the homotopy theory of $\G$-objects in $\V$, culminating in Proposition \ref{SIGMAWRGF PROP}.
-We also provide sufficient conditions for the existence of these model structure and the satisfaction of the global monoid axiom and other suitably nice properties in Propositions \ref{WEAKCELL PROP} and \ref{ALLEQ PROP}.
+Motivated by the identification
+$\mathsf{Sym}^{G}_{\mathfrak{C}}(\V)
+\simeq \V^{G \ltimes \Sigma^{op}_{\mathfrak{C}}}$
+from Proposition \ref{EQUIVFNCON PROP}, 
+in \S \ref{EHT_SEC}
+we extend our discussion 
+in \cite[\S 6]{BP_geo}
+concerning model structures determined by families
+from the context of $\V^G$ with $G$ a group to the context of
+$\V^{\G}$ with $\G$ a groupoid,
+culminating in Proposition \ref{SIGMAWRGF PROP}
+(as it turns out, this significantly streamlines the proof of Theorem \ref{THMII}; see Remark \ref{STRTED REM}).
+Additionally, \S \ref{EHT_SEC}
+also discusses the global monoid axiom, 
+with sufficient conditions for this axiom discussed in 
+Propositions \ref{WEAKCELL PROP}.
 
-Next, in \S \ref{SYMC_MS_SEC}, we apply \S \ref{EHT_SEC} to the categories $G \ltimes \Sigma_{\mathfrak C}^{op}$, 
-in such a way that the model structures on the fibers $\Sym_{\mathfrak C}^G(\V)$ are compatible with the fibration $\Sym_\bullet^G(\V) \to \Set^G$.
-In \S \ref{OPC_MS_SEC}, we apply the results of Appendix \ref{MONAD_APDX}, given in Lemma \ref{OURE LEM},
-to transfer these model structures to $\Op_{\mathfrak C}^G(\V)$ and prove Theorem \ref{THMI}.
-We end with a proof of Theorem \ref{THMII} in \S \ref{MS_SEC} by a careful synthesis of the proof of Theorem \ref{THMI} with the theory from \S \ref{EHT_SEC}. 
+In \S \ref{SYMC_MS_SEC} we simply specify
+the work in \S \ref{EHT_SEC}
+to the categories 
+$\mathsf{Sym}^{G}_{\mathfrak{C}}(\V)
+\simeq \V^{G \ltimes \Sigma^{op}_{\mathfrak{C}}}$.
+
+Then in \S \ref{OPC_MS_SEC}
+we prove Theorem \ref{THMI} by transferring the model structures on 
+$\mathsf{Sym}^{G}_{\mathfrak{C}}(\V)$ to obtain model structures on
+$\mathsf{Op}^{G}_{\mathfrak{C}}(\V)$.
+The key ingredients to this proof are
+Proposition \ref{SIGMAWRGF PROP} in \S \ref{EHT_SEC} and
+the filtrations of free operad extensions 
+in Lemma \ref{OURE LEM}
+(whose proof is deferred to Appendix \ref{MONAD_APDX}).
+
+Lastly, \S \ref{MS_SEC} proves 
+Theorem \ref{THMII} via a more careful analysis
+of the filtrations in the proof of Theorem \ref{THMI}.
+
+
+
+
 
 \subsection{Equivariant homotopy theory}
 \label{EHT_SEC}
 
-We begin by recalling the genuine model structure on the category $\V^G$ of $G$-objects in $\V$.
+
 
 \begin{definition}\label{GENMOD DEF}
 Let $\V$ be a model category and $G$ a group.
@@ -4763,19 +4797,21 @@ $\left(\left(\F \amalg \bar{\F}\right)^{\ltimes 2}\right)_{(x,\bar{x})} = \F \sq
 
 Following the identification 
 $\mathsf{Sym}^G_{\mathfrak{C}}(\V)
-\simeq
-\mathsf{Fun}(G \ltimes \Sigma^{op}_{\mathfrak{C}},\V)$
+\simeq \V^{G \ltimes \Sigma^{op}_{\mathfrak{C}}}$
 in Proposition \ref{EQUIVFNCON PROP}
-we will now apply the framework in the previous section 
+we now apply the framework in \S \ref{EHT_SEC}  
 to the groupoids
-$\G = G \ltimes \Sigma_{\mathfrak C}^{op}$.
-% $\mathfrak{C} \in \mathsf{F}^G$
-% so as to build model structures on the categories 
-% $\mathsf{Sym}^G_{\mathfrak{C}}(\V)$.
+$\G = G \ltimes \Sigma_{\mathfrak C}^{op}$
+to build model structures on the categories 
+$\mathsf{Sym}^G_{\mathfrak{C}}(\V)$.
 %
-Notably, our choices of families will be such that 
-change of colors $f\colon \mathfrak{C} \to \mathfrak{D}$ 
-induce Quillen adjunctions.
+
+We now recall and elaborate on the $(G,\Sigma)$-families in Definition \ref{FAM1ST DEF}.
+Notably, the families $\mathcal{F}_{\mathfrak{C}}$ below 
+are such that 
+change of colors $\varphi \colon \mathfrak{C} \to \mathfrak{D}$ 
+induce Quillen adjunctions, cf. Corollary \ref{SYMADJ_COR}(i).
+
 
 
 
@@ -5573,8 +5609,8 @@ If $\mathfrak C = \**$, we abuse notation slightly and simply write $\boldsymbol
 
 
 In the following 
-% we slightly abuse notation by conflating
-we conflate a $(G,\Sigma)$-family $\F$,
+we slightly abuse notation by conflating
+a $(G,\Sigma)$-family $\F$,
 i.e. a family in $G \times \Sigma^{op}$,
 with its opposite family
 in $G^{op} \times \Sigma$.
@@ -5585,9 +5621,10 @@ in $G^{op} \times \Sigma$.
 \begin{equation}\label{PIS_EQ}
 	\boldsymbol{V}^{\**} \F^\ltimes \subseteq \mathsf{lr}^{\**}\F,
 \end{equation}
-for $\F^\ltimes$ as in Notation \ref{FSQUARE_NOT},
-$\boldsymbol{V}$ as in \eqref{VC_EQ},
-and $\mathsf{lr} \colon G^{op} \times \Omega^{0} \to G^{op} \times \Sigma$.
+for $\F^\ltimes$ as in Notation \ref{FSQUARE_NOT}.
+%,
+%$\boldsymbol{V}$ as in \eqref{VC_EQ},
+%and $\mathsf{lr} \colon G^{op} \times \Omega^{0} \to G^{op} \times \Sigma$.
 \end{definition}
 
 
@@ -5676,7 +5713,7 @@ We can now prove the main result of this section, which is a refinement of Theor
 	then $F$ is a $\Sigma_\F$-cofibration.
 \end{proposition}
 
-\begin{remark}
+\begin{remark}\label{STRTED REM}
 	Theorem \ref{THMII} and Proposition \ref{SIGMAG_COF PROP}
 	are the colored analogues of 
 	\cite[Lemma 6.59]{BP_geo} and \cite[Remark 6.64]{BP_geo},
@@ -5714,12 +5751,11 @@ separate active and inert vertices.
 
 \begin{proof}[Proof of Proposition \ref{SIGMAG_COF PROP}]
 	It is enough to show that if 
-	$\O \to \O[u]$ is a free operad extension, as in \eqref{OURE EQ},
-	for which
+	$\O \to \O[u]$ is a free operad extension as in \eqref{OURE EQ},
+	and for which
 	$\O$ is $\Sigma_\F$-cofibrant and $u \colon X \to Y$ is a $\F$-cofibration in $\Sym^G_{\mathfrak C}(\V)$,
-	then each 
-	of the filtration pieces 
-	$\O_{k-1} \to \O_k$ from \eqref{OUFILRE EQ}
+	then each of the filtration pieces 
+	$\O_{k-1} \to \O_k$ in \eqref{OUFILRE EQ}
 	are $\F$-cofibrations in $\Sym^G_{\mathfrak C}(\V)$.
 
 We now consider the following commutative diagrams, 
@@ -5801,41 +5837,41 @@ denotes the fold map.
 %            \end{tikzcd}
 %      \end{equation}
 \begin{equation}\label{FCA_SQ_EQ}
-      \begin{tikzcd}[column sep = small]
-            G^{o} \ltimes \Omega_{\mathfrak C}^{a}[k]
-            \arrow[r] \arrow[d, "\pi_{\mathfrak C}^a"']
-            &
-            G^{o} \ltimes \Omega^{a}[k] \arrow[r, "\boldsymbol{V}^a"]
-            \arrow[d, "\pi^a"]
-            &
-            \Sigma \wr (G^{o} \ltimes \Sigma)^{\amalg 2}
-            \arrow[d, "\Sigma \wr \nabla"]
-            & % ----------
-            G^{o} \ltimes \Omega_{\mathfrak C}^{a}[k] \arrow[r, "\boldsymbol{V}_{\mathfrak C}^{a}"]
-            \arrow[d, "\pi_{\mathfrak C}^a"']
-            &
-            \Sigma \wr ( G^{o} \ltimes \Sigma_{\mathfrak C} )^{\amalg 2}
-            \arrow[d, "\Sigma \wr \nabla_{\mathfrak C}"] \arrow[r]
-            &
-            \Sigma \wr ( G^{o} \ltimes \Sigma )^{\amalg 2}
-            \arrow[d, "\Sigma \wr \nabla"]
-            \\
-            G^{o} \ltimes \Omega_{\mathfrak C}^{0} \arrow[r, "\pi_{\mathfrak C}"] \arrow{d}[swap]{\mathsf{lr}_{\mathfrak C}}
-            &
-            G^{o} \ltimes \Omega^{0} \arrow[r, "\boldsymbol{V}"] \arrow[d, "\mathsf{lr}"]
-            &
-            \Sigma \wr \left( G^{o} \ltimes \Sigma \right)
-            & % ----------
-            G^{o} \ltimes \Omega_{\mathfrak C}^{0} \arrow[r, "\boldsymbol{V}_{\mathfrak C}"]
-            &
-            \Sigma \wr \left( G^{o} \ltimes \Sigma_{\mathfrak C} \right) \arrow[r, "\Sigma \wr \pi_{\mathfrak C}"]
-            &
-            \Sigma \wr \left( G^{o} \ltimes \Sigma \right)
-            \\
-            G^{o} \ltimes \Sigma_{\mathfrak C} \arrow[r, "\pi_{\mathfrak C}"]
-            &
-            G^{o} \times \Sigma
-      \end{tikzcd}
+\begin{tikzcd}[column sep = small]
+	G^{o} \ltimes \Omega_{\mathfrak C}^{a}[k]
+	\arrow[r] \arrow[d, "\pi_{\mathfrak C}^a"']
+&
+	G^{o} \ltimes \Omega^{a}[k] \arrow[r, "\boldsymbol{V}^a"]
+	\arrow[d, "\pi^a"]
+&
+	\Sigma \wr (G^{o} \ltimes \Sigma)^{\amalg 2}
+	\arrow[d, "\Sigma \wr \nabla"]
+& % ----------
+	G^{o} \ltimes \Omega_{\mathfrak C}^{a}[k] \arrow[r, "\boldsymbol{V}_{\mathfrak C}^{a}"]
+	\arrow[d, "\pi_{\mathfrak C}^a"']
+&
+	\Sigma \wr ( G^{o} \ltimes \Sigma_{\mathfrak C} )^{\amalg 2}
+	\arrow[d, "\Sigma \wr \nabla_{\mathfrak C}"] \arrow[r]
+&
+	\Sigma \wr ( G^{o} \ltimes \Sigma )^{\amalg 2}
+	\arrow[d, "\Sigma \wr \nabla"]
+\\
+	G^{o} \ltimes \Omega_{\mathfrak C}^{0} \arrow[r, "\pi_{\mathfrak C}"] \arrow{d}[swap]{\mathsf{lr}_{\mathfrak C}}
+&
+	G^{o} \ltimes \Omega^{0} \arrow[r, "\boldsymbol{V}"] \arrow[d, "\mathsf{lr}"]
+&
+	\Sigma \wr \left( G^{o} \ltimes \Sigma \right)
+& % ----------
+	G^{o} \ltimes \Omega_{\mathfrak C}^{0} \arrow[r, "\boldsymbol{V}_{\mathfrak C}"]
+&
+	\Sigma \wr \left( G^{o} \ltimes \Sigma_{\mathfrak C} \right) \arrow[r, "\Sigma \wr \pi_{\mathfrak C}"]
+&
+	\Sigma \wr \left( G^{o} \ltimes \Sigma \right)
+\\
+	G^{o} \ltimes \Sigma_{\mathfrak C} \arrow[r, "\pi_{\mathfrak C}"]
+&
+	G^{o} \times \Sigma
+\end{tikzcd}
 \end{equation}
 We now have a sequence of identifications
 \begin{equation}\label{VSTREWRT EQ}
@@ -6636,8 +6672,8 @@ As usual, we let $1_\V$ and $\emptyset$ denote, respectively, the unit object an
 	$J = N \widetilde{[1]} = N(0 \rightleftarrows 1) $ is the nerve of the walking isomorphism category 
 	$\widetilde{[1]} =  (0 \rightleftarrows 1)$ and
 	$W_! \colon \sSet \to \Cat_{\bullet}(\sSet)$ is the left adjoint to the homotopy coherent nerve
-        of \cite{Cor82}
-        (see e.g. \cite[\S 1]{Joy02}). % \cite{Rie11}, \cite{Rie} 
+	of \cite{Cor82}
+	(see e.g. \cite[\S 1]{Joy02}). % \cite{Rie11}, \cite{Rie} 
 \end{example}
 
 
