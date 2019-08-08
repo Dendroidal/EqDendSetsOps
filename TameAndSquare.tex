@@ -10,22 +10,23 @@
 \usepackage{ifdraft}
 \ifdraft{
   \color[RGB]{63,63,63}
-%  \pagecolor[RGB]{220,220,204}
-  \usepackage{showkeys}
-  \usepackage{geometry}
+  \pagecolor[RGB]{220,220,204}
+  \usepackage[notref]{showkeys}
+  % \usepackage{geometry}
+  \usepackage[margin=1in]{geometry}
+  \usepackage[fontsize=12pt]{scrextend}
   \usepackage{todonotes}
 }
 {
-  \usepackage[notref]{showkeys}
   \usepackage[margin=1in]{geometry}
-  \usepackage[disable]{todonotes}
   \usepackage[fontsize=12pt]{scrextend}
+  \usepackage[disable]{todonotes}
 }
 
 \pdfcompresslevel=0
 \pdfobjcompresslevel=0
 
-\usepackage{xr-hyper}
+%\usepackage{xr-hyper}
 \usepackage[pagebackref, colorlinks, citecolor=PineGreen, linkcolor=PineGreen]{hyperref}
 \hypersetup{
   final,
@@ -34,7 +35,7 @@
   linktoc=page
 }
 
-%\externaldocument[HGOP-]{HtpyGOp} % cite using names from other half
+%\externaldocument*[HGOP-]{HtpyGOp} % cite using names from other half
 
 \usepackage{amsmath, amsthm}% {amsfonts, amssymb}
 
@@ -484,6 +485,32 @@ These results will be applied in Proposition \ref{W!_COF_PROP}, the main result 
 
 We will denote by $\mathsf{sOp}$ the category of \textit{colored simplicial operads}, also know as \textit{simplicially enriched multicategories},
 and $\mathsf{sOp}^G$ the category of $G$-objects in $\sOp$.
+
+\begin{definition}
+      Let $\mathcal{V}$ be a category.
+      The category $\mathsf{Sym}_\bullet(\mathcal{V})$ of
+      \textit{symmetric sequences on $\mathcal{V}$} 
+      (on all colors) is the category with:
+      \begin{itemize}
+      \item objects given by pairs $(\mathfrak C, X)$ with
+            $\mathfrak{C} \in \mathsf{Set}$ a set of colors and
+            $X \colon \Sigma_{\mathfrak{C}}^{op} \to \mathcal{V}$ a functor;
+      \item arrows $(\mathfrak C, X) \to (\mathfrak D, Y)$ given by a map 
+            $\varphi \colon \mathfrak{C} \to \mathfrak{D}$ of colors and a natural transformation $X \Rightarrow Y \varphi$ as below.
+            \begin{equation}
+                  \label{SYMSEQMAP_EQ}
+                  \begin{tikzcd}[row sep = tiny, column sep = 45pt]
+                        \Sigma_{\mathfrak{C}}^{op} \arrow[dr, "X"{name=U}] 
+                        \arrow{dd}[swap]{\varphi}
+                        \\
+                        & \mathcal{V}
+                        \\
+                        |[alias=V]| \Sigma_{\mathfrak{D}}^{op} \arrow[ur, "Y"']
+                        \arrow[Leftarrow, from=V, to=U,shorten >=0.25cm,shorten <=0.25cm]
+                  \end{tikzcd}
+            \end{equation}
+      \end{itemize}
+\end{definition}
 
 \begin{definition}
       Describe.
@@ -1626,125 +1653,124 @@ We do this by constructing the free simplicial resolution\footnote{Also called t
 of $\Omega(T)$ as an algebra in the category of \textit{pointed} $\mathbf E(T)$-colored symmetric sequences $\Sym^{\mathbf E(T)}_{\eta}(\Set)$.
 
 \begin{definition}
-      Given a set of colors $\mathfrak C$, let $\1_{\mathfrak C}$ denote the initial $\mathfrak C$-colored operad in $\V$,
-      defined for all $\mathfrak C$-sequences $\vect C$ by
-      \[
-            \1(\vect C) =
-            \begin{cases}
-                  1_\V \qquad \qquad & \vect C = (x;x) \mbox{ for some $x \in \mathfrak C$,}
-                  \\
-                  \varnothing & \mbox{else.}
-            \end{cases}
-      \]
-      The category of \textit{pointed} $\mathfrak C$-colored symmetric sequences in $\V$ is the category
-      \[
-            \Sym_{\mathfrak C, \1}(\V) := \1_{\mathfrak C} \downarrow \Sym^{\mathfrak C}(\V).
-      \]
+      The category of \textit{pointed} symmetric sequences in $\V$, denoted $\Sym_{\bullet,\eta}(\V)$, is the cateogry with
+      \begin{itemize}
+      \item objects given by triples $(\mathfrak C, X, \eta_{\mathfrak C} \xrightarrow{1_X} X)$ with
+            $\mathfrak C \in \Set$ a set of colors, $X \in \Sym_{\mathfrak C}(\V)$ a $\mathfrak C$-colored symmetric sequence, and
+            $\eta_{\mathfrak C}$ the intial $\mathfrak C$-colored operad.
+      \item arrows $(\mathfrak C, X, 1_X) \to (\mathfrak D, Y, 1_Y)$ given by
+            a map $(\mathfrak C, X) \to (\mathfrak D, Y)$ of symmetric sequences as in \eqref{SYMSEQMAP_EQ} such that
+            the pasting diagrams below coincide.
+            \[
+                  \begin{tikzcd}
+                        \Sigma_{\mathfrak C}^{op} \arrow[d, "\eta_{\mathfrak C}"'] \arrow[r, equal]
+                        &
+                        \Sigma_{\mathfrak C}^{op} \arrow[d, "X"'] \arrow[r, "\phi"]
+                        &
+                        \Sigma_{\mathfrak D}^{op} \arrow[d, "Y"]
+                        & % ----------
+                        \Sigma_{\mathfrak C}^{op} \arrow[d, "\eta_{\mathfrak C}"'] \arrow[r, "\phi"]
+                        &
+                        \Sigma_{\mathfrak D}^{op} \arrow[d, "\eta_{\mathfrak d}"'] \arrow[r, equal]
+                        &
+                        \Sigma_{\mathfrak D}^{op} \arrow[d, "Y"]
+                        \\
+                        \V \arrow[r, equal] \arrow[ur, Rightarrow, "1_X"]
+                        &
+                        \V \arrow[r, equal] \arrow[ur, Rightarrow]
+                        &
+                        \V
+                        & % ----------
+                        \V \arrow[r, equal]
+                        &
+                        \V \arrow[r, equal] \arrow[ur, Rightarrow, "1_Y"]
+                        &
+                        \V
+                  \end{tikzcd}
+            \]
+      \end{itemize}
 \end{definition}
-The free operad adjunction $\mathbb F_{\mathfrak C}$ factors
+
+There is a natural (split) Grothendieck fibration $\Sym_{\bullet,\eta}(\V) \to \Set$, factoring through $\Sym_\bullet(\V)$,
+with fiber over $\mathfrak C \in \Set$ given by
+the undercategories $\Sym_{\mathfrak C, \eta}(\V) := \eta_{\mathfrak C} \downarrow \Sym_{\mathfrak C}(\V)$.
+
+The free operad adjunction $\mathbb F$ factors
 \begin{equation}
       \label{F_FAC_EQ}
       \begin{tikzcd}
-            \Sym_{\mathfrak C}\V) \arrow[r, shift left, "{(-) \amalg \eta_{\mathfrak C}}"]
+            \Sym_{\bullet}\V) \arrow[r, shift left, "{(-) \amalg \eta_\bullet}"]
             &
-            \Sym_{\mathfrak C,\1}(\V) \arrow[l, shift left] \arrow[r, shift left, "\mathbb F_{\mathfrak C, \1}"]
+            \Sym_{\bullet,\eta}(\V) \arrow[l, shift left] \arrow[r, shift left, "\mathbb F_{\bullet, \eta}"]
             &
-            \Op_{\mathfrak C}(\V) \arrow[l, shift left, "U_\1"]
+            \Op_{\bullet}(\V) \arrow[l, shift left, "U_\eta"]
       \end{tikzcd}
 \end{equation}
 where
-$(-) \amalg \1$ is the (levelwise) coproduct in $\Sym_{\mathfrak C}(\V)$,
-the map $\1_{\mathfrak C} \to U_\1(\O)$ selects the identity operations for each color,
-and $\mathbb F_{\mathfrak C, \1}$ is the ``free operad with prescribed units'' monad,
-defined on $X \in \Sym_{\mathfrak C, \1}(\V)$ to be the pushout below computed in $\Op_{\mathfrak C}(\V)$.
-\begin{equation}
-      \label{FETA_EQ}
-      \begin{tikzcd}
-            \mathbb F_{\mathfrak C} \1_{\mathfrak C} \arrow[d] \arrow[r]
-            &
-            \1_{\mathfrak C} \arrow[d]
-            \\
-            \mathbb F_{\mathfrak C} X \arrow[r]
-            &
-            \mathbb F_{\mathfrak C, \1} X
-      \end{tikzcd}
-\end{equation}
+\begin{itemize}
+\item $(-) \amalg \eta_\bullet$ sends $(\mathfrak C, X)$ to $(\mathfrak C, X \amalg \eta_{\mathfrak C}, \eta_{\mathfrak C} \hookrightarrow X \amalg \eta_{\mathfrak C})$,
+\item the map $\eta_{\mathfrak C} \to U_\eta(\O)$ selects the identity operations for each color,
+      and
+\item
+      $\mathbb F_{\bullet, \eta}$ is the ``free operad with prescribed units'' monad.
+\end{itemize}
 
-We can now make the following definition of the $W$-construction.
+In order to give a complete description of $\mathbb F_{\bullet, \eta}$,
+we apply the results of Appendix \ref{AMALGMON_SEC}
+to a factorization of $\mathbb F_{\bullet}$ orthogonal to \eqref{F_FAC_EQ},
+which passes through
+the category $\Op_{\bullet, nu}(\V)$ of non-unital operads.
 
 \begin{definition}
-      Given $T \in \Omega$, define $W(T)_\bullet \in \Op(\sSet) \subseteq (\Op_{\mathbf E(T)}(\Set))^{\Delta^{op}}$ to be the bar construction
-      \[
-            W(T)_n = \left( \mathbb F_{\mathbf E(T), \1} \right)^{n+1} \left(\Omega(T)\right),
-      \]
-      with the simplicial maps the monadic unit and monadic multiplication.
-\end{definition}
-
-For this definition to be valid, we must verify that
-\begin{enumerate}[label = (\roman*)]
-\item $\mathbb F_{\mathfrak C,\1}$ is the left adjoint to the forgetful functor,
-\item this adjunction is monadic, and
-\item this recovers the usual description of the $W$-construction.
-\end{enumerate}
-While we could show this directly, we instead apply results from Appendix \ref{AMALGMON_SEC} to realize this simplicial resolution from a different perspective,
-and the above will follow from Lemma \ref{FP_FETA_LEM}, Remark \ref{ADJSRMON REM}, and Corollary \ref{WT_COR} respectively.
-
-
-
-
-\subsubsection{Non-unital operads and combined monads}
-
-We consider a factorization of the free operad adjunction orthogonal to \eqref{F_FAC_EQ}
-\begin{equation}
-      \label{F_FAC_NU_EQ}
-      \begin{tikzcd}
-            \Sym_{\mathfrak C} \arrow[r, shift left, "{\bar{\mathbb F}}"]
-            &
-            \Op_{\mathfrak C,nu} \arrow[l, shift left, "U_{nu}"] \arrow[r, shift left, "\mathbb P"]
-            &
-            \Op_{\mathfrak C} \arrow[l, shift left, "\hat U_\1"]
-      \end{tikzcd}
-\end{equation}
-through the category $\Op_{\mathfrak C, nu}$ of ($\mathfrak C$-colored) non-unital operads.
-
-
-\begin{definition}
-      A \textit{non-unital operad} is an operad without units or unitality conditions:
-      a $\mathfrak C$-colored symmetric sequence for some set $\mathfrak C$
+      A \textit{non-unital operad} $\O \in \Op_{\bullet, nu}(\V)$ is an operad without units or unitality conditions; that is, 
+      a symmetric sequence $(\mathfrak C, \O) \in \Sym_{\bullet}(\V)$,
       equipped with an associative and $\Sigma$-equivariant composition law.
       Specifically, we have all ``partial'' composition laws\footnote{
         We note that for unital operads, whether we define them via partial composition laws or total composition laws makes no difference. The same does not hold for non-unital operads.}
       \[
-            \O(n) \times \prod_{i \in \lambda} \O(k_i) \longto \O\left(n-|\lambda|+\sum_{i \in \lambda}k_i\right)
+            \O(n) \times_{\mathfrak C^{\times \lambda}}
+            \prod_{i \in \lambda} \O(k_i) \longto \O\left(n-|\lambda|+\sum_{i \in \lambda}k_i\right)
       \]
       for any subset $\lambda \subseteq \set{1,2,\dots,n}$.
 \end{definition}
 
-$U_{nu} = U_{\mathfrak C, nu}$ and $\hat U_\1 = \hat U_{\mathfrak C, \1}$ from \eqref{F_FAC_NU_EQ} are forgetful functors,
-with $\bar{\mathbb F} = \bar{\mathbb F}_{\mathfrak C}$ and $\mathbb P = \mathbb P_{\mathfrak C}$ the associated left adjoints.
+Now, we have a factorization of $\mathbb F$
+\begin{equation}
+      \label{F_FAC_NU_EQ}
+      \begin{tikzcd}
+            \Sym_{\bullet}(\V) \arrow[r, shift left, "{\bar{\mathbb F}}"]
+            &
+            \Op_{\bullet,nu}(\V) \arrow[l, shift left, "U_{nu}"] \arrow[r, shift left, "\mathbb P"]
+            &
+            \Op_{\bullet}(\V) \arrow[l, shift left, "\hat U_\eta"]
+      \end{tikzcd}
+\end{equation}
+through the category $\Op_{\bullet, nu}$.
+$U_{nu}$ and $\hat U_\1$ are forgetful functors with left adjoints $\bar{\mathbb F}$ and $\mathbb P$.
 The ``adds units'' functor $\mathbb P$ is easy to describe:
-on underlying symmetric sequences, it is the (levelwise) coproduct with $\1_{\mathfrak C}$,
+on underlying symmetric sequences, it sends $(\mathfrak C, \O)$ to $(\mathfrak C, \O \amalg \eta_{\mathfrak C})$,
 and the composition law may be canonically extended so that the new operations act as units.
 
-To describe the functor $\bar{\mathbb F}$, we realize $\Op_{\mathfrak C, nu}$ as algebras over a monad we will also denote $\bar{\mathbb F}$.
-This is built analogously to $\mathbb F$ as in Appendix \ref{MONAD_APDX},
-with the key difference that,
+The functor $\bar{\mathbb F}$ realizes the category $\Op_{\mathfrak C, nu}$ as the category algebras over a monad on $\Sym_\bullet(\V)$.
+We construct this monad analogously to $\mathbb F$ as in \cite[Appendix A]{BP_HGOP}, % {MONAD_APDX}
+with one key difference:
 for any set of colors $\mathfrak C$,
 the fundamental category $\Omega_{\mathfrak C}^0$ of $\mathfrak C$-colored trees and isomorphisms
-is replaced with the subcategory $\Omega_{\mathfrak C}^{\textrm{nu},0}$ of non-stick trees and isomorphisms.
-This has the effect of replacing the categories $\Omega_{\mathfrak C}^n$ of $n$-strings of planar tall maps --- i.e. composites of inner faces and degeneracies --- 
+is replaced with the subcategory $\Omega_{\mathfrak C}^{\textrm{nu},0}$ of non-stick trees (i.e, $\vect T \in \Omega_{\mathfrak C}$ with $|\boldsymbol{V}(T)| \geq 1$) and isomorphisms.
+This has the effect of replacing the categories $\Omega_{\mathfrak C}^n$ of $n$-strings of \textit{planar tall maps} --- i.e. composites of inner faces and degeneracies --- 
 with the subcategory $\Omega_{\mathfrak C}^{\textrm{nu},n}$ of
-non-stick trees and $n$-strings of inner face maps:
+non-stick trees and $n$-strings of just inner face maps:
 a planar tall map $T \to S$ is equivalent to substitution data $(T_v \to S_v)_{v \in V(T)}$ by \cite[Prop. 3.41]{BP_geo},
 and if we forbid $S_v$ from being a stick,
 we remove the possibility of $T \to S$ to be a degeneracy.
 
-As observed in \cite{BP_geo}, degeneracies and sticks precisely record the unit and the unitality conditions.
-Thus, the results from Appendix \ref{MONAD_APDX} may be adapted mutatis mutandis;
+As observed in \cite{BP_geo} \todo{find a more specific citation}, degeneracies and sticks precisely record the unit and the unitality conditions for operads.
+Thus, the results from \cite[Appendix A]{BP_HGOP} % \ref{MONAD_APDX}
+may be adapted mutatis mutandis;
 in particular, \eqref{FREEOP_EQ}, Definition \ref{COLORMON DEF}, and Proposition \ref{ASSOCIDS PROP} yield the following.
 
 \begin{proposition}
-      The free non-unital operad monad $\bar{\mathbb F}$ on a $\mathfrak C$-colored symmetric sequence $X \in \Sym_{\mathfrak C}$ is given by the left Kan extension
+      The free non-unital operad monad $\bar{\mathbb F}$ sends a symmetric sequence $X \colon \Sigma_{\mathfrak C}^{op} \to \V$ in $\Sym_{\bullet}(\V)$ to the left Kan extension below.
       \[
             \begin{tikzcd}
                   \left(\Omega_{\mathfrak C}^{\text{nu},0}\right)^{op} \arrow[r, hookrightarrow] \arrow[d, "\mathsf{lr}"]
@@ -1760,7 +1786,7 @@ in particular, \eqref{FREEOP_EQ}, Definition \ref{COLORMON DEF}, and Proposition
                   \Sigma_{\mathfrak C}^{op} \arrow[urrrr, "\Lan = \bar{\mathbb F} X"']
             \end{tikzcd}
       \]
-      Moreover, $\bar{\mathbb F}^{\circ n}X$ is given by the left Kan extension      
+      More generally, $\bar{\mathbb F}^{\circ n}X$ is given by the the following left Kan extension.
       \begin{equation}
             \label{FREENUOP_EQ}
             \begin{tikzcd}
@@ -1795,31 +1821,44 @@ The maps $\mathbb P \Rightarrow \mathbb F$ and $\bar{\mathbb F} \Rightarrow \mat
 with $\eta$ the adjunction counit and $e$ the inclusion of the units.
 Moreover, as $\mathbb P$ and $F = \mathbb F$ both preserve reflexive coequalizers\footnote{
   For $\mathbb F$, this follows as $\otimes$ commuting with colimits in both variables implies it commutes with reflexive coequalizers; see e.g. \cite[Lemma 2.3.2]{Rez96}.},
-the left adjoint $F_p$ to the forgetful functor $\mathsf{fgt} \colon \Op_{\mathfrak C} \to \Sym^{\mathfrak C}_e$,
+the left adjoint $F_p = \mathbb F_\eta$ to the forgetful functor $\mathsf{fgt} \colon \Op_{\bullet} \to \Sym_{\bullet,\eta}(\V)$,
 i.e. the ``free operad with prescribed units'' functor, exists,
 and following
-Corollary \ref{ALGLEFTEX_COR} and \eqref{FRMONDES EQ} is given on $Y \in \Sym^{\mathfrak C}_e$ as the coequalizer of the following in $\Sym_{\mathfrak C}$.
+Corollary \ref{ALGLEFTEX_COR} and \eqref{FRMONDES EQ}
+and sends a pointed symmetric sequence $Y \colon \Sigma_{\mathfrak C}^{op} \to \V$ in $\Sym_{\bullet, \eta}(\V)$ to the coequalizer of the following in $\Sym_{\mathfrak C}(\V)$
+\begin{equation}
+      \begin{tikzcd}
+            \mathbb F P Y = \mathbb F(Y \amalg \1_{\mathfrak C}) \arrow[r, shift left, "f_1"] \arrow[r, shift right, "f_2"']
+            &
+            \mathbb F Y
+      \end{tikzcd}
+\end{equation}
+with
 \begin{equation}
       \label{FPYCOEQ_EQ}
-      \mathbb F P Y = \mathbb F(Y \amalg \1_{\mathfrak C}) \overset{f_1}{\underset{f_2}\rightrightarrows} \mathbb F Y,
-      % \begin{tikzcd}
-      %       \mathbb F P Y = \mathbb F(Y \amalg \1_{\mathfrak C}) 
-      %       \arrow[r, shift left, "{\mu \circ F P \eta_{\bar{\mathbb F}}}"] \arrow[r, shift right, "{Fm}"']
-      %       &[30pt]
-      %       \mathbb F Y,
-      % \end{tikzcd}
+      f_1 = \mathbb F(Y \amalg \1 \xrightarrow{\ id,e \ } Y),
       \qquad
-      f_1 = \mathbb F(Y \amalg \1 \xrightarrow{id,e} Y),
-      \quad
-      f_2 \colon \mathbb F(Y \amalg \1) \xrightarrow{\eta_{\bar{\mathbb F}} \amalg id} \mathbb F(\bar{\mathbb F} Y \amalg \1) = \mathbb F^2 Y \xrightarrow{\mu} \mathbb FY,
+      f_2 \colon \mathbb F(Y \amalg \1) \xrightarrow{\eta_{\bar{\mathbb F}} \amalg id}
+      \mathbb F(\bar{\mathbb F} Y \amalg \1) = \mathbb F^2 Y \xrightarrow{\mu} \mathbb FY.
 \end{equation}
 
-come back!
-
-This matches the above description of $\mathbb F_\1$ from \eqref{FETA_EQ}:
+This can be described compactly as followed.
 \begin{lemma}
       \label{FP_FETA_LEM}
-      The underlying functor for the ``free operad with prescribed units'' monad $F_P$ on $\Sym_e$ is naturally isomorphic to $\mathbb F_\eta$.
+      For $Y \in \Sym_{\mathfrak C, \eta}(\V)$,
+      the following is a pushout diagram in $\Op_{\mathfrak C}(\V)$.
+      \begin{equation}
+            \label{FETA_EQ}
+            \begin{tikzcd}
+                  \mathbb F \eta_{\mathfrak C} \arrow[d] \arrow[r]
+                  &
+                  \eta_{\mathfrak C} \arrow[d]
+                  \\
+                  \mathbb F Y \arrow[r]
+                  &
+                  \mathbb F_{\eta} X
+            \end{tikzcd}
+      \end{equation}
 \end{lemma}
 \begin{proof}
       We note that $f_2$ in \eqref{FPYCOEQ_EQ} has another decomposition, namely
@@ -1843,7 +1882,8 @@ This matches the above description of $\mathbb F_\1$ from \eqref{FETA_EQ}:
             \mathbb F_\eta \overset{e \circ \mu}{\underset{\mathbb F(e)} \rightrightarrows} \mathbb F Y \xrightarrow{\mathrm{coeq}} F_P Y
       \]
       Converting this coequalizer into a pushout yields the diagram below.
-      \[
+      \begin{equation}
+            \label{FETA2_EQ}
             \begin{tikzcd}
                   \mathbb F \eta \mathbin{\hat{\amalg}} \mathbb F \eta \arrow[r] \arrow[d, "\nabla"']
                   &
@@ -1851,12 +1891,14 @@ This matches the above description of $\mathbb F_\1$ from \eqref{FETA_EQ}:
                   \\
                   \mathbb F \eta \arrow[r]
                   &
-                  F_P Y
+                  \mathbb F_\eta Y
             \end{tikzcd}
-      \]
-      Finally, one can check that this pushout has the same universal property as the pushout \eqref{FETA_EQ};
+      \end{equation}
+      Finally, one can check that \eqref{FETA_EQ} and \eqref{FETA2_EQ} satisfy the same universal property, finishing the proof.
       the result follows.
 \end{proof}
+
+\todo[inline]{come back!}
 
 We can now describe $W(T)$.
 \begin{corollary}
@@ -1916,7 +1958,7 @@ The culmination of extensive work by Cisinski-Moerdijk-Weiss \cite{CM13a,CM13b,C
 
 
 
-\todo[inline]{come back!}
+\todo[inline]{come back}
 
 Using the simplicial tensoring of $\sOp$ from Example \ref{TENS_EX}, we can formalize the main observations used in the proof of \cite[Prop. 4.5]{CM13b}.
 
@@ -2067,7 +2109,7 @@ Equivalently, given decompositions $T \simeq G \cdot_H U$ and $T \simeq G \cdot 
 $W(T) \simeq G \cdot_H W(U)$ and $W(T) \simeq G \cdot W(U)/N$.
 
 On the other hand, the homotopy theories involved are much more involved to capture the genuine equivariance,
-as noted in \S \ref{REVMS_SEC} and \cite{BP_GSOP, BP_edss, Per18}.
+as noted in \S \ref{REVMS_SEC} and \cite{BP_HGOP, BP_edss, Per18}.
 
 Moving forward, our first task is to show that \eqref{SOPDSETG_EQ} is a Quillen adjunction.
 We have the following generalization of \cite[Prop 4.5]{CM13b} (see also \cite[Prop. 6.15]{Per18}).
@@ -2233,7 +2275,7 @@ Another corollary is the following key step.
 \end{remark}
 
 
-\todo{come back!}
+\todo{come back}
 
 
 
@@ -3507,7 +3549,8 @@ More generally, similar model structures exist for any (weak) indexing system.
         with $B \in \mathcal B$, both $A$ and $f$ are in $\mathcal B$.}
       $\Omega_\F \subseteq \Omega_G$
       satisfying the following Segal condition:
-      come back!
+
+      come back
 \end{definition}
 
 Unpacking, let $\Sigma_\F \subseteq \Sigma_G$ denote the image of $\Omega_\F$ under the functor $\mathsf{lr}$.
@@ -5621,7 +5664,7 @@ But this now follows immediately from the pushout from Proposition \ref{WLEFTQPU
 \end{proof}
 
 
-come back!
+come back
 
 \begin{lemma}
       $ho(X)$ detects isofibrations between $\F$-$\infty$-operads.
@@ -5758,15 +5801,15 @@ come back!
 		\qquad
 		\mathbb F_\Gamma[\Gamma/\Gamma \cdot K] = \Omega(C) \otimes_\Fin K,
 		\]
-		with $K \in \V$ and $\otimes_\Fin$ denotes the $\V$-tensoring from \cite[Example \ref{TAS-TENS_EX}]{BP_TAS};
+		with $K \in \V$ and $\otimes_\Fin$ denotes the $\V$-tensoring from Example \ref{TENS_EX};
 		in this case, we note that the tensoring is levelwise, with
 		$(\Omega(C) \otimes_\Fin K)(\vect C) = \Omega(C)(\vect C) \otimes K$.            
 		
 		In particular, we conclude that $\Omega(C) \in \Op^G_\bullet(\V)$ is cofibrant for all $C \in \Sigma_G$ via the following factorization.
 		\[
-		\varnothing \to \partial\Omega(C) \xrightarrow{\mathbb F_{\Gamma}(\varnothing \to 1_\V)} \Omega(C).
+		\varnothing \to \partial \Omega(C) \xrightarrow{\mathbb F_{\Gamma}(\varnothing \to 1_\V)} \Omega(C).
 		\]
-		\todo[inline]{connect to \cite[Definition \ref{TAS-OT_DEF}]{BP_TAS}}
+		\todo[inline]{connect to Definition \ref{OT_DEF}}
 		\item Similarly, $\Omega(T) \in \Op^G_\bullet(\V)$ is cofibrant for all $T \in \Omega_G$, as
 		the grafting decompositions $T = C \coprod_{\boldsymbol{E}_G(C)} (T_{Ge})$ induces the following pushout in $\Op^G_\bullet(\V)$.
 		\[
