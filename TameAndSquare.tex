@@ -945,6 +945,45 @@ X_{\mathfrak{c}}(U)^K.
 \end{definition}
 
 
+
+\begin{notation}
+	Extending \eqref{XUDEC EQ},
+	for $X \in \mathsf{sdSet}^G$, 
+	$A \in \mathsf{dSet}^G$,
+	and $\mathfrak{c} \colon A(\eta) \to X(\eta)$ 
+	we define $X_{\mathfrak{c}}(A)\in \mathsf{sSet}$
+	as the pullback	
+\begin{equation}\label{XUDECALT EQ}
+\begin{tikzcd}
+	X_{\mathfrak{c}}(A) \ar{r} \ar{d}
+&
+	X(A) \ar{d}
+\\
+	\** \ar{r}[swap]{\mathfrak{c}} 
+&
+	\prod_{A(\eta)} X(\eta)
+	\arrow[lu, phantom, "\lrcorner", very near start]
+\end{tikzcd}
+\end{equation}
+\end{notation}
+
+
+
+\begin{remark}
+
+Let $X \in \mathsf{PreOP}^G$.
+For any $G$-tree $T \in \Omega_G$
+and coloring 
+$\mathfrak{c} \colon \boldsymbol{E}(T) \to X(\eta)$
+one has
+\[
+X_{\mathfrak{c}}(Sc[T]) 
+\simeq
+\prod_{v \in \boldsymbol{V}_G(T)}
+X_{\mathfrak{c_v}}(\Omega[T_v]) 
+\]
+\end{remark}
+
 {\color{red} HERE}
 
 
@@ -1374,17 +1413,47 @@ This completes the proof of c1, finishing the proof.
 
 
 
+For later use, we record the following.
+
+\begin{lemma}\label{OMEGATTAME_LEM}
+	For all $T \in \Omega_G$, the objects $Sc[T],\Omega[T]$ are tame cofibrant in $\mathsf{PreOp}^G$.
+\end{lemma}
+
+\begin{proof}
+	The case of $Sc[T]$ follows from the pushout below, 
+	where $\coprod_{\boldsymbol{E}(T)}\Omega[\eta]$
+	is tame fibrant by (TC1) and the left vertical map is 
+	a tame fibration by (TC2) with $n=0$.
+	\[
+	\begin{tikzcd}
+	\displaystyle{
+		\coprod_{Gv \in \boldsymbol{V}_G(T)} \partial\Omega[T_{Gv}]
+	}
+	\arrow[d] \arrow[r]
+	&
+	\displaystyle{
+		\coprod_{\boldsymbol{E}(T)} \Omega[\eta]
+	}
+	\arrow[d]
+	\\
+	\displaystyle{
+		\coprod_{Gv \in \boldsymbol{V}_G(T)} \Omega[T_{Gv}]
+	}
+	\arrow[r]
+	&
+	Sc[T]
+	\end{tikzcd}
+	\]
+	The case of $\Omega[T]$
+	follows since (TC3) with $n=0$
+	says that $Sc[T] \to \Omega[T]$ is a tame cofibration.
+\end{proof}
 
 
 
 
 
 \subsection{Comparison with $\sOp^G$}
-
-{\color{red} HERE}
-
-
-
 
 
 \begin{lemma}\label{TAUOTIMES_LEM}
@@ -1430,9 +1499,6 @@ This completes the proof of c1, finishing the proof.
 \end{proof}
 
 
-{\color{red} HERE}
-
-
 
 \begin{proposition}\label{KEYPRVAR PROP}
 	Suppose that $\mathcal{O} \in \mathsf{Op}^{G}$
@@ -1442,21 +1508,35 @@ This completes the proof of c1, finishing the proof.
 	a pushout in $\mathsf{Op}^{G}$ of the form
 \begin{equation}\label{PUSHOUTPROPVAR EQ}
 	\begin{tikzcd}
-	\coprod_r \partial \Omega(C) \ar{r} \ar{d} & \mathcal{O} \ar{d}
-	\\
-	\coprod_r \Omega(C) \ar{r} & \mathcal{P}.
+	\partial \Omega(C)^{\amalg r} \ar{r} \ar{d} 
+	& \mathcal{O} \ar{d}
+\\
+	\Omega(C)^{\amalg r} \ar{r} & \mathcal{P}.
 	\end{tikzcd}
 \end{equation}
 	Then the induced map
 \begin{equation}\label{ANODYNEVAR EQ}
-	\coprod_r \Omega[C] \amalg_{\coprod_r \partial \Omega[C]} N\mathcal{O} \to N\mathcal{P}
+	\Omega[C]^{\amalg r} 
+	\amalg_{\partial \Omega[C]^{\amalg r}} N\mathcal{O} \to N\mathcal{P}
 \end{equation}
 	is $G$-inner anodyne.
 \end{proposition}
 
+\begin{remark}
+	Both \eqref{PUSHOUTPROPVAR EQ} and \eqref{ANODYNEVAR EQ}
+	are unchanged if the copowers $(-)^{\amalg r}$ in 
+	$\mathsf{Op}^G$, $\mathsf{dSet}^G$
+	are replaced with fibered copowers 
+	$(-)^{\amalg_{\mathsf{Set}} r} \simeq 
+	(-) \otimes_{\mathsf{Set}} \{1,\cdots,r\}$
+	in 
+	$\mathsf{Op}^G_{\boldsymbol{E}(C)}$,
+	$\mathsf{dSet}^G_{\boldsymbol{E}(C)}$.
+\end{remark}
+
 
 \begin{remark}
-	The integer $r\geq 1$ in 
+	The integer $r \geq 1$ in 
 	Proposition \ref{KEYPRVAR PROP}
 	is included to match our required application in Lemma \ref{UNITEQUIV LEM}.
 	However, it readily follows from induction on $r$ that one needs only prove the $r=1$ case.
@@ -1466,11 +1546,11 @@ This completes the proof of c1, finishing the proof.
 	one has a diagram below
 \begin{equation}
 \begin{tikzcd}
-	\coprod_r \Omega[C] \amalg_{\coprod_r \partial \Omega[C]} N\mathcal{O} \ar{r} \ar{d}
+	\Omega[C]^{\amalg r} \amalg_{\partial \Omega[C]^{\amalg r}} N\mathcal{O} \ar{r} \ar{d}
 &
 	N \mathcal{O}_r \ar{d}
 \\
-	\coprod_{r+1} \Omega[C] \amalg_{\coprod_{r+1} \partial \Omega[C]} N \mathcal{O} \ar{r}
+	\Omega[C]^{\amalg r+1} \amalg_{ \partial \Omega[C]^{\amalg r+1}} N \mathcal{O} \ar{r}
 &
 	\Omega[C] \amalg_{\partial \Omega[C]} N \mathcal{O}_r \ar{r}
 &
@@ -1479,68 +1559,34 @@ This completes the proof of c1, finishing the proof.
 \end{equation}
 	where the square is a pushout so that induction on $r$ and the $r=1$ case yield that all horizontal maps
 	are $G$-inner anodyne.
-	We defer the proof of the interesting $r=1$ case to \S \ref{KEYRES SEC}.
+	The proof of the interesting $r=1$ case will occupy the entirety of \S \ref{KEYRES SEC}.
 \end{remark}
 
 
-{\color{red} HERE}
 
-\begin{lemma}
-	\label{OMEGATTAME_LEM}
-	For all $T \in \Omega_G$, $\Omega[T] \in \mathsf{PreOp}^G$ is tame cofibrant.
-\end{lemma}
-\begin{proof}
-	From (TC3) with $n=0$, it suffices to show that $Sc[T]$ is tame cofibrant.
-	By (TC1), $\amalg_{Ge \in \boldsymbol{E}_G(T)} \Omega[Ge \cdot \eta]$ is tame cofibrant.
-	Now, (TC2) with $n=0$ says that $\partial \Omega[C] \to \Omega[C]$ is a tame cofibration,
-	and thus the result follows via the following pushout.
-	\[
-	\begin{tikzcd}
-	\displaystyle{
-		\coprod_{Gv \in \boldsymbol{V}_G(T)} \partial\Omega[T_{Gv}]
-	}
-	\arrow[d] \arrow[r]
-	&
-	\displaystyle{
-		\coprod_{Ge \in \boldsymbol{E}_G(T)} \Omega[Ge \cdot \eta]
-	}
-	\arrow[d]
-	\\
-	\displaystyle{
-		\coprod_{Gv \in \boldsymbol{V}_G(T)} \Omega[T_{Gv}]
-	}
-	\arrow[r]
-	&
-	Sc[T]
-	\end{tikzcd}
-	\]
-\end{proof}
-
-
-
-The following results are adapted from \cite{JT07} (see Proposition 7.15 therein). 
+The following two results are adapted from \cite{JT07} (see Proposition 7.15 therein). 
 
 
 \begin{proposition}
 	A cofibration $A \to B$ is a weak equivalence iff it has the left lifting property against all fibrations between fibrant objects.
 \end{proposition}
 
-\begin{proof}
-	Let $B \xrightarrow{\sim} \tilde{B}$ be a fibrant replacement and
-	let $A \xrightarrow{\sim} \tilde{A} \twoheadrightarrow \tilde{B}$
-	be a factorization of the composite $A \to \tilde{B}$ 
-	as a trivial cofibration followed by a fibration.
-	One then has a lift in the diagram
-	\[
-	\begin{tikzcd}
-	A \ar{r}{\sim} \ar[>->]{d} & \tilde{A} \ar[->>]{d}
-	\\
-	B \ar{r}{\sim} \ar[dashed]{ru} & \tilde{B}
-	\end{tikzcd}
-	\]
-	where the top and bottom horizontal maps are weak equivalences. 
-	But then the 2-out-of-6 property for weak equivalences says that all maps are weak equivalences.
-\end{proof}
+%\begin{proof}
+%	Let $B \xrightarrow{\sim} \tilde{B}$ be a fibrant replacement and
+%	let $A \xrightarrow{\sim} \tilde{A} \twoheadrightarrow \tilde{B}$
+%	be a factorization of the composite $A \to \tilde{B}$ 
+%	as a trivial cofibration followed by a fibration.
+%	One then has a lift in the diagram
+%	\[
+%	\begin{tikzcd}
+%	A \ar{r}{\sim} \ar[>->]{d} & \tilde{A} \ar[->>]{d}
+%	\\
+%	B \ar{r}{\sim} \ar[dashed]{ru} & \tilde{B}
+%	\end{tikzcd}
+%	\]
+%	where the top and bottom horizontal maps are weak equivalences. 
+%	But then the 2-out-of-6 property for weak equivalences says that all maps are weak equivalences.
+%\end{proof}
 
 
 \begin{corollary}\label{SIMPLQUILL COR}
@@ -1555,6 +1601,7 @@ The following results are adapted from \cite{JT07} (see Proposition 7.15 therein
 	and $G$ preserves fibrations between fibrant objects.
 \end{corollary}
 
+{\color{red} HERE}
 
 \begin{lemma}\label{UNITEQUIV LEM}
 	Let $A \to B$ be a tame cofibration between tame cofibrant objects in $\mathsf{PreOp}^G$, 
