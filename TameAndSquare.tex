@@ -1019,7 +1019,7 @@ one has
 X_{\mathfrak{c}}(Sc[T]) 
 \simeq
 \prod_{v \in \boldsymbol{V}_G(T)}
-X_{\mathfrak{c_v}}(\Omega[T_v]) 
+X_{\mathfrak{c}_v}(\Omega[T_v]) 
 \]
 \end{remark}
 
@@ -1042,8 +1042,10 @@ X_{\mathfrak{c_v}}(\Omega[T_v])
 In this section, we build an auxiliary model structure on preoperads, Quillen equivalent to the model structure discussed in \S \ref{SPREOP_SEC}.
 
 
-\subsection{Definition and existence}
 
+
+
+\subsection{Fibered simplicial tensoring}
 
 \begin{definition}
 	The \textit{fibered simplicial tensoring} 
@@ -1226,6 +1228,57 @@ the result follows from Remark \ref{COLORTENSGAM REM}.
 	\end{tikzcd}
 	\]
 \end{definition}
+
+
+
+
+
+\begin{lemma}\label{TAUOTIMES_LEM}
+	For all $X \in \mathsf{PreOp}^G$ and $K \in \sSet$, 
+	one has a natural identification
+	\[\tau(X \otimes_{\mathsf{Set}} K) \simeq \tau(X) \otimes_{\mathsf{Set}} K\]
+	with the second $\otimes_{\mathsf{Set}}$ the (fiberwise) simplicial tensoring of $\sOp^G$ defined in Example \ref{TENS_EX}.
+\end{lemma}
+
+\begin{proof}
+	The identification
+	$\tau(X \otimes_{\mathsf{Set}} K) \simeq \tau(X) \otimes_{\mathsf{Set}} K$
+	is equivalent to the adjoint identification
+	$
+	N \{K,\O\}_{\mathsf{Set}}
+	\simeq
+	\{K,N \O\}_{\mathsf{Set}} 
+	$
+	for $\O \in \mathsf{sOp}^G$,
+	which follows from the calculation
+	\begin{equation}
+	\begin{split}
+	\left(N \{K,\O\}_{\mathsf{Set}}\right)_{\mathfrak{c}}(U)
+	& \simeq
+	\prod_{v \in \boldsymbol{V}(U)} 
+	\{K,\O\}_{\mathsf{Set}}(U_v,\mathfrak{c}_v)
+	\simeq
+	\prod_{v \in \boldsymbol{V}(U)}
+	\O(U_v,\mathfrak{c}_v)^K
+	\simeq
+	\left(\prod_{v \in \boldsymbol{V}(U)}
+	\O(U_v,\mathfrak{c}_v)\right)^K
+	\simeq 
+	\\
+	& \simeq
+	\left(N \O\right)_{\mathfrak{c}}(U)^K
+	\simeq
+	\left(\{K,N \O\}_{\mathsf{Set}}\right)_{\mathfrak{c}}(U)
+	\end{split}
+	\end{equation}
+	where the first and fourth steps follow from Remark \ref{ALTNER REM},
+	and the fifth step is \eqref{EASYCOTEN EQ}.
+\end{proof}
+
+
+
+
+\subsection{Definition and existence of the tame model structure}
 
 
 
@@ -1491,24 +1544,21 @@ For later use, we record the following.
 
 
 
-\subsection{Comparison with $\sOp^G$}
+\subsection{Quillen equivalence between preoperads and operads}
 
 
 Our goal in this subsection is to prove
 Theorem \ref{PREQUIEQUIV THM},
-which establishes the Quillen equivalence between
+showing the Quillen equivalence between
 preoperads $\mathsf{PreOp}^G$
 and operads $\mathsf{sOp}^G$.
-The key to prove this result will be given by 
+The key to proving this result is given by 
 Lemma \ref{UNITEQUIV LEM}
 and the subsequent
 Corollary \ref{KEYEQUIV COR},
-which will allow us to understand the counit of the adjunction.
-
-
-{\color{red} HERE}
-
-
+which allow us to understand the counit of the adjunction.
+These latter results in turn depend on the following key 
+result, whose proof is deferred to \S \ref{KEYRES SEC}.
 
 
 \begin{proposition}\label{KEYPRVAR PROP}
@@ -1533,7 +1583,7 @@ which will allow us to understand the counit of the adjunction.
 	is $G$-inner anodyne.
 \end{proposition}
 
-\begin{remark}
+\begin{remark}\label{KEYPRVAR REM}
 	Both \eqref{PUSHOUTPROPVAR EQ} and \eqref{ANODYNEVAR EQ}
 	are unchanged if the copowers $(-)^{\amalg r}$ in 
 	$\mathsf{Op}^G$, $\mathsf{dSet}^G$
@@ -1543,6 +1593,16 @@ which will allow us to understand the counit of the adjunction.
 	in 
 	$\mathsf{Op}^G_{\boldsymbol{E}(C)}$,
 	$\mathsf{dSet}^G_{\boldsymbol{E}(C)}$.
+	
+	Moreover, since 
+	$\partial \Omega(C) = \Omega(C) \otimes_{\mathsf{Set}} \emptyset$,
+	one is moreover free to replace
+	the left vertical map in \eqref{PUSHOUTPROPVAR EQ}
+	with 
+	$\Omega(C) \otimes_{\mathsf{Set}} K
+	\to
+	\Omega(C) \otimes_{\mathsf{Set}} L$
+	for $K\to L$ any inclusion of sets.
 \end{remark}
 
 
@@ -1577,20 +1637,18 @@ which will allow us to understand the counit of the adjunction.
 
 
 
-{\color{red} HERE}
-
 \begin{lemma}\label{UNITEQUIV LEM}
-	Let $A \to B$ be a tame cofibration between tame cofibrant objects in $\mathsf{PreOp}^G$, 
+	Let $A \to B$ be a tame cofibration in $\mathsf{PreOp}^G$, 
 	$\mathcal{O} \in \mathsf{sOp}^G$ a $\Sigma$-cofibrant 
 	$G$-operad,
 	and consider a pushout diagram in $\mathsf{sOp}^G$ of the form
-	\[
-	\begin{tikzcd}
+\begin{equation}\label{THEPUSH EQ}
+\begin{tikzcd}
 	\tau A \ar{r} \ar{d} & \mathcal{O} \ar{d}
-	\\
+\\
 	\tau B \ar{r} & \mathcal{P}
-	\end{tikzcd}
-	\]
+\end{tikzcd}
+\end{equation}
 	Then $\mathcal{O} \to \mathcal{P}$ is a $\Sigma$-cofibration and 
 	\begin{equation}\label{UNITEQUIV EQ}
 	B \amalg_{A} N \mathcal{O}
@@ -1608,7 +1666,7 @@ Setting $A = \emptyset $, $\mathcal{O}= \emptyset$ in the previous result yields
 \end{corollary}
 
 \begin{proof}[Proof of Lemma \ref{UNITEQUIV LEM}]
-	We first consider the case where $A\to B$ is in one of (TC1),(TC2),(TC3). 
+	We first consider the case where $A\to B$ is in one of (TC1),(TC2),(TC3).
 	
 	The (TC1) case is immediate, 
 	since $\mathcal{O} \to \mathcal{O} \amalg G/H \cdot \Omega(\eta)$ is a $\Sigma$-cofibration and
@@ -1622,22 +1680,35 @@ Setting $A = \emptyset $, $\mathcal{O}= \emptyset$ in the previous result yields
 	$\mathcal{O}=\mathcal{P}$, so that 
 	\eqref{UNITEQUIV EQ}
 	becomes a section of the map
-	$N \mathcal{O} \to B \amalg_{A} N \mathcal{O}$, which is a trivial cofibration (it is a pushout of $A \to B$),
-	and 2-out-of-3 hence implies that \eqref{UNITEQUIV EQ} is a weak equivalence.
-	
-	The most interesting case is then (TC2), in which case
-	Corollary \ref{SIGMAG_COF_COR} and Remark \ref{TAUCOFIB_REM}
-	imply that $\mathcal{O} \to \mathcal{P}$ is a $\Sigma$-cofibration,
-	and further each of the levels
-	$(B \amalg_{A} N \mathcal{O})_n
+	$N \mathcal{O} \to B \amalg_{A} N \mathcal{O}$, which is a trivial cofibration (as it is a pushout of $A \to B$),
+	and 2-out-of-3 thus implies that \eqref{UNITEQUIV EQ} is a weak equivalence.
+
+	The most interesting case is then (TC2).
+	Firstly, by Lemma \ref{TAUOTIMES_LEM} the functor $\tau$ sends maps in (TC2) to maps in (C2), 
+	so $\O \to \P$ is indeed a $\Sigma$-cofibration
+	by {\color{red} Corollary \ref{SIGMAG_COF_COR}}.
+	Next, fixing a simplicial level $m\geq 0$,
+	$A_m \to B_m$ then has the form
+	$\Omega[C] \otimes_{\mathsf{Set}} \left(\partial \Delta[n]_m \to \Delta[n]_m\right)$ so that
+	$\tau A_m \to \tau B_m$ has the form
+	$\Omega(C) \otimes_{\mathsf{Set}} \left(\partial \Delta[n]_m \to \Delta[n]_m\right)$.
+	But then (following the discussion in 
+	Remark \ref{KEYPRVAR REM})
+	Proposition \ref{KEYPRVAR PROP}
+	yields that all levels
+	$(B \amalg_{A} N \mathcal{O})_m
 	\to 
-	(N \mathcal{P})_n$
-	for $n \geq 0$
-	is an equivalence in $\mathsf{dSet}^G$ by (an iteration of)
-	Proposition \ref{KEYPR PROP} \todo{come back},        
-	showing that \eqref{UNITEQUIV EQ} is in fact a dendroidal equivalence, and thus also a complete equivalence.
-	
-	We now turn to the case of $A \to B$ a general tame cofibration between tame cofibrant objects.
+	(N \mathcal{P})_m$
+	for $m \geq 0$
+	are equivalences in $\mathsf{dSet}^G$,
+	showing that 
+	$B \amalg_{A} N \mathcal{O}
+	\to 
+	N \mathcal{P}$
+	is indeed a complete equivalence in
+	$\mathsf{PreOp}^G$.
+
+	We now turn to the case of $A \to B$ a general tame cofibration.
 	As usual, $A \to B$ is a retract of a transfinite composition of pushouts of generating cofibrations.
 	Since the conclusions of the result are invariant under retracts,
 	we are free to assume that $A \to B$ is a transfinite composite
@@ -1646,8 +1717,8 @@ Setting $A = \emptyset $, $\mathcal{O}= \emptyset$ in the previous result yields
 	colim_{\beta < \kappa} A_{\beta} = B.
 	\]
 	where each map $A_{\beta} \to A_{\beta +1}$ is a pushout of a map in one of (TC1),(TC2),(TC3).
-	
-	Defining $\mathcal{O}_{\beta}$ by replacing $A \to B$ with $A \to A_{\beta}$ in the pushout,
+
+	Defining $\mathcal{O}_{\beta}$ by replacing $A \to B$ with $A \to A_{\beta}$ in the pushout \eqref{THEPUSH EQ},
 	$\mathcal{O} \to \mathcal{P}$ becomes the transfinite composite of the maps $\mathcal{O}_{\beta} \to \mathcal{O}_{\beta + 1}$
 	and \eqref{UNITEQUIV EQ} becomes
 	$
@@ -1657,14 +1728,15 @@ Setting $A = \emptyset $, $\mathcal{O}= \emptyset$ in the previous result yields
 	N \mathcal{O}_{\beta}
 	\right)
 	$.
+
 	It thus suffices to show, by induction on $\beta < \kappa$, 
 	that the maps $\mathcal{O}_{\beta} \to \mathcal{O}_{\beta + 1}$ are $\Sigma$-cofibrations and that the maps 
 	$N \mathcal{O} \amalg_{N \tau A} N \tau A_{\beta}
 	\to 
 	N \mathcal{O}_{\beta}$
 	are weak equivalences
-	(that this last condition suffices follows since
-	filtered colimits of weak equivalences in $\mathsf{PreOp}^G$ are weak equivalences by Lemma \ref{FCOLIM_WE2_LEM} ({\color{red} add this})).
+	(sufficiency of the latter condition uses the fact that 
+	filtered colimits of weak equivalences in $\mathsf{PreOp}^G$ are weak equivalences, cf. Lemma \ref{FCOLIM_WE2_LEM}).
 	Consider now the following diagrams.
 	\[
 	\begin{tikzcd}
@@ -1690,73 +1762,20 @@ Setting $A = \emptyset $, $\mathcal{O}= \emptyset$ in the previous result yields
 	$\mathcal{O} \to \mathcal{O}_{\beta}$ is a $\Sigma$-cofibration and that the map
 	$A_{\beta} \amalg_A N \mathcal{O} \to \mathcal{O}_{\beta}$ is a weak equivalence.
 	Therefore, $\mathcal{O}_{\beta}$ is $\Sigma$-cofibrant 
-	and the both vertical maps marked $\sim$ in the rightmost diagram above are weak equivalences 
+	and both vertical maps marked $\sim$ in the rightmost diagram above are weak equivalences 
 	(this uses the fact that $\mathsf{PreOp}^G$ is left proper),
 	and thus the induction step will follow provided that the result holds for
 	the map $A_{\beta} \to A_{\beta + 1}$ and $\mathcal{O}_{\beta}$.
-	But $A_{\beta} \to A_{\beta + 1}$ is assumed to be a pushout of a map in (TC1),(TC2),(TC3), in which case the result is already known, and thus noting that the result is clearly invariant under pushouts finishes the proof.
+	But $A_{\beta} \to A_{\beta + 1}$ is assumed to be a pushout of a map in (TC1),(TC2),(TC3), 
+	in which case the result is already known, and thus noting that the result is invariant under pushouts finishes the proof.
 \end{proof}
 
 
 
 
-\begin{theorem}\label{PREQUIEQUIV THM}
-	The adjunction
-	\[
-	\tau \colon \mathsf{PreOp}^G_{\text{tame}}
-	\rightleftarrows 
-	\mathsf{sOp}^G \colon N
-	\]
-	is a Quillen equivalence.
-\end{theorem}
-
-
-
-
-\begin{lemma}\label{TAUOTIMES_LEM}
-	For all $X \in \mathsf{PreOp}^G$ and $K \in \sSet$, 
-	one has a natural identification
-	\[\tau(X \otimes_{\mathsf{Set}} K) \simeq \tau(X) \otimes_{\mathsf{Set}} K\]
-	with the second $\otimes_{\mathsf{Set}}$ the (fiberwise) simplicial tensoring of $\sOp^G$ defined in Example \ref{TENS_EX}.
-\end{lemma}
-
-\begin{proof}
-	The identification
-	$\tau(X \otimes_{\mathsf{Set}} K) \simeq \tau(X) \otimes_{\mathsf{Set}} K$
-	is equivalent to the adjoint identification
-	$
-	N \{K,\O\}_{\mathsf{Set}}
-	\simeq
-	\{K,N \O\}_{\mathsf{Set}} 
-	$
-	for $\O \in \mathsf{sOp}^G$,
-	which follows from the calculation
-	\begin{equation}
-	\begin{split}
-	\left(N \{K,\O\}_{\mathsf{Set}}\right)_{\mathfrak{c}}(U)
-	& \simeq
-	\prod_{v \in \boldsymbol{V}(U)} 
-	\{K,\O\}_{\mathsf{Set}}(U_v,\mathfrak{c}_v)
-	\simeq
-	\prod_{v \in \boldsymbol{V}(U)}
-	\O(U_v,\mathfrak{c}_v)^K
-	\simeq
-	\left(\prod_{v \in \boldsymbol{V}(U)}
-	\O(U_v,\mathfrak{c}_v)\right)^K
-	\simeq 
-	\\
-	& \simeq
-	\left(N \O\right)_{\mathfrak{c}}(U)^K
-	\simeq
-	\left(\{K,N \O\}_{\mathsf{Set}}\right)_{\mathfrak{c}}(U)
-	\end{split}
-	\end{equation}
-	where the first and fourth steps follow from Remark \ref{ALTNER REM},
-	and the fifth step is \eqref{EASYCOTEN EQ}.
-\end{proof}
-
-
-The following two results are adapted from \cite{JT07} (see Proposition 7.15 therein). 
+Before proving Theorem \ref{PREQUIEQUIV THM}, 
+we recall the following,
+which are adapted from \cite{JT07} (see Proposition 7.15 therein). 
 
 
 \begin{proposition}
@@ -1783,15 +1802,27 @@ The following two results are adapted from \cite{JT07} (see Proposition 7.15 the
 
 \begin{corollary}\label{SIMPLQUILL COR}
 	An adjunction 
-	\[
+\[
 	F \colon \mathcal{C}
 	\rightleftarrows
 	\mathcal{D} \colon G
-	\]
+\]
 	between model categories is a Quillen adjunction
 	provided that $F$ preserves cofibrations
 	and $G$ preserves fibrations between fibrant objects.
 \end{corollary}
+
+{\color{red} HERE}
+
+\begin{theorem}\label{PREQUIEQUIV THM}
+	The adjunction
+\[
+	\tau \colon \mathsf{PreOp}^G_{\text{tame}}
+	\rightleftarrows 
+	\mathsf{sOp}^G \colon N
+\]
+	is a Quillen equivalence.
+\end{theorem}
 
 
 
