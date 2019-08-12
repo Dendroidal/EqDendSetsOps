@@ -49,6 +49,9 @@
 % \usepackage[english]{babel}
 % \usepackage{fouriernc}
 % \DeclareMathAlphabet{\mathscr}{U}{mathrsfs}{m}{n}`
+\usepackage{pifont}
+\newcommand{\cmark}{\text{\ding{51}}}
+\newcommand{\xmark}{\text{\ding{55}}}
 
 \usepackage[normalem]{ulem}%
 \usepackage{dsfont}%
@@ -71,16 +74,14 @@
 \usetikzlibrary{matrix,arrows,decorations.pathmorphing,
 cd,patterns,calc}
 \tikzset{%
-  treenode/.style = {shape=rectangle, rounded corners,%
-                     draw, align=center,%
-                     top color=white, bottom color=blue!20},%
-  root/.style     = {treenode, font=\Large, bottom color=red!30},%
-  env/.style      = {treenode, font=\ttfamily\normalsize},%
+  % treenode/.style = {shape=rectangle, rounded corners, draw, align=center, font=\footnotesize,
+  %                    top color=white, bottom color=blue!20},%
+  % root/.style     = {treenode, font=\Large, bottom color=red!30},%
+  % env/.style      = {treenode, font=\ttfamily\normalsize},%
   dummy/.style    = {circle,draw,inner sep=0pt,minimum size=2mm}%
 }%
 
 \usetikzlibrary[decorations.pathreplacing]
-
 
 
 
@@ -372,13 +373,246 @@ Full details and discussion can be found in \cite{Per18}, \cite{BP_edss}.
 \]
 
 
-\subsection{Equivariant trees}
+\subsection{Categories of trees and forests}
 
-cat
+We briefly recall the category $\Omega_G$ of equivariant trees, which encodes the combinatorics of compositions of norm maps;
+a more thourough discussion can be found in \cite{Per18} or \cite[\S 2]{BP_edss}.
+
+First, we review the Cisinski-Moerdijk-Weiss category $\Omega$ of trees.
+Objects are given by tree diagrams $T$ as below\footnote{Formally, we use the model of \textit{broad posets} as introduced in \cite{Wei12}.}.
+\begin{equation}
+      \label{eq:TREE}
+      \begin{tikzpicture}[auto,grow=up, level distance = 2.2em,
+            every node/.style={font=\scriptsize,inner sep = 2pt}]%
+            \tikzstyle{level 2}=[sibling distance=4em]%
+            \tikzstyle{level 3}=[sibling distance=2.25em]%
+            \node [font=\normalsize] {$T$}
+            child{node [dummy] {}
+              child{node [dummy] {}
+                edge from parent node [swap] {$e$}
+              }
+              child{edge from parent node [swap] {$d$}}
+              child{node [dummy] {}
+                child{edge from parent node [swap] {$b$}}
+                child{edge from parent node {$a$}}
+                edge from parent node {$c$}
+              }
+              edge from parent node [swap] {$r$}
+            };        
+      \end{tikzpicture}
+\end{equation}
+Edges with no vertices $\circ$ above them are called \textit{leaves}, the unique bottom edge is called the \textit{root},
+and edges that are neither are called \textit{inner edges};
+in the example above, $a$ and $b$ are the leaves, $r$ is the root, and $c$ and $e$ are inner edges.
+The sets of edges, inner edges, and vertices of a tree $T$ are denoted $\boldsymbol{E}(T)$, $\boldsymbol{E}^i(T)$, and $\boldsymbol{V}(T)$ respectively.
+If an edge $t$ is pictorally above (or equal to) an edge $s$, we write $t \leq_d s$\footnote{While this notation may seem backwards, $\leq_d$ flows in the direction of composition.}.
+
+If $|\boldsymbol{V}(T)| = 1$ and $|\boldsymbol{L}(T)|=n$, we call $T$ an \textit{$n$-corolla}.
+Additionally, we write $\eta$ for the \textit{stick} tree; i.e. the unique tree with $|\boldsymbol{V}(\eta)| = 0$.
+
+Given any $v \in |\boldsymbol{V}(T)|$, we write $T_v$ for the sub-diagram of $T$ consisting of the vertex $v$.
+
+An arrow $\phi \colon S \to T$ between trees is given by
+a map of edge sets $\phi \colon \boldsymbol{E}(S) \to \boldsymbol{E}(T)$
+which ``preserves the tree structure'',
+in the following intuitive sense:
+If $S$ is a corolla with leaves $\set{e_1,\dots, e_n}$ and root $e_0$,
+we first require that $\phi(e_i) \leq_d \phi(e_0)$ and $\phi(e_i) \not\leq_d \phi(e_j)$ for all $i \geq j > 0$.
+Moreover, consider the sub-diagram of $T$ where we chop of all vertices and edges above $\phi(e_i)$ and below $\phi(e_0)$;
+$\phi$ is a map of trees iff the set of leaves of this sub-diagram is precisely $\set{\phi(e_1), \dots, \phi(e_n)}$.
+For general $S \in \Omega$, $\phi$ is a map of tree iff every restricted map $S_v \to T$ is a map of trees.
+
+\begin{example}
+      Using the natural map on edges as indicated by the names of the edges,
+      the four leftmost trees below give rise to maps of trees to $T$ from \eqref{eq:TREE}, while the rightmost does not.
+      \begin{equation}
+            \begin{tikzpicture}[auto, grow=up, level distance = 2.2em,
+                  every node/.style={font=\scriptsize,inner sep = 2pt}]
+                  \tikzstyle{level 2}=[sibling distance=3em]%
+                  \tikzstyle{level 3}=[sibling distance=2.25em]%
+                  \node at (0,0) {$\cmark$} % {$T \setminus \set{e}$}
+                  child{node [dummy] {}
+                    child{edge from parent node [swap] {$d$}}
+                    child{node [dummy] {}
+                      child{edge from parent node [swap] {$b$}}
+                      child{edge from parent node {$a$}}
+                      edge from parent node {$c$}
+                    }
+                    edge from parent node [swap] {$r$}
+                  };
+                  \tikzstyle{level 2}=[sibling distance=2em]%
+                  \node at (2.5,0) {$\cmark$} % {$\partial_{u,v}T$}
+                  child{node [dummy] {}
+                    child{edge from parent node [swap] {$e$}}
+                    child{edge from parent node [swap,near end] {$d$}}
+                    child{edge from parent node {$c$}}
+                    edge from parent node [swap] {$r$}
+                  };
+                  \node at (5.5,0) {$\cmark$} % {$\partial_v(T \setminus \set{c})$}
+                  child{node [dummy] {}
+                    child{node [dummy] {}
+                      edge from parent node [swap] {$e$}
+                    }
+                    child{edge from parent node [swap, very near end] {$d$}}
+                    child{edge from parent node [very near end] {$b$}}
+                    child{edge from parent node {$a$}}
+                    edge from parent node [swap] {$r$}
+                  };
+                  \tikzstyle{level 2}=[sibling distance=3em]%
+                  \node at (9.2,0) {$\cmark$} % {$\sigma_d T$}
+                  child{node [dummy] {}
+                    child{node [dummy] {}
+                      edge from parent node [swap] {$e$}
+                    }
+                    child{node [dummy] {}
+                      child{edge from parent node [swap] {$d'$}}
+                      edge from parent node [swap] {$d$}
+                    }
+                    child{node [dummy] {}
+                      child{edge from parent node [swap] {$b$}}
+                      child{edge from parent node {$a$}}
+                      edge from parent node {$c$}
+                    }
+                    edge from parent node [swap] {$r$}
+                  };                    
+                  \node at (12,0) {$\xmark$}
+                  child{node [dummy] {}
+                    child{edge from parent node [swap] {$d$}}
+                    child{node [dummy] {}
+                      child{edge from parent node {$b$}}
+                      edge from parent node {$c$}
+                    }
+                    edge from parent node [swap] {$r$}
+                  };
+            \end{tikzpicture}
+      \end{equation}
+\end{example}
+
+An arrow $S \to T$ is called a \textit{tall map} if
+$\phi(\boldsymbol{L}(S)) = \boldsymbol{L}(T)$ and $\phi(r_S) = r_T$
+for $r_{(-)}$ denoting the root edge.
+An arrow $S \to T$ is called a \textit{face map} if it is injective on edges,
+while a surjective map which preserves leaves is called a \textit{degeneracy}; we note that degeneracies must be tall maps.
+Further, a face map is called \textit{inner} if it is also a tall map,
+and \textit{outer} if it does not factor through a non-isomorphism inner face map.
+
+Heuristically, inner face maps split vertices to create new inner edges in $T$,
+outer face maps glue on new vertices,
+and degeneracies collapse unary vertices.
+\begin{example}
+      In Example \ref{TREEMAP_EX},
+      the first map is an inner face, the second an outer face, the third is a general face, while the fourth is a degeneracy.
+\end{example}
+
+\begin{proposition}[{cf. \cite[Prop. 2.2]{BP_edss}}]
+      A map $\phi \colon S \to T$ in $\Omega$ has a factorization, unique up to unique isomorphisms,
+      \[
+            S \xrightarrow{\phi^-} U \xrightarrow{\phi^i} V \xrightarrow{\phi^o} T
+      \]
+      as a degeneracy followed by an inner face map followed by an outer face map.
+\end{proposition}
+
+
+Next, we consider categories of (colored) forests (cf. \cite[Defn. 2.56]{BP_HGOP}).
 
 \begin{definition}
-      $\Phi_\bullet^0 \subseteq \Phi_\bullet$
+      The category $\Phi$ of \textit{forests} is the coproduct completion of the category $\Omega$ of trees:
+      objects are (finite) tuples $F = (F_i)_{i in I}$ with $F_i \in \Omega$,
+      and an arrow $\phi \colon (F_i)_{i in I} \to (F'_j)_{j \in J}$ is given by
+      a map $\phi \colon I \to J$ and
+      maps $F_i \to F'_{\phi(i)}$ for all $i \in I$.
+     
+      The sets $\boldsymbol{V}(F)$, $\boldsymbol{E}(F)$, and $\boldsymbol{E}^i(F)$ generalize immediately.
+      Moreover, a call a map $\phi \colon F \to F'$ an (inner,outer) face map or a degeneracy iff
+      $\phi_i$ is so in $\Omega$ for all $i \in I$.
 \end{definition}
+
+Finally, we may color the edges of any forest or tree.
+\begin{definition}            
+      Let $\mathfrak C$ be a set of colors.
+      The category $\Phi_{\mathfrak C}$ of \textit{$\mathfrak C$-colored forests} has
+      \begin{itemize}
+      \item objects pairs $\vect F = (F, \mathfrak c)$ where $F \in \Phi$ is a forest and
+            $\mathfrak c \colon \boldsymbol{E}(F) \to \mathfrak C$ is a coloring of its edges.
+      \item an arrow $\vect F = (F, \mathfrak c) \to (F', \mathfrak c') = \vect{F'}$ is a map
+            $\rho\colon F \to F'$ in $\Phi$ such that $\mathfrak c = \mathfrak c' \rho$.
+      \end{itemize}      
+
+      These naturally assemble into category $\Phi_\bullet \to \Set$ fibered over $\Set$.
+      Moreover, we denote by
+      $\Phi_\bullet^0 \subseteq \Phi_\bullet$
+      the wide subcategory of those arrows whose maps on uncolored forests are outer faces.
+\end{definition}
+
+\subsection{The category of equivariant trees}
+
+We now recall category $\Omega_G$ of $G$-trees, introduced in \cite{Per18}.
+We begin with an explicit example.
+Let $G = D_{8} = \set{1,\sigma,\sigma^2,\sigma^3, \rho, \sigma\rho, \sigma^2\rho, \sigma^3\rho}$
+be the dihedral group with 8 elements,
+and $L \leq K \leq H \leq G$ denote the subgroups
+$H = \langle \sigma^2,\rho \rangle$, $K = \langle \sigma^2 \rangle$, $L = \**$.
+Then we have a $G$-tree $T$ as below,
+with the \textit{expanded representation} given by the two trees on the left below, and
+the \textit{orbital representation} given by the sigle tree on the right.
+\begin{equation}
+      \begin{tikzpicture}[auto,grow=up, level distance = 2.2em,
+            every node/.style={font=\scriptsize,inner sep = 2pt}]%
+            \tikzstyle{level 2}=[sibling distance=7.5em]%
+            \tikzstyle{level 3}=[sibling distance=2em]%
+            \node at (5.5,0){}%	
+            child{node [dummy] {}%
+              child{node [dummy] {}%
+                child{node {}%
+                  edge from parent node [swap,very near end] {$\sigma^3 \rho a$}}%
+                child[level distance = 2.4em]{node {$\sigma\rho b$}}%
+                  % edge from parent node [swap,near end] {$\sigma\rho b$}}%
+                child{node {}%
+                  edge from parent node [very near end] {$\sigma \rho a$}}%
+                edge from parent node [swap] {$\sigma \rho c$}}%
+              child{node [dummy] {}%
+                child{node {}%
+                  edge from parent node [swap,very near end] {$\sigma^3 a$}}%
+                child[level distance = 2.4em]{node {$\sigma b$}}%
+                % edge from parent node [swap,near end] {$\sigma b$}}%
+                child{node {}%
+                  edge from parent node [very near end] {$\sigma a$}}%
+                edge from parent node  {$\sigma c$}}%
+              edge from parent node [swap] {$\sigma d$}};%
+            \node at (0,0){}%	
+            child{node [dummy] {}%
+              child{node [dummy] {}%
+                child{node {}%
+                  edge from parent node [swap,very near end] {$\sigma^2\rho a$}}%
+                child[level distance = 2.4em]{node {$\rho b$}}%
+                % edge from parent node [swap,near end] {$\rho b$}}%
+                child{node {}%
+                  edge from parent node [very near end] {$\rho a$}}%
+                edge from parent node [swap] {$\rho c$}}%
+              child{node [dummy] {}%
+                child{node {}%
+                  edge from parent node [swap,very near end] {$\sigma^2 a$}}%
+                child[level distance = 2.4em]{node {$b\phantom{j}$}}%
+                % edge from parent node [swap,near end] {$b\phantom{j}$}}%
+                child{node {}%
+                  edge from parent node [very near end] {$a$}}%
+                edge from parent node  {$c$}}%
+              edge from parent node [swap] {$d$}};%
+            \begin{scope}[every node/.style={font=\footnotesize}]%
+                  \node at (10,0) [font=normalsize] {$T$}%
+                  child{node [dummy] {}%
+                    child{node [dummy] {}%
+                      child{node {}%
+                        edge from parent node [swap,very near end] {$(G/K) \cdot b$}}%
+                      child{node {}%
+                        edge from parent node [very near end] {$(G/L) \cdot a$}}%
+                      edge from parent node [right] {$(G/K) \cdot c$}}%
+                    edge from parent node [right] {$(G/H) \cdot d$}};%
+            \end{scope}%
+            \draw[decorate,decoration={brace,amplitude=2.5pt}] (5.6,0) -- (-0.1,0) node[midway,inner sep=4pt,font=\normalsize]{$T$}; %
+            % \node at (9.35,-0.15) [font=\normalsize] {$T$};
+	\end{tikzpicture}%
+\end{equation}
 
 
 \subsection{Equivariant dendroidal sets}
@@ -3074,7 +3308,7 @@ $\{p_v \in \mathcal{P}(U_v)\}_{v \in \boldsymbol{V}(T)}$.
 		if there is an elementary representative
 		$p\colon \Omega[U] \to N \mathcal{P}$;
 		\item \emph{canonical} 
-		if there is a canonical (or, equivalently, alternating) representative
+		if there is a canonical (equivalently, alternating) representative
 		$p\colon \Omega[U] \to N \mathcal{P}$.
 	\end{itemize}
 \end{definition}
