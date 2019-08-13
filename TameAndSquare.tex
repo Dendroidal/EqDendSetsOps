@@ -412,8 +412,13 @@ Additionally, we write $\eta$ for the \textit{stick} tree; i.e. the unique tree 
 
 Given any $v \in |\boldsymbol{V}(T)|$, we write $T_v$ for the sub-diagram of $T$ consisting of the vertex $v$.
 
+\begin{convention}
+      For technical ease, we will assume that all trees $U$ are equipped with a \textit{planar} structure,
+      a total order on $\boldsymbol{E}(T)$ which extends $\leq d$.
+\end{convention}
+
 An arrow $\phi \colon S \to T$ between trees is given by
-a map of edge sets $\phi \colon \boldsymbol{E}(S) \to \boldsymbol{E}(T)$
+an (unordered) map of edge sets $\phi \colon \boldsymbol{E}(S) \to \boldsymbol{E}(T)$
 which ``preserves the tree structure'',
 in the following intuitive sense:
 If $S$ is a corolla with leaves $\set{e_1,\dots, e_n}$ and root $e_0$,
@@ -423,6 +428,7 @@ $\phi$ is a map of trees iff the set of leaves of this sub-diagram is precisely 
 For general $S \in \Omega$, $\phi$ is a map of tree iff every restricted map $S_v \to T$ is a map of trees.
 
 \begin{example}
+      \label{TREEMAP_EX}
       Using the natural map on edges as indicated by the names of the edges,
       the four leftmost trees below give rise to maps of trees to $T$ from \eqref{eq:TREE}, while the rightmost does not.
       \begin{equation}
@@ -523,7 +529,7 @@ Next, we consider categories of (colored) forests (cf. \cite[Defn. 2.56]{BP_HGOP
       maps $F_i \to F'_{\phi(i)}$ for all $i \in I$.
      
       The sets $\boldsymbol{V}(F)$, $\boldsymbol{E}(F)$, and $\boldsymbol{E}^i(F)$ generalize immediately.
-      Moreover, a call a map $\phi \colon F \to F'$ an (inner,outer) face map or a degeneracy iff
+      Moreover, we call a map $\phi \colon F \to F'$ an \textit{(inner,outer) face map} or a \textit{degeneracy} iff
       $\phi_i$ is so in $\Omega$ for all $i \in I$.
 \end{definition}
 
@@ -554,8 +560,9 @@ and $L \leq K \leq H \leq G$ denote the subgroups
 $H = \langle \sigma^2,\rho \rangle$, $K = \langle \sigma^2 \rangle$, $L = \**$.
 Then we have a $G$-tree $T$ as below,
 with the \textit{expanded representation} given by the two trees on the left below, and
-the \textit{orbital representation} given by the sigle tree on the right.
+the \textit{orbital representation} given by the single tree on the right.
 \begin{equation}
+      \label{GTREE_EQ}
       \begin{tikzpicture}[auto,grow=up, level distance = 2.2em,
             every node/.style={font=\scriptsize,inner sep = 2pt}]%
             \tikzstyle{level 2}=[sibling distance=7.5em]%
@@ -599,7 +606,7 @@ the \textit{orbital representation} given by the sigle tree on the right.
                 edge from parent node  {$c$}}%
               edge from parent node [swap] {$d$}};%
             \begin{scope}[every node/.style={font=\footnotesize}]%
-                  \node at (10,0) [font=normalsize] {$T$}%
+                  \node at (10,0) {}
                   child{node [dummy] {}%
                     child{node [dummy] {}%
                       child{node {}%
@@ -610,27 +617,49 @@ the \textit{orbital representation} given by the sigle tree on the right.
                     edge from parent node [right] {$(G/H) \cdot d$}};%
             \end{scope}%
             \draw[decorate,decoration={brace,amplitude=2.5pt}] (5.6,0) -- (-0.1,0) node[midway,inner sep=4pt,font=\normalsize]{$T$}; %
-            % \node at (9.35,-0.15) [font=\normalsize] {$T$};
-	\end{tikzpicture}%
+            \node at (10,-0.15) [font=\normalsize] {$T$};
+      \end{tikzpicture}%
 \end{equation}
+  
+Explicitly, we have the following.
+\begin{definition}
+      Let $\Phi^G$ denote the category of forests with $G$-action. Then
+      the category $\Omega_G$ of \textit{$G$-trees} is the subcategory of $\Phi^G$ consisting of those forests whose
+      $G$-set of roots has a transitive $G$-action.
+\end{definition}
+
+
+Any $T \in \Omega_G$ has several equivalent descriptions:
+\begin{enumerate}[label = (\roman*)]
+\item By definition, $T$ consists of a tuple $(T_i)_{i \in I}$ of trees in $\Omega$, equipped with a compatible $G$-action
+      which makes $I$ a transitive $G$-set.
+\item A functor $T: G \ltimes I \to \Omega$.
+\item An induction $T \simeq G \cdot_H T_{\**}$ where $T_{\**}$ is a fixed component of $T$ and $H \leq G$ is the stablizier of that component.
+\item A quotient $T \simeq G \cdot U / \Gamma$ for some $U \in \Omega$ and graph subgroup $\Gamma \leq G \times \Aut(U)$.
+      % \item The quotient $T \simeq (G \cdot T_{\**}) / N$ for $N$ the graph of the homomorphism $H \to \Aut(T_{\**})$ encoding the $H$-action.
+\end{enumerate}
+Moreover, we have that $\Omega_G$ is fibered over the category $\mathsf O_G$ of transitive $G$-sets and $G$-maps.
+
+
+For $T = (T_i) \in \Omega_G$, we write
+$\boldsymbol{E}_G(T) = \boldsymbol{E}(T)/G$, $\boldsymbol{E}^i_G(T) = \boldsymbol{E}^i(T)/G$, $\boldsymbol{V}_G(T) = \boldsymbol{V}(T)/G$
+for the set of \textit{edge orbits}, \textit{inner edge orbits}, and \textit{$G$-vertices}, respectively.
+
+\begin{remark}
+      The two representations of $G$-trees from \eqref{GTREE_EQ} play complementary roles in our analysis:
+      the expanded representation displays all of the relevant edge information, and thus is often useful for describing maps between $G$-trees;
+      conversely, the orbital representation compactly displays the relevant data for composing norm maps of operads.
+\end{remark}
+
+We can again describe maps between $G$-trees as being built out of several types of maps.
+First, on each fiber over $\mathsf O_G$, we have map which are faces or degeneracies on one (and thus all) components.
+There is a new type of type of map, \textit{quotients}, which corresponding to the cartesian arrows of $\mathsf O_G$,
+which behave like twisted fold maps on the components.
+\todo[inline]{example}
 
 
 \subsection{Equivariant dendroidal sets}
 \label{EDS_SEC}
-
-We begin with a brief overview of $G$-trees and equivariant dendroidal sets, whose discovery/definition is central and motivating for this entire project.
-
-\begin{definition}
-      The category $\Omega_G$ of \textit{$G$-trees} is the category of indecomposable forests with $G$-action.
-      Equivalently, an object $T \in \Omega_G$ can be described as any of the following:
-      \begin{enumerate}[label = (\roman*)]
-      \item A collection $T = (T_i)_{i \in R}$ of trees in $\Omega$, together with a compatible $G$-action on the whole system.
-      \item A functor $T: G \ltimes R \to \Omega$ for $R = \mathbf R(T)$ the transitive $G$-set of \textit{roots} of $T$.
-      \item An induction $T \simeq G \cdot_H T_e$ for some $T_e \in \Omega^H$ and $H \leq G$.
-      \item A quotient $T \simeq G \cdot U / \Gamma$ for some $U \in \Omega$ and graph subgroup $\Gamma \leq G \times \Aut(U)$.
-            % \item The quotient $T \simeq (G \cdot T_e) / N$ for $N$ the graph of the homomorphism $H \to \Aut(T_e)$ encoding the $H$-action.
-      \end{enumerate}
-\end{definition}
 
 We consider the na\"ive presheaf category 
 $
@@ -641,48 +670,78 @@ There is a natural inclusion
 \[
       \Omega[-] \colon \Omega_G \to \dSet^G,
       \qquad
-      \Omega[T] = \coprod \Omega[T_i] \simeq G \cdot_H \Omega[T_e].
-      % \simeq \left(G \cdot \Omega[T_e] \right) / N
+      \Omega[T] = \coprod \Omega[T_i] \simeq G \cdot_H \Omega[T_{\**}].
+      % \simeq \left(G \cdot \Omega[T_{\**}] \right) / N
 \]
 extending the Yoneda embedding $\Omega \times G \into \dSet^G$.
 Even though the presheaf category is na\"ive, this functor allows us to see genuine equivariant information recorded by $G$-trees
 and build a more ``genuine'' model structure.
-To begin, we make the following definitions (see \cite[\S 6]{Per18}).
+
+To begin, we make the following definitions (see \cite[\S 6]{Per18}), generalizing the standard presheaf constructions,
+with one equivariant clarification.
 
 \begin{definition}
-      For $T \in \Omega_G$, let $\partial \Omega[T]$ denote the \textit{boundary}
-      \[
-            \partial \Omega[T] = \coprod \partial \Omega[T_i] \simeq G \cdot_H \partial \Omega[T_e].
-            % \simeq \left(G \cdot \partial \Omega[T_e] \right) / N.
-      \]
-      The \textit{boundary inclusions} are maps in $\dSet^G$ of the form
-      \[
-            \partial \Omega[T] \to \Omega[T] =
-            \coprod \big( \partial \Omega[T_i] \to \Omega[T_i]\big) \simeq
-            G \cdot_H \big( \partial \Omega[T_e] \to \Omega[T_e] \big).
-            % \simeq
-            % \left( G \cdot \left( \partial \Omega[T_e] \into \Omega[T_e] \right) \right) / N.
-      \]
+      Let $T = (T_i) \in \Omega_G$ be a $G$-tree.
+      A \textit{face} of $T$ is a face map $U \to T_i$ from some $U \in \Omega$ to a component $T_i$ of $T$.
+
+      A face of $T$ is called \textit{planar} if the map $U \to T_i$ preserves the planar order.
+      Let $\mathsf{Face}(T)$ denote the poset of planar faces of $T$,
+      and let $\mathsf{Face}_{SC}(T)$ denote the outer faces of $T$ with no inner edges.
 \end{definition}
 
 \begin{definition}
-      Given $T \in \Omega_G$ and $e \in E(T)$, the associated \textit{$G$-inner horn} is the sub presheaf
+      For $T \in \Omega_G$, let $\partial \Omega[T]$ denote the \textit{boundary}
+      \begin{equation}
+            \partial \Omega[T]  = \colim_{U \in \mathsf{Face}(T), U \neq T} \Omega[U] = \bigcup_{U \in \mathsf{Face}(T), U \neq T} \Omega[U]
+      \end{equation}
+      and \textit{boundary inclusions} the maps in $\dSet^G$ of the form
+      $\partial \Omega[T] \to \Omega[T]$.
+
+      Next, given any $e \in E(T)$, the associated \textit{$G$-inner horn} is the sub-presheaf
       \begin{equation}
             \label{GINNERHORN_EQ}
             \Lambda^{Ge}[T] \into \partial \Omega[T] \into \Omega[T],
             \qquad
-            \Lambda^{Ge}[T] = \amalg \Lambda^{H_i e}{T_i} \simeq G \cdot_H \Lambda^{He}[T_e].
-            % \simeq \left(G \cdot \Lambda^{He}[T_e] \right) / N.
+            \Lambda^{Ge}[T] = \colim_{U \in \mathsf{Face}(T), (T_i \setminus Ge) \not\into U} \Omega[U]
+            = \bigcup_{U \in \mathsf{Face}(T), (T_i \setminus Ge) \not\into U} \Omega[U]
       \end{equation}
-      The \textit{generating $G$-inner horn inclusion} are maps in $\dSet^G$ of the form
-      \begin{equation}
-            \label{GENIHI_EQ}
-            \Lambda^{Ge}[T] \to \Omega[T]
-      \end{equation}
-      for $T \in \Omega_G$ and $e \in E(T)$.
+      and the \textit{generating $G$-inner horn inclusion} are those maps in $\dSet^G$ of the form
+      $\Lambda^{Ge}[T] \to \Omega[T]$.
 
-      A presheaf $X$ is called a \textit{$G$-$\infty$-operad} if $X \to \**$ has the right lifting property with respect to all generating $G$-inner horn inclusions.
+      Finally, we define the \textit{Segal core} or \textit{spine} of $T$ to be
+      \begin{equation}
+            \label{eq:SC}
+            Sc[T] = \colim_{U \in \mathsf{Face}_{SC}(T)} \Omega[U] = \bigcup_{U \in \mathsf{Face}_{SC}(T)} \Omega[U],
+      \end{equation}
+      and the \textit{Segal core inclusions} to be those maps in $\dSet^G$ of the form
+      $Sc(T) \to \Omega[T]$.
 \end{definition}
+
+
+\begin{remark}
+      For $T \in \Omega_G$, any decomposition $T \simeq G \cdot_H T_{\**}$ with $T_{\**} \in \Omega^H$ yields
+      \[
+            \Omega[T] \simeq G \cdot_H \Omega[T_{\**}],
+            \qquad
+            \partial\Omega[T] \simeq G \cdot_H \partial \Omega[T],
+            \qquad
+            \Lambda^{Ge}[T] \simeq G \cdot_H \Lambad^{E_{\**}}[T_{\**}],
+            \qquad
+            Sc[T] \simeq G \cdot_H Sc[T_{\**}]
+      \]
+      where $E_{\**} = E \cap \boldsymbol{E}(T_{\**})$.
+\end{remark}
+
+\begin{definition}
+      A presheaf $X \in \dSet^G$ is called a \textit{$G$-$\infty$-operad} if $X \to \**$ has the right lifting property with respect to all generating $G$-inner horn inclusions.
+      By {\color{blue} citation}, this is equivalent to $X$ having the right lifting property with respect to all Segal core inclusions.
+\end{definition}
+
+\todo[inline]{$G$-$\infty$-operads are combinatorial operads with weak composition}
+
+
+
+
 
 \begin{definition}
       The class of \textit{$G$-normal monomorphisms}
@@ -2597,21 +2656,21 @@ We have the following generalization of \cite[Prop 4.5]{CM13b} (see also \cite[P
 \end{proposition}
 \begin{proof}
       It suffices to check this on the generating maps.
-      To that end, let $T \in \Omega_\F$, choose a decomposition $T \simeq G \cdot_H T_e$ and consider the map
+      To that end, let $T \in \Omega_\F$, choose a decomposition $T \simeq G \cdot_H T_{\**}$ and consider the map
        \begin{equation}
-            G \cdot_H \left( W_! \partial \Omega[T_e] \xrightarrow{\ i \ } W(T_e) \right)      
+            G \cdot_H \left( W_! \partial \Omega[T_{\**}] \xrightarrow{\ i \ } W(T_{\**}) \right)      
       \end{equation}
       in $\sOp^G$.
-      If $T_e = \eta$, then $i$ is the canonical map $\varnothing \to \eta$,
+      If $T_{\**} = \eta$, then $i$ is the canonical map $\varnothing \to \eta$,
       $W_! \partial \Omega[\eta] = \varnothing \to W(\eta) = \eta$,
       and so $G \cdot_H i$ is a generating cofibration from \eqref{IFJF_EQ} in $\sOp^G$.
       
       When $|V(T)| \geq 1$, following Proposition \ref{WLEFTQPUSH PROP} and Example \ref{TENS_EX} (iv),
       it suffices to show that
       \[
-            (\partial \Delta[1] \to \Delta[1])^{\square \mathbf E^i(T_e)}
+            (\partial \Delta[1] \to \Delta[1])^{\square \mathbf E^i(T_{\**})}
       \]
-      is a genuine cofibration in $\sSet^{\Aut(\partial C)}_\F$ with $C = \mathsf{lr}(T_e) \in H \ltimes \Sigma_{\boldsymbol{E}(T_e)}^{op}$.
+      is a genuine cofibration in $\sSet^{\Aut(\partial C)}_\F$ with $C = \mathsf{lr}(T_{\**}) \in H \ltimes \Sigma_{\boldsymbol{E}(T_{\**})}^{op}$.
       However, $\Aut(\partial C) = \Gamma$ for $\Gamma \leq H \times \Sigma_n$ the graph subgroup encoding the $H$-action on the set of leaves $\set{e_1, \dots, e_n}$,
       and since $\F$ is a weak indexing system and $T \in \Omega_\F$,
       $\Aut(\vect C) \in \F_n$,
@@ -2619,7 +2678,7 @@ We have the following generalization of \cite[Prop 4.5]{CM13b} (see also \cite[P
       Then the claim follows from the fact that monomorphisms are genuine cofibrations,
       {\color{OliveGreen} % ---------- OLIVE GREEN ----------------------------------------
         or using the fact that $\sSet$ has cofibrant symmetric pushout powers,
-        so $(\partial \Delta[1] \to \Delta[1])^{\square m}$ is a genuine $\Sigma_m$-cofibration where $m = |\mathbf E^i(T_e)|$,
+        so $(\partial \Delta[1] \to \Delta[1])^{\square m}$ is a genuine $\Sigma_m$-cofibration where $m = |\mathbf E^i(T_{\**})|$,
         and then as restriction is left Quillen on genuine model structures,
         the composite on the right below is a genuine $\Aut(\partial C)$-cofibration.
         \[
