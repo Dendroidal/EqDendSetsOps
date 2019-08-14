@@ -10,7 +10,7 @@
 \usepackage{ifdraft}
 \ifdraft{
   \color[RGB]{63,63,63}
-  \pagecolor[RGB]{220,220,204}
+%  \pagecolor[RGB]{220,220,204}
   \usepackage[notref]{showkeys}
   \usepackage{geometry}
   \usepackage{todonotes}
@@ -2578,6 +2578,13 @@ Before the proof, we list some technical results yielded from \cite{BP_edss} tha
 
 {\color{red} HERE}
 
+
+Recall that, given an object $X$ in a model category $\mathcal{M}$,
+a simplicial frame for $X$ is a fibrant replacement
+$c_!(X) \to \widetilde{X}(\bullet)$ of the constant 
+simplicial object $c_!(X)$ in the Reedy model structure on $\mathcal{M}^{\Delta^{op}}$.
+Moreover, if $X$ was already fibrant one is free to assume that $\widetilde{X}(0) = X$.
+
 \begin{proof}[Proof of Theorem \ref{QE THM}]
 Consider the square of adjunctions on the left below 
 (where we depict only the right adjoints).
@@ -2594,7 +2601,7 @@ the right Quillen functors $N$ and $hcN$
 must be right derived, 
 the left Quillen functors $\gamma^{\**}$ and $c_!$ do not, 
 since they preserve all weak equivalences.
-\begin{equation}
+\begin{equation}\label{SQINPROOF EQ}
 \begin{tikzcd}
 	\mathsf{PreOp}^G 
 &
@@ -2602,10 +2609,10 @@ since they preserve all weak equivalences.
 	\ar{l}[swap]{N}
 	\ar{d}{hcN}
 &&%%%
-	Ho \mathsf{PreOp}^G 
+	\Ho \mathsf{PreOp}^G 
 	\ar{d}[swap]{\gamma^{\**}}{\sim}
 &
-	Ho \mathsf{sOp}^G 
+	\Ho \mathsf{sOp}^G 
 	\ar{l}[swap]{R N}{\sim}
 	\ar{d}{R hcN}
 \\
@@ -2615,49 +2622,85 @@ since they preserve all weak equivalences.
 &
 	\mathsf{dSet}^G
 &&%%%
-	Ho \mathsf{sdSet}^G
+	\Ho \mathsf{sdSet}^G
 &
-	Ho \mathsf{dSet}^G
+	\Ho \mathsf{dSet}^G
 	\ar{l}{c_!}[swap]{\sim}
 \end{tikzcd}
 \end{equation}
+Recalling that a Quillen adjunction
+is a Quillen equivalence iff the induced adjunction of homotopy categories is an equivalence adjunction,
+the desired claim that
+$(W_!,hcN)$ is a Quillen equivalence will thus follow
+provided we show that the right square in 
+\eqref{SQINPROOF EQ}
+commutes up to natural isomorphism.
+In other words, we will show that
+for each fibrant operad
+$\O \in \mathsf{sOp}^G$
+there is a natural zigzag of weak equivalences between 
+$\gamma^{\**} N \O$ and
+$c_! hcN \O$.
 
-\end{proof}
+We now discuss this zigzag. Assume 
+$\mathcal{O} \in \mathsf{sOp}^G$ is fibrant.
+First, choose a (functorial) fibrant simplicial frame
+$\widetilde{\mathcal{O}}(\bullet) \in (\mathsf{sOp}^G)^{\Delta^{op}}$, where we assume $\widetilde{\mathcal{O}} (0) = \mathcal{O}$.
+Next, let 
+$\gamma^{\**} N \widetilde{\mathcal{O}}(\bullet) 
+\to \widetilde{Q}(\bullet)$
+be a Reedy fibrant replacement in  
+$(\mathsf{sdSet}^G)^{\Delta^{op}}$.
+We note that 
+both $\widetilde{\O}$ and $\widetilde{Q}$
+have two simplicial directions:
+the frame direction, whose levels are written as
+$\widetilde{\O}(n),\widetilde{Q}(n)$
+and an internal direction
+(determined by the simplicial levels in $\mathsf{sOp}^G,\mathsf{sdSet}^G$),
+whose levels are written 
+$\widetilde{\O}_n,\widetilde{Q}_n$.
+Our desired zigzag of weak equivalences in $\mathsf{sdSet}^G$
+will have the form below.
+\begin{equation}\label{BIGZIG EQ}
+\begin{tikzcd}[column sep =20pt]
+	\gamma^{\**} N \mathcal{O} =
+	\gamma^{\**} N \widetilde{\mathcal{O}} (0)
+	\ar{r}{\sim}[swap]{(a)}
+&
+	\widetilde{Q}(0)
+	\ar{r}{\sim}[swap]{(b)}
+&
+	\delta^{\**} \widetilde{Q}
+	\ar[leftarrow]{r}{\sim}[swap]{(c)}
+&	
+	\widetilde{Q}_0
+	\ar[leftarrow]{r}{\sim}[swap]{(d)}
+&
+	\left(\gamma^{\**} N \widetilde{\mathcal{O}}\right)_0
+		\ar{r}{\sim}[swap]{(e)}
+&
+	hcN \widetilde{\mathcal{O}}
+	\ar[leftarrow]{r}{\sim}[swap]{(f)}
+&
+	c_{!} hcN \mathcal{O}
+\end{tikzcd}
+\end{equation}
+Firstly, the map (a) is a weak equivalence by definition of 
+$\widetilde{Q}$.
+
+
+
 
 {\color{red} HERE}
 
-\begin{proof}[Proof of Lemma \ref{COMUOTOHOM PROP}]
-      First, we note that though $\gamma^{\**}$ and $c_{!}$ are left Quillen, they both preserve all equivalences, 
-      so that one needs only perform fibrant replacements in 
-      $\mathsf{sOp}$.
 
-      Now, recall that, given an object $X$ in a model category $\mathcal{M}$, a simplicial frame of $X$ is a fibrant replacement
-      $c_!(X) \to \widetilde{X}(\bullet)$ of the constant 
-      simplcial object $c_!(X)$ in the Reedy model structure on $\mathcal{M}^{\Delta^{op}}$.
-      Moreover, if $X$ was already fibrant one is free to assume that $\widetilde{X}(0) = X$.
-      
-      Let $\mathcal{O} \in \mathsf{sOp}^G$ be fibrant, 
-      choose a (functorial) fibrant simplicial frame
-      $\widetilde{\mathcal{O}}(\bullet) \in (\mathsf{sOp}^G)^{\Delta^{op}}$, where we assume $\widetilde{\mathcal{O}} (0) = \mathcal{O}$.
-      Next, let 
-      $\gamma^{\**} N \widetilde{\mathcal{O}}(\bullet) 
-      \to \widetilde{Q}(\bullet)$
-      be a Reedy fibrant replacement in  
-      $(\mathsf{sdSet}^G)^{\Delta^{op}}$.
-      
-      We claim that the following is a zigzag of weak equivalences in $\mathsf{sdSet}^G$.
-      \begin{equation}\label{BIGZIG EQ}
-            \gamma^{\**} N \mathcal{O} \xrightarrow{\sim}
-            \widetilde{Q}(0) \xrightarrow{\sim}
-            \delta^{\**} \widetilde{Q} \xleftarrow{\sim}
-            \widetilde{Q}_0 \xleftarrow{\sim}
-            \left(\gamma^{\**} N \widetilde{\mathcal{O}}\right)_0
-            \xrightarrow{\sim}
-            hcN \widetilde{\mathcal{O}} \xleftarrow{\sim}
-            c_{!} hcN \mathcal{O}
-      \end{equation}
-      
-      That the first map is an equivalence is obvious from definition of $\widetilde{Q}$ and the assumption $\widetilde{\mathcal{O}}(0) = \mathcal{O}$.
+\end{proof}
+
+
+
+\begin{proof}[Proof of Lemma \ref{COMUOTOHOM PROP}]
+
       
       The second, third, fourth, and fifth maps are all in fact simplicial equivalences.
       For the second and third maps, note first that $\widetilde{\O}$ and hence
