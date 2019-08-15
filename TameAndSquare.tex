@@ -10,7 +10,7 @@
 \usepackage{ifdraft}
 \ifdraft{
   \color[RGB]{63,63,63}
-%  \pagecolor[RGB]{220,220,204}
+  \pagecolor[RGB]{220,220,204}
   \usepackage[notref]{showkeys}
   \usepackage{geometry}
   \usepackage{todonotes}
@@ -175,6 +175,7 @@ cd,patterns,calc}
 \newcommand{\sCat}{\mathsf{sCat}}
 \newcommand{\Op}{\mathsf{Op}}%
 \newcommand{\sOp}{\ensuremath{\mathsf{sOp}}}%
+\newcommand{\sSym}{\ensuremath{\mathsf{sSym}}}%
 \newcommand{\fgt}{\ensuremath{\mathsf{fgt}}}%
 \newcommand{\dSet}{\mathsf{dSet}}
 \newcommand{\Fun}{\mathsf{Fun}}
@@ -372,6 +373,14 @@ Full details and discussion can be found in \cite{Per18}, \cite{BP_edss}.
       \end{tikzcd}
 \]
 
+\subsection{Equivariant homotopy theory}
+
+\todo[inline]{$\F$-model structures, graph subgroups}
+
+\begin{definition}
+      \label{GGRAPHCOF_DEF}
+      Let $\F$ be a family, and $X \in \sSet^G$. We say $X$ is \textit{$G$-graph cofibrant} if $X$ is $\F^{\Gamma}$-cofibrant.
+\end{definition}
 
 \subsection{Categories of trees and forests}
 
@@ -379,14 +388,14 @@ We briefly recall the category $\Omega_G$ of equivariant trees, which encodes th
 a more thourough discussion can be found in \cite{Per18} or \cite[\S 2]{BP_edss}.
 
 First, we review the Cisinski-Moerdijk-Weiss category $\Omega$ of trees.
-Objects are given by tree diagrams $T$ as below\footnote{Formally, we use the model of \textit{broad posets} as introduced in \cite{Wei12}.}.
+Objects are given by tree diagrams $U$ as below\footnote{Formally, we use the model of \textit{broad posets} as introduced in \cite{Wei12}.}.
 \begin{equation}
       \label{eq:TREE}
       \begin{tikzpicture}[auto,grow=up, level distance = 2.2em,
             every node/.style={font=\scriptsize,inner sep = 2pt}]%
             \tikzstyle{level 2}=[sibling distance=4em]%
             \tikzstyle{level 3}=[sibling distance=2.25em]%
-            \node [font=\normalsize] {$T$}
+            \node [font=\normalsize] {$U$}
             child{node [dummy] {}
               child{node [dummy] {}
                 edge from parent node [swap] {$e$}
@@ -404,28 +413,25 @@ Objects are given by tree diagrams $T$ as below\footnote{Formally, we use the mo
 Edges with no vertices $\circ$ above them are called \textit{leaves}, the unique bottom edge is called the \textit{root},
 and edges that are neither are called \textit{inner edges};
 in the example above, $a$ and $b$ are the leaves, $r$ is the root, and $c$ and $e$ are inner edges.
-The sets of edges, inner edges, and vertices of a tree $T$ are denoted $\boldsymbol{E}(T)$, $\boldsymbol{E}^i(T)$, and $\boldsymbol{V}(T)$ respectively.
-If an edge $t$ is pictorally above (or equal to) an edge $s$, we write $t \leq_d s$\footnote{While this notation may seem backwards, $\leq_d$ flows in the direction of composition.}.
+The sets of edges, inner edges, and vertices of a tree $T$ are denoted $\boldsymbol{E}(U)$, $\boldsymbol{E}^i(U)$, and $\boldsymbol{V}(U)$ respectively.
+If an edge $t$ is pictorally above\footnote{While the following notation may seem backwards, $\leq_d$ flows in the direction of composition.} (or equal to) an edge $s$, we write $t \leq_d s$.
 
-If $|\boldsymbol{V}(T)| = 1$ and $|\boldsymbol{L}(T)|=n$, we call $T$ an \textit{$n$-corolla}.
-Additionally, we write $\eta$ for the \textit{stick} tree; i.e. the unique tree with $|\boldsymbol{V}(\eta)| = 0$.
+\begin{notation}
+      If $|\boldsymbol{V}(U)| = 1$ and $|\boldsymbol{L}(T)|=n$, we write $U = C_n$ and say $U$ is a (the) \textit{$n$-corolla}.
+      Additionally, we write $\eta$ for the \textit{stick} tree, the unique tree with $|\boldsymbol{V}(\eta)| = 0$.
+      Given any $v \in |\boldsymbol{V}(U)|$, we write $U_v$ for the sub-diagram of $U$ consisting of the vertex $v$.
+\end{notation}
 
-Given any $v \in |\boldsymbol{V}(T)|$, we write $T_v$ for the sub-diagram of $T$ consisting of the vertex $v$.
 
-\begin{convention}
-      For technical ease, we will assume that all trees $U$ are equipped with a \textit{planar} structure,
-      a total order on $\boldsymbol{E}(T)$ which extends $\leq d$.
-\end{convention}
-
-An arrow $\phi \colon S \to T$ between trees is given by
+An arrow $\phi \colon U \to V$ between trees is given by
 an (unordered) map of edge sets $\phi \colon \boldsymbol{E}(S) \to \boldsymbol{E}(T)$
 which ``preserves the tree structure'',
 in the following intuitive sense:
-If $S$ is a corolla with leaves $\set{e_1,\dots, e_n}$ and root $e_0$,
+If $U$ is a corolla with leaves $\set{e_1,\dots, e_n}$ and root $e_0$,
 we first require that $\phi(e_i) \leq_d \phi(e_0)$ and $\phi(e_i) \not\leq_d \phi(e_j)$ for all $i \geq j > 0$.
-Moreover, consider the sub-diagram of $T$ where we chop of all vertices and edges above $\phi(e_i)$ and below $\phi(e_0)$;
+Moreover, consider the sub-diagram of $V$ where we chop of all vertices and edges above $\phi(e_i)$ and below $\phi(e_0)$;
 $\phi$ is a map of trees iff the set of leaves of this sub-diagram is precisely $\set{\phi(e_1), \dots, \phi(e_n)}$.
-For general $S \in \Omega$, $\phi$ is a map of tree iff every restricted map $S_v \to T$ is a map of trees.
+For general trees $U$, $\phi$ is a map of tree iff every restricted map $U_v \to V$ is a map of trees.
 
 \begin{example}
       \label{TREEMAP_EX}
@@ -494,15 +500,15 @@ For general $S \in \Omega$, $\phi$ is a map of tree iff every restricted map $S_
       \end{equation}
 \end{example}
 
-An arrow $S \to T$ is called a \textit{tall map} if
-$\phi(\boldsymbol{L}(S)) = \boldsymbol{L}(T)$ and $\phi(r_S) = r_T$
+An arrow of trees $U \to V$ is called a \textit{tall map} if
+$\phi(\boldsymbol{L}(U)) = \boldsymbol{L}(V)$ and $\phi(r_U) = r_V$
 for $r_{(-)}$ denoting the root edge.
-An arrow $S \to T$ is called a \textit{face map} if it is injective on edges,
+An arrow $U \to V$ is called a \textit{face map} if it is injective on edges,
 while a surjective map which preserves leaves is called a \textit{degeneracy}; we note that degeneracies must be tall maps.
 Further, a face map is called \textit{inner} if it is also a tall map,
 and \textit{outer} if it does not factor through a non-isomorphism inner face map.
 
-Heuristically, inner face maps split vertices to create new inner edges in $T$,
+Heuristically, inner face maps split vertices to create new inner edges in $U$,
 outer face maps glue on new vertices,
 and degeneracies collapse unary vertices.
 \begin{example}
@@ -511,25 +517,39 @@ and degeneracies collapse unary vertices.
 \end{example}
 
 \begin{proposition}[{cf. \cite[Prop. 2.2]{BP_edss}}]
-      A map $\phi \colon S \to T$ in $\Omega$ has a factorization, unique up to unique isomorphisms,
-      \[
-            S \xrightarrow{\phi^-} U \xrightarrow{\phi^i} V \xrightarrow{\phi^o} T
-      \]
+      An arrow of trees $\phi \colon U \to V$ has a factorization, unique up to unique isomorphisms,
+      \begin{equation}
+            \label{TREEFACT_EQ}
+            U \xrightarrow{\phi^-} U' \xrightarrow{\phi^i} U'' \xrightarrow{\phi^o} V
+      \end{equation}
       as a degeneracy followed by an inner face map followed by an outer face map.
 \end{proposition}
 
+
+\begin{remark}
+      For technical ease, we will assume that all trees $U$ are equipped with a \textit{planar} structure,
+      a well-behaved total order on $\boldsymbol{E}(U)$ which extends $\leq_d$.
+      Heuristically, a planar structure is equivalent to choosing a 2D-representation of the tree diagram.
+      In particular, the factorization from \eqref{TREEFAT_EQ} is actually unique if we demand that $\phi^i$ and $\phi^o$ are planar.
+      A rigorous definition and more discussion can be found in \cite[\S 3.1]{BP_geo}.
+\end{remark}
+
+\begin{definition}
+      We let $\Omega$ denote a full subcategory of trees and (non-planar) arrows
+      such that the subcategory of planar maps in skeletal (i.e. if two trees are planar isomorphic, they are the same).
+\end{definition}
 
 Next, we consider categories of (colored) forests (cf. \cite[Defn. 2.56]{BP_HGOP}).
 
 \begin{definition}
       The category $\Phi$ of \textit{forests} is the coproduct completion of the category $\Omega$ of trees:
-      objects are (finite) tuples $F = (F_i)_{i in I}$ with $F_i \in \Omega$,
+      objects are finite tuples $F = (F_i)_{i \in I}$ with $F_i \in \Omega$,
       and an arrow $\phi \colon (F_i)_{i in I} \to (F'_j)_{j \in J}$ is given by
       a map $\phi \colon I \to J$ and
-      maps $F_i \to F'_{\phi(i)}$ for all $i \in I$.
+      maps $\phi_i \colon F_i \to F'_{\phi(i)}$ for all $i \in I$.
      
       The sets $\boldsymbol{V}(F)$, $\boldsymbol{E}(F)$, and $\boldsymbol{E}^i(F)$ generalize immediately.
-      Moreover, we call a map $\phi \colon F \to F'$ an \textit{(inner,outer) face map} or a \textit{degeneracy} iff
+      Moreover, we call a map $\phi \colon F \to F'$ an \textit{(inner, outer) face map} or a \textit{degeneracy} iff
       $\phi_i$ is so in $\Omega$ for all $i \in I$.
 \end{definition}
 
@@ -559,8 +579,8 @@ be the dihedral group with 8 elements,
 and $L \leq K \leq H \leq G$ denote the subgroups
 $H = \langle \sigma^2,\rho \rangle$, $K = \langle \sigma^2 \rangle$, $L = \**$.
 Then we have a $G$-tree $T$ as below,
-with the \textit{expanded representation} given by the two trees on the left below, and
-the \textit{orbital representation} given by the single tree on the right.
+with the \textit{expanded representation} given by the two trees on the left below,
+the \textit{orbital representation} given by the single decorated tree on the right.
 \begin{equation}
       \label{GTREE_EQ}
       \begin{tikzpicture}[auto,grow=up, level distance = 2.2em,
@@ -617,15 +637,21 @@ the \textit{orbital representation} given by the single tree on the right.
                     edge from parent node [right] {$(G/H) \cdot d$}};%
             \end{scope}%
             \draw[decorate,decoration={brace,amplitude=2.5pt}] (5.6,0) -- (-0.1,0) node[midway,inner sep=4pt,font=\normalsize]{$T$}; %
-            \node at (10,-0.15) [font=\normalsize] {$T$};
-      \end{tikzpicture}%
+            \node at (10,-0.15) [font=\normalsize] {$T$}; 
+     \end{tikzpicture}%
 \end{equation}
-  
-Explicitly, we have the following.
+The expanded representation is a planar representation of the $G$-sets of edges and vertices, equipped with names for the edges which indicate the group action on the set of edges (and hence also vertices).
+In the orbital representation, each edge indicates an orbit worth of edges from the expanded representation,
+and is labeled by the appropriate transitive $G$-set.
+
+In general, we have the following.
 \begin{definition}
       Let $\Phi^G$ denote the category of forests with $G$-action. Then
       the category $\Omega_G$ of \textit{$G$-trees} is the subcategory of $\Phi^G$ consisting of those forests whose
       $G$-set of roots has a transitive $G$-action.
+
+      $\Omega_G$ is fibered over the \textit{orbit category} $\mathsf O_G$ of transitive $G$-sets and $G$-maps,
+      by the functor which sends a $G$-tree $T$ to its $G$-set of roots $\underline{r}_T$.
 \end{definition}
 
 
@@ -633,12 +659,13 @@ Any $T \in \Omega_G$ has several equivalent descriptions:
 \begin{enumerate}[label = (\roman*)]
 \item By definition, $T$ consists of a tuple $(T_i)_{i \in I}$ of trees in $\Omega$, equipped with a compatible $G$-action
       which makes $I$ a transitive $G$-set.
-\item A functor $T: G \ltimes I \to \Omega$.
-\item An induction $T \simeq G \cdot_H T_{\**}$ where $T_{\**}$ is a fixed component of $T$ and $H \leq G$ is the stablizier of that component.
-\item A quotient $T \simeq G \cdot U / \Gamma$ for some $U \in \Omega$ and graph subgroup $\Gamma \leq G \times \Aut(U)$.
-      % \item The quotient $T \simeq (G \cdot T_{\**}) / N$ for $N$ the graph of the homomorphism $H \to \Aut(T_{\**})$ encoding the $H$-action.
+\item Alternatively, this data is given by a functor $T: G \ltimes I \to \Omega$.
+\item Any component $T_{\**}$ of $T$ is stabilized by some subgroup $H \leq G$, and $T$ may be described as an induction
+      $T \simeq G \cdot_H T_{\**}$.
+\item Similarly, fixing a component $T_{\**}$, let $\Gamma \leq G \times \Aut(T_{\**})$ denote the graph subgroup encoding the $H$-action on $T_{\**}$;
+      $T$ may then be described as the quotient $T \simeq G \cdot U / \Gamma$.
 \end{enumerate}
-Moreover, we have that $\Omega_G$ is fibered over the category $\mathsf O_G$ of transitive $G$-sets and $G$-maps.
+
 
 
 For $T = (T_i) \in \Omega_G$, we write
@@ -648,37 +675,103 @@ for the set of \textit{edge orbits}, \textit{inner edge orbits}, and \textit{$G$
 \begin{remark}
       The two representations of $G$-trees from \eqref{GTREE_EQ} play complementary roles in our analysis:
       the expanded representation displays all of the relevant edge information, and thus is often useful for describing maps between $G$-trees;
-      conversely, the orbital representation compactly displays the relevant data for composing norm maps of operads.
+      conversely, the orbital representation compactly displays the relevant data for composing norm maps of operads (e.g. Example \ref{GTREENORM_EX}).
 \end{remark}
 
-We can again describe maps between $G$-trees as being built out of several types of maps.
-First, on each fiber over $\mathsf O_G$, we have map which are faces or degeneracies on one (and thus all) components.
-There is a new type of type of map, \textit{quotients}, which corresponding to the cartesian arrows of $\mathsf O_G$,
-which behave like twisted fold maps on the components.
-\todo[inline]{example}
+As in $\Omega,$ we can describe maps between $G$-trees as being built out of a few types of maps.
+First, on each fiber over $\mathsf O_G$, we have map which are faces or degeneracies on one (and thus all, by equivariance) components.
+Second, there is a new type of type of map, dubbed \textit{quotients}, corresponding to the cartesian arrows over $\mathsf O_G$,
+which act as twisted fold maps on the components.
+
+\begin{example}
+      Let $G = \mathbb Z/ 2\mathbb Z$ be the cyclic group with two elements.
+      We have the following quotient map on $G$-corollas,
+      where $\alpha \mapsto a$, $\alpha^- \mapsto -a$, $\beta \mapsto b$, $\gamma \mapsto c$.
+      \[
+            \begin{tikzpicture}[grow=up,auto,level distance=2.4em,
+                  every node/.style={font=\scriptsize,inner sep = 2pt}]%
+                  \tikzstyle{level 2}=[sibling distance=4em]%
+                  \begin{scope}[every node/.style={font=\footnotesize}]%
+                        \node at (0,0) {}
+                        child{node [dummy] {}
+                          child{edge from parent node [swap,near end] {$G/e+\alpha^{-}$}}
+                          child{node {$G/e + \beta$}}
+                          child{edge from parent node [near end] {$G/e + \alpha$}}
+                          edge from parent node [swap] {$G/2 + \gamma$}
+                        };
+                        % 
+                        \node at (4.8,1) {$\xrightarrow{\qquad \qquad}$};
+                        % 
+                        \node at (8,0) {}
+                        child{node [dummy] {}
+                          child{edge from parent node [swap] {$G/G + b$}}
+                          child{edge from parent node {$G/e+a$}}
+                          edge from parent node [swap] {$G/G+c$}
+                        };
+                  \end{scope}%
+                  \begin{scope}[level distance=2em]
+                        \tikzstyle{level 2}=[sibling distance=3em]%
+                        \node at (-2,-2.5) {}
+                        child{node [dummy] {}
+                          child{edge from parent node [swap, near end] {$\alpha^{-}$}}
+                          child{edge from parent node [swap, very near end] {$\beta$}}
+                          child{edge from parent node [near end] {$\alpha$}}
+                          edge from parent node [swap] {$\gamma$}
+                        };
+                        \node at (2,-2.5) {}
+                        child{node [dummy] {}
+                          child{edge from parent node [swap, near end] {$-\alpha^{-}$}}
+                          child{edge from parent node [swap, very near end] {$-\beta$}}
+                          child{edge from parent node [near end] {$-\alpha$}}
+                          edge from parent node [swap] {$-\gamma$}
+                        };
+                        \node at (4.8,-1.7) {$\xrightarrow{ \qquad \qquad}$};
+                        \node at (8,-2.5) {}
+                        child{node [dummy] {}
+                          child{edge from parent node [swap, near end] {$-a$}}
+                          child{edge from parent node [swap, very near end] {$b$}}
+                          child{edge from parent node [near end] {$a$}}
+                          edge from parent node [swap] {$c$}
+                        };                  
+                  \end{scope}
+                  \draw[decorate,decoration={brace,amplitude=2.5pt}] (2.1,-2.5) -- (-2.1,-2.5) node[midway,inner sep=4pt,font=\normalsize]{$S$}; %
+                  \node at (8,-2.65) [font=\normalsize] {$T$};
+                  \node at (8,-.15) [font=\normalsize] {$T$};
+                  \node at (0,-.15) [font=\normalsize] {$S$};
+            \end{tikzpicture}
+      \]
+\end{example}
+
+\begin{corollary}[{cf. Remark \ref[5.49]{Per18}}]
+      A map $\phi \colon S \to T$ in $\Omega_G$ has a factorization, unique up to unique isomorphism,
+      \[
+            S \xrightarrow{\phi^-} S' \xrightarrow{\phi^i} S'' \xrightarrow{\phi^o} q^{\**}T \xrightarrow{q} T
+      \]
+      as, in order: a degeneracy $\phi^-$, an inner face $\phi^i$, an outer face $\phi^o$, and a quotient $q$.
+\end{corollary}
 
 
 \subsection{Equivariant dendroidal sets}
 \label{EDS_SEC}
 
-We consider the na\"ive presheaf category 
+We consider the presheaf category 
 $
 \dSet^G = \Fun(G \times \Omega^{op}, \Set),
 $
 of \textit{equivariant dendroidal sets}.
-There is a natural inclusion
+There is a natural fully-faithful inclusion
 \[
-      \Omega[-] \colon \Omega_G \to \dSet^G,
+      \Omega[-] \colon \Omega_G \longto \dSet^G,
       \qquad
-      \Omega[T] = \coprod \Omega[T_i] \simeq G \cdot_H \Omega[T_{\**}].
+      T = (T_i) \longmapsto \Omega[T] = \coprod \Omega[T_i]
+      % \simeq G \cdot_H \Omega[T_{\**}].
       % \simeq \left(G \cdot \Omega[T_{\**}] \right) / N
 \]
 extending the Yoneda embedding $\Omega \times G \into \dSet^G$.
-Even though the presheaf category is na\"ive, this functor allows us to see genuine equivariant information recorded by $G$-trees
-and build a more ``genuine'' model structure.
+Thus, presheaves $X \in \dSet^G$ may be probed by $G$-trees through these $\Omega[T]$,
+which allows us to detect norm map information (see \cite[Example 4.9]{Per18}, {\color{blue} Example}).
 
-To begin, we make the following definitions (see \cite[\S 6]{Per18}), generalizing the standard presheaf constructions,
-with one equivariant clarification.
+To begin, we make the following definitions (cf. \cite[\S 6]{Per18}), generalizing the standard presheaf constructions.
 
 \begin{definition}
       Let $T = (T_i) \in \Omega_G$ be a $G$-tree.
@@ -690,19 +783,20 @@ with one equivariant clarification.
 \end{definition}
 
 \begin{definition}
-      For $T \in \Omega_G$, let $\partial \Omega[T]$ denote the \textit{boundary}
+      \label{DSETPRESHEAF_DEF}
+      For $T \in \Omega_G$, let $\partial \Omega[T] \subseteq \Omega[T]$ denote the \textit{boundary}
       \begin{equation}
-            \partial \Omega[T]  = \colim_{U \in \mathsf{Face}(T), U \neq T} \Omega[U] = \bigcup_{U \in \mathsf{Face}(T), U \neq T} \Omega[U]
+            \partial \Omega[T]  = \mathop{\colim}\limits_{U \in \mathsf{Face}(T), U \neq T} \Omega[U] = \bigcup_{U \in \mathsf{Face}(T), U \neq T} \Omega[U]
       \end{equation}
       and \textit{boundary inclusions} the maps in $\dSet^G$ of the form
       $\partial \Omega[T] \to \Omega[T]$.
 
-      Next, given any $e \in E(T)$, the associated \textit{$G$-inner horn} is the sub-presheaf
+      Next, given any $e \in E(T)$, let
+      $\Lambda^{Ge}[T] \subseteq \partial \Omega[T] \subseteq \Omega[T]$,
+      denote the associated \textit{$G$-inner horn}
       \begin{equation}
             \label{GINNERHORN_EQ}
-            \Lambda^{Ge}[T] \into \partial \Omega[T] \into \Omega[T],
-            \qquad
-            \Lambda^{Ge}[T] = \colim_{U \in \mathsf{Face}(T), (T_i \setminus Ge) \not\into U} \Omega[U]
+            \Lambda^{Ge}[T] = \mathop{\colim}\limits_{U \in \mathsf{Face}(T), (T_i \setminus Ge) \not\into U} \Omega[U]
             = \bigcup_{U \in \mathsf{Face}(T), (T_i \setminus Ge) \not\into U} \Omega[U]
       \end{equation}
       and the \textit{generating $G$-inner horn inclusion} are those maps in $\dSet^G$ of the form
@@ -711,7 +805,7 @@ with one equivariant clarification.
       Finally, we define the \textit{Segal core} or \textit{spine} of $T$ to be
       \begin{equation}
             \label{eq:SC}
-            Sc[T] = \colim_{U \in \mathsf{Face}_{SC}(T)} \Omega[U] = \bigcup_{U \in \mathsf{Face}_{SC}(T)} \Omega[U],
+            Sc[T] = \mathop{\colim}\limits_{U \in \mathsf{Face}_{SC}(T)} \Omega[U] = \bigcup_{U \in \mathsf{Face}_{SC}(T)} \Omega[U],
       \end{equation}
       and the \textit{Segal core inclusions} to be those maps in $\dSet^G$ of the form
       $Sc(T) \to \Omega[T]$.
@@ -725,7 +819,7 @@ with one equivariant clarification.
             \qquad
             \partial\Omega[T] \simeq G \cdot_H \partial \Omega[T],
             \qquad
-            \Lambda^{Ge}[T] \simeq G \cdot_H \Lambad^{E_{\**}}[T_{\**}],
+            \Lambda^{Ge}[T] \simeq G \cdot_H \Lambda^{E_{\**}}[T_{\**}],
             \qquad
             Sc[T] \simeq G \cdot_H Sc[T_{\**}]
       \]
@@ -736,23 +830,40 @@ with one equivariant clarification.
       A presheaf $X \in \dSet^G$ is called a \textit{$G$-$\infty$-operad} if $X \to \**$ has the right lifting property with respect to all generating $G$-inner horn inclusions.
       By {\color{blue} citation}, this is equivalent to $X$ having the right lifting property with respect to all Segal core inclusions.
 \end{definition}
+Intuitively,
+$G$-$\infty$-operads are combinatorial operads with weak composition laws for norm maps:
+\begin{example}
+      We recall the setup of \eqref{GTREE_EQ}, with $G = D_8$, $H = \langle \sigma^2,\rho \rangle$, $K = \langle \sigma^2 \rangle$, $L = \**$, and $T$ the given tree diagram.
+      Let $X \in \dSet^G$. Then we have natural solid arrows
+      \[
+            \begin{tikzcd}
+                  X(H/K) \times X(K/L \amalg K/K) \arrow[r, start anchor = east, end anchor = west, dashed, bend left, shift left]
+                  &
+                  \Hom_{\dSet^G}(\Omega[T], X) \arrow[l, shift left] \arrow[r]
+                  &
+                  X(H/L \amalg H/K)
+            \end{tikzcd}
+      \]
+      given by the presheaf structure,
+      If $X$ is a $G$-$\infty$-operad, there exists a dashed section (possibly many) as written,
+      and the composite map provides a choice of a composition law.
+      providing a choice of composition.     
+\end{example}
 
-\todo[inline]{$G$-$\infty$-operads are combinatorial operads with weak composition}
 
 
 
 
+The maps from Definition \ref{DSETPRESHEAF_DEF} form the basis for a model structure on $\dSet^G$.
 
 \begin{definition}
       The class of \textit{$G$-normal monomorphisms}
       is the smallest saturated\footnote{A class of maps is \textit{saturated} if it is closed under pushouts, retracts, and transfinite compositions.}
-      class of maps containing the boundary inclusions $\partial \Omega[T] \into \Omega[T]$.
-      A map is called a \textit{trivial fibration} if it has the right lifting property with respect to the $G$-normal monomorphisms.
+      class of maps containing the boundary inclusions $\partial \Omega[T] \into \Omega[T]$ for all $T \in \Omega_G$.
+      Dually, a map is called a \textit{trivial fibration} if it has the right lifting property with respect to the $G$-normal monomorphisms.
       
       The class of \textit{$G$-inner anodyne extensions} is the smallest saturated class of maps containing the generating $G$-inner horn inclusions.
 \end{definition}
-
-These two classes of maps form the basis of a model structure on $\dSet^G$.
 
 \begin{theorem}[{\cite[Thm 2.1, Thm 8.22]{Per18}}]
       There exists a model structure on $\dSet^G$ such that
@@ -766,10 +877,6 @@ These two classes of maps form the basis of a model structure on $\dSet^G$.
 \end{theorem}
 
 
-These results will be applied in Proposition \ref{W!_COF_PROP}, the main result necessary to prove that $W_!$ is left Quillen.
-
-
-
 
 
 
@@ -777,40 +884,149 @@ These results will be applied in Proposition \ref{W!_COF_PROP}, the main result 
 
 \subsection{Equivariant simplicial operads}
 
-We will denote by $\mathsf{sOp}$ the category of \textit{colored simplicial operads}, also know as \textit{simplicially enriched multicategories},
-and $\mathsf{sOp}^G$ the category of $G$-objects in $\sOp$.
+We now recall our main objects of study; further details and exposition can be found in \cite[\S 2]{BP_HGOP}.
+
+We denote by $\mathsf{sOp}^G$ the category of \textit{equivariant colored simplicial operads}, also know as \textit{$G$-objects in simplicially enriched muliticategories}.
+
+Equivariant Simplicial operads are encoded as algebras over a monad $\mathbb F$ on the category of equivariant symmetric sequences.
+\begin{definition}
+      Let $\mathfrak C$ be a set. A \textit{$\mathfrak C$-signature} is a tuple
+      $\vect C = (\mathfrak c_1, \dots, \mathfrak c_n; \mathfrak c_0) = (\mathfrak c_i)_{0 \leq i \leq n}$ in $\mathfrak C^{\times n+1}$.
+      The \textit{$\mathfrak C$-symmetric category} is the category denoted $\Sigma_{\mathfrak C}$ with
+      objects $\mathfrak C$-signatures and
+      arrows $\vect C = (\mathfrak c_i)_{0 \leq i \leq n} \to (\mathfrak d_j)_{0 \leq j \leq m} = \vect D$
+      given by $\sigma \in \Sigma_n$ such that $\mathfrak c_{\sigma i} = \mathfrak d_i$ if $n = m$, with no arrows otherwise.
+
+      If $\mathfrak C$ is a $G$-set, we write $G \ltimes \Sigma_{\mathfrak C}$ for the Grothendieck construction associated to this action.
+      In this case, the automorphism group of $\vect C = (\mathfrak c_1, \dots, \mathfrak c_n; \mathfrak c_0) \in G \ltimes \Sigma_{\mathfrak C}$ is a subgroup of $G \times \Sigma_n$.
+      For any $\Gamma \leq G \times \Sigma_n$, we say \textit{$\Gamma$ stabilizes $\vect C$} if $\Gamma \leq \Aut(\vect C)$. 
+\end{definition}
 
 \begin{definition}
-      Let $\mathcal{V}$ be a category.
-      The category $\mathsf{Sym}_\bullet(\mathcal{V})$ of
-      \textit{symmetric sequences on $\mathcal{V}$} 
-      (on all colors) is the category with:
+      Fix a $G$-set of colors $\mathfrak C$.
+      The category of \textit{$\mathfrak C$-colored simplicial symmetric sequences} is the functor category
+      $\Fun(G \ltimes \Sigma_{\mathfrak C}^{op}, \sSet)$.
+\end{definition}
+\todo[inline]{if we don't use $W$-construction stuff, this can be much shorter}
+\begin{definition}
+      The category $\mathsf{sSym}^G$ of
+      \textit{equivariant simplicial symmetric sequences} 
+      (of all colors) is the category with:
       \begin{itemize}
       \item objects given by pairs $(\mathfrak C, X)$ with
-            $\mathfrak{C} \in \mathsf{Set}$ a set of colors and
-            $X \colon \Sigma_{\mathfrak{C}}^{op} \to \mathcal{V}$ a functor;
-      \item arrows $(\mathfrak C, X) \to (\mathfrak D, Y)$ given by a map 
+            $\mathfrak{C} \in \mathsf{Set}^G$ a $G$-set of colors and
+            $X \colon G \ltimes \Sigma_{\mathfrak{C}}^{op} \to \sSet$ a functor;
+      \item arrows $(\mathfrak C, X) \to (\mathfrak D, Y)$ given by a $G$-map 
             $\varphi \colon \mathfrak{C} \to \mathfrak{D}$ of colors and a natural transformation $X \Rightarrow Y \varphi$ as below.
             \begin{equation}
                   \label{SYMSEQMAP_EQ}
                   \begin{tikzcd}[row sep = tiny, column sep = 45pt]
-                        \Sigma_{\mathfrak{C}}^{op} \arrow[dr, "X"{name=U}] 
+                        G \ltimes \Sigma_{\mathfrak{C}}^{op} \arrow[dr, "X"{name=U}] 
                         \arrow{dd}[swap]{\varphi}
                         \\
-                        & \mathcal{V}
+                        & \sSet
                         \\
-                        |[alias=V]| \Sigma_{\mathfrak{D}}^{op} \arrow[ur, "Y"']
+                        |[alias=V]| G \ltimes \Sigma_{\mathfrak{D}}^{op} \arrow[ur, "Y"']
                         \arrow[Leftarrow, from=V, to=U,shorten >=0.25cm,shorten <=0.25cm]
                   \end{tikzcd}
             \end{equation}
       \end{itemize}
 \end{definition}
+$\sSym^G$ and $\sOp^G$ are both natural fibered over the category $\Set^G$ by selecting the set of colors,
+and the free operad monad and associated adjunction
+\[
+      \mathbb F \colon \sSym^G \rightleftarrows \sOp^G \colon U
+\]
+are fibered over $\Set^G$ as well.
+We denote the fibers and monad on the fibers by $\mathbb F_{\mathfrak C} \colon \sSym^G_{\mathfrak C} \to \sOp_{\mathfrak C}^G$.
+For further discussion on fibered adjunctions, see \cite{BP_HGOP}.
+
+\begin{convention}
+      For convenience, we will often just write $\O \in \sOp^G$, and denote by $\mathfrak C_\O \in \Set^G$ the $G$-set of colors of $\O$.
+\end{convention}
+
+Generalizing the work of \cite{Ber07b,CM13b}, in \cite{BP_HGOP} we show that
+the category of equivariant simplicial operads is equipped with a Dwyer-Kan model structure,
+where weak equivalences are hoomotopically essentially surjective maps which have the same homotopy types for every space of norm maps.
+First, the fibers $\sOp^G_{\mathfrak C}$ have a model structure transfered from $\sSym^G_{\mathfrak C}$ by \cite[Thm. I]{BP_HGOP}:
+a map $X \to Y$ is a weak equivalence (resp. fibration) iff
+$X(\vect C) \to Y(\vect C)$ is a $G$-graph weak equivalence (resp. fibration) in $\sSet^{\Aut_{G \ltimes \Sigma_{\mathfrak C}^{op}}(\vect C)}$
+
+Second, these model structures on $\sOp_{\mathfrak C}^G$ assemble into a single model structure on all operads.
 
 \begin{definition}
-      Describe.
+      We recall two natural right adjoints:
+      \[
+            \sOp^G \xrightarrow{\pi_0}
+            \Op^G \xrightarrow{j^{\**}}
+            \Cat
+      \]
+      where $\pi_0(\mathfrak C, \O) = (\mathfrak C, \pi_0 \O)$ with $\pi_0\O(\vect C) = \pi_0\left(\O(\vect C)\right)$,
+      and $j^{\**}$ forgets all non-unary operations.
 \end{definition}
 
-\subsubsection{$\Sigma$-cofibrancy}
+\begin{theorem}[{cf. \cite[Thm. III, Prop. 4.78]{BP_HGOP}}] % ISOFIBHARD PROP
+      The category $\sOp^G$ is equipped with a model structure where the weak equivalences (resp. fibrations) are those maps
+      $F \colon \O) \to \P)$ such that
+      \begin{itemize}
+      \item the induced maps
+            \begin{equation}
+                  \label{DKEQUIV_EQ}
+                  \O(\mathfrak c_1, \dots, \mathfrak c_n; \mathfrak c_0)^\Gamma \longto \P(F \mathfrak c_1, \dots, F \mathfrak c_n; F \mathfrak c_0)^\Gamma
+            \end{equation}
+            is a Kan equivalence (resp. Kan fibration) in $\sSet$
+            for all $\mathfrak C_\O$-signatures $\vect C = (\mathfrak c_1, \dots, \mathfrak c_n; \mathfrak c_0)$
+            and all \textit{graph subgroups} $\Gamma \leq G \times \Sigma_n$ which stabilize $\vect C$.
+      \item the induced maps of categories
+            \[
+                  j^{\**}\pi_0 \O^H \longto j^{\**}\pi_0 \P^H
+            \]
+            is essentially surjective (resp. an isofibration) for all $H \leq G$.
+      \end{itemize}
+\end{theorem}
+
+Lastly, we have that cofibrant operads forget to cofibrant symmetric sequences.
+\begin{definition}
+      We say a map $\O \to \P$ in $\sOp^G_{\mathfrak C}$ is a \textit{$\Sigma$-cofibration}
+      if the underlying map of $\mathfrak C$-colored symmetric sequences is a $G$-graph cofibration.
+      is $G$-graph cofibrant in $\sSym_{\mathfrak C}^G$. 
+\end{definition}
+\begin{theorem}[{cf. \cite[Prop. 3.63]{BP_HGOP}}] % SIGMAG_COF PROP
+      If $\O \to \P$ is a cofibration between cofibrant objects in $\sOp^G_{\mathfrak C}$,
+      the $\O \to \P$ is a $\Sigma$-cofibration.
+\end{theorem}
+
+\todo[inline]{come back - make sure this goes here}
+Now, recall (e.g. \cite[Prop. 2.16]{Ste16}) that for any group $G$ and family of subgroups $\F$,
+$K \to L$ in $\sSet^{G}_\F$ is an $\F$-cofibration iff $L_n \setminus K_n$ has isotropy in $\F$; i.e. for all $x \in L_n \setminus K-n$, $\Stab_{G}(x) \in \F$. 
+% 
+We also note the easy observation that for any set $A$ with an action of $G \times \Sigma$,
+$A$ has isotropy in the family $\F^\Gamma$ of $G$-graph subgroups
+iff
+$A$ is $\Sigma$-free.
+% 
+Thus $K \to L$ in $\sSet^{G \times \Sigma}_{\F^\Gamma}$ is an $\F^\Gamma$-cofibration
+iff
+it forgets to a cofibration in the coarse model structure $\sSet^\Sigma_{proj}$.
+
+More generally, if $\Lambda \leq G \times \Sigma$ and $\F^\Gamma_{\Lambda} = \F^\Gamma \cap \Lambda$,
+then $K \to L$ in $\sSet^{\Lambda}_{\F^\Gamma_\Lambda}$ is an $\F^\Gamma_\Lambda$-cofibration
+iff
+it forgets to a cofibration in the coarse model structure $\sSet^{\pi_{\Sigma}\Lambda}_{proj}$.
+      
+All together, we conclude the following (cf. \cite[Remark 6.7]{Per18}, \cite[discussion before Thm. 2.31]{BP_edss}).
+
+\begin{proposition}
+      \label{SGS_COF_PROP}
+      $\O \to \P$ in $\Op_\bullet^G(\sSet)$ is a $\Sigma_{\F^\Gamma}$-cofibration iff
+      it forgets to a $\Sigma$-cofibration in $\Op_\bullet(\sSet)$
+      (i.e. it forgets to a cofibration in $\Sym_\bullet(\sSet)$).
+      %
+      Equivalently, $\O$ is $\Sigma_{\F^\Gamma}$-cofibrant iff $\O(n)$ has a free $\Sigma_n$-action.
+\end{proposition}
+
+
+\todo[inline]{come back!}
 
 
 \subsubsection{Free operads generated by trees}
