@@ -175,6 +175,7 @@ cd,patterns,calc}
 \newcommand{\sCat}{\mathsf{sCat}}
 \newcommand{\Op}{\mathsf{Op}}%
 \newcommand{\sOp}{\ensuremath{\mathsf{sOp}}}%
+\newcommand{\sSym}{\ensuremath{\mathsf{sSym}}}%
 \newcommand{\fgt}{\ensuremath{\mathsf{fgt}}}%
 \newcommand{\dSet}{\mathsf{dSet}}
 \newcommand{\Fun}{\mathsf{Fun}}
@@ -372,6 +373,14 @@ Full details and discussion can be found in \cite{Per18}, \cite{BP_edss}.
       \end{tikzcd}
 \]
 
+\subsection{Equivariant homotopy theory}
+
+\todo[inline]{$\F$-model structures, graph subgroups}
+
+\begin{definition}
+      \label{GGRAPHCOF_DEF}
+      Let $\F$ be a family, and $X \in \sSet^G$. We say $X$ is \textit{$G$-graph cofibrant} if $X$ is $\F^{\Gamma}$-cofibrant.
+\end{definition}
 
 \subsection{Categories of trees and forests}
 
@@ -736,17 +745,16 @@ which act as twisted fold maps on the components.
 \begin{corollary}[{cf. Remark \ref[5.49]{Per18}}]
       A map $\phi \colon S \to T$ in $\Omega_G$ has a factorization, unique up to unique isomorphism,
       \[
-            S \xrightarrow{\phi^-} S' \xrightarrow{\phi^i} S'' \xrightarrow{\phi^o} q^{\**}T \xrightarrow{q}
+            S \xrightarrow{\phi^-} S' \xrightarrow{\phi^i} S'' \xrightarrow{\phi^o} q^{\**}T \xrightarrow{q} T
       \]
-      as a degeneracy $\phi^-$, followed by an inner face $\phi^i$, followed by an outer face $\phi^o$,
-      followed by a quotient $q$.
+      as, in order: a degeneracy $\phi^-$, an inner face $\phi^i$, an outer face $\phi^o$, and a quotient $q$.
 \end{corollary}
 
 
 \subsection{Equivariant dendroidal sets}
 \label{EDS_SEC}
 
-We consider the na\"ive presheaf category 
+We consider the presheaf category 
 $
 \dSet^G = \Fun(G \times \Omega^{op}, \Set),
 $
@@ -760,8 +768,8 @@ There is a natural fully-faithful inclusion
       % \simeq \left(G \cdot \Omega[T_{\**}] \right) / N
 \]
 extending the Yoneda embedding $\Omega \times G \into \dSet^G$.
-Even though the presheaf category is na\"ive,
-these presheaves $\Omega[T]$, $T \in \Omega_G$ allow us to detect norm map information (see \cite[Example 4.9]{Per18}, {\color{blue} Example}).
+Thus, presheaves $X \in \dSet^G$ may be probed by $G$-trees through these $\Omega[T]$,
+which allows us to detect norm map information (see \cite[Example 4.9]{Per18}, {\color{blue} Example}).
 
 To begin, we make the following definitions (cf. \cite[\S 6]{Per18}), generalizing the standard presheaf constructions.
 
@@ -822,26 +830,27 @@ To begin, we make the following definitions (cf. \cite[\S 6]{Per18}), generalizi
       A presheaf $X \in \dSet^G$ is called a \textit{$G$-$\infty$-operad} if $X \to \**$ has the right lifting property with respect to all generating $G$-inner horn inclusions.
       By {\color{blue} citation}, this is equivalent to $X$ having the right lifting property with respect to all Segal core inclusions.
 \end{definition}
-
+Intuitively,
 $G$-$\infty$-operads are combinatorial operads with weak composition laws for norm maps:
 \begin{example}
       We recall the setup of \eqref{GTREE_EQ}, with $G = D_8$, $H = \langle \sigma^2,\rho \rangle$, $K = \langle \sigma^2 \rangle$, $L = \**$, and $T$ the given tree diagram.
       Let $X \in \dSet^G$. Then we have natural solid arrows
       \[
             \begin{tikzcd}
-                  X(H/K) \times X(K/L \amalg K/K) \arrow[start anchor = east, end anchor = west, dashed, bend left, shift left, "s"]
+                  X(H/K) \times X(K/L \amalg K/K) \arrow[r, start anchor = east, end anchor = west, dashed, bend left, shift left]
                   &
-                  \Hom_{\dSet^G}(\Omega[T], X) \arrow[l, shift left] \arrow[r, "\phi"]
+                  \Hom_{\dSet^G}(\Omega[T], X) \arrow[l, shift left] \arrow[r]
                   &
                   X(H/L \amalg H/K)
             \end{tikzcd}
       \]
       given by the presheaf structure,
-      If $X$ is a $G$-$\infty$-operad, we have the dashed section as written,
+      If $X$ is a $G$-$\infty$-operad, there exists a dashed section (possibly many) as written,
+      and the composite map provides a choice of a composition law.
       providing a choice of composition.     
 \end{example}
 
-\todo[inline]{$G$-$\infty$-operads are combinatorial operads with weak composition}
+
 
 
 
@@ -875,42 +884,146 @@ The maps from Definition \ref{DSETPRESHEAF_DEF} form the basis for a model struc
 
 \subsection{Equivariant simplicial operads}
 
-\todo[inline]{introduce}
+We now recall our main objects of study; further details and exposition can be found in \cite[\S 2]{BP_HGOP}.
 
-We will denote by $\mathsf{sOp}$ the category of \textit{colored simplicial operads}, also know as \textit{simplicially enriched multicategories},
-and $\mathsf{sOp}^G$ the category of $G$-objects in $\sOp$.
+We denote by $\mathsf{sOp}^G$ the category of \textit{equivariant colored simplicial operads}, also know as \textit{$G$-objects in simplicially enriched muliticategories}.
+
+Equivariant Simplicial operads are encoded as algebras over a monad $\mathbb F$ on the category of equivariant symmetric sequences.
+\begin{definition}
+      Let $\mathfrak C$ be a set. A \textit{$\mathfrak C$-signature} is a tuple
+      $\vect C = (\mathfrak c_1, \dots, \mathfrak c_n; \mathfrak c_0) = (\mathfrak c_i)_{0 \leq i \leq n}$ in $\mathfrak C^{\times n+1}$.
+      The \textit{$\mathfrak C$-symmetric category} is the category denoted $\Sigma_{\mathfrak C}$ with
+      objects $\mathfrak C$-signatures and
+      arrows $\vect C = (\mathfrak c_i)_{0 \leq i \leq n} \to (\mathfrak d_j)_{0 \leq j \leq m} = \vect D$
+      given by $\sigma \in \Sigma_n$ such that $\mathfrak c_{\sigma i} = \mathfrak d_i$ if $n = m$, with no arrows otherwise.
+
+      If $\mathfrak C$ is a $G$-set, we write $G \ltimes \Sigma_{\mathfrak C}$ for the Grothendieck construction associated to this action.
+      In this case, the automorphism group of $\vect C = (\mathfrak c_1, \dots, \mathfrak c_n; \mathfrak c_0) \in G \ltimes \Sigma_{\mathfrak C}$ is a subgroup of $G \times \Sigma_n$.
+      For any $\Gamma \leq G \times \Sigma_n$, we say \textit{$\Gamma$ stabilizes $\vect C$} if $\Gamma \leq \Aut(\vect C)$. 
+\end{definition}
 
 \begin{definition}
-      Let $\mathcal{V}$ be a category.
-      The category $\mathsf{Sym}_\bullet(\mathcal{V})$ of
-      \textit{symmetric sequences on $\mathcal{V}$} 
-      (on all colors) is the category with:
+      Fix a $G$-set of colors $\mathfrak C$.
+      The category of \textit{$\mathfrak C$-colored simplicial symmetric sequences} is the functor category
+      $\Fun(G \ltimes \Sigma_{\mathfrak C}^{op}, \sSet)$.
+\end{definition}
+\begin{definition}
+      The category $\mathsf{sSym}^G$
+      \textit{equivariant simplicial symmetric sequences} 
+      (of all colors) is the category with:
       \begin{itemize}
       \item objects given by pairs $(\mathfrak C, X)$ with
-            $\mathfrak{C} \in \mathsf{Set}$ a set of colors and
-            $X \colon \Sigma_{\mathfrak{C}}^{op} \to \mathcal{V}$ a functor;
-      \item arrows $(\mathfrak C, X) \to (\mathfrak D, Y)$ given by a map 
+            $\mathfrak{C} \in \mathsf{Set}^G$ a $G$-set of colors and
+            $X \colon G \ltimes \Sigma_{\mathfrak{C}}^{op} \to \sSet$ a functor;
+      \item arrows $(\mathfrak C, X) \to (\mathfrak D, Y)$ given by a $G$-map 
             $\varphi \colon \mathfrak{C} \to \mathfrak{D}$ of colors and a natural transformation $X \Rightarrow Y \varphi$ as below.
             \begin{equation}
                   \label{SYMSEQMAP_EQ}
                   \begin{tikzcd}[row sep = tiny, column sep = 45pt]
-                        \Sigma_{\mathfrak{C}}^{op} \arrow[dr, "X"{name=U}] 
+                        G \ltimes \Sigma_{\mathfrak{C}}^{op} \arrow[dr, "X"{name=U}] 
                         \arrow{dd}[swap]{\varphi}
                         \\
-                        & \mathcal{V}
+                        & \sSet
                         \\
-                        |[alias=V]| \Sigma_{\mathfrak{D}}^{op} \arrow[ur, "Y"']
+                        |[alias=V]| G \ltimes \Sigma_{\mathfrak{D}}^{op} \arrow[ur, "Y"']
                         \arrow[Leftarrow, from=V, to=U,shorten >=0.25cm,shorten <=0.25cm]
                   \end{tikzcd}
             \end{equation}
       \end{itemize}
 \end{definition}
+$\sSym^G$ and $\sOp^G$ are both natural fibered over the category $\Set^G$ by selecting the set of colors,
+and the free operad monad and associated adjunction
+\[
+      \mathbb F \colon \sSym^G \rightleftarrows \sOp^G \colon U
+\]
+are fibered over $\Set^G$ as well.
+We denote the fibers and monad on the fibers by $\mathbb F_{\mathfrak C} \colon \sSym^G_{\mathfrak C} \to \sOp_{\mathfrak C}^G$.
+For further discussion on fibered adjunctions, see \cite{BP_HGOP}.
+
+\begin{convention}
+      For convenience, we will often just write $\O \in \sOp^G$, and denote by $\mathfrak C_\O \in \Set^G$ the $G$-set of colors of $\O$.
+\end{convention}
+
+Generalizing the work of \cite{Ber07b,CM13b}, in \cite{BP_HGOP} we show that
+the category of equivariant simplicial operads is equipped with a Dwyer-Kan model structure,
+where weak equivalences are hoomotopically essentially surjective maps which have the same homotopy types for every space of norm maps.
+First, the fibers $\sOp^G_{\mathfrak C}$ have a model structure transfered from $\sSym^G_{\mathfrak C}$ by \cite[Thm. I]{BP_HGOP}:
+a map $X \to Y$ is a weak equivalence (resp. fibration) iff
+$X(\vect C) \to Y(\vect C)$ is a $G$-graph weak equivalence (resp. fibration) in $\sSet^{\Aut_{G \ltimes \Sigma_{\mathfrak C}^{op}}(\vect C)}$
+
+Second, these model structures on $\sOp_{\mathfrak C}^G$ assemble into a single model structure on all operads.
 
 \begin{definition}
-      Describe.
+      We recall two natural right adjoints:
+      \[
+            \sOp^G \xrightarrow{\pi_0}
+            \Op^G \xrightarrow{j^{\**}}
+            \Cat
+      \]
+      where $\pi_0(\mathfrak C, \O) = (\mathfrak C, \pi_0 \O)$ with $\pi_0\O(\vect C) = \pi_0\left(\O(\vect C)\right)$,
+      and $j^{\**}$ forgets all non-unary operations.
 \end{definition}
 
-\subsubsection{$\Sigma$-cofibrancy}
+\begin{theorem}[{cf. \cite[Thm. III, Prop. 4.78]{BP_HGOP}}] % ISOFIBHARD PROP
+      The cateogry $\sOp^G$ is equipped with a model structure where the weak equivalences (resp. fibrations) are those maps
+      $F \colon \O) \to \P)$ such that
+      \begin{itemize}
+      \item the induced maps
+            \begin{equation}
+                  \label{DKEQUIV_EQ}
+                  \O(\mathfrak c_1, \dots, \mathfrak c_n; \mathfrak c_0)^\Gamma \longto \P(F \mathfrak c_1, \dots, F \mathfrak c_n; F \mathfrak c_0)^\Gamma
+            \end{equation}
+            is a Kan equivalence (resp. Kan fibration) in $\sSet$
+            for all $\mathfrak C_\O$-signatures $\vect C = (\mathfrak c_1, \dots, \mathfrak c_n; \mathfrak c_0)$
+            and all \textit{graph subgroups} $\Gamma \leq G \times \Sigma_n$ which stabilize $\vect C$.
+      \item the induced maps of categories
+            \[
+                  j^{\**}\pi_0 \O^H \longto j^{\**}\pi_0 \P^H
+            \]
+            is essentially surjective (resp. an isofibration) for all $H \leq G$.
+      \end{itemize}
+\end{theorem}
+
+Lastly, we have that cofibrant operads forget to cofibrant symmetric sequences.
+\begin{definition}
+      We say $(\mathfrak C, \O) \in \sOp^G$ is \textit{$\Sigma$-cofibrant} if the underlying symmetric sequence of $\O$
+      is $G$-graph cofibrant in $\sSym_{\mathfrak C}^G$. 
+\end{definition}
+\begin{theorem}[{cf. \cite[Prop. 3.63]{BP_HGOP}}] % SIGMAG_COF PROP
+      If $\O \to \P$ is a cofibration between cofibrant objects in $\sOp^G_{\mathfrak C}$, 
+      then the underlying map of $\mathfrak C$-colored symmetric sequences is a $G$-graph cofibration.
+\end{theorem}
+
+Now, recall (e.g. \cite[Prop. 2.16]{Ste16}) that for any group $G$ and family of subgroups $\F$,
+$K \to L$ in $\sSet^{G}_\F$ is an $\F$-cofibration iff $L_n \setminus K_n$ has isotropy in $\F$; i.e. for all $x \in L_n \setminus K-n$, $\Stab_{G}(x) \in \F$. 
+% 
+We also note the easy observation that for any set $A$ with an action of $G \times \Sigma$,
+$A$ has isotropy in the family $\F^\Gamma$ of $G$-graph subgroups
+iff
+$A$ is $\Sigma$-free.
+% 
+Thus $K \to L$ in $\sSet^{G \times \Sigma}_{\F^\Gamma}$ is an $\F^\Gamma$-cofibration
+iff
+it forgets to a cofibration in the coarse model structure $\sSet^\Sigma_{proj}$.
+
+More generally, if $\Lambda \leq G \times \Sigma$ and $\F^\Gamma_{\Lambda} = \F^\Gamma \cap \Lambda$,
+then $K \to L$ in $\sSet^{\Lambda}_{\F^\Gamma_\Lambda}$ is an $\F^\Gamma_\Lambda$-cofibration
+iff
+it forgets to a cofibration in the coarse model structure $\sSet^{\pi_{\Sigma}\Lambda}_{proj}$.
+      
+All together, we conclude the following (cf. \cite[Remark 6.7]{Per18}, \cite[discussion before Thm. 2.31]{BP_edss}).
+
+\begin{proposition}
+      \label{SGS_COF_PROP}
+      $\O \to \P$ in $\Op_\bullet^G(\sSet)$ is a $\Sigma_{\F^\Gamma}$-cofibration iff
+      it forgets to a $\Sigma$-cofibration in $\Op_\bullet(\sSet)$
+      (i.e. it forgets to a cofibration in $\Sym_\bullet(\sSet)$).
+      %
+      Equivalently, $\O$ is $\Sigma_{\F^\Gamma}$-cofibrant iff $\O(n)$ has a free $\Sigma_n$-action.
+\end{proposition}
+
+
+\todo[inline]{come back!}
 
 
 \subsubsection{Free operads generated by trees}
