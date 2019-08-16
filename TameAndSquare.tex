@@ -383,6 +383,7 @@ Full details and discussion can be found in \cite{Per18}, \cite{BP_edss}.
 \end{definition}
 
 \subsection{Categories of trees and forests}
+\label{FORESTS_SEC}
 
 We briefly recall the category $\Omega_G$ of equivariant trees, which encodes the combinatorics of compositions of norm maps;
 a more thourough discussion can be found in \cite{Per18} or \cite[\S 2]{BP_edss}.
@@ -413,8 +414,8 @@ Objects are given by tree diagrams $U$ as below\footnote{Formally, we use the mo
 Edges with no vertices $\circ$ above them are called \textit{leaves}, the unique bottom edge is called the \textit{root},
 and edges that are neither are called \textit{inner edges};
 in the example above, $a$ and $b$ are the leaves, $r$ is the root, and $c$ and $e$ are inner edges.
-The sets of edges, inner edges, and vertices of a tree $T$ are denoted $\boldsymbol{E}(U)$, $\boldsymbol{E}^i(U)$, and $\boldsymbol{V}(U)$ respectively.
-If an edge $t$ is pictorally above\footnote{While the following notation may seem backwards, $\leq_d$ flows in the direction of composition.} (or equal to) an edge $s$, we write $t \leq_d s$.
+The sets of edges, inner edges, leaves, and vertices of a tree $T$ are denoted $\boldsymbol{E}(U)$, $\boldsymbol{E}^i(U)$, $\boldsymbol{V}(T)$, and $\boldsymbol{V}(U)$ respectively.
+% If an edge $t$ is pictorally above\footnote{While the following notation may seem backwards, $\leq_d$ flows in the direction of composition.} (or equal to) an edge $s$, we write $t \leq_d s$.
 
 \begin{notation}
       If $|\boldsymbol{V}(U)| = 1$ and $|\boldsymbol{L}(T)|=n$, we write $U = C_n$ and say $U$ is a (the) \textit{$n$-corolla}.
@@ -425,18 +426,19 @@ If an edge $t$ is pictorally above\footnote{While the following notation may see
 
 An arrow $\phi \colon U \to V$ between trees is given by
 an (unordered) map of edge sets $\phi \colon \boldsymbol{E}(S) \to \boldsymbol{E}(T)$
-which ``preserves the tree structure'',
-in the following intuitive sense:
-If $U$ is a corolla with leaves $\set{e_1,\dots, e_n}$ and root $e_0$,
-we first require that $\phi(e_i) \leq_d \phi(e_0)$ and $\phi(e_i) \not\leq_d \phi(e_j)$ for all $i \geq j > 0$.
-Moreover, consider the sub-diagram of $V$ where we chop of all vertices and edges above $\phi(e_i)$ and below $\phi(e_0)$;
-$\phi$ is a map of trees iff the set of leaves of this sub-diagram is precisely $\set{\phi(e_1), \dots, \phi(e_n)}$.
-For general trees $U$, $\phi$ is a map of tree iff every restricted map $U_v \to V$ is a map of trees.
+which preserves the incidence relations in an intuitive sense
+(see e.g. \cite[\S 2.1]{BP_edss} for a rigorous definition).
+% in the following intuitive sense:
+% If $U$ is a corolla with leaves $\set{e_1,\dots, e_n}$ and root $e_0$,
+% we first require that $\phi(e_i) \leq_d \phi(e_0)$ and $\phi(e_i) \not\leq_d \phi(e_j)$ for all $i \geq j > 0$.
+% Moreover, consider the sub-diagram $V_U$ of $V$ where we chop of all vertices and edges above $\phi(e_i)$ and below $\phi(e_0)$;
+% $\phi$ is a map of trees iff the set of leaves of this sub-diagram is precisely $\set{\phi(e_1), \dots, \phi(e_n)}$.
+% For general trees $U$, $\phi$ is a map of tree iff every restricted map $U_v \to V$ is a map of trees.
 
 \begin{example}
       \label{TREEMAP_EX}
-      Using the natural map on edges as indicated by the names of the edges,
-      the four leftmost trees below give rise to maps of trees to $T$ from \eqref{eq:TREE}, while the rightmost does not.
+      The labels on the edges of the tree diagrams below indicate a map to $\boldsymbol{E}(T)$ from \eqref{eq:TREE}.
+      The maps determined by four leftmost trees are maps of trees, while the rightmost is not.
       \begin{equation}
             \begin{tikzpicture}[auto, grow=up, level distance = 2.2em,
                   every node/.style={font=\scriptsize,inner sep = 2pt}]
@@ -527,8 +529,8 @@ and degeneracies collapse unary vertices.
 
 
 \begin{remark}
-      For technical ease, we will assume that all trees $U$ are equipped with a \textit{planar} structure,
-      a well-behaved total order on $\boldsymbol{E}(U)$ which extends $\leq_d$.
+      For technical ease, we will assume that all trees $U$ are equipped with a \textit{planar} structure.
+      % a well-behaved total order on $\boldsymbol{E}(U)$ which extends $\leq_d$.
       Heuristically, a planar structure is equivalent to choosing a 2D-representation of the tree diagram.
       In particular, the factorization from \eqref{TREEFAT_EQ} is actually unique if we demand that $\phi^i$ and $\phi^o$ are planar.
       A rigorous definition and more discussion can be found in \cite[\S 3.1]{BP_geo}.
@@ -548,7 +550,7 @@ Next, we consider categories of (colored) forests (cf. \cite[Defn. 2.56]{BP_HGOP
       a map $\phi \colon I \to J$ and
       maps $\phi_i \colon F_i \to F'_{\phi(i)}$ for all $i \in I$.
      
-      The sets $\boldsymbol{V}(F)$, $\boldsymbol{E}(F)$, and $\boldsymbol{E}^i(F)$ generalize immediately.
+      The sets $\boldsymbol{E}(F)$, $\boldsymbol{E}^i(F)$, $\boldsymbol{L}(F)$, $\boldsymbol{V}(F)$ generalize immediately.
       Moreover, we call a map $\phi \colon F \to F'$ an \textit{(inner, outer) face map} or a \textit{degeneracy} iff
       $\phi_i$ is so in $\Omega$ for all $i \in I$.
 \end{definition}
@@ -654,21 +656,22 @@ In general, we have the following.
       by the functor which sends a $G$-tree $T$ to its $G$-set of roots $\underline{r}_T$.
 \end{definition}
 
+We denote objects in $\Omega_G$ by $T = (T_i)_{i \in I}$.
+Alternatively, any choice of component $T_{\**}$ has a stabilizer $H \leq G$, and then we have a decomposition
+$T \simeq G \cdot_H T_{\**}$.
+% Any $T \in \Omega_G$ has several equivalent descriptions:
+% \begin{enumerate}
+% \item By definition, $T$ consists of a tuple $(T_i)_{i \in I}$ of trees in $\Omega$, equipped with a compatible $G$-action
+%       which makes $I$ a transitive $G$-set.
+% \item Alternatively, this data is given by a functor $T: G \ltimes I \to \Omega$.
+% \item Any component $T_{\**}$ of $T$ is stabilized by some subgroup $H \leq G$, and $T$ may be described as an induction
+%       $T \simeq G \cdot_H T_{\**}$.
+% \item Similarly, fixing a component $T_{\**}$, let $\Gamma \leq G \times \Aut(T_{\**})$ denote the graph subgroup encoding the $H$-action on $T_{\**}$;
+%       $T$ may then be described as the quotient $T \simeq G \cdot U / \Gamma$.
+% \end{enumerate}
 
-Any $T \in \Omega_G$ has several equivalent descriptions:
-\begin{enumerate}[label = (\roman*)]
-\item By definition, $T$ consists of a tuple $(T_i)_{i \in I}$ of trees in $\Omega$, equipped with a compatible $G$-action
-      which makes $I$ a transitive $G$-set.
-\item Alternatively, this data is given by a functor $T: G \ltimes I \to \Omega$.
-\item Any component $T_{\**}$ of $T$ is stabilized by some subgroup $H \leq G$, and $T$ may be described as an induction
-      $T \simeq G \cdot_H T_{\**}$.
-\item Similarly, fixing a component $T_{\**}$, let $\Gamma \leq G \times \Aut(T_{\**})$ denote the graph subgroup encoding the $H$-action on $T_{\**}$;
-      $T$ may then be described as the quotient $T \simeq G \cdot U / \Gamma$.
-\end{enumerate}
 
-
-
-For $T = (T_i) \in \Omega_G$, we write
+For $T \in \Omega_G$, we write
 $\boldsymbol{E}_G(T) = \boldsymbol{E}(T)/G$, $\boldsymbol{E}^i_G(T) = \boldsymbol{E}^i(T)/G$, $\boldsymbol{V}_G(T) = \boldsymbol{V}(T)/G$
 for the set of \textit{edge orbits}, \textit{inner edge orbits}, and \textit{$G$-vertices}, respectively.
 
@@ -742,7 +745,7 @@ which act as twisted fold maps on the components.
       \]
 \end{example}
 
-\begin{corollary}[{cf. Remark \ref[5.49]{Per18}}]
+\begin{corollary}[{cf. \cite[Remark 5.49]{Per18}}]
       A map $\phi \colon S \to T$ in $\Omega_G$ has a factorization, unique up to unique isomorphism,
       \[
             S \xrightarrow{\phi^-} S' \xrightarrow{\phi^i} S'' \xrightarrow{\phi^o} q^{\**}T \xrightarrow{q} T
@@ -966,7 +969,7 @@ Second, these model structures on $\sOp_{\mathfrak C}^G$ assemble into a single 
 \end{definition}
 
 \begin{theorem}[{cf. \cite[Thm. III, Prop. 4.78]{BP_HGOP}}] % ISOFIBHARD PROP
-      The category $\sOp^G$ is equipped with a model structure where the weak equivalences (resp. fibrations) are those maps
+      The category $\sOp^G$ is equipped with a cofibrantly generated model structure where the weak equivalences (resp. fibrations) are those maps
       $F \colon \O) \to \P)$ such that
       \begin{itemize}
       \item the induced maps
@@ -985,16 +988,49 @@ Second, these model structures on $\sOp_{\mathfrak C}^G$ assemble into a single 
       \end{itemize}
 \end{theorem}
 
+To describe the generators, we first recall the following definition.
+\begin{definition}
+      Let $\tilde[1]$ denote the walking isomorphism category,
+      with two objects $0,1$ and a unique isomorphism between them.
+      
+      A \textit{$\sSet$-interval} is a cofibrant simplicial category $\mathbb I \in \mathsf{sCat}_{\set{0,1}}$ equivalent to $\tilde[1]$.
+\end{definition}
+The canonical example is $W_!N\tilde[1]$, with the equivalence given by the counit of the adjunction.
+
+Then the generating cofibrations in $\mathsf{sOp}^G$
+are the maps
+\begin{itemize}
+\item[(OC1)] $\emptyset \to G/H \cdot \eta$ % for $H \in \F_1$,
+\item[(OC2)] $\mathbb{F} \left( \Sigma_{\tau}[G \cdot C_n]/\Lambda \cdot i\right)$
+      for $n \geq 0$,
+      $\Lambda \leq G \times \Sigma_n$ a $G$-graph subgroup, % $\in \F_n$
+      and $i$ a generating cofibration in $\sSet$, $\partial \Delta[m] \to \Delta[m]$ for some $m \geq 0$
+\end{itemize}
+while the generating trivial cofibrations are the maps 
+\begin{itemize}
+\item[(OA1)] 
+      $G/H \cdot \left(\eta \to \mathbb{G}\right)$ % for $H \in \F_1$ and $\mathbb{G} \in \mathscr{G}$,
+      for $H \leq G$ and $\mathbb G$ a $\sSet$-interval with countably many simplices.
+\item[(OA2)] 
+      $\mathbb{F} \left( \Sigma_{\tau}[G \cdot C_n]/\Lambda \cdot j\right)$
+      for $n \geq 0$, $\Lambda \leq G \times \Sigma_n$ a graph subgroup % $\in \F_n$
+      and $j$ a generating trivial cofibration in $\sSet$, $\Lambda^k[m] \to \Delta[m]$ for some $0 \leq k \leq m$ % $ \in \mathcal{J}$.
+\end{itemize}
+
+
 Lastly, we have that cofibrant operads forget to cofibrant symmetric sequences.
 \begin{definition}
       We say a map $\O \to \P$ in $\sOp^G_{\mathfrak C}$ is a \textit{$\Sigma$-cofibration}
-      if the underlying map of $\mathfrak C$-colored symmetric sequences is a $G$-graph cofibration.
-      is $G$-graph cofibrant in $\sSym_{\mathfrak C}^G$. 
+      if the underlying map of $\mathfrak C$-colored symmetric sequences is a $G$-graph cofibration in $\sSym_{\mathfrak C}^G$. 
 \end{definition}
-\begin{theorem}[{cf. \cite[Prop. 3.63]{BP_HGOP}}] % SIGMAG_COF PROP
-      If $\O \to \P$ is a cofibration between cofibrant objects in $\sOp^G_{\mathfrak C}$,
-      the $\O \to \P$ is a $\Sigma$-cofibration.
-\end{theorem}
+
+\begin{proposition}[{cf. \cite[Prop. 3.63]{BP_HGOP}}]
+      \label{SIGMAG_COF PROP}
+      Let $\F$ be a weak indexing system.
+      If $F \colon \O \to \P$ is an $\F$-cofibration in $\Op^G_{\mathfrak C}(\V)$ and $\O$ is $\Sigma_\F$-cofibrant,
+      then $F$ is a $\Sigma_\F$-cofibration.
+      In particular, $\F$-cofibrant operads are $\Sigma_\F$-cofibrant.
+\end{proposition}
 
 \todo[inline]{come back - make sure this goes here}
 Now, recall (e.g. \cite[Prop. 2.16]{Ste16}) that for any group $G$ and family of subgroups $\F$,
@@ -1018,11 +1054,14 @@ All together, we conclude the following (cf. \cite[Remark 6.7]{Per18}, \cite[dis
 
 \begin{proposition}
       \label{SGS_COF_PROP}
-      $\O \to \P$ in $\Op_\bullet^G(\sSet)$ is a $\Sigma_{\F^\Gamma}$-cofibration iff
-      it forgets to a $\Sigma$-cofibration in $\Op_\bullet(\sSet)$
-      (i.e. it forgets to a cofibration in $\Sym_\bullet(\sSet)$).
+      $X \to Y$ in $\mathsf{sSym}^G$ is a $G$-graph cofibration iff
+      it forgets to a cofibration in $\mathsf{sSym}$.
       %
-      Equivalently, $\O$ is $\Sigma_{\F^\Gamma}$-cofibrant iff $\O(n)$ has a free $\Sigma_n$-action.
+      % $\O \to \P$ in $\Op_\bullet^G(\sSet)$ is a $\Sigma_{\F^\Gamma}$-cofibration iff
+      % it forgets to a $\Sigma$-cofibration in $\Op_\bullet(\sSet)$
+      % (i.e. it forgets to a cofibration in $\Sym_\bullet(\sSet)$).
+      %
+      Consequently, $\O \in \sOp^G$ is $\Sigma$-cofibrant iff $\O(n)$ has a free $\Sigma_n$-action.
 \end{proposition}
 
 
@@ -2196,7 +2235,7 @@ Setting $A = \emptyset $, $\mathcal{O}= \emptyset$ in the previous result yields
 	The most interesting case is then (TC2).
 	Firstly, by Lemma \ref{TAUOTIMES_LEM} the functor $\tau$ sends maps in (TC2) to maps in (C2), 
 	so $\O \to \P$ is indeed a $\Sigma$-cofibration
-	by {\color{red} Corollary \ref{SIGMAG_COF_COR}}.
+	by {\color{red} Proposition \ref{SIGMAG_COF PROP}}.
 	Next, fixing a simplicial level $m\geq 0$,
 	$A_m \to B_m$ then has the form
 	$\Omega[C] \otimes_{\mathsf{Set}} \left(\partial \Delta[n]_m \to \Delta[n]_m\right)$ so that
@@ -2355,7 +2394,7 @@ which are adapted from \cite{JT07} (see Proposition 7.15 therein).
 	First,
 	$\tau$ preserves cofibrations since,
 	by Lemma \ref{TAUOTIMES_LEM},
-	$\tau$ sends maps in (TC1),(TC2) to maps in (C1),(C2)
+	$\tau$ sends maps in (TC1),(TC2) to maps in (OC1),(OC2)
 	and maps in (TC3) to isomorphisms.
 	Second, to show that $N$ preserves fibrations between fibrant objects,
 	by using the characterization in Theorem \ref{TAMEMS_THM}
@@ -2410,304 +2449,81 @@ to prove the main theorem of this project, Theorem \ref{QE_THM}.
 
 First, we discuss the adjunction in question.
 
-\subsection{The $W$ construction}
+\subsection{The $W$-construction}
 
 To extend $\tau \colon \dSet \rightleftarrows \Op \colon N$ from \eqref{DSETADJ_EQ} to a Quillen adjunction out of $\sOp$,
 we need a topological enrichment of the inclusion $\Omega \into \Op$ from Definition \ref{OT_DEF}.
 This is given in Definition \ref{WT_DEF}, with an explicit description following in Proposition \ref{WT_PROP}.
 
 Briefly, $W(T)$ is the free simplicial resolution\footnote{Also called the \textit{Godement} resolution, c.f. \cite[\S 8.3]{BM06}.}
-of $\Omega(T)$ as an algebra in the category of pointed $\mathbf E(T)$-colored symmetric sequences $\Sym^{\mathbf E(T)}_{\eta}(\Set)$.
-In order to say more, we will need to use the results from Appendix \ref{AMALGMON_SEC}, and consider
-two orthogonal factorizations of the free operad monad $\mathbb F$.
+of $\Omega(T)$ as an algebra in the category of \textit{pointed} $\mathbf E(T)$-colored symmetric sequences $\Sym^{\mathbf E(T)}_{\eta}(\Set)$.
 
-\subsubsection{Factorizations of the free operad monad}
-
-Let $\V$ be a closed symmetric monoidal category.
-The free operad monad $\mathbb F \colon \Sym_\bullet(\V) \to \Op_\bullet(\V)$ formally add two types of data to a given symmetric sequence:
-units and compositions.
-In fact, these correspond to two separate and independent monads, $P$ and $\bar{\mathbb F}$, on $\Sym_\bullet(\V)$.
-The first ``adds units''.
+In more detail, the free set operad monad $\mathbb F_\Set$ can be factored as
+$\mathbb F_\Set = P \bar{\mathbb F_\Set}$,
+where $P$ is the monad on $\mathsf{sSym}^G$ which ``adds units''
+and $\bar{\mathbb F_\Set}$ is the monad adds formal compositions.
+Algebras over $P$ are \textit{pointed symmetric sequencees}, while algebras over $\bar{\mathbb F_\Set}$ are \textit{non-unital} equivariant simplicial operads.
+Alternatively, we have a factorization of the free set operad functor $\mathbb F_\Set \colon \mathsf{Sym}^G \to \Op^G$ as
+$\mathbb F_\Set = \mathbb F_{\Set,\eta} P$
+where $\mathbb F_{\Set,\eta}$ the ``free operad with prescribed units'' monad on pointed symmetric sequences,
+which adds formal composites while turning the selected objects into units.
 \begin{definition}
-      Let $P$ be the endofunctor on $\Sym_{\bullet}(\V)$
-      which sends a symmetric sequence $(\mathfrak C, X)$ to $(\mathfrak C, X \amalg^{\mathfrak C} \eta_{\mathfrak C})$,
-      where we highlight that the coproduct is taken in $\Sym_{\mathfrak C}(\V)$ and not $\Sym_{\bullet}(\V)$.
-      This has an obvious monad structure via the fold map.      
-\end{definition}
-
-Algebras over $P$ are pointed symmetric sequences.
-\begin{definition}
-      The category of \textit{pointed} symmetric sequences in $\V$, denoted $\Sym_{\bullet,\eta}(\V)$, is the cateogry with
-      \begin{itemize}
-      \item objects given by triples $(\mathfrak C, X, \eta_{\mathfrak C} \xrightarrow{1_X} X)$ with
-            $\mathfrak C \in \Set$ a set of colors, $X \in \Sym_{\mathfrak C}(\V)$ a $\mathfrak C$-colored symmetric sequence, and
-            $\eta_{\mathfrak C}$ the intial $\mathfrak C$-colored operad.
-      \item arrows $(\mathfrak C, X, 1_X) \to (\mathfrak D, Y, 1_Y)$ given by
-            a map $(\mathfrak C, X) \to (\mathfrak D, Y)$ of symmetric sequences as in \eqref{SYMSEQMAP_EQ} such that
-            the pasting diagrams below coincide.
-            \[
-                  \begin{tikzcd}
-                        \Sigma_{\mathfrak C}^{op} \arrow[d, "\eta_{\mathfrak C}"'] \arrow[r, equal]
-                        &
-                        \Sigma_{\mathfrak C}^{op} \arrow[d, "X"'] \arrow[r, "\phi"]
-                        &
-                        \Sigma_{\mathfrak D}^{op} \arrow[d, "Y"]
-                        & % ----------
-                        \Sigma_{\mathfrak C}^{op} \arrow[d, "\eta_{\mathfrak C}"'] \arrow[r, "\phi"]
-                        &
-                        \Sigma_{\mathfrak D}^{op} \arrow[d, "\eta_{\mathfrak d}"'] \arrow[r, equal]
-                        &
-                        \Sigma_{\mathfrak D}^{op} \arrow[d, "Y"]
-                        \\
-                        \V \arrow[r, equal] \arrow[ur, Rightarrow, "1_X"]
-                        &
-                        \V \arrow[r, equal] \arrow[ur, Rightarrow]
-                        &
-                        \V
-                        & % ----------
-                        \V \arrow[r, equal]
-                        &
-                        \V \arrow[r, equal] \arrow[ur, Rightarrow, "1_Y"]
-                        &
-                        \V
-                  \end{tikzcd}
-            \]
-      \end{itemize}
-
-      There is a natural (split) Grothendieck fibration $\Sym_{\bullet,\eta}(\V) \to \Set$, factoring through $\Sym_\bullet(\V)$,
-      with fiber over $\mathfrak C \in \Set$ given by
-      the undercategories $\Sym_{\mathfrak C, \eta}(\V) := \eta_{\mathfrak C} \downarrow \Sym_{\mathfrak C}(\V)$.
-\end{definition}
-
-
-If we ignore units when adding formal composites, the resulting algebraic objects are non-unital operads.
-\begin{definition}
-      A \textit{non-unital operad} $\O \in \Op_{\bullet, nu}(\V)$ is an operad without units or unitality conditions; that is, 
-      a symmetric sequence $(\mathfrak C, \O) \in \Sym_{\bullet}(\V)$,
-      equipped with an associative and $\Sigma$-equivariant composition law.
-      Specifically, we have all ``partial'' composition laws\footnote{
-        We note that for unital operads, whether we define them via partial composition laws or total composition laws makes no difference. The same does not hold for non-unital operads.}
-      \[
-            \O(n) \times_{\mathfrak C^{\times \lambda}}
-            \prod_{i \in \lambda} \O(k_i) \longto \O\left(n-|\lambda|+\sum_{i \in \lambda}k_i\right)
-      \]
-      for any subset $\lambda \subseteq \set{1,2,\dots,n}$.
-
-      Non-unital operads and maps which change colors and respect the composition operation yield
-      a category $\Op_{\bullet,nu}(\V)$ fibered over $\Set$.      
-\end{definition}
-
-The monad $\bar{\mathbb F}$ on $\Sym_\bullet(\V)$ encoding non-unital operads
-is constructed analogously to $\mathbb F$ as in \cite[Appendix A]{BP_HGOP}, % {MONAD_APDX}
-with one key difference:
-for any set of colors $\mathfrak C$,
-the fundamental category $\Omega_{\mathfrak C}^0$ of $\mathfrak C$-colored trees and isomorphisms
-is replaced with the subcategory $\Omega_{\mathfrak C}^{\textrm{nu},0}$ of non-stick trees (i.e, $\vect T \in \Omega_{\mathfrak C}$ with $|\boldsymbol{V}(T)| \geq 1$) and isomorphisms.
-This has the effect of replacing the categories $\Omega_{\mathfrak C}^n$ of $n$-strings of \textit{planar tall maps} --- i.e. composites of inner faces and degeneracies --- 
-with the subcategory $\Omega_{\mathfrak C}^{\textrm{nu},n}$ of
-non-stick trees and $n$-strings of just inner face maps:
-a planar tall map $T \to S$ is equivalent to substitution data $(T_v \to S_v)_{v \in V(T)}$ by \cite[Prop. 3.41]{BP_geo},
-and if we forbid $S_v$ from being a stick,
-we remove the possibility of $T \to S$ to be a degeneracy.
-
-As observed in \cite{BP_geo} \todo{find a more specific citation}, degeneracies and sticks precisely record the unit and the unitality conditions for operads.
-Thus, the results from \cite[Appendix A]{BP_HGOP} % \ref{MONAD_APDX}
-may be adapted mutatis mutandis;
-in particular, \eqref{FREEOP_EQ}, Definition \ref{COLORMON DEF}, and Proposition \ref{ASSOCIDS PROP} yield the following.
-
-\begin{definition}
-      The free non-unital operad monad $\bar{\mathbb F}$ on $\Sym_\bullet(\V)$
-      sends a symmetric sequence $X \colon \Sigma_{\mathfrak C}^{op} \to \V$ in $\Sym_{\bullet}(\V)$ to the left Kan extension below.
-      \[
-            \begin{tikzcd}
-                  \left(\Omega_{\mathfrak C}^{\text{nu},0}\right)^{op} \arrow[r, hookrightarrow] \arrow[d, "\mathsf{lr}"]
-                  &
-                  \Omega_{\mathfrak C}^{0,op} \arrow[r,"V"] \arrow[dl, Rightarrow,shorten >=0.4cm,shorten <=0.4cm]
-                  &
-                  \left(\Sigma \wr \Sigma_{\mathfrak C}\right)^{op} \arrow[r, "X"] 
-                  &
-                  \left(\Sigma \wr \V^{op}\right)^{op} \arrow[r, "\otimes"]
-                  &
-                  \V
-                  \\
-                  \Sigma_{\mathfrak C}^{op} \arrow[urrrr, "\Lan = \bar{\mathbb F} X"']
-            \end{tikzcd}
-      \]
-\end{definition}
-\begin{lemma}
-      The iterated monad $\bar{\mathbb F}^{\circ n}X$ is given by the the following left Kan extension.
-      \begin{equation}
-            \label{FREENUOP_EQ}
-            \begin{tikzcd}
-                  \left(\Omega_{\mathfrak C}^{\text{nu},n}\right)^{op} \arrow[r, hookrightarrow] \arrow[d, "\mathsf{lr}"]
-                  &
-                  \Omega_{\mathfrak C}^{n,op} \arrow[r,"{(V^0)^{\circ n+1}}"]
-                  \arrow[dl, Rightarrow, shorten >=0.4cm,shorten <=0.4cm]
-                  &[10pt]
-                  \left(\Sigma ^{\wr n+1} \wr \Sigma_{\mathfrak C}\right)^{op} \arrow[r, "{(\sigma^0)^{\circ n+1}}"]
-                  &[10pt]
-                  \left(\Sigma \wr \Sigma_{\mathfrak C}\right)^{op} \arrow[r, "X"]
-                  &
-                  \left(\Sigma \wr \V^{op}\right)^{op} \arrow[r, "\otimes"]
-                  &
-                  \V
-                  \\
-                  \Sigma_{\mathfrak C}^{op} \arrow[urrrrr, start anchor = east, end anchor = south west, "\Lan = \bar{\mathbb F}^{\circ n} X"']
-            \end{tikzcd}
-      \end{equation}
-\end{lemma}
-
-
-
-
-Now, we apply Appendix \ref{AMALGMON_SEC} to $P$ and $\bar{\mathbb F}$.
-First, we observe the following by hand.
-\begin{lemma}
-      \label{PBARFCOMB_LEM}
-      As monads, $\mathbb F = P \bar{\mathbb F}$.
-      Moreover, the monad $P$ and $\bar{\mathbb F}$ on $\Sym_{\bullet}(\V)$ can be combined as in Definition \ref{AMALGMON DEF}:
-      The natural transformations $\mathbb P \Rightarrow \mathbb F$ and $\bar{\mathbb F} \Rightarrow \mathbb F$
-      on $(\mathfrak C, X)$ in $\Sym_\bullet(\V)$ are simply
-      \[
-            X \amalg^{\mathfrak C} \eta_{\mathfrak C} \xrightarrow{\eta \amalg e} \mathbb F X,
-            \qquad
-            \bar{\mathbb F} X \hookrightarrow \bar{\mathbb F} X \amalg^{\mathfrak C} \eta_{\mathfrak C}
-      \]
-      with $\eta$ the adjunction counit and $e$ the inclusion of the units.      
-\end{lemma}
-% \begin{proof}
-%       \includegraphics[width=\textwidth]{P-F-combined.pdf}
-% \end{proof}
-
-\begin{proposition}
-      The forgetful functor $\Op_\bullet(\V) \to \Sym_{\bullet, \eta}(\V)$ has a left adjoint $\mathbb F_\eta$.
-      Moreover, for $Y \in \Sym_{\mathfrak C, \eta}(\V)$,
-      the following is a pushout diagram in $\Op_{\mathfrak C}(\V)$.
-      \begin{equation}
-            \label{FETA_EQ}
-            \begin{tikzcd}
-                  \mathbb F \eta_{\mathfrak C} \arrow[d] \arrow[r]
-                  &
-                  \eta_{\mathfrak C} \arrow[d]
-                  \\
-                  \mathbb F Y \arrow[r]
-                  &
-                  \mathbb F_{\eta} X
-            \end{tikzcd}
-      \end{equation}
-\end{proposition}
-\begin{proof}
-      As $\mathbb P$ and $F = \mathbb F$ both preserve reflexive coequalizers\footnote{
-        For $\mathbb F$, this follows as $\otimes$ commuting with colimits in both variables implies it commutes with reflexive coequalizers; see e.g. \cite[Lemma 2.3.2]{Rez96}.},
-      Corollary \ref{ALGLEFTEX_COR} and \eqref{FRMONDES EQ} imply that
-      $\mathbb F_\eta$ exists, 
-      and sends a pointed symmetric sequence $Y \colon \Sigma_{\mathfrak C}^{op} \to \V$ in $\Sym_{\bullet, \eta}(\V)$
-      to the coequalizer of the following in $\Sym_{\mathfrak C}(\V)$
-      \begin{equation}
-            \begin{tikzcd}
-                  \mathbb F P Y = \mathbb F(Y \amalg \1_{\mathfrak C}) \arrow[r, shift left, "f_1"] \arrow[r, shift right, "f_2"']
-                  &
-                  \mathbb F Y
-            \end{tikzcd}
-      \end{equation}
-      with
-      \begin{equation}
-            \label{FPYCOEQ_EQ}
-            f_1 = \mathbb F(Y \amalg \1 \xrightarrow{\ id,e \ } Y),
-            \qquad
-            f_2 \colon \mathbb F(Y \amalg \1) \xrightarrow{\eta_{\bar{\mathbb F}} \amalg id}
-            \mathbb F(\bar{\mathbb F} Y \amalg \1) = \mathbb F^2 Y \xrightarrow{\mu} \mathbb FY.
-      \end{equation}
-      
-      For the moreover claim, we note that $f_2$ has another decomposition, namely
-      \[
-            \mathbb F (Y \amalg \eta) = P\bar{\mathbb F} Y \mathbin{\hat{\amalg}} \mathbb F_\eta \xrightarrow{\eta_{\bar{\mathbb F}} \amalg id}
-            P\bar{\mathbb F} \bar{\mathbb F} Y \mathbin{\hat{\amalg}} \mathbb F \eta \xrightarrow{\mu_{\bar{\mathbb F}} \amalg (id \circ \mu)}
-            F Y \amalg \eta = \mathbb F Y,
-      \]
-      where $\hat{\amalg}$ denotes the coproduct in $\mathbb F$-algebras
-      (as $P \bar{\mathbb F} \bar{\mathbb F} \to \mathbb F Y$, by Proposition \ref{ALTMULT PROP},
-      and both $\mathbb F \eta \to \eta$ and the unique map $\eta \to \O$ are all maps of $\mathbb F$-algebras).
-
-      But then this equalizier is of form
-      $
-      \O \mathbin{\hat{\amalg}} \P \rightrightarrows \O
-      $
-      with both maps the identity on the $\O$ component.
-      As in any category, this is isomorphic to the coequalizer of the interesting pieces
-      $\P \rightrightarrows \O$,
-      and thus $F_P Y$ is the coequalizer below of $\mathbb F$-algebras.
-      \[
-            \mathbb F_\eta \overset{e \circ \mu}{\underset{\mathbb F(e)} \rightrightarrows} \mathbb F Y \xrightarrow{\mathrm{coeq}} F_P Y
-      \]
-      Converting this coequalizer into a pushout yields the diagram below.
-      \begin{equation}
-            \label{FETA2_EQ}
-            \begin{tikzcd}
-                  \mathbb F \eta \mathbin{\hat{\amalg}} \mathbb F \eta \arrow[r] \arrow[d, "\nabla"']
-                  &
-                  \mathbb F Y \arrow[d]
-                  \\
-                  \mathbb F \eta \arrow[r]
-                  &
-                  \mathbb F_\eta Y
-            \end{tikzcd}
-      \end{equation}
-      Finally, one can check that \eqref{FETA_EQ} and \eqref{FETA2_EQ} satisfy the same universal property, finishing the proof.
-      the result follows.
-\end{proof}
-
-Summarizing, we have the following.
-\begin{proposition}
-      \label{FFACT_PROP}
-      We have the following commuting square (up to natural isomorphism) of left adjoints.
-      \begin{equation}
-            \begin{tikzcd}
-                  \Sym_\bullet(\V) \arrow[d, "P"'] \arrow[r, "\bar{\mathbb F}"]
-                  &
-                  \Op_{\bullet, nu}(\V) \arrow[d, "\mathbb P"]
-                  \\
-                  \Sym_{\bullet, \eta}(\V) \arrow[r, "\mathbb F_\eta"]
-                  &
-                  \Op_\bullet(\V)
-            \end{tikzcd}
-      \end{equation}
-\end{proposition}
-
-
-\subsubsection{The $W$-construction}
-
-We now restrict to the case $\V = \sSet$ and define $W(T)$.
-
-\begin{definition}
-      \label{WT_DEF}
       For any $T \in \Omega_G$, we define $W(T) \in \sOp_{\boldsymbol{E}(T)}^G \subseteq (\Op_{\boldsymbol{E}(T)}^G)^{\Delta^{op}}$
       to be the simplicial object in operads with levels
       \[
-            W(T)_n := \mathbb F_\eta^{\circ n+1}\Omega(T)
+            W(T)_n := \mathbb F_{\Set,\eta}^{\circ n+1}\Omega(T)= \mathbb F_{\Set,\eta}^{\circ n+1}\mathbb F_\Set \Sigma_\tau[T].
       \]
       and natural simplicial structure maps.
 \end{definition}
+Alternatively, using the first factorization, one can show that
+\begin{equation}
+      \label{WT_EQ}
+      W(T)_n = \mathbb F_{\Set,\eta}^{\circ n+1} \Omega(T)
+      = \mathbb F_{\Set,\eta}^{\circ n+1} \mathbb P \bar{\mathbb F_\Set} \Sigma_\tau[T]
+      = P \bar{\mathbb F_\Set}^{\circ n+2}\Sigma_\tau[T]
+      = \mathbb F_\Set \left( \bar{\mathbb F_\Set}^{\circ n+1} \Sigma_\tau[T] \right).
+\end{equation}
 
+We can use the above to recover (a generalization of) the usual description of the $W$-construction (e.g. \cite[\S 4]{CM13b}).
 \begin{proposition}
       \label{WT_PROP}
-      For any $T \in \Omega_G$ and $\boldsymbol{E}(T)$-signature $\vect C = (e_1, \dots, e_k; e) = (\underline{e}; e)$, we have
+      Fix $T \in \Omega_G$.
+      Then $W(T)$ is cofibrant in $\sOp^G$,
+      and for any $\boldsymbol{E}(T)$-signature $\vect C = (e_1, \dots, e_k; e) = (\underline{e}; e)$, we have
+      $W(T)(\vect C)$ is the (nerve of the) poset of inner faces of $T_{\vect C}$
       \[
-            W(T)(\vect C) = \Delta[1]^{\times \boldsymbol{E}^i(T_{\underline{e} \leq e})}
+            W(T)(\vect C) =
+            \begin{cases}
+                  \Delta[1]^{\times \boldsymbol{E}^i(T_{\vect C})} \qquad
+                  & \mbox{there exists $C_k \xrightarrow{\phi} T_i$ in $\Omega$ such that $\partial\phi=\vect C$}
+                  \\
+                  \varnothing & \mbox{else.}
+            \end{cases}
       \]
-      is the (nerve of the) poset of inner faces of $T_{e_1 e_2 \dots e_k \leq e}$.
+      where $T_{\vect C}$ is the subtree of the component $T_i$ associated to the map $\phi$ (cf. \S \ref{FORESTS_SEC}).
 \end{proposition}
-\begin{proof}
-      Applying Corollary \ref{ALGLEFTEX_COR} from the appendix to Lemma \ref{PBARFCOMB_LEM},
-      as well as Definition \ref{OT_DEF}, yields
-      \begin{equation}
-            \label{WT_EQ}
-            W(T)_n = \mathbb F_\eta^{\circ n+1} \Omega(T)
-            = \mathbb F_\eta^{\circ n+1} \mathbb P \bar{\mathbb F} \Sigma_\tau[T]
-            = P \bar{\mathbb F}^{\circ n+2}\Sigma_\bullet[T].
-      \end{equation}
-      (where the functors $\mathbb P, \mathbb F_\eta, \bar{\mathbb F}$ denote their underlying endomorphisms on $\Sym_{\bullet}$).
-      Now, \eqref{FREENUOP_EQ} says
+
+\begin{remark}
+      We give a brief sketch of the proof:
+      
+      Since the free simplicial operad monad is levelwise the free set operad monad,
+      we see that $W(T)$ is the image under $\mathbb F_{\sSet}$ of a $\Sigma$-free (hence cofibrant) simplicial symmetric sequence.
+      
+      For the second claim, we use the fact that the free non-unital operad monad
+      is constructed analogously to $\mathbb F$ as in \cite[\S A]{BP_HGOP}, % {MONAD_APDX}
+      with one key difference:
+      for any set of colors $\mathfrak C$,
+      the fundamental category $\Omega_{\mathfrak C}^0$ of $\mathfrak C$-colored trees and isomorphisms
+      is replaced with the subcategory $\Omega_{\mathfrak C}^{\textrm{nu},0}$ of non-stick trees (i.e, $\vect T \in \Omega_{\mathfrak C}$ with $|\boldsymbol{V}(T)| \geq 1$) and isomorphisms.
+      This has the effect of replacing the categories $\Omega_{\mathfrak C}^n$ of $n$-strings of \textit{planar tall maps} --- i.e. composites of inner faces and degeneracies --- 
+      with the subcategory $\Omega_{\mathfrak C}^{\textrm{nu},n}$ of
+      non-stick trees and $n$-strings of just inner face maps:
+      a planar tall map $T \to S$ is equivalent to substitution data $(T_v \to S_v)_{v \in V(T)}$ by \cite[Prop. 3.41]{BP_geo},
+      and if we forbid $S_v$ from being a stick,
+      we remove the possibility of $T \to S$ to be a degeneracy.
+      As observed in \cite{BP_geo} \todo{find a more specific citation}, degeneracies and sticks precisely record the unit and the unitality conditions for operads.
+      
+      Thus, unpacking \cite[\S A]{BP_HGOP}, we conclude that
       \[
             \bar{\mathbb F}^{\circ n+2} \Sigma_\bullet[T] = \Lan_{(\Omega_\bullet^{r,n+1}\to \Sigma_\bullet)^{op}} \bar N^{T},
       \]
@@ -2729,7 +2545,7 @@ We now restrict to the case $\V = \sSet$ and define $W(T)$.
       if $T_{n+1} \simeq T$
       and by $\emptyset$ otherwise.
       The evaluation of $W(T)(\vect C)$ follows.
-\end{proof}
+\end{remark}
 
 
 
@@ -2740,7 +2556,15 @@ We now restrict to the case $\V = \sSet$ and define $W(T)$.
             \label{SOPDSET_EQ}
             W_! \colon \dSet \rightleftarrows \sOp \colon h c N
       \end{equation}
+      Explicitly, $W_!X = \colim_{\Omega[U] \to X}W(U)$ and $hcN\O(U) = \Hom_{\sOp^G}(W(U), \O)$. 
 \end{definition}
+
+\begin{remark}
+      If $T = (T_i) \simeq G \cdot_H T_{\**} \in \Omega_G$, it is straightforward to check that
+      \[
+            W_!\Omega[T] = W(T) = \amalg W(T_i) \simeq G \cdot_H W(T_{\**}).
+      \]
+\end{remark}
 
 \todo[inline]{come back}
 
@@ -2829,16 +2653,16 @@ the analogue to \cite[Prop. 4.8]{CM13b} is found in Proposition \ref{W!_COF_PROP
 %       and the top horizontal map is adjoint to the identity map via Examples \ref{TENS_EX}.
 %       \todo[inline]{come back!}
 % \end{proof}
-\begin{remark}
-      Here, we are using that the operations of $W_!(\partial\Omega[T])$ and $W(T)$ are ``finite and directed'',
-      in that their operations endow the set of $\boldsymbol{E}(T)$-signatures with a broad poset structure (namely the broad poset $T$) as opposed to just a pre-broad poset structure,
-      and there is a ``terminal signature'' (namely $\partial C$) with no non-trivial composites out of it.
+% \begin{remark}
+%       Here, we are using that the operations of $W_!(\partial\Omega[T])$ and $W(T)$ are ``finite and directed'',
+%       in that their operations endow the set of $\boldsymbol{E}(T)$-signatures with a broad poset structure (namely the broad poset $T$) as opposed to just a pre-broad poset structure,
+%       and there is a ``terminal signature'' (namely $\partial C$) with no non-trivial composites out of it.
 
-      In the cases from this proposition, we have that
-      the adjoint squares to \eqref{WLEFTQPUSH_EQ} as on the right in Example \ref{TENS_EX}(iv) are pushouts onto the terminal signatures
-      (in fact, the horizontal maps are all identities),
-      and thus we may conclude that the original squares are pushouts as well.
-\end{remark}
+%       In the cases from this proposition, we have that
+%       the adjoint squares to \eqref{WLEFTQPUSH_EQ} as on the right in Example \ref{TENS_EX}(iv) are pushouts onto the terminal signatures
+%       (in fact, the horizontal maps are all identities),
+%       and thus we may conclude that the original squares are pushouts as well.
+% \end{remark}
 
 
 
@@ -2865,6 +2689,8 @@ The main goal of this project \cite{BP_geo,BP_edss,Per18} is to understand the c
 
 We have the following generalization of \cite[Prop 4.5]{CM13b} (see also \cite[Prop. 6.15]{Per18}).
 
+\todo[inline]{with tensors stuff, need: $\Omega(C) \otimes_{\Set}i$ is a cofibrant in $\sOp^G$ for $i$ a genuine cofibration in $\sSet^G$. Update proof accordingly}
+
 \begin{proposition}
       \label{W!_COF_PROP}
       Suppose $\F = \set{\F_n}$ is a weak indexing system.
@@ -2879,7 +2705,7 @@ We have the following generalization of \cite[Prop 4.5]{CM13b} (see also \cite[P
       in $\sOp^G$.
       If $T_{\**} = \eta$, then $i$ is the canonical map $\varnothing \to \eta$,
       $W_! \partial \Omega[\eta] = \varnothing \to W(\eta) = \eta$,
-      and so $G \cdot_H i$ is a generating cofibration from \eqref{IFJF_EQ} in $\sOp^G$.
+      and so $G \cdot_H i$ is a generating cofibration in $\sOp^G$.
       
       When $|V(T)| \geq 1$, following Proposition \ref{WLEFTQPUSH PROP} and Example \ref{TENS_EX} (iv),
       it suffices to show that
@@ -3607,7 +3433,7 @@ Lemma \ref{CHAREDGE LEM}.
 Before proving the result, we need to understand $\mathcal{P}$ itself.
 
 First, it as $\partial \Omega[T] \to \Omega[T]$ is a generating cofibration in $\sOp^G$,
-$\O \to \P$ is a cofibration with $\Sigma$-cofibrant source, and hence by Corollary \ref{SIGMAG_COF_COR},
+$\O \to \P$ is a cofibration with $\Sigma$-cofibrant source, and hence by Proposition \ref{SIGMAG_COF PROP},
 $\P$ is $\Sigma$-cofibrant.
 
 Second, noting that the coproduct \eqref{PCOPROD EQ}

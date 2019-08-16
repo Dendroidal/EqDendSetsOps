@@ -1,0 +1,628 @@
+\documentclass[a4paper,10pt
+,draft
+%, final
+]{article}%
+
+
+% ---- Commands on draft --------
+
+\usepackage[dvipsnames]{xcolor}% adds colors
+\usepackage{ifdraft}
+\ifdraft{
+  \color[RGB]{63,63,63}
+  \pagecolor[RGB]{220,220,204}
+  \usepackage[notref]{showkeys}
+  \usepackage{geometry}
+  \usepackage{todonotes}
+}
+{
+  \usepackage[margin=1in]{geometry}
+  \usepackage[fontsize=12pt]{scrextend}
+  \usepackage[disable]{todonotes}
+}
+
+\pdfcompresslevel=0
+\pdfobjcompresslevel=0
+
+%\usepackage{xr-hyper}
+\usepackage[pagebackref, colorlinks, citecolor=PineGreen, linkcolor=PineGreen]{hyperref}
+\hypersetup{
+  final,
+  pdftitle={Equivariant dendroidal sets and simplicial operads},
+  pdfauthor={Bonventre, P. and Pereira, L. A.},
+  linktoc=page
+}
+
+%\externaldocument*[HGOP-]{HtpyGOp} % cite using names from other half
+
+\usepackage{amsmath, amsthm}% {amsfonts, amssymb}
+
+% ------ New Characters --------------------------------------
+
+\usepackage[latin1]{inputenc}%
+\usepackage{MnSymbol}
+\DeclareMathAlphabet\mathbb{U}{msb}{m}{n}
+%\usepackage{stmaryrd}
+%\usepackage{upgreek}
+\usepackage{mathrsfs}
+% \usepackage[T1]{fontenc}
+% \usepackage[english]{babel}
+% \usepackage{fouriernc}
+% \DeclareMathAlphabet{\mathscr}{U}{mathrsfs}{m}{n}`
+\usepackage{pifont}
+\newcommand{\cmark}{\text{\ding{51}}}
+\newcommand{\xmark}{\text{\ding{55}}}
+
+\usepackage[normalem]{ulem}%
+\usepackage{dsfont}%
+\usepackage{bbm}%
+
+
+%----- Enumerate ---------------------------------------------
+% \usepackage{paralist} % for inparaenum
+% \usepackage{enumerate}%
+\usepackage[inline,shortlabels]{enumitem}%
+
+
+% ---------- Page Typesetting ----------
+\usepackage[final]{microtype}
+\usepackage{relsize}
+
+%-------- Tikz ---------------------------
+
+\usepackage{tikz}%
+\usetikzlibrary{matrix,arrows,decorations.pathmorphing,
+cd,patterns,calc}
+\tikzset{%
+  % treenode/.style = {shape=rectangle, rounded corners, draw, align=center, font=\footnotesize,
+  %                    top color=white, bottom color=blue!20},%
+  % root/.style     = {treenode, font=\Large, bottom color=red!30},%
+  % env/.style      = {treenode, font=\ttfamily\normalsize},%
+  dummy/.style    = {circle,draw,inner sep=0pt,minimum size=2mm}%
+}%
+
+\usetikzlibrary[decorations.pathreplacing]
+
+
+
+
+% ----- Labels Changed? --------
+
+\makeatletter
+
+\def\@testdef #1#2#3{%
+  \def\reserved@a{#3}\expandafter \ifx \csname #1@#2\endcsname
+  \reserved@a  \else
+  \typeout{^^Jlabel #2 changed:^^J%
+    \meaning\reserved@a^^J%
+    \expandafter\meaning\csname #1@#2\endcsname^^J}%
+  \@tempswatrue \fi}
+
+\makeatother
+
+%%%%%%%%%%%%%%%%%%%%%%%%% INTERNAL REFERENCES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\numberwithin{equation}{section} 
+\numberwithin{figure}{section}
+
+\usepackage{mathtools}
+\mathtoolsset{showonlyrefs,showmanualtags} % Only number equations which are referenced with eqref
+
+
+% ------- New Theorems/ Definition/ Names-----------------------
+
+ % \theoremstyle{plain} % bold name, italic text
+\newtheorem{theorem}[equation]{Theorem}%
+\newtheorem*{theorem*}{Theorem}%
+\newtheorem{lemma}[equation]{Lemma}%
+\newtheorem{proposition}[equation]{Proposition}%
+\newtheorem{corollary}[equation]{Corollary}%
+\newtheorem{conjecture}[equation]{Conjecture}%
+\newtheorem*{conjecture*}{Conjecture}%
+\newtheorem{claim}[equation]{Claim}%
+
+%%%%%% Fancy Numbering for Theorems
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+  \newenvironment{#1}[1]
+  {%
+   \renewcommand\customgenericname{#2}%
+   \renewcommand\theinnercustomgeneric{##1}%
+   \innercustomgeneric
+  }
+  {\endinnercustomgeneric}
+}
+
+\newcustomtheorem{customthm}{Theorem}
+\newcustomtheorem{customcor}{Corollary}
+%%%%%%%%%%%%%
+
+\theoremstyle{definition} % bold name, plain text
+\newtheorem{definition}[equation]{Definition}%
+\newtheorem*{definition*}{Definition}%
+\newtheorem{example}[equation]{Example}%
+\newtheorem{remark}[equation]{Remark}%
+\newtheorem{notation}[equation]{Notation}%
+\newtheorem{convention}[equation]{Convention}%
+\newtheorem{assumption}[equation]{Assumption}%
+\newtheorem{exercise}{Exercise}%
+
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ------------------------------ COMMANDS ------------------------------
+
+% ---------- macros
+
+\newcommand{\set}[1]{\left\{#1\right\}}%
+\newcommand{\sets}[2]{\left\{ #1 \;|\; #2\right\}}%
+\newcommand{\longto}{\longrightarrow}%
+\newcommand{\into}{\hookrightarrow}%
+\newcommand{\onto}{\twoheadrightarrow}%
+
+\usepackage{harpoon}
+\newcommand{\vect}[1]{\text{\overrightharp{\ensuremath{#1}}}}
+
+
+% ---------- operators
+
+\newcommand{\Sym}{\ensuremath{\mathsf{Sym}}}%
+\newcommand{\Fin}{\mathsf{F}}%
+\newcommand{\Set}{\ensuremath{\mathsf{Set}}}
+\newcommand{\Top}{\ensuremath{\mathsf{Top}}}
+\newcommand{\sSet}{\ensuremath{\mathsf{sSet}}}%
+\newcommand{\Cat}{\mathsf{Cat}}
+\newcommand{\sCat}{\mathsf{sCat}}
+\newcommand{\Op}{\mathsf{Op}}%
+\newcommand{\sOp}{\ensuremath{\mathsf{sOp}}}%
+\newcommand{\sSym}{\ensuremath{\mathsf{sSym}}}%
+\newcommand{\fgt}{\ensuremath{\mathsf{fgt}}}%
+\newcommand{\dSet}{\mathsf{dSet}}
+\newcommand{\Fun}{\mathsf{Fun}}
+\newcommand{\Fib}{\mathsf{Fib}}
+\newcommand{\Alg}{\mathsf{Alg}}
+\newcommand{\Kl}{\mathsf{Kl}}
+
+
+
+\DeclareMathOperator{\hocmp}{hocmp}%
+\DeclareMathOperator{\cmp}{cmp}%
+\DeclareMathOperator{\hofiber}{hofiber}%
+\DeclareMathOperator{\fiber}{fiber}%
+\DeclareMathOperator{\hocofiber}{hocof}%
+\DeclareMathOperator{\hocof}{hocof}%
+\DeclareMathOperator{\holim}{holim}%
+\DeclareMathOperator{\hocolim}{hocolim}%
+\DeclareMathOperator{\colim}{colim}%
+\DeclareMathOperator{\Lan}{Lan}%
+\DeclareMathOperator{\Ran}{Ran}%
+\DeclareMathOperator{\Map}{Map}%
+\DeclareMathOperator{\Id}{Id}%
+\DeclareMathOperator{\mlf}{mlf}%
+\DeclareMathOperator{\Hom}{Hom}%
+\DeclareMathOperator{\Ho}{Ho}
+\DeclareMathOperator{\Aut}{Aut}%
+\DeclareMathOperator{\Stab}{Stab}
+\DeclareMathOperator{\Iso}{Iso}
+\DeclareMathOperator{\Ob}{Ob}
+
+% ---------- shortcuts
+
+\newcommand{\F}{\ensuremath{\mathcal F}}
+\newcommand{\V}{\ensuremath{\mathcal V}}
+\newcommand{\Q}{\ensuremath{\mathcal Q}}
+\renewcommand{\O}{\ensuremath{\mathcal O}}
+\renewcommand{\P}{\ensuremath{\mathcal P}}
+\newcommand{\C}{\ensuremath{\mathcal C}}
+\newcommand{\A}{\ensuremath{\mathcal A}}
+
+\newcommand{\del}{\partial}%
+
+\newcommand{\ki}{\chi}
+\newcommand{\ksi}{\xi}
+\newcommand{\Ksi}{\Xi}
+
+\newcommand{\lltimes}{\underline{\ltimes}}
+
+% detecting $\V$-categories:
+
+\newcommand{\I}{\mathbb I}
+\newcommand{\J}{\mathbb J}
+\newcommand{\1}{\ensuremath{\mathbbm 1}}%{\ensuremath{\mathbb{id}}} %\eta
+
+% lazy shortcuts
+
+\newcommand{\SC}{\Sigma_{\mathfrak C}}
+\newcommand{\OC}{\Omega_{\mathfrak C}}
+\newcommand{\UV}{\underline{\mathcal V}}
+\newcommand{\UC}{\underline{\mathfrak C}}
+
+
+
+
+
+
+
+
+
+
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ------------------------------ MAIN BODY ------------------------------
+
+% ---- Title --------
+
+\title{Equivariant dendroidal sets and simplicial operads}
+
+\author{Peter Bonventre, Lu\'is A. Pereira}%
+
+\date{\today}
+
+
+% ---- Document body --------
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+      Things and stuff
+\end{abstract}
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{The $W$ construction}
+
+To extend $\tau \colon \dSet \rightleftarrows \Op \colon N$ from \eqref{DSETADJ_EQ} to a Quillen adjunction out of $\sOp$,
+we need a topological enrichment of the inclusion $\Omega \into \Op$ from Definition \ref{OT_DEF}.
+This is given in Definition \ref{WT_DEF}, with an explicit description following in Proposition \ref{WT_PROP}.
+
+Briefly, $W(T)$ is the free simplicial resolution\footnote{Also called the \textit{Godement} resolution, c.f. \cite[\S 8.3]{BM06}.}
+of $\Omega(T)$ as an algebra in the category of pointed $\mathbf E(T)$-colored symmetric sequences $\Sym^{\mathbf E(T)}_{\eta}(\Set)$.
+In order to say more, we will need to use the results from Appendix \ref{AMALGMON_SEC}, and consider
+two orthogonal factorizations of the free operad monad $\mathbb F$.
+
+\subsubsection{Factorizations of the free operad monad}
+
+Let $\V$ be a closed symmetric monoidal category.
+The free operad monad $\mathbb F \colon \Sym_\bullet(\V) \to \Op_\bullet(\V)$ formally add two types of data to a given symmetric sequence:
+units and compositions.
+In fact, these correspond to two separate and independent monads, $P$ and $\bar{\mathbb F}$, on $\Sym_\bullet(\V)$.
+The first ``adds units''.
+\begin{definition}
+      Let $P$ be the endofunctor on $\Sym_{\bullet}(\V)$
+      which sends a symmetric sequence $(\mathfrak C, X)$ to $(\mathfrak C, X \amalg^{\mathfrak C} \eta_{\mathfrak C})$,
+      where we highlight that the coproduct is taken in $\Sym_{\mathfrak C}(\V)$ and not $\Sym_{\bullet}(\V)$.
+      This has an obvious monad structure via the fold map.      
+\end{definition}
+
+Algebras over $P$ are pointed symmetric sequences.
+\begin{definition}
+      The category of \textit{pointed} symmetric sequences in $\V$, denoted $\Sym_{\bullet,\eta}(\V)$, is the cateogry with
+      \begin{itemize}
+      \item objects given by triples $(\mathfrak C, X, \eta_{\mathfrak C} \xrightarrow{1_X} X)$ with
+            $\mathfrak C \in \Set$ a set of colors, $X \in \Sym_{\mathfrak C}(\V)$ a $\mathfrak C$-colored symmetric sequence, and
+            $\eta_{\mathfrak C}$ the intial $\mathfrak C$-colored operad.
+      \item arrows $(\mathfrak C, X, 1_X) \to (\mathfrak D, Y, 1_Y)$ given by
+            a map $(\mathfrak C, X) \to (\mathfrak D, Y)$ of symmetric sequences as in \eqref{SYMSEQMAP_EQ} such that
+            the pasting diagrams below coincide.
+            \[
+                  \begin{tikzcd}
+                        \Sigma_{\mathfrak C}^{op} \arrow[d, "\eta_{\mathfrak C}"'] \arrow[r, equal]
+                        &
+                        \Sigma_{\mathfrak C}^{op} \arrow[d, "X"'] \arrow[r, "\phi"]
+                        &
+                        \Sigma_{\mathfrak D}^{op} \arrow[d, "Y"]
+                        & % ----------
+                        \Sigma_{\mathfrak C}^{op} \arrow[d, "\eta_{\mathfrak C}"'] \arrow[r, "\phi"]
+                        &
+                        \Sigma_{\mathfrak D}^{op} \arrow[d, "\eta_{\mathfrak d}"'] \arrow[r, equal]
+                        &
+                        \Sigma_{\mathfrak D}^{op} \arrow[d, "Y"]
+                        \\
+                        \V \arrow[r, equal] \arrow[ur, Rightarrow, "1_X"]
+                        &
+                        \V \arrow[r, equal] \arrow[ur, Rightarrow]
+                        &
+                        \V
+                        & % ----------
+                        \V \arrow[r, equal]
+                        &
+                        \V \arrow[r, equal] \arrow[ur, Rightarrow, "1_Y"]
+                        &
+                        \V
+                  \end{tikzcd}
+            \]
+      \end{itemize}
+
+      There is a natural (split) Grothendieck fibration $\Sym_{\bullet,\eta}(\V) \to \Set$, factoring through $\Sym_\bullet(\V)$,
+      with fiber over $\mathfrak C \in \Set$ given by
+      the undercategories $\Sym_{\mathfrak C, \eta}(\V) := \eta_{\mathfrak C} \downarrow \Sym_{\mathfrak C}(\V)$.
+\end{definition}
+
+
+If we ignore units when adding formal composites, the resulting algebraic objects are non-unital operads.
+\begin{definition}
+      A \textit{non-unital operad} $\O \in \Op_{\bullet, nu}(\V)$ is an operad without units or unitality conditions; that is, 
+      a symmetric sequence $(\mathfrak C, \O) \in \Sym_{\bullet}(\V)$,
+      equipped with an associative and $\Sigma$-equivariant composition law.
+      Specifically, we have all ``partial'' composition laws\footnote{
+        We note that for unital operads, whether we define them via partial composition laws or total composition laws makes no difference. The same does not hold for non-unital operads.}
+      \[
+            \O(n) \times_{\mathfrak C^{\times \lambda}}
+            \prod_{i \in \lambda} \O(k_i) \longto \O\left(n-|\lambda|+\sum_{i \in \lambda}k_i\right)
+      \]
+      for any subset $\lambda \subseteq \set{1,2,\dots,n}$.
+
+      Non-unital operads and maps which change colors and respect the composition operation yield
+      a category $\Op_{\bullet,nu}(\V)$ fibered over $\Set$.      
+\end{definition}
+
+The monad $\bar{\mathbb F}$ on $\Sym_\bullet(\V)$ encoding non-unital operads
+is constructed analogously to $\mathbb F$ as in \cite[Appendix A]{BP_HGOP}, % {MONAD_APDX}
+with one key difference:
+for any set of colors $\mathfrak C$,
+the fundamental category $\Omega_{\mathfrak C}^0$ of $\mathfrak C$-colored trees and isomorphisms
+is replaced with the subcategory $\Omega_{\mathfrak C}^{\textrm{nu},0}$ of non-stick trees (i.e, $\vect T \in \Omega_{\mathfrak C}$ with $|\boldsymbol{V}(T)| \geq 1$) and isomorphisms.
+This has the effect of replacing the categories $\Omega_{\mathfrak C}^n$ of $n$-strings of \textit{planar tall maps} --- i.e. composites of inner faces and degeneracies --- 
+with the subcategory $\Omega_{\mathfrak C}^{\textrm{nu},n}$ of
+non-stick trees and $n$-strings of just inner face maps:
+a planar tall map $T \to S$ is equivalent to substitution data $(T_v \to S_v)_{v \in V(T)}$ by \cite[Prop. 3.41]{BP_geo},
+and if we forbid $S_v$ from being a stick,
+we remove the possibility of $T \to S$ to be a degeneracy.
+
+As observed in \cite{BP_geo} \todo{find a more specific citation}, degeneracies and sticks precisely record the unit and the unitality conditions for operads.
+Thus, the results from \cite[Appendix A]{BP_HGOP} % \ref{MONAD_APDX}
+may be adapted mutatis mutandis;
+in particular, \eqref{FREEOP_EQ}, Definition \ref{COLORMON DEF}, and Proposition \ref{ASSOCIDS PROP} yield the following.
+
+\begin{definition}
+      The free non-unital operad monad $\bar{\mathbb F}$ on $\Sym_\bullet(\V)$
+      sends a symmetric sequence $X \colon \Sigma_{\mathfrak C}^{op} \to \V$ in $\Sym_{\bullet}(\V)$ to the left Kan extension below.
+      \[
+            \begin{tikzcd}
+                  \left(\Omega_{\mathfrak C}^{\text{nu},0}\right)^{op} \arrow[r, hookrightarrow] \arrow[d, "\mathsf{lr}"]
+                  &
+                  \Omega_{\mathfrak C}^{0,op} \arrow[r,"V"] \arrow[dl, Rightarrow,shorten >=0.4cm,shorten <=0.4cm]
+                  &
+                  \left(\Sigma \wr \Sigma_{\mathfrak C}\right)^{op} \arrow[r, "X"] 
+                  &
+                  \left(\Sigma \wr \V^{op}\right)^{op} \arrow[r, "\otimes"]
+                  &
+                  \V
+                  \\
+                  \Sigma_{\mathfrak C}^{op} \arrow[urrrr, "\Lan = \bar{\mathbb F} X"']
+            \end{tikzcd}
+      \]
+\end{definition}
+\begin{lemma}
+      The iterated monad $\bar{\mathbb F}^{\circ n}X$ is given by the the following left Kan extension.
+      \begin{equation}
+            \label{FREENUOP_EQ}
+            \begin{tikzcd}
+                  \left(\Omega_{\mathfrak C}^{\text{nu},n}\right)^{op} \arrow[r, hookrightarrow] \arrow[d, "\mathsf{lr}"]
+                  &
+                  \Omega_{\mathfrak C}^{n,op} \arrow[r,"{(V^0)^{\circ n+1}}"]
+                  \arrow[dl, Rightarrow, shorten >=0.4cm,shorten <=0.4cm]
+                  &[10pt]
+                  \left(\Sigma ^{\wr n+1} \wr \Sigma_{\mathfrak C}\right)^{op} \arrow[r, "{(\sigma^0)^{\circ n+1}}"]
+                  &[10pt]
+                  \left(\Sigma \wr \Sigma_{\mathfrak C}\right)^{op} \arrow[r, "X"]
+                  &
+                  \left(\Sigma \wr \V^{op}\right)^{op} \arrow[r, "\otimes"]
+                  &
+                  \V
+                  \\
+                  \Sigma_{\mathfrak C}^{op} \arrow[urrrrr, start anchor = east, end anchor = south west, "\Lan = \bar{\mathbb F}^{\circ n} X"']
+            \end{tikzcd}
+      \end{equation}
+\end{lemma}
+
+
+
+
+Now, we apply Appendix \ref{AMALGMON_SEC} to $P$ and $\bar{\mathbb F}$.
+First, we observe the following by hand.
+\begin{lemma}
+      \label{PBARFCOMB_LEM}
+      As monads, $\mathbb F = P \bar{\mathbb F}$.
+      Moreover, the monad $P$ and $\bar{\mathbb F}$ on $\Sym_{\bullet}(\V)$ can be combined as in Definition \ref{AMALGMON DEF}:
+      The natural transformations $\mathbb P \Rightarrow \mathbb F$ and $\bar{\mathbb F} \Rightarrow \mathbb F$
+      on $(\mathfrak C, X)$ in $\Sym_\bullet(\V)$ are simply
+      \[
+            X \amalg^{\mathfrak C} \eta_{\mathfrak C} \xrightarrow{\eta \amalg e} \mathbb F X,
+            \qquad
+            \bar{\mathbb F} X \hookrightarrow \bar{\mathbb F} X \amalg^{\mathfrak C} \eta_{\mathfrak C}
+      \]
+      with $\eta$ the adjunction counit and $e$ the inclusion of the units.      
+\end{lemma}
+% \begin{proof}
+%       \includegraphics[width=\textwidth]{P-F-combined.pdf}
+% \end{proof}
+
+\begin{proposition}
+      The forgetful functor $\Op_\bullet(\V) \to \Sym_{\bullet, \eta}(\V)$ has a left adjoint $\mathbb F_\eta$.
+      Moreover, for $Y \in \Sym_{\mathfrak C, \eta}(\V)$,
+      the following is a pushout diagram in $\Op_{\mathfrak C}(\V)$.
+      \begin{equation}
+            \label{FETA_EQ}
+            \begin{tikzcd}
+                  \mathbb F \eta_{\mathfrak C} \arrow[d] \arrow[r]
+                  &
+                  \eta_{\mathfrak C} \arrow[d]
+                  \\
+                  \mathbb F Y \arrow[r]
+                  &
+                  \mathbb F_{\eta} X
+            \end{tikzcd}
+      \end{equation}
+\end{proposition}
+\begin{proof}
+      As $\mathbb P$ and $F = \mathbb F$ both preserve reflexive coequalizers\footnote{
+        For $\mathbb F$, this follows as $\otimes$ commuting with colimits in both variables implies it commutes with reflexive coequalizers; see e.g. \cite[Lemma 2.3.2]{Rez96}.},
+      Corollary \ref{ALGLEFTEX_COR} and \eqref{FRMONDES EQ} imply that
+      $\mathbb F_\eta$ exists, 
+      and sends a pointed symmetric sequence $Y \colon \Sigma_{\mathfrak C}^{op} \to \V$ in $\Sym_{\bullet, \eta}(\V)$
+      to the coequalizer of the following in $\Sym_{\mathfrak C}(\V)$
+      \begin{equation}
+            \begin{tikzcd}
+                  \mathbb F P Y = \mathbb F(Y \amalg \1_{\mathfrak C}) \arrow[r, shift left, "f_1"] \arrow[r, shift right, "f_2"']
+                  &
+                  \mathbb F Y
+            \end{tikzcd}
+      \end{equation}
+      with
+      \begin{equation}
+            \label{FPYCOEQ_EQ}
+            f_1 = \mathbb F(Y \amalg \1 \xrightarrow{\ id,e \ } Y),
+            \qquad
+            f_2 \colon \mathbb F(Y \amalg \1) \xrightarrow{\eta_{\bar{\mathbb F}} \amalg id}
+            \mathbb F(\bar{\mathbb F} Y \amalg \1) = \mathbb F^2 Y \xrightarrow{\mu} \mathbb FY.
+      \end{equation}
+      
+      For the moreover claim, we note that $f_2$ has another decomposition, namely
+      \[
+            \mathbb F (Y \amalg \eta) = P\bar{\mathbb F} Y \mathbin{\hat{\amalg}} \mathbb F_\eta \xrightarrow{\eta_{\bar{\mathbb F}} \amalg id}
+            P\bar{\mathbb F} \bar{\mathbb F} Y \mathbin{\hat{\amalg}} \mathbb F \eta \xrightarrow{\mu_{\bar{\mathbb F}} \amalg (id \circ \mu)}
+            F Y \amalg \eta = \mathbb F Y,
+      \]
+      where $\hat{\amalg}$ denotes the coproduct in $\mathbb F$-algebras
+      (as $P \bar{\mathbb F} \bar{\mathbb F} \to \mathbb F Y$, by Proposition \ref{ALTMULT PROP},
+      and both $\mathbb F \eta \to \eta$ and the unique map $\eta \to \O$ are all maps of $\mathbb F$-algebras).
+
+      But then this equalizier is of form
+      $
+      \O \mathbin{\hat{\amalg}} \P \rightrightarrows \O
+      $
+      with both maps the identity on the $\O$ component.
+      As in any category, this is isomorphic to the coequalizer of the interesting pieces
+      $\P \rightrightarrows \O$,
+      and thus $F_P Y$ is the coequalizer below of $\mathbb F$-algebras.
+      \[
+            \mathbb F_\eta \overset{e \circ \mu}{\underset{\mathbb F(e)} \rightrightarrows} \mathbb F Y \xrightarrow{\mathrm{coeq}} F_P Y
+      \]
+      Converting this coequalizer into a pushout yields the diagram below.
+      \begin{equation}
+            \label{FETA2_EQ}
+            \begin{tikzcd}
+                  \mathbb F \eta \mathbin{\hat{\amalg}} \mathbb F \eta \arrow[r] \arrow[d, "\nabla"']
+                  &
+                  \mathbb F Y \arrow[d]
+                  \\
+                  \mathbb F \eta \arrow[r]
+                  &
+                  \mathbb F_\eta Y
+            \end{tikzcd}
+      \end{equation}
+      Finally, one can check that \eqref{FETA_EQ} and \eqref{FETA2_EQ} satisfy the same universal property, finishing the proof.
+      the result follows.
+\end{proof}
+
+Summarizing, we have the following.
+\begin{proposition}
+      \label{FFACT_PROP}
+      We have the following commuting square (up to natural isomorphism) of left adjoints.
+      \begin{equation}
+            \begin{tikzcd}
+                  \Sym_\bullet(\V) \arrow[d, "P"'] \arrow[r, "\bar{\mathbb F}"]
+                  &
+                  \Op_{\bullet, nu}(\V) \arrow[d, "\mathbb P"]
+                  \\
+                  \Sym_{\bullet, \eta}(\V) \arrow[r, "\mathbb F_\eta"]
+                  &
+                  \Op_\bullet(\V)
+            \end{tikzcd}
+      \end{equation}
+\end{proposition}
+
+
+\subsubsection{The $W$-construction}
+
+We now restrict to the case $\V = \sSet$ and define $W(T)$.
+
+\begin{definition}
+      \label{WT_DEF}
+      For any $T \in \Omega_G$, we define $W(T) \in \sOp_{\boldsymbol{E}(T)}^G \subseteq (\Op_{\boldsymbol{E}(T)}^G)^{\Delta^{op}}$
+      to be the simplicial object in operads with levels
+      \[
+            W(T)_n := \mathbb F_\eta^{\circ n+1}\Omega(T)
+      \]
+      and natural simplicial structure maps.
+\end{definition}
+
+\begin{proposition}
+      \label{WT_PROP}
+      For any $T \in \Omega_G$ and $\boldsymbol{E}(T)$-signature $\vect C = (e_1, \dots, e_k; e) = (\underline{e}; e)$, we have
+      \[
+            W(T)(\vect C) = \Delta[1]^{\times \boldsymbol{E}^i(T_{\underline{e} \leq e})}
+      \]
+      is the (nerve of the) poset of inner faces of $T_{e_1 e_2 \dots e_k \leq e}$.
+\end{proposition}
+\begin{proof}
+      Applying Corollary \ref{ALGLEFTEX_COR} from the appendix to Lemma \ref{PBARFCOMB_LEM},
+      as well as Definition \ref{OT_DEF}, yields
+      \begin{equation}
+            \label{WT_EQ}
+            W(T)_n = \mathbb F_\eta^{\circ n+1} \Omega(T)
+            = \mathbb F_\eta^{\circ n+1} \mathbb P \bar{\mathbb F} \Sigma_\tau[T]
+            = P \bar{\mathbb F}^{\circ n+2}\Sigma_\bullet[T].
+      \end{equation}
+      (where the functors $\mathbb P, \mathbb F_\eta, \bar{\mathbb F}$ denote their underlying endomorphisms on $\Sym_{\bullet}$).
+      Now, \eqref{FREENUOP_EQ} says
+      \[
+            \bar{\mathbb F}^{\circ n+2} \Sigma_\bullet[T] = \Lan_{(\Omega_\bullet^{r,n+1}\to \Sigma_\bullet)^{op}} \bar N^{T},
+      \]
+      with
+      \[
+            \left(\bar N^{T}\right)^{op} \colon
+            \Omega_{\boldsymbol E(T)}^{r, n+1} \xrightarrow{\boldsymbol{V}}
+            \Sigma^{\wr n+2} \wr \Sigma_{\boldsymbol E(T)} \longto
+            \Sigma \wr \Sigma_{\boldsymbol E(T)} \xrightarrow{\Sigma_\bullet[T]}
+            \Sigma \wr \V^{op} \xrightarrow{\otimes}
+            \V^{op}.
+      \]
+      But $\bar N^T$ evaluated on an $(n+1)$-string of inner faces
+      $T_0 \hookrightarrow T_1 
+      \hookrightarrow T_2 
+      \hookrightarrow \cdots
+      \hookrightarrow T_{n+1}$
+      is given by a point $\**$
+      if $T_{n+1} \simeq T$
+      and by $\emptyset$ otherwise.
+      The evaluation of $W(T)(\vect C)$ follows.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\bibliography{biblio3}{}
+\bibliographystyle{amsalpha2}
+
+
+
+\end{document}
+
