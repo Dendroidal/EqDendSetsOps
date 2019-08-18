@@ -10,7 +10,7 @@
 \usepackage{ifdraft}
 \ifdraft{
   \color[RGB]{63,63,63}
-%  \pagecolor[RGB]{220,220,204}
+  \pagecolor[RGB]{220,220,204}
   \usepackage[notref]{showkeys}
   \usepackage{todonotes}
 }
@@ -409,7 +409,7 @@ Objects are given by tree diagrams $U$ as below\footnote{Formally, we use the mo
 Edges with no vertices $\circ$ above them are called \textit{leaves}, the unique bottom edge is called the \textit{root},
 and edges that are neither are called \textit{inner edges};
 in the example above, $a$ and $b$ are the leaves, $r$ is the root, and $c$ and $e$ are inner edges.
-The sets of edges, inner edges, leaves, and vertices of a tree $T$ are denoted $\boldsymbol{E}(U)$, $\boldsymbol{E}^i(U)$, $\boldsymbol{V}(T)$, and $\boldsymbol{V}(U)$ respectively.
+The sets of edges, inner edges, leaves, and vertices of a tree $U$ are denoted $\boldsymbol{E}(U)$, $\boldsymbol{E}^i(U)$, $\boldsymbol{V}(T)$, and $\boldsymbol{V}(U)$ respectively.
 % If an edge $t$ is pictorally above\footnote{While the following notation may seem backwards, $\leq_d$ flows in the direction of composition.} (or equal to) an edge $s$, we write $t \leq_d s$.
 
 \begin{notation}
@@ -417,7 +417,8 @@ The sets of edges, inner edges, leaves, and vertices of a tree $T$ are denoted $
       $|\boldsymbol{V}(C_n)| = 1$ and $|\boldsymbol{L}(C_n)|=n$.
       Additionally, we write $\eta$ for the \textit{stick} tree, the unique tree with $|\boldsymbol{V}(\eta)| = 0$.
 
-      Given any $v \in |\boldsymbol{V}(U)|$, we write $U_v$ for the sub-diagram of $U$ consisting of the vertex $v$.
+      Given any $v \in |\boldsymbol{V}(U)|$, we write $U_v$ for the sub-diagram of $U$
+      consisting of the vertex $v$ and any adjacent edges.
 \end{notation}
 
 
@@ -434,7 +435,7 @@ which preserves the incidence relations in an intuitive sense
 
 \begin{example}
       \label{TREEMAP_EX}
-      The labels on the edges of the tree diagrams below indicate a map to $\boldsymbol{E}(T)$ with $T$ defined as in \eqref{eq:TREE}.
+      The labels on the edges of the tree diagrams below indicate a map to $\boldsymbol{E}(U)$ with $U$ defined as in \eqref{eq:TREE}.
       The maps determined by four leftmost trees are maps of trees, while the rightmost is not.
       \begin{equation}
             \begin{tikzpicture}[auto, grow=up, level distance = 2.2em,
@@ -506,9 +507,9 @@ A map of trees $\phi \colon U \to V$ is called
       for $r_{(-)}$ denoting the root edge.
 \item a \textit{face map} if it is injective on edges;
       an \textit{inner face} if it is also tall, and
-      an \textit{outer face}if it does not factor through a non-isomorphism inner face map.
+      an \textit{outer face} if it does not factor through a non-isomorphism inner face map.
 \item a \textit{degeneracy} if is surjective on edges and preserves leaves
-      (and note that degeneracies must be tall).
+      (and hence is tall).
 \end{itemize}
 
 Heuristically, inner face maps split vertices to create new inner edges in $U$,
@@ -675,6 +676,8 @@ In general, we have the following.
       We denote objects in $\Omega_G$ by $T = (T_i)_{i \in I}$ with $I$ a transitive $G$-set and $T_i$ trees.
       Alternatively, any choice of component $T_{\**}$ has a stabilizer $H \leq G$, and then we have a decomposition
       $T \simeq G \cdot_H T_{\**}$.
+      Finally, if $\Gamma \leq G \times \Aut(T_{\**})$ is the graph subgroup encoding the $H$-action on $T_{\**}$, we have
+      $T \simeq G \cdot T_{\**}/\Gamma$.
 \end{remark}
 % Any $T \in \Omega_G$ has several equivalent descriptions:
 % \begin{enumerate}
@@ -784,8 +787,8 @@ fuirther discussion and examples can be found at \cite[Remark 5.49]{Per18}.
       Further, we write $\Sigma_G \subseteq \Omega_G^0$ for the full subcategory spanned by \textit{$G$-corollas} and quotient maps,
       where $C \in \Omega_G$ is a $G$-corolla if $|\boldsymbol{V}_G(C)| = 1$.
 
-      We note that for any choice of decomposition $C \simeq G \cdot_H C_{\**}$, $\boldsymbol{L}(C_{\**}$ is an $H$-set,
-      and the assignment $C \mapsto \boldsymbol{L}(C_{\**}$ provides a bijection between
+      We note that for any choice of decomposition $C \simeq G \cdot_H C_{\**}$, $\boldsymbol{L}(C_{\**})$ is an $H$-set,
+      and the assignment $C \mapsto \boldsymbol{L}(C_{\**})$ provides a bijection between
       isomorphism classes of objects in $\Sigma_G$ and
       isomorphism classes of $H$-sets for $H \leq G$.
 \end{definition}
@@ -2532,14 +2535,14 @@ Briefly, $W(T)$ is the free simplicial resolution\footnote{Also called the \text
 of $\Omega(T)$ as an algebra in the category of \textit{pointed} $\mathbf E(T)$-colored symmetric sequences $\Sym^{\mathbf E(T)}_{\eta}(\Set)$.
 
 In more detail, the free set operad monad $\mathbb F_\Set$ can be factored as
-$\mathbb F_\Set = P \bar{\mathbb F_\Set}$,
+$\mathbb F_\Set = P \bar{\mathbb F}_\Set$,
 where $P$ is the monad on $\mathsf{sSym}^G$ which ``adds units''
-and $\bar{\mathbb F_\Set}$ is the monad adds formal compositions.
-Algebras over $P$ are \textit{pointed symmetric sequencees}, while algebras over $\bar{\mathbb F_\Set}$ are \textit{non-unital} equivariant simplicial operads.
+and $\bar{\mathbb F}_\Set$ adds ``formal compositions''.
+Algebras over $P$ are \textit{pointed symmetric sequencees}, while algebras over $\bar{\mathbb F}_\Set$ are \textit{non-unital} equivariant simplicial operads.
 Alternatively, we have a factorization of the free set operad functor $\mathbb F_\Set \colon \mathsf{Sym}^G \to \Op^G$ as
 $\mathbb F_\Set = \mathbb F_{\Set,\eta} P$
 where $\mathbb F_{\Set,\eta}$ the ``free operad with prescribed units'' monad on pointed symmetric sequences,
-which adds formal composites while turning the selected objects into units.
+which adds formal composites while turning the selected unary operations into units.
 \begin{definition}
       For any $T \in \Omega_G$, we define $W(T) \in \sOp_{\boldsymbol{E}(T)}^G \subseteq (\Op_{\boldsymbol{E}(T)}^G)^{\Delta^{op}}$
       to be the simplicial object in operads with levels
@@ -2552,9 +2555,9 @@ Alternatively, using the first factorization, one can show that
 \begin{equation}
       \label{WT_EQ}
       W(T)_n = \mathbb F_{\Set,\eta}^{\circ n+1} \Omega(T)
-      = \mathbb F_{\Set,\eta}^{\circ n+1} \mathbb P \bar{\mathbb F_\Set} \Sigma_\tau[T]
-      = P \bar{\mathbb F_\Set}^{\circ n+2}\Sigma_\tau[T]
-      = \mathbb F_\Set \left( \bar{\mathbb F_\Set}^{\circ n+1} \Sigma_\tau[T] \right).
+      = \mathbb F_{\Set,\eta}^{\circ n+1} \mathbb P \bar{\mathbb F}_\Set \Sigma_\tau[T]
+      = P \bar{\mathbb F}_\Set^{\circ n+2}\Sigma_\tau[T]
+      = \mathbb F_\Set \left( \bar{\mathbb F}_\Set^{\circ n+1} \Sigma_\tau[T] \right).
 \end{equation}
 
 We can use the above to recover (a generalization of) the usual description of the $W$-construction (e.g. \cite[\S 4]{CM13b}).
