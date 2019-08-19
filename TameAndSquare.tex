@@ -1164,7 +1164,7 @@ This extends to a fully-faithful functor\footnote{In fact, non-equivariantly thi
 
 \begin{remark}
       If $T \in \Omega_G$ has a decomposition $G \cdot T_{\**}/\Lambda$ for some graph subgroup $\Lambda \leq G \times \Aut(T_{\**})$,
-we have $\Omega(T) = \mathbb{F} \left( \Sigma_{\tau}[G \cdot C_n]/\Lambda \right)$.
+we have $\Omega(T) = \mathbb{F} \left( \Sigma_{\tau}[G \cdot C_n]/\Lambda \right)$ (cf. \cite[\S 2.3]{BP_HGOP}).
 \end{remark}
 
 % ------------------------------ end of $\Omega(T)$ definition ------------------------------
@@ -1201,6 +1201,34 @@ The canonical example is $W_!N\widetilde{[1]}$, with the equivalence given by th
             % for $n \geq 0$, $\Lambda \leq G \times \Sigma_n$ a graph subgroup % $\in \F_n$
       \end{itemize}
 \end{proposition}
+
+\begin{remark}
+      We record that $\Omega(T) \in \sOp^G$ is cofibrant for all $T \in \Omega_G$:
+      if $T = C$ is a $G$-corolla, then we have a factorization
+      \[
+            \varnothing \longto
+            \coprod_{G/H \in \boldsymbol{E}_G(C)} \Omega(G/H \cdot \eta) = \Omega(C) \otimes_\Set \varnothing \longto
+            \Omega(C) \otimes_\Set \Delta[0] = \Omega(C)
+      \]
+      while for general $T$, the grafting decomposition $T = C \amalg_{\boldsymbol{L}_G(C)}(T_{Ge})$ induces the following pushing in $\sOp^G$.
+      \[
+            \begin{tikzcd}
+                  \displaystyle{
+                    \coprod_{Ge \in \boldsymbol{E}_G(C)} \Omega(Ge)}
+                  \arrow[r] \arrow[d]
+                  &
+                  \Omega(C) \arrow[d]
+                  \\
+                  \displaystyle{
+                    \coprod_{Ge \in \boldsymbol{E}_G(C)} \Omega(T_e)}
+                  \arrow[r]
+                  &
+		\Omega(T)
+          \end{tikzcd}
+    \]
+    \todo[inline]{match with the definition}
+\end{remark}
+
 
 
 \todo[inline]{come back!}
@@ -6571,7 +6599,10 @@ come back
 \end{lemma}
 \begin{proof}
       Recall that $f \colon X \to Y$ in $\dSet^G$ is an isofibration iff
-      $\tau i_G^{\**}\upsilon_{\**}(f) = \tau j^{\**}i_{\**}(f)$ is levelwise an isofibration in $\Cat$.
+      \(
+      \tau j^{\**}i_{\**}(f) = \tau i_G^{\**}\upsilon_{\**}(f)
+      \)
+      is levelwise an isofibration in $\Cat$.
       \[
             \begin{tikzcd}
                   \dSet^G \arrow[r, "i_{\**}"] \arrow[d, "\upsilon_{\**}"']
@@ -6580,7 +6611,9 @@ come back
                   \\
                   \dSet_G \arrow[r, "i_G^{\**}"]
                   &
-                  \Set^{\mathsf O_G^{op}}
+                  \Set^{\mathsf O_G^{op}} \arrow[r, "\tau"]
+                  &
+                  \Cat^{\mathsf O_G^{op}}
             \end{tikzcd}
       \]
       We see that $i_G^{\**} \upsilon_{\**} X \to i_G^{\**} ho(X)$ is again a universal map to a (levelwise) strict Segal object,
@@ -6679,137 +6712,6 @@ come back
 
 
 
-
-
-
-
-
-
-\section{For the sequel?}
-
-
-
-\begin{example}
-	\label{FREEOP_EX}
-	We unpack these definitions with several examples.
-	\begin{enumerate}[label = (\roman*)]
-		\item With $n = 0$, we see $\mathbb F_H[\varnothing] = G/H \cdot \Omega(\eta)$ is cofibrant for all $H \in \mathcal F_0$.
-		\item With $n = 1$ and $\Gamma = H \leq G \simeq G \times \Sigma_1$, $\mathfrak C_\Gamma = G/H \cdot \set{0,1}$, and
-		\[
-		\mathbb F_{\Gamma}[\varnothing] = G/H \cdot (\set{0,1} \cdot \Omega(\eta)),
-		\qquad
-		\mathbb F_{\Gamma}[1_\V] = G/H \cdot \mathbb A^{op} = \Omega(G/H \cdot C_1).
-		\]
-		with two orbits of objects and a single orbit of non-trivial hom-objects in the latter case.
-		\item For higher arity operations,
-		if $\Gamma \leq G \times \Sigma_n$ is a \textit{graph subgroup}, i.e. the graph of a homomorphism $G \geq H \xrightarrow{\alpha} \Sigma_n$, then
-		we have an identification $\mathfrak C_{\Gamma} \simeq G \cdot_H (A_+)$ where $A$ denotes $n$ equipped with the $H$-action provided by $\alpha$.
-		Morevover, if $C = C_A \in \Sigma_G$ is the $G$-corolla (unique up to isomorphism) corresponding to the graph subgroup $\Gamma$, then
-		\[
-		\mathbb F_\Gamma[\varnothing] = \partial\Omega(C) = \coprod_{Ge \in \boldsymbol{E}_G(C)} Ge \cdot \Omega(\eta),
-		\qquad
-		\mathbb F_{\Gamma}[1_\V] = \Omega(C),
-		\qquad
-		\mathbb F_\Gamma[\Gamma/\Gamma \cdot K] = \Omega(C) \otimes_\Fin K,
-		\]
-		with $K \in \V$ and $\otimes_\Fin$ denotes the $\V$-tensoring from Example \ref{TENS_EX};
-		in this case, we note that the tensoring is levelwise, with
-		$(\Omega(C) \otimes_\Fin K)(\vect C) = \Omega(C)(\vect C) \otimes K$.            
-		
-		In particular, we conclude that $\Omega(C) \in \Op^G_\bullet(\V)$ is cofibrant for all $C \in \Sigma_G$ via the following factorization.
-		\[
-		\varnothing \to \partial \Omega(C) \xrightarrow{\mathbb F_{\Gamma}(\varnothing \to 1_\V)} \Omega(C).
-		\]
-		\todo[inline]{connect to Definition \ref{OT_DEF}}
-		\item Similarly, $\Omega(T) \in \Op^G_\bullet(\V)$ is cofibrant for all $T \in \Omega_G$, as
-		the grafting decompositions $T = C \coprod_{\boldsymbol{E}_G(C)} (T_{Ge})$ induces the following pushout in $\Op^G_\bullet(\V)$.
-		\[
-		\begin{tikzcd}
-		\displaystyle{
-			\coprod_{Ge \in \boldsymbol{E}_G(C)} \Omega(Ge)}
-		\arrow[r] \arrow[d]
-		&
-		\Omega(C) \arrow[d]
-		\\
-		\displaystyle{
-			\coprod_{Ge \in \boldsymbol{E}_G(C)} \Omega(T_e)}
-		\arrow[r]
-		&
-		\Omega(T)
-		\end{tikzcd}
-		\]            
-		\todo[inline]{$\Omega(T)$ is $\mathcal F$-cofibrant iff $T \in \Omega_{\mathcal F}$}
-	\end{enumerate}
-\end{example}
-
-
-\begin{remark}
-	Following Example \ref{FREEOP_EX}, we see that
-	when $\F = \F^\Gamma$ is the is the $(G, \Sigma)$-family of graph subgroups,
-	generating cofibrations and trivial cofibrations of $\Op^G_{\F^\Gamma}(\sSet)$ are, respectively, 
-	\begin{gather*}
-	\set{\Omega(C) \otimes_\Fin(\partial \Delta[n] \to \Delta[n])}_{C \in \Sigma_G, n \geq 0} \bigcup 
-	\set{G/H \cdot (\varnothing \to \Omega(\eta))}_{H \leq G}
-	\stepcounter{equation}\tag{\theequation}\label{SSETGENCOF_EQ}
-	\\
-	\set{\Omega(C) \otimes_\Fin(\Lambda^i[n] \to \Delta[n])}_{C \in \Sigma_G, 0 \leq i \leq n} \bigcup
-	\set{G/H \cdot (\Omega(\eta) \to \mathbb J)}_{H \leq G, \mathbb J \in \mathscr G}.
-	\end{gather*}     
-\end{remark}
-
-
-
-
-
-
-
-
-
-
-
-
-
-\subsubsection*{Underlying cofibrancy in $\Op^G_{\mathfrak C}(\sSet)$}
-
-We end this section by specifying to $\V = \sSet$ and determining a characterization of $\Sigma_{\F^\Gamma}$-cofibrant operads.
-First, we recall the notion of a $G$-graph subgroup (e.g. \cite[Defn. 6.34]{BP_geo}).
-\begin{definition}
-      \label{GRAPHSUB_DEF}
-      A subgroup $\Gamma \leq G \times \Sigma_n^{op}$ is called a \textit{$G$-graph subgroup} if
-      $\Gamma \cap \Sigma_n^{op} = \**$.
-      Equivalently, $\Gamma$ is of the form $\set{(h, \alpha(h)^{-1})}$ for $h \in H$ for some subgroup $H \leq G$ and $\alpha \colon H \to \Sigma_n$ a homomorphism.
-
-      Let $\F_n^\Gamma$ denote the family of $G$-graph subgroups of $G \times \Sigma_n$, and $\F^\Gamma = \set{\F_n^{\Gamma}}$ the $(G,\Sigma)$-family of $G$-graph subgroups.
-      More generally, we call any subfamily of $\F^{\Gamma}$ a \textit{$(G,\Sigma)$-graph family}\footnote{These have previously been called \textit{families of $G$-corollas} \cite[Defn. 4.44]{BP_geo} and \textit{$G$-vertex families} \cite[Defn. 9.3]{Per18}.}.
-\end{definition}
-
-Now, recall (e.g. \cite[Prop. 2.16]{Ste16}) that for any group $G$ and family of subgroups $\F$,
-$K \to L$ in $\sSet^{G}_\F$ is an $\F$-cofibration iff $L_n \setminus K_n$ has isotropy in $\F$; i.e. for all $x \in L_n \setminus K-n$, $\Stab_{G}(x) \in \F$. 
-% 
-We also note the easy observation that for any set $A$ with an action of $G \times \Sigma$,
-$A$ has isotropy in the family $\F^\Gamma$ of $G$-graph subgroups
-iff
-$A$ is $\Sigma$-free.
-% 
-Thus $K \to L$ in $\sSet^{G \times \Sigma}_{\F^\Gamma}$ is an $\F^\Gamma$-cofibration
-iff
-it forgets to a cofibration in the coarse model structure $\sSet^\Sigma_{proj}$.
-
-More generally, if $\Lambda \leq G \times \Sigma$ and $\F^\Gamma_{\Lambda} = \F^\Gamma \cap \Lambda$,
-then $K \to L$ in $\sSet^{\Lambda}_{\F^\Gamma_\Lambda}$ is an $\F^\Gamma_\Lambda$-cofibration
-iff
-it forgets to a cofibration in the coarse model structure $\sSet^{\pi_{\Sigma}\Lambda}_{proj}$.
-      
-All together, we conclude the following (cf. \cite[Remark 6.7]{Per18}, \cite[discussion before Thm. 2.31]{BP_edss}).
-
-\begin{proposition}
-      \label{SGS_COF_PROP}
-      $\O \to \P$ in $\Op_\bullet^G(\sSet)$ is a $\Sigma_{\F^\Gamma}$-cofibration iff
-      it forgets to a $\Sigma$-cofibration in $\Op_\bullet(\sSet)$
-      (i.e. it forgets to a cofibration in $\Sym_\bullet(\sSet)$).
-      %
-      Equivalently, $\O$ is $\Sigma_{\F^\Gamma}$-cofibrant iff $\O(n)$ has a free $\Sigma_n$-action.
-\end{proposition}
 
 
 
