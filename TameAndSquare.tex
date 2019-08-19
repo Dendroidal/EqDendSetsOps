@@ -10,7 +10,7 @@
 \usepackage{ifdraft}
 \ifdraft{
   \color[RGB]{63,63,63}
-%  \pagecolor[RGB]{220,220,204}
+  \pagecolor[RGB]{220,220,204}
   \usepackage[notref]{showkeys}
   \usepackage{todonotes}
 }
@@ -59,7 +59,7 @@
 % \usepackage{paralist} % for inparaenum
 % \usepackage{enumerate}%
 \usepackage[inline,shortlabels]{enumitem}%
-
+\setenumerate{label=(\roman*)}
 
 % ---------- Page Typesetting ----------
 \usepackage[final]{microtype}
@@ -409,7 +409,7 @@ Objects are given by tree diagrams $U$ as below\footnote{Formally, we use the mo
 Edges with no vertices $\circ$ above them are called \textit{leaves}, the unique bottom edge is called the \textit{root},
 and edges that are neither are called \textit{inner edges};
 in the example above, $a$ and $b$ are the leaves, $r$ is the root, and $c$ and $e$ are inner edges.
-The sets of edges, inner edges, leaves, and vertices of a tree $T$ are denoted $\boldsymbol{E}(U)$, $\boldsymbol{E}^i(U)$, $\boldsymbol{V}(T)$, and $\boldsymbol{V}(U)$ respectively.
+The sets of edges, inner edges, leaves, and vertices of a tree $U$ are denoted $\boldsymbol{E}(U)$, $\boldsymbol{E}^i(U)$, $\boldsymbol{V}(T)$, and $\boldsymbol{V}(U)$ respectively.
 % If an edge $t$ is pictorally above\footnote{While the following notation may seem backwards, $\leq_d$ flows in the direction of composition.} (or equal to) an edge $s$, we write $t \leq_d s$.
 
 \begin{notation}
@@ -417,7 +417,8 @@ The sets of edges, inner edges, leaves, and vertices of a tree $T$ are denoted $
       $|\boldsymbol{V}(C_n)| = 1$ and $|\boldsymbol{L}(C_n)|=n$.
       Additionally, we write $\eta$ for the \textit{stick} tree, the unique tree with $|\boldsymbol{V}(\eta)| = 0$.
 
-      Given any $v \in |\boldsymbol{V}(U)|$, we write $U_v$ for the sub-diagram of $U$ consisting of the vertex $v$.
+      Given any $v \in |\boldsymbol{V}(U)|$, we write $U_v$ for the sub-diagram of $U$
+      consisting of the vertex $v$ and any adjacent edges.
 \end{notation}
 
 
@@ -434,7 +435,7 @@ which preserves the incidence relations in an intuitive sense
 
 \begin{example}
       \label{TREEMAP_EX}
-      The labels on the edges of the tree diagrams below indicate a map to $\boldsymbol{E}(T)$ with $T$ defined as in \eqref{eq:TREE}.
+      The labels on the edges of the tree diagrams below indicate a map to $\boldsymbol{E}(U)$ with $U$ defined as in \eqref{eq:TREE}.
       The maps determined by four leftmost trees are maps of trees, while the rightmost is not.
       \begin{equation}
             \begin{tikzpicture}[auto, grow=up, level distance = 2.2em,
@@ -506,9 +507,9 @@ A map of trees $\phi \colon U \to V$ is called
       for $r_{(-)}$ denoting the root edge.
 \item a \textit{face map} if it is injective on edges;
       an \textit{inner face} if it is also tall, and
-      an \textit{outer face}if it does not factor through a non-isomorphism inner face map.
+      an \textit{outer face} if it does not factor through a non-isomorphism inner face map.
 \item a \textit{degeneracy} if is surjective on edges and preserves leaves
-      (and note that degeneracies must be tall).
+      (and hence is tall).
 \end{itemize}
 
 Heuristically, inner face maps split vertices to create new inner edges in $U$,
@@ -675,6 +676,8 @@ In general, we have the following.
       We denote objects in $\Omega_G$ by $T = (T_i)_{i \in I}$ with $I$ a transitive $G$-set and $T_i$ trees.
       Alternatively, any choice of component $T_{\**}$ has a stabilizer $H \leq G$, and then we have a decomposition
       $T \simeq G \cdot_H T_{\**}$.
+      Finally, if $\Gamma \leq G \times \Aut(T_{\**})$ is the graph subgroup encoding the $H$-action on $T_{\**}$, we have
+      $T \simeq G \cdot T_{\**}/\Gamma$.
 \end{remark}
 % Any $T \in \Omega_G$ has several equivalent descriptions:
 % \begin{enumerate}
@@ -784,8 +787,8 @@ fuirther discussion and examples can be found at \cite[Remark 5.49]{Per18}.
       Further, we write $\Sigma_G \subseteq \Omega_G^0$ for the full subcategory spanned by \textit{$G$-corollas} and quotient maps,
       where $C \in \Omega_G$ is a $G$-corolla if $|\boldsymbol{V}_G(C)| = 1$.
 
-      We note that for any choice of decomposition $C \simeq G \cdot_H C_{\**}$, $\boldsymbol{L}(C_{\**}$ is an $H$-set,
-      and the assignment $C \mapsto \boldsymbol{L}(C_{\**}$ provides a bijection between
+      We note that for any choice of decomposition $C \simeq G \cdot_H C_{\**}$, $\boldsymbol{L}(C_{\**})$ is an $H$-set,
+      and the assignment $C \mapsto \boldsymbol{L}(C_{\**})$ provides a bijection between
       isomorphism classes of objects in $\Sigma_G$ and
       isomorphism classes of $H$-sets for $H \leq G$.
 \end{definition}
@@ -1021,14 +1024,14 @@ For more information on fibered adjunctions, see \cite[\S 2.2]{BP_HGOP}.
 
 Generalizing the work of \cite{Ber07b,CM13b}, in \cite{BP_HGOP} we show that
 the category of equivariant simplicial operads is equipped with a Dwyer-Kan model structure,
-where weak equivalences are hoomotopically essentially surjective maps which have the same homotopy types for every space of norm maps $\O(\vect C)^\Gamma$.
-We briefly describe this process.
-First, the fibers $\sOp^G_{\mathfrak C}$ have a model structure transfered from $\sSym^G_{\mathfrak C}$ by \cite[Thm. I]{BP_HGOP},
-where a map $X \to Y$ is a weak equivalence (resp. fibration) iff
-$X(\vect C) \to Y(\vect C)$ is a $G$-graph weak equivalence (resp. fibration) in $\sSet^{\Aut_{G \ltimes \Sigma_{\mathfrak C}^{op}}(\vect C)}$
+where weak equivalences are homotopically essentially surjective maps which have the same homotopy types for every space of norm maps $\O(\vect C)^\Gamma$.
 
-Second, these model structures on $\sOp_{\mathfrak C}^G$ assemble into a single model structure on all operads.
-\begin{definition}
+% First, the fibers $\sOp^G_{\mathfrak C}$ have a model structure transfered from $\sSym^G_{\mathfrak C}$ by \cite[Thm. I]{BP_HGOP},
+% where a map $X \to Y$ is a weak equivalence (resp. fibration) iff
+% $X(\vect C) \to Y(\vect C)$ is a $G$-graph weak equivalence (resp. fibration) in $\sSet^{\Aut_{G \ltimes \Sigma_{\mathfrak C}^{op}}(\vect C)}$
+
+% Second, these model structures on $\sOp_{\mathfrak C}^G$ assemble into a single model structure on all operads.
+\begin{notation}
       We recall two natural right adjoints:
       \[
             \sOp^G \xrightarrow{\pi_0}
@@ -1037,11 +1040,11 @@ Second, these model structures on $\sOp_{\mathfrak C}^G$ assemble into a single 
       \]
       where $\pi_0(\mathfrak C, \O) = (\mathfrak C, \pi_0 \O)$ with $\pi_0\O(\vect C) = \pi_0\left(\O(\vect C)\right)$,
       and $j^{\**}$ forgets all non-unary operations.
-\end{definition}
+\end{notation}
 
 \begin{theorem}[{cf. \cite[Thm. III, Prop. 4.78]{BP_HGOP}}] % ISOFIBHARD PROP
       The category $\sOp^G$ is equipped with a cofibrantly generated model structure where the weak equivalences (resp. fibrations) are those maps
-      $F \colon \O) \to \P)$ such that
+      $F \colon \O \to \P$ such that
       \begin{itemize}
       \item the induced maps
             \begin{equation}
@@ -1069,15 +1072,14 @@ Lastly, we have that cofibrant operads forget to cofibrant symmetric sequences.
 
 \begin{proposition}[{cf. \cite[Prop. 3.63]{BP_HGOP}}]
       \label{SIGMAG_COF PROP}
-      Let $\F$ be a weak indexing system.
-      If $F \colon \O \to \P$ is an $\F$-cofibration in $\Op^G_{\mathfrak C}(\V)$ and $\O$ is $\Sigma_\F$-cofibrant,
-      then $F$ is a $\Sigma_\F$-cofibration.
-      In particular, $\F$-cofibrant operads are $\Sigma_\F$-cofibrant.
+      If $F \colon \O \to \P$ is a cofibration in $\Op^G_{\mathfrak C}(\V)$ and $\O$ is $\Sigma$-cofibrant,
+      then $F$ is a $\Sigma$-cofibration.
+      In particular, cofibrant operads are $\Sigma$-cofibrant.
 \end{proposition}
 
 \todo[inline]{come back - make sure this goes here}
 Now, recall (e.g. \cite[Prop. 2.16]{Ste16}) that for any group $G$ and family of subgroups $\F$,
-$K \to L$ in $\sSet^{G}_\F$ is an $\F$-cofibration iff $L_n \setminus K_n$ has isotropy in $\F$; i.e. for all $x \in L_n \setminus K-n$, $\Stab_{G}(x) \in \F$. 
+a map $K \to L$ in $\sSet^{G}_\F$ is an $\F$-cofibration iff $L_n \setminus K_n$ has isotropy in $\F$; i.e. for all $x \in L_n \setminus K-n$, $\Stab_{G}(x) \in \F$. 
 % 
 We also note the easy observation that for any set $A$ with an action of $G \times \Sigma$,
 $A$ has isotropy in the family $\F^\Gamma$ of $G$-graph subgroups
@@ -1104,16 +1106,27 @@ All together, we conclude the following (cf. \cite[Remark 6.7]{Per18}, \cite[dis
       % it forgets to a $\Sigma$-cofibration in $\Op_\bullet(\sSet)$
       % (i.e. it forgets to a cofibration in $\Sym_\bullet(\sSet)$).
       %
-      Consequently, $\O \in \sOp^G$ is $\Sigma$-cofibrant iff $\O(n)$ has a free $\Sigma_n$-action.
+      Consequently, $\O \in \sOp^G$ is $\Sigma$-cofibrant iff $\O(n)$ has a free $\Sigma_n$-action for all $n \geq 0$.
 \end{proposition}
 
+\subsubsection{Simplicial tensoring and generating (trivial) cofibrations}
+
+To describe the generators of this model structure, we must recall two natural constructions:
+\begin{enumerate*}
+\item the free operad $\Omega(T)$ generated by a $G$-tree.
+\item a (fiberwise) simplicial (co)tensoring of $\sOp^G$, and
+\end{enumerate*}
 
 
 
-\subsubsection{Generating (trivial) cofibrations}
 
-To describe the generators of this model structure, we first recall
-the construction of the free operad generated by $G$-trees (cf. \cite[\S 2.3.1]{BP_HGOP}). % {REPFUN_SEC}
+
+
+
+
+% ------------------------------ construction on $\Omega(T)$ ------------------------------
+
+We begin with $\Omega(T)$; more details can be found in \cite[\S 2.3.1]{BP_HGOP}). % {REPFUN_SEC}
 Given $\vect C \in \Sigma_{\mathfrak C}$, we have a representable functor $\Sigma_{\mathfrak C}[\vect C] = \Sigma_{\mathfrak C}^{op}(\vect C, -)$ in $\Sym_{\mathfrak C}$..
 More generally, for any $\mathfrak C$-colored forest $\vect F$, we define
 \[
@@ -1162,10 +1175,122 @@ This extends to a fully-faithful functor\footnote{In fact, non-equivariantly thi
 
 \begin{remark}
       If $T \in \Omega_G$ has a decomposition $G \cdot T_{\**}/\Lambda$ for some graph subgroup $\Lambda \leq G \times \Aut(T_{\**})$,
-we have $\Omega(T) = \mathbb{F} \left( \Sigma_{\tau}[G \cdot C_n]/\Lambda \right)$.
+we have $\Omega(T) = \mathbb{F} \left( \Sigma_{\tau}[G \cdot C_n]/\Lambda \right)$ (cf. \cite[\S 2.3]{BP_HGOP}).
 \end{remark}
 
-% ------------------------------ end of $\Omega(T)$ definition ------------------------------
+% ------------------------------ simplicial (co)tensoring ------------------------------
+
+
+\begin{definition}
+      \label{COTENS_DEF}
+      For $\O \in \sOp^G$ and $K \in \sSet$, we define the pointwise simplicial cotensoring
+      \( \set{K,\O}_\Set \in \sOp^G \) to have the same $G$-set $\mathfrak C_\O$ of colors as $\O$, with mapping spaces
+      \( \set{K, \O}_\Set (\vect C) = \left( \O(\vect C) \right)^K \). 
+
+      We note that $\set{K,-}_\Set \colon \sOp^G \to \sOp^G$ is a fibered right adjoint over $\Set^g$ which moreover preserves pullback arrows,
+      and thus the left adjoint, denoted $(-) \otimes_\Set K \colon \sOp^G \to \sOp^G$, is also fibered.
+\end{definition}
+Explicitly, we have the following pushout diagram in $\sOp^G$, where $\O \times K$ is the levelwise product $\O \times K(\vect C) = \O(C) \times K$.
+\begin{equation}
+      \label{OPTENS_EQ}
+      \begin{tikzcd}
+            \mathbb F(\mathfrak C_\O) \times K \arrow[d] \arrow[r]
+            &
+            \mathbb F(\mathfrak C_\O) \arrow[d]
+            \\
+            \O \times K \arrow[r]
+            &
+            \O \otimes_\Set K
+      \end{tikzcd}
+\end{equation}
+
+Some quick observations:
+\begin{lemma}
+      Let $C \in \Sigma_G$, $\O \in \sOp^G$, $X \in \sSym^G$, and $K \in \sSet$.
+      \begin{enumerate}
+      \item \( \Hom_{\sOp^G}(\Omega(C), \O) = \Hom_{\sSym^G}(\Sigma_\tau[C], \O) \).
+      \item \( \mathbb F(X \cdot K) \simeq \mathbb F(X) \otimes_\Set K \).
+      \item \( \Omega(C) \otimes_\Set K(\vect C) = \Omega(C)(\vect C) \times K \)
+            and 
+            \( \Omega(C) \otimes_\Set K = \mathbb F( \Sigma_\tau[C] \cdot K) \). 
+      \item \( \Hom_{\sOp^G}(\Omega(C) \otimes_\Set K, \O) \simeq \displaystyle\coprod_{\mbox{$C$-profiles $\vect C$}} \Hom_\sSet(K, \O(\vect C)) \).
+      \item The square on the left below commutes (additionally, has a lift) iff the square on the right below commutes (has a lift),
+            where $\vect C$ is the $C$-profile of $\O$ induced by the map of colors $\phi \colon \partial \Omega(C) \to \mathfrak C_\O$.
+            \begin{equation}
+                  \begin{tikzcd}
+                        \Omega(C) \otimes_\Set K \arrow[r, "\phi"] \arrow[d, "u"']
+                        &
+                        \O \arrow[d, "F"]
+                        && % ----------
+                        K \arrow[r] \arrow[d, "u"']
+                        &
+                        \O(\vect C) \arrow[d, "{F(\vect C)}"]
+                        \\
+                        \Omega(C) \otimes_\Set L \arrow[r]
+                        &
+                        \P
+                        && % ----------
+                        L \arrow[r]
+                        &
+                        \P(F(\vect C))
+                  \end{tikzcd}
+            \end{equation}
+      \end{enumerate}
+\end{lemma}
+
+
+
+\todo[inline]{combine with the above}
+
+We note that the simplicial tensoring
+\[
+      \sOp \times \sSet \xrightarrow{(-) \otimes_\Set (-)} \sOp
+      \qquad
+      \sOp^G \times \sSet^G \xrightarrow{(-) \otimes_\Set (-)} \sOp^G
+\]
+induces a simplicial tensoring on $G$-objects by postcomposition.
+In fact, \eqref{OPTENS_EQ} still is a pushout,
+with the $G$-action on $\O \times K$ defined ``diagonally'',
+given on the spaces of operations by the maps
+\( \O(\vect C) \times K \xrightarrow{g \times g} \O(g \vect C) \times K \).
+
+\begin{lemma}
+      \label{TENSGK_LEM}
+      Let $K \in \sSet$, $C \in \Sigma_G$, and $H \leq G$. Then
+      \[
+            \Omega(C) \otimes_\Set G/H \cdot K \simeq \mathbb F(\Sigma_\tau[G \cdot_H C] \cdot K)
+      \]      
+\end{lemma}
+In particular $\Omega(C) \otimes_\Set G/H \cdot K$ is of the form
+\[
+      \coprod_r \Omega(D_r) \otimes_\Set K
+\]
+for some $D_r \in \Sigma_G$.
+
+\todo[inline]{come back!}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 We need one more definition to describe our generators.
 \begin{definition}
@@ -1180,12 +1305,12 @@ The canonical example is $W_!N\widetilde{[1]}$, with the equivalence given by th
       The generating cofibrations in $\mathsf{sOp}^G$
       are the maps
       \begin{itemize}
-      \item[(OC1)] $\emptyset \to G/H \cdot \eta$ % for $H \in \F_1$,
-      \item[(OC2)] $\Omega(T) \cdot i$ for $T \in \Omega_G$
+      \item[(OC1)] $\emptyset \to G/H \cdot \Omega(\eta)$ % for $H \in \F_1$,
+      \item[(OC2)] $\Omega(T) \otimes_{\Set} (\partial \Delta[m] \to \Delta[m])$
+            for $T \in \Omega_G$, $m \geq 0$.
             % $\mathbb{F} \left( \Sigma_{\tau}[G \cdot C_n]/\Lambda \cdot i\right)$
             % for $n \geq 0$,
             % $\Lambda \leq G \times \Sigma_n$ a $G$-graph subgroup, % $\in \F_n$
-            and $i$ a generating cofibration in $\sSet$, $\partial \Delta[m] \to \Delta[m]$ for some $m \geq 0$
       \end{itemize}
       while the generating trivial cofibrations are the maps 
       \begin{itemize}
@@ -1193,15 +1318,43 @@ The canonical example is $W_!N\widetilde{[1]}$, with the equivalence given by th
             $G/H \cdot \left(\eta \to \mathbb{G}\right)$ % for $H \in \F_1$ and $\mathbb{G} \in \mathscr{G}$,
             for $H \leq G$ and $\mathbb G$ a $\sSet$-interval with countably many simplices.
       \item[(OA2)] 
-            $\Omega(T) \cdot j$ for $T \in \Omega_G$
+            $\Omega(T) \otimes_{\Set} (\Lambda^k[m] \to \Delta[m])$
+            for $T \in \Omega_G$, $0 \leq k \leq m$.
             % $\mathbb{F} \left( \Sigma_{\tau}[G \cdot C_n]/\Lambda \cdot j\right)$
             % for $n \geq 0$, $\Lambda \leq G \times \Sigma_n$ a graph subgroup % $\in \F_n$
-            and $j$ a generating trivial cofibration in $\sSet$, $\Lambda^k[m] \to \Delta[m]$ for some $0 \leq k \leq m$ % $ \in \mathcal{J}$.
       \end{itemize}
 \end{proposition}
 
+\begin{remark}
+      We record that $\Omega(T) \in \sOp^G$ is cofibrant for all $T \in \Omega_G$:
+      if $T = C$ is a $G$-corolla, then we have a factorization
+      \[
+            \varnothing \longto
+            \coprod_{G/H \in \boldsymbol{E}_G(C)} G/H \cdot \Omega(\eta) = \Omega(C) \otimes_\Set \varnothing \longto
+            \Omega(C) \otimes_\Set \Delta[0] = \Omega(C)
+      \]
+      while for general $T$, the grafting decomposition $T = C \amalg_{\boldsymbol{L}_G(C)}(T_{Ge})$ induces the following pushing in $\sOp^G$.
+      \[
+            \begin{tikzcd}
+                  \displaystyle{
+                    \coprod_{Ge \in \boldsymbol{E}_G(C)} \Omega(Ge)}
+                  \arrow[r] \arrow[d]
+                  &
+                  \Omega(C) \arrow[d]
+                  \\
+                  \displaystyle{
+                    \coprod_{Ge \in \boldsymbol{E}_G(C)} \Omega(T_e)}
+                  \arrow[r]
+                  &
+		\Omega(T)
+          \end{tikzcd}
+    \]
+    \todo[inline]{match with the definition}
+\end{remark}
 
-\todo[inline]{come back!}
+
+
+\todo[inline]{come back}
 
 
 
@@ -1430,13 +1583,13 @@ There is a characterization of complete weak equivalences between $G$-Segal oper
             \]
             is a Kan equivalence of simplicial sets.
       \item \textit{essentially surjective} if the map 
-      $i_G^{\**}X \to i_G^{\**}Y$ of $G$-coefficient systems of categories
+      $i_G^{\**}ho(X) \to i_G^{\**}ho(Y)$ of $G$-coefficient systems of categories
             is levelwse essentially surjective.
       \item a \textit{Dwyer-Kan (DK) equivalence} if it is both fully-faithful and essentially surjective.
       \end{enumerate}
 \end{definition}
 
-
+\todo[inline]{need a characterization of fibrations between fibrant objects for Remark \ref{W!_LEFTQ_REM}}
 The following summarizes \cite[Theorems 4.39, 4.42, and 5.48, and Corollary 5.51]{BP_edss},
 with left properness following from Theorem \ref{JB_THM} \ref{PROPER_LBL}.
 \begin{theorem}[\cite{BP_edss}]
@@ -1710,7 +1863,7 @@ In this section, we build an auxiliary model structure on preoperads, Quillen eq
 	\]
 	where $\mathsf{sk}_{\eta}X$ is the 0-skeleton of $X$ in the equivariant dendroidal Reedy direction.
 	Explicitly, $\mathsf{sk}_{\eta}X(U) = X(\eta)$ if $U = [n]$ is a linear tree, 
-	and $X(U) = \emptyset$ if $U$ is non-linear.
+	and $\mathsf{sk}_\eta X(U) = \emptyset$ if $U$ is non-linear.
 \end{remark}
 
 
@@ -2532,14 +2685,14 @@ Briefly, $W(T)$ is the free simplicial resolution\footnote{Also called the \text
 of $\Omega(T)$ as an algebra in the category of \textit{pointed} $\mathbf E(T)$-colored symmetric sequences $\Sym^{\mathbf E(T)}_{\eta}(\Set)$.
 
 In more detail, the free set operad monad $\mathbb F_\Set$ can be factored as
-$\mathbb F_\Set = P \bar{\mathbb F_\Set}$,
+$\mathbb F_\Set = P \bar{\mathbb F}_\Set$,
 where $P$ is the monad on $\mathsf{sSym}^G$ which ``adds units''
-and $\bar{\mathbb F_\Set}$ is the monad adds formal compositions.
-Algebras over $P$ are \textit{pointed symmetric sequencees}, while algebras over $\bar{\mathbb F_\Set}$ are \textit{non-unital} equivariant simplicial operads.
+and $\bar{\mathbb F}_\Set$ adds ``formal compositions''.
+Algebras over $P$ are \textit{pointed symmetric sequencees}, while algebras over $\bar{\mathbb F}_\Set$ are \textit{non-unital} equivariant simplicial operads.
 Alternatively, we have a factorization of the free set operad functor $\mathbb F_\Set \colon \mathsf{Sym}^G \to \Op^G$ as
 $\mathbb F_\Set = \mathbb F_{\Set,\eta} P$
 where $\mathbb F_{\Set,\eta}$ the ``free operad with prescribed units'' monad on pointed symmetric sequences,
-which adds formal composites while turning the selected objects into units.
+which adds formal composites while turning the selected unary operations into units.
 \begin{definition}
       For any $T \in \Omega_G$, we define $W(T) \in \sOp_{\boldsymbol{E}(T)}^G \subseteq (\Op_{\boldsymbol{E}(T)}^G)^{\Delta^{op}}$
       to be the simplicial object in operads with levels
@@ -2552,9 +2705,9 @@ Alternatively, using the first factorization, one can show that
 \begin{equation}
       \label{WT_EQ}
       W(T)_n = \mathbb F_{\Set,\eta}^{\circ n+1} \Omega(T)
-      = \mathbb F_{\Set,\eta}^{\circ n+1} \mathbb P \bar{\mathbb F_\Set} \Sigma_\tau[T]
-      = P \bar{\mathbb F_\Set}^{\circ n+2}\Sigma_\tau[T]
-      = \mathbb F_\Set \left( \bar{\mathbb F_\Set}^{\circ n+1} \Sigma_\tau[T] \right).
+      = \mathbb F_{\Set,\eta}^{\circ n+1} \mathbb P \bar{\mathbb F}_\Set \Sigma_\tau[T]
+      = P \bar{\mathbb F}_\Set^{\circ n+2}\Sigma_\tau[T]
+      = \mathbb F_\Set \left( \bar{\mathbb F}_\Set^{\circ n+1} \Sigma_\tau[T] \right).
 \end{equation}
 
 We can use the above to recover (a generalization of) the usual description of the $W$-construction (e.g. \cite[\S 4]{CM13b}).
@@ -2662,8 +2815,8 @@ we formalize the main observations used in the proof \cite[Prop. 4.5]{CM13b} bel
 the analogue to \cite[Prop. 4.8]{CM13b} is found in Proposition \ref{W!_COF_PROP}.
 \begin{proposition}
       \label{WLEFTQPUSH PROP}
-      For $\eta \neq T \in \Omega$
-      and $\emptyset \neq E \subseteq \boldsymbol{E}^{\mathsf{i}}(T)$
+      For $\eta \neq T \in \Omega_G$
+      and $\emptyset \neq E \subseteq_G \boldsymbol{E}^{\mathsf{i}}(T)$ $G$-closed,
       one has pushout digrams
       \begin{equation}
             \label{WLEFTQPUSH_EQ}
@@ -2724,7 +2877,7 @@ the analogue to \cite[Prop. 4.8]{CM13b} is found in Proposition \ref{W!_COF_PROP
 %       where $\sigma \in \Sigma_n$ and $\partial C = (e_1,\dots,e_n;e)$ with $\set{e_1,\dots,e_n}$ the set of leaves of $T$ and $e$ the root.
 %       In this case, $i(\partial C) = (\partial \Delta[1] \to \Delta[1])^{\square \boldsymbol{E}^i(T)}$,
 %       and the top horizontal map is adjoint to the identity map via Examples \ref{TENS_EX}.
-%       \todo[inline]{come back!}
+%       \todo[inline]{come back}
 % \end{proof}
 % \begin{remark}
 %       Here, we are using that the operations of $W_!(\partial\Omega[T])$ and $W(T)$ are ``finite and directed'',
@@ -6564,238 +6717,124 @@ But this now follows immediately from the pushout from Proposition \ref{WLEFTQPU
 come back
 
 \begin{lemma}
-      $ho(X)$ detects isofibrations between $\F$-$\infty$-operads.
+      \label{HOXISOFIB_LEM}
+      $ho(X)$ detects isofibrations between $G$-$\infty$-operads.
 \end{lemma}
 \begin{proof}
-      Consider the composite
+      Recall that $f \colon X \to Y$ in $\dSet^G$ is an isofibration iff
+      \(
+      \tau j^{\**}i_{\**}(f) = \tau i_G^{\**}\upsilon_{\**}(f)
+      \)
+      is levelwise an isofibration in $\Cat$.
       \[
-            \Op^G_\infty \xrightarrow{ho}
-            \dSet_G \xrightarrow{k^{\**}}
-            \dSet^{\mathsf O_{\F_1}^{op}} \xrightarrow{j^{\**}}
-            \sSet^{\mathsf O_{\F_1}^{op}} \xrightarrow{\tau}
-            \Cat^{\mathsf O_{\F_1}^{op}}
+            \begin{tikzcd}
+                  \dSet^G \arrow[r, "i_{\**}"] \arrow[d, "\upsilon_{\**}"']
+                  &
+                  \dSet^{\mathsf O_G^{op}} \arrow[d, "j^{\**}"]
+                  \\
+                  \dSet_G \arrow[r, "i_G^{\**}"]
+                  &
+                  \Set^{\mathsf O_G^{op}} \arrow[r, "\tau"]
+                  &
+                  \Cat^{\mathsf O_G^{op}}
+            \end{tikzcd}
       \]
-      for $k \colon \Omega \times \mathsf O_{\F_1} \to \Omega_G$.
-      Since $ho(X)$ is strict Segal, so is $(kj)^{\**} ho(X)$. % and thus $N\tau j^{\**}ho(X) = j^{\**}ho(X)$.
-      Moreover, as $(kj)^{\**} \upsilon_{\**} X \to (kj)^{\**} ho(X)$ is again universal to a strict Segal object,
-      the universal property of the unit map implies that
+      We see that $i_G^{\**} \upsilon_{\**} X \to i_G^{\**} ho(X)$ is again a universal map to a (levelwise) strict Segal object,
+      but then the universal property of the $(\tau, N)$-adjunction implies
       \[
-            (kj)^{\**}ho(X) = N \tau (kj)^{\**} ho(X) \simeq N \tau (kj)^{\**} \upsilon_{\**} X
+            N\tau j^{\**}i_{\**}X \simeq i_G^{\**} ho(X).
       \]
-      where the first equality is from the strict Segal property.
-      Finally, $f \colon X \to Y$ in $\dSet^G$ is an isofibration iff $\tau j^{\**}(f^H)$ is for each $H \in \F_1$,
-      or equivalently if $\tau (kj)^{\**} \upsilon_{\**} f$ is a level isofibration.
       The result follows.
 \end{proof}
 
 \begin{remark}
       \label{W!_LEFTQ_REM}
-      This gives us a second finish to the proof of Proposition \ref{W!_LEFTQ_PROP}:
-      $hcN(f)$ is an $\F$-fibration iff $\tau (kj)^{\**} \upsilon_{\**} h c N(f)$ is,
-      but
-      \[
-            +            \tau (kj)^{\**} \upsilon_{\**} hcN(f) =
-            \tau N \tau (kj)^{\**} \upsilon_{\**} hcN(f) \simeq
-            \tau (kj)^{\**} ho( hcN(f) ) \simeq
-            \tau (kj)^{\**} \pi_0 \upsilon_{\**} N \O =
-            \pi_0 j^{\**} i_{\**} f,
-      \]
-      where the last equality follows from the diagram below.
-      \[
-            \begin{tikzcd}[column sep = scriptsize]
-                  \sOp^G \arrow[d, equal] \arrow[rrr, "i_{\**}"]
-                  &&&
-                  \sOp^{\mathsf O_{\F_1}^{op}} \arrow[d, "N"'] \arrow[r, "j^{\**}"]
-                  &
-                  \mathsf{sCat}^{\mathsf O_{\F_1}^{op}} \arrow[d, "N"'] \arrow[r, "\pi_0"]
-                  &
-                  \Cat^{\mathsf O_{\F_1}^{op}} \arrow[d, "N"'] \arrow[r, equal]
-                  &
-                  \Cat^{\mathsf O_{\F_1}^{op}} \arrow[d, equal]
-                  \\
-                  \sOp^G \arrow[d, equal] \arrow[r, "N"]
-                  &
-                  \mathsf{sdSet}^G \arrow[d, equal] \arrow[rr, "i_{\**}"]
-                  &&
-                  \mathsf{sdSet}^{\mathsf O_{\F_1}^{op}} \arrow[d, equal] \arrow[r, "j^{\**}"]
-                  &
-                  \mathsf{ssSet}^{\mathsf O_{\F_1}^{op}} \arrow[r, "\pi_0"]
-                  &
-                  \sSet^{\mathsf O_{\F_1}^{op}} \arrow[d, equal] \arrow[r, "\tau"]
-                  &
-                  \Cat^{\mathsf O_{\F_1}^{op}} \arrow[d, equal]
-                  \\
-                  \sOp^G \arrow[d, equal] \arrow[r, "N"]
-                  &
-                  \mathsf{sdSet}^G \arrow[d, equal] \arrow[r, "\upsilon_{\**}"]
-                  &
-                  \mathsf{sdSet}_G \arrow[d, equal] \arrow[r, "k^{\**}"]
-                  &
-                  \mathsf{sdSet}^{\mathsf O_{\F_1}^{op}} \arrow[r, "\pi_0"]
-                  &
-                  \dSet^{\mathsf O_{\F_1}^{op}} \arrow[d, equal] \arrow[r, "j^{\**}"]
-                  &
-                  \sSet^{\mathsf O_{\F_1}^{op}} \arrow[d, equal] \arrow[r, "\tau"]
-                  &
-                  \Cat^{\mathsf O_{\F_1}^{op}} \arrow[d, equal]
-                  \\
-                  \sOp^G \arrow[r, "N"]
-                  &
-                  \mathsf{sdSet}^G \arrow[r, "\upsilon_{\**}"]
-                  &
-                  \mathsf{sdSet}_G \arrow[r, "\pi_0"]
-                  &
-                  \dSet_G \arrow[r, "k^{\**}"]
-                  &
-                  \dSet^{\mathsf O_{\F_1}^{op}} \arrow [r, "j^{\**}"]
-                  &
-                  \sSet^{\mathsf O_{\F_1}^{op}} \arrow[r, "\tau"]
-                  &
-                  \Cat^{\mathsf O_{\F_1}^{op}}
-            \end{tikzcd}
-      \]
-      But $f \in \sOp^G$ is an isofibration iff
-      $\pi_0 j^{\**} i_{\**} f$ is a level isofibration, finishing the proof.
+      Proposition \ref{HOOPID_PROP} and Lemma \ref{HOXISOFIB_LEM}
+      provide a second finish to the proof of Proposition \ref{W!_LEFTQ_PROP}:
+      $hcN(f)$ is an isofibration iff
+      $i_G^{\**}ho(hcN(f)) = i_G^{\**} \pi_0(\upsilon_{\**}(N\O))$ is so,
+      but $N \colon \sOp^G \to \mathsf{PreOp}^G$ is right Quillen
+      and $i_G^{\**}\pi_0\upsilon_{\**}$ detects isofibrations in $\mathsf{PreOp}^G$.
 \end{remark}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-\section{For the sequel?}
-
-
-
-\begin{example}
-	\label{FREEOP_EX}
-	We unpack these definitions with several examples.
-	\begin{enumerate}[label = (\roman*)]
-		\item With $n = 0$, we see $\mathbb F_H[\varnothing] = G/H \cdot \Omega(\eta)$ is cofibrant for all $H \in \mathcal F_0$.
-		\item With $n = 1$ and $\Gamma = H \leq G \simeq G \times \Sigma_1$, $\mathfrak C_\Gamma = G/H \cdot \set{0,1}$, and
-		\[
-		\mathbb F_{\Gamma}[\varnothing] = G/H \cdot (\set{0,1} \cdot \Omega(\eta)),
-		\qquad
-		\mathbb F_{\Gamma}[1_\V] = G/H \cdot \mathbb A^{op} = \Omega(G/H \cdot C_1).
-		\]
-		with two orbits of objects and a single orbit of non-trivial hom-objects in the latter case.
-		\item For higher arity operations,
-		if $\Gamma \leq G \times \Sigma_n$ is a \textit{graph subgroup}, i.e. the graph of a homomorphism $G \geq H \xrightarrow{\alpha} \Sigma_n$, then
-		we have an identification $\mathfrak C_{\Gamma} \simeq G \cdot_H (A_+)$ where $A$ denotes $n$ equipped with the $H$-action provided by $\alpha$.
-		Morevover, if $C = C_A \in \Sigma_G$ is the $G$-corolla (unique up to isomorphism) corresponding to the graph subgroup $\Gamma$, then
-		\[
-		\mathbb F_\Gamma[\varnothing] = \partial\Omega(C) = \coprod_{Ge \in \boldsymbol{E}_G(C)} Ge \cdot \Omega(\eta),
-		\qquad
-		\mathbb F_{\Gamma}[1_\V] = \Omega(C),
-		\qquad
-		\mathbb F_\Gamma[\Gamma/\Gamma \cdot K] = \Omega(C) \otimes_\Fin K,
-		\]
-		with $K \in \V$ and $\otimes_\Fin$ denotes the $\V$-tensoring from Example \ref{TENS_EX};
-		in this case, we note that the tensoring is levelwise, with
-		$(\Omega(C) \otimes_\Fin K)(\vect C) = \Omega(C)(\vect C) \otimes K$.            
-		
-		In particular, we conclude that $\Omega(C) \in \Op^G_\bullet(\V)$ is cofibrant for all $C \in \Sigma_G$ via the following factorization.
-		\[
-		\varnothing \to \partial \Omega(C) \xrightarrow{\mathbb F_{\Gamma}(\varnothing \to 1_\V)} \Omega(C).
-		\]
-		\todo[inline]{connect to Definition \ref{OT_DEF}}
-		\item Similarly, $\Omega(T) \in \Op^G_\bullet(\V)$ is cofibrant for all $T \in \Omega_G$, as
-		the grafting decompositions $T = C \coprod_{\boldsymbol{E}_G(C)} (T_{Ge})$ induces the following pushout in $\Op^G_\bullet(\V)$.
-		\[
-		\begin{tikzcd}
-		\displaystyle{
-			\coprod_{Ge \in \boldsymbol{E}_G(C)} \Omega(Ge)}
-		\arrow[r] \arrow[d]
-		&
-		\Omega(C) \arrow[d]
-		\\
-		\displaystyle{
-			\coprod_{Ge \in \boldsymbol{E}_G(C)} \Omega(T_e)}
-		\arrow[r]
-		&
-		\Omega(T)
-		\end{tikzcd}
-		\]            
-		\todo[inline]{$\Omega(T)$ is $\mathcal F$-cofibrant iff $T \in \Omega_{\mathcal F}$}
-	\end{enumerate}
-\end{example}
-
-
-\begin{remark}
-	Following Example \ref{FREEOP_EX}, we see that
-	when $\F = \F^\Gamma$ is the is the $(G, \Sigma)$-family of graph subgroups,
-	generating cofibrations and trivial cofibrations of $\Op^G_{\F^\Gamma}(\sSet)$ are, respectively, 
-	\begin{gather*}
-	\set{\Omega(C) \otimes_\Fin(\partial \Delta[n] \to \Delta[n])}_{C \in \Sigma_G, n \geq 0} \bigcup 
-	\set{G/H \cdot (\varnothing \to \Omega(\eta))}_{H \leq G}
-	\stepcounter{equation}\tag{\theequation}\label{SSETGENCOF_EQ}
-	\\
-	\set{\Omega(C) \otimes_\Fin(\Lambda^i[n] \to \Delta[n])}_{C \in \Sigma_G, 0 \leq i \leq n} \bigcup
-	\set{G/H \cdot (\Omega(\eta) \to \mathbb J)}_{H \leq G, \mathbb J \in \mathscr G}.
-	\end{gather*}     
-\end{remark}
-
-
-
-
-
-
-
-
-
-
-
-
-
-\subsubsection*{Underlying cofibrancy in $\Op^G_{\mathfrak C}(\sSet)$}
-
-We end this section by specifying to $\V = \sSet$ and determining a characterization of $\Sigma_{\F^\Gamma}$-cofibrant operads.
-First, we recall the notion of a $G$-graph subgroup (e.g. \cite[Defn. 6.34]{BP_geo}).
-\begin{definition}
-      \label{GRAPHSUB_DEF}
-      A subgroup $\Gamma \leq G \times \Sigma_n^{op}$ is called a \textit{$G$-graph subgroup} if
-      $\Gamma \cap \Sigma_n^{op} = \**$.
-      Equivalently, $\Gamma$ is of the form $\set{(h, \alpha(h)^{-1})}$ for $h \in H$ for some subgroup $H \leq G$ and $\alpha \colon H \to \Sigma_n$ a homomorphism.
-
-      Let $\F_n^\Gamma$ denote the family of $G$-graph subgroups of $G \times \Sigma_n$, and $\F^\Gamma = \set{\F_n^{\Gamma}}$ the $(G,\Sigma)$-family of $G$-graph subgroups.
-      More generally, we call any subfamily of $\F^{\Gamma}$ a \textit{$(G,\Sigma)$-graph family}\footnote{These have previously been called \textit{families of $G$-corollas} \cite[Defn. 4.44]{BP_geo} and \textit{$G$-vertex families} \cite[Defn. 9.3]{Per18}.}.
-\end{definition}
-
-Now, recall (e.g. \cite[Prop. 2.16]{Ste16}) that for any group $G$ and family of subgroups $\F$,
-$K \to L$ in $\sSet^{G}_\F$ is an $\F$-cofibration iff $L_n \setminus K_n$ has isotropy in $\F$; i.e. for all $x \in L_n \setminus K-n$, $\Stab_{G}(x) \in \F$. 
-% 
-We also note the easy observation that for any set $A$ with an action of $G \times \Sigma$,
-$A$ has isotropy in the family $\F^\Gamma$ of $G$-graph subgroups
-iff
-$A$ is $\Sigma$-free.
-% 
-Thus $K \to L$ in $\sSet^{G \times \Sigma}_{\F^\Gamma}$ is an $\F^\Gamma$-cofibration
-iff
-it forgets to a cofibration in the coarse model structure $\sSet^\Sigma_{proj}$.
-
-More generally, if $\Lambda \leq G \times \Sigma$ and $\F^\Gamma_{\Lambda} = \F^\Gamma \cap \Lambda$,
-then $K \to L$ in $\sSet^{\Lambda}_{\F^\Gamma_\Lambda}$ is an $\F^\Gamma_\Lambda$-cofibration
-iff
-it forgets to a cofibration in the coarse model structure $\sSet^{\pi_{\Sigma}\Lambda}_{proj}$.
       
-All together, we conclude the following (cf. \cite[Remark 6.7]{Per18}, \cite[discussion before Thm. 2.31]{BP_edss}).
 
-\begin{proposition}
-      \label{SGS_COF_PROP}
-      $\O \to \P$ in $\Op_\bullet^G(\sSet)$ is a $\Sigma_{\F^\Gamma}$-cofibration iff
-      it forgets to a $\Sigma$-cofibration in $\Op_\bullet(\sSet)$
-      (i.e. it forgets to a cofibration in $\Sym_\bullet(\sSet)$).
-      %
-      Equivalently, $\O$ is $\Sigma_{\F^\Gamma}$-cofibrant iff $\O(n)$ has a free $\Sigma_n$-action.
-\end{proposition}
+% \begin{remark} % ---------- OLD W!_LEFTQ_REM ----------
+%       This gives us a second finish to the proof of Proposition \ref{W!_LEFTQ_PROP}:
+%       $hcN(f)$ is an $\F$-fibration iff $\tau (kj)^{\**} \upsilon_{\**} h c N(f)$ is,
+%       but
+%       \[
+%             +            \tau (kj)^{\**} \upsilon_{\**} hcN(f) =
+%             \tau N \tau (kj)^{\**} \upsilon_{\**} hcN(f) \simeq
+%             \tau (kj)^{\**} ho( hcN(f) ) \simeq
+%             \tau (kj)^{\**} \pi_0 \upsilon_{\**} N \O =
+%             \pi_0 j^{\**} i_{\**} f,
+%       \]
+%       where the last equality follows from the diagram below.
+%       \[
+%             \begin{tikzcd}[column sep = scriptsize]
+%                   \sOp^G \arrow[d, equal] \arrow[rrr, "i_{\**}"]
+%                   &&&
+%                   \sOp^{\mathsf O_{\F_1}^{op}} \arrow[d, "N"'] \arrow[r, "j^{\**}"]
+%                   &
+%                   \mathsf{sCat}^{\mathsf O_{\F_1}^{op}} \arrow[d, "N"'] \arrow[r, "\pi_0"]
+%                   &
+%                   \Cat^{\mathsf O_{\F_1}^{op}} \arrow[d, "N"'] \arrow[r, equal]
+%                   &
+%                   \Cat^{\mathsf O_{\F_1}^{op}} \arrow[d, equal]
+%                   \\
+%                   \sOp^G \arrow[d, equal] \arrow[r, "N"]
+%                   &
+%                   \mathsf{sdSet}^G \arrow[d, equal] \arrow[rr, "i_{\**}"]
+%                   &&
+%                   \mathsf{sdSet}^{\mathsf O_{\F_1}^{op}} \arrow[d, equal] \arrow[r, "j^{\**}"]
+%                   &
+%                   \mathsf{ssSet}^{\mathsf O_{\F_1}^{op}} \arrow[r, "\pi_0"]
+%                   &
+%                   \sSet^{\mathsf O_{\F_1}^{op}} \arrow[d, equal] \arrow[r, "\tau"]
+%                   &
+%                   \Cat^{\mathsf O_{\F_1}^{op}} \arrow[d, equal]
+%                   \\
+%                   \sOp^G \arrow[d, equal] \arrow[r, "N"]
+%                   &
+%                   \mathsf{sdSet}^G \arrow[d, equal] \arrow[r, "\upsilon_{\**}"]
+%                   &
+%                   \mathsf{sdSet}_G \arrow[d, equal] \arrow[r, "k^{\**}"]
+%                   &
+%                   \mathsf{sdSet}^{\mathsf O_{\F_1}^{op}} \arrow[r, "\pi_0"]
+%                   &
+%                   \dSet^{\mathsf O_{\F_1}^{op}} \arrow[d, equal] \arrow[r, "j^{\**}"]
+%                   &
+%                   \sSet^{\mathsf O_{\F_1}^{op}} \arrow[d, equal] \arrow[r, "\tau"]
+%                   &
+%                   \Cat^{\mathsf O_{\F_1}^{op}} \arrow[d, equal]
+%                   \\
+%                   \sOp^G \arrow[r, "N"]
+%                   &
+%                   \mathsf{sdSet}^G \arrow[r, "\upsilon_{\**}"]
+%                   &
+%                   \mathsf{sdSet}_G \arrow[r, "\pi_0"]
+%                   &
+%                   \dSet_G \arrow[r, "k^{\**}"]
+%                   &
+%                   \dSet^{\mathsf O_{\F_1}^{op}} \arrow [r, "j^{\**}"]
+%                   &
+%                   \sSet^{\mathsf O_{\F_1}^{op}} \arrow[r, "\tau"]
+%                   &
+%                   \Cat^{\mathsf O_{\F_1}^{op}}
+%             \end{tikzcd}
+%       \]
+%       But $f \in \sOp^G$ is an isofibration iff
+%       $\pi_0 j^{\**} i_{\**} f$ is a level isofibration, finishing the proof.
+% \end{remark}
+
+
+
+
+
+
+
+
 
 
 
