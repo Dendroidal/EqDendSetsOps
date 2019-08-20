@@ -4921,7 +4921,7 @@ while the second step is Lemma \ref{EFPHI LEM}.
 	We define 
 	$W(T) \in \mathsf{sOp}$
 	to be the operad whose nerve is the preoperad
-	$NW(T)$ whose $n$-simplices are given by
+	$NW(T)$ with $n$-simplices given by
 \[
 	\left(NW(T)\right)_n(\vect{S})
 =
@@ -4996,8 +4996,22 @@ we define
 $NW(T,E) \subseteq NW(T)$
 as the subpresheaf
 of those factorizations with the property that
-$\boldsymbol{E}(F_0) \supseteq E_{\overline{\varphi S}}$.
+$\boldsymbol{E}^{\mathsf{i}}(F_0) \supseteq E_{\overline{\varphi S}}$.
+Note that the fact that this is a presheaf follows 
+since
+\[
+\boldsymbol{E}^{\mathsf{i}}(F'_0)
+	=
+\left(\boldsymbol{E}^{\mathsf{i}}(F_0)\right)_{F'_0}
+	=
+\left(\boldsymbol{E}^{\mathsf{i}}(F_0)\right)_{\overline{\varphi' S'}}
+	\supseteq 
+\left(E_{\overline{\varphi S}}\right)_{\overline{\varphi' S'}}
+	= 
+E_{\overline{\varphi' S'}}.
+\]
 \end{definition}
+
 
 
 \begin{remark}
@@ -5009,15 +5023,18 @@ $\boldsymbol{E}(F_0) \supseteq E_{\overline{\varphi S}}$.
 \end{remark}
 
 
-{\color{red} HERE}
-
 
 
 Next, we discuss the functoriality of
 $NW(T)$ with respect to $T \in \Omega$.
 
-
-\[
+For each map $T \to T^{\**}$ in $\Omega$
+we define
+$\left(NW(T)\right)_n(\vect{S})
+\to 
+\left(NW(T^{\**})\right)_n(\vect{S})$
+via the diagram
+\begin{equation}\label{NWTTSTAR EQ}
 \begin{tikzcd}
 	S \ar{r}{tall} \ar[equal]{d}
 &
@@ -5033,20 +5050,224 @@ $NW(T)$ with respect to $T \in \Omega$.
 \\
 	S \ar{r}{tall} 
 &
-	F'_0 \ar{r}{inn}
+	F^{\**}_0 \ar{r}{inn}
 &
-	F'_1 \ar{r}{inn}
+	F^{\**}_1 \ar{r}{inn}
 &
 	\cdots \ar{r}{inn}
 &
-	F_n \ar{r}{face}
+	F^{\**}_n \ar{r}{face}
 &
-	T'
+	T^{\**}
 \end{tikzcd}
+\end{equation}
+where
+$F_n \to F^{\**}_n \to T^{\**}$
+(resp. 
+$F_{k-1} \to F^{\**}_{k-1} \to F^{\**}_k$)
+is the "degeneracy followed by face"
+factorization of the composite
+$F_n \to T \to T^{\**}$
+(resp.
+$F_{k-1} \to F_{k} \to F^{\**}_k$).
+
+
+
+\begin{remark}\label{OMECONVMAP REM}
+In the ``degeneracy-inner-outer''
+factorization of maps in $\Omega$,
+maps where the degeneracy is an isomorphism are the face maps,
+while maps where the outer face is an isomorphism are called tall maps.
+Notably, both of these classes of maps are closed under composition.
+
+There is a third class of maps one might consider, 
+for which the inner face component is an isomorphism.
+We call these the \emph{convex maps}
+since they the maps $\varphi \colon T \to S$
+characterized by the following property
+if $e <_d e' <_d e''$
+in $S$ and $e,e''$ are in the image of $\varphi$
+then so is $e'$.
+\end{remark}
+
+
+
+\begin{proposition}
+	For any map $T \to T^{\**}$ in $\Omega$, the induced map
+	$\left(NW(T)\right)(\vect{S})
+	\to 
+	\left(NW(T^{\**})\right)(\vect{S})$
+	in 
+	\eqref{NWTTSTAR EQ}
+	is functorial on $S$.
+\end{proposition}
+
+\begin{proof}
+First, note that the composite
+$\left(NW(T)\right)(\vect{S})
+\to 
+\left(NW(T)\right)(\vect{S'})
+\to 
+\left(NW(T^{\**})\right)(\vect{S'})$
+is computed by the left diagram below,
+where
+$S' \to F'_i \to F_i$
+and 
+$F'_i \to \left(F_i'\right)^{\**} \to T^{\**}$
+are the unique factorizations with the indicated properties.
+On the other hand, the composite
+$\left(NW(T)\right)(\vect{S})
+\to 
+\left(NW(T^{\**})\right)(\vect{S})
+\to 
+\left(NW(T^{\**})\right)(\vect{S'})$
+is computed as on the right
+with 
+$F_i \to F^{\**}_i \to T'$ and
+$S' \to \left(F_i^{\**}\right)' \to F^{\**}_i$
+the unique indicated factorizations.
+\begin{equation}
+\begin{tikzcd}
+	S \ar{r}{tall} 
+&
+	F_i \ar{r}{face} 
+&
+	T \ar[equal]{d}
+&&%%%
+	S \ar{r}{tall} \ar[equal]{d}
+&
+	F_i \ar{r}{face} \ar{d}{deg} 
+&
+	T \ar{d}
+\\
+	S' \ar{u} \ar{r}{tall} \ar[equal]{d}
+&
+	F'_i \ar{r} \ar{u}[swap]{out} \ar{d}{deg}
+&
+	T \ar{d}
+&&%%%
+	S \ar{r}
+&
+	F^{\**}_i \ar{r}{face} 
+&
+	T' \ar[equal]{d}
+\\
+	S' \ar{r}
+&
+	\left(F_i'\right)^{\**} \ar{r}{face}
+&
+	T^{\**}
+&&%%%
+	S' \ar{r}{tall} \ar{u}
+&
+	\left(F_i^{\**}\right)' \ar{r} \ar{u}[swap]{out}
+&
+	T^{\**}
+\end{tikzcd}
+\end{equation}
+The key to the proof is to show
+that the planar faces 
+$\left(F_i'\right)^{\**}$ and
+$\left(F_i^{\**}\right)'$
+of $T'$
+coincide, since it will then be automatic that all maps connecting the
+$\left(F_i'\right)^{\**}$ and
+$\left(F_i^{\**}\right)'$
+and $S'$, $T^{\**}$
+likewise match.
+
+To see this, we consider the following diagram.
+\begin{equation}
+\begin{tikzcd}
+	S' \ar{r}{tall} \ar{d}
+&
+	F'_i \ar{r} \ar{d}{out}
+&
+	T \ar{d}
+\\
+	S  \ar{r}{tall} \ar[equal]{d}
+&
+	F_i \ar{r}{face}  \ar{d}{deg}
+&
+	T^{\**} \ar[equal]{d}
+\\
+	S \ar{r}
+&
+	F_i^{\**} \ar{r}{face}
+&
+	T^{\**}
+\end{tikzcd}
+\end{equation}
+Both faces  
+$\left(F'_i\right)^{\**}$ and 
+$\left(F^{\**}_i\right)'
+$
+can alternatively be built by factoring
+composite 
+$F'_i \to F_i \to F_i^{\**}$,
+with 
+$\left(F'_i\right)^{\**}$ 
+coming from the 
+degeneracy-face decomposition
+and 
+$\left(F^{\**}_i\right)'
+$
+coming from the 
+tall-outer decomposition.
+But since 
+$F'_i \to F_i \to F_i^{\**}$
+is a composite of convex maps 
+(cf. Remark \ref{OMECONVMAP REM})
+it is again convex, 
+so the two factorizations coincide, 
+finishing the proof.
+\end{proof}
+
+
+\begin{corollary}
+	If $\psi \colon T \to T^{\**}$
+	defines a map of necklaces
+	$(T,E) \to (T^{\**},E^{\**})$
+	then 
+	it induces a map
+	$NW(T,E) \to NW(T^{\**},E^{\**})$.
+\end{corollary}
+
+
+\begin{proof}
+	We need to show that the 
+	map
+	$NW(T) \to NW(T^{\**})$
+	sends simplices such that
+	$\boldsymbol{E}^{\mathsf{i}}(F_0) \supseteq 
+	E_{\overline{\varphi S}}$
+	to simplices such that
+	$\boldsymbol{E}^{\mathsf{i}}(F^{\**}_0) \supseteq 
+	E^{\**}_{\overline{\varphi^{\**} S}}$.
+	This follows since
+\[
+\boldsymbol{E}^{\mathsf{i}}(F^{\**}_0)
+	=
+\psi \left(\boldsymbol{E}^{\mathsf{i}}(F_0)\right)
+	\supseteq
+\psi \left( E_{\overline{\varphi S}} \right)
+	\supseteq
+E^{\**}_{\overline{\psi (\overline{\varphi S})}}
+	=
+E^{\**}_{\overline{\varphi^{\**} S}}
 \]
+where the second step is our assumption on the simplex and
+the third step is the characterization in 
+Proposition \ref{NECKMAPCHAR PROP}(iii).
+\end{proof}
 
 
-{\color{red} naturality}
+{\color{red} HERE}
+
+
+
+
+
 
 
 
@@ -5055,7 +5276,7 @@ $NW(T)$ with respect to $T \in \Omega$.
 \newpage
 
 
-\section{Amalgamating monads (to be renamed and reskined)}
+\section{Amalgamating monads}
 \label{AMALGMON_SEC}
 
 \subsection{Combinable monads}
