@@ -10,7 +10,7 @@
 \usepackage{ifdraft}
 \ifdraft{
   \color[RGB]{63,63,63}
-  \pagecolor[RGB]{220,220,204}
+%  \pagecolor[RGB]{220,220,204}
   \usepackage[notref]{showkeys}
   \usepackage{todonotes}
 }
@@ -2671,10 +2671,7 @@ which are adapted from \cite{JT07} (see Proposition 7.15 therein).
 \section{The Quillen equivalence}
 \label{QE_SEC}
 
-{\color{red} HERE}	
 
-
-First, we discuss the adjunction in question.
 
 \subsection{The homotopy coherent nerve}
 
@@ -5024,7 +5021,7 @@ due to $T_v$ being a bead.
 Lastly, we show that not (iii) implies not (i).
 Suppose $F$ is counterexample to (iii).
 The argument is by induction on the size of $E_F$.
-The base case is that where $E_F \emptyset$, 
+The base case is that where $E_F = \emptyset$, 
 so that $F$ is in 
 $\Omega[T,E]$ but, by failure of (iii) for $F$,
 $E'_{\overline{\varphi F}} \neq \emptyset$,
@@ -5042,6 +5039,48 @@ and failure of (iii) for $F$
 implies that (iii) fails for either $F'$ or $F''$,
 so the induction hypothesis implies that (i) fails, finishing the proof.
 \end{proof}
+
+
+
+
+\begin{remark}\label{BEADMAP REM}
+	If $\varphi \colon T \to T'$ is injective
+	and induces a map of necklaces
+	$(T,E) \to (T',E')$ then
+	for each bead 
+	$T_{v} \hookrightarrow T$
+	there is a unique bead
+	$T'_{\varphi_{\**} v} \hookrightarrow T'$
+	such that there is a factorization	
+\begin{equation}
+\begin{tikzcd}
+	T_v
+	\ar[hookrightarrow]{r} 
+	\ar[dashed]{d}
+&
+	T
+	\ar[hookrightarrow]{d}
+\\
+	T'_{\varphi_{\**} v}
+	\ar[hookrightarrow]{r}
+&
+	T'
+\end{tikzcd}
+\end{equation}
+In particular, 
+this defines a map of sets of beads
+$\varphi_{\**} \colon 
+B(T,E) \to B(T',E')$.
+
+Moreover, adapting the proof of 
+``not (iii) implies not (i)''
+in Proposition \ref{NECKMAPCHAR PROP}
+it follows that the bead map
+$\varphi_{\**}$ is injective
+provided one additionally has that  
+$\varphi(E) = E'_{\overline{\varphi T}}$.
+\end{remark}
+
 
 
 
@@ -5427,7 +5466,131 @@ Proposition \ref{NECKMAPCHAR PROP}(iii).
 \end{proof}
 
 
+
+
+\begin{proposition}\label{NECKCOL PROP}
+Let $(T,E)$ be a necklace.
+Then one has an identification
+\begin{equation}\label{NECKCOL EQ}
+W(T,E)
+\simeq 
+\underset{U \in \mathsf{Face}_{sc}(J)}{\colim}
+W(T_U)
+\end{equation}
+where the colimit takes place 
+in $\mathsf{sOp}$.
+\end{proposition}
+
+
+\begin{proof}
+	We will verify \eqref{NECKCOL EQ}
+	by working with nerves throughout.
+	More explicitly, 
+	we will show that for any $X\in \mathsf{PreOP}$
+	satisfying the strict Segal condition
+	giving a map
+	$NW(T,E) \to X$
+	is the same as giving compatible maps
+	$NW(T_U) \to X$.
+	
+	Moreover, clearly both sides of 
+	\eqref{NECKCOL EQ} yield $\boldsymbol{E}(T)$
+	when evaluated on $\eta$.
+	As such, we are free to fix throughout
+	a map of colors $\boldsymbol{E}(T) \to X(\eta)$
+	and verify the universal property 
+	for maps respecting this color assignment.
+	In particular, we are free to 
+	evaluate $W(T,E),X$ on suitable 
+	$\boldsymbol{E}(T)$ colored trees, 
+	rather than on uncolored trees.
+	
+	Given $\varphi \colon S \to T$,
+	let us write
+	$S \xrightarrow{tall} S^E \xrightarrow{face}$
+	for the smallest such factorization for which
+	$\boldsymbol{E}^{\mathsf{i}}(S^E)
+	\supseteq E_{\overline{\varphi S}}$.
+	Note that
+	$\left(NW(T)\right)(\vect{S}) \simeq 
+	\left(NW(T)\right)(\vect{S^E})$ by definition.
+	Given maps
+	$NW(T_U) \to X$
+	we now define the map
+	$NW(T,E) \to X$ via
+\begin{equation}\label{LONGMAP EQ}
+\begin{tikzcd}[column sep = 5pt]
+	W(T)(\vect{S})
+&
+	W(T)(\vect{S^E})
+	\ar{l}[swap]{\simeq}
+	\ar{r}{\simeq}
+&
+	\underset{b \in B(\overline{\varphi S},E_{\overline{\varphi S}})}{\prod}
+	W(T)(\vect{S^E_b})
+&
+	\underset{B(\overline{\varphi S},E_{\overline{\varphi S}})}{\prod}
+	W(T_{\varphi_{\**}b})(\vect{S^E_b})
+	\ar{l}[swap]{\simeq}
+	\ar{r}
+&
+	\underset{B(\overline{\varphi S},E_{\overline{\varphi S}})}{\prod}
+	X(\vect{S^E_b})
+&
+	X(\vect{S^E})
+	\ar{r}
+	\ar{l}[swap]{\simeq}
+&
+	X(\vect{S})
+\end{tikzcd}
+\end{equation}
+where the second and fifth arrows are isomorphims by the Segal condition and
+the third is an isomorphism since 
+$S_b^E \to T$ factors through 
+$T_{\varphi_{\**}b}$.
+
+Moreover, the fourth arrow in \eqref{LONGMAP EQ}
+is induced by the chosen maps
+$NW(T_U) \to X$,
+so clearly 
+\eqref{LONGMAP EQ}
+denotes the only possible compatible map
+$W(T) \to X$.
+
+It only remains to check that
+\eqref{LONGMAP EQ}
+is indeed a map in 
+$\mathsf{PreOp}$, i.e. that it is natural in 
+$\vect{S}$.
+To see this, one first readily checks that a map
+$\psi \colon \vect{S} \to \vect{R}$
+induces a compatible inclusion
+$\psi \colon \vect{S^E} \hookrightarrow \vect{R^E}$
+showing the naturality of the first and last arrows in the zigzag.
+
+Next, by Remark \ref{BEADMAP REM}
+one has a map of beads
+$\psi_{\**} \colon 
+B(\overline{\varphi S},E_{\overline{\varphi S}})
+\to
+B(\overline{\varphi R},E_{\overline{\varphi R}})$
+for which one further has compatible maps
+$\vect{S^{E}_b}
+\to 
+\vect{R^{E}_{\psi_{\**}b}}$,
+showing the naturality of the second and fifth arrows.
+Lastly, for any bead 
+$b \in B(\overline{\varphi S},E_{\overline{\varphi S}})$
+one has
+$T_{\varphi_{\**}b} = T_{\varphi'_{\**} \psi_{\**}b}$
+showing naturality of the third and fourth arrows.
+
 {\color{red} HERE}
+
+
+
+\end{proof}
+
 
 
 
