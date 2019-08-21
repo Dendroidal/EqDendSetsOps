@@ -5072,13 +5072,14 @@ this defines a map of sets of beads
 $\varphi_{\**} \colon 
 B(T,E) \to B(T',E')$.
 
-Moreover, adapting the proof of 
+{\color{green} Moreover, adapting the proof of 
 ``not (iii) implies not (i)''
 in Proposition \ref{NECKMAPCHAR PROP}
 it follows that the bead map
 $\varphi_{\**}$ is injective
 provided one additionally has that  
-$\varphi(E) = E'_{\overline{\varphi T}}$.
+$\varphi(E) = E'_{\overline{\varphi T}}$.}
+{\color{red} I don't think this part is actually being used}
 \end{remark}
 
 
@@ -5584,12 +5585,194 @@ $b \in B(\overline{\varphi S},E_{\overline{\varphi S}})$
 one has
 $T_{\varphi_{\**}b} = T_{\varphi'_{\**} \psi_{\**}b}$
 showing naturality of the third and fourth arrows.
+\end{proof}
+
+
+
+
+\begin{remark}\label{PREOPCOLEV REM}
+	Let $I \xrightarrow{A_{\bullet}} \mathsf{PreOp}$
+	be a diagram of preoperads and let
+	$A = \colim_{i \in I} A_i$.
+	
+	For each $A(\eta)$-colored tree $\vect{S}$
+	let us write
+	$I_{\vect{S}/}$
+	for the category whose objects are pairs
+	$(i,\boldsymbol{E}(S) \to A_i(\eta) \to A(\eta))$,
+	which we represent by 
+	$\boldsymbol{E}(S) \to A_i(\eta)$,
+	together with maps $i \to i'$ in $I$
+	satisfying the obvious compatibility.
+	
+	Then
+\[
+	A(\vect{S}) \simeq 
+	\underset{(\boldsymbol{E}(S) \to A_i(\eta)) \in I_{\vect{S}/}}{\colim}
+	A_i(\vect{S})
+\]
+where in the expression $A_i(\vect{S})$
+we slightly abuse notation by writing $\vect{S}$
+for $S$ with the coloring given by
+$\boldsymbol{E}(S) \to A_i(\eta)$.
+\end{remark}
+
+
+
+
+
+\begin{proposition}
+	Let $X \in \mathsf{dSet}$ and define
+	$NW(X) \in \mathsf{PreOp}$ by
+\begin{equation}\label{NWKANEX EQ}
+	NW(X) =
+	\underset{((T,E) \to X)
+	\in \mathsf{Nec}_{/X}}{\colim}
+	NW(T,E).
+\end{equation}
+	where the colimit is taken in $\mathsf{PreOp}$.
+	
+	Then $NW(X)$ satisfies the strict condition.
+%
+	In particular, this shows that 	
+	$NW(X)$ is the nerve of the simplicial operad
+\[
+W(X) =
+\underset{((T,E) \to X)
+	\in \mathsf{Nec}_{/X}}{\colim}
+W(T,E).
+\]
+where the colimit is now taken in simplicial operads.
+\end{proposition}
+
+
+
+\begin{proof}
+	We will evaluate 
+	$(NW(X))(\vect{S})$ as in \eqref{NWKANEX EQ}.
+	Following Remark \ref{PREOPCOLEV REM}
+	we write
+	$\mathsf{Nec}_{\vect{S}//X}
+	=
+	\left(\mathsf{Nec}_{/X}\right)_{\vect{S}/}$
+	for the category
+	whose objects are pair of arrows
+	$\boldsymbol{E}(S) \to \Omega[T,E] \to X$
+	whose composite is the coloring $\vect{S}$.
+	Remark \ref{PREOPCOLEV REM} then says that
+\begin{equation}\label{NWKANEXEV EQ}
+\left(NW(X)\right)(\vect{S}) \simeq
+\underset{(\boldsymbol{E}(S) \to (T,E) \to X)
+	\in \mathsf{Nec}_{\vect{S}//X}}{\colim}
+\left(NW(T,E)\right)(\vect{S}).
+\end{equation}
+To show that $NW(X)$ satisfies the strict Segal condition, 
+we will rewrite \eqref{NWKANEXEV EQ} 
+by identifying appropriate subcategories of
+$\mathsf{Nec}_{\vect{S}//X}$.
+Firstly, write
+$\mathsf{Nec}_{\vect{S}//X}^{\Omega}
+\subset
+\mathsf{Nec}_{\vect{S}//X}$
+for the wide subcategory of those objects for which the map
+$\boldsymbol{E}(S) \to \boldsymbol{E}(T)$
+defines a map $S \to T$ in $\Omega$.
+
+Additionally, we write 
+$
+\mathsf{Nec}_{\vect{S}//X}^{\Omega,nor}
+	\subset
+\mathsf{Nec}_{\vect{S}//X}^{\Omega}
+$
+for the subcategory of ``normalized factorizations'',
+which are defined by the property that
+$S \to T$ is a tall map and
+$E \supseteq \boldsymbol{E}^{\mathsf{i}}(\varphi(S))$.
+Moreover, 
+there is a retraction
+$
+	\mathsf{Nec}_{\vect{S}//X}^{\Omega}
+\to
+	\mathsf{Nec}_{\vect{S}//X}^{\Omega,nor}
+$
+which sends
+$\boldsymbol{E}(S) \to (T,E)$ to
+$n(T,E)=(\overline{\varphi S},
+E_{\overline{\varphi S}} \cup \boldsymbol{E}^{\mathsf{i}}(\varphi(S)))$.
+Crucially, note that one has a natural map
+$n(T,E) \to (T,E)$ in $\mathsf{Nec}$
+for which the induced map
+$\left(NW(n(T,E))\right)(\vect{S})
+\left(NW(T,E)\right)(\vect{S})$
+is an isomorphism.
+
+Since 
+$\mathsf{Nec}_{\vect{S}//X}^{\Omega}$
+is the opposite of a sieve of 
+$\mathsf{Nec}_{\vect{S}//X}$
+and 
+$NW(T,E)(\vect{S}) = \emptyset$
+whenever $(T,E)$ is not in 
+$\mathsf{Nec}_{\vect{S}//X}^{\Omega}$
+one can replace 
+$\mathsf{Nec}_{\vect{S}//X}$
+with 
+$\mathsf{Nec}_{\vect{S}//X}^{\Omega}$
+on
+\eqref{NWKANEXEV EQ}.
+Moreover, by the discussion in the previous paragraph one can further replace it with 
+$\mathsf{Nec}_{\vect{S}//X}^{\Omega,nor}$.
+
+Moreover, the normalization conditions imply that
+$\mathsf{Nec}_{\vect{S}//X}^{\Omega,nor} 
+\simeq
+\prod_{v \in \boldsymbol{V}(S)}
+\mathsf{Nec}_{\vect{S_v}//X}^{\Omega,nor}$.
+Putting everything together we obtain that
+\begin{equation}
+\begin{aligned}
+\left(NW(X)\right)(\vect{S}) 
+	\simeq &
+	\underset{(\boldsymbol{E}(S) \to (T,E) \to X)
+	\in \mathsf{Nec}^{\Omega,nor}_{\vect{S}//X}}{\colim}
+\left(NW(T,E)\right)(\vect{S})
+\\
+	\simeq &
+\underset{(\boldsymbol{E}(S_v) \to (T_v,E_{T_v}) \to X)
+	\in 
+	\prod_{v \in \boldsymbol{V}(S)} \mathsf{Nec}^{\Omega,nor}_{\vect{S_v}//X}}{\colim}
+	\left(\prod_{v \in \boldsymbol{V}(S)}
+	\left(NW(T_v,E_{T_v})\right)(\vect{S_v})\right)
+\\
+	\simeq &
+	\prod_{v \in \boldsymbol{V}(S)}
+	\left(
+	\underset{(\boldsymbol{E}(S_v) \to (T_v,E_{T_v}) \to X)
+	\in \mathsf{Nec}^{\Omega,nor}_{\vect{S_v}//X}}{\colim}
+	\left(NW(T_v,E_{T_v})\right)(\vect{S_v})
+	\right)
+\\
+	\simeq &
+	\prod_{v \in \boldsymbol{V}(S)} 
+	\left(NW(X)\right)(\vect{S_v}) 
+\end{aligned}
+\end{equation}
+where the second step is the identification above together with 
+the strict Segal condition on 
+$NW(T,E)$.,
+the third step is the fact that products commute with limits in each variable, and the last step simply specifies
+the simplified version of \eqref{NWKANEXEV EQ}
+for $\vect{S_v}$.
+
+We have now shown the 
+strict Segal condition for $NW(X)$, 
+finishing the proof.
+\end{proof}
+
+
+
 
 {\color{red} HERE}
-
-
-
-\end{proof}
 
 
 
