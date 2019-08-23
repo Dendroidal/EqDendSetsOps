@@ -1,0 +1,1292 @@
+\documentclass[a4paper,10pt
+%,draft
+%, final
+]{article}%
+
+\pdfcompresslevel=0
+\pdfobjcompresslevel=0
+
+\usepackage[hidelinks]{hyperref}
+\hypersetup{
+  % colorlinks,
+  final,
+  pdftitle={Equivariant Dendroidal Segal Spaces},
+  pdfauthor={Bonventre, P. and Pereira, L. A.},
+  % pdfsubject={Your subject here},
+  % pdfkeywords={keyword1, keyword2},
+  linktoc=page
+}
+%\usepackage[open=false]{bookmark}
+
+\input{commands.tex}%
+
+
+%-------- Tikz ---------------------------
+
+\usepackage{tikz}%
+\usetikzlibrary{matrix,arrows,decorations.pathmorphing,
+cd,patterns,calc}
+\tikzset{%
+  treenode/.style = {shape=rectangle, rounded corners,%
+                     draw, align=center,%
+                     top color=white, bottom color=blue!20},%
+  root/.style     = {treenode, font=\Large, bottom color=red!30},%
+  env/.style      = {treenode, font=\ttfamily\normalsize},%
+  dummy/.style    = {circle,draw,inner sep=0pt,minimum size=2mm}%
+}%
+
+\usetikzlibrary[decorations.pathreplacing]
+
+
+
+% ---- Commands on draft --------
+
+\usepackage{ifdraft}
+\ifdraft{
+  \color[RGB]{63,63,63}
+  % \pagecolor[rgb]{0.5,0.5,0.5}
+  \pagecolor[RGB]{220,220,204}
+  % \color[rgb]{1,1,1}
+}
+
+
+\usepackage[draft]{showkeys}
+\usepackage{todonotes}%[obeyDraft]
+
+
+% ----- Labels Changed? --------
+
+\makeatletter
+
+\def\@testdef #1#2#3{%
+  \def\reserved@a{#3}\expandafter \ifx \csname #1@#2\endcsname
+  \reserved@a  \else
+  \typeout{^^Jlabel #2 changed:^^J%
+    \meaning\reserved@a^^J%
+    \expandafter\meaning\csname #1@#2\endcsname^^J}%
+  \@tempswatrue \fi}
+
+\makeatother
+
+
+% ---- Commands --------
+
+% new symbols
+
+\newcommand{\mycircled}[2][none]{%
+  \mathbin{
+    \tikz[baseline=(a.base)]\node[draw,circle,inner sep=-1.5pt, outer sep=0pt,fill=#1](a){\ensuremath #2\strut};
+cf.  }
+}
+\newcommand{\owr}{\mycircled{\wr}}
+
+% replace symbols
+
+\renewcommand{\hat}{\widehat}
+
+% random
+
+\renewcommand{\F}{\mathcal F}
+\newcommand{\Q}{\mathcal Q}
+
+\newcommand{\lltimes}{\underline{\ltimes}}
+
+
+% detecting $\V$-categories:
+
+\newcommand{\I}{\mathbb I}
+\newcommand{\J}{\mathbb J}
+\renewcommand{\1}{\eta}%{\ensuremath{\mathbb{id}}}
+
+% lazy shortcuts
+
+\newcommand{\SC}{\Sigma_{\mathfrak C}}
+\newcommand{\OC}{\Omega_{\mathfrak C}}
+
+\newcommand{\UV}{\underline{\mathcal V}}
+\newcommand{\UC}{\underline{\mathfrak C}}
+
+\newcommand{\Kl}{\underline{\mathsf{Kl}}}
+\newcommand{\Alg}{\underline{\mathsf{Alg}}}
+
+
+% ---- Title --------
+
+\title{Equivariant Segal operads, simplicial operads, and dendroidal sets}
+
+\author{Peter Bonventre, Lu\'is A. Pereira}%
+
+\date{\today}
+
+
+% ---- Document body --------
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+      Things and stuff
+\end{abstract}
+
+\tableofcontents
+
+
+
+
+
+
+\section{Amalgamating monads}
+\label{AMALGMON_SEC}
+
+\subsection{Combinable monads}
+\label{COMBMON_SEC}
+
+We establish our setting for this section.
+
+\begin{definition}\label{AMALGMON DEF}
+	Let $P$ and $\bar{F}$ be two monads on the same category $\mathcal{C}$.
+	We say \emph{$P$ and $\bar{F}$ can be combined} if there exists 
+	a monad structure on the composite 
+	$F = P \bar{F}$ such that
+	\begin{enumerate}[label=(\roman*)]
+		\item $P \eta_{\bar{F}} \colon P \Rightarrow P \bar{F} = F$
+		is a map of monads
+		\item $\eta_P \bar{F} \colon \bar{F} \Rightarrow P \bar{F} = F$
+		is a map of monads
+		\item the composite below is the identity
+		\[
+		\begin{tikzcd}[column sep=3em]
+		P \bar{F} \ar[Rightarrow]{r}{P \eta_{\bar{F}} \eta_P \bar{F}}
+		&
+		P \bar{F} P \bar{F} \ar[equal]{r}
+		&
+		FF  \ar[Rightarrow]{r}{\mu_F}
+		&
+		F \ar[equal]{r}
+		&
+		P \bar{F}
+		\end{tikzcd}
+		\]
+	\end{enumerate}
+\end{definition}
+
+
+\begin{remark}\label{SHORTCONV REM}
+	To ease notation, in our diagrams we will follow the following conventions:
+	\begin{itemize}
+		\item by default, unlabeled maps
+		% of the form
+		$P \Rightarrow F$, $\bar{F} \Rightarrow F$ refer to the maps in
+		Definition \ref{AMALGMON DEF}(i)(ii);
+		\item we write $\mu$ to denote any of the monad multiplications
+		$PP \Rightarrow P$,
+		$\bar{F}\bar{F} \Rightarrow \bar{F}$,
+		$FF \Rightarrow F$,
+		as well as for the left/right action multiplications
+		$PF \Rightarrow F$,
+		$FP \Rightarrow F$,
+		$\bar{F} F \Rightarrow F$,
+		$F \bar{F} \Rightarrow F$
+		induced by Definition \ref{AMALGMON DEF}(i)(ii)
+		(recall that, by definition,
+		$PF \Rightarrow F$ is the composite
+		$PF \Rightarrow FF \overset{\mu}{\Rightarrow} F$,
+		and similarly for the other action multiplications).
+		
+		Therefore, to avoid ambiguity, we always write the 
+		source of a $\mu$ labeled map as a composite of two functors and the target as a single functor
+		(for example, this means we write 
+		$\mu\colon FF \Rightarrow F$ for the multiplication of $F$,
+		but \emph{never} write this multiplication as $\mu \colon P \bar{F} P \bar{F} \Rightarrow P \bar{F}$);
+		\item we write $\eta$ for either of the units 
+		$I \Rightarrow P$,
+		$I \Rightarrow \bar{F}$,
+		$I \Rightarrow F$.
+	\end{itemize}
+	Note that, following these conventions, 
+	Definition \ref{AMALGMON DEF}(iii)
+	says that 
+	$P\bar{F} \Rightarrow FF \overset{\mu}{\Rightarrow} F$
+	is the identity.
+\end{remark}
+
+
+\begin{definition}\label{TWISTMAP DEF}
+	Given $P,\bar{F},F$ as in Definition \ref{AMALGMON DEF}, 
+	the twist map $\tau \colon \bar{F} P \Rightarrow P \bar{F}$ is the composite
+	\[
+	\begin{tikzcd}
+	\bar{F} P \ar[Rightarrow]{r}{}
+	&
+	FF  \ar[Rightarrow]{r}{\mu}
+	&
+	F 
+	\end{tikzcd}
+	\]
+	We note that in our diagrams $\tau$ is written as either
+	$\tau \colon \bar{F} P \Rightarrow P \bar{F}$ or as
+	$\tau \colon \bar{F} P \Rightarrow F$.
+\end{definition}
+
+
+\begin{lemma}\label{MODSTRCOMRE LEM}
+	\begin{enumerate}[label=(\roman*)]
+		\item the monad maps
+		$P \Rightarrow F$ and 
+		$\bar{F} \Rightarrow F$ coincide with the composites
+		\[
+		\begin{tikzcd}
+		P \ar[Rightarrow]{r}{\eta P} &
+		\bar{F} P \ar[Rightarrow]{r}{\tau} &
+		F 
+		&
+		\bar{F} \ar[Rightarrow]{r}{\bar{F} \eta} &
+		\bar{F} P \ar[Rightarrow]{r}{\tau} &
+		F 
+		\end{tikzcd}
+		\]
+		\item
+		the multiplications $\mu \colon PF \Rightarrow F$ and
+		$\mu \colon F\bar{F} \Rightarrow F$
+		are also given by
+		\[
+		\begin{tikzcd}
+		PP\bar{F} \ar[Rightarrow]{r}{\mu \bar{F}} &
+		P \bar{F} 
+		&
+		P \bar{F} \bar{F} \ar[Rightarrow]{r}{P \mu} &
+		P \bar{F} 
+		\end{tikzcd}
+		\]
+		\item
+		the multiplications
+		$\mu \colon F P \Rightarrow F$ and
+		$\mu \colon \bar{F} F \Rightarrow F$ are also given by the composites
+		\[
+		\begin{tikzcd}
+		P\bar{F} P \ar[Rightarrow]{r}{P \tau} &
+		P F \ar[Rightarrow]{r}{\mu} &
+		F 
+		&
+		\bar{F} P \bar{F} \ar[Rightarrow]{r}{\tau \bar{F}} &
+		F \bar{F} \ar[Rightarrow]{r}{\mu} &
+		F  
+		\end{tikzcd}
+		\]
+		\item the following composites both coincide with $\mu\mu \colon PP\bar{F}\bar{F} \Rightarrow P \bar{F}$
+		\[
+		\begin{tikzcd}
+		P F \bar{F} \ar[Rightarrow]{r}{\mu \bar{F}} &
+		F \bar{F} \ar[Rightarrow]{r}{\mu} &
+		F 
+		%&
+		%	PP\bar{F}\bar{F} \ar[Rightarrow]{r}{\mu \mu} &
+		%	P \bar{F}  
+		&
+		P F \bar{F} \ar[Rightarrow]{r}{P \mu} &
+		\bar{F} F \ar[Rightarrow]{r}{\mu} &
+		F 
+		\end{tikzcd}
+		\]
+	\end{enumerate}
+\end{lemma}
+
+
+
+\begin{proof}
+	Since all of (i),(ii),(iii) are symmetric, we show only the first half of each. (i),(ii),(iii) will follow from the following diagrams.
+	\begin{equation}\label{MODSTRCOMRE EQ}
+	\begin{tikzcd}[column sep=1.9em]
+	P \ar[Rightarrow]{d}
+	\ar[Rightarrow]{r}{\eta P}
+	&
+	\bar{F}P \ar[Rightarrow]{d} \ar[Rightarrow]{rd}{\tau}
+	&
+	&%
+	P P \bar{F} \ar[Rightarrow]{d}[swap]{\mu \bar{F}}
+	\ar[Rightarrow]{r}
+	&
+	FFF \ar[Rightarrow]{d}[swap]{\mu F}
+	\ar[Rightarrow]{r}{F \mu}
+	&
+	FF \ar[Rightarrow]{d}{\mu}
+	&%
+	P \bar{F} P  \ar[Rightarrow]{d}[swap]{P \tau}
+	\ar[Rightarrow]{r}
+	&
+	FFF \ar[Rightarrow]{d}[swap]{F \mu}
+	\ar[Rightarrow]{r}{\mu F}
+	&
+	FF \ar[Rightarrow]{d}{\mu}
+	\\
+	F \ar[Rightarrow]{r}[swap]{\eta F}
+	&
+	FF \ar[Rightarrow]{r}[swap]{\mu}
+	&
+	F
+	&%
+	P \bar{F} \ar[Rightarrow]{r}
+	&
+	FF \ar[Rightarrow]{r}[swap]{\mu}
+	&
+	F
+	&%
+	P F \ar[Rightarrow]{r}
+	&
+	FF \ar[Rightarrow]{r}[swap]{\mu}
+	&
+	F
+	\end{tikzcd}
+	\end{equation}
+	For (i), consider the left diagram in \eqref{MODSTRCOMRE EQ},
+	where the square commutes since
+	$\bar{F} \to P$ is a monad map (more precisely, it is thus compatible with monad units) and the triangle commutes by definition of $\tau$.
+	Since the bottom composite is the identity (due to $F$ being a monad), (i) follows.
+	
+	For (ii), consider the center diagram in \eqref{MODSTRCOMRE EQ},
+	whose left (resp. right) half commutes since
+	$P \Rightarrow F$ is a monad map (resp. $F$ is a monad).
+	But by Definition \ref{AMALGMON DEF}(iii), the lower composite therein
+	is the identity and the top composite is the natural map
+	$PF \Rightarrow FF$, so (ii) follows.
+	
+	For (iii), consider the right diagram in \eqref{MODSTRCOMRE EQ},
+	whose left (resp. right) half commutes by definition of $\tau$
+	(resp. since $F$ is a monad).
+	The bottom composite therein is the multiplication
+	$\mu \colon F \bar{F} \Rightarrow F$
+	while, by Definition \ref{AMALGMON DEF}(iii), the top composite is
+	the natural map $FP \Rightarrow FF$, so (iii) follows.
+	
+	
+	For (iv), part (i) allows us to rewrite 
+	the two composites as
+	\[
+	\begin{tikzcd}
+	PP\bar{F}\bar{F} \ar[Rightarrow]{r}{\mu \bar{F}\bar{F}} &
+	P \bar{F} \bar{F} \ar[Rightarrow]{r}{P\mu} &
+	P \bar{F}
+	&
+	PP\bar{F}\bar{F} \ar[Rightarrow]{r}{PP \mu } &
+	P P \bar{F} \ar[Rightarrow]{r}{\mu \bar{F}} &
+	P \bar{F}
+	\end{tikzcd}
+	\]
+	which are both $\mu\mu\colon PP\bar{F}\bar{F} \Rightarrow P \bar{F}$.
+\end{proof}
+
+
+\begin{proposition}\label{ALTMULT PROP}
+	\begin{enumerate}[label=(\roman*)]
+		\item
+		the multiplication
+		$\mu \colon FF \Rightarrow F$ 
+		can also be described as the composite
+		\begin{equation}\label{ALTMULT EQ}
+		\begin{tikzcd}
+		P \bar{F} P \bar{F} \ar[Rightarrow]{r}{P \tau \bar{F}}
+		&
+		P P \bar{F} \bar{F}   \ar[Rightarrow]{r}{\mu \mu}
+		&
+		P \bar{F} 
+		\end{tikzcd}
+		\end{equation}
+		\item
+		the following diagrams commute
+		\begin{equation}\label{DOUBLETWIST EQ}
+		\begin{tikzcd}
+		\bar{F} P P \ar[Rightarrow]{r}{\tau P} 
+		\ar[Rightarrow]{d}[swap]{\bar{F} \mu}
+		&
+		P \bar{F} P \ar[Rightarrow]{r}{P\tau}
+		&
+		P P \bar{F} \ar[Rightarrow]{d}{\mu \bar{F}}
+		&%%
+		\bar{F} \bar{F} P  \ar[Rightarrow]{r}{\bar{F} \tau}
+		\ar[Rightarrow]{d}[swap]{\mu P}
+		&
+		\bar{F} P \bar{F}  \ar[Rightarrow]{r}{\tau \bar{F}}
+		&
+		P \bar{F} \bar{F} \ar[Rightarrow]{d}{P \mu}
+		\\
+		\bar{F} P \ar[Rightarrow]{rr}{\tau} 
+		&&
+		P \bar{F}
+		&%%
+		\bar{F} P \ar[Rightarrow]{rr}{\tau} 
+		&&
+		P \bar{F}
+		\end{tikzcd}
+		\end{equation}
+		\item
+		the following diagrams commute
+		\begin{equation}\label{UNITTWIST EQ}
+		\begin{tikzcd}
+		\bar{F} \ar[Rightarrow]{d}[swap]{\bar{F} \eta}
+		\ar[Rightarrow]{rd}{\eta \bar{F}}
+		&
+		&%%
+		P \ar[Rightarrow]{d}[swap]{\eta P}
+		\ar[Rightarrow]{rd}{P \eta}
+		&
+		\\
+		\bar{F} P \ar[Rightarrow]{r}{\tau} 
+		&
+		P \bar{F}
+		&%%
+		\bar{F} P \ar[Rightarrow]{r}{\tau} 
+		&
+		P \bar{F}
+		\end{tikzcd}
+		\end{equation}
+	\end{enumerate}
+\end{proposition}
+
+
+\begin{proof}
+	Note first that (iii) is simply 
+	a rephrasing of Lemma \ref{MODSTRCOMRE LEM}(i), which we include here
+	for the sake of Remark \ref{ALTMULT REM}.
+	(i) and (ii) will follow from the following diagrams.
+	\begin{equation}\label{ALTMPR EQ}
+	\begin{tikzcd}
+	P \bar{F} P \bar{F} \ar[Rightarrow]{d} 
+	\ar[Rightarrow]{r}{P \tau \bar{F}}
+	&
+	P F \bar{F}  \ar[Rightarrow]{r}{\mu \bar{F}} \ar[Rightarrow]{d}
+	&
+	F \bar{F} \ar[Rightarrow]{r}{\mu}
+	\ar[Rightarrow]{d}
+	&
+	F \ar[equal]{d}
+	&&%
+	\bar{F} P P \ar[Rightarrow]{rr}{\tau P}
+	\ar[Rightarrow]{rd}{}
+	\ar[Rightarrow]{dd}[swap]{\bar{F} \mu}
+	&&
+	F P \ar[Rightarrow]{d}
+	\\
+	FFFF \ar[Rightarrow]{r}{F \mu F}
+	\ar[Rightarrow]{d}[swap]{\mu \mu}
+	&
+	FFF \ar[Rightarrow]{r}{\mu F}
+	&
+	FF \ar[Rightarrow]{r}{\mu}
+	&
+	F \ar[equal]{d}
+	&&%
+	&
+	FFF \ar[Rightarrow]{d}[swap]{F \mu}
+	\ar[Rightarrow]{r}{\mu F}
+	&
+	FF \ar[Rightarrow]{d}{\mu}
+	\\
+	FF \ar[Rightarrow]{rrr}{\mu}
+	&&&
+	F
+	&&%
+	\bar{F} P \ar[Rightarrow]{r}
+	&
+	FF \ar[Rightarrow]{r}[swap]{\mu}
+	&
+	F
+	\end{tikzcd}
+	\end{equation}
+	For (i), consider the left diagram in \eqref{ALTMPR EQ}, where the top left square commutes by definition of the twist $\tau$,
+	the remaining top squares commute by definition of the action multiplication,
+	and the bottom rectangle commutes due to $F$ being a monad.
+	Definition \ref{AMALGMON DEF}(iii)
+	then says that the left vertical composite therein is the identity,
+	while by Lemma \ref{MODSTRCOMRE LEM}(iv) the top composite is 
+	\eqref{ALTMULT EQ}, so (i) follows.
+	
+	For (ii), by symmetry it suffices to show the first half.
+	Consider now the right diagram in \eqref{ALTMPR EQ},
+	where the top right section commutes by definition of $\tau$,
+	the bottom left section commutes since $P \Rightarrow F$ is a monad map,
+	and the bottom right square commutes since $F$ is monad.
+	But now the bottom composite therein is $\tau$ by definition
+	while, by Lemma \ref{MODSTRCOMRE LEM}(iii),
+	the top right outer composite from $\bar{F}PP$ to $F$ matches the top right outer composite in (the left side of) \eqref{DOUBLETWIST EQ},
+	so (ii) follows.
+\end{proof}
+
+
+
+\begin{remark}\label{ALTMULT REM}
+	\eqref{ALTMULT EQ} shows that the monad structure on $F=P\bar{F}$ is determined by monoidal structures on $P$ and $\bar{F}$ together with  the twist map $\tau$.
+	Moreover, \eqref{DOUBLETWIST EQ} and \eqref{UNITTWIST EQ} provide necessary conditions on $P,\bar{F},\tau$
+	for the formula \eqref{ALTMULT EQ}
+	to describe a monoidal structure on $F=P\bar{F}$
+	that satisfies the conditions in 
+	Definition \ref{AMALGMON DEF}.
+	In fact, the conditions \eqref{DOUBLETWIST EQ}, \eqref{UNITTWIST EQ}
+	turn out to also be sufficient.
+	Indeed, it is not hard to check 
+	that \eqref{DOUBLETWIST EQ} implies that either of the two iterated multiplications
+	$FFF \Rightarrow F$ induced by \eqref{ALTMULT EQ}
+	match the map 
+	$P\bar{F} P\bar{F} P \bar{F} \Rightarrow 
+	PPP \bar{F} \bar{F} \bar{F} \Rightarrow P \bar{F}$,
+	where the first map is a (unique) combination of twists $\tau$
+	and the second map is given by the iterated multiplications for $P,\bar{F}$.
+	Similarly, \eqref{UNITTWIST EQ} implies that the maps
+	$P \Rightarrow F$, $\bar{F} \Rightarrow F$
+	are maps of monads.
+\end{remark}
+
+
+
+\subsection{Kleisli categories}
+
+Given a map of monads $T \Rightarrow F$ (for example, $P \Rightarrow F$ or $\bar F \Rightarrow F$), one can explore the existence and properties of various free and forgtful functors.
+Somewhat surprisingly, the most natural and general setting for these comparisons is not the entire category of algebras,
+but instead in the Kleisli category of free algebras and all algebra maps between them.
+
+\begin{definition}[{\cite{Kl65}}]
+	Let $T$ be a monad on a category $\mathcal C$.
+	The \textit{Kleisli category} $\mathsf{Kl}_T$ is the category defined as follows:
+	it has the same objects as $\mathcal{C}$,
+	and arrows from $A$ to $B$,
+	which we denote $A \rightsquigarrow B$,
+	are given by arrows $A \to TB$ in $\mathcal{C}$.
+	Composition
+	$A \rightsquigarrow B \rightsquigarrow C$
+	of underlying maps 
+	$A \xrightarrow{f} TB$,
+	$B \xrightarrow{g} TC$
+	given by the composite
+	$A \xrightarrow{f} TB \xrightarrow{Tg} TTB \xrightarrow{\mu} TB$.
+	
+	We say an arrow
+	$A \rightsquigarrow B$ in $\mathsf{Kl}_F$ is a 
+	\emph{free arrow}
+	if the underlying map has a factorization
+	$A \xrightarrow{f} B \xrightarrow{\eta} TB$.
+	In particular, the unit arrow $A \rightsquigarrow A$ in $\Kl_T$
+	is the free arrow $A \xrightarrow{=} A \xrightarrow{\eta} TA$.
+\end{definition}
+
+\begin{remark}\label{KLEISLIDEF REM}
+	% Letting $T$ be a monad on the category $\mathcal{C}$,
+	% recall that the Kleisli category
+	% $\mathsf{Kl}_T$ is the category with:
+	% the same objects as $\mathcal{C}$;
+	% arrows from $A$ to $B$,
+	% which we denote $A \rightsquigarrow B$,
+	% the underlying arrows $A \to TB$ in $\mathcal{C}$;
+	% composition
+	% $A \rightsquigarrow B \rightsquigarrow C$
+	% of underlying maps 
+	% $A \xrightarrow{f} TB$,
+	% $B \xrightarrow{g} TC$
+	% given by the composite
+	% $A \xrightarrow{f} TB \xrightarrow{Tg} TTB \xrightarrow{\mu} TB$.
+	% Moreover,
+	Justifying our intuitive description above,
+	there is a canonical fully faithful inclusion
+	\[
+	\begin{tikzcd}[row sep = 0pt]
+	\Kl_T \ar[hookrightarrow]{r}{\iota} &
+	\Alg_T
+	\\
+	A \ar[mapsto]{r} &
+	TA
+	\\
+	(A \xrightarrow{f} TB) \ar[mapsto]{r} &
+	(TA \xrightarrow{Tf} TTB \xrightarrow{\mu} TB) 
+	\end{tikzcd} 
+	\]
+	which identifies $\mathsf{Kl}_T$ with the full subcategory of
+	$\mathsf{Alg}_T$ spanned by the free algebras.
+	%
+	% Moreover, we say an arrow
+	% $A \rightsquigarrow B$ in $\mathsf{Kl}_F$ is a 
+	% \emph{free arrow}
+	% if the underlying map has a factorization
+	% $A \xrightarrow{f} B \xrightarrow{\eta} TB$.
+	Moreover, an arrow is free iff
+	% This is equivalent to
+	its image under $\iota$
+	is the free map
+	$TA \xrightarrow{Tf} TB$.
+	% Note that free arrows provide a canonical functor
+	% $\mathcal C \to \Kl_T$ and that the unit arrow $A \rightsquigarrow A$ in $\Kl_T$
+	% is the free arrow $A \xrightarrow{=} A \xrightarrow{\eta} TA$.
+	In particular, the free functor $\mathcal C \to \Alg_T$ factors through $\Kl_T$ via free arrows.
+\end{remark}
+
+
+To start our analysis,
+for any map of monads $\psi \colon T \to F$,
+one has a well known forgetful functor 
+$\mathsf{Alg}_F \xrightarrow{\psi^{\**}} \mathsf{Alg}_T$
+sending a $F$-monad $Y$ with multiplication
+$FY \xrightarrow{m} Y$
+to a $T$-monad with the same underlying object $Y$
+and multiplication given by
+$TY \xrightarrow{\psi} FY \xrightarrow{m} Y$.
+
+A dual situation holds for Kleisli categories:
+\begin{lemma}
+	\label{KLEISLIPUSH LEM}
+	Given a map of monads $\psi \colon T \to F$,
+	there is a pushforward functor
+	$\mathsf{Kl}_T \xrightarrow{\psi_!} \mathsf{Kl}_F$,
+	defined as the identity on objects,
+	and sending the map $A \rightsquigarrow B$
+	given by the underlying map $A \xrightarrow{f} TB$
+	to the map $\psi_!A \rightsquigarrow \psi_!B$
+	given by the underlying composite
+	$A \xrightarrow{f} TB \xrightarrow{\psi} FB$.
+\end{lemma}
+\begin{proof}
+	To check $\psi_!$ respects composition of arrows, let
+	$A \rightsquigarrow B$,
+	$B \rightsquigarrow C$
+	be maps in $\Kl_T$ with
+	underlying maps
+	$A \xrightarrow{f} TB$,
+	$B \xrightarrow{f} TC$.
+	Then $\psi_!$ of the composite 
+	$A \rightsquigarrow B \rightsquigarrow C$
+	is given by the top right composite in \eqref{CHECKFUN EQ}
+	while the composite of 
+	$\psi_!A \rightsquigarrow \psi_! B$,
+	$\psi_! B \rightsquigarrow \psi_! C$
+	is given by the bottom  left composite in \eqref{CHECKFUN EQ}.
+	\begin{equation}\label{CHECKFUN EQ}
+	\begin{tikzcd}[column sep = 1.55em]
+	A \ar{r}{f} 
+	&
+	TB \ar{r}{Tg} \ar{d}[swap]{\psi}
+	&
+	TTC \ar{rr}{\mu}  \ar{d}[swap]{\psi T}
+	&&
+	TC \ar{d}{\psi}
+	\\
+	&
+	FB \ar{r}{Fg}
+	&
+	FTB \ar{r}{F\psi}
+	&
+	FFC \ar{r}{\mu}
+	&
+	FC
+	\end{tikzcd}
+	\end{equation}
+	Lastly, note that $\psi_!$ maps the free arrow 
+	$A \xrightarrow{f} B \xrightarrow{\eta} TB$
+	to the free arrow
+	$A \xrightarrow{f} B \xrightarrow{\eta} FB$,
+	so that in particular it preserves unit arrows.
+\end{proof}
+
+
+
+
+\begin{proposition}\label{PARTADJ PROP}
+	The functors in Remark \ref{KLEISLIDEF REM} and Lemma \ref{KLEISLIPUSH LEM}
+	fit into a (non-commutative) square
+	\begin{equation}\label{PARTADJ EQ}
+	\begin{tikzcd}
+	\mathsf{Kl}_{T} \ar{r}{\psi_!} \ar[hookrightarrow]{d}[swap]{\iota}&
+	\mathsf{Kl}_{F} \ar[hookrightarrow]{d}{\iota} \arrow[dl, phantom, "\times"]
+	\\
+	\mathsf{Alg}_{T} &
+	\mathsf{Alg}_{F}  \ar{l}{\psi^{\**}}.
+	\end{tikzcd}
+	\end{equation}
+	and there are isomorphisms as below, natural in $A \in \mathsf{Kl}_T$, $Y \in \mathsf{Alg}_F$.
+	\begin{equation}\label{PARTADJISO EQ}
+	\mathsf{Alg}_T(\iota A, \psi^{\**} Y) \simeq
+	\mathsf{Alg}_F(\iota \psi_! A,Y)
+	\end{equation}
+\end{proposition}
+Informally, this result says that
+$\psi_!$ is a ``partial left adjoint'' to $\psi^{\**}$
+along the fully-faithful inclusion 
+$\mathsf{Kl}_T \overset{\iota}{\hookrightarrow} \mathsf{Alg}_T$,
+motivating our choice of notation.
+
+
+\begin{proof}
+	The isomorphisms \eqref{PARTADJISO EQ} are the composites of the isomorphisms
+	\begin{equation}\label{PARTADJPROOF EQ}
+	\mathsf{Alg}_T(T A, \psi^{\**} Y) \simeq
+	\mathcal{C}(A,Y) \simeq
+	\mathsf{Alg}_F(FA,Y),
+	\end{equation}
+	so it remains to show naturality.
+	Naturality with respect to $Y \in \Alg_F$ is clear.
+	However, naturality with respect to $A \in \Kl_T$
+	requires care, since a priori \eqref{PARTADJPROOF EQ}
+	is only functorial with respect to free maps.
+	But now note that 
+	$\varphi \colon FA \to Y$
+	and 
+	$\bar{\varphi} \colon TA \to \psi^{\**} Y$
+	are identified precisely if the two composites
+	$A \to Y$ in the left diagram below coincide (morever, both triangles therein commute, with commutativity of the right triangle
+	inherited from commutatity of the full diagram, due $TA$ being free $T$-algebra).
+	Given an arrow $\bar{A} \rightsquigarrow A$ in $\Kl_T$
+	given by an underlying map $\bar{A} \xrightarrow{f} TA$, 
+	we must then show that the two outer composites
+	$\bar{A} \to Y$ in the rightmost diagram coincide.
+	\begin{equation}\label{ADJOINTCORR EQ}
+	\begin{tikzcd}[column sep = 1.55em]
+	A \ar{r}{\eta} \ar{rd}[swap]{\eta}
+	&
+	T A \ar{r}{\bar{\varphi}} \ar{d}[swap]{\psi}
+	&
+	Y 
+	&&%%
+	\bar{A} \ar{r}{\eta} \ar{rd}[swap]{\eta}
+	&
+	T \bar{A} \ar{r}{\iota f} \ar{d}[swap]{\psi}
+	&
+	T A \ar{r}{\bar{\varphi}} \ar{d}[swap]{\psi}
+	&
+	Y 
+	\\
+	&
+	FA \ar{ru}[swap]{\varphi}
+	&
+	&&%%
+	&
+	F \bar{A} \ar{r}[swap]{\iota (\psi_! f)}
+	&
+	FA \ar{ru}[swap]{\varphi}
+	&
+	\end{tikzcd}
+	\end{equation}
+	It hence suffices to check that the two composites
+	$\bar{A} \to FA$ in that diagram coincide and, after unpacking definitions, this follows from the commutativity of the following diagram.
+	\begin{equation}
+	\begin{tikzcd}[column sep = 1.55em]
+	\bar{A} \ar{r}{\eta} \ar{rd}[swap]{\eta} 
+	&
+	T\bar{A} \ar{r}{Tf} \ar{d}[swap]{\psi}
+	&
+	TTA \ar{rr}{\mu}  \ar{d}[swap]{\psi T}
+	&&
+	TA \ar{d}{\psi}
+	\\
+	&
+	F \bar{A} \ar{r}{Ff}
+	&
+	FTA \ar{r}{F\psi}
+	&
+	FFA \ar{r}{\mu}
+	&
+	FA
+	\end{tikzcd}
+	\end{equation}
+\end{proof}
+
+Necessary and sufficient conditions to extend this partial adjoint to a full adjoint are given below.
+\begin{corollary}
+	\label{ALGLEFTEX_COR}
+	Fix a map of monads $\psi \colon T \to F$.
+	\begin{enumerate}[label = (\roman*)]
+		\item The left adjoint $\psi_!$ of $\psi^{\**} \colon \Alg_F \to \Alg_T$ exists iff the coequalizers of $F$-algebras
+		\[
+		\psi_!(X):= \mathop{coeq}\left( FTX \overset{\mu}{\underset{Fm}{\rightrightarrows}} FX \right)
+		\]
+		exist for all $X \in \mathsf{Alg}_T$.
+		\item If $\psi_!$ exists, then the triangle of left adjoints below commutes.
+		\[
+		\begin{tikzcd}
+		\mathcal C \arrow[d, "T"'] \arrow[r, "F"]
+		&
+		\mathsf{Alg}_F
+		\\
+		\mathsf{Alg}_T \arrow[ur, "{\psi_!}"']
+		\end{tikzcd}
+		\]           
+	\end{enumerate}
+\end{corollary}
+\begin{proof}
+	The existence of $\psi_!$ is equivalent to the representability of the functors 
+	$\Alg_T(X,\psi^{\**}(-))\colon \Alg_{F} \to \mathsf{Set}$
+	for each $X \in \Alg_T$,
+	so that Proposition \ref{PARTADJ PROP} implies that these functors are representable whenever $X \simeq FA$ is free.
+	Hence, since any $X \in \Alg_T$
+	with multiplication $m \colon TX \to X$
+	is canonically described by the coequalizer % of free $T$-algebras
+	$coeq \left(
+	T T X 
+	\overset{\mu}{\underset{Fm}{\rightrightarrows}}
+	T X
+	\right)$,
+	(i) result follows.
+	
+	Part (ii) follows since the associated triangle of right adjoints commutes.
+\end{proof}
+
+
+% \begin{remark}\label{ALGLEFTEX REM}
+% Recall that the existence of a left adjoint $\psi_!$ to 
+% $\psi^{\**} \colon \Alg_F \to \Alg_T$
+% is equivalent to the representability of the functors 
+% $\Alg_T(X,\psi^{\**}(-))\colon \Alg_{F} \to \mathsf{Set}$
+% for each $X \in \Alg_T$,
+% so that Proposition \ref{PARTADJ PROP} implies that these functors are representable whenever $X \simeq FA$ is free.
+
+% Hence, since any $X \in \Alg_T$
+% with multiplication $m \colon TX \to X$
+% is canonically described by the coequalizer % of free $T$-algebras
+% $coeq \left( T T X 
+% \overset{\mu}{\underset{Fm}{\rightrightarrows}}
+% T X\right)$
+% it follows that the left adjoint 
+% $\psi_! \colon \Alg_F \to \Alg_T$
+% exists iff the coequalizers 
+% $coeq \left( F T X 
+% \overset{\mu}{\underset{Fm}{\rightrightarrows}}
+% F X\right)
+% $
+% of $F$-algebras exist for all $X \in \Alg_T$, in which case it is
+% $\psi_!(X)=coeq \left( F T X 
+% \overset{\mu}{\underset{Fm}{\rightrightarrows}}
+% F X\right)$.
+% \end{remark}
+
+
+\begin{remark}\label{ADJSRMON REM}
+	Beck's monadicity theorem (cf. \cite[VI.7 Thm. 1]{McL},\cite[Thm. 5.5.1]{Ri17})
+	characterizes monadic adjunctions $L\colon \mathcal{C} \rightleftarrows \mathcal{D}\colon R$
+	as those where $R$ creates $R$-split coequalizers. 
+	
+	Hence, should the adjunction 
+	$\psi_! \colon \Alg_T \rightleftarrows \Alg_F \colon \psi^{\**}$
+	in Corollary \ref{ALGLEFTEX_COR} exist,
+	it readily follows from Beck's theorem that this adjunction is monadic
+	(since in 
+	$\mathcal{C} \rightleftarrows
+	\mathsf{Alg}_T \rightleftarrows
+	\Alg_F$
+	both the left and total adjunctions are monadic).
+	However, since $\psi_!$ is defined using coequalizers of $F$-algebras,
+	it is in general not possible to give a simple description of the adjunction monad
+	$F_T = \psi^{\**} \psi_!$.
+	%
+	%Nonetheless, should $T,F$ preserve reflexive coequalizers in $\mathcal{C}$,
+	%one has that reflexive coequalizers in algebras
+	%are underlying coequalizers in $\mathcal{C}$
+	%\cite[Thm. 5.6.5]{Ri17}.
+	%Therefore, by manipulating the coequalizers one can show that the multiplication for $F_T$ the induced map on vertical coequalizers for the diagram
+	%\[
+	%\begin{tikzcd}[column sep =40pt]
+	%	FTFT X
+	%	\ar[shift left=.3em]{d}{\mu\mu}
+	%	\ar[shift right=.3em]{d}[swap]{F\mu m}
+	%	\ar{r}{\mu FT \circ \mu T}
+	%&
+	%	FTX
+	%	\ar[shift left=.3em]{d}{\mu}
+	%	\ar[shift right=.3em]{d}[swap]{F m}
+	%\\
+	%	FF X
+	%	\ar{r}{\mu}
+	%&
+	%	F X
+	%\end{tikzcd}
+	%\]
+\end{remark}
+
+
+\subsection{Adjoints for combinable monads}
+
+Returning to our setup from \S \ref{COMBMON_SEC},
+we have the existence of a right adjoint to $\psi_!$ on Kleisli categories for a particular map of monads $\psi$.
+
+\begin{definition}
+	Let $P,\bar{F}$ and $F = P \bar{F}$ be as in 
+	Definition \ref{AMALGMON DEF},
+	and write
+	\[
+	\psi = P\eta_{\bar F} \colon P \Rightarrow P \bar{F} = F.
+	\]
+	Define the functor
+	$\psi^{\**} \colon \Kl_F \to \Kl_P$
+	on objects by
+	$\psi^{\**}A = \bar{F} A$,
+	and sending the arrow
+	$A \rightsquigarrow B$
+	with underlying map
+	$A \xrightarrow{f} FB$
+	to the arrow 
+	$\bar{F} A \rightsquigarrow \bar{F} B$
+	with underlying map the composite
+	$\bar{F} A \xrightarrow{\bar{F}f} \bar{F} FB
+	=
+	\bar{F}P \bar{F} B \xrightarrow{\tau \bar{F}}
+	P \bar{F} \bar{F} B \xrightarrow{P \mu}
+	P\bar{F}B$
+	or, equivalently (cf. Lemma \ref{MODSTRCOMRE LEM}(iii)(ii)),
+	$\bar{F} A \xrightarrow{\bar{F}f} \bar{F} FB
+	\xrightarrow{\mu} FB = P\bar{F}B$.
+\end{definition}
+
+\begin{proposition}\label{PARTADJP PROP}
+	Let $P,\bar{F}$ and $F = P \bar{F}$ be as above.
+	% Definition \ref{AMALGMON DEF},
+	% and write $\psi = P\eta \colon P \Rightarrow P \bar{F} = F$.
+	%
+	% Then there is a functor
+	% $\psi^{\**} \colon \Kl_F \to \Kl_P$
+	% given on objects by
+	% $\psi^{\**}A = \bar{F} A$
+	% and sending the arrow
+	% $A \rightsquigarrow B$
+	% with underlying arrow 
+	% $A \xrightarrow{f} FB$
+	% to the arrow 
+	% $\bar{F} A \rightsquigarrow \bar{F} B$
+	% with underlying arrow the composite
+	% $\bar{F} A \xrightarrow{\bar{F}f} \bar{F} FB
+	% =
+	% \bar{F}P \bar{F} B \xrightarrow{\tau \bar{F}}
+	% P \bar{F} \bar{F} B \xrightarrow{P \mu}
+	% P\bar{F}B$
+	% or, equivalently (cf. Lemma \ref{MODSTRCOMRE LEM}(iii)(ii)),
+	% $\bar{F} A \xrightarrow{\bar{F}f} \bar{F} FB
+	% \xrightarrow{\mu} FB = P\bar{F}B$.
+	%
+	In the diagram
+	\begin{equation}\label{PARTADJP EQ}
+	\begin{tikzcd}
+	\mathsf{Kl}_{P} 
+	\ar[shift left=0.25em]{r}{\psi_!} 
+	\ar[hookrightarrow]{d}[swap]{\iota}
+	&
+	\mathsf{Kl}_{F} 
+	\ar[shift left=0.25em]{l}{\psi^{\**}}
+	\ar[hookrightarrow]{d}{\iota}
+	\\
+	\mathsf{Alg}_{P} &
+	\mathsf{Alg}_{F}  \ar{l}{\psi^{\**}}
+	\end{tikzcd}
+	\end{equation}
+	one has that:
+	\begin{enumerate}[label=(\roman*)]
+		\item the top horizontal maps are adjoint,
+		with adjuntion unit
+		$A \rightsquigarrow \psi^{\**} \psi_! A$
+		for $A \in \Kl_P$
+		and counit
+		$\psi_! \psi^{\**} B \rightsquigarrow B$
+		for $B \in \Kl_F$
+		given respectively by 
+		\begin{equation}\label{UNITCOUNIT EQ}
+		A \xrightarrow{\eta} 
+		\bar{F} A \xrightarrow{\eta \bar{F}}
+		P \bar{F} A
+		\qquad
+		\mbox{and}
+		\qquad
+		\bar{F} B \xrightarrow{\eta \bar{F}}
+		P \bar{F} B =
+		F B.
+		\end{equation}
+		\item the composites
+		$
+		\mathsf{Kl}_F \xrightarrow{\psi^{\**}} 
+		\mathsf{Kl}_P \xrightarrow{\iota} 
+		\mathsf{Alg}_P
+		$
+		and
+		$
+		\mathsf{Kl}_F \xrightarrow{\iota}
+		\mathsf{Alg}_F  \xrightarrow{\psi^{\**}} 
+		\mathsf{Alg}_P
+		$
+		coincide.
+	\end{enumerate}
+\end{proposition}
+
+
+
+\begin{proof}
+	We first address (ii).
+	On objects,
+	after unpacking notation
+	$\psi^{\**} \iota B$
+	is the $P$-algebra
+	$F B$ with multiplication
+	$PFB \rightarrow FFB \xrightarrow{\mu} B$
+	while 
+	$ \iota \psi^{\**} B$
+	is the $P$-algebra
+	$P \bar{F} B $
+	with multiplication
+	$P P \bar{F} B \xrightarrow{\mu \bar{F}} P \bar{F} B$,
+	and these coincide by Lemma \ref{MODSTRCOMRE LEM}(ii).
+	On a map
+	$B \rightsquigarrow \bar{B}$
+	with underlying arrow $B \xrightarrow{f} F \bar{B}$,
+	applying $\psi^{\**} \iota$
+	gives the map
+	$F B \xrightarrow{F f} FF\bar{B} \xrightarrow{\mu} F \bar{B}$
+	while applying $\iota \psi^{\**}$
+	gives the map
+	$P \bar{F} B \xrightarrow{P \bar{F} f} 
+	P \bar{F} F \bar{B} = P \bar{F} P \bar{F} \bar{B}
+	\xrightarrow{P \tau \bar{F}}
+	P P \bar{F} \bar{F} \bar{B}
+	\xrightarrow{PP \mu}
+	P P \bar{F} \bar{B} 
+	\xrightarrow{\mu \bar{F}} P\bar{F} \bar{B}$,
+	and these coincide by 
+	Proposition \ref{ALTMULT PROP}(i).
+	
+	
+	We now address the remaining claims. 
+	Recalling that the $\iota$ functors are fully faithful,
+	$\psi^{\**} \colon \Kl_F \to \Kl_P$
+	can be thought of as a restriction of
+	$\psi^{\**} \colon \Alg_F \to \Alg_P$. 
+	Hence, the implicit claim that $\psi^{\**} \colon \Kl_F \to \Kl_P$
+	is a functor is inherited from 
+	$\psi^{\**} \colon \Alg_F \to \Alg_P$ being a functor.
+	And, similarly, the adjunction claim in (i)
+	is inherited from the ``partial adjunction'' claim in 
+	Proposition \ref{PARTADJP PROP}.
+	
+	
+	Lastly, to describe the unit 
+	(resp. counit)
+	we must find the adjoint
+	to 
+	$\psi_! A \xrightarrow{=} \psi_! A$
+	(resp. $\psi^{\**} B \xrightarrow{=} \psi^{\**} B$)
+	which corresponds under $\iota$ to the identity
+	$FA = FA$
+	(resp. $P\bar{F} B = FB$).
+	By the string of identifications 
+	\eqref{PARTADJPROOF EQ}
+	the adjoint is given 
+	by the top (resp. bottom) composite on the left
+	(resp. diagram) below
+	(cf. \eqref{ADJOINTCORR EQ}).
+	\begin{equation}
+	\begin{tikzcd}[column sep = 1.55em]
+	A \ar{r}{\eta} \ar{rd}[swap]{\eta}
+	&
+	P A \ar[dashed]{r}{\psi} \ar{d}[swap]{\psi}
+	&
+	FA
+	&&%%
+	\bar{F} B \ar{r}{\eta} \ar{rd}[swap]{\eta}
+	&
+	P \bar{F} B \ar[equal]{r} \ar{d}[swap]{\psi}
+	&
+	F B 
+	\\
+	&
+	FA \ar[equal]{ru}
+	&
+	&&%%
+	&
+	F\bar{F} B \ar[dashed]{ru}[swap]{\mu}
+	&
+	\end{tikzcd}
+	\end{equation}
+	That these composites match the maps in
+	\eqref{UNITCOUNIT EQ}
+	follows since $\psi\colon P \Rightarrow F$ is a map of monads. 
+\end{proof}
+
+
+
+\begin{remark}\label{MONALGP REM}
+	By Proposition \ref{PARTADJP PROP}
+	one has an adjunction monad $\psi^{\**} \psi_!$
+	on $\Kl_P$ which is given on objects by $\bar{F}$.
+	Moreover the first half of
+	\eqref{UNITCOUNIT EQ} shows that the unit
+	$I \Rightarrow \psi^{\**} \psi_!$
+	consists of the free arrows on the unit $I \Rightarrow \bar{F}$
+	while, 
+	by applying the definition of $\psi^{\**}$ to the second half of
+	\eqref{UNITCOUNIT EQ}
+	gives that the monad multiplication
+	$\psi^{\**} \psi_!\psi^{\**} \psi_! \Rightarrow \psi^{\**} \psi_!$
+	is given by the left right composite below.
+	But hence, by the top right composite, 
+	this monad multiplication consists of the free arrows on
+	the monad multiplication $\bar{F} \bar{F} \Rightarrow \bar{F}$. 
+	\begin{equation}
+	\begin{tikzcd}[column sep = 1.55em]
+	\bar{F} \bar{F} A \ar{d}[swap]{\bar{F}\eta \bar{F}}
+	\ar[equal]{r} 
+	&
+	\bar{F} \bar{F} A 
+	\ar{r}{\mu} \ar{d}[swap]{\eta \bar{F} \bar{F}}
+	&
+	\bar{F} A   \ar{d}[swap]{\eta \bar{F}}
+	\\
+	\bar{F} P \bar{F} A \ar{r}[swap]{\tau \bar{F}}
+	&
+	P \bar{F} \bar{F} A \ar{r}[swap]{P\mu}
+	&
+	P \bar{F} A
+	\end{tikzcd}
+	\end{equation}
+	As an aside, we note that one can further check that the top adjunction in \eqref{PARTADJ EQ} is a Kleisli adjunction, i.e.
+	that it identifies $\Kl_F$ as the Kleisli category over 
+	$\Kl_P$ for the monad $\psi^{\**} \psi_!$.
+\end{remark}
+
+
+\begin{remark}
+	Should $\psi^{\**}\colon \Alg_F \to \Alg_P$ admit a left adjoint, 
+	one has that in the diagram
+	\begin{equation}\label{PARTADJDB EQ}
+	\begin{tikzcd}
+	\mathsf{Kl}_{P} 
+	\ar[shift left=0.25em]{r}{\psi_!} 
+	\ar[hookrightarrow]{d}[swap]{\iota}
+	&
+	\mathsf{Kl}_{F} 
+	\ar[shift left=0.25em]{l}{\psi^{\**}}
+	\ar[hookrightarrow]{d}{\iota}
+	\\
+	\mathsf{Alg}_{P} 
+	\ar[shift left=0.25em]{r}{\psi_!} &
+	\mathsf{Alg}_{F}
+	\ar[shift left=0.25em]{l}{\psi^{\**}}
+	\end{tikzcd}
+	\end{equation}
+	both functors in the bottom adjunction
+	extend the functors in the top adjunction.
+	As such, the monad
+	$F_P = \psi^{\**} \psi_!$ on $\Alg_P$
+	extends the monad $\psi^{\**} \psi_!$ on $\Kl_P$ which, 
+	following \ref{MONALGP REM}, can be thought of as the monad $\bar{F}$.
+	
+	As noted in Remark \ref{ADJSRMON REM}, the monad $F_T$ is in general hard to describe. 
+	Nonetheless, should $P,F$ preserve reflexive coequalizers in $\mathcal{C}$,
+	one has that reflexive coequalizers in algebras
+	are underlying coequalizers in $\mathcal{C}$
+	\cite[Thm. 5.6.5]{Ri17}
+	and thus preserved by both functors in the bottom adjunction, and hence also by $F_T$.
+	It thus follows that $F_TF_TX$
+	can be described as the left vertical coequalizer in the diagram below 
+	(where the two squares coincide, 
+	with the right square included to more easily describe the vertical maps) 
+	\begin{equation}\label{FRMONDES EQ}
+	\begin{tikzcd}[column sep =40pt]
+	P \bar{F}\bar{F} P X
+	\ar[shift left=.3em]{d}{}
+	\ar[shift right=.3em]{d}[swap]{}
+	\ar{r}{P\mu P}
+	&
+	P \bar{F} P X
+	\ar[shift left=.3em]{d}{}
+	\ar[shift right=.3em]{d}[swap]{}
+	&%
+	F\bar{F} P X
+	\ar[shift left=.3em]{d}{F\bar{F} m}
+	\ar[shift right=.3em]{d}[swap]{\mu\bar{F} \circ F\tau}
+	\ar{r}{\mu P}
+	&
+	F P X
+	\ar[shift left=.3em]{d}{F m}
+	\ar[shift right=.3em]{d}[swap]{\mu}
+	\\
+	P \bar{F}\bar{F} X
+	\ar{r}{P\mu}
+	&
+	P \bar{F} X
+	&%
+	F\bar{F} X
+	\ar{r}{\mu}
+	&
+	F X
+	\end{tikzcd}
+	\end{equation}
+	while the multiplication $F_TF_TX \to F_TX$
+	is the induced is the induced map on the vertical coequalizers.
+\end{remark}
+
+
+
+%\begin{remark}
+%When applied to the example of operads, 
+%the right coequalizer in \eqref{FRMONDES EQ}
+%(together with realization of categories)
+%shows that 
+%\[F_r X = \mathsf{Lan}_{(T \in \Omega^{0,r})^{op}}
+%\left(\bigotimes_{v \in V(T)} X(T_v)\right)
+%\]
+%where $\Omega^{0,r}$ is the category of trees and degeneracies.
+%Similarly, the left coequalizer shows that
+%\[
+%F_rF_r X = \mathsf{Lan}_{((T_0 \hookrightarrow T_1) \in \Omega^{1,r})^{op}}
+%\left(\bigotimes_{v \in V(T_{1})} X(T_{1,v})\right)
+%\]
+%$\Omega^{0,r}$ is the category whose objects are inner planar face maps $T_0 \hookrightarrow T_1$
+%and whose morphisms are degeneracies between them.
+%\end{remark}
+
+
+\begin{remark}
+	Proposition \ref{PARTADJP PROP} 
+	admits a complementary result by interchanging the roles of $P$ and $\bar{F}$ and the roles of Kleisli categories and algebra categories.
+	
+	Explicitly, one has a functor
+	$\psi_!\colon \Alg_{\bar{F}} \to \Alg_F$
+	which: sends an $\bar{F}$-algebra $X$
+	with multiplication $\bar{F} X \xrightarrow{m} X$
+	to $PX$ with $F$-algebra multiplication given by
+	$FPX \xrightarrow{\mu} FX=P\bar{F}X \xrightarrow{Pm} PX$;
+	sends an arrow
+	$X \xrightarrow{f} Y$
+	to $PX \xrightarrow{Pf} PY$.
+	
+	Then in the square below one has that the bottom horizontal maps are adjoint and that
+	$\iota \psi_! = \psi_!\iota$.
+	\begin{equation}\label{PARTADJBARF EQ}
+	\begin{tikzcd}
+	\mathsf{Kl}_{\bar{F}} 
+	\ar[shift left=0.25em]{r}{\psi_!} 
+	\ar[hookrightarrow]{d}[swap]{\iota}
+	&
+	\mathsf{Kl}_{F} 
+	\ar[hookrightarrow]{d}{\iota}
+	\\
+	\mathsf{Alg}_{\bar{F}} 
+	\ar[shift left=0.25em]{r}{\psi_!} 
+	&
+	\mathsf{Alg}_{F}  
+	\ar[shift left=0.25em]{l}{\psi^{\**}}
+	\end{tikzcd}
+	\end{equation}
+	Moreover, in analogy to Remark \ref{MONALGP REM}
+	one can check that the adjunction monad
+	$\psi^{\**} \psi_!$ on $\Alg_{\bar{F}}$ has the same underlying functor, unit and multiplication as the monad $P$.
+\end{remark}
+
+
+
+
+
+
+
+
+
+\bibliography{biblio-new}{}
+\bibliographystyle{amsalpha2}
+
+
+
+\end{document}
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
