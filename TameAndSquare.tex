@@ -2073,7 +2073,7 @@ the result follows from Remark \ref{COLORTENSGAM REM}.
 \end{definition}
 
 
-\begin{definition}
+\begin{definition}\label{PSEUINT DEF}
 	$I \in \mathsf{PreCat}\simeq \mathsf{PreOp} \downarrow \Omega[\eta]$ 
 	is called a \emph{pseudo-interval}
 	if $I(\eta) = \{0,1\}$,
@@ -2227,7 +2227,7 @@ f^{\**} Y(Sc[T]) \ar{r} \ar{d} &
 \end{proof}
 
 
-\begin{remark}
+\begin{remark}\label{TC2TC3REP REM}
 	Tame cofibrant replacement in $\mathsf{PreOp}^G$
 	can be performed without changing objects.
 	Indeed, given any 
@@ -2255,130 +2255,121 @@ f^{\**} Y(Sc[T]) \ar{r} \ar{d} &
 
 
 
-{\color{green} HERE}
+\begin{lemma}\label{SLIMOD LEM}
+	Let $X \in \mathsf{PreOp}^G$
+	be a Segal operad
+	and $\Omega[1] \to X^H$
+	be a $H$-equivalence for some $H \leq G$.
+	Then there exists a countable
+	pseudo-interval $I$
+	and factorization
+	$\Omega[1] \to I \to X^H$.
+\end{lemma}
 
-
-
-{\color{red} HERE}
-
-\begin{remark}\label{SLIMOD REM}
-	Suppose $X\in \mathsf{PreOp}^G$
-	is a Segal operad and that 
-	$\Omega[1] \to X^H$ is an 
-	$H$-equivalence for some $H\leq G$.
+\begin{proof}
 	Recall that one can find a simplicial equivalence
-	$X \to \widetilde{X}$
+	$X \xrightarrow{\sim} \widetilde{X}$
 	with $\widetilde{X}$ fibrant in the normal model structure on 
 	$\mathsf{PreOp}^G$.
-	
-{\color{red} HERE}
-	
-{\color{blue} must adjust argument}
-	
+	Since Reedy fibrant preoperads are in particular
+	Segal spaces, it is then well known that,
+	for $J$ for the nerve of the contractible groupoid
+	with two objects,
+	one has a dashed arrow as on the left below
+	(this is originally due to 
+	Rezk \cite[Thm. 6.2]{Rez01}; 
+	alternatively, see \cite[Prop. 5.26(iv)]{BP_edss}).
 \[
 \begin{tikzcd}
 	\Omega[1] \ar{r} \ar{d} 
 &
-	X \ar{d}{\sim}
-&
-	\Omega[1] \ar{r}
-&
-	J' \ar{r} \ar{d} 
-&
-	X \ar{d}{\sim}
-\\
-	J \ar[dashed]{r}
-&
-	\widetilde{X}
+	X^H \ar{d}{\sim}
 &&
-	J \ar[dashed]{r}
+	\Omega[1] \ar[dashed]{r}
 &
-	\widetilde{X}
+	J' \ar[dashed,twoheadrightarrow]{r} \ar[dashed]{d}[swap]{\sim} 
+&
+	X^H \ar{d}{\sim}
+\\
+	J \ar[dashed]{r}{\sim}
+&
+	\widetilde{X}^H
+&&&
+	\widetilde{J} \ar[twoheadrightarrow]{r}
+&
+	\widetilde{X}^H
 \end{tikzcd}
+\]	
+Writing 
+$J \xrightarrow{\sim} 
+\widetilde{J} \twoheadrightarrow 
+\widetilde{X}^H$
+for the trivial cofibration followed by fibration in the normal model structure
+on $\mathsf{PreOp}$,
+we now form the right diagram above, 
+where the square is a pullback.
+Here we note that
+$X^H \to \widetilde{X}^H$
+is a simplicial equivalence,
+i.e. the maps
+$X^H(T) \to \widetilde{X}^H(T)$
+are Kan equivalences for each $T \in \Omega$,
+while the maps 
+$\widetilde{J}(T) \to \widetilde{X}^H(T)$
+are Kan fibrations.
+Hence, 
+since $\mathsf{sSet}$ is proper, 
+$J' \to J$ is again a simplicial equivalence.
+
+By construction, the canonical map 
+$J' \to \Omega[\eta]$
+is a simplicial equivalence, 
+but to obtain the required 
+countability and the tame cofibrancy condition in 
+Definition \ref{PSEUINT DEF}
+we will need to replace $J'$.
+Firstly, a countable replacement can be obtained by adapting
+either the argument
+between Lemmas 4.2 and 4.3 of
+\cite{Ber07}
+or the more complex argument in the proof of 
+\cite[Lemma 5.1.7]{HSS}.
+Briefly, since the spaces $J'(\vect{T})$
+are all contractible,
+one may build nested
+countable subpresheaves
+$I'^{,n} \subseteq J'$ as in
+\[
+\Omega[1] = 
+I'^{,0} \subseteq
+I'^{,1} \subseteq
+I'^{,2} \subseteq
+\cdots \subseteq
+J'
 \]
-	
-{\color{red} HERE}
-	
-	Noting that for every fibrant 
-	$\tilde{X} \in \mathsf{PreOp}^G$
-	any $H$-equivalence in $\tilde{X}$ is in the image of a map
-	$J \to \tilde{X}^H$, 
-	a slight modification of the proof of Lemma \ref{INTER_LEM}
-	shows that for any Segal operad $X$
-	any $H$-equivalence in $X$ is in the image of a map
-	$I \to X^H$
-	with $I \in \mathsf{PreCat}$ a countable pseudo-interval.
-\end{remark}
+such that all maps 
+$I'^{,n}(\vect{T}) \to I'^{,n+1}(\vect{T})$
+are nullhomotopic
+(informally, and given a countable $I'^{,n}$, 
+one needs only countably many simplices of $J'$
+to kill of the homotopy groups of $I'^{,n}$; 
+hence by adding those simplices and closing under the presheaf operations one obtains $I'^{,n+1}$).
+Thus, setting $I' = \bigcup_{n} I'^{,n}$
+we still have that $I' \to \Omega[\eta]$
+is a simplicial equivalence, 
+but $I'$ is now countable.
 
-
-
-\begin{lemma} \label{INTER_LEM}
-	Let $\mathcal{O} \in \mathsf{sOp}$ and let
-	$g \colon x \to y$ be an equivalence in $\mathcal{O}$.
-	
-	Then there exists a countable, cofibrant and contractile $H \in \mathsf{sOp}_{\{0,1\}}$ 
-	and a map 
-	$\varphi \colon H \to \mathcal{O}$
-	such that 
-	$g$ is in the image of $\varphi$. 
-\end{lemma}
-
-
-\begin{proof}
-	We start by considering the case where $\mathcal{O}$ is locally fibrant.
-	
-	$g$ can be regarded as a map
-	$[1] \xrightarrow{g} \mathcal{O}$,
-	and one thus likewise gets a map
-	$\Delta[1] \xrightarrow{g}  hcN \mathcal{O}$
-	which is an equivalence in the 
-	$\infty$-category $hcN \mathcal{O}$,
-	so that one can find a (non-unique) factorization
-	$\Delta[1] \to J \to hcN \mathcal{O}$
-	which by adjunction yields a factorization
-	$[1]=W_!\Delta[1] \to W_! J \to \mathcal{O}$,
-	which establishes the desired claim 
-	since $W_! J$ is contractible due to 
-	Example \ref{WJ EX}.
-	
-	For a general $\mathcal{O}$, 
-	consider first a local fibrant replacement
-	$F \colon \mathcal{O} \to \mathcal{O}'$.
-	One can hence find a map 
-	$W_! J \to \mathcal{O}'$ such that
-	$F(g)$ is in its image. 
-	We now factor this map as
-	$W_! J \xrightarrow{\sim} H \to \mathcal{O}'$
-	where the second map is a local fibration.
-	
-	One can now form a pullback
-	\[
-	\begin{tikzcd}
-	\tilde{H} \ar{r} \ar{d} & H' \ar{d}
-	\\
-	\mathcal{O} \ar{r} & \mathcal{O}'
-	\end{tikzcd}
-	\]
-	where $\tilde{H}$ is seen to be contractible since
-	$\mathsf{sSet}$ is right proper.
-	A priori, $\tilde{H}$ will need not be countable nor cofibrant, but this is easily rectified:
-	indeed one can show that any countable subcomplex of $\tilde{H}$ is contained in a contractible countable subomplex, 
-	yielding a countable contractible subcomplex whose image in $\mathcal{O}$ contains $g$. Lastly, performing a cofibrant replacement of that complex finishes the proof.
+Lastly, the small object argument for 
+(TC2),(TC3) applied to 
+$\Omega[1] \to I'$
+gives a factorization 
+$\Omega[1] \to I \to I'$
+where the map $I \to I'$ is a complete equivalence
+(see the argument in Remark \ref{TC2TC3REP REM}),
+and the countable preoperad $I$
+now has the tame cofibrancy property required by 
+Definition \ref{PSEUINT DEF}.
 \end{proof}
-
-
-
-
-
-
-{\color{red} HERE}
-
-
-
-
-
-
-
 
 
 
@@ -2408,7 +2399,7 @@ f^{\**} Y(Sc[T]) \ar{r} \ar{d} &
 	Conditions c0 and nc0 therein are equivalent to the $2$-out-of-$6$
 	condition for weak equivalences, and are thus inherited 
 	from $\mathsf{sdSet}^G$.
-	
+	Moreover, c1 has already been verified in Lemma \ref{TAMETRIVFIB LEM}. 
 
 We next check nc1. 
 Note first that the maps in $I\text{-cof} \cap W$
@@ -2421,7 +2412,7 @@ The fact that the maps in
 Lemma \ref{TAMECOFCOF_LEM}.
 
 	
-We now check nc2.
+Lastly, we check nc2.
 The lifting condition against (TA3) says that $J$-fibrant objects are such that the maps $X(\Omega[T]) \to X(Sc[T])$
 are trivial fibrations, and thus that such $X$ are Segal operads.
 Therefore, by Remark \ref{SEOPDK REM} it suffices to check that $J$-fibrations between Segal operads which are also DK equivalences have the right lifting property against the maps in (TC1),(TC2),(TC3).
@@ -2433,67 +2424,10 @@ $X(\Omega[T]) \to f^{\**} Y(\Omega[T])$
 are Kan fibrations, and the DK condition says that these are Kan equivalences,
 so that we conclude that such maps have the right lifting property against (TC2).
 Lastly, given any lifting problem against a map in (TC1),
-essential surjectivity and Remark \ref{SLIMOD REM}
+essential surjectivity and Remark \ref{SLIMOD LEM}
 produce a lifting problem against a map in (TA1) which has a solution, providing a solution to the original problem.
 
-	
-Lastly, for c1 we must show that any map $X \to Y$ with the right lifting property against (TC1), (TC2), (TC3) is a weak equivalence.
-Writing $f \colon \mathfrak{C} \to \mathfrak{D}$ for the underlying map of colors,
-consider the factorization $X \to f^{\**}Y \to Y$.
-%
-Noting that lifting problems against (TC1) depend only on objects and both of (TC2) and (TC3) consist of maps which are identities on objects,
-we see that $X \to Y$ has the right lifting property against (TC1) iff 
-$f^{\**} Y \to Y$ does
-and the right lifting property against 
-(TC2),(TC3) iff $X \to f^{\**}Y$ does.
-We argue separately that 
-$f^{\**} Y \to Y$ and $X \to f^{\**}Y$
-are complete equivalences.
-
-Consider first the map $f^{\**} Y \to Y$. Note now that $f^{\**} Y \to Y$ has the right lifting proper against all maps 
-$\left(\partial \Omega[T] \to \Omega[T] \right) \times \Delta[n]$.
-Indeed, if $T \simeq G/H \cdot \eta$ is a stick, this is precisely the lifting condition against (TC1), and otherwise it follows automatically since $\left(\partial \Omega[T] \to \Omega[T] \right) \times \Delta[n]$ is the identity on objects.
-Therefore, the levels 
-$\left(f^{\**} Y \right)_n \to Y_n$ are trivial fibrations in 
-$\mathsf{dSet}^G$, showing that 
-$f^{\**} Y \to Y$ is a dendroidal equivalence, 
-and thus a complete equivalence. 
-
-
-Consider now the map $X \to f^{\**} Y$.
-The lifting property against (TC2) then says that the maps
-$X(\Omega[C]) \to f^{\**} Y (\Omega[C])$
-are trivial Kan fibrations for all $G$-corollas $C \in \Sigma_G$,
-and thus so are the maps
-$X(Sc[T]) \to f^{\**} Y (Sc[T])$ for all $G$-trees $T \in \Omega_G$.
-But it now follows from the lifting property against
-(TC3) that the maps 
-$X(\Omega[T]) \to f^{\**} Y (\Omega[T])$
-are trivial Kan fibrations for all $G$-trees,
-showing that $X \to f^{\**} Y$ is a simplicial equivalence, and thus a complete equivalence. 
-\[
-\begin{tikzcd}
-	X(\Omega[T]) \ar{r} \ar[->>]{d}{\sim} &
-	X(Sc[T]) \ar{r} \ar[->>]{d}{\sim} &
-	\prod_{v \in \boldsymbol{V}_G(T)} X(\Omega[T_v])
-	\ar[->>]{d}{\sim}
-\\
-	f^{\**} Y(\Omega[T]) \ar{r} &
-	f^{\**} Y(Sc[T]) \ar{r} \ar{d} &
-	\prod_{v \in \boldsymbol{V}_G(T)} f^{\**} Y
-	(\Omega[T_v]) \ar{d}
-	\arrow[ul, phantom, "\lrcorner", very near start]
-\\
-&
-	\prod_{(G/H_i \cdot e_i) \in \boldsymbol{E}_G(T)} 
-	\mathfrak{C}^{H_i} \ar{r}  &
-	\prod_{v \in \boldsymbol{V}_G(T)}
-	\prod_{(G/H_i \cdot e_i) \in \boldsymbol{E}_G(T_v)} 
-	\mathfrak{C}^{H_i} 
-	\arrow[ul, phantom, "\lrcorner", very near start]
-\end{tikzcd}
-\]
-This completes the proof of c1, finishing the proof.
+This finishes the proof.	
 \end{proof}
 
 
