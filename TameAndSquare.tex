@@ -2059,7 +2059,7 @@ the result follows from Remark \ref{COLORTENSGAM REM}.
 \subsection{Definition and existence of the tame model structure}
 
 
-\begin{definition}\label{TAMEGENMAP DEF}
+\begin{definition}\label{TAMEGENCOF DEF}
 	The \emph{tame cofibrations} in $\mathsf{PreOp}^G$
 	are the saturation of the following maps
 	\begin{itemize}
@@ -2085,7 +2085,7 @@ the result follows from Remark \ref{COLORTENSGAM REM}.
 \end{definition}
 
 
-\begin{definition}
+\begin{definition}\label{TAMEGENANO DEF}
 	The \emph{tame anodyne cofibrations} in $\mathsf{PreOp}^G$ 
 	are the saturation of the following maps
 	\begin{itemize}
@@ -2102,7 +2102,160 @@ the result follows from Remark \ref{COLORTENSGAM REM}.
 \end{definition}
 
 
+We can now state the main result of this section.
 
+\begin{theorem}[{cf. \cite[Thm. 7.19]{CM13b}}]\label{TAMEMS_THM}
+	There is a model structure on 
+	$\mathsf{PreOp}^G$,
+	called the \emph{tame model structure},
+	such that:
+	\begin{itemize}
+		\item the weak equivalences are the complete equivalences (i.e. detected by inclusion into 
+		$\mathsf{sdSet}^G$);
+		\item the generating cofibrations are the maps (TC1),(TC2),(TC3);
+		\item $X \in \mathsf{PreOp}^G$ is fibrant iff
+		the map $X \to \**$ has the right lifting property against 
+		(TA1),(TA2),(TA3);
+		\item a map $X \to Y$ between fibrant objects is a fibration iff
+		it has the right lifting property against 
+		(TA1),(TA2),(TA3).
+	\end{itemize}
+	Moreover, the identity adjunction
+	$
+	\mathsf{PreOp}^G_{tame} 
+	\rightleftarrows
+	\mathsf{PreOp}^G_{normal} 
+	$
+	is a Quillen equivalence.
+\end{theorem}
+
+
+Before proving Theorem \ref{TAMEMS_THM},
+we collect a few lemmas.
+
+\begin{lemma}\label{TAMECOFCOF_LEM}
+	Tame cofibrations (resp. tame anodyne cofibrations) are  cofibrations (resp. trivial cofibrations) in the normal model structure on $\mathsf{PreOp}^G$.
+\end{lemma}
+
+\begin{proof}
+	It suffices to check the given claims for the generating maps
+	in Definitions \ref{TAMEGENCOF DEF}, \ref{TAMEGENANO DEF}.
+	
+	The (TC1) case is immediate.
+	For (TC2),(TC3),(TA2),(TA3)
+	we apply 
+	Lemma \ref{OTIMSETPUSH LEM}
+	(note that for (TC2),(TA2)
+	the map $f\colon X \to Y$ is $\emptyset \to \Omega[C]$,
+	so that $f_!X \to Y$ is the inclusion
+	$\partial \Omega[C] \to \Omega[C]$)
+	and in all such cases it is 
+	straightforward that the 
+	corresponding map $(f_!X \to Y) \square k$
+	is a (trivial) cofibration in $\mathsf{sdSet}^G$.
+	(TA1) follows by definition and the 
+	(TC1),(TC2),(TC3) cases.
+\end{proof}
+
+
+
+
+\begin{lemma}\label{TAMETRIVFIB LEM}
+	Any map $X \to Y$ which has the right lifting property against 
+	(TC1),(TC2),(TC3)
+	is a weak equivalence in 
+	$\mathsf{PreOp}^G$.
+\end{lemma}
+
+
+\begin{proof}
+Writing $f \colon \mathfrak{C} \to \mathfrak{D}$ for the underlying map of colors,
+consider the factorization $X \to f^{\**}Y \to Y$.
+%
+Noting that lifting problems against (TC1) depend only on objects and both of (TC2) and (TC3) consist of maps which are identities on objects,
+we see that $X \to Y$ has the right lifting property against (TC1) iff 
+$f^{\**} Y \to Y$ does
+and the right lifting property against 
+(TC2),(TC3) iff $X \to f^{\**}Y$ does.
+We argue separately that 
+$f^{\**} Y \to Y$ and $X \to f^{\**}Y$
+are complete equivalences.
+
+Consider first the map $f^{\**} Y \to Y$. Note now that $f^{\**} Y \to Y$ has the right lifting proper against all maps 
+$\left(\partial \Omega[T] \to \Omega[T] \right) \times \Delta[n]$.
+Indeed, if $T \simeq G/H \cdot \eta$ is a stick, this is precisely the lifting condition against (TC1), and otherwise it follows automatically since $\left(\partial \Omega[T] \to \Omega[T] \right) \times \Delta[n]$ is the identity on objects.
+Therefore, the levels 
+$\left(f^{\**} Y \right)_n \to Y_n$ are trivial fibrations in 
+$\mathsf{dSet}^G$, showing that 
+$f^{\**} Y \to Y$ is a dendroidal equivalence, 
+and thus a complete equivalence. 
+
+
+Consider now the map $X \to f^{\**} Y$.
+The lifting property against (TC2) then says that the maps
+$X(\Omega[C]) \to f^{\**} Y (\Omega[C])$
+are trivial Kan fibrations for all $G$-corollas $C \in \Sigma_G$,
+and thus so are the maps
+$X(Sc[T]) \to f^{\**} Y (Sc[T])$ for all $G$-trees $T \in \Omega_G$.
+But it now follows from the lifting property against
+(TC3) that the maps 
+$X(\Omega[T]) \to f^{\**} Y (\Omega[T])$
+are trivial Kan fibrations for all $G$-trees,
+showing that $X \to f^{\**} Y$ is a simplicial equivalence, and thus a complete equivalence. 
+\[
+\begin{tikzcd}
+X(\Omega[T]) \ar{r} \ar[->>]{d}{\sim} &
+X(Sc[T]) \ar{r} \ar[->>]{d}{\sim} &
+\prod_{v \in \boldsymbol{V}_G(T)} X(\Omega[T_v])
+\ar[->>]{d}{\sim}
+\\
+f^{\**} Y(\Omega[T]) \ar{r} &
+f^{\**} Y(Sc[T]) \ar{r} \ar{d} &
+\prod_{v \in \boldsymbol{V}_G(T)} f^{\**} Y
+(\Omega[T_v]) \ar{d}
+\arrow[ul, phantom, "\lrcorner", very near start]
+\\
+&
+\prod_{(G/H_i \cdot e_i) \in \boldsymbol{E}_G(T)} 
+\mathfrak{C}^{H_i} \ar{r}  &
+\prod_{v \in \boldsymbol{V}_G(T)}
+\prod_{(G/H_i \cdot e_i) \in \boldsymbol{E}_G(T_v)} 
+\mathfrak{C}^{H_i} 
+\arrow[ul, phantom, "\lrcorner", very near start]
+\end{tikzcd}
+\]
+\end{proof}
+
+
+\begin{remark}
+	Tame cofibrant replacement in $\mathsf{PreOp}^G$
+	can be performed without changing objects.
+	Indeed, given any 
+	$A \in \mathsf{PreOp}^G$,
+	one has that
+	$\mathsf{sk}_{\eta} A = 
+	\coprod_{A(\eta)} \Omega[\eta]$
+	is tame cofibrant by (TC1).
+	Thus, the small object argument for (TC2),(TC3) 
+	applied to the map 
+	$\mathsf{sk}_{\eta} A \to A$
+	gives a factorization
+	$\mathsf{sk}_{\eta} A \to \widetilde{A} \to A$
+	where:
+	$\mathsf{sk}_{\eta} A \to \widetilde{A}$
+	is in the saturation of (TC2),(TC3), so that
+	$\widetilde{A}$ is tame cofibrant;
+	$\widetilde{A} \to A$
+	has the right lifting property against 
+	(TC2),(TC3) by construction and against (TC1)
+	since it is the identity on objects, 
+	and is thus a weak equivalence by 
+	Lemma \ref{TAMETRIVFIB LEM}.
+\end{remark}
+
+
+
+{\color{green} HERE}
 
 
 
@@ -2228,53 +2381,7 @@ the result follows from Remark \ref{COLORTENSGAM REM}.
 
 
 
-\begin{theorem}[{cf. \cite[Thm. 7.19]{CM13b}}]\label{TAMEMS_THM}
-	There is a model structure on 
-	$\mathsf{PreOp}^G$,
-	called the \emph{tame model structure},
-	such that:
-\begin{itemize}
-	\item the weak equivalences are the complete equivalences (i.e. detected by inclusion into 
-		$\mathsf{sdSet}^G$);
-	\item the generating cofibrations are the maps (TC1),(TC2),(TC3);
-	\item $X \in \mathsf{PreOp}^G$ is fibrant iff
-	the map $X \to \**$ has the right lifting property against 
-	(TA1),(TA2),(TA3);
-	\item a map $X \to Y$ between fibrant objects is a fibration iff
-it has the right lifting property against 
-(TA1),(TA2),(TA3).
-\end{itemize}
-Moreover, the identity adjunction
-$
-\mathsf{PreOp}^G_{tame} 
-\rightleftarrows
-\mathsf{PreOp}^G_{normal} 
-$
-is a Quillen equivalence.
-\end{theorem}
 
-
-\begin{lemma}\label{TAMECOFCOF_LEM}
-	Tame cofibrations (resp. tame anodyne cofibrations) are  cofibrations (resp. trivial cofibrations) in the normal model structure on $\mathsf{PreOp}^G$.
-\end{lemma}
-
-\begin{proof}
-	It suffices to check the given claims for the generating maps
-	in Definition \ref{TAMEGENMAP DEF}.
-
-	The (TC1),(TA1) cases are immediate.
-	For (TC2),(TC3),(TA2),(TA3)
-	one can apply 
-	Lemma \ref{OTIMSETPUSH LEM}
-	(we note that for (TC2),(TA2)
-	the map $f\colon X \to Y$ is $\emptyset \to \Omega[C]$,
-	so that $f_!X \to Y$ is the inclusion
-	$\partial \Omega[C] \to \Omega[C]$)
-	and in all such cases it is 
-	straightforward that the 
-	corresponding map $(f_!X \to Y) \square k$
-	is a (trivial) cofibration in $\mathsf{sdSet}^G$.
-\end{proof}
 
 
 
@@ -2285,7 +2392,7 @@ is a Quillen equivalence.
 	Lemma \ref{TAMECOFCOF_LEM},
 	which provides the remaining claim that tame cofibrations are normal cofibrations.
 	
-	To show the existence claims, we will verify the conditions c0,c1,nc0,nc1,nc2 in 
+	To show the existence claims, we will verify conditions c0,c1,nc0,nc1,nc2 in 
 	\cite[Prop. 1.3]{Sta14},
 	which is a variation of 
 	J. Smith's theorem \cite[Thm. 1.7]{Bek00}
