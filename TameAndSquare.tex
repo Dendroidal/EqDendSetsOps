@@ -2614,7 +2614,7 @@ To describe the generators of this model structure, we must recall two natural c
 
 We begin with $\Omega(T)$; more details can be found in \cite[\S 2.3.1]{BP_HGOP}). % {REPFUN_SEC}
 Given $\vect C \in \Sigma_{\mathfrak C}$, we have a representable functor $\Sigma_{\mathfrak C}[\vect C] = \Sigma_{\mathfrak C}^{op}(\vect C, -)$ in $\Sym_{\mathfrak C}$.
-More generally, for any $\mathfrak C$-colored forest $\vect F$ (Definition \ref{CFOREST_DEF}, we define
+More generally, for any $\mathfrak C$-colored forest $\vect F$ (Definition \ref{CFOREST_DEF}), we define
 \[
       \Sigma_{\mathfrak C}[\vect F] = \sideset{}{^{\mathfrak C}}\coprod_{v \in \boldsymbol{V}(F)} \Sigma_{\mathfrak C}[\vect F_v],
 \]
@@ -2702,11 +2702,12 @@ Furthermore, these induce simplicial (co)tensoring on the categories of $G$-obje
 by postcomposition.
 Cotensoring is still levelwsie, and tensoring is still given by the pushout \eqref{OPTENS_EQ}, this time taken in in $\sOp^G$;
 the $G$-action on $\O^K$ and $\O \times K$ are defined ``diagonally'':
-\[
+\begin{equation}
+      \label{DIAGTENS_EQ}
       \Hom_{\sSet}(K,\O(\vect C)) \xrightarrow{g_{\**}(g^{-1})^{\**}} \Hom_{\sSet}(K, \O(g \vect C)),
       \qquad
       \O(\vect C) \times K \xrightarrow{g \times g} \O(g \vect C) \times K.
-\]
+\end{equation}
 
 
 Some quick observations:
@@ -2714,13 +2715,19 @@ Some quick observations:
       \label{OPTENS_LEM}
       Let $C \in \Sigma_G$, $\O \in \sOp^G$, $X \in \sSym^G$, and $K \in \sSet$.
       \begin{enumerate}
-      \item \( \Hom_{\sOp^G}(\Omega(C), \O) = \Hom_{\sSym^G}(\Sigma_\tau[C], \O) \).
       \item \( \mathbb F(X \cdot K) \simeq \mathbb F(X) \otimes_\Set K \).
       \item \( \Omega(C) \otimes_\Set K(\vect C) = \Omega(C)(\vect C) \times K \)
             and 
             \( \Omega(C) \otimes_\Set K = \mathbb F( \Sigma_\tau[C] \cdot K) \). 
-      \item \( \Hom_{\sOp^G}(\Omega(C) \otimes_\Set K, \O) \simeq \displaystyle\coprod_{\mbox{$C$-profiles $\vect C$}} \Hom_\sSet(K, \O(\vect C)) \).
-      \item The square on the left below commutes (additionally, has a lift) iff the square on the right below commutes (has a lift),
+      \item \( 
+            \Hom_{\sOp^G}(\Omega(C) \otimes_\Set K, \O) \simeq
+            \left(
+                  \displaystyle\prod_{i \in I} \displaystyle\coprod_{\mbox{\scriptsize $C_i$-profiles $\vect C_i$}} \Hom_\sSet(K, \O(\vect C_i))
+            \right)^{G}
+            \simeq
+            \displaystyle\coprod_{\vect C_{\**}} \Hom_\sSet(K, \O(\vect C_i)^{\Aut_{G \ltimes \Sigma_{\mathfrak C}}(\vect C_i)}).
+            \).
+      \item \label{OPTENS_SQ_LBL} The square on the left below commutes (additionally, has a lift) iff the square on the right below commutes (has a lift),
             where $\vect C$ is the $C$-profile of $\O$ induced by the map of colors $\phi \colon \partial \Omega(C) \to \mathfrak C_\O$.
             \begin{equation}
                   \begin{tikzcd}
@@ -2730,7 +2737,7 @@ Some quick observations:
                         && % ----------
                         K \arrow[r] \arrow[d, "u"']
                         &
-                        \O(\vect C) \arrow[d, "{F(\vect C)}"]
+                        \O(\vect C)^{\Aut_{G \ltimes \Sigma_{\mathfrak C_\O}}(\vect C)} \arrow[d, "{F(\vect C)}"]
                         \\
                         \Omega(C) \otimes_\Set L \arrow[r]
                         &
@@ -2738,29 +2745,76 @@ Some quick observations:
                         && % ----------
                         L \arrow[r]
                         &
-                        \P(F(\vect C))
+                        \P(F(\vect C))^{\Aut_{G \ltimes \Sigma_{\mathfrak C_\O}}(\vect C)}
                   \end{tikzcd}
             \end{equation}
       \end{enumerate}
 \end{lemma}
 
+\begin{definition}
+      Given $H \leq G$ and a $G$-set $\mathfrak C$, we have the following commuting square of left adjoints.
+      \[
+            \begin{tikzcd}
+                  \sSym^H_{\mathfrak C} \arrow[r, shift left, "G \cdot_H^{\mathfrak C} (-)"] \arrow[d, "\mathbb F_{\mathfrak C}"']
+                  &
+                  \sSym^G_{\mathfrak C} \arrow[d, "\mathbb F_{\mathfrak C}"]
+                  \\
+                  \sOp^H_{\mathfrak C} \arrow[r, shift left, "G \cdot_H^{\mathfrak C} (-)"]
+                  &
+                  \sOp^G_{\mathfrak C}
+            \end{tikzcd}
+      \]
+      Explicitly, $G \cdot_H^{\mathfrak C} (-)$ on symmetric sequences is given by the left Kan extension over the inclusion
+      $H \ltimes \Sigma_{\mathfrak C} \to G \ltimes \Sigma_{\mathfrak C}$,
+      with
+      $G \cdot_H^{\mathfrak C} X (\vect C) = X(\vect C) \times G/H$, with $G$ acting ``diagonally'' as in \eqref{DIAGTENS_EQ}.
+\end{definition}
 
+\begin{remark}
+      Let $\mathfrak C$ be a $G$-set, 
+      $\O \in \sOp^H_{\mathfrak C}$ and $\P \in \sOp^G_{\mathfrak D}$. 
+      We note that $\Hom_{\sOp^G}(G \cdot_H^{\mathfrak C}\O, \P)$ embeds in $\Hom_{\sOp^H}(\O,\P)$
+      as those $H$-arrows $F \colon \O \to \P$ such that the $H$-map of colors $F_0 \colon \mathfrak C \to \mathfrak D$
+      is in fact $G$-equivariant.
+\end{remark}
 
-\todo[inline]{combine with the above}
-
+Standard adjunction and 3-variable-adjunction arguments yield the following.
+\begin{lemma}
+      For $C \in \Sigma_G$, $H \leq G$, $K \in \sSet$,
+      \begin{equation}
+            \label{GHTENS_EQ}
+            \Omega(C) \otimes_{\Set}G/H \cdot K = G \cdot_H^{\mathfrak C}\left( \Omega(C) \otimes_\Set K\right)
+            = \left( G \cdot_H^{\mathfrak C} \Omega(C) \right) \otimes_\Set K.
+      \end{equation}
+\end{lemma}
+{\color{OliveGreen} % ---------- OLIVE GREEN ----------
+  \begin{proof}
+        For the second equality, we have
+        \[
+              \sOp^G_{\mathfrak C}((G \cdot_H^{\mathfrak C} \Omega(C)) \otimes_\Set K, \O)
+              = \sOp_{\mathfrak C}^H(\Omega(C), \set{K,\O})
+              = \sOp_{\mathfrak C}^G(G \cdot_H^{\mathfrak C}(\Omega(C) \otimes_\Set K), \O)
+        \]
+        while for the first we have
+        \[
+              \sOp_{\mathfrak C}^G(G \cdot_H^{\mathfrak C}\Omega(C) \otimes_\Set K, \O)
+              = \sOp_{\mathfrak C}^H(\Omega(C), \set{K,\O})
+              = \sSet^H(K, \O^{\Omega(C)})
+              = \Op^G_{\mathfrak C}(\Omega(C) \otimes_\Set G/H \cdot K, \O).
+        \]      
+  \end{proof}
+  } % ---------- OLIVE GREEN ----------
 
 \begin{lemma}
-      \label{TENSGK_LEM}
-      Let $K \in \sSet$, $C \in \Sigma_G \subseteq \Phi^G$, and $H \leq G$. Then
-      \[
-            \Omega(C) \otimes_\Set G/H \cdot K \simeq \mathbb F(\Sigma_\tau[G \cdot_H C] \cdot K)
-      \]      
+      For $C \in \Sigma_G$ and $A \to B$ a genuine cofibration in $\sSet^G$,
+      $\Omega(C) \otimes_\Set (A \to B)$ is a cofibration in $\sOp^G$.
 \end{lemma}
-In particular $\Omega(C) \otimes_\Set G/H \cdot K$ is of the form
-\[
-      \coprod_r \Omega(D_r) \otimes_\Set K
-\]
-for some $D_r \in \Sigma_G$.
+\begin{proof}
+      Since $\Omega(C) \otimes (-) \colon \sSet^G \to \sOp^G_{\boldsymbol{E}(T)}$ preserves colimits,
+      and by \cite[Prop. 4.11]{BP_HGOP} cofibrations in the fiber $\sOp^G_{\mathfrak C}$ are cofibrations in the total category $\sOp^G$, % FIBERGLMOD PROP
+      this follows from Lemma \ref{OPTENS_LEM}\ref{OPTENS_SQ_LBL} and \eqref{GHTENS_EQ}.
+\end{proof}
+
 
 \todo[inline]{come back!}
 
