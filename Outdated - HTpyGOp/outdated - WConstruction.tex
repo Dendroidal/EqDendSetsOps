@@ -1415,6 +1415,106 @@ $\psi^{\**} \psi_!$ on $\Alg_{\bar{F}}$ has the same underlying functor, unit an
 
 \section{Application to the $W$-construction}
 
+
+Briefly, $W(T)$ is the free simplicial resolution %\footnote{Also called the \textit{Godement} resolution, c.f. \cite[\S 8.3]{BM06}.}
+of $\Omega(T)$ as an algebra in the category of \textit{pointed} $\mathbf E(T)$-colored symmetric sequences $\Sym^{\mathbf E(T)}_{\eta}(\Set)$.
+
+In more detail, the free set operad monad $\mathbb F_\Set$ can be factored as
+$\mathbb F_\Set = P \bar{\mathbb F}_\Set$,
+where $P$ is the monad on $\mathsf{sSym}^G$ which ``adds units''
+and $\bar{\mathbb F}_\Set$ adds ``formal compositions''.
+Algebras over $P$ are \textit{pointed symmetric sequencees}, while algebras over $\bar{\mathbb F}_\Set$ are \textit{non-unital} equivariant simplicial operads.
+Alternatively, we have a factorization of the free set operad functor $\mathbb F_\Set \colon \mathsf{Sym}^G \to \Op^G$ as
+$\mathbb F_\Set = \mathbb F_{\Set,\eta} P$
+where $\mathbb F_{\Set,\eta}$ the ``free operad with prescribed units'' monad on pointed symmetric sequences,
+which adds formal composites while turning the selected unary operations into units.
+\begin{definition}
+      For any $T \in \Omega_G$, we define $W(T) \in \sOp_{\boldsymbol{E}(T)}^G \subseteq (\Op_{\boldsymbol{E}(T)}^G)^{\Delta^{op}}$
+      to be the simplicial object in operads with levels
+      \[
+            W(T)_n := \mathbb F_{\Set,\eta}^{\circ n+1}\Omega(T)= \mathbb F_{\Set,\eta}^{\circ n+1}\mathbb F_\Set \Sigma_\tau[T].
+      \]
+      and natural simplicial structure maps.
+\end{definition}
+Alternatively, using the first factorization, one can show that
+\begin{equation}
+      \label{WT_EQ}
+      W(T)_n = \mathbb F_{\Set,\eta}^{\circ n+1} \Omega(T)
+      = \mathbb F_{\Set,\eta}^{\circ n+1} \mathbb P \bar{\mathbb F}_\Set \Sigma_\tau[T]
+      = P \bar{\mathbb F}_\Set^{\circ n+2}\Sigma_\tau[T]
+      = \mathbb F_\Set \left( \bar{\mathbb F}_\Set^{\circ n+1} \Sigma_\tau[T] \right).
+\end{equation}
+
+
+
+We can use the above to recover (a generalization of) the usual description of the $W$-construction (e.g. \cite[\S 4]{CM13b}).
+\begin{proposition}
+      \label{WT_PROP}
+      Fix $T \in \Omega_G$.
+      Then $W(T)$ is cofibrant in $\sOp^G$,
+      and for any $\boldsymbol{E}(T)$-signature $\vect C = (e_1, \dots, e_k; e) = (\underline{e}; e)$, we have
+      $W(T)(\vect C)$ is the (nerve of the) poset of inner faces of $T_{\vect C}$
+      \[
+            W(T)(\vect C) =
+            \begin{cases}
+                  \Delta[1]^{\times \boldsymbol{E}^i(T_{\vect C})} \qquad
+                  & \mbox{there exists $C_k \xrightarrow{\phi} T_i$ in $\Omega$ such that $\partial\phi=\vect C$}
+                  \\
+                  \varnothing & \mbox{else.}
+            \end{cases}
+      \]
+      where $T_{\vect C}$ is the subtree of the component $T_i$ associated to the map $\phi$ (cf. \S \ref{FORESTS_SEC}).
+\end{proposition}
+
+\begin{remark}
+      We give a brief sketch of the proof:
+      
+      Since the free simplicial operad monad is levelwise the free set operad monad,
+      we see that $W(T)$ is the image under $\mathbb F_{\sSet}$ of a $\Sigma$-free (hence cofibrant) simplicial symmetric sequence.
+      
+      For the second claim, we use the fact that the free non-unital operad monad
+      is constructed analogously to $\mathbb F$ as in \cite[\S A]{BP_HGOP}, % {MONAD_APDX}
+      with one key difference:
+      for any set of colors $\mathfrak C$,
+      the fundamental category $\Omega_{\mathfrak C}^0$ of $\mathfrak C$-colored trees and isomorphisms
+      is replaced with the subcategory $\Omega_{\mathfrak C}^{\textrm{nu},0}$ of non-stick trees (i.e, $\vect T \in \Omega_{\mathfrak C}$ with $|\boldsymbol{V}(T)| \geq 1$) and isomorphisms.
+      This has the effect of replacing the categories $\Omega_{\mathfrak C}^n$ of $n$-strings of \textit{planar tall maps} --- i.e. composites of inner faces and degeneracies --- 
+      with the subcategory $\Omega_{\mathfrak C}^{\textrm{nu},n}$ of
+      non-stick trees and $n$-strings of just inner face maps:
+      a planar tall map $T \to S$ is equivalent to substitution data $(T_v \to S_v)_{v \in V(T)}$ by \cite[Prop. 3.41]{BP_geo},
+      and if we forbid $S_v$ from being a stick,
+      we remove the possibility of $T \to S$ to be a degeneracy.
+      As observed in \cite{BP_geo} \todo{find a more specific citation}, degeneracies and sticks precisely record the unit and the unitality conditions for operads.
+      
+      Thus, unpacking \cite[\S A]{BP_HGOP}, we conclude that
+      \[
+            \bar{\mathbb F}^{\circ n+2} \Sigma_\bullet[T] = \Lan_{(\Omega_\bullet^{r,n+1}\to \Sigma_\bullet)^{op}} \bar N^{T},
+      \]
+      with
+      \[
+            \left(\bar N^{T}\right)^{op} \colon
+            \Omega_{\boldsymbol E(T)}^{r, n+1} \xrightarrow{\boldsymbol{V}}
+            \Sigma^{\wr n+2} \wr \Sigma_{\boldsymbol E(T)} \longto
+            \Sigma \wr \Sigma_{\boldsymbol E(T)} \xrightarrow{\Sigma_\bullet[T]}
+            \Sigma \wr \V^{op} \xrightarrow{\otimes}
+            \V^{op}.
+      \]
+      But $\bar N^T$ evaluated on an $(n+1)$-string of inner faces
+      $T_0 \hookrightarrow T_1 
+      \hookrightarrow T_2 
+      \hookrightarrow \cdots
+      \hookrightarrow T_{n+1}$
+      is given by a point $\**$
+      if $T_{n+1} \simeq T$
+      and by $\emptyset$ otherwise.
+      The evaluation of $W(T)(\vect C)$ follows.
+\end{remark}
+
+
+
+
+
+
 \subsection{Symmetric sequences}
 
 
