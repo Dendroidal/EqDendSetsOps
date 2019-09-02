@@ -348,22 +348,30 @@ is a Quillen equivalence.
 
 \section{Equivariant trees and dendroidal sets}
 
-In this mostly expository section, we recall two of the essential combinatorial categories for our analysis.
-Full details and discussion can be found in \cite{Per18}, \cite{BP_edss}.
+In this mostly expository section, 
+we recall the categories of trees,
+as well as the associated presheaf categories,
+which will be needed throughout the paper.
+A more detailed discussion can be found in \cite{Per18}, \cite{BP_edss}.
 
 
 \subsection{Categories of trees and forests}
 \label{FORESTS_SEC}
 
-We review the Cisinski-Moerdijk-Weiss category $\Omega$ of trees.
-Objects are given by tree diagrams $U$ as below;
-formally, we use the model of \textit{broad posets} as introduced in \cite{Wei12}.
-\begin{equation}
-      \label{eq:TREE}
-      \begin{tikzpicture}[auto,grow=up, level distance = 2.2em,
-            every node/.style={font=\scriptsize,inner sep = 2pt}]%
-            \tikzstyle{level 2}=[sibling distance=4em]%
-            \tikzstyle{level 3}=[sibling distance=2.25em]%
+
+We first review the Cisinski-Moerdijk-Weiss category $\Omega$ of trees.
+Its objects can be encoded by tree diagrams $U$ as below
+(though a more formal definition is also possible:
+in the prequels to this paper many of the {\color{red} key technical properties}
+of $\Omega$
+are proven using 
+the \textit{broad posets} as introduced by Weiss in \cite{Wei12},
+which are an algebraically flavored model for $\Omega$).
+\begin{equation}\label{eq:TREE}
+	\begin{tikzpicture}[auto,grow=up, level distance = 2.2em,
+	every node/.style={font=\scriptsize,inner sep = 2pt}]%
+	\tikzstyle{level 2}=[sibling distance=4em]%
+	\tikzstyle{level 3}=[sibling distance=2.25em]%
             \node [font=\normalsize] {$U$}
             child{node [dummy] {}
               child{node [dummy] {}
@@ -371,8 +379,8 @@ formally, we use the model of \textit{broad posets} as introduced in \cite{Wei12
               }
               child{edge from parent node [swap] {$d$}}
               child{node [dummy] {}
-                child{edge from parent node [swap] {$b$}}
-                child{edge from parent node {$a$}}
+                child{edge from parent node [near end, swap] {$b$}}
+                child{edge from parent node [near end] {$\phantom{b}a$}}
                 edge from parent node {$c$}
               }
               edge from parent node [swap] {$r$}
@@ -382,25 +390,44 @@ formally, we use the model of \textit{broad posets} as introduced in \cite{Wei12
 Edges with no vertices $\circ$ above them are called \textit{leaves}, the unique bottom edge is called the \textit{root},
 and edges that are neither are called \textit{inner edges};
 in the example above, $a$ and $b$ are the leaves, $r$ is the root, and $c$ and $e$ are inner edges.
-The sets of edges, inner edges, leaves, and vertices of a tree $U$ are denoted $\boldsymbol{E}(U)$, $\boldsymbol{E}^i(U)$, $\boldsymbol{V}(T)$, and $\boldsymbol{V}(U)$ respectively.
-If an edge $t$ is pictorally above (or equal to) an edge $s$, we write $t \leq_d s$
-(while this notation may seem backwards, $\leq_d$ flows in the direction of composition).
+The sets of edges, inner edges, leaves, and vertices of a tree $U$ are denoted $\boldsymbol{E}(U)$, $\boldsymbol{E}^{\mathsf{i}}(U)$, and $\boldsymbol{V}(U)$ respectively.
+If an edge $t$ is pictorially above (or equal to) an edge $s$, we write $t \leq_d s$.
 
-\begin{notation}
-      We write $C_n$ to denote the \textit{$n$-corolla}, the unique (up to isomorphism) tree with
-      $|\boldsymbol{V}(C_n)| = 1$ and $n$ leaves.
-      Additionally, we write $\eta$ for the \textit{stick} tree, the unique tree with $|\boldsymbol{V}(\eta)| = 0$.
-
-      Given any $v \in \boldsymbol{V}(U)$, we write $U_v$ for the sub-diagram of $U$
-      consisting of the vertex $v$ and any adjacent edges.
-\end{notation}
-
-
-A map of trees $\phi \colon U \to V$ is defined to be
-a map of edge sets $\phi \colon \boldsymbol{E}(S) \to \boldsymbol{E}(T)$
+A map of trees $\varphi \colon U \to V$ is defined to be
+a map of edge sets 
+$\varphi \colon \boldsymbol{E}(U) \to \boldsymbol{E}(V)$
 which preserves
 {\color{blue} the broad poset/operadic structure}
 (see e.g. \cite[\S 2.1]{BP_edss} for a rigorous definition).
+
+We will also find it convenient to assume that 
+each tree $U \in \Omega$ 
+is equipped with a \textit{planar structure}.
+Informally, 
+this means that each object $U$
+has a preferred planar representation as in \eqref{eq:TREE}
+(a more formal definition of planar structures as
+suitable extensions of the partial order $\leq_d$ to a total order
+can be found in \cite[\S 3.1]{BP_geo}).
+Moreover, we will then prefer to work with a model of $\Omega$
+for which the subcategory of planar maps is skeletal,
+i.e. such that the only planar isomorphisms are the identities.
+
+
+
+
+\begin{notation}
+      We write $\eta$ for the \textit{stick} tree, the unique tree with a single edge and no vertices.
+\end{notation}
+
+
+
+
+
+
+
+
+
 
 
 \begin{example}
@@ -470,21 +497,22 @@ which preserves
       \end{equation}
 \end{example}
 
-A map of trees $\phi \colon U \to V$ is called
+
+A map of trees $\varphi \colon U \to V$ is called:
 \begin{itemize}
 \item a \textit{tall map} if
-      $\phi(\underline{l}_U) = \underline{l}_V$ and $\phi(r_U) = r_V$,
-      with $\underline{l}_{(-)}$ and $r_{(-)}$ denoting the tuple of leaf edges and the root edge.
+      $\varphi(\underline{l}_U) = \underline{l}_V$ and $\varphi(r_U) = r_V$,
+      with $\underline{l}_{(-)}$ and $r_{(-)}$ denoting the tuple of leaf edges and the root edge;
 \item a \textit{face map} if it is injective on edges;
       an \textit{inner face} if it is also tall, and
-      an \textit{outer face} if it does not factor through a non-isomorphism inner face map.
+      an \textit{outer face} if it does not factor through a non-isomorphism inner face map;
 \item a \textit{degeneracy} if is surjective on edges and preserves leaves
-      (and hence is tall).
+      (and is hence tall).
 \end{itemize}
 
-Heuristically, an inner face map 
+Pictorially, an inner face map 
 $U\to V$ removes some edges in $V$
-(combining the adjacent vertices),
+(while merging the vertices adjacent to those edges),
 outer face maps remove some vertices of $V$ (necessarily outer vertices to ensure the tree remains connected),
 and degeneracies collapse some of the unary vertices of $U$.
 \begin{example}
@@ -492,82 +520,93 @@ and degeneracies collapse some of the unary vertices of $U$.
       the first map is an inner face, the second an outer face, the third is a general face, while the fourth is a degeneracy.
 \end{example}
 
+
 \begin{proposition}[{\cite[Prop. 2.2]{BP_edss}}]
-      A map of trees $\phi \colon U \to V$ has a factorization, unique up to unique isomorphisms,
-      \begin{equation}
-            \label{TREEFACT_EQ}
-            U \xrightarrow{\phi^-} U' \xrightarrow{\phi^i} U'' \xrightarrow{\phi^o} V
-      \end{equation}
-      as a degeneracy followed by an inner face map followed by an outer face map.
+	A map of trees $\varphi \colon U \to V$ has a factorization, unique up to unique isomorphisms,
+\begin{equation}\label{TREEFACT_EQ}
+	U \xrightarrow{\varphi^-} 
+	U' \xrightarrow{\varphi^i} 
+	U'' \xrightarrow{\varphi^o} V
+\end{equation}
+	as a degeneracy followed by an inner face map followed by an outer face map.
 \end{proposition}
 
 
-For technical ease, we will assume that all trees $U$ are equipped with a \textit{planar} structure,
-a well-behaved total order on $\boldsymbol{E}(U)$ which extends $\leq_d$.
-Heuristically, a planar structure is equivalent to choosing a  representation of the tree diagram in the plane;
-a rigorous definition and more discussion can be found in \cite[\S 3.1]{BP_geo}.
+\begin{remark}\label{TODF REM}
+	A map $\psi \colon U \to V$
+	is tall (resp. a face)
+	iff in the decomposition \eqref{TREEFACT_EQ}
+	the component $\psi^o$ (resp. $\psi^-$)
+	is an isomorphism.
+	As such, by combining the 
+	first two (resp. last two)
+	maps in \eqref{TREEFACT_EQ}
+	one recovers the 
+	``tall-outer face'' 
+	(resp. ``degeneracy-face'')
+	factorization of the map $\varphi$.
+\end{remark}
 
-In particular, planar structures allow for a refinement of \eqref{TREEFACT_EQ}:
+
+\begin{remark}\label{CNVXM REM}
+	Following the previous remark, 
+	it is natural to consider the class of maps
+	$\psi \colon U \to V$ such that
+	the factor $\psi^i$ in \eqref{TREEFACT_EQ}
+	is an isomorphism.
+	Equivalently, $\psi$ is convex precisely if
+	the ``tall-outer face'' and ``degeneracy-face''
+	factorizations coincide.
+	
+	We call these maps \textit{convex},
+	since the are readily seen to be 
+	characterized by the following property:
+	if $e <_d e' <_d e''$
+	in $V$ and $e,e''$ are in the image of $\psi$
+	then so is $e'$.
+	
+	Notably, it follows from this characterization that convex maps are closed under composition.
+\end{remark}
+
+
+When accounting for planar structures,
+one has the following refinement of \eqref{TREEFACT_EQ}.
+
 \begin{proposition}
-      An arrow of trees $\phi \colon U \to V$ has a strictly unique factorization
+      A map of trees $\varphi \colon U \to V$ has a strictly unique factorization
       \begin{equation}
             \label{OMEGAFACT_EQ}
-            U \xrightarrow{\phi^p} U_p \xrightarrow{\phi^-} U' \xrightarrow{\phi^i} U'' \xrightarrow{\phi^o} V            
+            U \xrightarrow{\varphi^{\simeq}} U_p \xrightarrow{\varphi^-} U' \xrightarrow{\varphi^i} U'' \xrightarrow{\varphi^o} V            
       \end{equation}
-      into an isomorphism followed by, in order,
+      as, in order, an isomorphism followed by
       a planar degeneracy, a planar inner face, and a planar outer face.
 \end{proposition}
 
-\begin{remark}
-      These four types of arrows
-      --- isomorphisms, planar degeneracies, planar inner faces, and planar outer faces ---
-      form what one might call a ``strict quadruple category'' structure on $\Omega$:
-      For any subset of types,
-      the class of maps whose factorization \eqref{OMEGAFACT_EQ} contains only those types (i.e. the others are the identity)
-      is closed under composition.
-      
-      For example, the class of tall maps is precisely the class of maps spanned by inner faces and degeneracies (and isomorphisms),
-      and the composite of any tall map is again tall,
-      and so in particular will never have a factorization containing a non-trivial outer face.
-
-      Similarly, the class of face maps is precisely the class spanned by inner and outer faces (and isomorphisms).
-
-      This suggests we should consider remaining composite class of maps,
-      those spanned by degeneracies and outer faces (and isomorphisms).
-      We call these maps \textit{convex}
-      as they are the maps $\varphi \colon T \to S$
-      characterized by the following property:
-      if $e <_d e' <_d e''$
-      in $S$ and $e,e''$ are in the image of $\varphi$
-      then so is $e'$.
-\end{remark}
-
-Moreover, planarity allows for a heuristic description of the ``image'' of a map of trees.
-\begin{definition}
-      Given a subset of edges $E \subseteq \boldsymbol{E}(U)$ for $U \in \Omega$,
-      the \textit{outer closure} of $E$ is
-      the smallest planar outer face $V \into U$ such that $E \subseteq \boldsymbol{E}(U)$.
-      
-      Given a face map $\phi \colon U \to V$, the \textit{outer closure} of $\phi$, denoted $\bar{U}$,
-      is the outer closure of $\phi(\boldsymbol{E}(U)) \subseteq \boldsymbol{E}(V)$.
-\end{definition}
-Heurstically, planar outer faces of $U$ correspond to the sub-trees diagrams of the diagram associated to $U$.
-
-
-{\color{blue} come back}
-
-
-      
-
-\begin{definition}
-      We let $\Omega$ denote a fixed full subcategory of trees and (non-planar) arrows
-      such that the subcategory of planar maps in skeletal (i.e. if two trees are planar isomorphic, they are in fact equal and said isomorphism is the identity).
-\end{definition}
 
 \begin{remark}
-      The subcategory of corollas and isomorphisms is isomorphic to the category $\Sigma$ of standard finite ordered sets and isomorphisms,
-      and we will conflate the two notions and notations.
+	Generalizing Remarks \ref{TODF REM} and \ref{CNVXM REM},
+	one has that for any subset 
+	of the symbols $\{\simeq,-,i,o\}$
+	in \eqref{OMEGAFACT_EQ},
+	the type of maps such that 
+	the corresponding factors are identities 
+	is closed under composition.
+	
+	For example, the maps $\psi$ such that 
+	$\psi^{\simeq},\psi^{i}$
+	are identities are the planar convex maps
+	while those maps such that
+	$\varphi^{-},\varphi^o$
+	are identities are the (not necessarily planar) inner face maps,
+	both of which are closed under composition.	
 \end{remark}
+
+
+
+\begin{remark}
+      The subcategory of corollas and isomorphisms is isomorphic to the category $\Sigma$ of standard finite ordered sets and (non-ordered) isomorphisms.
+\end{remark}
+
 
 \begin{notation}
       \label{LR_NOT}
@@ -576,21 +615,38 @@ Heurstically, planar outer faces of $U$ correspond to the sub-trees diagrams of 
 \end{notation}
 
 
+
 Next, we consider categories of (colored) forests (cf. \cite[Defn. 2.56]{BP_HGOP}).
 
 \begin{definition}
       The category $\Phi$ of \textit{forests} is the coproduct completion of the category $\Omega$ of trees:
-      objects are finite tuples $F = (F_i)_{i \in I}$ with $F_i \in \Omega$,
-      and an arrow $\phi \colon (F_i)_{i \in I} \to (F'_j)_{j \in J}$ is given by
-      a map $\phi \colon I \to J$ and
-      maps $\phi_i \colon F_i \to F'_{\phi(i)}$ for all $i \in I$.
-     
-      The sets $\boldsymbol{E}(F)$, $\boldsymbol{E}^i(F)$, $\boldsymbol{V}(F)$ generalize in the obvious way.
-      Moreover, we call a map $\phi \colon F \to F'$ an \textit{(inner, outer) face map} or a \textit{degeneracy} iff
-      $\phi_i$ is so in $\Omega$ for all $i \in I$.
+      objects are formal coproducts 
+      $F = \amalg_{i \in I} F_i$ with $F_i \in \Omega$,
+      and an arrow 
+      $\varphi \colon \amalg_{i \in I} F_i \to
+      \amalg_{j \in J} F'_j$ is given by
+      a map $\varphi \colon I \to J$ and
+      maps $\varphi_i \colon F_i \to F'_{\varphi(i)}$ in $\Omega$ for each $i \in I$.
+
+The sets of \emph{edges}, \emph{inner edges}, \emph{vertices}
+of a forest $F = \simeq_i F_i$
+are defined in the obvious way as
+\[
+	\boldsymbol{E}(F)
+	\simeq
+	\amalg_i \boldsymbol{E}(F_i),
+\qquad
+	\boldsymbol{E}^{\mathsf{i}}(F)
+	\simeq
+	\amalg_i \boldsymbol{E}^{\mathsf{i}}(F_i),
+\qquad
+	\boldsymbol{V}(F)
+	\simeq
+	\amalg_i \boldsymbol{V}(F_i).
+\]
 \end{definition}
 
-Finally, we may color the edges of any forest or tree.
+
 \begin{definition}
       \label{CFOREST_DEF}
       Let $\mathfrak C$ be a set of colors.
@@ -600,7 +656,7 @@ Finally, we may color the edges of any forest or tree.
             $F \in \Phi$ a forest and
             $\mathfrak c \colon \boldsymbol{E}(F) \to \mathfrak C$ a coloring of its edges.
       \item arrows $\vect F = (F, \mathfrak c) \to (F', \mathfrak c') = \vect{F'}$ maps
-            $\rho\colon F \to F'$ in $\Phi$ such that $\mathfrak c = \mathfrak c' \rho$.
+            $\varphi \colon F \to F'$ in $\Phi$ such that $\mathfrak c = \mathfrak c' \varphi$.
       \end{itemize}      
 
       These naturally assemble into a category $\Phi_\bullet \to \Set$ fibered over $\Set$.
@@ -608,6 +664,10 @@ Finally, we may color the edges of any forest or tree.
       $\Phi_\bullet^0 \subseteq \Phi_\bullet$
       the wide subcategory of those arrows whose maps on uncolored forests are outer faces.
 \end{definition}
+
+
+{\color{red} HERE}
+
 
 \subsection{The category of equivariant trees}
 
