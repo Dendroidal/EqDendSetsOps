@@ -885,95 +885,167 @@ Finally, contrasting with the above, we define the faces of a $G$-trees non-equi
 	and let $\mathsf{Face}_{\mathsf{sc}}(T) \subseteq \mathsf{Face}(T)$ denote the subposet spanned by the planar outer faces of $T$ with no inner edges.
 \end{definition}
 
-{\color{red} HERE}
+
+
+
 
 \subsection{Equivariant dendroidal sets}
 \label{EDS_SEC}
 
-We consider the presheaf category 
-$
-\dSet^G = \Fun(G \times \Omega^{op}, \Set),
-$
-of \textit{equivariant dendroidal sets}.
-There is a natural fully-faithful inclusion
-\[
-      \Omega[-] \colon \Omega_G \longto \dSet^G,
-      \qquad
-      T = (T_i) \longmapsto \Omega[T] = \coprod \Omega[T_i]
-      % \simeq G \cdot_H \Omega[T_{\**}].
-      % \simeq \left(G \cdot \Omega[T_{\**}] \right) / N
-\]
-extending the Yoneda embedding $\Omega \times G \into \dSet^G$.
-These $\Omega[T]$ allow us to probe presheaves $X \in \dSet^G$ by $G$-trees and detect ``norm map'' information 
-(e.g. \cite[Example 4.9]{Per18}, {\color{blue} Example}).
-As such, they will be the building blocks of several fundamental definitions (cf. \cite[\S 6]{Per18}), generalizing the standard presheaf constructions.
+As {\color{red} discussed in the introduction},
+recall that the category of 
+\emph{dendroidal sets}
+is the presheaf category
+$\mathsf{dSet} = \mathsf{Set}^{\Omega^{op}}$.
+Further for a (finite) group $G$,
+the category of
+\emph{$G$-equivariant dendroidal sets}
+is then the $G$-object category
+$\mathsf{dSet}^G = \mathsf{Set}^{G \times \Omega^{op}}$.
 
-\begin{definition}
-      \label{DSETPRESHEAF_DEF}
-      For $T = (T_i) \in \Omega_G$, let $\partial \Omega[T] \subseteq \Omega[T]$ denote the \textit{boundary}
-      \begin{equation}
-            \partial \Omega[T] = \coprod \partial \Omega[T_i]
-            = \mathop{\colim}\limits_{U \in \mathsf{Face}(T), U \neq T} \Omega[U]
-            = \bigcup_{U \in \mathsf{Face}(T), U \neq T} \Omega[U]
-      \end{equation}
-      and the \textit{boundary inclusions} are all maps of the form
-      $\partial \Omega[T] \to \Omega[T]$, $T \in \Omega_G$.
 
-      Next, given any sub-$G$-set $E \subseteq_G \boldsymbol{E}(T)$, we write $E_i = E \cap \boldsymbol{E}(T_i)$, and let
-      $\Lambda^{E}[T] \subseteq \partial \Omega[T] \subseteq \Omega[T]$,
-      denote the associated \textit{$G$-inner horn}
-      \begin{equation}
-            \label{GINNERHORN_EQ}
-            \Lambda^{E}[T] = \coprod \Lambda^{E_i}[T_i]
-            = \mathop{\colim}\limits_{U \in \mathsf{Face}(T), (T_i \setminus E_i) \not\into U} \Omega[U]
-            = \bigcup_{U \in \mathsf{Face}(T), (T_i \setminus E_i) \not\into U} \Omega[U]
-      \end{equation}
-      and the \textit{$G$-inner horn inclusions} are all maps of the form
-      $\Lambda^{E}[T] \to \Omega[T]$, $T \in \Omega_G$ and $E \subseteq_G \boldsymbol{E}(T)$.
+One key subtlety when working with 
+$\mathsf{dSet}^G$
+is that for each equivariant dendroidal set 
+$X \in \mathsf{dSet}^G$
+its levels $X(U)$ are indexed by
+non-equivariant trees $U \in \Omega$,
+while the key classes of maps in $\mathsf{dSet}^G$ are defined in terms
+of $G$-trees $T \in \Omega_G$.
 
-      Finally, we define the \textit{Segal core} of $T$ to be
-      \begin{equation}
-            \label{eq:SC}
-            Sc[T] = \coprod Sc[T_i]
-            = \mathop{\colim}\limits_{U \in \mathsf{Face}_{SC}(T)} \Omega[U]
-            = \bigcup_{U \in \mathsf{Face}_{SC}(T)} \Omega[U],
-      \end{equation}
-      and the \textit{Segal core inclusions} to be those maps in $\dSet^G$ of the form
-      $Sc(T) \to \Omega[T]$.
+To make this precise, 
+we first extend the Yoneda embedding
+$\Omega[-]\colon \Omega \to \mathsf{dSet}$
+notation
+for the representable functors
+$\Omega[U](V) = \Omega(V,U)$
+to obtain extended Yoneda embeddings
+(here the right embedding is simply obtained from the left embedding by taking $G$-objects)
+\begin{equation}\label{FORESREP EQ}
+\begin{tikzcd}[row sep=0]
+	\Phi \ar{r}{\Omega[-]}
+&
+	\mathsf{dSet}
+&&%%
+	\Phi^G \ar{r}{\Omega[-]}
+&
+	\mathsf{dSet}^G
+\\
+	\amalg_i F_i
+	\ar[mapsto]{r}
+&
+	\amalg_i \Omega[F_i]
+&&%%
+	\amalg_i F_i
+	\ar[mapsto]{r}
+&
+	\amalg_i \Omega[F_i]
+\end{tikzcd}
+\end{equation}
+Next, note that since $G$-trees $\Omega_G$
+are defined as a subcategory of $G$-forests $\Phi^G$,
+the right side of 
+\eqref{FORESREP EQ}
+defines representables 
+$\Omega[T] \in \mathsf{dSet}^G$
+for $T \in \Omega_G$.
+These representable presheaves 
+$\Omega[T]$
+are then the basis for
+generalizing several fundamental
+presheaves in dendroidal sets $\mathsf{dSet}$
+{\color{red} add some Moerdijk reference}
+to equivariant dendroidal sets
+$\mathsf{dSet}^G$
+(cf. \cite[\S 6]{Per18}),
+as follows.
+
+
+
+\begin{definition}\label{DSETPRESHEAF_DEF}
+	For $T = \amalg_i T_i$ a $G$-tree,
+	we define the \emph{boundary}
+	$\partial \Omega[T] \subseteq \Omega[T]$ by
+\begin{equation}
+	\partial \Omega[T] = 
+	\amalg_i \partial \Omega[T_i]
+	= \mathop{\colim}\limits_{U \in \mathsf{Face}(T), U \neq T} \Omega[U]
+	= \bigcup_{U \in \mathsf{Face}(T), U \neq T} \Omega[U].
+\end{equation}
+	Next, for $\emptyset \neq E \subseteq \boldsymbol{E}^{\mathsf{i}}(T)$ a non-empty $G$-subset of inner edges, we write $E_i = E \cap \boldsymbol{E}(T_i)$
+	and define the associated \textit{$G$-inner horn} by
+\begin{equation}\label{GINNERHORN_EQ}
+	\Lambda^{E}[T] = \amalg_i \Lambda^{E_i}[T_i]
+	= \mathop{\colim}\limits_{U \in \mathsf{Face}(T), (T_i - E_i) \not\into U} \Omega[U]
+	= \bigcup_{U \in \mathsf{Face}(T), (T_i - E_i) \not\into U} \Omega[U].
+\end{equation}
+	Finally, the \textit{Segal core} of $T$ is
+\begin{equation}\label{eq:SC}
+	Sc[T] = 
+	\amalg_i Sc[T_i] =
+	\mathop{\colim}\limits_{U \in \mathsf{Face}_{\mathsf{sc}}(T)} \Omega[U] =
+	\bigcup_{U \in \mathsf{Face}_{\mathsf{sc}}(T)} \Omega[U].
+\end{equation}
 \end{definition}
 
 
 \begin{remark}
-      For $T \in \Omega_G$, any decomposition $T \simeq G \cdot_H T_{\**}$ with $T_{\**} \in \Omega^H$ yields
-      \[
-            \Omega[T] \simeq G \cdot_H \Omega[T_{\**}],
-            \qquad
-            \partial\Omega[T] \simeq G \cdot_H \partial \Omega[T],
-            \qquad
-            \Lambda^{Ge}[T] \simeq G \cdot_H \Lambda^{E_{\**}}[T_{\**}],
-            \qquad
-            Sc[T] \simeq G \cdot_H Sc[T_{\**}].
-      \]
+For $T \in \Omega_G$, a decomposition $T \simeq G \cdot_H T_{\**}$ with $T_{\**} \in \Omega^H$ yields
+\[
+	\Omega[T] \simeq G \cdot_H \Omega[T_{\**}],
+\qquad
+	\partial\Omega[T] \simeq G \cdot_H \partial \Omega[T_{\**}],
+\qquad
+	\Lambda^{E}[T] \simeq G \cdot_H \Lambda^{E_{\**}}[T_{\**}],
+\qquad
+	Sc[T] \simeq G \cdot_H Sc[T_{\**}].
+\]
       % where $E_{\**} = E \cap \boldsymbol{E}(T_{\**})$.
 \end{remark}
 
-% \begin{notation}
-%       For $X \in \dSet^G$ and $A$ an $H$-set with $|A|=n$, we write
-%       \[
-%             X(A) = X(C_n)^{\Gamma_A} = \Hom_{\dSet^G}(\Omega[C_A],X)
-%       \]
-%       for $\Gamma_A \leq G \times \Sigma_n$ the graph subgroup encoding the $H$-action on $A$ and
-%       $C_A \in \Omega_G$ a $G$-corolla associated to the $H$-set $A$.
-% \end{notation}
+
+Mimicking the non-equivariant story, the maps in Definition \ref{DSETPRESHEAF_DEF} are then the basis for a model structure on $\dSet^G$.
+
+In the following, we recall that a class of maps is called \textit{saturated} if it is closed under pushouts, retracts, and transfinite compositions.
 
 \begin{definition}
-      A presheaf $X \in \dSet^G$ is called a \textit{$G$-$\infty$-operad} if $X \to \**$ has the right lifting property with respect to all generating $G$-inner horn inclusions.
-      By {\color{blue} citation}, this is equivalent to $X$ having the right lifting property with respect to all Segal core inclusions.
+	The class of \textit{$G$-normal monomorphisms}
+	in $\mathsf{dSet}^G$
+	is the saturation of the boundary inclusions 
+	$\partial \Omega[T] \into \Omega[T]$ for $T \in \Omega_G$.
+	
+	The class of \textit{$G$-inner anodyne extensions}
+	in $\mathsf{dSet}^G$
+	is the saturation of the $G$-inner horn inclusions
+	$\Lambda^E [T] \into \Omega[T]$ 
+	for $T \in \Omega_G$ and $G$-subset
+	$\emptyset \neq E \subseteq
+	\boldsymbol{E}^{\mathsf{i}}(T).$
 \end{definition}
-Intuitively,
-$G$-$\infty$-operads are operads with weak composition laws for norm maps;
-see
-% \begin{example}
+
+
+
+\begin{definition}
+	A map $X \to Y$ in $\dSet^G$
+	is called a \emph{$G$-inner fibration}
+	if it has the right lifting property
+	with respect to all $G$-inner horn inclusions
+	$\Lambda^E[T] \to \Omega[T]$.
+	
+	Moreover, 
+	if $X \to \**$
+	is a $G$-inner fibration
+	then 
+	$X \in \dSet^G$ is called a \textit{$G$-$\infty$-operad}.
+\end{definition}
+
+
+Informally,
+$G$-$\infty$-operads can be thought of as
+``operads with weak composition laws for norm maps''.
+
+
+%\begin{example}
 %       We recall the setup of \eqref{GTREE_EQ}, with $G = D_8$, $H = \langle \sigma^2,\rho \rangle$, $K = \langle \sigma^2 \rangle$, $L = \**$, and $T$ the given tree diagram.
 %       Let $X \in \dSet^G$. Then we have natural solid arrows
 %       \[
@@ -984,48 +1056,32 @@ see
 %                   &
 %                   X(H/L \amalg H/K)
 %             \end{tikzcd}
-%       \]
+%      \]
 %       given by the presheaf structure,
 %       If $X$ is a $G$-$\infty$-operad, there exists a dashed section (possibly many) as written,
 %       and the composite map provides a choice of a composition law.
 %       providing a choice of composition.     
-% \end{example}
+%\end{example}
 
 
 
 
 
-The maps from Definition \ref{DSETPRESHEAF_DEF} form the basis for a model structure on $\dSet^G$.
-
-\begin{definition}
-      Recall that a class of maps is \textit{saturated} if it is closed under pushouts, retracts, and transfinite compositions.
-      
-      The class of \textit{$G$-normal monomorphisms}
-      is the smallest saturated class of maps containing the boundary inclusions $\partial \Omega[T] \into \Omega[T]$ for all $T \in \Omega_G$.
-      Dually, a map is called a \textit{trivial fibration} if it has the right lifting property with respect to the $G$-normal monomorphisms.
-      
-      The class of \textit{$G$-inner anodyne extensions} is the smallest saturated class of maps containing the generating $G$-inner horn inclusions.
-\end{definition}
-
-\begin{theorem}[{\cite[Thm 2.1, Thm 8.22]{Per18}}]
-      There exists a model structure on $\dSet^G$ such that
-      \begin{itemize}
-      \item the cofibrations are the $G$-normal monomorphisms,
-      \item the fibrant objects are the $G$-$\infty$-operads,
-      \item the fibrations between fibrant objects are precisely the maps $X \to Y$ such that the functors associated to each of the fixed-point homotopy categories $\tau j^{\**}(X^H \to Y^H)$ are isofibrations of categories for all $H \leq G$.
-      \item weak equivalences are the smallest class of maps closed under 2-out-of-3 which
-      contains the $G$-inner anodyne extensions and trivial fibrations.
-      \end{itemize}
+\begin{theorem}[{\cite[Thm 2.1]{Per18}}]
+There exists a model structure on $\dSet^G$ such that
+\begin{itemize}
+	\item the cofibrations are the $G$-normal monomorphisms;
+	\item the fibrant objects are the $G$-$\infty$-operads;
+	\item the fibrations between
+	$G$-$\infty$-operads 
+	are the $G$-inner fibrations $X \to Y$
+	such the induced maps on 
+	fixed-point homotopy categories $\tau j^{\**}(X^H \to Y^H)$ are isofibrations of categories for all $H \leq G$;
+	\item the weak equivalences are the smallest class of maps closed under 2-out-of-3 which
+	contains the $G$-inner anodyne extensions and the trivial fibrations
+	(i.e. those maps with the right lifting property against the $G$-normal monomorphisms).
+\end{itemize}
 \end{theorem}
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1043,6 +1099,11 @@ The maps from Definition \ref{DSETPRESHEAF_DEF} form the basis for a model struc
 
 \section{The tame model structure on preoperads}
 \label{TAME_SEC}
+
+
+
+{\color{red} HERE}
+
 
 In this section, we build an auxiliary model structure on preoperads, Quillen equivalent to the model structure discussed in \S \ref{SPREOP_SEC}.
 
