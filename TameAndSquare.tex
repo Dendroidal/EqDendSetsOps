@@ -414,7 +414,6 @@ can be found in \cite[\S 3.1]{BP_geo}).
 Moreover, we will then prefer to work with a model of $\Omega$
 for which the subcategory of planar maps is skeletal,
 i.e. such that the only planar isomorphisms are the identities.
-\todo[inline]{this ``i.e.'' makes it seem like we are restricting the morphisms, not the objects}
 
 
 
@@ -518,7 +517,8 @@ $U\to V$ removes some edges in $V$
 (while merging the vertices adjacent to those edges),
 outer face maps remove some vertices of $V$ (necessarily outer vertices to ensure the tree remains connected),
 and degeneracies collapse some of the unary vertices of $U$.
-\todo[inline]{in this description, the descriptions of the face maps are by an operation on the target diagram, while the description of a degeneracy is an operation on the source}
+
+
 \begin{example}
       In Example \ref{TREEMAP_EX},
       the first map is an inner face, the second an outer face, the third is a general face, while the fourth is a degeneracy.
@@ -558,7 +558,7 @@ and degeneracies collapse some of the unary vertices of $U$.
 	$\psi \colon U \to V$ such that
 	the factor $\psi^i$ in \eqref{TREEFACT_EQ}
 	is an isomorphism.
-	Equivalently, if % $\psi$ is convex precisely if
+	Equivalently, $\psi$ is convex precisely if
 	the ``tall-outer face'' and ``degeneracy-face''
 	factorizations coincide.
 	
@@ -1281,20 +1281,25 @@ which is the localization of the dendroidal Reedy model structure with respect t
 
 
 
-{\color{red} HERE}
 
 
 \subsection{Segal preoperads}
 \label{SPREOP_SEC}
 
-Before constructing the new model structure on pre-operads, we recall some definitions and discussion from \cite[\S 4 and \S 5]{BP_edss}.
+
+In this section we recall the normal model structure on preoperads
+$\mathsf{PreOp}^G$
+introduced and studied in \cite[\S 4 and \S 5]{BP_edss}.
 
 \begin{definition}
-      The category of \textit{(equivariant) preoperads} $\mathsf{PreOp}^G$ is the full subcategory of $\mathsf{sdSet}^G$ spanned by
-      those $X$ such that
-      $X(\eta)$ is a discrete simplicial set.
+	The category of \textit{(equivariant) preoperads} $\mathsf{PreOp}^G$ is the full subcategory of $\mathsf{sdSet}^G$ spanned by those $X$ such that
+	$X(\eta)$ is a discrete simplicial set.
 \end{definition}
-There is a natural pair of adjunctions
+
+The inclusion 
+$\gamma^{\**} \colon \mathsf{PreOp}^G \to \mathsf{sdSet}^G$
+admits a left adjoint $\gamma_!$
+and a right adjoint $\gamma_{\**}$
 \[
       \begin{tikzcd}[column sep =5em]
             \mathsf{PreOp}^G \ar{r}[swap]{\gamma^{\**}} 
@@ -1304,9 +1309,10 @@ There is a natural pair of adjunctions
             \ar[bend left]{l}{\gamma_{\**}}
       \end{tikzcd}
 \]
-described by
+described as follows:
 $\gamma_{!}X (U) = X(U)$ if $U \not \in \Delta$
-while $\gamma_{!}X ([n])$ for $[n] \in \Delta$ is given by the pushout on the left below; 
+in not linear
+while $\gamma_{!}X ([n])$ for $[n] \in \Delta$ linear is given by the pushout on the left below; 
 $\gamma_{\**}X(U)$ is given by the pullback on the right below.
 \begin{equation}\label{GAMMASTAR_EQ}
       \begin{tikzcd}
@@ -1322,6 +1328,8 @@ $\gamma_{\**}X(U)$ is given by the pullback on the right below.
             \arrow[lu, phantom, "\lrcorner", very near start]
       \end{tikzcd}
 \end{equation}
+
+{\color{red} HERE}
 
 Moreover, following \cite[Remark 4.33]{BP_edss}, % GAMMASH REM
 we have that any monomorphism $A \to B$ in $\mathsf{sdSet}^G$
@@ -1339,17 +1347,24 @@ induces a pushout square
 
 
 \begin{definition}
-      A preoperad $X \in \mathsf{PreOp}^G$ is called a \textit{$G$-Segal operad} if
+      A preoperad $X \in \mathsf{PreOp}^G$ is called a \emph{(equivariant) Segal operad} if
       $X\left( \Omega[T] \right) \to 
       X \left( Sc[T] \right)$
       is a Kan equivalence for each $T \in \Omega_G$.
       
-      A $G$-Segal operad $X$ is additionally called \textit{Reedy fibrant} if $\gamma^{\**}X$ is dendroidally Reedy fibrant in $\sdSet^G$,
-      or equivalently (\cite[Remark 4.41]{BP_edss}), if $\gamma^{\**}X$ is fibrant in the dendroidal Segal space model structure on $\sdSet^G$.
+	A Segal operad $X$ is additionally called a
+	\emph{Reedy fibrant Segal operad} 
+	if $\gamma^{\**}X$ is dendroidally Reedy fibrant in $\sdSet^G$.
+	Equivalently (\cite[Remark 4.41]{BP_edss}),
+	this meand that $\gamma^{\**}X$ is fibrant in the dendroidal Segal space model structure on $\sdSet^G$.
 \end{definition}
 
-We say a map $f$ in $\PreOp^G$ is a \textit{joint equivalence} (resp. \textit{normal monomorphism}) if
-$\gamma^{\**}f$ is a joint equivalence (resp. cofibration) in the joint model structure on $\sdSet^G$.
+
+
+We say a map $X \to Y$ in $\PreOp^G$ is a 
+\textit{joint equivalence} (resp. \textit{normal monomorphism}) if
+$\gamma^{\**} X \to \gamma^{\**} Y$ is a joint equivalence 
+(resp. normal monomorphism) in $\sdSet^G$.
 
 There is a characterization of joint weak equivalences between $G$-Segal operads
 analogous to the Dwyer-Kan equivalences of simplicial operads (cf. Theorem \ref{SOPG_THM}).
@@ -1458,7 +1473,7 @@ We may strengthen condition (v).
                   \arrow[ul, phantom, "\lrcorner", very near start]
             \end{tikzcd}
       \]
-      for $Z \in \Preop^G$ and $\mathfrak C = Z(\eta)$,
+      for $Z \in \PreOp^G$ and $\mathfrak C = Z(\eta)$,
       so are the maps $X(Sc[T]) \to \tilde{X}(Sc[T])$.
       This shows that $\tilde{X}$ is also a Segal operad, 
       and thus a fibrant object in $\mathsf{PreOp}^G$.
@@ -2302,7 +2317,7 @@ For later use, we record the following.
 
 
 
-\section{Simplicial operads and the Quillen equivalences}
+\section{The Quillen equivalences}
 \label{QE_SEC}
 
 In this section, we prove our main result, Theorem \ref{QE THM}, modulo a key lemma to be proved in Section \ref{KEYRES SEC}.
