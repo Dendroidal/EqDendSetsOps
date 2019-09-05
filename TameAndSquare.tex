@@ -176,6 +176,8 @@ cd,patterns,calc}
 \newcommand{\sSym}{\ensuremath{\mathsf{sSym}}}%
 \newcommand{\fgt}{\ensuremath{\mathsf{fgt}}}%
 \newcommand{\dSet}{\mathsf{dSet}}
+\newcommand{\sdSet}{\mathsf{sdSet}}
+\newcommand{\PreOp}{\mathsf{PreOp}}
 \newcommand{\Fun}{\mathsf{Fun}}
 \newcommand{\Fib}{\mathsf{Fib}}
 \newcommand{\Alg}{\mathsf{Alg}}
@@ -1105,7 +1107,8 @@ There exists a left proper (cf. \cite[Prop. 8.8]{Per18}) model structure on $\dS
 
 
 {\color{orange}
-In this section, we build an auxiliary model structure on preoperads, Quillen equivalent to the model structure discussed in \S \ref{SPREOP_SEC}.
+  In this section, we build an auxiliary model structure on pre-operads,
+  Quillen equivalent to the model structure introduced in \cite{BP_edss} and recalled in \S \ref{SPREOP_SEC} below.
 }
 
 First, we review the model structures on
@@ -1137,7 +1140,8 @@ We first recall some notation for objects in $\mathsf{sdSet}^G$.
       for the colimit-preserving functors
       such that $X_{\Delta[n]} = X_n$ and 
       $X\left(G \cdot\Omega[U]\right) = X(U)$ for $n \geq 0$, $U \in \Omega$.
-
+      Explicitly, $X_K(U) = \sSet(K, X(U))$ and $X(A)_n = \dSet^G(A, X_n)$.
+      
 	Additionally, we have natural fully-faithful inclusions
 	(as presheaves that are constant along one of the directions)
 \[
@@ -1283,74 +1287,83 @@ which is the localization of the dendroidal Reedy model structure with respect t
 \subsection{Segal preoperads}
 \label{SPREOP_SEC}
 
-We recall some definitions from \cite[\S4,5]{BP_edss}.
+Before constructing the new model structure on pre-operads, we recall some definitions and discussion from \cite[\S 4 and \S 5]{BP_edss}.
 
 \begin{definition}
-      The category of \textit{preoperads} $\mathsf{PreOp}^G$ is the full subcategory of $\mathsf{sdSet}^G$ of those $X$ such that
+      The category of \textit{(equivariant) preoperads} $\mathsf{PreOp}^G$ is the full subcategory of $\mathsf{sdSet}^G$ spanned by
+      those $X$ such that
       $X(\eta)$ is a discrete simplicial set.
-
-      There is a natural pair of adjunctions
-      \[
-            \begin{tikzcd}[column sep =5em]
-                  \mathsf{PreOp}^G \ar{r}[swap]{\gamma^{\**}} 
-                  &
-                  \mathsf{sdSet}^G
-                  \ar[bend right]{l}[swap,midway]{\gamma_{!}}
-                  \ar[bend left]{l}{\gamma_{\**}}
-            \end{tikzcd}
-      \]
-      described by
-      $\gamma_{!}X (U) = X(U)$ if $U \not \in \Delta$
-      while $\gamma_{!}X ([n])$ for $[n] \in \Delta$ is given by the pushout on the left below; 
-      $\gamma_{\**}X(U)$ is given by the pullback on the right below.
-      \begin{equation}\label{GAMMASTAR_EQ}
-            \begin{tikzcd}
-                  X(\eta) \ar{r} \ar{d} \arrow[dr, phantom, "\ulcorner", very near start]  &
-                  \pi_0 X(\eta) \ar{d}
-                  && 
-                  \gamma_{\**}X(U) \ar{r} \ar{d} & X(U) \ar{d}
-                  \\
-                  X([n]) \ar{r} & \gamma_! X([n]) 
-                  &&
-                  \prod_{\boldsymbol{E}(U)} X_0(\eta) \ar{r} &
-                  \prod_{\boldsymbol{E}(U)} X(\eta)
-                  \arrow[lu, phantom, "\lrcorner", very near start]
-            \end{tikzcd}
-      \end{equation}
-
-      Moreover, following \cite[Remark 4.33]{BP_edss}, % GAMMASH REM
-      we have that any monomorphism $A \to B$ in $\mathsf{sdSet}^G$
-      such that $A(\eta) \to B(\eta)$ is an isomorphism
-      induces a pushout square
-      \begin{equation}\label{GAMMASH EQ}
-            \begin{tikzcd}
-                  A \ar{r} \ar{d} \arrow[dr, phantom, "\ulcorner", very near start]&
-                  \gamma^{\**}\gamma_! A \ar{d}
-                  \\
-                  B \ar{r} & \gamma^{\**}\gamma_! B 
-            \end{tikzcd}
-      \end{equation}
 \end{definition}
+There is a natural pair of adjunctions
+\[
+      \begin{tikzcd}[column sep =5em]
+            \mathsf{PreOp}^G \ar{r}[swap]{\gamma^{\**}} 
+            &
+            \mathsf{sdSet}^G
+            \ar[bend right]{l}[swap,midway]{\gamma_{!}}
+            \ar[bend left]{l}{\gamma_{\**}}
+      \end{tikzcd}
+\]
+described by
+$\gamma_{!}X (U) = X(U)$ if $U \not \in \Delta$
+while $\gamma_{!}X ([n])$ for $[n] \in \Delta$ is given by the pushout on the left below; 
+$\gamma_{\**}X(U)$ is given by the pullback on the right below.
+\begin{equation}\label{GAMMASTAR_EQ}
+      \begin{tikzcd}
+            X(\eta) \ar{r} \ar{d} \arrow[dr, phantom, "\ulcorner", very near start]  &
+            \pi_0 X(\eta) \ar{d}
+            && 
+            \gamma_{\**}X(U) \ar{r} \ar{d} & X(U) \ar{d}
+            \\
+            X([n]) \ar{r} & \gamma_! X([n]) 
+            &&
+            \prod_{\boldsymbol{E}(U)} X_0(\eta) \ar{r} &
+            \prod_{\boldsymbol{E}(U)} X(\eta)
+            \arrow[lu, phantom, "\lrcorner", very near start]
+      \end{tikzcd}
+\end{equation}
+
+Moreover, following \cite[Remark 4.33]{BP_edss}, % GAMMASH REM
+we have that any monomorphism $A \to B$ in $\mathsf{sdSet}^G$
+such that $A(\eta) \to B(\eta)$ is an isomorphism
+induces a pushout square
+\begin{equation}\label{GAMMASH EQ}
+      \begin{tikzcd}
+            A \ar{r} \ar{d} \arrow[dr, phantom, "\ulcorner", very near start]&
+            \gamma^{\**}\gamma_! A \ar{d}
+            \\
+            B \ar{r} & \gamma^{\**}\gamma_! B 
+      \end{tikzcd}
+\end{equation}
+
 
 
 \begin{definition}
-	A $G$-preoperad $X \in \mathsf{PreOp}^G$ is called a \textit{$G$-Segal operad} if, 
-	for each $G$-tree $T$,
-	the natural map 
-	$X\left( \Omega[T] \right) \to 
-	X \left( Sc[T] \right)$
-	is a Kan equivalence.
+      A preoperad $X \in \mathsf{PreOp}^G$ is called a \textit{$G$-Segal operad} if
+      $X\left( \Omega[T] \right) \to 
+      X \left( Sc[T] \right)$
+      is a Kan equivalence for each $T \in \Omega_G$.
+      
+      A $G$-Segal operad $X$ is additionally called \textit{Reedy fibrant} if $\gamma^{\**}X$ is dendroidally Reedy fibrant in $\sdSet^G$,
+      or equivalently (\cite[Remark 4.41]{BP_edss}), if $\gamma^{\**}X$ is fibrant in the dendroidal Segal space model structure on $\sdSet^G$.
 \end{definition}
 
-There is a characterization of complete weak equivalences between $G$-Segal operads analogous to the Dwyer-Kan equivalences of simplicial operads. 
+We say a map $f$ in $\PreOp^G$ is a \textit{joint equivalence} (resp. \textit{normal monomorphism}) if
+$\gamma^{\**}f$ is a joint equivalence (resp. cofibration) in the joint model structure on $\sdSet^G$.
+
+There is a characterization of joint weak equivalences between $G$-Segal operads
+analogous to the Dwyer-Kan equivalences of simplicial operads (cf. Theorem \ref{SOPG_THM}).
+
 \begin{definition}%[{cf. \cite[Defn. 5.6,5.7]{BP_edss}}]
       Given a $G$-Segal operad $X$ and a $G$-corolla $C$,
-      $X(\partial \Omega[C])$ is a discrete simplicial set whose elements
-      are the \textit{$C$-signatures} $(c_1,\cdots,c_n;c_0)$ of $X$;
-      explicitly, for $C \simeq C_A$, $A = H_0/H_1 \amalg \dots \amalg H_0/H_n$, this is the data of
-      a list of objects $x_j \in X(\eta)^{H_j}$ for $0 \leq j \leq n$.
-
-      Given a $C$-signature $(x_1, \dots, x_n; x_0)$ of $X$, we define the \textit{mapping space} $X(x_1,\dots,x_n; x_0)$ as the pullback
+      a \textit{$C$-signature}
+      is a map $\partial \Omega[C] \to X$;
+      explicitly, this is a tuple
+      \[
+            (x_1, \dots, x_n; x_0) \in \prod_{G/H_j \cdot e_j \in \boldsymbol{E}_G(C)} X(\eta)^{H_j}
+      \]
+      Given a $C$-signature $(x_1, \dots, x_n; x_0)$ of $X$,
+      the \textit{mapping space} $X(x_1,\dots,x_n; x_0)$ is the pullback
       \[
             \begin{tikzcd}
                   X(x_1, \dots, x_n; x_0) \arrow[r] \arrow[d, twoheadrightarrow]
@@ -1362,7 +1375,6 @@ There is a characterization of complete weak equivalences between $G$-Segal oper
                   \prod_{j = 0}^n X(\eta)^{H_j}.
             \end{tikzcd}
       \]
-
       The map $X(\Omega[C]) \to X(\partial \Omega[C])$ hence yields
       a coproduct decomposition 
       \[
@@ -1372,88 +1384,96 @@ There is a characterization of complete weak equivalences between $G$-Segal oper
 \end{definition}
 
 \begin{definition}
-      Given a $G$-Segal operad $X$, define $ho(X) \in \dSet_G$ by
+      Given an $G$-Segal operad $X$, define $ho(X) \in \dSet_G$ by
       \[
             ho(X) = \pi_0\left(\upsilon_{\**}\gamma^{\**}X\right)
       \]
       with $\upsilon: \Omega \times G \to \Omega_G$, $\upsilon_{\**}: \dSet^G \to \dSet_G$.
+\end{definition}
 
+\begin{remark}
       Consider the composite inclusion $i_G: \Delta \times \mathsf O_G \to \Omega \times \mathsf O_G \to \Omega_G$.
       Then $i_G^{\**}ho(X)$ is a coefficient system of (nerves of) catgories by \cite[Prop. 5.9, Remark 5.11]{BP_edss}
-\end{definition}
+\end{remark}
 
 \begin{definition}
       A map $f \colon X \to Y$ of $G$-Segal operads is called
       \begin{enumerate}[label = (\roman*)]
-      \item \textit{fully-faithful} if for all $C \in \Sigma_G$ and all $C$-signatures $(x_1,\dots, x_n;x_0)$ of $X$, the induced map
+      \item \textit{fully-faithful} if for all $G$-corollas $C$ and all $C$-signatures $(x_1,\dots, x_n;x_0)$ of $X$, the induced map
             \[
                   X(x_1, \dots, x_n; x_0) \to Y(f(x_1), \dots, f(x_n); f(x_0))
             \]
             is a Kan equivalence of simplicial sets.
       \item \textit{essentially surjective} if the map 
       $i_G^{\**}ho(X) \to i_G^{\**}ho(Y)$ of $G$-coefficient systems of categories
-            is levelwse essentially surjective.
-      \item a \textit{Dwyer-Kan (DK) equivalence} if it is both fully-faithful and essentially surjective.
+            is levelwise essentially surjective.
+      \item a \textit{Dwyer-Kan equivalence} if it is both fully-faithful and essentially surjective.
       \end{enumerate}
 \end{definition}
 
 \todo[inline]{need a characterization of fibrations between fibrant objects for Remark \ref{W!_LEFTQ_REM}}
-The following summarizes \cite[Theorems 4.39, 4.42, and 5.48, and Corollary 5.51]{BP_edss},
-with left properness following from Theorem \ref{JB_THM} \ref{PROPER_LBL}.
-\begin{theorem}[\cite{BP_edss}]
-      \label{PREOPQE_THM}
-      The category $\mathsf{PreOp}^G$ has a left proper model structure such that
-      cofibrations and weak equivalences are determined by $\gamma^{\**}$.
-      The fibrant objects in $\mathsf{PreOp}^G$ are the Reedy-fibrant $G$-Segal operads,
-      and a map betwen fibrant objects is a weak equivalence iff it is a DK-equivalence.
-      
-      Moreover, the adjunction $\gamma^{\**} \colon \mathsf{PreOp}^G \rightleftarrows \mathsf{sdSet}^G \colon \gamma_{\**}$
-      is a Quillen equivalence.
-\end{theorem}
 
-\begin{lemma}
-      \label{FCOLIM_WE2_LEM}
-      Weak equivalences in $\mathsf{PreOp}^G$ are closed under filtered colimits.
-\end{lemma}
+\begin{theorem}
+      \label{PREOPMS_THM}
+      There is a model structure on $\PreOp^G$, called the \textit{normal model structure}, such that weak equivalences (resp. cofibrations) are the joint equivalences (resp. normal monomorphisms).
+      Moreover:
+      \begin{enumerate}
+      \item the normal model structure is left proper;
+      \item the fibrant objects are the Reedy fibrant $G$-Segal operads;
+      \item the adjunction $\gamma^{\**} \colon \PreOp^G \rightleftarrows \sdSet^G \colon \gamma_{\**}$ is a Quillen equivalence
+            between the normal model structure and the joint model structure on $\sdSet^G$.
+      \item weak equivalences in the normal model structure are closed under filtered colimits.
+      \item a map between Reedy fibrant $G$-Segal operads is a joint equivalence iff it is a Dwyer-Kan equivalence.
+      \end{enumerate}
+\end{theorem}
 \begin{proof}
-      This is an immediate corollary of Lemma \ref{FCOLIM_WE_LEM}.
+      The existence of the normal model structure follows from \cite[Thm. 4.39]{BP_edss}.
+      (i) follows immediately from Theorem \ref{JB_THM}\ref{PROPER_LBL}.
+      (ii) follows from \cite[Thm. 5.51]{BP_edss} (see \cite[Remark 4.48]{BP_edss}).
+      (iii) is \cite[Thm. 4.42]{BP_edss}.
+      (iv) follows from Lemma \ref{FCOLIM_WE_LEM}.
+      (v) is \cite[Theorem 5.48]{BP_edss} after (ii).
+\end{proof}
+
+We may strengthen condition (v).
+\begin{proposition}
+      A map between $G$-Segal operads is a joint equivalence iff it is a Dwyer-Kan equivalence.
+\end{proposition}
+\begin{proof}
+      Given a $G$-Segal operad $X$, consider a dendroidal Reedy fibrant replacement $X \to \tilde{X}$ such that $X(\eta) \simeq \tilde{X}(\eta)$. 
+      This means that all maps 
+      $X(\Omega[T]) \to \tilde{X}(\Omega[T])$ are Kan equivalences,
+      and moreover, by the following pullback diagram
+      \[
+            \begin{tikzcd}
+                  Z (Sc[T]) \ar{r} \ar{d} &
+                  \prod_{v \in \boldsymbol{V}_G(T)} Z
+                  (\Omega[T_v]) \ar{d}
+                  \\
+                  \prod_{(G/H_i \cdot e_i) \in \boldsymbol{E}_G(T)} 
+                  \mathfrak{C}^{H_i} \ar{r}  &
+                  \prod_{v \in \boldsymbol{V}_G(T)}
+                  \prod_{(G/H_i \cdot e_i) \in \boldsymbol{E}_G(T_v)} 
+                  \mathfrak{C}^{H_i} 
+                  \arrow[ul, phantom, "\lrcorner", very near start]
+            \end{tikzcd}
+      \]
+      for $Z \in \Preop^G$ and $\mathfrak C = Z(\eta)$,
+      so are the maps $X(Sc[T]) \to \tilde{X}(Sc[T])$.
+      This shows that $\tilde{X}$ is also a Segal operad, 
+      and thus a fibrant object in $\mathsf{PreOp}^G$.
+      
+      Furthermore, the Kan equivalences 
+      $X(\Omega[C]) \to \tilde{X}(\Omega[C])$
+      induce Kan equivalences 
+      $X(c_1,\cdots,c_n;c_0) \to \tilde{X}(c_1,\cdots,c_n;c_0)$.
+      The result then follows from Theorem \ref{PREOPMS_THM}(v).
 \end{proof}
 
 
-\begin{remark}\label{SEOPDK REM}
-Given a $G$-Segal operad $X$, consider a dendroidal Reedy fibrant replacement $X \to \tilde{X}$ such that $X(\eta) \simeq \tilde{X}(\eta)$. 
-This means that all maps 
-$X(\Omega[T]) \to \tilde{X}(\Omega[T])$ are Kan equivalences,
-and moreover, by the following pullback diagram
-\[
-\begin{tikzcd}
-	Z (Sc[T]) \ar{r} \ar{d} &
-	\prod_{v \in \boldsymbol{V}_G(T)} Z
-	(\Omega[T_v]) \ar{d}
-\\
-	\prod_{(G/H_i \cdot e_i) \in \boldsymbol{E}_G(T)} 
-	\mathfrak{C}^{H_i} \ar{r}  &
-	\prod_{v \in \boldsymbol{V}_G(T)}
-	\prod_{(G/H_i \cdot e_i) \in \boldsymbol{E}_G(T_v)} 
-	\mathfrak{C}^{H_i} 
-	\arrow[ul, phantom, "\lrcorner", very near start]
-\end{tikzcd}
-\]
-so are the maps $X(Sc[T]) \to \tilde{X}(Sc[T])$.
-This shows that $\tilde{X}$ is also a Segal operad, 
-and thus a fibrant object in $\mathsf{PreOp}^G$.
-
-Furthermore, the Kan equivalences 
-$X(\Omega[C]) \to \tilde{X}(\Omega[C])$
-induce Kan equivalences 
-$X(c_1,\cdots,c_n;c_0) \to \tilde{X}(c_1,\cdots,c_n;c_0)$.
-It then follows from \cite[Thm. 5.48, Cor. 5.51]{BP_edss} that the complete equivalences between Segal operads are precisely the Dwyer-Kan equivalences.
-\end{remark}
 
 
-
-
-
+We give an alternate {\color{red} back!}
 \begin{notation}
 	Let $U \in \Omega$ be a tree, $X \in \mathsf{PreOp}$
 	be a preoperad and
@@ -2282,10 +2302,16 @@ For later use, we record the following.
 
 
 
-\section{The Quillen equivalences}
+\section{Simplicial operads and the Quillen equivalences}
 \label{QE_SEC}
 
+In this section, we prove our main result, Theorem \ref{QE THM}, modulo a key lemma to be proved in Section \ref{KEYRES SEC}.
 
+We do so in two main steps.
+First, after recalling the Dwyer-Kan model structure on equivariant simplicial operads,
+we prove that the nerve functor is a right Quillen equivalence to 
+the tame model on $\PreOp^G$ from the previous section.
+This yields two Quillen equivalences between $\sOp^G$ and the joint Reedy model structure on $\sdSet^G$.
 
 
 
@@ -2368,6 +2394,7 @@ where weak equivalences are homotopically essentially surjective maps which have
 \end{notation}
 
 \begin{theorem}[{cf. \cite[Thm. III, Prop. 4.78]{BP_HGOP}}] % ISOFIBHARD PROP
+      \label{SOPG_THM}
       The category $\sOp^G$ is equipped with a cofibrantly generated model structure where the weak equivalences (resp. fibrations) are those maps
       $F \colon \O \to \P$ such that
       \begin{itemize}
@@ -6946,7 +6973,8 @@ come back
       $hcN(f)$ is an isofibration iff
       $i_G^{\**}ho(hcN(f)) = i_G^{\**} \pi_0(\upsilon_{\**}(N(f)))$ is so,
       but $N \colon \sOp^G \to \mathsf{PreOp}^G$ is right Quillen
-      and $i_G^{\**}\pi_0\upsilon_{\**}$ detects isofibrations in $\mathsf{PreOp}^G$.
+      and $i_G^{\**}\pi_0\upsilon_{\**}$ detects isofibrations in $\mathsf{PreOp}^G$
+      \todo[inline]{this isn't stated in \cite{BP_edss}, and needs to be proved}.
 \end{remark}
 
       
