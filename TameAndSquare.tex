@@ -1379,7 +1379,8 @@ analogous to the Dwyer-Kan equivalences of simplicial operads (cf. Theorem \ref{
       \]
       Given a $C$-signature $(x_1, \dots, x_n; x_0)$ of $X$,
       the \textit{mapping space} $X(x_1,\dots,x_n; x_0)$ is the pullback
-      \[
+      \begin{equation}
+            \label{MAPPINGX_EQ}
             \begin{tikzcd}
                   X(x_1, \dots, x_n; x_0) \arrow[r] \arrow[d, twoheadrightarrow]
                   &
@@ -1389,7 +1390,7 @@ analogous to the Dwyer-Kan equivalences of simplicial operads (cf. Theorem \ref{
                   &
                   \prod_{j = 0}^n X(\eta)^{H_j}.
             \end{tikzcd}
-      \]
+      \end{equation}
       The map $X(\Omega[C]) \to X(\partial \Omega[C])$ hence yields
       a coproduct decomposition 
       \[
@@ -1450,7 +1451,7 @@ analogous to the Dwyer-Kan equivalences of simplicial operads (cf. Theorem \ref{
       (v) is \cite[Theorem 5.48]{BP_edss} after (ii).
 \end{proof}
 
-We may strengthen condition (v).
+Conidition (v) holds more generally.
 \begin{proposition}
       A map between $G$-Segal operads is a joint equivalence iff it is a Dwyer-Kan equivalence.
 \end{proposition}
@@ -1509,6 +1510,24 @@ We give an alternate {\color{red} back!}
 \end{equation}	
 \end{notation}
 
+{\color{OliveGreen} % ----------
+  \begin{remark}
+        Given a $G$-Segal space $X$ and a $G$-corolla $C = (C_i)_{i \in I}$,
+        a $C$-profile $(x_1, \dots, x_n; x_0)$ on $X$ is equivalent to a $G$-map
+        $\boldsymbol{E}(C) \to X(\eta)$,
+        which in particular splits into maps $\boldsymbol{E}(C_i) \xrightarrow{\mathfrak c_i} X(\eta)$,
+        and \eqref{MAPPINGX_EQ} and \eqref{XUDEC EQ} combine to get
+        \[
+              X(x_1, \dots, x_n; x_0) \simeq \left( \prod_i X_{\mathfrak c_i}(C_i) \right)^G.
+        \]
+        In particular, a map of $G$-Segal spaces $f \colon X \to Y$ is fully-faithful iff
+        for each $n$, graph subgroup $\Gamma \leq G \times \Sigma_n$ supported on $H \leq G$,
+        and $H$-map $\boldsymbol{E}(C_\Gamma) \to X(\eta)$,
+        $X_{\mathfrak c}(C_\Gamma)^H \to Y_{f\mathfrak c}(C_\Gamma)^H$
+        is a Kan equivalence,
+        where $C_\Gamma \in \Omega^H$ is $C_n$ equipped with the $H$-action induced by $\Gamma$.
+  \end{remark}
+} % ----------
 
 
 
@@ -2320,25 +2339,27 @@ For later use, we record the following.
 \section{The Quillen equivalences}
 \label{QE_SEC}
 
-In this section, we prove our main result, Theorem \ref{QE THM}, modulo a key lemma to be proved in Section \ref{KEYRES SEC}.
+In this section, we prove our main result, Theorem \ref{QE THM}, modulo the key Lemma \ref{KEYPRVAR LEM}, to be proved in Section \ref{KEYRES SEC}.
 
-We do so in two main steps.
-First, after recalling the Dwyer-Kan model structure on equivariant simplicial operads,
-we prove that the nerve functor is a right Quillen equivalence to 
+We do so in two steps.
+After recalling the Dwyer-Kan model structure on equivariant simplicial operads in \S \ref{GSOP_SEC},
+we prove in Theorem \ref{PREQUIEQUIV THM} that the nerve functor is a right Quillen equivalence to 
 the tame model on $\PreOp^G$ from the previous section.
-This yields two Quillen equivalences between $\sOp^G$ and the joint Reedy model structure on $\sdSet^G$.
+This yields two zig-zags of Quillen equivalences between $\sOp^G$ and the joint Reedy model structure on $\sdSet^G$.
+To conclude our main result, we show that the two associated derived composites agree up to joint equivalence.
 
 
 
 
 \subsection{Equivariant simplicial operads}
+\label{GSOP_SEC}
 
 We denote by $\mathsf{sOp}^G$ the category of \textit{equivariant colored simplicial operads}, also know as \textit{$G$-objects in simplicially enriched muliticategories}.
 These are our standard model for equivariant operads with norms up to homotopy,
 and are algebras over a certain monad on the category of symmetric sequences.
 We recall some of this setup; further details and exposition can be found in \cite[\S 2]{BP_HGOP}.
 
-We begin non-equivariantly.
+
 \begin{definition}
       Let $\mathfrak C$ be a set. A \textit{$\mathfrak C$-signature} is a tuple
       $\vect C = (\mathfrak c_1, \dots, \mathfrak c_n; \mathfrak c_0) = (\mathfrak c_i)_{0 \leq i \leq n}$ in $\mathfrak C^{\times n+1}$.
@@ -2354,25 +2375,23 @@ and arrows $(\mathfrak C, X) \to (\mathfrak D, Y)$ are pairs $(\phi, \Phi)$ with
 $\phi \colon \mathfrak C \to \mathfrak D$ a $G$-map of colors and
 $\Phi \colon X \Rightarrow Y \phi$ a natural transformation.
 
-$\sSym$ is naturally fibered over $\Set$,
-and the free operad monad $\mathbb F$ yields an adjunction
-\[
-      \sSym \overset{\mathbb F}{\rightleftarrows} \sOp
-\]
-which is also fibered over $\Set$.
-
-By abstract nonsense, this lifts to a monadic adjunction on the categories of $G$-objects, as on the left below, fibered over $\Set^G$.
+The categories $\sSym$ and $\sOp$ are naturally fibered over $\Set$,
+and the free operad monad $\mathbb F$ yields a $\Set$-fibered monadic adjunction
+\( \sSym \overset{\mathbb F}{\rightleftarrows} \sOp. \)
+By abstract nonsense (cf. \cite[Prop. 2.35]{BP_HGOP}),
+this lifts to a monadic $\Set^G$-fibered adjunction on the categories of $G$-objects, as on the left below.
 \[
       \sSym^G \overset{\mathbb F}{\rightleftarrows} \sOp^G
       \qquad \qquad
       \sSym^G_{\mathfrak C} \overset{\mathbb F_{\mathfrak C}}{\rightleftarrows} \sOp^G_{\mathfrak C}
 \]
-On the fibers over $\mathfrak C \in \Set^G$, we have
-an induced monad $\mathbb F_{\mathfrak C}$ as on the right,
-where $\sSym^G_{\mathfrak C} \simeq \Fun(G \ltimes \Sigma_{\mathfrak C}^{op}, \sSet)$ and
-$G \ltimes \Sigma_{\mathfrak C}^{op}$ denoting category fibered over $G$ encoding the $G$-action on $\Sigma_{\mathfrak C}^{op}$ (e.g. \cite[Example 2.13]{BP_HGOP}).
+For each $\mathfrak C \in \Set^G$, we have a fiberwise monad $\mathbb F_{\mathfrak C}$ and associated monadic adjunction as on the right above.
+Moreover, we have an identification \cite[Prop. 2.52]{BP_HGOP}
+$\sSym^G_{\mathfrak C} \simeq \Fun(G \ltimes \Sigma_{\mathfrak C}^{op}, \sSet)$, where
+$G \ltimes \Sigma_{\mathfrak C}^{op}$ denotes the Grothendieck construction on the functor
+$G \to \Cat$ recording the $G$-action on $\Sigma_{\mathfrak C}$ (e.g. \cite[Example 2.13]{BP_HGOP}).
 
-For more information on fibered adjunctions, see \cite[\S 2.2]{BP_HGOP}.
+More information on fibered adjunctions can be found in \cite[\S 2.2]{BP_HGOP}.
 
 
 \begin{notation}
@@ -2380,13 +2399,13 @@ For more information on fibered adjunctions, see \cite[\S 2.2]{BP_HGOP}.
       letting $\mathfrak C_\O \in \Set^G$ denote the associated $G$-set of colors of $\O$.
 \end{notation}
 
-\begin{notation}
-      Let $\mathfrak C$ be a $G$-set, and $\vect C = (\mathfrak c_1, \dots, \mathfrak c_n; \mathfrak c_0)$ a $\mathfrak C$-signature.
-      Then $\Aut_{G \ltimes \Sigma_{\mathfrak C}}(\vect C) \leq G \times \Sigma_n$,
-      and for $\Gamma \leq G \times \Sigma_n$, we say \textit{$\Gamma$ stabilizes $\vect C$} if $\Gamma \leq \Aut(\vect C)$.
+Let $\mathfrak C$ be a $G$-set, and $\vect C = (\mathfrak c_1, \dots, \mathfrak c_n; \mathfrak c_0)$ a $\mathfrak C$-signature.
+Then $\Aut_{G \ltimes \Sigma_{\mathfrak C}}(\vect C) \leq G \times \Sigma_n$,
+and for $\Gamma \leq G \times \Sigma_n$, we say \textit{$\Gamma$ stabilizes $\vect C$} if $\Gamma \leq \Aut(\vect C)$.
 
-      In particular, $\O(\vect C)$ has an action by $\Gamma$ for all $\Gamma$ which stabilize $\vect C$.
-\end{notation}
+In particular, for any $\O \in \sOp^G_{\mathfrak C}$,
+$\O(\vect C)$ has an action by $\Gamma$ for all $\Gamma$ which stabilize $\vect C$.
+
 
 Generalizing the work of \cite{Ber07b,CM13b}, in \cite{BP_HGOP} we show that
 the category of equivariant simplicial operads is equipped with a Dwyer-Kan model structure,
@@ -2413,7 +2432,7 @@ where weak equivalences are homotopically essentially surjective maps which have
       The category $\sOp^G$ is equipped with a cofibrantly generated model structure where the weak equivalences (resp. fibrations) are those maps
       $F \colon \O \to \P$ such that
       \begin{itemize}
-      \item the induced maps
+      \item (fully faithful) the induced map
             \begin{equation}
                   \label{DKEQUIV_EQ}
                   \O(\mathfrak c_1, \dots, \mathfrak c_n; \mathfrak c_0)^\Gamma \longto \P(F \mathfrak c_1, \dots, F \mathfrak c_n; F \mathfrak c_0)^\Gamma
@@ -2421,7 +2440,7 @@ where weak equivalences are homotopically essentially surjective maps which have
             is a Kan equivalence (resp. Kan fibration) in $\sSet$
             for all $\mathfrak C_\O$-signatures $\vect C = (\mathfrak c_1, \dots, \mathfrak c_n; \mathfrak c_0)$
             and all \textit{graph subgroups} $\Gamma \leq G \times \Sigma_n$ which stabilize $\vect C$.
-      \item the induced maps of categories
+      \item (essentially surjective) the induced maps of categories
             \[
                   j^{\**}\pi_0 \O^H \longto j^{\**}\pi_0 \P^H
             \]
@@ -2429,24 +2448,27 @@ where weak equivalences are homotopically essentially surjective maps which have
       \end{itemize}
 \end{theorem}
 
-\todo[inline]{come back}
-
-Lastly, we have that cofibrant operads forget to cofibrant symmetric sequences.
-
-To that end, we briefly recall some equivariant homotopy theory.
+Moreover, we have that cofibrant operads forget to cofibrant symmetric sequences.
+To make this precise, we briefly recall some equivariant homotopy theory.
 \begin{definition}
-      A \textit{family} of subgroups of $G$ is a collection $\F$ of subgroups $H \leq G$ that is closed under subgroup and conjugation.
+      A collection $\F$ of subgroups $H \leq G$ is called a \textit{family}
+      if it is closed under subgroup and conjugation.
       Given any group $G$ and any family $\F$, the category $\sSet^G$ of $G$-simplicial sets has an \textit{$\F$-model structure},
       where a map $K \to L$ is a weak equivalence (resp. fibration) if
       $K^H \to L^H$ is a Kan equivalence (resp. Kan fibration) in $\sSet$ for all $H \in \F$.
 \end{definition}
 
-A subgroup $ \Gamma \leq G \times \Sigma_n^{op}$ is called a \textit{$G$-graph subgroup} if $\Gamma \cap \Sigma_n^{op} = \**$,
-or equivalently if $\Gamma = \sets{(h,\phi(h)^{-1})}{h \in H,\ \phi \colon H \to \Sigma_n}$ for some $H \leq G$.
-We denote the collection of $G$-graph subgroups by $\F^\Gamma_n$.
-
-More generally, if $\mathfrak C$ is a $G$-set and $\vect C$ is an $n$-ary $\mathfrak C$-signature,
-we write $\F^\Gamma_{\vect C} \subseteq \F^\Gamma_n$ for the subfamily of those $G$-graph subgroups $\Gamma$ which stabilize $\vect C$.
+We highlight an important system of famliles.
+\begin{definition}
+      Given finite groups $G$ and $\Sigma$, $\Gamma \leq G \times \Sigma^{op}$ is called a \textit{$G$-graph subgroup} if
+      $\Gamma \cap \Sigma^{op} = \**$,
+      or equivalently, if $\Gamma = \sets{(h,\phi(h)^{-1})}{h \in H,\ \phi \colon H \to \Sigma}$ for some $H \leq G$;
+      we call $H$ the \textit{support} of $\Gamma$.
+      
+      For $\Sigma = \Sigma_n$, we denote the collection of $G$-graph subgroups $\Gamma \leq G \times \Sigma_n$ by $\F^\Gamma_n$.
+      More generally, if $\mathfrak C$ is a $G$-set and $\vect C$ is an $n$-ary $\mathfrak C$-signature,
+      we write $\F^\Gamma_{\vect C} \subseteq \F^\Gamma_n$ for the subfamily of those $G$-graph subgroups $\Gamma \in \F^{\Gamma}_n$ which stabilize $\vect C$.
+\end{definition}
 
 \begin{definition}
       A map $\phi \colon X \to Y$ in $\sSym^G_{\mathfrak C}$ is called a \textit{$G$-graph cofibration} if
@@ -2465,7 +2487,7 @@ we write $\F^\Gamma_{\vect C} \subseteq \F^\Gamma_n$ for the subfamily of those 
 \end{proposition}
 
 Now, recall (e.g. \cite[Prop. 2.16]{Ste16}) that for any group $G$ and family of subgroups $\F$,
-a map $K \to L$ in $\sSet^{G}_\F$ is an $\F$-cofibration iff $L_n \setminus K_n$ has isotropy in $\F$; i.e. for all $x \in L_n \setminus K-n$, $\Stab_{G}(x) \in \F$. 
+a map $K \to L$ in $\sSet^{G}$ is an $\F$-cofibration iff $L_n \setminus K_n$ has isotropy in $\F$; i.e. for all $x \in L_n \setminus K-n$, $\Stab_{G}(x) \in \F$. 
 % 
 We also note the easy observation that for any set $A$ with an action of $G \times \Sigma$,
 $A$ has isotropy in the family $\F^\Gamma$ of $G$-graph subgroups
@@ -2495,22 +2517,12 @@ All together, we conclude the following (cf. \cite[Remark 6.7]{Per18}, \cite[dis
       Consequently, $\O \in \sOp^G$ is $\Sigma$-cofibrant iff $\O(n)$ has a free $\Sigma_n$-action for all $n \geq 0$.
 \end{proposition}
 
-\subsubsection{Simplicial tensoring and the generating cofibrations}
-
-To describe the generators of this model structure, we first recall
-the free operad $\Omega(T)$ generated by a $G$-tree, and
-the (fiberwise) simplicial (co)tensoring of $\sOp^G$.
-
-
-
-
-
-
 
 
 % ------------------------------ construction on $\Omega(T)$ ------------------------------
+We end this subsection with a discussion on the free operad $\Omega(T)$ generated by a $G$-tree $T \in \Omega_G$;
+more details can be found in \cite[\S 2.3.1 and \S 4.2]{BP_HGOP}). % {REPFUN_SEC}
 
-We begin with $\Omega(T)$; more details can be found in \cite[\S 2.3.1 and \S 4.2]{BP_HGOP}). % {REPFUN_SEC}
 Given $\vect C \in \Sigma_{\mathfrak C}$, we have a representable functor $\Sigma_{\mathfrak C}[\vect C] = \Sigma_{\mathfrak C}^{op}(\vect C, -)$ in $\Sym_{\mathfrak C}$.
 More generally, for any $\mathfrak C$-colored forest $\vect F$ (Definition \ref{CFOREST_DEF}), we define
 \[
@@ -2557,44 +2569,59 @@ and we have
 % given by the (ordered) image of the edges of $C$.
 % \todo[inline]{profile of a map? is this used in other places?}
 
-This extends to a fully-faithful functor $\Omega_G \into \Op_\bullet^G$.
+This extends to a fully-faithful functor $\Omega_G \into \Op^G$.
 %(in fact, this inclusion has been used as an alternative \textit{definition} of the category $\Omega$).
 
 \begin{remark}
       If $T \in \Omega_G$ has a decomposition $G \cdot T_{\**}/\Lambda$ for some graph subgroup $\Lambda \leq G \times \Aut(T_{\**})$,
-we have $\Omega(T) = \mathbb{F} \left( \Sigma_{\tau}[G \cdot C_n]/\Lambda \right)$. % (cf. \cite[\S 2.3]{BP_HGOP}).
+we have $\Omega(T) \simeq \mathbb{F} \left( \Sigma_{\tau}[G \cdot C_n]/\Lambda \right)$. % (cf. \cite[\S 2.3]{BP_HGOP}).
 \end{remark}
 
 \begin{notation}
-      For $T \in \Omega_G$,  let $\partial \Omega(T)$ denote $\mathbb F_{\boldsymbol{E}(T)}(\varnothing)$,
-      the unique $\boldsymbol{E}(T)$-colored operad with no non-identity operations.
+      For a $G$-corolla $C \in \Sigma_G$,
+      let $\partial \Omega(C)$ denote $\mathbb F_{\boldsymbol{E}(C)}(\varnothing)$,
+      the unique $\boldsymbol{E}(C)$-colored operad with no non-identity operations.
 \end{notation}
 
-% ------------------------------ simplicial (co)tensoring ------------------------------
 
-Next, we have a theory of (co)tensoring which parallels the discussion from \S \ref{FIBTENS_SEC} and \cite[Remark 4.13]{BP_HGOP}.
+\subsubsection*{Simplicial tensoring and generating cofibrations}
+As with the tame model structure on $\PreOp^G$,
+the generating cofibrations of $\sOp^G$ are built out of a fibered simplicial tensoring,
+parallel to that from \S \ref{FIBTENS_SEC} and \cite[Remark 4.13]{BP_edss}.
+
 \begin{definition}
       \label{COTENS_DEF}
       Given $\O \in \sOp$ and $K \in \sSet$, we define the pointwise simplicial cotensoring
       \( \set{K,\O}_\Set \in \sOp \) to have the same set $\mathfrak C_\O$ of colors as $\O$, with mapping spaces
-      \( \set{K, \O}_\Set (\vect C) = \left( \O(\vect C) \right)^K \). 
+      \( \set{K, \O}_\Set (\vect C) = [K, \O(\vect C)] \),
+      with $[K,-]$ denoting the internal-hom in $\sSet$.
 
       We note that $\set{K,-}_\Set \colon \sOp \to \sOp$ is a fibered right adjoint over $\Set$ which moreover preserves pullback arrows,
-      and thus the left adjoint, denoted $(-) \otimes_\Set K \colon \sOp \to \sOp$, is also fibered.
+      and thus by \cite[Prop. 2.24]{BP_HGOP} there exists a left adjoint, denoted $(-) \otimes_\Set K \colon \sOp \to \sOp$,
+      which is also $\Set$-fibered.
 \end{definition}
-Explicitly, we have the following pushout diagram in $\sOp$, where $\O \times K$ is the levelwise product $\O \times K(\vect C) = \O(C) \times K$.
+
+\todo[inline]{this pushout is very wrong}
+{\color{OliveGreen} % ----------
+        Explicitly, we have the following pushout diagram in $\sOp$.
 \begin{equation}
       \label{OPTENS_EQ}
       \begin{tikzcd}
-            \mathbb F(\mathfrak C_\O) \times K \arrow[d] \arrow[r]
+            \mathbb F_{\mathfrak C_\O}(\varnothing \cdot K) \arrow[d] \arrow[r]
             &
-            \mathbb F(\mathfrak C_\O) \arrow[d]
+            \mathbb F_{\mathfrak C_\O}(\varnothing) \arrow[d]
             \\
-            \O \times K \arrow[r]
+            {\color{red} \O \times K}
+            \arrow[r]
             &
             \O \otimes_\Set K
       \end{tikzcd}
 \end{equation}
+} % ----------
+
+\begin{remark}
+      In \cite[\S 7.1]{CM13b}, $\Omega(T) \otimes_{\Set} K$ was denoted $T[K]$.
+\end{remark}
 
 Tensoring and cotensoring is part of two-variable adjunction,
 and moreover induce an analogous two-variable adjunction on the categories of $G$-objects 
@@ -2606,14 +2633,17 @@ and moreover induce an analogous two-variable adjunction on the categories of $G
       \sOp^{G,op} \times \sOp^G \xrightarrow{[-,-]} \sSet^G
 \]
 by postcomposition.
-Cotensoring is still computed levelwsie, while tensoring given by the pushout \eqref{OPTENS_EQ} computed in $\sOp^G$;
-the $G$-actions on $\O^K$ and $\O \times K$ are defined ``diagonally'':
-\begin{equation}
-      \label{DIAGTENS_EQ}
-      \Hom_{\sSet}(K,\O(\vect C)) \xrightarrow{g_{\**}(g^{-1})^{\**}} \Hom_{\sSet}(K, \O(g \vect C)),
-      \qquad
-      \O(\vect C) \times K \xrightarrow{g \times g} \O(g \vect C) \times K.
-\end{equation}
+\todo[inline]{update the following}
+{\color{OliveGreen} % ----------
+  Cotensoring is still computed levelwsie, while tensoring given by the pushout \eqref{OPTENS_EQ} computed in $\sOp^G$;
+  the $G$-actions on $\O^K$ and $\O \times K$ are defined ``diagonally'':
+  \begin{equation}
+        \label{DIAGTENS_EQ}
+        \Hom_{\sSet}(K,\O(\vect C)) \xrightarrow{g_{\**}(g^{-1})^{\**}} \Hom_{\sSet}(K, \O(g \vect C)),
+        \qquad
+        \O(\vect C) \times K \xrightarrow{g \times g} \O(g \vect C) \times K.
+  \end{equation}
+} % ----------
 In particular we have the following.
 
 \begin{lemma}
@@ -2634,7 +2664,6 @@ In particular we have the following.
       %       \).
       % \end{enumerate}
       Then the three lifting problems below are equivalent,
-      where $\vect C$ is the $C$-profile of $\O$ induced by the map of colors $\phi \colon \boldsymbol{E}(T) \to \mathfrak C_\O = \mathfrak C$.
       \begin{equation}
             \resizebox{\textwidth}{!}{%
               \begin{tikzcd}[column sep = small, ampersand replacement = \&]
@@ -2666,6 +2695,10 @@ In particular we have the following.
               \end{tikzcd}
             }
       \end{equation}
+      where $\mathfrak C = \mathfrak C_\O$ and
+      $\vect C$ is the $\mathfrak C$-signature induced by
+      restricting the $G$-map of colors $\phi \colon \boldsymbol{E}(C) \to \mathfrak C$
+      to a single component $C_{\**}$ of $C = (C_i)$. 
 \end{lemma}
 
 We unpack the tensoring operation when $K \in \sSet^G$ is of the form $G/H \cdot K'$ for $K' \in \sSet$.
@@ -2706,23 +2739,18 @@ Standard adjunction and two-variable-adjunction arguments yield the following.
             = \left( G \cdot_H^{\mathfrak C} \Omega(C) \right) \otimes_\Set K.
       \end{equation}
 \end{lemma}
-{\color{OliveGreen} % ---------- OLIVE GREEN ----------
+{\color{OliveGreen} % ----------
   \begin{proof}
-        For the second equality, we have
-        \[
-              \sOp^G_{\mathfrak C}((G \cdot_H^{\mathfrak C} \Omega(C)) \otimes_\Set K, \O)
-              = \sOp_{\mathfrak C}^H(\Omega(C), \set{K,\O})
-              = \sOp_{\mathfrak C}^G(G \cdot_H^{\mathfrak C}(\Omega(C) \otimes_\Set K), \O)
-        \]
-        while for the first we have
-        \[
-              \sOp_{\mathfrak C}^G(G \cdot_H^{\mathfrak C}\Omega(C) \otimes_\Set K, \O)
-              = \sOp_{\mathfrak C}^H(\Omega(C), \set{K,\O})
-              = \sSet^H(K, \O^{\Omega(C)})
-              = \Op^G_{\mathfrak C}(\Omega(C) \otimes_\Set G/H \cdot K, \O).
-        \]      
+        This follows by the following string of canonical isomorphisms:
+        \begin{align*}
+          \sOp_{\boldsymbol{E}(C)}^G (\Omega(C) \otimes_{\Set}(G/H \cdot K), \O) %
+          & = \sSet^H(K, {[\Omega(C), \O]}_\Set) %
+            = \sOp_{\boldsymbol{E}(C)}^G \left(G \cdot_H^{\mathfrak C_\bullet} \left( \Omega(C) \otimes_{\mathfrak C_\bullet} K \right), \O \right)         \\ %
+          & = \sOp_{\boldsymbol{E}(C)}^H \left( \Omega(C), \set{K, \O}_{\mathfrak C_\bullet} \right)
+            = \sOp_{\boldsymbol{E}(C)}^G \left( (G \cdot_H^{\mathfrak C_{\bullet}} \Omega(C)) \otimes_{\mathfrak C_\bullet} K, \O \right). %
+        \end{align*}
   \end{proof}
-} % ---------- OLIVE GREEN ----------
+} % ----------
 
 \begin{lemma}
       \label{OPTENSCOF_LEM}
