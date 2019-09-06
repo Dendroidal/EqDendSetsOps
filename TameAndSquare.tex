@@ -1090,13 +1090,44 @@ There exists a left proper (cf. \cite[Prop. 8.8]{Per18}) model structure on $\dS
 
 
 
+\begin{remark}\label{GENDENSETADJ REM}
+	In addition to the category
+	$\mathsf{dSet}^G = \mathsf{Set}^{G \times \Omega^{op}}$
+	of equivariant dendroidal sets,
+	there is also a category
+	$\mathsf{dSet}_G = \mathsf{Set}^{\Omega_G^{op}}$,
+	which we call the category of 
+	\emph{genuine dendroidal sets}.
+	Writing
+	$\upsilon \colon G^{op} \times \Omega \to \Omega_G$
+	for the assignment
+	$U \mapsto G \cdot U$,
+	one has a reflexive adjunction 
+	\begin{equation}\label{GENDENSETADJ EQ}
+	\upsilon^{\**} \colon \dSet_G \rightleftarrows \dSet^G \colon \upsilon_{\**}
+	\end{equation}	
+	which identifies 
+	$\dSet^G$
+	as the subcategory of those objects in 
+	$\dSet_G$
+	that satisfy a fixed point condition.
+	
+	We conjecture that the adjunction 
+	\eqref{GENDENSETADJ EQ}
+	can be made into a Quillen equivalence,
+	with the main difficulty being that there are technical challenges to showing that $\dSet_G$ has a full model structure.
+	Nonetheless, 
+	the proof of Theorem \ref{DSETGMOD THM} itself
+	relies on an analysis of the homotopy theory of 
+	$\dSet_G$, 
+	and at some points in this paper we will need to deal with the fact that many natural constructions in the non-equivariant setting generalize to objects in 
+	$\dSet_G$ rather than in $\dSet^G$.
+\end{remark}
 
 
 
 
 \newpage
-
-
 
 
 
@@ -1387,6 +1418,9 @@ and Lemma \ref{FCOLIM_WE_LEM}.
 	
 	Moreover, this model structure is left proper
 	and weak equivalences are closed under filtered colimits.
+	
+	Lastly, the adjunction $\gamma^{\**} \colon \PreOp^G \rightleftarrows \sdSet^G \colon \gamma_{\**}$ is a Quillen equivalence
+	between the normal model structure and the joint model structure on $\sdSet^G$.
 \end{theorem}
 
 
@@ -1614,7 +1648,7 @@ cf. \cite[Def. 5.5]{CM13b}, \cite[Def. 4.40]{BP_edss}.
 
 
 
-\begin{remark}
+\begin{remark}\label{REPSEGOPS REM}
 Since discrete simplicial sets 
 $X(\eta)$ are Kan complexes,
 for any preoperad 
@@ -1642,8 +1676,6 @@ $\widetilde{X}$ is a Reedy fibrant Segal operad.
 \end{remark}
 
 
-{\color{red} HERE}
-
 
 We will show that joint equivalences 
 between Segal operads
@@ -1651,25 +1683,53 @@ admit a Dwyer-Kan type description
 in terms of fully faithfulness and essential surjectivity 
 conditions (cf. Theorem \ref{SOPG_THM}).
 To describe essential surjectivity,
-we now recall 
-
-{\color{red} HERE}
+we need to recall a discrete 
+algebraic structure associated to a Segal preoperad.
+In the following, we make use of the category
+$\mathsf{dSet}_G= \mathsf{Set}^{\Omega_G^{op}}$
+of genuine dendroidal sets from
+Remark \ref{GENDENSETADJ REM}
+as well as its obvious generalization
+$\mathsf{sdSet}_G= \mathsf{sSet}^{\Omega_G^{op}}$.
 
 
 
 \begin{definition}
-      Given a Segal operad $X \in \mathsf{PreOp}^G$,
-      define $ho(X) \in \dSet_G$ by
-      \[
-            ho(X) = \pi_0\left(\upsilon_{\**}\gamma^{\**}X\right)
-      \]
-      with $\upsilon: \Omega \times G \to \Omega_G$, $\upsilon_{\**}: \dSet^G \to \dSet_G$.
+	Given a Segal operad $X \in \mathsf{PreOp}^G$,
+	define its \emph{homotopy genuine operad} $ho(X) \in \dSet_G$ by
+\[
+	ho(X) = \pi_0\left(\upsilon_{\**}\gamma^{\**}X\right)
+\]
+	with 
+	$\upsilon_{\**}: \mathsf{sdSet}^G \to \mathsf{sdSet}_G$
+	and 
+	$\pi_0 \colon \mathsf{sdSet}_G \to \mathsf{dSet}_G$
+	defined in the natural way. 
 \end{definition}
 
+
 \begin{remark}
-      Consider the composite inclusion $i_G: \Delta \times \mathsf O_G \to \Omega \times \mathsf O_G \to \Omega_G$.
-      Then $i_G^{\**}ho(X)$ is a coefficient system of (nerves of) catgories by \cite[Prop. 5.9, Remark 5.11]{BP_edss}
+	The ``genuine operad'' moniker for 
+	$ho(X)\in \dSet_G$ refers to the fact that this presheaf satisfies a certain strict Segal condition, as shown in \cite[Prop. 5.9]{BP_edss}
+	(technically the cited result only covers the case of $X$ Reedy fibrant, but it is immediate that for 
+	$X,\widetilde{X}$ as in
+	Remark \ref{REPSEGOPS REM} it is $ho(X) \simeq ho(\widetilde{X})$).
+	
+	However, for our immediate purposes we will not need the full strength of this statement, 
+	but only a more familiar consequence.
+	Writing
+	$i_G \colon \Delta \times \mathsf{O}_G \to \Omega_G$
+	for the inclusion
+	$([n],G/H) \mapsto G/H \cdot [n]$,
+	one has 
+	$i_G^{\**}ho(X)
+	\in \mathsf{sSet}^{\mathsf{O}_G^{op}}$
+	and the Segal condition for $ho(X)$ implies that 
+	$i_G^{\**}ho(X)$
+	is a coefficient system of 
+	nerves of categories \cite[Rmk. 5.11]{BP_edss}.
 \end{remark}
+
 
 \begin{definition}
       A map $f \colon X \to Y$ of Segal operads in $\mathsf{PreOp}^G$ is called
@@ -1691,66 +1751,22 @@ we now recall
 \end{definition}
 
 
+
+The following then summarizes 
+\cite[Thms. 5.51 and 5.48]{BP_edss}
+({\color{red} needs a little more discussion to convert terminology}),
+which the additional fact that the ``further'' claim
+holds for all Segal operads, rather than just the Reedy fibrant ones, 
+following from Remark \ref{REPSEGOPS REM}.
+
+
 \begin{theorem}
-      \label{PREOPMS_THM}
-      There is a model structure on $\PreOp^G$, called the \textit{normal model structure}, such that weak equivalences (resp. cofibrations) are the joint equivalences (resp. normal monomorphisms).
-      Moreover:
-      \begin{enumerate}
-      \item the normal model structure is left proper;
-      \item the fibrant objects are the Reedy fibrant $G$-Segal operads;
-      \item the adjunction $\gamma^{\**} \colon \PreOp^G \rightleftarrows \sdSet^G \colon \gamma_{\**}$ is a Quillen equivalence
-            between the normal model structure and the joint model structure on $\sdSet^G$.
-      \item weak equivalences in the normal model structure are closed under filtered colimits.
-      \item a map between Reedy fibrant Segal operads is a joint equivalence iff it is a Dwyer-Kan equivalence.
-      \end{enumerate}
+	The fibrant objects in the normal model structure on 
+	$\mathsf{PreOp}^G$
+	are precisely the Reedy fibrant Segal operads.
+	
+	Further, a map between Segal operads is a joint equivalence iff it is a Dwyer-Kan equivalence.
 \end{theorem}
-
-\begin{proof}
-      The existence of the normal model structure follows from \cite[Thm. 4.39]{BP_edss}.
-      (i) follows immediately from Theorem \ref{JB_THM}\ref{PROPER_LBL}.
-      (ii) follows from \cite[Thm. 5.51]{BP_edss} (see \cite[Remark 4.48]{BP_edss}).
-      (iii) is \cite[Thm. 4.42]{BP_edss}.
-      (iv) follows from Lemma \ref{FCOLIM_WE_LEM}.
-      (v) is \cite[Theorem 5.48]{BP_edss} after (ii).
-\end{proof}
-
-Conidition (v) holds more generally.
-\begin{proposition}
-      A map between $G$-Segal operads is a joint equivalence iff it is a Dwyer-Kan equivalence.
-\end{proposition}
-\begin{proof}
-      Given a Segal operad $X$, consider a dendroidal Reedy fibrant replacement $X \to \tilde{X}$ such that $X(\eta) \simeq \tilde{X}(\eta)$. 
-      This means that all maps 
-      $X(\Omega[T]) \to \tilde{X}(\Omega[T])$ are Kan equivalences,
-      and moreover, by the following pullback diagram
-      \[
-            \begin{tikzcd}
-                  Z (Sc[T]) \ar{r} \ar{d} &
-                  \prod_{v \in \boldsymbol{V}_G(T)} Z
-                  (\Omega[T_v]) \ar{d}
-                  \\
-                  \prod_{(G/H_i \cdot e_i) \in \boldsymbol{E}_G(T)} 
-                  \mathfrak{C}^{H_i} \ar{r}  &
-                  \prod_{v \in \boldsymbol{V}_G(T)}
-                  \prod_{(G/H_i \cdot e_i) \in \boldsymbol{E}_G(T_v)} 
-                  \mathfrak{C}^{H_i} 
-                  \arrow[ul, phantom, "\lrcorner", very near start]
-            \end{tikzcd}
-      \]
-      for $Z \in \PreOp^G$ and $\mathfrak C = Z(\eta)$,
-      so are the maps $X(Sc[T]) \to \tilde{X}(Sc[T])$.
-      This shows that $\tilde{X}$ is also a Segal operad, 
-      and thus a fibrant object in $\mathsf{PreOp}^G$.
-      
-      Furthermore, the Kan equivalences 
-      $X(\Omega[C]) \to \tilde{X}(\Omega[C])$
-      induce Kan equivalences 
-      $X(c_1,\cdots,c_n;c_0) \to \tilde{X}(c_1,\cdots,c_n;c_0)$.
-      The result then follows from Theorem \ref{PREOPMS_THM}(v).
-\end{proof}
-
-
-
 
 
 
