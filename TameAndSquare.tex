@@ -1455,7 +1455,7 @@ and {\color{blue} will simplify our discussion of the nerve functor}.
 \\
 	\** \ar{r}[swap]{\mathfrak{c}} 
 &
-	X \left(\amalg_{A(\eta)} \Omega[\eta]\right)
+	X \left( \mathsf{sk}_{\eta} A \right)
 	\arrow[lu, phantom, "\lrcorner", very near start]
 &%%
 	\** \ar{r}[swap]{\mathfrak{c}} 
@@ -1754,7 +1754,7 @@ $\mathsf{sdSet}_G= \mathsf{sSet}^{\Omega_G^{op}}$.
 
 The following then summarizes 
 \cite[Thms. 5.51 and 5.48]{BP_edss}
-({\color{red} needs a little more discussion to convert terminology}),
+({\color{blue} needs a little more discussion to convert terminology/notation}),
 which the additional fact that the ``further'' claim
 holds for all Segal operads, rather than just the Reedy fibrant ones, 
 following from Remark \ref{REPSEGOPS REM}.
@@ -1789,145 +1789,180 @@ $\mathsf{PreOp}^G_{tame}$
 and 
 $\mathsf{sOp}^G$ in \S \ref{PREOPOPEQUIV SEC}.
 
+We first define the adjoint simplicial cotensoring,
+which admits a very simple description in terms
+of the $X_{\mathfrak{c}}(U)$ construction introduced in
+Notation \ref{XUDECALT NOT}
+and the identification 
+\eqref{PREOPCOLFIXEQ EQ}.
 
-
-
-{\color{red} HERE}
-
-
-
-
-
-
+{\color{blue} should introduce $\mathsf{sk}_\eta X$, $\mathsf{csk}_\eta X$ notation earlier}.
 
 \begin{definition}
-	Given $X \in \mathsf{PreOp}$ 
+	Given $X \in \mathsf{PreOp}^{G}_{\mathfrak{C}}$ 
 	and $K \in \mathsf{sSet}$
 	we define their
-	\emph{fiber cotensor}
-	$\left\{ K, X \right\}_{\mathsf{\mathfrak{C}_{\bullet}}} \in \mathsf{Preop}$
-	via the pullback
-	(where the left square simply evaluates the right square
-	at $U \in \Omega$)
-	\begin{equation}
-	\begin{tikzcd}
-	\left\{ K, X \right\}_{\mathsf{\mathfrak{C}_{\bullet}}} (U) \ar{r} \ar{d}
-	&
-	X(U)^K \ar{d}
-	&%%
-	\left\{ K, X \right\}_{\mathsf{\mathfrak{C}_{\bullet}}} \ar{r} \ar{d}
-	&
-	X^K \ar{d}
-	\\
-	\prod_{\boldsymbol{E}(U)} X(\eta) \ar{r}
-	&
-	\left(\prod_{\boldsymbol{E}(U)} X(\eta)\right)^K
-	\arrow[lu, phantom, "\lrcorner", very near start]
-	&%%
-	\mathsf{csk}_{\eta} X  \ar{r}
-	&
-	\left(\mathsf{csk}_{\eta} X\right)^K
-	\arrow[lu, phantom, "\lrcorner", very near start]
-	\end{tikzcd}
-	\end{equation}
-	Alternatively, using the $(-)_{\mathfrak{c}}(-)$ notation from 
-	\eqref{XUDEC EQ}, one has simply
+	\emph{fiber cotensor} 
+	$\left\{K, X \right\}_{\mathsf{\mathfrak{C}_{\bullet}}} \in \mathsf{Preop}^G_{\mathfrak{C}}$
+	by
 	\begin{equation}\label{EASYCOTEN EQ}
 	\left(
 	\left\{ K, X \right\}_{\mathsf{\mathfrak{C}_{\bullet}}}
 	\right)_{\mathfrak{c}} (U)
 	=
 	X_{\mathfrak{c}}(U)^K.
-	\end{equation}
+	\end{equation}	
+	for $U \in \Omega$ a tree and 
+	$\mathfrak{c} \colon \boldsymbol{E}(T) \to \mathfrak{C} =  X(\eta)$
+	a coloring.
+	
+	Alternatively, 
+	$\left\{K, X \right\}_{\mathsf{\mathfrak{C}_{\bullet}}}$
+	is given by the pullback in $\mathsf{sdSet}^G$
+	(where the left square simply evaluates the right square
+	at $U \in \Omega$)
+\begin{equation}
+\begin{tikzcd}
+	\left\{ K, X \right\}_{\mathsf{\mathfrak{C}_{\bullet}}} (U) \ar{r} \ar{d}
+&
+	X(U)^K \ar{d}
+&%%
+	\left\{ K, X \right\}_{\mathsf{\mathfrak{C}_{\bullet}}} \ar{r} \ar{d}
+&
+	X^K \ar{d}
+\\
+	\prod_{\boldsymbol{E}(U)} X(\eta) \ar{r}
+&
+	\left(\prod_{\boldsymbol{E}(U)} X(\eta)\right)^K
+	\arrow[lu, phantom, "\lrcorner", very near start]
+&%%
+	\mathsf{csk}_{\eta} X  \ar{r}
+&
+	\left(\mathsf{csk}_{\eta} X\right)^K
+	\arrow[lu, phantom, "\lrcorner", very near start]
+\end{tikzcd}
+\end{equation}
 \end{definition}
+
+
+
+\begin{definition}
+	Given $X \in \mathsf{PreOp}^{G}_{\mathfrak{C}}$ 
+	and $K \in \mathsf{sSet}$
+	we define their
+	\emph{fiber tensor}
+	$X \otimes_{\mathfrak{C}_{\bullet}} K
+	\in \mathsf{Preop}^G_{\mathfrak{C}}$
+	by the pushout in $\mathsf{sdSet}^G$
+\begin{equation}\label{PREOPTENS EQ}
+\begin{tikzcd}
+	\left(\mathsf{sk}_{\eta}X \right) \times K \ar{r} \ar{d} \arrow[dr, phantom, "\ulcorner", very near start]  
+&
+	\mathsf{sk}_{\eta}X \ar{d}
+\\
+	X \times K \ar{r} 
+& 
+	X \otimes_{\mathfrak{C}_{\bullet}} K.
+\end{tikzcd}
+\end{equation}
+More explicitly, 
+one has
+$(X \otimes_{\mathfrak{C}_{\bullet}} K)(U) = X(U) \times K$
+whenever $U$ is a non-linear tree 
+(equivalently, $\Omega(U,\eta)=\emptyset$)
+and that $(X \otimes_{\mathfrak{C}_{\bullet}} K)([n])$
+is given by the following pushout when $U=[n]$ is linear.
+\[
+\begin{tikzcd}
+	X(\eta) \times K \ar{r} \ar{d} \arrow[dr, phantom, "\ulcorner", very near start]  
+&
+	X(\eta) \ar{d}
+\\
+	X([n]) \times K \ar{r} 
+& 
+	(X \otimes_{\mathfrak{C}_{\bullet}} K)([n]) 
+\end{tikzcd}
+\]
+\end{definition}
+
+
+\begin{remark}
+	In \cite[\S 7.1]{CM13b}
+	the objects
+	$\Omega[T] \otimes_{\mathfrak{C}_{\bullet}} K$ were denoted 
+	$\Omega[K,T]$
+	and built by hand.
+\end{remark}
+
+
+\begin{remark}\label{OTIMCON REM}
+	If $K \in \mathsf{sSet}$ is connected,
+	comparing the left square in \eqref{GAMMASTAR_EQ}
+	with the square \eqref{PREOPTENS EQ} gives an identification
+	$\gamma_! \left(X \times K\right) \simeq 
+	X \otimes_{\mathfrak{C}_{\bullet}} K$.
+\end{remark}
+
+
+\begin{remark}\label{TENSCOADJ REM}
+	For each fixed $K \in \mathsf{sSet}$
+	the fiber tensor and cotensor 
+	determine an adjunction as on the left below.
+\[
+\begin{tikzcd}[column sep =50]
+	\mathsf{PreOp}^G \ar[shift left=1]{r}
+	{(-) \otimes_{\mathfrak{C}_{\bullet}} K}
+&
+	\mathsf{PreOp}^G \ar[shift left=1]{l}
+	{\{K,-\}_{\mathfrak{C}_{\bullet}}}
+&
+	\mathsf{PreOp}^G_{\mathfrak{C}} \ar[shift left=1]{r}
+	{(-) \otimes_{\mathfrak{C}_{\bullet}} K}
+&
+	\mathsf{PreOp}^G_{\mathfrak{C}} \ar[shift left=1]{l}
+	{\{K,-\}_{\mathfrak{C}_{\bullet}}}
+\end{tikzcd}
+\]
+Moreover, this adjunction is fibered over the color set functor
+$\mathfrak{C}_{\bullet} \colon
+\mathsf{PreOp}^G \to \mathsf{Set}^G$,
+which in particular means that for each fixed set of colors
+$\mathfrak{C}$
+one has a restricted adjunction as on the right above.
+\end{remark}
+
+\begin{remark}
+	Remark \ref{TENSCOADJ REM} implies that the fiber cotensor
+	$X \otimes_{\mathfrak{C}_{\bullet}} K$
+	preserves colimits on the $X$ variable.
+	However, some care is needed when dealing with the 
+	$K$ variable.
+	For each fixed color set $\mathfrak{C}$, one has that the functor
+\[
+\begin{tikzcd}[row sep = 0, column sep = 40pt]
+	\mathsf{PreOp}^G_{\mathfrak{C}} \times \mathsf{sSet} \ar{r}{(-)\otimes_{\mathfrak{C}_{\bullet}}(-)} 
+&
+	\mathsf{PreOp}^G_{\mathfrak{C}}
+\end{tikzcd}
+\]
+is part of a two-variable adjunction,
+which in particular means that
+$X \otimes_{\mathfrak{C}_{\bullet}} (-) \colon 
+\mathsf{sSet} \to \mathsf{PreOp}^G_{\mathfrak{C}}$ 
+(where $\mathfrak{C}=X(\eta)$)
+preserves colimits.
+On the other hand, this means that
+$X \otimes_{\mathfrak{C}_{\bullet}} (-) \colon
+\mathsf{sSet} \to \mathsf{PreOp}^G$
+only preserves those colimits which coincide in
+$\mathsf{PreOp}^G$ and $\mathsf{PreOp}^G_{\mathfrak{C}}$,
+namely the connected colimits.
+\end{remark}
 
 
 
 {\color{red} HERE}
 
-
-\begin{definition}
-	The \textit{fibered simplicial tensoring} 
-\[
-	\begin{tikzcd}[row sep = 0, column sep = 40pt]
-	\mathsf{PreOp}^G \times \mathsf{sSet} \ar{r}{(-)\otimes_{\mathsf{Set}}(-)} &
-	\mathsf{PreOp}^G
-	\end{tikzcd}
-\]
-	is defined by $(X \otimes_{\mathsf{Set}} K)(U) = X(U) \times K$
-	whenever $U$ is a non-linear tree 
-	(equivalently, $\Omega(U,\eta)=\emptyset$)
-	and is defined by the following pushout when $U=[n]$ is linear.
-\[
-	\begin{tikzcd}
-	X(\eta) \times K \ar{r} \ar{d} \arrow[dr, phantom, "\ulcorner", very near start]  &
-	X(\eta) \ar{d}
-	\\
-	X([n]) \times K \ar{r} & 
-	(X \otimes_{\mathsf{Set}} K)([n]) 
-	\end{tikzcd}
-\]
-\end{definition}
-
-
-
-\begin{remark}
-	More concisely, $X \otimes_{\mathsf{Set}} K$ is given by the pushout in $\mathsf{sdSet}^G$
-	\[
-	\begin{tikzcd}
-	\left(\mathsf{sk}_{\eta}X \right) \times K \ar{r} \ar{d} \arrow[dr, phantom, "\ulcorner", very near start]  &
-	\mathsf{sk}_{\eta}X \ar{d}
-	\\
-	X \times K \ar{r} & 
-	X \otimes_{\mathsf{Set}} K,
-	\end{tikzcd}
-	\]
-	where $\mathsf{sk}_{\eta}X$ is the 0-skeleton of $X$ in the equivariant dendroidal Reedy direction.
-	Explicitly, $\mathsf{sk}_{\eta}X(U) = X(\eta)$ if $U = [n]$ is a linear tree, 
-	and $\mathsf{sk}_\eta X(U) = \emptyset$ if $U$ is non-linear.
-\end{remark}
-
-
-
-\begin{remark}
-	In \cite[\S 7.1]{CM13b}, $\Omega(T) \otimes_{\mathsf{Set}} K \in \sOp$ and $\Omega[T] \otimes_{\mathsf{Set}} K \in \mathsf{PreOp}$ were denoted $T[K]$, $\Omega[K,T]$ respectively, and were constructed by hand.
-\end{remark}
-
-
-\begin{remark}
-	For fixed $K \in \mathsf{sSet}$, the functor
-	$(-) \otimes_{\mathsf{Set}} K
-	\colon \mathsf{PreOp}^G \to \mathsf{PreOp}^G$
-	preserves all colimits. 
-	% (indeed, it is not hard to build the right adjoint explicitly).
-	
-	However, for a fixed $X \in \mathsf{PreOp}^G$,
-	the functor 
-	$X \otimes_{\mathsf{Set}} (-)
-	\colon \mathsf{sSet} \to \mathsf{PreOp}^G$
-	does not preserve all colimits.
-	In particular, this functor can not preserve coproducts since, writing 
-	$\mathfrak{C} = X(\eta)$ for the $G$-set of objects of $X$,
-	the image of $X \otimes_{\mathsf{Set}} (-)$ is entirely contained in the subcategory
-	$\mathsf{PreOp}^{G}_{\mathfrak{C}} \subset
-	\mathsf{PreOp}^G$
-	of preoperads with $G$-set of objects $\mathfrak{C}$ and maps which are the identity on objects. 
-	Instead, one has that the functor 
-\[
-	X \otimes_{\mathsf{Set}} (-) \colon
-	\mathsf{sSet} \to \mathsf{PreOp}^{G}_{\mathfrak{C}}
-\]
-	does preserve colimits. 
-	In practice, this means that some standard arguments concerning tensor products can only be applied after adjusting the objects of the relevant preoperads
-	({\color{red} see later}).
-\end{remark}
-
-
-\begin{remark}\label{OTIMCON REM}
-	If $K \in \mathsf{sSet}$ is connected one has an identification
-	$\gamma_! \left(X \times K\right) \simeq 
-	X \otimes_{\mathsf{Set}} K$.
-\end{remark}
 
 
 
@@ -2527,6 +2562,12 @@ To conclude our main result, we show that the two associated derived composites 
 	where the first and fourth steps follow from Remark \ref{ALTNER REM},
 	and the fifth step is \eqref{EASYCOTEN EQ}.
 \end{proof}
+
+
+
+\begin{remark}
+	In \cite[\S 7.1]{CM13b}, $\Omega(T) \otimes_{\mathsf{Set}} K \in \sOp$ and $\Omega[T] \otimes_{\mathsf{Set}} K \in \mathsf{PreOp}$ were denoted $T[K]$, $\Omega[K,T]$ respectively, and were constructed by hand.
+\end{remark}
 
 
 
