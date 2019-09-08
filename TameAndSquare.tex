@@ -1325,10 +1325,14 @@ introduced and studied in \cite[\S 4 and \S 5]{BP_edss}.
 \begin{definition}
 	The category of \textit{(equivariant) preoperads} $\mathsf{PreOp}^G$ is the full subcategory of $\mathsf{sdSet}^G$ spanned by those $X$ such that
 	$X(\eta)$ is a discrete simplicial set.
-	
-	Moreover, we call $X(\eta)$ the 
-	\emph{color set} of $X$
-	and denote the associated \emph{color set functor} as below.
+\end{definition}
+
+
+
+\begin{definition}
+	Given $X \in \mathsf{PreOp}^G$ we call $X(\eta)$ the 
+	\emph{color set of $X$}
+	and denote the associated \emph{color set functor} as follows.
 	\begin{equation}\label{COLORSET EQ}
 	\begin{tikzcd}[row sep=0]
 	\mathsf{PreOp}^G \ar{r}{\mathfrak{C}_{\bullet}} &
@@ -1338,6 +1342,50 @@ introduced and studied in \cite[\S 4 and \S 5]{BP_edss}.
 	\mathfrak{C}_X = X(\eta)
 	\end{tikzcd}
 	\end{equation}
+
+Further, for each fixed $\mathfrak{C} \in \mathsf{Set}^G$ we write 
+$\mathsf{PreOp}^G_{\mathfrak{C}} \subset \mathsf{PreOp}^G$
+for the fiber subcategory of 
+\eqref{COLORSET EQ}
+over $\mathfrak{C}$,
+consisting of those $X$
+such that $X(\eta) = \mathfrak{C}$
+and maps that are the identity on colors.	
+	
+	
+	Lastly, for $f \colon \mathfrak{C} \to \mathfrak{D}$
+	be a map of $G$-sets of colors
+	we define adjoint functors
+	\[
+	f_{!} \colon
+	\mathsf{PreOp}^{G}_{\mathfrak{C}}
+	\rightleftarrows
+	\mathsf{PreOp}^{G}_{\mathfrak{D}}
+	\colon f^{\**}
+	\]
+	via the pushout and pullback squares below
+	(note that 
+	$\mathsf{sk}_{\eta} f_! A = \coprod_{\mathfrak{C}} \Omega[\eta]$ depends only on 
+	$\mathfrak{C}$ while 
+	$\mathsf{csk}_{\eta} f^{\**} X
+	= \prod_{\mathfrak{D}} \Omega[\eta]$ depends only on
+	$\mathfrak{D}$)
+	\[
+	\begin{tikzcd}
+	\mathsf{sk}_{\eta} A \ar{r} \ar{d} \arrow[dr, phantom, "\ulcorner", very near start]  &
+	\mathsf{sk}_{\eta} f_! A \ar{d}
+	&&
+	f^{\**} X \ar{r} \ar{d} &
+	X \ar{d}
+	\\
+	A \ar{r} & 
+	f_! A
+	&&
+	\mathsf{csk}_{\eta} f^{\**} X \ar{r} & 
+	\mathsf{csk}_{\eta} X
+	\arrow[ul, phantom, "\lrcorner", very near start]
+	\end{tikzcd}
+	\]
 \end{definition}
 
 
@@ -1355,12 +1403,34 @@ and a right adjoint $\gamma_{\**}$
             \ar[bend left]{l}{\gamma_{\**}}
       \end{tikzcd}
 \]
-described as follows:
+described by the following pushout and pullback squares.
+\begin{equation}\label{GAMMASTAR_EQ}
+\begin{tikzcd}
+	\mathsf{sk}_{\eta} X \ar{r} \ar{d} \arrow[dr, phantom, "\ulcorner", very near start]  
+&
+	\pi_0 \mathsf{sk}_{\eta} X \ar{d}
+&& 
+	\gamma_{\**}X \ar{r} \ar{d} 
+&
+	X \ar{d}
+\\
+	X \ar{r} 
+&
+	\gamma_! X 
+&&
+	\mathsf{csk}_{\eta} X_0
+	\ar{r} 
+&
+	\mathsf{csk}_{\eta} X 
+	\arrow[lu, phantom, "\lrcorner", very near start]
+\end{tikzcd}
+\end{equation}
+More explicitly: 
 $\gamma_{!}X (U) = X(U)$ if $U \not \in \Delta$
 in not linear
 while $\gamma_{!}X ([n])$ for $[n] \in \Delta$ linear is given by the pushout on the left below; 
 $\gamma_{\**}X(U)$ is given by the pullback on the right below.
-\begin{equation}\label{GAMMASTAR_EQ}
+\begin{equation}\label{GAMMASTAR2_EQ}
       \begin{tikzcd}
             X(\eta) \ar{r} \ar{d} \arrow[dr, phantom, "\ulcorner", very near start]  &
             \pi_0 X(\eta) \ar{d}
@@ -1530,15 +1600,9 @@ $X_{\mathfrak{c}}(U)$.
 
 
 \begin{remark}
-	Fix $\mathfrak{C}$
-	and let 
-	$\mathsf{PreOp}^G_{\mathfrak{C}} \subset \mathsf{PreOp}^G$
-	be the fiber subcategory of the color set functor
-	\eqref{COLORSET EQ}
-	over $\mathfrak{C}$,
-	consisting of those $X$
-	such that $X(\eta) = \mathfrak{C}$
-	and maps that are the identity on colors.
+	Fix $\mathfrak{C} \in \mathsf{Set}^G$
+	and consider the fiber subcategory 
+	$\mathsf{PreOp}^G_{\mathfrak{C}} \subset \mathsf{PreOp}^G$.
 	
 	For $U \in \Omega$, the decomposition
 	$X(U) = \coprod_{\mathfrak{c} \colon \boldsymbol{E}(U) \to \mathfrak{C}} X_{\mathfrak{c}}(U)$
@@ -1898,7 +1962,7 @@ is given by the following pushout when $U=[n]$ is linear.
 \begin{remark}\label{OTIMCON REM}
 	If $K \in \mathsf{sSet}$ is connected,
 	comparing the left square in \eqref{GAMMASTAR_EQ}
-	with the square \eqref{PREOPTENS EQ} gives an identification
+	with the square \eqref{PREOPTENS EQ} yields an identification
 	$\gamma_! \left(X \times K\right) \simeq 
 	X \otimes_{\mathfrak{C}_{\bullet}} K$.
 \end{remark}
@@ -1961,36 +2025,44 @@ namely the connected colimits.
 
 
 
-{\color{red} HERE}
-
-
-
 
 \begin{remark}\label{COLORTENSGAM REM}
 	Let $X \to Y$ be any map in $\mathsf{PreOp}^G$
 	which is the identity on colors and 
-	$K \in \mathsf{sSet}$. Then the squares below are pushout squares in $\mathsf{sdSet}^G$.
-	\[
-	\begin{tikzcd}
+	$K \in \mathsf{sSet}$. 
+	Then the top horizontal maps in \eqref{PREOPTENS EQ}
+	for $X,Y$ coincide, 
+	and likewise for the 
+	left square in \eqref{GAMMASTAR_EQ} for
+	$X \times K, Y \times K$.
+%
+	It thus follows that the squares below are pushout squares in $\mathsf{sdSet}^G$.
+\[
+\begin{tikzcd}
 	X \times K \ar{r} \ar{d} 
-	\arrow[dr, phantom, "\ulcorner", very near start] &
+	\arrow[dr, phantom, "\ulcorner", very near start] 
+&
 	\gamma_! \left( X \times K \right) \ar{r} \ar{d} 
-	\arrow[dr, phantom, "\ulcorner", very near start] &
-	X \otimes_{\mathsf{Set}} K \ar{d}
-	\\
-	Y \times K \ar{r} &
-	\gamma_! \left( Y \times K \right) \ar{r} &
-	Y \otimes_{\mathsf{Set}} K
-	\end{tikzcd}
-	\]
+	\arrow[dr, phantom, "\ulcorner", very near start] 
+&
+	X \otimes_{\mathfrak{C}_{\bullet}} K \ar{d}
+\\
+	Y \times K \ar{r} 
+&
+	\gamma_! \left( Y \times K \right) \ar{r} 
+&
+	Y \otimes_{\mathfrak{C}_{\bullet}} K
+\end{tikzcd}
+\]
 \end{remark}
+
 
 
 \begin{lemma}\label{OTIMSETPUSH LEM}
 	Let $f\colon X \to Y$ be a map in $\mathsf{PreOp}^G$
 	and $k \colon K \to L$ be a map in $\mathsf{sSet}$.
 
-	Then $\gamma^{\**}\left(f \square_{\mathsf{Set}} k\right)$
+	Then $\gamma^{\**}\left(f \square_{\mathfrak{C}_{\bullet}} k\right)$
 	is a pushout in $\mathsf{sdSet}^G$
 	of the map
 \[
@@ -2005,23 +2077,24 @@ namely the connected colimits.
 Since the left square below is a pushout square
 \[
 \begin{tikzcd}
-	X \otimes_{\mathsf{Set}} K \ar{r} \ar{d} 
+	X \otimes_{\mathfrak{C}_{\bullet}} K \ar{r} \ar{d} 
 	\arrow[dr, phantom, "\ulcorner", very near start]
 &
-	f_! X \otimes_{\mathsf{Set}} K \ar{r} \ar{d} 
+	f_! X \otimes_{\mathfrak{C}_{\bullet}} K \ar{r} \ar{d} 
 &
-	Y \otimes_{\mathsf{Set}} K \ar{d}
+	Y \otimes_{\mathfrak{C}_{\bullet}} K \ar{d}
 \\
-	X \otimes_{\mathsf{Set}} L \ar{r} 
+	X \otimes_{\mathfrak{C}_{\bullet}} L \ar{r} 
 &
-	f_! X \otimes_{\mathsf{Set}} L \ar{r} 
+	f_! X \otimes_{\mathfrak{C}_{\bullet}} L \ar{r} 
 &
-	Y \otimes_{\mathsf{Set}} L
+	Y \otimes_{\mathfrak{C}_{\bullet}} L
 \end{tikzcd}
 \]
 one has
-$(X \to Y) \otimes_{\mathsf{Set}} k \simeq 
-(f_!X \to Y) \otimes_{\mathsf{Set}} k$.
+$(X \to Y) \square_{\mathfrak{C}_{\bullet}} k 
+\simeq 
+(f_!X \to Y) \square_{\mathfrak{C}_{\bullet}} k$.
 And since $f_!X \to Y$ is the identity on colors,
 the result follows from Remark \ref{COLORTENSGAM REM}.
 	{\color{blue} plus some mumbo jumbo about cubes and pushouts}
@@ -2029,45 +2102,7 @@ the result follows from Remark \ref{COLORTENSGAM REM}.
 
 
 
-\begin{definition}
-	Let $f \colon \mathfrak{C} \to \mathfrak{D}$
-	be a map of $G$-sets (of colors).
-	We define adjoint functors
-	\[
-	f_{!} \colon
-	\mathsf{PreOp}^{G}_{\mathfrak{C}}
-	\rightleftarrows
-	\mathsf{PreOp}^{G}_{\mathfrak{D}}
-	\colon f^{\**}
-	\]
-	via the pushout and pullback squares
-	(note that $\mathsf{sk}_{\eta} f_! A$ depends only on 
-	$\mathfrak{C}$ while 
-	$\mathsf{csk}_{\eta} f^{\**} X$ depends only on
-	$\mathfrak{D}$)
-	\[
-	\begin{tikzcd}
-	\mathsf{sk}_{\eta} A \ar{r} \ar{d} \arrow[dr, phantom, "\ulcorner", very near start]  &
-	\mathsf{sk}_{\eta} f_! A \ar{d}
-	&&
-	f^{\**} X \ar{r} \ar{d} &
-	X \ar{d}
-	\\
-	A \ar{r} & 
-	f_! A
-	&&
-	\mathsf{csk}_{\eta} f^{\**} X \ar{r} & 
-	\mathsf{csk}_{\eta} X
-	\arrow[ul, phantom, "\lrcorner", very near start]
-	\end{tikzcd}
-	\]
-\end{definition}
-
-
-
-
-
-
+{\color{red} HERE}
 
 
 
