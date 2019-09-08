@@ -1325,10 +1325,14 @@ introduced and studied in \cite[\S 4 and \S 5]{BP_edss}.
 \begin{definition}
 	The category of \textit{(equivariant) preoperads} $\mathsf{PreOp}^G$ is the full subcategory of $\mathsf{sdSet}^G$ spanned by those $X$ such that
 	$X(\eta)$ is a discrete simplicial set.
-	
-	Moreover, we call $X(\eta)$ the 
-	\emph{color set} of $X$
-	and denote the associated \emph{color set functor} as below.
+\end{definition}
+
+
+
+\begin{definition}
+	Given $X \in \mathsf{PreOp}^G$ we call $X(\eta)$ the 
+	\emph{color set of $X$}
+	and denote the associated \emph{color set functor} as follows.
 	\begin{equation}\label{COLORSET EQ}
 	\begin{tikzcd}[row sep=0]
 	\mathsf{PreOp}^G \ar{r}{\mathfrak{C}_{\bullet}} &
@@ -1338,6 +1342,50 @@ introduced and studied in \cite[\S 4 and \S 5]{BP_edss}.
 	\mathfrak{C}_X = X(\eta)
 	\end{tikzcd}
 	\end{equation}
+
+Further, for each fixed $\mathfrak{C} \in \mathsf{Set}^G$ we write 
+$\mathsf{PreOp}^G_{\mathfrak{C}} \subset \mathsf{PreOp}^G$
+for the fiber subcategory of 
+\eqref{COLORSET EQ}
+over $\mathfrak{C}$,
+consisting of those $X$
+such that $X(\eta) = \mathfrak{C}$
+and maps that are the identity on colors.	
+	
+	
+	Lastly, for $f \colon \mathfrak{C} \to \mathfrak{D}$
+	be a map of $G$-sets of colors
+	we define adjoint functors
+	\[
+	f_{!} \colon
+	\mathsf{PreOp}^{G}_{\mathfrak{C}}
+	\rightleftarrows
+	\mathsf{PreOp}^{G}_{\mathfrak{D}}
+	\colon f^{\**}
+	\]
+	via the pushout and pullback squares below
+	(note that 
+	$\mathsf{sk}_{\eta} f_! A = \coprod_{\mathfrak{C}} \Omega[\eta]$ depends only on 
+	$\mathfrak{C}$ while 
+	$\mathsf{csk}_{\eta} f^{\**} X
+	= \prod_{\mathfrak{D}} \Omega[\eta]$ depends only on
+	$\mathfrak{D}$)
+	\[
+	\begin{tikzcd}
+	\mathsf{sk}_{\eta} A \ar{r} \ar{d} \arrow[dr, phantom, "\ulcorner", very near start]  &
+	\mathsf{sk}_{\eta} f_! A \ar{d}
+	&&
+	f^{\**} X \ar{r} \ar{d} &
+	X \ar{d}
+	\\
+	A \ar{r} & 
+	f_! A
+	&&
+	\mathsf{csk}_{\eta} f^{\**} X \ar{r} & 
+	\mathsf{csk}_{\eta} X
+	\arrow[ul, phantom, "\lrcorner", very near start]
+	\end{tikzcd}
+	\]
 \end{definition}
 
 
@@ -1355,12 +1403,34 @@ and a right adjoint $\gamma_{\**}$
             \ar[bend left]{l}{\gamma_{\**}}
       \end{tikzcd}
 \]
-described as follows:
+described by the following pushout and pullback squares.
+\begin{equation}\label{GAMMASTAR_EQ}
+\begin{tikzcd}
+	\mathsf{sk}_{\eta} X \ar{r} \ar{d} \arrow[dr, phantom, "\ulcorner", very near start]  
+&
+	\pi_0 \mathsf{sk}_{\eta} X \ar{d}
+&& 
+	\gamma_{\**}X \ar{r} \ar{d} 
+&
+	X \ar{d}
+\\
+	X \ar{r} 
+&
+	\gamma_! X 
+&&
+	\mathsf{csk}_{\eta} X_0
+	\ar{r} 
+&
+	\mathsf{csk}_{\eta} X 
+	\arrow[lu, phantom, "\lrcorner", very near start]
+\end{tikzcd}
+\end{equation}
+More explicitly: 
 $\gamma_{!}X (U) = X(U)$ if $U \not \in \Delta$
 in not linear
 while $\gamma_{!}X ([n])$ for $[n] \in \Delta$ linear is given by the pushout on the left below; 
 $\gamma_{\**}X(U)$ is given by the pullback on the right below.
-\begin{equation}\label{GAMMASTAR_EQ}
+\begin{equation}\label{GAMMASTAR2_EQ}
       \begin{tikzcd}
             X(\eta) \ar{r} \ar{d} \arrow[dr, phantom, "\ulcorner", very near start]  &
             \pi_0 X(\eta) \ar{d}
@@ -1530,15 +1600,9 @@ $X_{\mathfrak{c}}(U)$.
 
 
 \begin{remark}
-	Fix $\mathfrak{C}$
-	and let 
-	$\mathsf{PreOp}^G_{\mathfrak{C}} \subset \mathsf{PreOp}^G$
-	be the fiber subcategory of the color set functor
-	\eqref{COLORSET EQ}
-	over $\mathfrak{C}$,
-	consisting of those $X$
-	such that $X(\eta) = \mathfrak{C}$
-	and maps that are the identity on colors.
+	Fix $\mathfrak{C} \in \mathsf{Set}^G$
+	and consider the fiber subcategory 
+	$\mathsf{PreOp}^G_{\mathfrak{C}} \subset \mathsf{PreOp}^G$.
 	
 	For $U \in \Omega$, the decomposition
 	$X(U) = \coprod_{\mathfrak{c} \colon \boldsymbol{E}(U) \to \mathfrak{C}} X_{\mathfrak{c}}(U)$
@@ -1760,7 +1824,7 @@ holds for all Segal operads, rather than just the Reedy fibrant ones,
 following from Remark \ref{REPSEGOPS REM}.
 
 
-\begin{theorem}
+\begin{theorem}\label{FIBPREOP THM}
 	The fibrant objects in the normal model structure on 
 	$\mathsf{PreOp}^G$
 	are precisely the Reedy fibrant Segal operads.
@@ -1898,7 +1962,7 @@ is given by the following pushout when $U=[n]$ is linear.
 \begin{remark}\label{OTIMCON REM}
 	If $K \in \mathsf{sSet}$ is connected,
 	comparing the left square in \eqref{GAMMASTAR_EQ}
-	with the square \eqref{PREOPTENS EQ} gives an identification
+	with the square \eqref{PREOPTENS EQ} yields an identification
 	$\gamma_! \left(X \times K\right) \simeq 
 	X \otimes_{\mathfrak{C}_{\bullet}} K$.
 \end{remark}
@@ -1961,36 +2025,44 @@ namely the connected colimits.
 
 
 
-{\color{red} HERE}
-
-
-
 
 \begin{remark}\label{COLORTENSGAM REM}
 	Let $X \to Y$ be any map in $\mathsf{PreOp}^G$
 	which is the identity on colors and 
-	$K \in \mathsf{sSet}$. Then the squares below are pushout squares in $\mathsf{sdSet}^G$.
-	\[
-	\begin{tikzcd}
+	$K \in \mathsf{sSet}$. 
+	Then the top horizontal maps in \eqref{PREOPTENS EQ}
+	for $X,Y$ coincide, 
+	and likewise for the 
+	left square in \eqref{GAMMASTAR_EQ} for
+	$X \times K, Y \times K$.
+%
+	It thus follows that the squares below are pushout squares in $\mathsf{sdSet}^G$.
+\[
+\begin{tikzcd}
 	X \times K \ar{r} \ar{d} 
-	\arrow[dr, phantom, "\ulcorner", very near start] &
+	\arrow[dr, phantom, "\ulcorner", very near start] 
+&
 	\gamma_! \left( X \times K \right) \ar{r} \ar{d} 
-	\arrow[dr, phantom, "\ulcorner", very near start] &
-	X \otimes_{\mathsf{Set}} K \ar{d}
-	\\
-	Y \times K \ar{r} &
-	\gamma_! \left( Y \times K \right) \ar{r} &
-	Y \otimes_{\mathsf{Set}} K
-	\end{tikzcd}
-	\]
+	\arrow[dr, phantom, "\ulcorner", very near start] 
+&
+	X \otimes_{\mathfrak{C}_{\bullet}} K \ar{d}
+\\
+	Y \times K \ar{r} 
+&
+	\gamma_! \left( Y \times K \right) \ar{r} 
+&
+	Y \otimes_{\mathfrak{C}_{\bullet}} K
+\end{tikzcd}
+\]
 \end{remark}
+
 
 
 \begin{lemma}\label{OTIMSETPUSH LEM}
 	Let $f\colon X \to Y$ be a map in $\mathsf{PreOp}^G$
 	and $k \colon K \to L$ be a map in $\mathsf{sSet}$.
 
-	Then $\gamma^{\**}\left(f \square_{\mathsf{Set}} k\right)$
+	Then $\gamma^{\**}\left(f \square_{\mathfrak{C}_{\bullet}} k\right)$
 	is a pushout in $\mathsf{sdSet}^G$
 	of the map
 \[
@@ -2005,67 +2077,28 @@ namely the connected colimits.
 Since the left square below is a pushout square
 \[
 \begin{tikzcd}
-	X \otimes_{\mathsf{Set}} K \ar{r} \ar{d} 
+	X \otimes_{\mathfrak{C}_{\bullet}} K \ar{r} \ar{d} 
 	\arrow[dr, phantom, "\ulcorner", very near start]
 &
-	f_! X \otimes_{\mathsf{Set}} K \ar{r} \ar{d} 
+	f_! X \otimes_{\mathfrak{C}_{\bullet}} K \ar{r} \ar{d} 
 &
-	Y \otimes_{\mathsf{Set}} K \ar{d}
+	Y \otimes_{\mathfrak{C}_{\bullet}} K \ar{d}
 \\
-	X \otimes_{\mathsf{Set}} L \ar{r} 
+	X \otimes_{\mathfrak{C}_{\bullet}} L \ar{r} 
 &
-	f_! X \otimes_{\mathsf{Set}} L \ar{r} 
+	f_! X \otimes_{\mathfrak{C}_{\bullet}} L \ar{r} 
 &
-	Y \otimes_{\mathsf{Set}} L
+	Y \otimes_{\mathfrak{C}_{\bullet}} L
 \end{tikzcd}
 \]
 one has
-$(X \to Y) \otimes_{\mathsf{Set}} k \simeq 
-(f_!X \to Y) \otimes_{\mathsf{Set}} k$.
+$(X \to Y) \square_{\mathfrak{C}_{\bullet}} k 
+\simeq 
+(f_!X \to Y) \square_{\mathfrak{C}_{\bullet}} k$.
 And since $f_!X \to Y$ is the identity on colors,
 the result follows from Remark \ref{COLORTENSGAM REM}.
 	{\color{blue} plus some mumbo jumbo about cubes and pushouts}
 \end{proof}
-
-
-
-\begin{definition}
-	Let $f \colon \mathfrak{C} \to \mathfrak{D}$
-	be a map of $G$-sets (of colors).
-	We define adjoint functors
-	\[
-	f_{!} \colon
-	\mathsf{PreOp}^{G}_{\mathfrak{C}}
-	\rightleftarrows
-	\mathsf{PreOp}^{G}_{\mathfrak{D}}
-	\colon f^{\**}
-	\]
-	via the pushout and pullback squares
-	(note that $\mathsf{sk}_{\eta} f_! A$ depends only on 
-	$\mathfrak{C}$ while 
-	$\mathsf{csk}_{\eta} f^{\**} X$ depends only on
-	$\mathfrak{D}$)
-	\[
-	\begin{tikzcd}
-	\mathsf{sk}_{\eta} A \ar{r} \ar{d} \arrow[dr, phantom, "\ulcorner", very near start]  &
-	\mathsf{sk}_{\eta} f_! A \ar{d}
-	&&
-	f^{\**} X \ar{r} \ar{d} &
-	X \ar{d}
-	\\
-	A \ar{r} & 
-	f_! A
-	&&
-	\mathsf{csk}_{\eta} f^{\**} X \ar{r} & 
-	\mathsf{csk}_{\eta} X
-	\arrow[ul, phantom, "\lrcorner", very near start]
-	\end{tikzcd}
-	\]
-\end{definition}
-
-
-
-
 
 
 
@@ -2079,10 +2112,11 @@ the result follows from Remark \ref{COLORTENSGAM REM}.
 	are the saturation of the following maps
 	\begin{itemize}
 		\item[(TC1)] $G/H \cdot \left(\emptyset \to\Omega[\eta]\right)$ for $H\leq G$;
-		\item[(TC2)] $\Omega[C] \otimes_{\mathsf{Set}} \left(\partial \Delta[n] \to \Delta[n]\right)$ for $C \in \Sigma_G$, $n \geq 0$;
+		\item[(TC2)] 
+		$\Omega[C] \otimes_{\mathfrak{C}_{\bullet}} \left(\partial \Delta[n] \to \Delta[n]\right)$ for $C \in \Sigma_G$, $n \geq 0$;
 		\item[(TC3)] 
 		$\left( Sc[T] \to \Omega[T] \right) 
-		\square_{\mathsf{Set}} 
+		\square_{\mathfrak{C}_{\bullet}} 
 		\left(\partial \Delta[n] \to \Delta[n]\right)$ for $T \in \Omega_G$, $n \geq 0$.
 	\end{itemize}
 \end{definition}
@@ -2093,7 +2127,8 @@ the result follows from Remark \ref{COLORTENSGAM REM}.
 	is called a \emph{pseudo-interval}
 	if $I(\eta) = \{0,1\}$,
 	the map 
-	$\Omega[\eta] \amalg \Omega[\eta] \to I$
+	$\Omega[\eta] \amalg \Omega[\eta]
+	= \mathsf{sk}_{\eta} I \to I$
 	is a tame cofibration and the map
 	$I \to \Omega[\eta]$
 	is a weak equivalence.
@@ -2108,10 +2143,10 @@ the result follows from Remark \ref{COLORTENSGAM REM}.
 		\left(\Omega[\eta] \to I \right)$ for $H \leq G$
 		and $I \in \mathsf{PreCat}$
 		a countable pseudo-interval;
-		\item[(TA2)] $\Omega[C] \otimes_{\mathsf{Set}}\left(\Lambda^i[n] \to \Delta[n]\right)$ for $C \in \Sigma_G$, $0 \leq i \leq n$, $1 \leq n$;
+		\item[(TA2)] $\Omega[C] \otimes_{\mathfrak{C}_{\bullet}} \left(\Lambda^i[n] \to \Delta[n]\right)$ for $C \in \Sigma_G$, $0 \leq i \leq n$, $1 \leq n$;
 		\item[(TA3)] 
 		$\left( Sc[T] \to \Omega[T] \right) 
-		\square_{\mathsf{Set}} 
+		\square_{\mathfrak{C}_{\bullet}}
 		\left(\partial \Delta[n] \to \Delta[n]\right)$ for $T \in \Omega_G$, $n \geq 0$.
 	\end{itemize}
 \end{definition}
@@ -2152,6 +2187,7 @@ we collect a few lemmas.
 	Tame cofibrations (resp. tame anodyne cofibrations) are  cofibrations (resp. trivial cofibrations) in the normal model structure on $\mathsf{PreOp}^G$.
 \end{lemma}
 
+
 \begin{proof}
 	It suffices to check the given claims for the generating maps
 	in Definitions \ref{TAMEGENCOF DEF}, \ref{TAMEGENANO DEF}.
@@ -2174,7 +2210,6 @@ we collect a few lemmas.
 
 
 
-
 \begin{lemma}\label{TAMETRIVFIB LEM}
 	Any map $X \to Y$ which has the right lifting property against 
 	(TC1),(TC2),(TC3)
@@ -2194,52 +2229,60 @@ and the right lifting property against
 (TC2),(TC3) iff $X \to f^{\**}Y$ does.
 We argue separately that 
 $f^{\**} Y \to Y$ and $X \to f^{\**}Y$
-are complete equivalences.
+are joint equivalences.
 
 Consider first the map $f^{\**} Y \to Y$. Note now that $f^{\**} Y \to Y$ has the right lifting proper against all maps 
 $\left(\partial \Omega[T] \to \Omega[T] \right) \times \Delta[n]$.
-Indeed, if $T \simeq G/H \cdot \eta$ is a stick, this is precisely the lifting condition against (TC1), and otherwise it follows automatically since $\left(\partial \Omega[T] \to \Omega[T] \right) \times \Delta[n]$ is the identity on objects.
+Indeed, if $T \simeq G/H \cdot \eta$ is a stick $G$-tree,
+this is precisely the lifting condition against (TC1), and otherwise it follows automatically since $\left(\partial \Omega[T] \to \Omega[T] \right) \times \Delta[n]$ is the identity on objects.
 Therefore, the levels 
 $\left(f^{\**} Y \right)_n \to Y_n$ are trivial fibrations in 
 $\mathsf{dSet}^G$, showing that 
 $f^{\**} Y \to Y$ is a dendroidal equivalence, 
-and thus a complete equivalence. 
-
+and thus a joint equivalence. 
 
 Consider now the map $X \to f^{\**} Y$.
-The lifting property against (TC2) then says that the maps
-$X(\Omega[C]) \to f^{\**} Y (\Omega[C])$
-are trivial Kan fibrations for all $G$-corollas $C \in \Sigma_G$,
-and thus so are the maps
-$X(Sc[T]) \to f^{\**} Y (Sc[T])$ for all $G$-trees $T \in \Omega_G$.
+The lifting property against (TC2) 
+together with the decompositions in
+Remark \ref{COLDEC REM}
+then say that the maps
+$X_{\mathfrak{c}}(\Omega[C]) \to 
+(f^{\**} Y)_{\mathfrak{c}} (\Omega[C])$
+are trivial Kan fibrations for all $G$-corollas $C \in \Sigma_G$
+and colorings $\mathfrak{c} \colon \boldsymbol{E}(C) \to \mathfrak{C}$.
+Now consider a $G$-tree $T$ and coloring
+$\mathfrak{c} \colon \boldsymbol{E}(T) \to \mathfrak{C}$
+and consider the following diagram.
+\[
+\begin{tikzcd}
+X_{\mathfrak{c}}(\Omega[T]) \ar{r} \ar[->>]{d}{\sim}
+&
+X_{\mathfrak{c}}(Sc[T]) \ar{r}{\simeq} \ar[->>]{d}{\sim}
+&
+\prod_{v \in \boldsymbol{V}_G(T)} 
+X_{\mathfrak{c}_v}(\Omega[T_v])
+\ar[->>]{d}{\sim}
+\\
+(f^{\**} Y)_{\mathfrak{c}}(\Omega[T]) \ar{r}
+&
+(f^{\**} Y)_{\mathfrak{c}}(Sc[T]) \ar{r}{\simeq} 
+&
+\prod_{v \in \boldsymbol{V}_G(T)} 
+(f^{\**} Y)_{\mathfrak{c}_v}
+(\Omega[T_v]) 
+\arrow[ul, phantom, "\lrcorner", very near start]
+\end{tikzcd}
+\]
+The discussion above shows that the rightmost map is a trivial Kan fibration,
+and thus so is 
+$X(Sc[T]) \to f^{\**} Y (Sc[T])$.
 But it now follows from the lifting property against
 (TC3) that the maps 
 $X(\Omega[T]) \to f^{\**} Y (\Omega[T])$
 are trivial Kan fibrations for all $G$-trees,
-showing that $X \to f^{\**} Y$ is a simplicial equivalence, and thus a complete equivalence. 
-\[
-\begin{tikzcd}
-X(\Omega[T]) \ar{r} \ar[->>]{d}{\sim} &
-X(Sc[T]) \ar{r} \ar[->>]{d}{\sim} &
-\prod_{v \in \boldsymbol{V}_G(T)} X(\Omega[T_v])
-\ar[->>]{d}{\sim}
-\\
-f^{\**} Y(\Omega[T]) \ar{r} &
-f^{\**} Y(Sc[T]) \ar{r} \ar{d} &
-\prod_{v \in \boldsymbol{V}_G(T)} f^{\**} Y
-(\Omega[T_v]) \ar{d}
-\arrow[ul, phantom, "\lrcorner", very near start]
-\\
-&
-\prod_{(G/H_i \cdot e_i) \in \boldsymbol{E}_G(T)} 
-\mathfrak{C}^{H_i} \ar{r}  &
-\prod_{v \in \boldsymbol{V}_G(T)}
-\prod_{(G/H_i \cdot e_i) \in \boldsymbol{E}_G(T_v)} 
-\mathfrak{C}^{H_i} 
-\arrow[ul, phantom, "\lrcorner", very near start]
-\end{tikzcd}
-\]
+showing that $X \to f^{\**} Y$ is a simplicial equivalence, and thus a joint equivalence. 
 \end{proof}
+
 
 
 \begin{remark}\label{TC2TC3REP REM}
@@ -2347,7 +2390,7 @@ Firstly, a countable replacement can be obtained by adapting
 either the argument
 between Lemmas 4.2 and 4.3 of
 \cite{Ber07}
-or the more complex argument in the proof of 
+or the more refined argument in the proof of 
 \cite[Lemma 5.1.7]{HSS}.
 Briefly, since the spaces $J'(\vect{T})$
 are all contractible,
@@ -2389,12 +2432,10 @@ Definition \ref{PSEUINT DEF}.
 
 
 
-
-
 \begin{proof}[Proof of Theorem \ref{TAMEMS_THM}]
 	We first note that, assuming the existence of the tame model structure,
 	the ``moreover'' claim
-	follows immediately from the fact that weak equivalences in the two model structures coincide together with  
+	follows immediately from the fact that weak equivalences in the two model structures coincide, together with  
 	Lemma \ref{TAMECOFCOF_LEM},
 	which provides the remaining claim that tame cofibrations are normal cofibrations.
 	
@@ -2430,7 +2471,9 @@ Lemma \ref{TAMECOFCOF_LEM}.
 Lastly, we check nc2.
 The lifting condition against (TA3) says that $J$-fibrant objects are such that the maps $X(\Omega[T]) \to X(Sc[T])$
 are trivial fibrations, and thus that such $X$ are Segal operads.
-Therefore, by Remark \ref{SEOPDK REM} it suffices to check that $J$-fibrations between Segal operads which are also DK equivalences have the right lifting property against the maps in (TC1),(TC2),(TC3).
+Therefore, by the ``further'' statement in
+Theorem \ref{FIBPREOP THM} 
+it suffices to check that $J$-fibrations between Segal operads which are also DK equivalences have the right lifting property against the maps in (TC1),(TC2),(TC3).
 Given $X \to Y$ a $J$-fibration with $J$-fibrant $Y$,
 the lifting property against (TC3) is tautological since 
 (TC3) equals (TA3).
@@ -2487,9 +2530,12 @@ For later use, we record the following.
 
 
 
-
 \section{The Quillen equivalences}
 \label{QE_SEC}
+
+
+{\color{red} HERE}
+
 
 In this section, we prove our main result, Theorem \ref{QE THM}, modulo the key Lemma \ref{KEYPRVAR LEM}, to be proved in Section \ref{KEYRES SEC}.
 
