@@ -651,10 +651,9 @@ are defined in the obvious way as
 \end{definition}
 
 
-\begin{definition}
-      \label{CFOREST_DEF}
+\begin{definition}\label{CFOREST_DEF}
       Let $\mathfrak C$ be a set of colors.
-      The category $\Phi_{\mathfrak C}$ of \textit{$\mathfrak C$-colored forests} has
+      The category $\Phi_{\mathfrak C}$ of \textit{$\mathfrak C$-forests} has
       \begin{itemize}
       \item objects pairs $\vect F = (F, \mathfrak c)$ with
             $F \in \Phi$ a forest and
@@ -667,6 +666,19 @@ are defined in the obvious way as
       Moreover, we denote by
       $\Phi_\bullet^0 \subseteq \Phi_\bullet$
       the wide subcategory of those arrows whose maps on uncolored forests are outer faces.
+      
+      Moreover, we write
+      $\Omega_{\mathfrak{C}} \subset \Phi_{\mathfrak{C}}$,
+      which we call the category of 
+      \emph{$\mathfrak{C}$-trees},
+      for the full subcategory spanned by the objects 
+      whose underlying forest is a tree,
+      and 
+      $\Sigma_{\mathfrak{C}} \subset \Omega_{\mathfrak{C}}$,
+      which we call the category of 
+      \emph{$\mathfrak{C}$-corollas},
+      for the further subcategory of objects whose underlying tree is a corolla
+      and whose maps are isomorphisms.
 \end{definition}
 
 
@@ -2534,23 +2546,18 @@ For later use, we record the following.
 \label{QE_SEC}
 
 
-{\color{red} HERE}
-
-
 In this section we prove our main result, Theorem \ref{QE THM},
 modulo the key Lemma \ref{KEYPRVAR LEM}, 
 which will be proved in \S \ref{KEYRES SEC}.
 
+
 We do so in two steps.
 After recalling the Dwyer-Kan model structure on equivariant simplicial operads in \S \ref{GSOP_SEC},
-we prove in Theorem \ref{PREQUIEQUIV THM} that the nerve functor is a right Quillen equivalence to 
-the tame model on $\PreOp^G$ from \S \ref{TAMEDEFEX SEC}.
-This yields two zig-zags of Quillen equivalences between $\sOp^G$ and the joint Reedy model structure on $\sdSet^G$.
+we prove in Theorem \ref{PREQUIEQUIV THM} that the nerve functor is a right Quillen equivalence 
+between $\mathsf{sOp}^G$ and  
+the tame model structure on $\PreOp^G$ from \S \ref{TAMEDEFEX SEC}.
+This yields two zigzags of Quillen equivalences between $\sOp^G$ and the joint Reedy model structure on $\sdSet^G$.
 To conclude our main result, we show that the two associated derived composites agree up to joint equivalence.
-
-
-{\color{red} HERE}
-
 
 
 
@@ -2558,29 +2565,165 @@ To conclude our main result, we show that the two associated derived composites 
 \subsection{Equivariant simplicial operads}
 \label{GSOP_SEC}
 
-We denote by $\mathsf{sOp}^G$ the category of \textit{$G$-equivariant colored simplicial operads}.
-These can be built as algebras over a certain monad on the category of symmetric sequences.
-We recall some of this setup; further details and exposition can be found in \cite[\S 2]{BP_HGOP}.
+We will write $\mathsf{sOp}^G = \mathsf{Op}^{G}(\mathsf{sSet})$
+for the 
+category of \textit{$G$-equivariant colored simplicial operads}.
+There are several possible descriptions of this category:
+as the algebras for a \emph{composition product $\circ$};
+as the algebras for a \emph{free operad monad} $\mathbb{F}$;
+as the subcategory of preoperads that satisfy a \emph{strict Segal condition}.
+
+Our primary goal in this section is to recall (and slightly repackage) the model structure on $\mathsf{sOp}^G$ built in 
+\cite{BP_HGOP}.
+The work in loc. cit. is based on the free operad monad perspective on 
+$\mathsf{sOp}^G$, which is technically involved,
+but in this paper we will only need a brief overview of that perspective.
+%
+Instead, and in preparation for the proof of the Quillen equivalence
+$\mathsf{PreOp}^G \rightleftarrows \mathsf{sOp}^G$
+in \S \ref{PREOPOPEQUIV SEC},
+we will find it useful in this section to also make use of the 
+strict Segal condition perspective,
+which also plays a key role on both 
+Appendices \ref{WCONS AP},\ref{HGEO AP}.
+
+
+We start by recalling the category 
+$\Sigma_{\mathfrak{C}}$
+of $\mathfrak{C}$-corollas (cf. Definition \ref{CFOREST_DEF}).
+A typical object in $\Sigma_{\mathfrak{C}}$
+is given by a 
+$\mathfrak{C}$-colored corolla as on the left below.
+Then letting $n$ be the number of leaves of $\vect{C}$,
+which we call the \emph{arity of $\vect{C}$},
+and $\sigma \in \Sigma_n$,
+the picture below depicts a 
+generic map in $\Sigma_{\mathfrak{C}}$.
+\begin{equation}\label{CSYM EQ2}
+\begin{tikzpicture}
+[grow=up,auto,level distance=2.3em,every node/.style = {font=\footnotesize},dummy/.style={circle,draw,inner sep=0pt,minimum size=1.75mm}]
+
+\node at (0,0) [font=\normalsize]{$\vect{C}$}
+child{node [dummy] {}
+	child{
+		edge from parent node [swap,near end] {$\mathfrak c_n$} node [name=Kn] {}}
+	child{
+		edge from parent node [near end] {$\mathfrak c_1$}
+		node [name=Kone,swap] {}}
+	edge from parent node [swap] {$\mathfrak c_0$}
+};
+\draw [dotted,thick] (Kone) -- (Kn) ;
+\node at (5,0) [font=\normalsize] {$\vect{C} \sigma^{-1}
+	$}
+child{node [dummy] {}
+	child{
+		edge from parent node [swap,near end] {$\mathfrak c_{\sigma^{-1}(n)}$} node [name=Kn] {}}
+	child{
+		edge from parent node [near end] {$\mathfrak c_{\sigma^{-1}(1)}$}
+		node [name=Kone,swap] {}}
+	edge from parent node [swap] {$\mathfrak c_0$}
+};
+\draw [dotted,thick] (Kone) -- (Kn) ;
+
+\draw[->] (1.5,0.8) -- node{$\sigma$} (3,0.8);
+\end{tikzpicture}
+\end{equation}
+Alternatively,
+$\mathfrak{C}$-corollas can be represented simply as
+strings in $\mathfrak{C}$,
+which we call $\mathfrak{C}$-profiles
+(cf. Remark \ref{MAPSPTRANS REM}).
+In profile notation, 
+\eqref{CSYM EQ2} then becomes
+\begin{equation}\label{CSYM EQ1}
+\vect{C} =
+(\mathfrak c_1, \dots, \mathfrak c_n; \mathfrak c_0) \xrightarrow{\sigma} (\mathfrak c_{\sigma^{-1}(1)}, \dots, \mathfrak c_{\sigma^{-1}(n)}; \mathfrak c_0)
+= \vect{C} \sigma^{-1}.
+\end{equation}
+For this reason, we also refer to 
+$\Sigma_{\mathfrak{C}}$ as the 
+$\mathfrak{C}$-symmetric category,
+
+Lastly, we note that the notation
+$\vect{C} \sigma^{-1}$ used above
+comes from the natural right action of $\Sigma_n$
+on $\mathfrak{C}$-profiles of arity $n$ via
+$
+(\mathfrak c_1, \dots, \mathfrak c_n; \mathfrak c_0) \sigma
+=
+(\mathfrak c_{\sigma(1)}, \dots, \mathfrak c_{\sigma(n)}; \mathfrak c_0)$.
 
 
 \begin{definition}
-      Let $\mathfrak C$ be a set. A \textit{$\mathfrak C$-signature} is a tuple
-      $\vect C = (\mathfrak c_1, \dots, \mathfrak c_n; \mathfrak c_0) = (\mathfrak c_i)_{0 \leq i \leq n}$ in $\mathfrak C^{\times n+1}$.
-      The \textit{$\mathfrak C$-symmetric category} is the category denoted $\Sigma_{\mathfrak C}$ with
-      objects $\mathfrak C$-signatures and
-      arrows $\vect C = (\mathfrak c_i)_{0 \leq i \leq n} \to (\mathfrak d_j)_{0 \leq j \leq m} = \vect D$
-      given by $\sigma \in \Sigma_n$ such that $\mathfrak c_{\sigma i} = \mathfrak d_i$ if $n = m$, with no arrows otherwise.
+	The category $\mathsf{sSym}$ of \textit{simplicial symmetric sequences} has:
+\begin{itemize}
+	\item objects given by pairs
+	$(\mathfrak C, X)$ with $\mathfrak{C} \in \mathsf{Set}$
+	a set of colors and
+	$\Sigma_{\mathfrak C}^{op} \xrightarrow{X}\sSet$
+	a functor; 
+	\item a map
+	$(\mathfrak{C},X) \to (\mathfrak{D},Y)$
+	given by a map of colors
+	$\varphi \colon \mathfrak{C} \to \mathfrak{D}$
+	and $\Phi$ as below.
+\begin{equation}
+\begin{tikzcd}[row sep = tiny, column sep = 45pt]
+	\Sigma_{\mathfrak{C}}^{op} \arrow[dr, "X"{name=U}] 
+	\arrow{dd}[swap]{\varphi}
+\\
+	& \mathcal{V}
+\\
+	|[alias=V]| \Sigma_{\mathfrak{D}}^{op} \arrow[ur, "Y"']
+\arrow[Leftarrow, from=V, to=U,shorten >=0.25cm,shorten <=0.25cm, swap,"\Phi"]
+\end{tikzcd}
+\end{equation}
+\end{itemize} 
 \end{definition}
 
 
-The category $\mathsf{sSym}$ of \textit{simplicial symmetric sequences} has
-objects pairs $(\mathfrak C, X)$ with $X \colon \Sigma_{\mathfrak C}^{op} \to \sSet$,
-and arrows $(\mathfrak C, X) \to (\mathfrak D, Y)$ are pairs $(\phi, \Phi)$ with
-$\phi \colon \mathfrak C \to \mathfrak D$ a $G$-map of colors and
-$\Phi \colon X \Rightarrow Y \phi$ a natural transformation.
+
+The free operad monad $\mathbb{F}$
+is then a monad on $\mathsf{sSym}$ which,
+when evaluated on $X \colon \Sigma_{\mathfrak{C}}^{op} \to \mathsf{sSet}$,
+is given by the left Kan extension
+(the real challenge, of course, is that of defining the multiplication
+$\mathbb{F}\mathbb{F} \Rightarrow \mathbb{F}$)
+\begin{equation}\label{FREEOP_EQ}
+\begin{tikzcd}[column sep = 150pt]
+	\Omega^{0,op}_{\mathfrak{C}}
+	\arrow[d, "\mathsf{lr}^{op}"']
+	\arrow[r, 
+	"\vect{T} \mapsto \prod_{v \in \boldsymbol{V}(T)} X(\vect{T}_v)"{name=U}]
+&
+	\mathsf{sSet}
+\\
+	|[alias=V]|
+	\Sigma^{op}_{\mathfrak{C}}
+	\arrow[ur, "\Lan = \mathbb F X"']
+	\arrow[Leftarrow, from=V, to=U,shorten >=0.25cm,shorten <=0.25cm]
+\end{tikzcd}
+\end{equation}
+The category 
+$\mathsf{sOp}$ of \emph{colored simplicial operads}
+can then be described as the category of 
+$\mathbb{F}$-algebras on $\mathsf{sSym}$.
+For $G$ a finite group, we then write
+$\mathsf{sOp}^G$ (resp. $\mathsf{sSym}^G$)
+for the category of 
+$G$-objects on 
+$\mathsf{sOp}$ ($\mathsf{sSym}$)
+which we call the category of
+\emph{$G$-equivariant colored simplicial operads
+(symmetric sequences)}.
+
+{\color{red} HERE}
+
+
+
 
 The categories $\sSym$ and $\sOp$ are naturally fibered over $\Set$,
-and the free operad monad $\mathbb F$ yields a $\Set$-fibered monadic adjunction
+and the free operad monad $\mathbb F$ yields a fibered monadic adjunction
 \( \sSym \overset{\mathbb F}{\rightleftarrows} \sOp. \)
 By abstract nonsense (cf. \cite[Prop. 2.35]{BP_HGOP}),
 this lifts to a monadic $\Set^G$-fibered adjunction on the categories of $G$-objects, as on the left below.
@@ -5192,14 +5335,8 @@ For COMUOTOHOM PROP: replace all instances of $\Omega_G$ with $\Omega_{\mathcal 
 
 
 \section{The dendroidal $W_!$-construction}
+\label{WCONS AP}
 
-
-$\mathfrak{s}$
-
-
-$\mathfrak{t}$
-
-{\color{red} HERE}
 
 
 We will discuss the $W_!$
@@ -6478,7 +6615,7 @@ $\mathsf{Face}_{inn}(T) \simeq
 
 
 \section{The homotopy genuine equivariant operad}
-\label{HO_SEC}
+\label{HGEO AP}
 
 Our goal in this section is to build,
 for each $G$-$\infty$-operad $X \in \mathsf{dSet}^G$,
