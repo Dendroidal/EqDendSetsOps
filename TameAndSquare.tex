@@ -651,10 +651,9 @@ are defined in the obvious way as
 \end{definition}
 
 
-\begin{definition}
-      \label{CFOREST_DEF}
+\begin{definition}\label{CFOREST_DEF}
       Let $\mathfrak C$ be a set of colors.
-      The category $\Phi_{\mathfrak C}$ of \textit{$\mathfrak C$-colored forests} has
+      The category $\Phi_{\mathfrak C}$ of \textit{$\mathfrak C$-forests} has
       \begin{itemize}
       \item objects pairs $\vect F = (F, \mathfrak c)$ with
             $F \in \Phi$ a forest and
@@ -667,6 +666,19 @@ are defined in the obvious way as
       Moreover, we denote by
       $\Phi_\bullet^0 \subseteq \Phi_\bullet$
       the wide subcategory of those arrows whose maps on uncolored forests are outer faces.
+      
+      Moreover, we write
+      $\Omega_{\mathfrak{C}} \subset \Phi_{\mathfrak{C}}$,
+      which we call the category of 
+      \emph{$\mathfrak{C}$-trees},
+      for the full subcategory spanned by the objects 
+      whose underlying forest is a tree,
+      and 
+      $\Sigma_{\mathfrak{C}} \subset \Omega_{\mathfrak{C}}$,
+      which we call the category of 
+      \emph{$\mathfrak{C}$-corollas},
+      for the further subcategory of objects whose underlying tree is a corolla
+      and whose maps are isomorphisms.
 \end{definition}
 
 
@@ -2534,126 +2546,184 @@ For later use, we record the following.
 \label{QE_SEC}
 
 
-{\color{red} HERE}
+In this section we prove our main result, Theorem \ref{QE THM},
+modulo the key Lemma \ref{KEYPRVAR LEM}, 
+which will be proved in \S \ref{KEYRES SEC}.
 
-
-In this section, we prove our main result, Theorem \ref{QE THM}, modulo the key Lemma \ref{KEYPRVAR LEM}, to be proved in Section \ref{KEYRES SEC}.
 
 We do so in two steps.
 After recalling the Dwyer-Kan model structure on equivariant simplicial operads in \S \ref{GSOP_SEC},
-we prove in Theorem \ref{PREQUIEQUIV THM} that the nerve functor is a right Quillen equivalence to 
-the tame model on $\PreOp^G$ from the previous section.
-This yields two zig-zags of Quillen equivalences between $\sOp^G$ and the joint Reedy model structure on $\sdSet^G$.
+we prove in Theorem \ref{PREQUIEQUIV THM} that the nerve functor is a right Quillen equivalence 
+between $\mathsf{sOp}^G$ and  
+the tame model structure on $\PreOp^G$ from \S \ref{TAMEDEFEX SEC}.
+This yields two zigzags of Quillen equivalences between $\sOp^G$ and the joint Reedy model structure on $\sdSet^G$.
 To conclude our main result, we show that the two associated derived composites agree up to joint equivalence.
 
-
-{\color{red} HERE}
-
-
-\begin{remark}\label{ALTNER REM}
-	Using the $(-)_{\mathfrak{c}}(-)$ notation,
-	the nerve functor
-	$N \colon \mathsf{sOp}^G \to \mathsf{PreOp}^G$
-	can be described as
-\[
-	(N \O)_{\mathfrak{c}} (U) 
-= 
-	\prod_{v \in \boldsymbol{E}(U)}
-	\O(U_v,\mathfrak{c}_v)
-=
-	\prod_{v \in \boldsymbol{E}(U)}
-	\O(\vect{U}_v).
-\]
-	for each coloring $\mathfrak{c} \colon \boldsymbol{E}(U) \to 
-	\mathfrak{C}_{\O}$
-	and $\mathfrak{c}_v$ its restrictions.
-\end{remark}
-
-
-
-\begin{lemma}\label{TAUOTIMES_LEM}
-	For all $X \in \mathsf{PreOp}^G$ and $K \in \sSet$, 
-	one has a natural identification
-	\[\tau(X \otimes_{\mathfrak{C}_{\bullet}} K) \simeq \tau(X) \otimes_{\mathfrak{C}_{\bullet}} K\]
-	with the second $\otimes_{\mathfrak{C}_{\bullet}}$
-	the (fiberwise) simplicial tensoring of $\sOp^G$.
-\end{lemma}
-
-{\color{orange} HERE}
-
-\begin{proof}
-	The identification
-	$\tau(X \otimes_{\mathfrak{C}_{\bullet}} K) 
-	\simeq 
-	\tau(X) \otimes_{\mathfrak{C}_{\bullet}} K$
-	is equivalent to the adjoint identification
-	$
-	N \{K,\O\}_{\mathfrak{C}_{\bullet}}
-	\simeq
-	\{K,N \O\}_{\mathfrak{C}_{\bullet}} 
-	$
-	for $\O \in \mathsf{sOp}^G$,
-	which follows from the calculation
-\begin{equation}
-\begin{split}
-	\left(N \{K,\O\}_{\mathfrak{C}_{\bullet}}\right)_{\mathfrak{c}}(U)
-&
-\simeq
-	\prod_{v \in \boldsymbol{V}(U)} 
-	\{K,\O\}_{\mathfrak{C}_{\bullet}}(U_v,\mathfrak{c}_v)
-\simeq
-	\prod_{v \in \boldsymbol{V}(U)}
-	\O(U_v,\mathfrak{c}_v)^K
-\simeq
-	\left(\prod_{v \in \boldsymbol{V}(U)}
-	\O(U_v,\mathfrak{c}_v)\right)^K
-	\simeq 
-\\
-&
-\simeq
-	\left(N \O\right)_{\mathfrak{c}}(U)^K
-\simeq
-	\left(\{K,N \O\}_{\mathfrak{C}_{\bullet}}\right)_{\mathfrak{c}}(U)
-\end{split}
-\end{equation}
-	where the first and fourth steps follow from Remark \ref{ALTNER REM},
-	and the fifth step is \eqref{EASYCOTEN EQ}.
-\end{proof}
-
-
-
-\begin{remark}
-	In \cite[\S 7.1]{CM13b}, $\Omega(T) \otimes_{\mathfrak{C}_{\bullet}} K \in \sOp$ and 
-	$\Omega[T] \otimes_{\mathfrak{C}_{\bullet}} K \in \mathsf{PreOp}$ were denoted $T[K]$, $\Omega[K,T]$ respectively, and were constructed by hand.
-\end{remark}
 
 
 
 \subsection{Equivariant simplicial operads}
 \label{GSOP_SEC}
 
-We denote by $\mathsf{sOp}^G$ the category of \textit{$G$-equivariant colored simplicial operads}.
-These can be built as algebras over a certain monad on the category of symmetric sequences.
-We recall some of this setup; further details and exposition can be found in \cite[\S 2]{BP_HGOP}.
+We will write $\mathsf{sOp}^G = \mathsf{Op}^{G}(\mathsf{sSet})$
+for the 
+category of \textit{$G$-equivariant colored simplicial operads}.
+There are several possible descriptions of this category:
+as the algebras for a \emph{composition product $\circ$};
+as the algebras for a \emph{free operad monad} $\mathbb{F}$;
+as the subcategory of preoperads that satisfy a \emph{strict Segal condition}.
+
+Our primary goal in this section is to recall (and slightly repackage) the model structure on $\mathsf{sOp}^G$ built in 
+\cite{BP_HGOP}.
+The work in loc. cit. is based on the free operad monad perspective on 
+$\mathsf{sOp}^G$, which is technically involved,
+but in this paper we will only need a brief overview of that perspective.
+%
+Instead, and in preparation for the proof of the Quillen equivalence
+$\mathsf{PreOp}^G \rightleftarrows \mathsf{sOp}^G$
+in \S \ref{PREOPOPEQUIV SEC},
+we will find it useful in this section to also make use of the 
+strict Segal condition perspective,
+which also plays a key role on both 
+Appendices \ref{WCONS AP},\ref{HGEO AP}.
+
+
+We start by recalling the category 
+$\Sigma_{\mathfrak{C}}$
+of $\mathfrak{C}$-corollas (cf. Definition \ref{CFOREST_DEF}).
+A typical object in $\Sigma_{\mathfrak{C}}$
+is given by a 
+$\mathfrak{C}$-colored corolla as on the left below.
+Then letting $n$ be the number of leaves of $\vect{C}$,
+which we call the \emph{arity of $\vect{C}$},
+and $\sigma \in \Sigma_n$,
+the picture below depicts a 
+generic map in $\Sigma_{\mathfrak{C}}$.
+\begin{equation}\label{CSYM EQ2}
+\begin{tikzpicture}
+[grow=up,auto,level distance=2.3em,every node/.style = {font=\footnotesize},dummy/.style={circle,draw,inner sep=0pt,minimum size=1.75mm}]
+
+\node at (0,0) [font=\normalsize]{$\vect{C}$}
+child{node [dummy] {}
+	child{
+		edge from parent node [swap,near end] {$\mathfrak c_n$} node [name=Kn] {}}
+	child{
+		edge from parent node [near end] {$\mathfrak c_1$}
+		node [name=Kone,swap] {}}
+	edge from parent node [swap] {$\mathfrak c_0$}
+};
+\draw [dotted,thick] (Kone) -- (Kn) ;
+\node at (5,0) [font=\normalsize] {$\vect{C} \sigma^{-1}
+	$}
+child{node [dummy] {}
+	child{
+		edge from parent node [swap,near end] {$\mathfrak c_{\sigma^{-1}(n)}$} node [name=Kn] {}}
+	child{
+		edge from parent node [near end] {$\mathfrak c_{\sigma^{-1}(1)}$}
+		node [name=Kone,swap] {}}
+	edge from parent node [swap] {$\mathfrak c_0$}
+};
+\draw [dotted,thick] (Kone) -- (Kn) ;
+
+\draw[->] (1.5,0.8) -- node{$\sigma$} (3,0.8);
+\end{tikzpicture}
+\end{equation}
+Alternatively,
+$\mathfrak{C}$-corollas can be represented simply as
+strings in $\mathfrak{C}$,
+which we call $\mathfrak{C}$-profiles
+(cf. Remark \ref{MAPSPTRANS REM}).
+In profile notation, 
+\eqref{CSYM EQ2} then becomes
+\begin{equation}\label{CSYM EQ1}
+\vect{C} =
+(\mathfrak c_1, \dots, \mathfrak c_n; \mathfrak c_0) \xrightarrow{\sigma} (\mathfrak c_{\sigma^{-1}(1)}, \dots, \mathfrak c_{\sigma^{-1}(n)}; \mathfrak c_0)
+= \vect{C} \sigma^{-1}.
+\end{equation}
+For this reason, we also refer to 
+$\Sigma_{\mathfrak{C}}$ as the 
+$\mathfrak{C}$-symmetric category,
+
+Lastly, we note that the notation
+$\vect{C} \sigma^{-1}$ used above
+comes from the natural right action of $\Sigma_n$
+on $\mathfrak{C}$-profiles of arity $n$ via
+$
+(\mathfrak c_1, \dots, \mathfrak c_n; \mathfrak c_0) \sigma
+=
+(\mathfrak c_{\sigma(1)}, \dots, \mathfrak c_{\sigma(n)}; \mathfrak c_0)$.
 
 
 \begin{definition}
-      Let $\mathfrak C$ be a set. A \textit{$\mathfrak C$-signature} is a tuple
-      $\vect C = (\mathfrak c_1, \dots, \mathfrak c_n; \mathfrak c_0) = (\mathfrak c_i)_{0 \leq i \leq n}$ in $\mathfrak C^{\times n+1}$.
-      The \textit{$\mathfrak C$-symmetric category} is the category denoted $\Sigma_{\mathfrak C}$ with
-      objects $\mathfrak C$-signatures and
-      arrows $\vect C = (\mathfrak c_i)_{0 \leq i \leq n} \to (\mathfrak d_j)_{0 \leq j \leq m} = \vect D$
-      given by $\sigma \in \Sigma_n$ such that $\mathfrak c_{\sigma i} = \mathfrak d_i$ if $n = m$, with no arrows otherwise.
+	The category $\mathsf{sSym}$ of \textit{simplicial symmetric sequences} has:
+\begin{itemize}
+	\item objects given by pairs
+	$(\mathfrak C, X)$ with $\mathfrak{C} \in \mathsf{Set}$
+	a set of colors and
+	$\Sigma_{\mathfrak C}^{op} \xrightarrow{X}\sSet$
+	a functor; 
+	\item a map
+	$(\mathfrak{C},X) \to (\mathfrak{D},Y)$
+	given by a map of colors
+	$\varphi \colon \mathfrak{C} \to \mathfrak{D}$
+	and $\Phi$ as below.
+\begin{equation}
+\begin{tikzcd}[row sep = tiny, column sep = 45pt]
+	\Sigma_{\mathfrak{C}}^{op} \arrow[dr, "X"{name=U}] 
+	\arrow{dd}[swap]{\varphi}
+\\
+	& \mathcal{V}
+\\
+	|[alias=V]| \Sigma_{\mathfrak{D}}^{op} \arrow[ur, "Y"']
+\arrow[Leftarrow, from=V, to=U,shorten >=0.25cm,shorten <=0.25cm, swap,"\Phi"]
+\end{tikzcd}
+\end{equation}
+\end{itemize} 
 \end{definition}
 
-The category $\mathsf{sSym}$ of \textit{simplicial symmetric sequences} has
-objects pairs $(\mathfrak C, X)$ with $X \colon \Sigma_{\mathfrak C}^{op} \to \sSet$,
-and arrows $(\mathfrak C, X) \to (\mathfrak D, Y)$ are pairs $(\phi, \Phi)$ with
-$\phi \colon \mathfrak C \to \mathfrak D$ a $G$-map of colors and
-$\Phi \colon X \Rightarrow Y \phi$ a natural transformation.
+
+
+The free operad monad $\mathbb{F}$
+is then a monad on $\mathsf{sSym}$ which,
+when evaluated on $X \colon \Sigma_{\mathfrak{C}}^{op} \to \mathsf{sSet}$,
+is given by the left Kan extension
+(the real challenge, of course, is that of defining the multiplication
+$\mathbb{F}\mathbb{F} \Rightarrow \mathbb{F}$)
+\begin{equation}\label{FREEOP_EQ}
+\begin{tikzcd}[column sep = 150pt]
+	\Omega^{0,op}_{\mathfrak{C}}
+	\arrow[d, "\mathsf{lr}^{op}"']
+	\arrow[r, 
+	"\vect{T} \mapsto \prod_{v \in \boldsymbol{V}(T)} X(\vect{T}_v)"{name=U}]
+&
+	\mathsf{sSet}
+\\
+	|[alias=V]|
+	\Sigma^{op}_{\mathfrak{C}}
+	\arrow[ur, "\Lan = \mathbb F X"']
+	\arrow[Leftarrow, from=V, to=U,shorten >=0.25cm,shorten <=0.25cm]
+\end{tikzcd}
+\end{equation}
+The category 
+$\mathsf{sOp}$ of \emph{colored simplicial operads}
+can then be described as the category of 
+$\mathbb{F}$-algebras on $\mathsf{sSym}$.
+For $G$ a finite group, we then write
+$\mathsf{sOp}^G$ (resp. $\mathsf{sSym}^G$)
+for the category of 
+$G$-objects on 
+$\mathsf{sOp}$ ($\mathsf{sSym}$)
+which we call the category of
+\emph{$G$-equivariant colored simplicial operads
+(symmetric sequences)}.
+
+{\color{red} HERE}
+
+
+
 
 The categories $\sSym$ and $\sOp$ are naturally fibered over $\Set$,
-and the free operad monad $\mathbb F$ yields a $\Set$-fibered monadic adjunction
+and the free operad monad $\mathbb F$ yields a fibered monadic adjunction
 \( \sSym \overset{\mathbb F}{\rightleftarrows} \sOp. \)
 By abstract nonsense (cf. \cite[Prop. 2.35]{BP_HGOP}),
 this lifts to a monadic $\Set^G$-fibered adjunction on the categories of $G$-objects, as on the left below.
@@ -2804,28 +2874,27 @@ We may now construct our free operads generated by trees.
       Fix $T \in \Omega_G \subseteq \Phi^{0,G}_\bullet$.
       We define $\Omega(T) \in \Op_\bullet^G$ to be the free operad
       \[
-            \Omega(T) := \mathbb F \Sigma_\tau[T].
+            \Omega(T) = \mathbb F \Sigma_\tau[T].
       \]
 \end{definition}
 Explicitly, $\Omega(T)$ has colors $\mathfrak C = \boldsymbol{E}(T)$ the $G$-set of edges,
 an $n$-ary $\boldsymbol{E}(T)$-signature $\vect C$ is given by a map $\boldsymbol{E}(C_n) \to \boldsymbol{E}(T)$,
 and we have
-\begin{equation}
-      \label{OMEGADEF_EQ}
-      \Omega(T)(\vect C) =
-      \begin{cases}
-            \** \qquad & \mbox{$\vect C$ extends to a map of forests $C_n \to T$}
-            % \mbox{there exists $C \xrightarrow{\phi} T$ in $\Omega$ such that $\partial \phi = \vect C$}
-            \\
-            \varnothing & \text{else,}
-      \end{cases}
+\begin{equation}\label{OMEGADEF_EQ}
+	\Omega(T)(\vect C) =
+	\begin{cases}
+		\** \qquad & \mbox{$\vect C$ extends to a map of forests $C_n \to T$}
+	\\
+		\varnothing & \text{else,}
+	\end{cases}
 \end{equation}
-% where $\partial \phi$ is the $\mathbf E(U)$-signature $(\phi(1), \phi(2), \dots, \phi(n); \phi(0))$
-% given by the (ordered) image of the edges of $C$.
-% \todo[inline]{profile of a map? is this used in other places?}
+
+{\color{red} HERE}
+
+
 
 This extends to a fully-faithful functor $\Omega_G \into \Op^G$.
-%(in fact, this inclusion has been used as an alternative \textit{definition} of the category $\Omega$).
+
 
 \begin{remark}
       If $T = (T_i)$, we have $\Omega(T) = \amalg_i \Omega(T_i)$.
@@ -2890,36 +2959,15 @@ and moreover induce an analogous two-variable adjunction on the categories of $G
       \sOp^{G,op} \times \sOp^G \xrightarrow{[-,-]} \sSet^G
 \]
 by postcomposition.
-\todo[inline]{update the following}
-{\color{OliveGreen} % ----------
-  Cotensoring is still computed levelwsie, while tensoring given by the pushout \eqref{OPTENS_EQ} computed in $\sOp^G$;
-  the $G$-actions on $\O^K$ and $\O \times K$ are defined ``diagonally'':
-  \begin{equation}
-        \label{DIAGTENS_EQ}
-        \Hom_{\sSet}(K,\O(\vect C)) \xrightarrow{g_{\**}(g^{-1})^{\**}} \Hom_{\sSet}(K, \O(g \vect C)),
-        \qquad
-        \O(\vect C) \times K \xrightarrow{g \times g} \O(g \vect C) \times K.
-  \end{equation}
-} % ----------
-In particular we have the following.
+
+We have the following.
+
+
 
 \begin{lemma}
       \label{OPTENS_LEM}
       Let $C \in \Sigma_G$, $\O \xrightarrow{F} \P$ in $\sOp^G$, and $K \xrightarrow{u} L$ in $\sSet$.
-      % \begin{enumerate}
-      % \item \( \mathbb F(X \cdot K) \simeq \mathbb F(X) \otimes_\Set K \).
-      % \item \( \Omega(C) \otimes_\Set K(\vect C) = \Omega(C)(\vect C) \times K \)
-      %       and 
-      %       \( \Omega(C) \otimes_\Set K = \mathbb F( \Sigma_\tau[C] \cdot K) \). 
-      % \item \( 
-      %       \Hom_{\sOp^G}(\Omega(C) \otimes_\Set K, \O) \simeq
-      %       \left(
-      %             \displaystyle\prod_{i \in I} \displaystyle\coprod_{\mbox{\scriptsize $C_i$-profiles $\vect C_i$}} \Hom_\sSet(K, \O(\vect C_i))
-      %       \right)^{G}
-      %       \simeq
-      %       \displaystyle\coprod_{\vect C_{\**}} \Hom_\sSet(K, \O(\vect C_i)^{\Aut_{G \ltimes \Sigma_{\mathfrak C}}(\vect C_i)}).
-      %       \).
-      % \end{enumerate}
+
       Then the three lifting problems below are equivalent,
       \begin{equation}
             \resizebox{\textwidth}{!}{%
@@ -2959,7 +3007,7 @@ In particular we have the following.
 \end{lemma}
 
 We unpack the tensoring operation when $K \in \sSet^G$ is of the form $G/H \cdot K'$ for $K' \in \sSet$.
-\begin{definition}
+
       Given $H \leq G$ and a $G$-set $\mathfrak C$, 
       we have the following commuting square of left adjoints.
       \[
@@ -2977,12 +3025,12 @@ We unpack the tensoring operation when $K \in \sSet^G$ is of the form $G/H \cdot
       $H \ltimes \Sigma_{\mathfrak C} \to G \ltimes \Sigma_{\mathfrak C}$,
       or explicitly
       $G \cdot_H^{\mathfrak C} X (\vect C) = X(\vect C) \times G/H$, with $G$ acting ``diagonally'' as in \eqref{DIAGTENS_EQ}.
-\end{definition}
+
 
 \begin{remark}
       Let $\mathfrak C$ be a $G$-set, 
       $\O \in \sOp^H_{\mathfrak C}$ and $\P \in \sOp^G_{\mathfrak D}$. 
-      We note that $\Hom_{\sOp^G}(G \cdot_H^{\mathfrak C}\O, \P)$ embeds in $\Hom_{\sOp^H}(\O,\P)$
+      We note that $\sOp^G(G \cdot_H^{\mathfrak C}\O, \P)$ embeds in $\sOp^H(\O,\P)$
       as those $H$-arrows $F \colon \O \to \P$ such that the $H$-map of colors $F_0 \colon \mathfrak C \to \mathfrak D$
       is in fact $G$-equivariant.
 \end{remark}
@@ -3068,8 +3116,8 @@ The canonical example is $W_!N\widetilde{[1]}$, with the equivalence given by th
 \end{lemma}
 \begin{proof}
       This follows since the square below is a pushout in $\sOp^G$,
-      with $\coprod_{\boldsymbol{E}(T)} \Omega(\eta)$ is cofibrant by (C1), while
-      the left vertical map is a cofibration by (C2) with $n=0$.
+      with $\coprod_{\boldsymbol{E}(T)} \Omega(\eta)$ cofibrant by (C1),
+      while the left vertical map is a cofibration by (C2) with $n=0$.
       \[
             \begin{tikzcd}
                   \displaystyle{
@@ -3090,33 +3138,93 @@ The canonical example is $W_!N\widetilde{[1]}$, with the equivalence given by th
                   \Omega(T)
             \end{tikzcd}
       \]
-      % % ---------- ALTERNATIVE PROOF ----------
-      % if $T = C$ is a $G$-corolla, then we have a factorization
-      % \[
-      %       \varnothing \longto
-      %       \coprod_{G/H \in \boldsymbol{E}_G(C)} G/H \cdot \Omega(\eta) = \Omega(C) \otimes_\Set \varnothing \longto
-      %       \Omega(C) \otimes_\Set \Delta[0] = \Omega(C)
-      % \]
-      % while for general $T$, the grafting decomposition $T = C \amalg_{\underline{l}_{C}}(T_{Ge})$ induces the following pushing in $\sOp^G$.
-      % \[
-      %       \begin{tikzcd}
-      %             \displaystyle{
-      %             \coprod_{Ge \in \boldsymbol{E}_G(C)} \Omega(Ge)}
-      %             \arrow[r] \arrow[d]
-      %             &
-      %             \Omega(C) \arrow[d]
-      %             \\
-      %             \displaystyle{
-      %             \coprod_{Ge \in \boldsymbol{E}_G(C)} \Omega(T_e)}
-      %             \arrow[r]
-      %             &
-      %             \Omega(T)
-      %       \end{tikzcd}
-      % \]
 \end{proof}
 
 
 
+
+{\color{red} HERE}
+
+
+
+
+
+\begin{remark}\label{ALTNER REM}
+	Using the $(-)_{\mathfrak{c}}(-)$ notation,
+	the nerve functor
+	$N \colon \mathsf{sOp}^G \to \mathsf{PreOp}^G$
+	can be described as
+	\[
+	(N \O)_{\mathfrak{c}} (U) 
+	= 
+	\prod_{v \in \boldsymbol{E}(U)}
+	\O(U_v,\mathfrak{c}_v)
+	=
+	\prod_{v \in \boldsymbol{E}(U)}
+	\O(\vect{U}_v).
+	\]
+	for each coloring $\mathfrak{c} \colon \boldsymbol{E}(U) \to 
+	\mathfrak{C}_{\O}$
+	and $\mathfrak{c}_v$ its restrictions.
+\end{remark}
+
+
+
+\begin{lemma}\label{TAUOTIMES_LEM}
+	For all $X \in \mathsf{PreOp}^G$ and $K \in \sSet$, 
+	one has a natural identification
+	\[\tau(X \otimes_{\mathfrak{C}_{\bullet}} K) \simeq \tau(X) \otimes_{\mathfrak{C}_{\bullet}} K\]
+	with the second $\otimes_{\mathfrak{C}_{\bullet}}$
+	the (fiberwise) simplicial tensoring of $\sOp^G$.
+\end{lemma}
+
+{\color{orange} HERE}
+
+\begin{proof}
+	The identification
+	$\tau(X \otimes_{\mathfrak{C}_{\bullet}} K) 
+	\simeq 
+	\tau(X) \otimes_{\mathfrak{C}_{\bullet}} K$
+	is equivalent to the adjoint identification
+	$
+	N \{K,\O\}_{\mathfrak{C}_{\bullet}}
+	\simeq
+	\{K,N \O\}_{\mathfrak{C}_{\bullet}} 
+	$
+	for $\O \in \mathsf{sOp}^G$,
+	which follows from the calculation
+	\begin{equation}
+	\begin{split}
+	\left(N \{K,\O\}_{\mathfrak{C}_{\bullet}}\right)_{\mathfrak{c}}(U)
+	&
+	\simeq
+	\prod_{v \in \boldsymbol{V}(U)} 
+	\{K,\O\}_{\mathfrak{C}_{\bullet}}(U_v,\mathfrak{c}_v)
+	\simeq
+	\prod_{v \in \boldsymbol{V}(U)}
+	\O(U_v,\mathfrak{c}_v)^K
+	\simeq
+	\left(\prod_{v \in \boldsymbol{V}(U)}
+	\O(U_v,\mathfrak{c}_v)\right)^K
+	\simeq 
+	\\
+	&
+	\simeq
+	\left(N \O\right)_{\mathfrak{c}}(U)^K
+	\simeq
+	\left(\{K,N \O\}_{\mathfrak{C}_{\bullet}}\right)_{\mathfrak{c}}(U)
+	\end{split}
+	\end{equation}
+	where the first and fourth steps follow from Remark \ref{ALTNER REM},
+	and the fifth step is \eqref{EASYCOTEN EQ}.
+\end{proof}
+
+
+
+\begin{remark}
+	In \cite[\S 7.1]{CM13b}, $\Omega(T) \otimes_{\mathfrak{C}_{\bullet}} K \in \sOp$ and 
+	$\Omega[T] \otimes_{\mathfrak{C}_{\bullet}} K \in \mathsf{PreOp}$ were denoted $T[K]$, $\Omega[K,T]$ respectively, and were constructed by hand.
+\end{remark}
 
 
 
@@ -5227,14 +5335,8 @@ For COMUOTOHOM PROP: replace all instances of $\Omega_G$ with $\Omega_{\mathcal 
 
 
 \section{The dendroidal $W_!$-construction}
+\label{WCONS AP}
 
-
-$\mathfrak{s}$
-
-
-$\mathfrak{t}$
-
-{\color{red} HERE}
 
 
 We will discuss the $W_!$
@@ -6513,7 +6615,7 @@ $\mathsf{Face}_{inn}(T) \simeq
 
 
 \section{The homotopy genuine equivariant operad}
-\label{HO_SEC}
+\label{HGEO AP}
 
 Our goal in this section is to build,
 for each $G$-$\infty$-operad $X \in \mathsf{dSet}^G$,
