@@ -1524,7 +1524,7 @@ and {\color{blue} will simplify our discussion of the nerve functor}.
 	We define $X_{\mathfrak{c}}(A)\in \mathsf{sSet}$
 	as the pullback	
 	(here the two squares are identical,
-	providing only different descriptions of the bottom left square)
+	providing only different descriptions of the bottom-right corner)
 \begin{equation}\label{XUDECALT EQ}
 \begin{tikzcd}
 	X_{\mathfrak{c}}(A) \ar{r} \ar{d}
@@ -2949,82 +2949,98 @@ Using the standard coequalizer description of algebras over a monad, one has
       In \cite[\S 7.1]{CM13b}, $\Omega(T) \otimes_{\mathfrak{C}_{\bullet}} K$ was denoted $T[K]$.
 \end{remark}
 
-Tensoring and cotensoring is {\color{red} NOT} part of two-variable adjunction {\color{red} UNLESS WE FIX THE COLOR SET},
-and moreover induce an analogous two-variable adjunction on the categories of $G$-objects 
-\[
-      \sSet^{G,op} \times \sOp^G \xrightarrow{\set{(-),(-)}_\Set} \sOp^G
-      \qquad
-      \sOp^G \times \sSet^G \xrightarrow{(-) \otimes_\Set (-)} \sOp^G
-      \qquad
-      \sOp^{G,op} \times \sOp^G \xrightarrow{[-,-]} \sSet^G
-\]
-by postcomposition.
+The tensoring and cotensoring induce analogous operations on the categories of $G$-objects by postcomposition.
+{\color{OliveGreen} % ----------
+  They are computed as before,
+  with conjugation and diagonal $G$-actions on $[K,\O(-)]$ and $\O(-) \times K$:
+  \begin{equation}
+        \label{DIAGTENS_EQ}
+        \Hom_{\sSet}(K,\O(\vect C)) \xrightarrow{g_{\**}(g^{-1})^{\**}} \Hom_{\sSet}(K, \O(g \vect C)),
+        \qquad
+        \O(\vect C) \times K \xrightarrow{g \times g} \O(g \vect C) \times K.
+  \end{equation}
+} % ----------
 
-We have the following.
-
-
-
+Via direct compution, we have the following.
 \begin{lemma}
       \label{OPTENS_LEM}
       Let $C \in \Sigma_G$, $\O \xrightarrow{F} \P$ in $\sOp^G$, and $K \xrightarrow{u} L$ in $\sSet$.
-
-      Then the three lifting problems below are equivalent,
+      Then the two lifting problems below are equivalent,
       \begin{equation}
-            \resizebox{\textwidth}{!}{%
-              \begin{tikzcd}[column sep = small, ampersand replacement = \&]
-                    \Omega(C) \otimes_\Set K \arrow[r, "\phi"] \arrow[d, "u"']
-                    \&
-                    \O \arrow[d, "F"']
-                    \& % ----------
-                    K \arrow[r] \arrow[d, "u"]
-                    \&
-                    \O(\vect C)^{\Aut_{G \ltimes \Sigma_{\mathfrak C}}(\vect C)} \arrow[d, "{F(\vect C)}"]
-                    \& % ----------
-                    \partial \Omega(C) \arrow[r, "\phi"] \arrow[d]
-                    \&
-                    \set{L,\O}_\Set \arrow[d, "{u^{\**}, F_{\**}}"]
-                    \\
-                    \Omega(C) \otimes_\Set L \arrow[r] \arrow[ur, dashed]
-                    \&
-                    \P 
-                    \& % ----------
-                    L \arrow[r] \arrow[ur, dashed]
-                    \&
-                    \P(F(\vect C))^{\Aut_{G \ltimes \Sigma_{\mathfrak C}}(\vect C)} 
-                    \& % ----------
-                    \Omega(C) \arrow[r] \arrow[ur, dashed]
-                    \&
-                    \displaystyle{
-                      \set{K,\O}_\Set \mathop{\times}\limits_{\set{K,\P}_\Set} \set{L,\P}_\Set
-                    }
-              \end{tikzcd}
-            }
-      \end{equation}
-      where $\mathfrak C = \mathfrak C_\O$ and
-      $\vect C$ is the $\mathfrak C$-signature induced by
-      restricting the $G$-map of colors $\phi \colon \boldsymbol{E}(C) \to \mathfrak C$
-      to a single component $C_{\**}$ of $C = (C_i)$. 
+            % \resizebox{\textwidth}{!}{%
+            \begin{tikzcd}[column sep = small, ampersand replacement = \&]
+                  \Omega(C) \otimes_\Set K \arrow[r, "\phi"] \arrow[d, "u"']
+                  \&
+                  \O \arrow[d, "F"]
+                  \& % ----------
+                  K \arrow[r] \arrow[d, "u"']
+                  \&
+                  N\O_{\mathfrak c}(C)
+                  % \O(\vect C)^{\Aut_{G \ltimes \Sigma_{\mathfrak C}}(\vect C)}
+                  \arrow[d, "{F_{\mathfrak c}(C)}"]
+                  % \& % ----------
+                  % \partial \Omega(C) \arrow[r, "\phi"] \arrow[d]
+                  % \&
+                  % \set{L,\O}_\Set \arrow[d, "{u^{\**}, F_{\**}}"]
+                  \\
+                  \Omega(C) \otimes_\Set L \arrow[r] \arrow[ur, dashed]
+                  \&
+                  \P 
+                  \& % ----------
+                  L \arrow[r] \arrow[ur, dashed]
+                  \&
+                  N\P_{F \mathfrak c}(C)
+                  % \& % ----------
+                  % \Omega(C) \arrow[r] \arrow[ur, dashed]
+                  % \&
+                  % \displaystyle{
+                  % \set{K,\O}_\Set \mathop{\times}\limits_{\set{K,\P}_\Set} \set{L,\P}_\Set
+                  % }
+          \end{tikzcd}
+          % }
+    \end{equation}
+    where
+    $\mathfrak c = \mathfrak C_\phi \colon \boldsymbol{E}(C) \to \mathfrak C_\O$
+    is induced by $\phi$.
 \end{lemma}
+
+\begin{remark}
+      We do not require that $\O \to \P$ is in $\sOp^G_{\boldsymbol{E}(C)}$ in the previous lemma.
+      However, this is specific to $\Omega(C)$.
+      In general, following Remark \ref{PREOP2VAR_REM},
+      we must fix some $G$-set of colors $\mathfrak C$ in order to have
+      tensoring and cotensoring become part of a two-variable adjunction.
+      \[
+            \sSet^{G,op} \times \sOp^G_{\mathfrak C} \xrightarrow{\set{(-),(-)}_\Set} \sOp^G_{\mathfrak C}
+            \qquad
+            \sOp^G_{\mathfrak C} \times \sSet^G \xrightarrow{(-) \otimes_\Set (-)} \sOp^G_{\mathfrak C}
+            \qquad
+            \sOp^{G,op}_{\mathfrak C} \times \sOp^G_{\mathfrak C} \xrightarrow{[-,-]} \sSet^G
+      \]      
+\end{remark}
+
+
+
 
 We unpack the tensoring operation when $K \in \sSet^G$ is of the form $G/H \cdot K'$ for $K' \in \sSet$.
 
-      Given $H \leq G$ and a $G$-set $\mathfrak C$, 
-      we have the following commuting square of left adjoints.
-      \[
-            \begin{tikzcd}
-                  \sSym^H_{\mathfrak C} \arrow[r, shift left, "G \cdot_H^{\mathfrak C} (-)"] \arrow[d, "\mathbb F_{\mathfrak C}"']
-                  &
-                  \sSym^G_{\mathfrak C} \arrow[d, "\mathbb F_{\mathfrak C}"]
-                  \\
-                  \sOp^H_{\mathfrak C} \arrow[r, shift left, "G \cdot_H^{\mathfrak C} (-)"]
-                  &
-                  \sOp^G_{\mathfrak C}
-            \end{tikzcd}
-      \]
-      $G \cdot_H^{\mathfrak C} (-)$ on symmetric sequences is given by the left Kan extension over the inclusion
-      $H \ltimes \Sigma_{\mathfrak C} \to G \ltimes \Sigma_{\mathfrak C}$,
-      or explicitly
-      $G \cdot_H^{\mathfrak C} X (\vect C) = X(\vect C) \times G/H$, with $G$ acting ``diagonally'' as in \eqref{DIAGTENS_EQ}.
+Given $H \leq G$ and a $G$-set $\mathfrak C$, 
+we have the following commuting square of left adjoints.
+\[
+      \begin{tikzcd}
+            \sSym^H_{\mathfrak C} \arrow[r, shift left, "G \cdot_H^{\mathfrak C} (-)"] \arrow[d, "\mathbb F_{\mathfrak C}"']
+            &
+            \sSym^G_{\mathfrak C} \arrow[d, "\mathbb F_{\mathfrak C}"]
+            \\
+            \sOp^H_{\mathfrak C} \arrow[r, shift left, "G \cdot_H^{\mathfrak C} (-)"]
+            &
+            \sOp^G_{\mathfrak C}
+      \end{tikzcd}
+\]
+$G \cdot_H^{\mathfrak C} (-)$ on symmetric sequences is given by the left Kan extension over the inclusion
+$H \ltimes \Sigma_{\mathfrak C} \to G \ltimes \Sigma_{\mathfrak C}$,
+or explicitly
+$G \cdot_H^{\mathfrak C} X (\vect C) = X(\vect C) \times G/H$, with $G$ acting ``diagonally'' as in \eqref{DIAGTENS_EQ}.
 
 
 \begin{remark}
@@ -3063,8 +3079,9 @@ Standard adjunction and two-variable-adjunction arguments yield the following.
       $\Omega(C) \otimes_\Set (A \to B)$ is a cofibration in $\sOp^G$.
 \end{lemma}
 \begin{proof}
-      Since $\Omega(C) \otimes (-) \colon \sSet^G \to \sOp^G_{\boldsymbol{E}(T)}$ preserves colimits,
-      and by \cite[Prop. 4.11]{BP_HGOP} cofibrations in the fiber $\sOp^G_{\mathfrak C}$ are cofibrations in the total category $\sOp^G$, % FIBERGLMOD PROP
+      Since $\Omega(C) \otimes (-) \colon \sSet^G \to \sOp^G_{\boldsymbol{E}(T)}$ preserves colimits, it suffices to check when
+      $(A \to B) = G/H \cdot (K \to L)$ for $K \to L$ a cofibration in $\sSet$.    
+      Then, as cofibrations in the fiber $\sOp^G_{\mathfrak C}$ are cofibrations in the total category $\sOp^G$ by \cite[Prop. 4.11]{BP_HGOP}, % FIBERGLMOD PROP
       this follows from Lemma \ref{OPTENS_LEM} and \eqref{GHTENS_EQ}.
 \end{proof}
 
@@ -7370,9 +7387,40 @@ come back
       Proposition \ref{HOOPID_PROP} and Lemma \ref{HOXISOFIB_LEM}
       provide a second finish to the proof of Proposition \ref{W!_LEFTQ_PROP}:
       $hcN(f)$ is an isofibration iff
-      $i_G^{\**}ho(hcN(f)) = i_G^{\**} \pi_0(\upsilon_{\**}(N(f)))$ is so,
-      but $N \colon \sOp^G \to \mathsf{PreOp}^G_{tame}$ is right Quillen
-      and $i_G^{\**}\pi_0\upsilon_{\**}$ detects isofibrations in $\mathsf{PreOp}^G$.
+      \[
+            i_G^{\**}ho(hcN(f)) = i_G^{\**} \pi_0(\upsilon_{\**}(N(f))) = N j^{\**} \pi_0 i_{\**}(f)
+      \]
+      is so,
+      and since $f^H$ is an isofibration of operads, the result follows.
+      {\color{OliveGreen} % ----------
+        \[
+              \begin{tikzcd}
+                    \PreOp^G \arrow[d, "\upsilon_{\**}"'] \arrow[r, equal]
+                    &                    
+                    \PreOp^G \arrow[d, "i_{\**}"']
+                    &
+                    \sOp^G \arrow[l, "N"'] \arrow[d, "i_{\**}"]
+                    \\
+                    \PreOp_G \arrow[d, "\pi_0"'] \arrow[r, "j_G^{\**}"]
+                    &
+                    \PreOp^{\mathsf O_G^{op}} \arrow[d, "\pi_0"']
+                    &
+                    \sOp^{\mathsf O_G^{op}} \arrow[l, "N"'] \arrow[d, "\pi_0"]
+                    \\
+                    \dSet_G \arrow[d, "i_G^{\**}"'] \arrow[r, "j_G^{\**}"]
+                    &
+                    \dSet^{\mathsf O_G^{op}} \arrow[d, "j^{\**}"']
+                    &
+                    \Op^{\mathsf O_G^{op}} \arrow[d, "j^{\**}"] \arrow[l, "N"']
+                    \\
+                    \sSet^{\mathsf O_G^{op}} \arrow[r, equal]
+                    &
+                    \sSet^{\mathsf O_G^{op}}
+                    &
+                    \Cat^{\mathsf O_G^{op}} \arrow[l, "N"']
+              \end{tikzcd}
+        \]
+      } % ----------
 \end{remark}
 
 
