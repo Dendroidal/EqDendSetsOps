@@ -1334,7 +1334,7 @@ In this section we recall the normal model structure on preoperads
 $\mathsf{PreOp}^G$
 introduced and studied in \cite[\S 4 and \S 5]{BP_edss}.
 
-\begin{definition}
+\begin{definition}\label{PREOP DEF} 
 	The category of \textit{(equivariant) preoperads} $\mathsf{PreOp}^G$ is the full subcategory of $\mathsf{sdSet}^G$ spanned by those $X$ such that
 	$X(\eta)$ is a discrete simplicial set.
 \end{definition}
@@ -2654,7 +2654,7 @@ $
 (\mathfrak c_{\sigma(1)}, \dots, \mathfrak c_{\sigma(n)}; \mathfrak c_0)$.
 
 
-\begin{definition}
+\begin{definition}\label{SSYM DEF}
 	The category $\mathsf{sSym}$ of \textit{simplicial symmetric sequences} has:
 \begin{itemize}
 	\item objects given by pairs
@@ -2672,7 +2672,7 @@ $
 	\Sigma_{\mathfrak{C}}^{op} \arrow[dr, "X"{name=U}] 
 	\arrow{dd}[swap]{\varphi}
 \\
-	& \mathcal{V}
+	& \mathsf{sSet}
 \\
 	|[alias=V]| \Sigma_{\mathfrak{D}}^{op} \arrow[ur, "Y"']
 \arrow[Leftarrow, from=V, to=U,shorten >=0.25cm,shorten <=0.25cm, swap,"\Phi"]
@@ -2735,9 +2735,10 @@ $\mathbb{F}$
 induces a monad on $\mathsf{sSym}^G$
 whose category of algebras is $\mathsf{sOp}^G$.
 
+
 Mirroring \eqref{COLORSET EQ}
-we now have color set functors
-\[
+we now have \emph{color set functors}
+\begin{equation}\label{OPERCOLFUN EQ}
 	\mathsf{sSym} \xrightarrow{\mathfrak{C}_{\bullet}} \mathsf{Set}
 \qquad
 	\mathsf{sOp} \xrightarrow{\mathfrak{C}_{\bullet}} \mathsf{Set}
@@ -2745,7 +2746,25 @@ we now have color set functors
 	\mathsf{sSym}^G \xrightarrow{\mathfrak{C}_{\bullet}} \mathsf{Set}^G
 \qquad
 	\mathsf{sOp}^G \xrightarrow{\mathfrak{C}_{\bullet}} \mathsf{Set}^G.
-\]
+\end{equation}
+
+\begin{remark}\label{CTTCOLSET REM}
+	Replacing $\mathsf{sSet}$ with 
+	$\mathsf{Set}$
+	in Definition \ref{SSYM DEF}
+	and \eqref{FREEOP_EQ}
+	one recovers the analogue non-simplicial categories
+	$\mathsf{Sym}$, 
+	$\mathsf{Op}$, 
+	$\mathsf{Sym}^G$, 
+	$\mathsf{Op}^G$. 
+%	
+	As is well known, there is then a fully faithful inclusion
+	$\mathsf{sOp} \subset \mathsf{Op}^{\Delta^{op}}$
+	as those simplicial objects with a constant set of colors.
+\end{remark}
+
+
 The color set functors above are all 
 Grothendieck fibrations and, moreover, the monad 
 $\mathbb{F}$ is suitably compatible with these fibrations.
@@ -2864,6 +2883,138 @@ provided by
 {\color{red} HERE}
 
 
+
+We next recall the 
+\emph{operadification-nerve functor}
+adjunctions
+\begin{equation}\label{TAUNER EQ}
+	\tau\colon \mathsf{dSet}
+	\rightleftarrows
+	\mathsf{Op} \colon N
+\qquad
+	\tau\colon \mathsf{PreOp}
+	\rightleftarrows
+	\mathsf{sOp} \colon N.
+\end{equation}
+where we note that the rightmost adjunction 
+is induced by applying the leftmost adjunction
+to each simplicial level
+(indeed, by Definition \ref{PREOP DEF} 
+Remark \ref{CTTCOLSET REM}
+both $\mathsf{PreOp}$ and $\mathsf{sOp}$
+are characterized by demanding that
+the color sets on all simplicial levels are
+are the same).
+
+To describe the nerve $N$, 
+we need to recall the operad
+$\Omega(F) \in \mathsf{Op}$
+freely determined by a forest $F \in \Phi$.
+Explicitly, 
+$\Omega(F)$ is the $\boldsymbol{E}(F)$-colored operad
+which, when evaluated on
+a $\boldsymbol{E}(F)$-colored corolla
+$\vect{C} = 
+(C,\mathfrak{c} \colon \boldsymbol{E}(C) \to \boldsymbol{E}(F))$,
+is given by
+\begin{equation}\label{OMEGADEF_EQ}
+\Omega(F)(\vect C) =
+	\begin{cases}
+		\** \qquad & 
+		\mbox{if
+			$\mathfrak{c} \colon \boldsymbol{E}(C) \to \boldsymbol{E}(F)$
+			defines a map $C \to F$ in $\Phi$}
+	\\
+		\varnothing & \text{otherwise.}
+	\end{cases}
+\end{equation}
+We note that, since all levels of 
+$\Omega(F)$ are either $\**$ or $\emptyset$,
+there is always at most one possible way to compose operations,
+and hence at most one possible operad structure on $\Omega(F)$.
+That the operad structure indeed exists 
+(i.e. that composition is always defined)
+is a consequence of the observation that,
+for any tree $U\in \Omega$,
+a coloring
+$\mathfrak{c} \colon \boldsymbol{E}(U) \to \boldsymbol{E}(F)$
+defines a map
+$U \to F$ in $\Phi$
+iff
+the restrictions
+$\mathfrak{c}_v \colon \boldsymbol{E}(U_v) \to \boldsymbol{E}(F)$
+define maps
+$U_v \to F$ in $\Phi$
+for all vertices $v \in \boldsymbol{V}(U)$.
+
+
+We will also make use of an alternative description of $\Omega(F)$, as follows.
+
+First, if $\vect{C}\in \Sigma_{\mathfrak{C}}$ is a
+$\mathfrak{C}$-corolla,
+we denote its representable functor as 
+$\Sigma_{\mathfrak C}[\vect C] =
+\Sigma_{\mathfrak C}^{op}(\vect C, -)$ in 
+$\Sym_{\mathfrak C} = \mathsf{Set}^{\Sigma^{op}_{\mathfrak{C}}}$.
+Second, for
+$\vect{F}\in \Phi_{\mathfrak{C}}$ a
+$\mathfrak{C}$-forest, 
+we extend the 
+$\Sigma_{\mathfrak C}[-]$ notation via
+\[
+	\Sigma_{\mathfrak C}[\vect F] = \sideset{}{^{\mathfrak C}}\coprod_{v \in \boldsymbol{V}(F)} \Sigma_{\mathfrak C}[\vect F_v],
+\]
+where $\amalg^{\mathfrak C}$ denotes the coproduct
+in $\Sym_{\mathfrak C}$ (rather than in the larger category $\Sym$).
+Third, for 
+$F \in \Phi$
+an (uncolored) forest we write
+$F^{\tau}$ for $F$ together with its tautological 
+$\boldsymbol{E}(F)$-coloring, i.e.
+$F^{\tau} = 
+(F,\mathfrak{t}\colon \boldsymbol{E}(F) \xrightarrow{=} \boldsymbol{E}(F))$,
+and abbreviate
+$\Sigma_{\tau}[F] = \Sigma_{\boldsymbol{E}(T)}[F^{\tau}]$.
+All together, one then has an identification
+\[
+	\Omega(F) = \mathbb{F} \Sigma_{\tau}[F]
+\]
+which, informally, says that 
+``$\Omega(F)$ is freely generated by the vertices of $F$''.
+
+For $\O \in \mathsf{Op}$
+the nerve $N \O \in \mathsf{dSet}$ from \eqref{TAUNER EQ}
+is then described by
+\[
+	(N \O) (U) = \mathsf{Op}(\Omega(U),\O),\qquad U \in \Omega
+\]
+while $\tau\colon \mathsf{dSet} \to \mathsf{Op}$
+is the unique colimit preserving functor such that
+$\tau(\Omega[U]) \to \Omega(U)$.
+
+
+
+{\color{red} HERE}
+
+
+
+
+
+
+Alternatively, we have a more straightforward definition.
+First, we note that is it clear that $\Omega[T]$
+has strict lifts against Segal core inclusions $Sc[U] \to \Omega[U]$ for all $U \in \Omega$,
+and thus by \cite[Prop. 3.31 and Remark 3.42]{BP_edss} $\Omega[T]$ is the nerve of some $G$-operad.
+\begin{lemma}
+	$\Omega(T) \in \Op^G$ is the unique $G$-operad whose nerve is $\Omega[T]$.
+\end{lemma}
+
+
+
+
+{\color{purple} HERE}
+
+
 Moreover, we have that cofibrant operads forget to cofibrant symmetric sequences.
 
 
@@ -2873,16 +3024,16 @@ Moreover, we have that cofibrant operads forget to cofibrant symmetric sequences
 	A map $\phi \colon X \to Y$ in $\sSym^G_{\mathfrak C}$ is called a \textit{$\Sigma$-cofibration} if
 	for all $\mathfrak C$-signatures $\vect C$,
 	$\phi(\vect C) \colon X(\vect C) \to Y(\vect C)$ is an $\F^\Gamma_{\vect C}$-cofibration in $\sSet^{\Aut_{G \ltimes \Sigma_{\mathfrak C}^{op}}(\vect C)}$.
-      
-      We say a map $\O \to \P$ in $\sOp^G_{\mathfrak C}$ is a \textit{$\Sigma$-cofibration}
-      if the underlying map of $\mathfrak C$-colored symmetric sequences is a $\Sigma$-cofibration in $\sSym_{\mathfrak C}^G$. 
+	
+	We say a map $\O \to \P$ in $\sOp^G_{\mathfrak C}$ is a \textit{$\Sigma$-cofibration}
+	if the underlying map of $\mathfrak C$-colored symmetric sequences is a $\Sigma$-cofibration in $\sSym_{\mathfrak C}^G$. 
 \end{definition}
 
 \begin{proposition}[{cf. \cite[Prop. 3.63]{BP_HGOP}}]
 	\label{SIGMAG_COF PROP}
 	If $F \colon \O \to \P$ is a cofibration in $\Op^G_{\mathfrak C}(\V)$ and $\O$ is $\Sigma$-cofibrant,
-      then $F$ is a $\Sigma$-cofibration.
-      In particular, cofibrant operads are $\Sigma$-cofibrant.
+	then $F$ is a $\Sigma$-cofibration.
+	In particular, cofibrant operads are $\Sigma$-cofibrant.
 \end{proposition}
 
 Now, recall (e.g. \cite[Prop. 2.16]{Ste16}) that for any group $G$ and family of subgroups $\F$,
@@ -2901,7 +3052,7 @@ More generally, if $\Lambda \leq G \times \Sigma$ and $\F^\Gamma_{\Lambda} = \F^
 then $K \to L$ in $\sSet^{\Lambda}_{\F^\Gamma_\Lambda}$ is an $\F^\Gamma_\Lambda$-cofibration
 iff
 it forgets to a cofibration in the coarse model structure $\sSet^{\pi_{\Sigma}\Lambda}_{proj}$.
-      
+
 All together, we conclude the following (cf. \cite[Remark 6.7]{Per18}, \cite[discussion before Thm. 2.31]{BP_edss}).
 
 \begin{proposition}\label{SGS_COF_PROP}
@@ -2912,74 +3063,20 @@ All together, we conclude the following (cf. \cite[Remark 6.7]{Per18}, \cite[dis
 
 
 
-We end this subsection with a discussion on the free operad $\Omega(T)$ generated by a $G$-tree $T \in \Omega_G$;
-more details can be found in \cite[\S 2.3.1 and \S 4.2]{BP_HGOP}). % {REPFUN_SEC}
 
-Given $\vect C \in \Sigma_{\mathfrak C}$, we have a representable functor $\Sigma_{\mathfrak C}[\vect C] = \Sigma_{\mathfrak C}^{op}(\vect C, -)$ in $\Sym_{\mathfrak C}$.
-More generally, for any $\mathfrak C$-colored forest $\vect F$ (Definition \ref{CFOREST_DEF}), we define
-\[
-      \Sigma_{\mathfrak C}[\vect F] = \sideset{}{^{\mathfrak C}}\coprod_{v \in \boldsymbol{V}(F)} \Sigma_{\mathfrak C}[\vect F_v],
-\]
-where $\amalg^{\mathfrak C}$ denotes the coproduct
-in $\Sym_{\mathfrak C}$ (rather than in $\Sym_\bullet$).
-This extends to functors
-\[
-      \Phi_\bullet^0 \xrightarrow{\Sigma_\bullet[-]} \Sym_\bullet
-      \qquad
-      \Phi_\bullet^{0,G} \xrightarrow{\Sigma_\bullet[-]} \Sym_\bullet^G
-\]
-which are fibered over $\Set$ and $\Set^G$, respectively.
-
-We also recall the \textit{tautological coloring} functor $(-)^\tau \colon \Phi \to \Phi_{\bullet}$
-which sends $F \in \Phi$ to $F^\tau \in \Phi_{\boldsymbol{E}(T)}$,
-where $F^\tau = (F,\mathfrak t)$ is the underlying forest $F$ together with the identity coloring map $\mathfrak t \colon \boldsymbol{E}(T) \xrightarrow{=} \boldsymbol{E}$.
-We abbreviate $\Sigma_\tau[F] := \Sigma_{\boldsymbol{E}(F)}[F^\tau]$.
-
-We may now construct our free operads generated by trees.
-
-\begin{definition}
-      \label{OT_DEF}
-      Fix $T \in \Omega_G \subseteq \Phi^{0,G}_\bullet$.
-      We define $\Omega(T) \in \Op_\bullet^G$ to be the free operad
-      \[
-            \Omega(T) = \mathbb F \Sigma_\tau[T].
-      \]
-\end{definition}
-Explicitly, $\Omega(T)$ has colors $\mathfrak C = \boldsymbol{E}(T)$ the $G$-set of edges,
-an $n$-ary $\boldsymbol{E}(T)$-signature $\vect C$ is given by a map $\boldsymbol{E}(C_n) \to \boldsymbol{E}(T)$,
-and we have
-\begin{equation}\label{OMEGADEF_EQ}
-	\Omega(T)(\vect C) =
-	\begin{cases}
-		\** \qquad & \mbox{$\vect C$ extends to a map of forests $C_n \to T$}
-	\\
-		\varnothing & \text{else,}
-	\end{cases}
-\end{equation}
-
-{\color{red} HERE}
-
-
-
-This extends to a fully-faithful functor $\Omega_G \into \Op^G$.
+{\color{purple} HERE}
 
 
 \begin{remark}
-      If $T = (T_i)$, we have $\Omega(T) = \amalg_i \Omega(T_i)$.
-Moreover, if $T \in \Omega_G$ has a decomposition $G \cdot T_{\**}/\Lambda$ for some graph subgroup $\Lambda \leq G \times \Aut(T_{\**})$,
-we have $\Omega(T) \simeq \mathbb{F} \left( \Sigma_{\tau}[G \cdot C_n]/\Lambda \right)$ (cf. \cite[\S 2.3]{BP_HGOP}).
+	If $T = (T_i)$, we have $\Omega(T) = \amalg_i \Omega(T_i)$.
+	Moreover, if $T \in \Omega_G$ has a decomposition $G \cdot T_{\**}/\Lambda$ for some graph subgroup $\Lambda \leq G \times \Aut(T_{\**})$,
+	we have $\Omega(T) \simeq \mathbb{F} \left( \Sigma_{\tau}[G \cdot C_n]/\Lambda \right)$ (cf. \cite[\S 2.3]{BP_HGOP}).
 \end{remark}
 
 
+{\color{purple} HERE}
 
 
-Alternatively, we have a more straightforward definition.
-First, we note that is it clear that $\Omega[T]$
-has strict lifts against Segal core inclusions $Sc[U] \to \Omega[U]$ for all $U \in \Omega$,
-and thus by \cite[Prop. 3.31 and Remark 3.42]{BP_edss} $\Omega[T]$ is the nerve of some $G$-operad.
-\begin{lemma}
-	$\Omega(T) \in \Op^G$ is the unique $G$-operad whose nerve is $\Omega[T]$.
-\end{lemma}
 
 
 \subsubsection{Simplicial tensoring and generating cofibrations}
