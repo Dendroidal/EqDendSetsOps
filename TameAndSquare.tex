@@ -525,7 +525,8 @@ and degeneracies collapse some of the unary vertices of $U$.
 \end{example}
 
 
-\begin{proposition}[{\cite[Prop. 2.2]{BP_edss}}]
+\begin{proposition}\label{TREEFACT_PROP}
+	[{\cite[Prop. 2.2]{BP_edss}}]
 	A map of trees $\varphi \colon U \to V$ has a factorization, unique up to unique isomorphisms,
 \begin{equation}\label{TREEFACT_EQ}
 	U \xrightarrow{\varphi^-} 
@@ -1135,11 +1136,6 @@ There exists a left proper (cf. \cite[Prop. 8.8]{Per18}) model structure on $\dS
 	and at some points in this paper we will need to deal with the fact that many natural constructions in the non-equivariant setting generalize to objects in 
 	$\dSet_G$ rather than in $\dSet^G$.
 \end{remark}
-
-
-
-
-\newpage
 
 
 
@@ -3220,9 +3216,8 @@ right $G\times \Sigma_n^{op}$-action)
 = 
 	\Sigma_{\tau}[C]
 \end{equation}
-in $\Phi^G$ and $\mathsf{Sym}^G$, respectively.
+in $\Phi^G_{\bullet}$ and $\mathsf{Sym}^G$, respectively.
 \end{remark}
-
 
 
 We need one final ingredient to describe the generating sets of maps for the model structure on
@@ -3482,7 +3477,7 @@ result, whose proof is deferred to \S \ref{KEYRES SEC}.
 	The integer $r \geq 1$ in 
 	Lemma \ref{KEYPRVAR LEM}
 	is included to match our required application in Lemma \ref{UNITEQUIV LEM}.
-	However, it readily follows from induction on $r$ that one needs only prove the $r=1$ case.
+	However, it readily follows by induction on $r$ that one needs only prove the $r=1$ case.
 	Indeed, writing $\O_r$ for the pushout in 
 	\eqref{PUSHOUTPROPVAR EQ}
 	for each $r$,
@@ -3608,7 +3603,7 @@ Setting $A = \emptyset $, $\mathcal{O}= \emptyset$ in the previous result yields
 	N \mathcal{O}_{\beta}$
 	are weak equivalences
 	(sufficiency of the latter condition uses the fact that 
-	filtered colimits of weak equivalences in $\mathsf{PreOp}^G$ are weak equivalences, cf. Lemma \ref{FCOLIM_WE2_LEM}).
+	filtered colimits of weak equivalences in $\mathsf{PreOp}^G$ are weak equivalences, cf. Theorem \ref{PREOPMS THM}).
 	Consider now the following diagrams.
 	\[
 	\begin{tikzcd}
@@ -3701,7 +3696,8 @@ which are adapted from \cite{JT07} (see Proposition 7.15 therein).
 
 \begin{proof}
 	We first show that $N$ preserves and detects weak equivalences.
-	To see this, note first that all objects in the image of $N$ are Segal operads, so that by Remark \ref{SEOPDK REM} a map in the image of $N$ is a weak equivalence iff it is a Dwyer-Kan equivalence.
+	To see this, note first that all objects in the image of $N$ are Segal operads, so that by Theorem \ref{FIBPREOP THM} 
+	a map in the image of $N$ is a weak equivalence iff it is a Dwyer-Kan equivalence.
 	But it is clear that $N$ preserves and reflects fully-faithful maps,
 	and since
 	$N \left(j^{\**} \O^H \right)
@@ -3787,67 +3783,125 @@ which are adapted from \cite{JT07} (see Proposition 7.15 therein).
 
 \subsection{The homotopy coherent nerve and the proof of the main theorem}
 
-{\color{OliveGreen} % ----------
-  Categorically, the homotopy coherent nerve is an extension of the $W$-construction of Boardman-Vogt,
-  a topological enrichment of the inclusion $\Delta \to \Cat$, so that the triangle below commutes.
-  \[
-        \begin{tikzcd}
-              &
-              \sCat \arrow[d, "\pi_0"]
-              \\
-              \Delta \arrow[r, "{[-]}"'] \arrow[ur, "W(-)"]
-              &
-              \Cat
-        \end{tikzcd}
-  \]
-  This induces a nerve-realization adjunction $W_! \colon \sSet \leftrightarrows \sCat \colon hcN$
-  between the $W_!$-construction and the homotopy coherent nerve,
-  which is a Quillen equivalence when simplicial sets are endowed with teh Joyal model structure, and simplicial categories with the Dwyer-Kan,Bergner model structure.
-} % ----------
 
-{\color{red} HERE}
 
-In the appendix, we provide a careful definition and description of a generalization of $W$ to the operadic setting,
-using an extension of the language of necklases from \cite{DS11}.
-We summarize and interpret the main results found there.
+In this section we prove our main result,
+Theorem \ref{QE THM}.
+We first recall how the
+$W_!\colon \mathsf{dSet}^G 
+\rightleftarrows 
+\mathsf{sOp}^G \colon hcN$
+adjunction \eqref{QE_EQ} is defined.
 
-\begin{lemma}
-      Let $U \in \Omega$ be a tree. We define $W(U) \in \sOp$ to be the $\boldsymbol{E}(U)$-colore simplicial operad
-      \begin{equation}
-            \label{WU_EQ}
-            W(U)(\vect C) =
-            \begin{cases}
-                  \Delta[1]^{\times \boldsymbol{E}^i(U_{\vect C})}
-                  \qquad
-                  & \mbox{$\boldsymbol{E}(C_n) \xrightarrow{\vect C} \boldsymbol{E}(U)$ defines a map $C_n \to U$ in $\Omega$}
-                  \\
-                  \varnothing & \mbox{else.}
-            \end{cases}
-      \end{equation}
-\end{lemma}
-\begin{proof}
-      This follows from unpacking Definition \ref{NWTNS DEF};
-      an $n$-simplex $(k_e) \in \underline{n}_+^{\times E^i(U_{\vect C)}}$ corresponds to the factorization where
-      the inner edge $e$ is in $F_{k_e}$ but not $F_{k_e -1}$. 
-\end{proof}
+In the categorical setting
+the left adjoint $W_!$ admits 
+an explicit description, due to Dwyer and Spalinski \cite{DS11},
+in terms of so called \emph{necklaces},
+which we extend to the operadic setting in 
+Appendix \ref{WCONS AP}.
+We now summarize the results in that appendix we will need.
+
+
+
+For a tree $U \in \Omega$ there is 
+a simplicial operad
+$W(U) \in \mathsf{sOp}$
+with set of colors $\boldsymbol{E}(U)$
+and whose $n$ simplices evaluated at
+a $\boldsymbol{E}(U)$-corolla
+$\vect{C} = (C,\mathfrak{c})$
+
+
+\begin{equation}\label{WU_EQ}
+	W(U)_n(\vect C) =
+	\begin{cases}
+	\left\{\text{factorizations }
+	C \xrightarrow{t} 
+	F_0 \xrightarrow{i,p} 
+	\cdots \xrightarrow{i,p}
+	F_n \xrightarrow{f,p} U
+	\right\}
+&
+	\mbox{if $\boldsymbol{E}(C) \xrightarrow{\mathfrak{c}} \boldsymbol{E}(U)$ defines a map in $\Omega$}
+\\
+	\varnothing
+&
+	\mbox{otherwise.}
+\end{cases}
+\end{equation}
+where we label maps in $\Omega$ as
+$t/i/f/p$
+to indicate they are 
+tall/inner faces/faces/planar
+(cf. \S \ref{FORESTS_SEC}).
+
 
 \begin{remark}
-      This agrees with the description given in \cite[\S 4]{CM13b}.
+	The factorization description in \eqref{WU_EQ}
+	reflects our approach in Appendix \ref{WCONS AP},
+	which makes heavy use of the factorizations in 
+	Proposition \ref{TREEFACT_PROP}.
+	However, there is a simpler and more familiar description of $W(U)(\vect{C})$.
+	If one lets
+	$C \xrightarrow{t} U_C \xrightarrow{o,p} U$
+	denote the unique ``tall followed by planar outer face'' factorization, 
+	repeated use of Proposition \ref{TREEFACT_PROP}
+	shows that the 
+	$F_0 \to \cdots \to F_n$
+	strings in \eqref{WU_EQ}
+	are precisely the strings of planar inner faces of $U_C$.
+	And since the latter are in bijection with strings of subsets of inner edges $\boldsymbol{E}^{\mathsf{i}}(U_C)$, 
+	we have 
+\begin{equation}\label{WU_EQ2}
+	W(U)(\vect C) =
+	\begin{cases}
+	\Delta[1]^{\times \boldsymbol{E}^{\mathsf{i}}(U_{C})}
+	\qquad
+&
+	\mbox{if $\boldsymbol{E}(C) \xrightarrow{\mathfrak{c}} \boldsymbol{E}(U)$ defines a map in $\Omega$}
+\\
+\varnothing
+&
+	\mbox{otherwise,}
+	\end{cases}
+\end{equation}
+which recovers the description in \cite[\S 4]{CM13b}.
 \end{remark}
 
 
-\begin{definition}
-      The \textit{homotopy coherent dendroidal nerve} and the \textit{$W_!$-construction}
-      are the right- and left-adjoints of the nerve-realization adjunction associated to the functor $W: \Omega \into \Op(\sSet)$.
-      \begin{equation}
-            \label{SOPDSET_EQ}
-            W_! \colon \dSet \rightleftarrows \sOp \colon h c N           
-      \end{equation}
-      Explicitly, $W_!X = \colim_{\Omega[U] \to X}W(U)$ and $hcN\O(U) = \Hom_{\sOp^G}(W(U), \O)$.
 
-      This extends to an adjunction on $G$-objects by postcomposition, yielding our adjunction \eqref{QE_EQ} from our main result,
-      Theorem \ref{QE THM}.
-\end{definition}
+\begin{remark}
+	One neat feature of the description in 
+	\eqref{WU_EQ}
+	is that the nerve $N W(U)$
+	can be defined identically 
+	(cf. Definition \ref{NWTNS DEF}),
+%	It is then straightforward to check that the nerve thus defined has the required functoriality and satisfies the strict Segal condition.
+	allowing us to deduce many properties of $W_!$
+	via systematic use of 
+	Proposition \ref{TREEFACT_PROP}.
+\end{remark}
+
+
+
+The adjunction
+\begin{equation} \label{SOPDSET_EQ}
+	W_! \colon \dSet \rightleftarrows \sOp \colon h c N           
+\end{equation}
+is then defined by
+\[
+	W_!X = \colim_{\Omega[U] \to X}W(U)
+	\qquad
+	hcN\O(U) = \sOp^G(W(U), \O)
+\]
+with the equivariant analogue adjunction \eqref{QE_EQ}
+obtained by taking $G$-objects.
+
+
+{\color{red} HERE}
+
+
+
 
 \begin{remark}
       For any $G$-tree $T = (T_i)$ in $\Omega_G$, we let $W(T)$ denote $W_!(\Omega[T])$.
@@ -3865,12 +3919,11 @@ We summarize and interpret the main results found there.
 
 Using the simplicial tensoring of $\sOp$ from \eqref{OPTENS_EQ},
 we formalize the main observations used in the proof \cite[Prop. 4.5]{CM13b} below.
-\begin{proposition}
-      \label{WLEFTQPUSH PROP}
+\begin{proposition}\label{WLEFTQPUSH PROP}
       For $\eta \neq T \in \Omega_G$
-      and $G$-closed $\emptyset \neq E \subseteq \boldsymbol{E}^{\mathsf{i}}(T)$,
+      and $G$-subset $\emptyset \neq E \subseteq \boldsymbol{E}^{\mathsf{i}}(T)$,
       one has pushout digrams in $\sOp^G$
-      \begin{equation}\label{WLEFTQPUSH_EQ}
+\begin{equation}\label{WLEFTQPUSH_EQ}
             \begin{tikzcd}[column sep = small]
                   \Omega(C) \otimes_{\mathfrak C_\bullet}
                   \partial \left(\Delta[1]^{\times \boldsymbol{E}^{\mathsf{i}}(T)}\right)
@@ -3898,7 +3951,7 @@ we formalize the main observations used in the proof \cite[Prop. 4.5]{CM13b} bel
                   &
                   W(T)
             \end{tikzcd}
-      \end{equation}
+\end{equation}
       where
       $C = \mathsf{lr}(T)$, and
       $\partial \left(\Delta[1]^{\times \boldsymbol{E}^{\mathsf{i}}(T)}\right)
