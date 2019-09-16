@@ -3908,12 +3908,14 @@ Note that, since the $T_i$ have disjoint edge sets, we thus have
 	W(T) = \amalg_i W(T_i) \simeq G \cdot_H W(T_{\**}).
 \]
 
-{\color{red} HERE}
+
+The following formalizes some key observations in the proof of
+\cite[Prop. 4.5]{CM13b}.
 
 
-
-\begin{proposition}\label{WLEFTQPUSH PROP}
-      For $\eta \neq T \in \Omega_G$
+\begin{lemma}\label{WLEFTQPUSH LEM}
+      For $\eta \neq T \in \Omega^G$
+      a tree with a $G$-action
       and $G$-subset $\emptyset \neq E \subseteq \boldsymbol{E}^{\mathsf{i}}(T)$,
       one has pushout digrams in $\sOp^G$
 \begin{equation}\label{WLEFTQPUSH_EQ}
@@ -3973,24 +3975,42 @@ Note that, since the $T_i$ have disjoint edge sets, we thus have
 	\right)^{\square E}
 \]
       with $G$-action induced by the action on $\boldsymbol{E}^{\mathsf{i}}(T)$.
-\end{proposition}
-
-
-Using the simplicial tensoring of $\sOp$ from \eqref{OPTENS_EQ},
-we formalize the main observations used in the proof \cite[Prop. 4.5]{CM13b} below.
+\end{lemma}
 
 
 
 
 \begin{proof}
-      This follows by applying Example \ref{WPARTIALT_EX}.
-      \todo[inline]{come back}
+	Note first that
+\[\Omega[C] \otimes_{\mathfrak{C}_{\bullet}} K
+\simeq
+\left(
+\mathbb{F} \Sigma_{\tau}[C]	
+\right)	\otimes_{\mathfrak{C}_{\bullet}} K
+\simeq
+\mathbb{F} (\Sigma_{\tau}[C] \times K).\]
+Further noting that
+\[
+\left(\mathbb{F} (\Sigma_{\tau}[C] \times K)\right)(\underline{l};r) =
+(\Sigma_{\tau}[C] \times K)(\underline{l};r) = K,
+\]
+the top horizontal maps in 
+\eqref{WLEFTQPUSH_EQ}
+are the unique maps given by the identity at the 
+$(\underline{l},r)$ level,
+as per the calculations of
+$W_!\left(\partial \Omega[T] \right)(\underline{l};r)$,
+$W_!\left(\Lambda^E[T] \right)(\underline{l};r)$
+in Examples \ref{WPARTIALT_EX}, \ref{WPARTIALT2_EX}.
+
+Lastly, to see that the squares in
+\eqref{WLEFTQPUSH_EQ} are pushout squares note that,
+after taking nerves, it is clear that the left vertical inclusions attach precisely those dendrices 
+missing from the right vertical inclusions.
+In other words, \eqref{WLEFTQPUSH_EQ}
+induces pushouts in $\mathsf{dSet}^G$ upon applying the nerve functor.
+The result now follows since the nerve reflects colimits.
 \end{proof}
-
-
-
-
-
 
 
 
@@ -4005,7 +4025,25 @@ we formalize the main observations used in the proof \cite[Prop. 4.5]{CM13b} bel
       \label{W!_LEFTQ_PROP}
       $W_!: \dSet^G \to \sOp^G$ is left Quillen.
 \end{proposition}
+
 \begin{proof}
+	Note first that, combining the pushouts in 
+	Lemmas \ref{WLEFTQPUSH LEM}
+	and \ref{OPTENSCOF_LEM}
+	one has that 
+	$W_!$ preserves cofibrations
+	and sends $G$-inner anodyne extensions to trivial cofibrations.
+	By adjunction,
+	the latter claim implies follows that $hcN$ sends fibrations between fibrant objects
+	to inner fibrations between $G$-$\infty$-operads.
+	Hence, by Corollary \ref{SIMPLQUILL COR}
+	together with Theorem \ref{DSETGMOD THM},
+	
+	
+
+	
+{\color{orange} HERE}	
+	
       Since Proposition \ref{W!_COF_PROP} states that $W_!$ preserves cofibrations,
       it suffices by Corollary \ref{SIMPLQUILL COR} to show that $h c N$ preserves fibrations between fibrant objects.
       Suppose $f: \O \to \P$ is an $\F$-fibration between $\F$-fibrant operads in $\sOp^G$.
@@ -5459,106 +5497,14 @@ We now have the following generalization of \cite[Prop 4.5]{CM13b} (see also \ci
 	Suppose $\F = \set{\F_n}$ is a weak indexing system.
 	Then $W_!: \dSet^G \to \sOp^G$ sends $\F$-normal monomorphisms to cofibrations and inner $\F$-anodyne extensions to trivial $\F$-cofibrations.
 \end{proposition}
+
 \begin{proof}
 	It suffices to check this on the generating maps.
 	This then follows from
-	Lemmas \ref{OPTENS_LEM} and \ref{OPTENSCOF_LEM} with Proposition \ref{WLEFTQPUSH PROP}.
+	Lemmas \ref{OPTENS_LEM} and \ref{OPTENSCOF_LEM} with Proposition \ref{WLEFTQPUSH LEM}.
 \end{proof}
 
 
-% ------------------------------ OLD PROOF ------------------------------
-% \begin{proof}
-%       It suffices to check this on the generating maps.      
-%       To that end, let $T \in \Omega_\F$, choose a decomposition $T \simeq G \cdot_H T_{\**}$ and consider the map
-%        \begin{equation}
-%             G \cdot_H \left( W_! \partial \Omega[T_{\**}] \xrightarrow{\ i \ } W(T_{\**}) \right)      
-%       \end{equation}
-%       in $\sOp^G$.
-%       If $T_{\**} = \eta$, then $i$ is the canonical map $\varnothing \to \eta$,
-%       $W_! \partial \Omega[\eta] = \varnothing \to W(\eta) = \eta$,
-%       and so $G \cdot_H i$ is a generating cofibration in $\sOp^G$.
-
-%       When $|V(T)| \geq 1$, following Proposition \ref{WLEFTQPUSH PROP} and Lemma \ref{OPTENS_LEM},
-%       it suffices to show that
-%       \[
-%             (\partial \Delta[1] \to \Delta[1])^{\square \mathbf E^i(T_{\**})}
-%       \]
-%       is a genuine cofibration in $\sSet^{\Aut(\partial C)}_\F$ with $C = \mathsf{lr}(T_{\**}) \in H \ltimes \Sigma_{\boldsymbol{E}(T_{\**})}^{op}$.
-%       However, $\Aut(\partial C) = \Gamma$ for $\Gamma \leq H \times \Sigma_n$ the graph subgroup encoding the $H$-action on the set of leaves $\set{e_1, \dots, e_n}$,
-%       and since $\F$ is a weak indexing system and $T \in \Omega_\F$,
-%       $\Aut(\vect C) \in \F_n$,
-%       and thus, as $\F$ is closed under subgroups, $\sSet^{\Aut(\vect C)}_\F = \sSet^{\Aut(\vect C)}_{gen}$.
-%       Then the claim follows from the fact that monomorphisms are genuine cofibrations,
-%       {\color{OliveGreen} % ---------- OLIVE GREEN ----------------------------------------
-%         or using the fact that $\sSet$ has cofibrant symmetric pushout powers,
-%         so $(\partial \Delta[1] \to \Delta[1])^{\square m}$ is a genuine $\Sigma_m$-cofibration where $m = |\mathbf E^i(T_{\**})|$,
-%         and then as restriction is left Quillen on genuine model structures,
-%         the composite on the right below is a genuine $\Aut(\partial C)$-cofibration.
-%         \[
-%               \mathrm{Res}^{\Sigma_m}_{\Aut(C)}(\partial \Delta[1] \to \Delta[1])^{\square m} = i(\partial C),
-%               \qquad
-%               \Aut(\vect C) = \Gamma \xrightarrow{pr} H \xrightarrow{\mathbf E^i(T_e)} \Sigma_m
-%         \]
-
-%       } % ---------------------------------------- OLIVE GREEN --------------------
-%       %
-%       It is then straightforward to check that $G \cdot_H i$ has the left lifting property against all local trivial $\F$-fibrations in $\sOp^G$.
-%       {\color{OliveGreen} % ----------------------------------------
-%         Indeed, we clearly have a lifts on the level of sequences.
-%         To check that the resulting map is operadic, it suffices to check on composites of the form
-%         $C_0 \circ (C_1, \dots, C_n) = \mathsf{lr}(T_e)$.
-%         If $C_j = \mathsf{lr}(T_e)$ for some $j$, then the composite map is just the identity, and there is no content to check.
-%         If $C_j \neq \mathsf{lr}(T_e)$ for all $j$,
-%         then this follows by a simple diagram chase on the cube relating the compositions in $W(T)$ and $W_! \partial \Omega(T)$ with those in the source and target of the testing trivial fibration.
-%       } % COLOR OLIVEGREEN ------------------------------------------------------
-%       Hence $G \cdot_H i$ is an $\F$-cofibration in $\sOp^G$ by Lemma \ref{CAV_4.8}.
-
-%       A similar argument using the other half of Proposition \ref{WLEFTQPUSH PROP} shows that $W_!$ preserves generating $\F$-inner horn inclusions.
-%       % Similarly, consider a generating $\F$-inner horn inclusion
-%       % \[
-%       %       G \cdot_H \left(W_! \Lambda^{H e}[T_e] \xrightarrow{\ j \ } W(T_e) \right).
-%       % \]
-%       % with $T \simeq G \cdot_H T_e \in \Omega_\F$ and $e \in \mathbf E(T_e)$ some inner edge.
-%       % Again, $j$ is bijective on objects and $j(\vect C)$ is the identity unless $\vect C = h \cdot \partial \mathsf{lr}(T_e)$.
-%       % When $\vect C = \partial \mathsf{lr}(T_e)$, $j(\vect C)$ is the iterated pushout product
-%       % \begin{equation}
-%       %       j(\vect C) =
-%       %       \left(
-%       %             \begin{tikzcd}
-%       %                   \partial \left(
-%       %                         \Delta[1]^{\times \mathbf E^i(T_e) \setminus H e}
-%       %                   \right) \arrow[d]
-%       %                   \\
-%       %                   \Delta[1]^{\times \mathbf E^i(T_e) \setminus H e}
-%       %             \end{tikzcd}
-%       %       \right) \square
-%       %       \left(
-%       %             \begin{tikzcd}
-%       %                   \set{1} \arrow[d]
-%       %                   \\
-%       %                   \Delta[1]
-%       %             \end{tikzcd}
-%       %       \right)^{\square H e}
-%       %       =
-%       %       \left(
-%       %             \begin{tikzcd}
-%       %                   \partial \Delta[1] \arrow[d]
-%       %                   \\
-%       %                   \Delta[1]
-%       %             \end{tikzcd}
-%       %       \right)^{\square \mathbf E^i(T_e) \setminus H e}
-%       %       \square
-%       %       \left(
-%       %             \begin{tikzcd}
-%       %                   \set{1} \arrow[d]
-%       %                   \\
-%       %                   \Delta[1]
-%       %             \end{tikzcd}
-%       %       \right)^{\square H e}.                              
-%       % \end{equation}
-%       % A similar argument shows that $G \cdot_H j$ has the left lifting property against all local $\F$-fibrations,
-%       % hence is a trivial $\F$-cofibration in $\sOp^G$ by Lemma \ref{CAV_4.3}, as desired. 
-% \end{proof}
 
 
 \begin{corollary}
@@ -6810,49 +6756,88 @@ induces a pushforward of flanked flags
 
 
 
-\begin{example}
-      \label{WPARTIALT_EX}
-      Let $T \in \Omega$ be a tree.
+\begin{example}\label{WPARTIALT_EX}
+      Let $U \in \Omega$ be a tree.
       We will apply the previous result to describe
-      $W_!(\partial T)$.
+      $W_!(\partial U)$.
       Firstly, 
       on any signature $\vect{C}$
       other than the leaf-root signature
       one readily sees that
-      $W_!(\partial T)(\vect{C}) = W_!(T)(\vect{C})$.
+      $W_!(\partial U)(\vect{C}) = W_!(U)(\vect{C})$.
 
-      For the more interesting case of 
-      $W_!(\partial T)(\underline{l},r)$
-      note that a map
-      $\Omega[R,E] \to \Omega [T]$
-      is totally non-degenerate iff
-      the inducing map $R \to T$
-      is a face map. Moreover, we are free to choose the unique planar representative.
-      Next, note that 
-      $\Omega[R,E] \to \Omega [T]$
-      factors through $\partial \Omega[T]$
-      iff either $R \neq T$ or $E \neq \emptyset$.
-      In other words, the $n$-simplices of 
-      $W_!(\partial T)(\underline{l},r)$
-      are uniquely represented as strings
-      \[
-            F_0 \xrightarrow{inn} 
-            F_1 \xrightarrow{inn} 
-            \cdots \xrightarrow{inn}
-            F_n = R \xrightarrow{inn} T
-      \]
-      such that either $F_n \neq T$ or $F_0 \neq \mathsf{lr(T)}$.
+	For the more interesting case of 
+	$W_!(\partial U)(\underline{l};r)$
+	note that a map
+	$\Omega[R,E] \to \Omega [U]$
+	is totally non-degenerate iff
+	the inducing map $R \to U$
+	is a face map. Moreover, we are free to choose the unique planar representative.
+	Next, note that 
+	$\Omega[R,E] \to \Omega [U]$
+	factors through $\partial \Omega[U]$
+	iff either $R \neq U$ or $E \neq \emptyset$.
+	In other words, the $n$-simplices of 
+	$W_!(\partial U)(\underline{l};r)$
+	are uniquely represented as strings
+\begin{equation}\label{WDELREP EQ}
+	F_0 \xrightarrow{inn} 
+	F_1 \xrightarrow{inn} 
+	\cdots \xrightarrow{inn}
+	F_n = R \xrightarrow{inn} U
+\end{equation}
+	such that either $F_n \neq U$ or $F_0 \neq \mathsf{lr(U)}$.
 
 In other words, 
-$W_!(\partial T)(\underline{l},r)$
-is the boundary of the poset of inner faces
-$\mathsf{Face}_{inn}(T) \simeq 
-(0 \to 1)^{\times \boldsymbol{E}^{\mathsf{i}}(T)}.$
+$W_!(\partial U)(\underline{l},r)$
+is the boundary of the nerve of the poset of inner faces
+$\mathsf{Face}_{inn}(U) \simeq 
+(0 \to 1)^{\times \boldsymbol{E}^{\mathsf{i}}(U)}$.
+More explicitly, 
+$W_!(\partial U)(\underline{l},r)$ 
+is identified with the \emph{domain} of the iterated pushout product
+\[
+	\left(
+	\{0,1\} \to \Delta[1]
+	\right)^{\square \boldsymbol{E}^{\mathsf{i}}(U)}.
+\]
 \end{example}
 
 
 
 
+\begin{example}\label{WPARTIALT2_EX}
+	Let $U\in \Omega$ and 
+	$\emptyset \neq E \subseteq \boldsymbol{E}^{\mathsf{i}}(U)$.
+	Just as in Example \ref{WPARTIALT_EX}
+	one has 
+	$W_!(\Lambda^E[U])(\vect{C}) = W_!(U)(\vect{C})$
+	whenever $\vect{C} \neq (\underline{l};r)$
+	(though we note that this fails for outer horns).
+	
+	Then, one has that 
+	$\Omega[R,\bar{E}] \to \Omega[U]$
+	factors through $\Lambda^E[U]$
+	iff either $R \not \supseteq U-E$ or $\bar{E}\neq \emptyset$.
+	I.e., the $n$-simplices of
+	$W_!(\Lambda^E[U])(\underline{l};r)$ 
+	are uniquely represented by a string
+	\eqref{WDELREP EQ}
+	such that either $F_n \not \supseteq U-E$
+	or $F_0 \neq \mathsf{lr}(U)$. 
+	More explicitly, 
+	$W_!(\Lambda^E[U])(\underline{l},r)$ 
+	is identified with the \emph{domain} of the iterated pushout product
+	\[
+	\left(
+	\{0,1\} \to \Delta[1]
+	\right)^{\square \boldsymbol{E}^{\mathsf{i}}(U)-E}
+	\square
+	\left(
+	\{1\} \to \Delta[1]
+	\right)^{\square E}.
+	\]
+\end{example}
 
 
 
@@ -7558,7 +7543,7 @@ that are identified in
 $\pi_0 \upsilon_{\**} N \O$
 were already identified in 
 $ho(hcN(\O))$.
-But this now follows immediately from the pushout from Proposition \ref{WLEFTQPUSH PROP}
+But this now follows immediately from the pushout from Proposition \ref{WLEFTQPUSH LEM}
 \[
 \begin{tikzcd}
 	\Omega(C) \otimes_{\mathsf{F}}
