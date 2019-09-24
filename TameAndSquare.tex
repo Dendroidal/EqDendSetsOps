@@ -10,7 +10,7 @@
 \usepackage{ifdraft}
 \ifdraft{
   \color[RGB]{63,63,63}
-%  \pagecolor[RGB]{220,220,204}
+  \pagecolor[RGB]{220,220,204}
   \usepackage[notref]{showkeys}
   \usepackage{todonotes}
 }
@@ -773,7 +773,7 @@ In general, we have the following.
       $T = \amalg_{i \in I} T_i$ with $I$ a transitive $G$-set and $T_i$ trees.
       Alternatively, any choice of component $T_{\**}$ has a stabilizer $H \leq G$, and then we have a decomposition
       $T \simeq G \cdot_H T_{\**}$.
-      Finally, if $\Gamma \leq G \times \Aut(T_{\**})$ is the graph subgroup encoding the $H$-action on $T_{\**}$, we have
+      Finally, if $\Gamma \leq G \times \Aut(T_{\**})$ is the {\color{blue}graph subgroup} \todo{graph subgroup hasn't been defined yet} encoding the $H$-action on $T_{\**}$, we have
       $T \simeq G \cdot T_{\**}/\Gamma$.
 \end{remark}
 
@@ -1133,7 +1133,7 @@ There exists a left proper (cf. \cite[Prop. 8.8]{Per18}) model structure on $\dS
 	the proof of Theorem \ref{DSETGMOD THM} itself
 	relies on an analysis of the homotopy theory of 
 	$\dSet_G$, 
-	and at some points in this paper we will need to deal with the fact that many natural constructions in the non-equivariant setting generalize to objects in 
+	and at some points in this paper \todo{add examples} we will need to deal with the fact that many natural constructions in the non-equivariant setting generalize to objects in 
 	$\dSet_G$ rather than in $\dSet^G$.
 \end{remark}
 
@@ -1216,7 +1216,7 @@ such that $X_n \to Y_n$ is a weak equivalence in $\dSet^G$ for all $n \geq 0$.
 Second, as discussed in 
 \cite[Ex. A.7]{BP_edss},
 $\Omega^{op} \times G$ is \emph{a generalized Reedy category}
-and the family of graph subgroups is
+and the family of {\color{blue} graph subgroups} \todo{graph subgroup has not been defined yet} is
 \emph{Reedy admissible}
 in the sense of \cite[Ex. A.2]{BP_edss}.
 Hence, by \cite[Thm. A.8]{BP_edss},
@@ -1247,7 +1247,8 @@ yields the following.
 	$\mathsf{sdSet}^G$
 	have a smallest\footnote{Here ``smallest'' means that the class of weak equivalences is as small as possible.}
 	common left Bousfield localization,
-	which we call the \emph{joint Bousfield localization}.
+	which we call the \emph{joint Bousfield localization},
+        with \textit{joint equivalences} and \textit{jount fibrations/fibrant objects}.
 	Moreover:
 \begin{enumerate}[label = (\roman*)]
 	\item \label{PROPER_LBL}
@@ -3873,7 +3874,7 @@ adjunction \eqref{QE_EQ} is defined.
 
 In the categorical setting
 the left adjoint $W_!$ admits 
-an explicit description, due to Dwyer and Spalinski \cite{DS11},
+an explicit description, due to Dugger and Spivak \cite{DS11},
 in terms of so called \emph{necklaces},
 which we extend to the operadic setting in 
 Appendix \ref{WCONS AP}.
@@ -5596,14 +5597,37 @@ We now have the following generalization of \cite[Prop 4.5]{CM13b} (see also \ci
 \section{The dendroidal $W_!$-construction}
 \label{WCONS AP}
 
+We give an explicit construction for the rigidification of a dendroidal set into a simplicial operad,
+extending the work of Dugger-Spivak \cite{DS11} from the categorical to the operadic context.
+This will be used to give a concrete description of the key adjunction $\dSet^G \rightleftarrows \sOp^G$.
+
+The fundamental object for this discussion is a necklase.
+First, we recall three concepts from $\Omega$ and $\dSet$.
+\begin{notation}
+      \begin{enumerate}
+      \item Given a map $U \xrightarrow{\phi} T$, we let $\overline{\phi U}$
+            % Given any face map $U \into T$, we let $\overline{U}^T = \overline{U}$
+            denote the \textit{outer closure} of $U$ in $T$,
+            the smallest planar outer face of $T$ such that $U \into \overline{U}$
+            (equivalently, $\overline{U}$ is the unique planar outer face $U''$ in the factorization \eqref{OMEGAFACT_EQ},
+            {cf. \cite[Notation 2.14]{BP_edss}}).
+            
+            Moreover, for any vertex $v \in \boldsymbol{V}(U)$, we write $T_v$ for the outer closure $\overline{\phi U_v}$.
+            \todo[inline]{we are writing outer closures as $\overline{\phi U}$ as opposed to $\overline{U}^T$, yes? I agree that this is better for iterated closures.}
+      \item Let $E \subseteq \boldsymbol{E}(T)$
+            be a subset of edges (not necessarily inner)
+            and $F \hookrightarrow T$ an outer face.
+            Then we write
+            \[
+                  E_F = E \cap \boldsymbol{E}^{\mathsf{i}}(F).
+            \]
+      \item Given $T \in \Omega$ and any inner edge $e \in \boldsymbol{E}^i(T)$, we have a \textit{grafting decomposition} 
+            $T = R \amalg_e S$ where $R,S$ are outer faces of $T$ such that $e$ is a leaf of $R$ and the root of $S$.
+      \end{enumerate}
+\end{notation}
 
 
-We will discuss the $W_!$
-construction in the operadic context by extending the 
-work in \cite{DS11}
-(which deals with the categorical context).
-
-
+We now define our key notion.
 \begin{definition}
 A (dendroidal) \emph{necklace} is a pair $(T,E)$
 with $T \in \Omega$
@@ -5631,25 +5655,34 @@ consisting of those planar outer faces with with no inner edges
 (these consist of either a single edge or a single vertex of $J$).
 
 \begin{definition}
-	Given a necklace 
-	$(T,E)$, 
-	and writing $J = T-E^c$,
-	we define its representable presheaf
-	$\Omega[T,E] \in \mathsf{dSet}$ by
-\begin{equation}
-	\Omega[T,E] 
-= 
-	\underset{U \in \mathsf{Face}_{sc}(J)}{\colim}
-	\Omega[\overline{\iota U}]
-=
-	\bigcup_{U \in \mathsf{Face}_{sc}(J)} 
-	\Omega[\overline{\iota U}]
-\end{equation}
-	where the union formula is taken inside $\Omega[T]$.
-	
-	The category $\mathsf{Nec}$ of necklaces is then the full subcategory of $\mathsf{dSet}$
-	spanned by the $\Omega[T,E]$.
+      Given a necklace 
+      $(T,E)$, 
+      and writing $J = T-E^c$,
+      we define its representable presheaf
+      $\Omega[T,E] \in \mathsf{dSet}$ by
+      \begin{equation}
+            \Omega[T,E] 
+            = 
+            \underset{U \in \mathsf{Face}_{sc}(J)}{\colim}
+            \Omega[\overline{\iota U}]
+            =
+            \bigcup_{U \in \mathsf{Face}_{sc}(J)} 
+            \Omega[\overline{\iota U}]
+      \end{equation}
+      where the union formula is taken inside $\Omega[T]$.
+      
+      The category $\mathsf{Nec}$ of necklaces is the full subcategory of $\mathsf{dSet}$
+      spanned by the $\Omega[T,E]$.
 \end{definition}
+
+\begin{remark}
+      The presheaves $\Omega[T,E]$ interpolate between the Segal cores
+      $Sc[T] = \Omega[T, \boldsymbol{E}^i(T)]$ and the whole presheaf
+      $\Omega[T] = \Omega[T, \varnothing]$.
+
+      Moreover, we have a natural inclusion $\Omega \into \mathsf{Nec}$ sending $T \mapsto (T, \varnothing)$.
+\end{remark}
+  
 
 
 
@@ -5732,26 +5765,17 @@ making the diagram commute.
 	and hence 
 	compatible maps
 	$\overline{\iota U} \to T'$
-	in $\Omega$.
-	Hence, (i) follows from the identification
+	in $\Omega$
+        for all $U \in \mathsf{Face}_{sc}(J)$, $J = T - E^c$.
+	Hence, the result follows from the identification
 	$T
 	\simeq  
 	\underset{U \in \mathsf{Face}_{sc}(J)}{\colim}
-	\overline{\iota U}$, where the colimit is now in $\Omega$,
+	\overline{\iota U}$, where the colimit is now in $\Omega \subseteq \Op$,
 	cf. \cite[Cor. 3.70]{BP_geo}.
 \end{proof}
 
 
-
-\begin{notation}
-	Let $E \subseteq \boldsymbol{E}(T)$
-	be a subset of edges (not necessarily inner)
-	and $F \hookrightarrow T$ an outer face.
-	Then we write
-	\[
-	E_F = E \cap \boldsymbol{E}^{\mathsf{i}}(F).
-	\]
-\end{notation}
 
 
 \begin{lemma}\label{EFPHI LEM}
@@ -5770,9 +5794,10 @@ making the diagram commute.
 
 \begin{proof}
 Given an edge $e \in T$, 
-we will show it can only be 
+we will show 
 $\varphi(e) \in \boldsymbol{E}^{\mathsf{i}}
-(\overline{\varphi F})$ if
+(\overline{\varphi F})$
+implies
 $e \in \boldsymbol{E}^{\mathsf{i}}
 (F)$.
 Indeed, if $e \nin \boldsymbol{E}^{\mathsf{i}}
@@ -5825,11 +5850,11 @@ and the second one follows directly from (ii).
 For (iii) implies (i), 
 note that $\phi$ will induce a map 
 $(T,E) \to (T,E')$
-provided that, for each bead $T_v$ of $T,E$
+provided that, for each bead $T_v$ of $(T,E)$
 it is $\varphi T_v$ in 
 $\Omega[T',E']$.
 By Lemma \ref{FACEINNECK LEM}
-this equivalent to
+this is equivalent to
 $E'_{\overline{\varphi T_v}} = \emptyset$,
 and this follows from (iii)
 since $E_{T_v} = \emptyset$
@@ -5897,6 +5922,7 @@ $\varphi_{\**}$ is injective
 provided one additionally has that  
 $\varphi(E) = E'_{\overline{\varphi T}}$.}
 {\color{red} I don't think this part is actually being used}
+\todo[inline]{me either}
 \end{remark}
 
 
@@ -5959,45 +5985,45 @@ T
 \right\}
 \]
 if $\mathfrak{s} \colon \boldsymbol{E}(S) \to \boldsymbol{E}(T)$
-defines a map $S \to T$ in $\Omega$
+defines a map $\phi \colon S \to T$ in $\Omega$
 and
 $\left(\left(NW(T)\right)_n\right)_{\mathfrak{s}}(S) = \emptyset$
 otherwise.
 	
-Note that, alternatively, it suffices to require that all maps
+Alternatively, it suffices to require that all maps
 $S \to F_i$ are tall
 and all maps $F_i \to T$ are face maps.
 
 The functoriality of 
 $NW(T)$
-with respect to a map $(\vect{S},\mathfrak{s})$
+with respect to a map $(S', \mathfrak s') \to ({S},\mathfrak{s})$
 is described by the diagram
 \[
-\begin{tikzcd}
-	S' \ar{r}{tall} \ar{d}
-&
-	F'_0 \ar{r}{inn} \ar{d}{out}
-&
-	F'_1 \ar{r}{inn} \ar{d}{out}
-&
-	\cdots \ar{r}{inn}
-&
-	F'_n \ar{r}{face} \ar{d}{out}
-&
-	T \ar[equal]{d}
-\\
-	S \ar{r}{tall} 
-&
-	F_0 \ar{r}{inn}
-&
-	F_1 \ar{r}{inn}
-&
-	\cdots \ar{r}{inn}
-&
-	F_n \ar{r}{face}
-&
-	T	
-\end{tikzcd}
+      \begin{tikzcd}
+            S \ar{r}{tall} 
+            &
+            F_0 \ar{r}{inn}
+            &
+            F_1 \ar{r}{inn}
+            &
+            \cdots \ar{r}{inn}
+            &
+            F_n \ar{r}{face}
+            &
+            T
+            \\            
+            S' \arrow[r,dashed, "tall"] \ar{u}
+            &
+            F'_0 \arrow[r,dashed, "inn"] \ar{u}{out}
+            &
+            F'_1 \arrow[r, dashed, "inn"] \ar{u}{out}
+            &
+            \cdots \arrow[r, dashed, "inn"]
+            &
+            F'_n \ar{r}{face} \ar{u}{out}
+            &
+            T \ar[equal]{u}
+      \end{tikzcd}
 \]
 where 
 $S' \to F'_0 \to F_0$
@@ -6011,10 +6037,11 @@ $S' \to S \to F_0$
 More generally, 
 given a necklace $(T,E)$,
 we define
-$NW(T,E) \subseteq NW(T)$
+$NW(T,E) \subseteq NW(T,\varnothing) = NW(T)$
 as the subpresheaf
 of those factorizations with the property that
 $\boldsymbol{E}^{\mathsf{i}}(F_0) \supseteq E_{\overline{\varphi S}}$.
+\todo[inline]{confirming: $\phi$ is the map $S \to T$, yes?}
 Note that the fact that this is a presheaf follows 
 since
 \[
@@ -6028,16 +6055,18 @@ since
 	= 
 E_{\overline{\varphi' S'}}.
 \]
+\todo[inline]{the second equality uses that $F_0' \to F_0$ is outer, yes?}
 \end{definition}
 
 
 
 \begin{remark}
-	Note that 
-	$NW(T)$ as defined is indeed the nerve of an operad, i.e., 
-	$NW(T)(\eta)$ is discrete
+	Note that all
+	$NW(T,E)$ as defined is indeed the nerve of an operad, i.e., 
+	$NW(T,E)(\eta)$ is discrete
 	and
-	$NW(T)$ satisfies the strict Segal condition.
+	$NW(T,E)$ satisfies the strict Segal condition
+        (cf. \cite[Cor 3.69]{BP_geo}).
 \end{remark}
 
 
@@ -6066,15 +6095,15 @@ via the diagram
 &
 	T \ar{d}
 \\
-	S \ar{r}{tall} 
+	S \arrow[r, "tall"]
 &
-	F^{\**}_0 \ar{r}{inn}
+	F^{\**}_0 \arrow[r, dashed, "inn"]
 &
-	F^{\**}_1 \ar{r}{inn}
+	F^{\**}_1 \arrow[r, dashed, "inn"]
 &
-	\cdots \ar{r}{inn}
+	\cdots \arrow[r, dashed, "inn"]
 &
-	F^{\**}_n \ar{r}{face}
+	F^{\**}_n \arrow[r, dashed, "face"]
 &
 	T^{\**}
 \end{tikzcd}
@@ -6108,11 +6137,11 @@ $F_{k-1} \to F_{k} \to F^{\**}_k$).
 
 \begin{proof}
 First, note that the composite
-$\left(NW(T)\right)_{\mathfrak{s}}(\vect{S})
+$\left(NW(T)\right)_{\mathfrak{s}}({S})
 \to 
-\left(NW(T)\right)_{\mathfrak{s}'}(\vect{S'})
+\left(NW(T)\right)_{\mathfrak{s}'}({S'})
 \to 
-\left(NW(T^{\**})\right)_{\mathfrak{s}'}(\vect{S'})$
+\left(NW(T^{\**})\right)_{\mathfrak{s}'}({S'})$
 is computed by the left diagram below,
 where
 $S' \to F'_i \to F_i$
@@ -6140,31 +6169,31 @@ the unique indicated factorizations.
 &&%%%
 	S \ar{r}{tall} \ar[equal]{d}
 &
-	F_i \ar{r}{face} \ar{d}{deg} 
+	F_i \ar{r}{face} \arrow[d, "deg"]
 &
 	T \ar{d}
 \\
-	S' \ar{u} \ar{r}{tall} \ar[equal]{d}
+	S' \ar{u} \arrow[r, "tall"] \ar[equal]{d}
 &
-	F'_i \ar{r} \ar{u}[swap]{out} \ar{d}{deg}
+	F'_i \ar{r} \arrow[u, "out"'] \arrow[d, "deg"]
 &
 	T \ar{d}
 &&%%%
 	S \ar{r}
 &
-	F^{\**}_i \ar{r}{face} 
+	F^{\**}_i \arrow[r, "face"]
 &
 	T' \ar[equal]{d}
 \\
 	S' \ar{r}
 &
-	\left(F_i'\right)^{\**} \ar{r}{face}
+	\left(F_i'\right)^{\**} \arrow[r, dashed, "face"]
 &
 	T^{\**}
 &&%%%
-	S' \ar{r}{tall} \ar{u}
+	S' \arrow[r, "tall"] \ar{u}
 &
-	\left(F_i^{\**}\right)' \ar{r} \ar{u}[swap]{out}
+	\left(F_i^{\**}\right)' \ar{r} \arrow[u, "out"']
 &
 	T^{\**}
 \end{tikzcd}
@@ -6278,7 +6307,7 @@ W(T,E)
 W(T_U)
 \end{equation}
 where the colimit takes place 
-in $\mathsf{sOp}$.
+in $\mathsf{sOp}$, with $J = T-E^c$.
 \end{proposition}
 
 {\color{red} HERE}
@@ -6303,17 +6332,17 @@ in $\mathsf{sOp}$.
 	for maps respecting this color assignment.
 	In particular, we are free to 
 	evaluate $W(T,E),X$ on suitable 
-	$\boldsymbol{E}(T)$ colored trees, 
+	$\boldsymbol{E}(T)$-colored trees, 
 	rather than on uncolored trees.
 	
 	Given $\varphi \colon S \to T$,
 	let us write
-	$S \xrightarrow{tall} S^E \xrightarrow{face}$
+	$S \xrightarrow{tall} S^E \xrightarrow{face} T$
 	for the smallest such factorization for which
 	$\boldsymbol{E}^{\mathsf{i}}(S^E)
 	\supseteq E_{\overline{\varphi S}}$.
 	Note that
-	$\left(NW(T)\right)(\vect{S}) \simeq 
+	$\left(NW(T,E)\right)(\vect{S}) \simeq 
 	\left(NW(T)\right)(\vect{S^E})$ by definition.
 	Given maps
 	$NW(T_U) \to X$
@@ -6323,7 +6352,7 @@ in $\mathsf{sOp}$.
 \begin{tikzcd}[column sep = 10pt, row sep=0]
 	NW(T,E)(\vect{S})
 &
-	NW(T,E)(\vect{S^E})
+	NW(T)(\vect{S^E})
 	\ar{l}[swap]{\simeq}{(I)}
 	\ar{r}{\simeq}[swap]{(II)}
 &
@@ -6346,7 +6375,8 @@ NW(T_{\varphi_{\**}b})(\vect{S^E_b})
 	X(\vect{S^E_b})
 \end{tikzcd}
 \end{equation}
-where arrows (II) and (V) are isomorphims by the Segal condition 
+where arrows (II) and (V) are isomorphims by the Segal condition
+(as $B(\overline{\phi S}, E_{\overline{\phi S}}) = \boldsymbol{V}(S^E)$)
 while (III) is an isomorphism since 
 $S_b^E \to T$ factors through 
 $T_{\varphi_{\**}b}$.
@@ -6399,7 +6429,7 @@ showing naturality of the third and fourth arrows.
 	For each $A(\eta)$-colored tree $\vect{S}$
 	let us write
 	$I_{\vect{S}/}$
-	for the category whose objects are pairs
+	for the category whose objects are factorizations
 	$(i,\boldsymbol{E}(S) \to A_i(\eta) \to A(\eta))$,
 	which we represent by 
 	$\boldsymbol{E}(S) \to A_i(\eta)$,
@@ -6416,6 +6446,7 @@ where in the expression $A_i(\vect{S})$
 we slightly abuse notation by writing $\vect{S}$
 for $S$ with the coloring given by
 $\boldsymbol{E}(S) \to A_i(\eta)$.
+\todo[inline]{is there a quick formal proof of this? The one I found uses that $\PreOp$ is a presheaf category on $\Set$, and is not hard but annoying to write up (which is why I imagine you did not)}
 \end{remark}
 
 
@@ -6432,11 +6463,13 @@ $\boldsymbol{E}(S) \to A_i(\eta)$.
 	\in \mathsf{Nec}_{/X}}{\colim}
 	NW(T,E).
 \end{equation}
-	where the colimit is taken in $\mathsf{PreOp}$.
+where
+$\mathsf{Nec}_{/X} = \mathsf{Nec} \downarrow X$ is the over category of maps $\Omega[T,E] \to X$, and
+the colimit is taken in $\mathsf{PreOp}$.
 	
 	Then $NW(X)$ satisfies the strict Segal condition.
 %
-	In particular, this shows that 	
+	In particular, $N$ fully-faithful then implies that
 	$NW(X)$ is the nerve of the simplicial operad
 \[
 W(X) =
@@ -6476,9 +6509,10 @@ Firstly, write
 $\mathsf{Nec}_{\vect{S}//X}^{\Omega}
 \subset
 \mathsf{Nec}_{\vect{S}//X}$
-for the wide subcategory of those objects for which the map
+for the full subcategory of those objects for which the map
 $\boldsymbol{E}(S) \to \boldsymbol{E}(T)$
 defines a map $S \to T$ in $\Omega$.
+\todo[inline]{we initially just have a map $\boldsymbol{E}(S) \to \boldsymbol{E}(T) \setminus E^c = \boldsymbol{E}(J)$, yes?}
 
 Additionally, we write 
 $
@@ -6504,13 +6538,13 @@ E_{\overline{\varphi S}} \cup \boldsymbol{E}^{\mathsf{i}}(\varphi(S)))$.
 Crucially, note that one has a natural map
 $n(T,E) \to (T,E)$ in $\mathsf{Nec}$
 for which the induced map
-$\left(NW(n(T,E))\right)(\vect{S})
+$\left(NW(n(T,E))\right)(\vect{S}) \to
 \left(NW(T,E)\right)(\vect{S})$
 is an isomorphism.
 
 Since 
 $\mathsf{Nec}_{\vect{S}//X}^{\Omega}$
-is the opposite of a sieve of 
+is a cosieve of 
 $\mathsf{Nec}_{\vect{S}//X}$
 and 
 $NW(T,E)(\vect{S}) = \emptyset$
@@ -6522,7 +6556,7 @@ with
 $\mathsf{Nec}_{\vect{S}//X}^{\Omega}$
 on
 \eqref{NWKANEXEV EQ}.
-Moreover, by the discussion in the previous paragraph one can further replace it with 
+Moreover, one can further replace it with the retractive subcategory
 $\mathsf{Nec}_{\vect{S}//X}^{\Omega,nor}$.
 
 Moreover, the normalization conditions imply that
@@ -6561,8 +6595,8 @@ Putting everything together we obtain that
 \end{equation}
 where the second step is the identification above together with 
 the strict Segal condition on 
-$NW(T,E)$.,
-the third step is the fact that products commute with limits in each variable, and the last step simply specifies
+$NW(T,E)$,
+the third step is the fact that products commute with colimits in each variable, and the last step simply specifies
 the simplified version of \eqref{NWKANEXEV EQ}
 for $\vect{S_v}$.
 
@@ -6608,8 +6642,9 @@ $\boldsymbol{E}(C) \to \boldsymbol{E}(T) \to X(\eta)$
 matches the coloring of $\vect{C}$.
 \end{enumerate}
 
-Further, two pieces of such data are subject to the equivalence relation generated as follows. 
-If there exists a map of necklaces $(T,E) \to (T^{\**},E^{\**})$
+Further, two pieces of such data represent the same simplex iff they are equivalent
+under the relation generated by the following identifications:
+there exists a map of necklaces $(T,E) \to (T^{\**},E^{\**})$
 such that the maps 
 $\Omega[T,E] \to X$,
 $\Omega[T^{\**},E^{\**}] \to X$
@@ -6668,20 +6703,20 @@ and the second map is totally non-degenerate.
 
 \begin{proof}
 	The proof is by induction on the size of $E$.
-	The base case is that where $E = \emptyset$
+	The base case is when $E = \emptyset$
 	(note that then it must also be $E'=\emptyset$),
-	in which case the result reduces to 
+	and the result reduces to 
 	\cite[Prop. 6.9]{CM11} or
 	\cite[Prop. 5.62]{Per18}.
 	Otherwise, let $e \in E$
 	and write the grafting decomposition
 	$T = R \amalg_e S$.
-	by induction hypotheses one has similar factorizations, unique up to unique isomorphism,
+	By the induction hypotheses, one has similar factorizations, unique up to unique isomorphism,
 	$\Omega[R,E_R] \to \Omega[R',(E_R)'] \to X$,
 	$\Omega[S,E_S] \to \Omega[S',(E_S)'] \to X$.
 	One then simply sets 
 	$T' = R' \amalg_e S'$
-	(note that due to the uniqueness up to unique isomorphism, there is no ambiguity concerning the grafting edge)
+	(where due to the uniqueness up to unique isomorphism, there is no ambiguity concerning the grafting edge)
 	and $E' = (E_R)' \cup (E_S)' \cup \{e\}$.
 \end{proof}
 
@@ -6713,7 +6748,7 @@ Next, we also need a preferred form for the tall simplex data in \eqref{STRINCOR
 \begin{lemma}\label{FLANKING LEM}
 	\begin{enumerate}[label=(\roman*)]
 	\item Any datum as in Corollary \ref{NWXREPS COR} is equivalent to one where the tall simplex is flanked;
-	\item if two flanked data are equivalent, then the equivalence can be described using via a zigzag involvig only flanked data.
+	\item if two flanked data are equivalent, then the equivalence can be described using via a zigzag involving only flanked data.
 	\end{enumerate}
 \end{lemma}
 
@@ -6723,7 +6758,7 @@ Next, we also need a preferred form for the tall simplex data in \eqref{STRINCOR
 	The key to the proof is the fact that 
 	the map $F_n \to T$
 	induces a map of necklaces
-	$(F_n,F_0) \to (T,E)$.
+	$(F_n,\boldsymbol{E}^i(F_0)) \to (T,E)$.
 	It then follows that this map of necklaces induces a pushforward of flags
 \begin{equation}
 \begin{tikzcd}
