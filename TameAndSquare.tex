@@ -6991,39 +6991,36 @@ consisting of those planar outer faces with no inner edges
 
 
 
-\begin{notation}
-	Let $E \subseteq \boldsymbol{E}(T)$
-	be a subset of edges (not necessarily inner)
-	and $F \hookrightarrow T$ an outer face.
-	Then we write
-	\[
-	E_F = E \cap \boldsymbol{E}^{\mathsf{i}}(F).
-	\]
-\end{notation}
-
-
-
 \begin{lemma}\label{FACEINNECK LEM}
-	Let $\tau \colon J \to T$ be a necklace
-	and let $E = \boldsymbol{E}^{\mathfrak{i}}(J)$. Then
+	Let $\tau \colon J \to T$ be a necklace. Then
 	\begin{enumerate}[label=(\roman*)]
 		\item a face $U \hookrightarrow T$
 		is in $\Omega[\tau]$
 		iff its outer closure $\bar{U}$ is; 
 		\item an outer face 
 		$U = \bar{U} \hookrightarrow T$
-		is in $\Omega[\tau]$ iff $E_U = \emptyset$.
+		is in $\Omega[\tau]$ iff 
+		$\boldsymbol{E}^{\mathsf{i}}(J) \cap 
+		\boldsymbol{E}^{\mathsf{i}}(U) = \emptyset$;
+		\item there is a decomposition
+		$
+		\boldsymbol{E}(T) = 
+		\boldsymbol{E}(J) \amalg 
+		\coprod_{v \in \boldsymbol{V}(J)}
+		\boldsymbol{E}^{\mathsf{i}}(T_v)
+		$.
 	\end{enumerate}
 \end{lemma}
+
 
 
 \begin{proof}
 	(i) follows since $\Omega[\tau]$ is an union of outer faces.
 	
-	The argument for (ii) is by induction on the number of edges in $E$,
-	with the base case where $E = \emptyset$  being obvious.
+	The arguments for (ii),(iii) are by induction on the number of inner edges $\boldsymbol{E}^{\mathsf{i}}(J)$,
+	with the base case of $\boldsymbol{E}^{\mathsf{i}}(J) = \emptyset$  being obvious.
 %	
-	Otherwise, letting $e\in E$, since $e$ is an inner edge of
+	Otherwise, letting $e \in \boldsymbol{E}^{\mathsf{i}}(J)$, since $e$ is an inner edge of
 	both $J$ and $T$
 	one has grafting decompositions
 	$J = J' \amalg_e J''$,
@@ -7036,7 +7033,75 @@ consisting of those planar outer faces with no inner edges
 	$U$ is in $\Omega[\tau]$
 	iff it is in either
 	$\Omega[\tau']$ or in $\Omega[\tau'']$,
-	so the claim follows by the induction hypothesis.
+	yielding the induction step for (ii).
+	The induction step for (iii) likewise follows. 
+\end{proof}
+
+{\color{blue} HERE}
+
+\begin{remark}
+	If $S \xrightarrow{d} S'$
+	is a degeneracy,
+	the vertices of $S'$ are naturally identified with
+	the vertices of $S$ that are not collapsed to edges.
+	Thus, by factoring a tall map
+	$\varphi \colon S \xrightarrow{t} T$ as
+	$S \xrightarrow{d} \varphi S \xrightarrow{i} T$
+	the decomposition (iii) in Lemma \ref{FACEINNECK LEM}
+	generalizes to 
+\begin{equation}\label{EDGEBREAK EQ}
+	\boldsymbol{E}(T) = 
+	\boldsymbol{E}(\varphi S) \amalg 
+	\coprod_{v \in \boldsymbol{V}(S)}
+	\boldsymbol{E}^{\mathsf{i}}(\overline{\varphi S_v}).
+\end{equation}
+\end{remark}
+
+{\color{blue} HERE}
+
+\begin{notation}
+	Given a necklace
+	$\tau \colon J \to T$
+	and outer face $F \to T$
+	we write 
+	$\tau_F \colon J_F \to F$
+	for the necklace characterized by
+\[
+	\boldsymbol{E}^{\mathsf{i}}(J_F)
+	=
+	\boldsymbol{E}^{\mathsf{i}}(J)
+	\cap
+	\boldsymbol{E}^{\mathsf{i}}(F).
+\]
+\end{notation}
+
+
+
+
+\begin{corollary}\label{NECINT COR}
+	Let $\tau \colon J \to T$ be a necklace and
+	$F \to T$ be an inner face.
+	Then
+\[
+	\Omega[\tau_F] = \Omega[\tau] \cap \Omega[F]
+\]
+	where the intersection is taken inside
+	$\Omega[T]$.
+\end{corollary}
+
+\begin{proof}
+	Combining (i),(ii) in 
+	Lemma \ref{FACEINNECK LEM}
+	we see that a face $U \hookrightarrow F$ is
+	in $\Omega[\tau]$
+	iff $\boldsymbol{E}(J) \cap 
+	\boldsymbol{E}^{\mathfrak{i}}(\bar{U}) = \emptyset$,
+	where (since $F$ is outer) the outer closure $\bar{U}$
+	can be taken in either $T$ or $F$.
+	But this is equivalent to 
+	$\boldsymbol{E}(J_F) \cap 
+	\boldsymbol{E}^{\mathfrak{i}}(\bar{U}) = \emptyset$,
+	i.e. to $U$ being in $\Omega[\tau_F]$.
 \end{proof}
 
 
@@ -7052,32 +7117,46 @@ Before proceeding, we will need to better understand the maps in
 $\mathsf{Nec}$.
 
 
-\begin{proposition}
-	Let $\tau\colon J \to T$ and $\tau' \colon J' \to T'$ be necklaces. 
-	Any map $\tau \to \tau'$ in $\mathsf{Nec}$
+{\color{purple} HERE}
+
+
+\begin{proposition}\label{MAPNECK PROP}
+	Let $\tau\colon J \to T$ and $\tau' \colon J' \to T'$ be necklaces. Then:
+\begin{enumerate}
+	\item[(i)]
+	A map $\tau \to \tau'$ in $\mathsf{Nec}$
 	is uniquely determined by some map 
 	$T \to T'$ in $\Omega$. 
-	More precisely, there exists an unique dashed arrow in 
-\begin{equation}\label{NECKMAP EQ}
-\begin{tikzcd}
+	More precisely, there exists an unique dashed arrow
+	making the following commute.
+	\begin{equation}\label{NECKMAP EQ}
+	\begin{tikzcd}
 	\Omega[\tau] 
 	\ar[hookrightarrow]{r} 
 	\ar{d}
-&
+	&
 	\Omega[T] 
 	\ar[dashed]{d}{\exists !}
-\\
+	\\
 	\Omega[\tau']
 	\ar[hookrightarrow]{r}
-&
+	&
 	\Omega[T']
-\end{tikzcd}
-\end{equation}
-	making the diagram commute.
+	\end{tikzcd}
+	\end{equation}
+	\item[(ii)]
+	A map of trees 
+	$\varphi \colon T \to T'$ in $\Omega$
+	induces a map 
+	$\tau \to \tau'$ in $\mathsf{Nec}$
+	iff
+	$\varphi J \supseteq J'_{\overline{\varphi T}}$.
+\end{enumerate}
 \end{proposition}
 
 
 \begin{proof}
+	We first address (i).
 	The composite
 	$\Omega[\tau] \to 
 	\Omega[\tau'] \to 
@@ -7096,117 +7175,72 @@ $\mathsf{Nec}$.
 	\underset{U \in \mathsf{Face}_{sc}(J)}{\colim}
 	\overline{\tau U}$, where the colimit is now in $\Omega$,
 	cf. \cite[Cor. 3.70]{BP_geo}.
+	
+	We now turn to (ii).
+	By (i),(ii) in Lemma \ref{FACEINNECK LEM}
+	the map $\varphi$ defines a map of necklaces 
+	precisely if, 
+	for each $v \in \boldsymbol{V}(J)$, one has
+	\begin{equation}\label{MAPDES EQ}
+	\emptyset
+	=
+	\boldsymbol{E}^{\mathsf{i}}(J')
+	\cap
+	\boldsymbol{E}^{\mathsf{i}}(\overline{ \varphi T_v})
+	=
+	\boldsymbol{E}^{\mathsf{i}}(J')
+	\cap
+	\boldsymbol{E}^{\mathsf{i}}(\overline{ \varphi J_v}).
+	\end{equation}
+	
+	Writing $\tilde{\varphi}$ for the composite
+	$
+	J \to T \xrightarrow{\varphi} \overline{\varphi T}
+	$
+	and noting that $\tilde{\varphi}$ is tall,
+	\eqref{EDGEBREAK EQ} becomes 
+	\begin{equation}\label{DECOMPPR EQ}
+	\boldsymbol{E}(\overline{\varphi T})
+	=
+	\boldsymbol{E}(\varphi J)
+	\amalg
+	\coprod_{v \in \boldsymbol{V}(J)}
+	\boldsymbol{E}^{\mathsf{i}}(\overline{\varphi J_v}).
+	\end{equation}
+	Thus \eqref{MAPDES EQ}
+	amounts to
+	$\boldsymbol{E}^{\mathsf{i}}(J') \cap 
+	\boldsymbol{E}(\overline{\varphi T})
+	\subseteq
+	\boldsymbol{E}(\varphi J)$,
+	which is equivalent to the desired
+	$\varphi J \supseteq J'_{\overline{\varphi T}}$
+	(as these trees have the same outer edges).
 \end{proof}
-
 
 
 {\color{purple} HERE}
 
-
-
-\begin{lemma}\label{EFPHI LEM}
-	Let $F \hookrightarrow T$
-	be an outer face,
-	$T \to T^{\**}$ a map in $\Omega$,
-	and $E \subseteq \boldsymbol{E}(T)$.
-	Then
-	\[
-	\varphi(E_F) 
-	\supseteq 
-	\left(\varphi E\right)_{\overline{\varphi F}}
-	\]
-\end{lemma}
-
-
-\begin{proof}
-	Given an edge $e \in T$, 
-	we will show it can only be
-	$\varphi(e) \in \boldsymbol{E}^{\mathsf{i}}
-	(\overline{\varphi F})$
-	if 
-	$e \in \boldsymbol{E}^{\mathsf{i}}
-	(F)$.
-	Indeed, if $e \nin \boldsymbol{E}^{\mathsf{i}}
-	(F)$
-	then either $e \leq_d l$ for $l$ some leaf of $F$
-	or $e,r_F$ are $\leq_d$-incomparable, where $r_F$ is the root of $F$.
-	Hence, one either has that
-	$\varphi(e) \leq_d \varphi(l)$ where $\varphi(l)$ is a leaf of 
-	$\overline{\varphi F}$
-	or
-	$\varphi(e),\varphi(r_F) = r_{\overline{\varphi F}}$
-	are $\leq_d$-incomparable. But both cases imply 
-	$\varphi(e) \nin \boldsymbol{E}^{\mathsf{i}}
-	(\overline{\varphi F})$, as needed.
-\end{proof}
-
-
-
-\begin{proposition}\label{NECKMAPCHAR PROP}
-	Let $\varphi \colon T \to T'$ be a map of trees. 
-	The following are equivalent.
-	\begin{enumerate}[label=(\roman*)]
-		\item $\varphi$ induces a map 
-		$(T,E) \to (T',E')$ in $\mathsf{Nec}$;
-		\item $\varphi (E) \supseteq E'_{\overline{\varphi T}}$;
-		\item $\varphi (E_F) \supseteq E'_{\overline{\varphi F}}$
-		for all outer faces $F \hookrightarrow T$.
-	\end{enumerate}
-\end{proposition}
-
-
-\begin{proof}
-	(iii) $\Rightarrow$ (ii) is obvious.
-	As for (ii) $\Rightarrow$ (iii),
-	it follows from the 
-	string of reverse inclusions
-	\[
-	\varphi(E_F)
-	\supseteq
-	\left(\varphi E\right)_{\overline{\varphi F}}
-	\supseteq
-	\left(E'_{\overline{\varphi T}}\right)_{\overline{\varphi F}}
+\begin{remark}\label{NECKMAPCHAR REM}
+	Let $\tau,\tau',T,T'$ be as in
+	Proposition \ref{MAPNECK PROP}
+	and suppose 
+	$\varphi \colon T \to T'$
+	defines a map
+	$\tau \to \tau'$.
+	Then for every outer face $F \to T$
+	it follows from 
+	Corollary \ref{NECINT COR}
+	that the restriction 
+	$F \to \overline{\varphi F}$
+	likewise induces a restriction
+	$\tau_F \to \tau'_{\overline{\varphi F}}$,
+	from which it follows that
+	$\varphi J_F \supseteq 
+	\left(J'_{\overline{\varphi T}}\right)_{\overline{\varphi F}}
 	=
-	E'_{\overline{\varphi F}}
-	\]
-	where the first reverse inclusion is Lemma \ref{EFPHI LEM}
-	and the second one follows directly from (ii).
-	
-	
-	For (iii) implies (i), 
-	note that $\phi$ will induce a map 
-	$(T,E) \to (T,E')$
-	provided that, for each bead $T_v$ of $(T,E)$
-	it is $\varphi T_v$ in 
-	$\Omega[T',E']$.
-	By Lemma \ref{FACEINNECK LEM}
-	this is equivalent to
-	$E'_{\overline{\varphi T_v}} = \emptyset$,
-	and this follows from (iii)
-	since $E_{T_v} = \emptyset$
-	due to $T_v$ being a bead.
-	
-	Lastly, we show that not (iii) implies not (i).
-	Suppose $F$ is counterexample to (iii).
-	The argument is by induction on the size of $E_F$.
-	The base case is that where $E_F = \emptyset$, 
-	so that $F$ is in 
-	$\Omega[T,E]$ but, by failure of (iii) for $F$,
-	$E'_{\overline{\varphi F}} \neq \emptyset$,
-	and thus $\varphi F$ is not in 
-	$\Omega[T',E']$,
-	showing that (i) indeed fails.
-	Otherwise, letting $e \in E_F$, one has grafting decompositions
-	$F = F' \amalg_e F''$
-	and 
-	$\overline{\varphi F} = 
-	\overline{\varphi F'}
-	\amalg_{\varphi e}
-	\overline{\varphi F''}$,
-	and failure of (iii) for $F$
-	implies that (iii) fails for either $F'$ or $F''$,
-	so the induction hypothesis implies that (i) fails, finishing the proof.
-\end{proof}
+	J'_{\overline{\varphi F}}$.
+\end{remark}
 
 
 
@@ -7251,44 +7285,6 @@ $\mathsf{Nec}$.
 \end{remark}
 
 
-
-
-\begin{remark}
-	One can check directly that 
-	condition (ii) in Proposition \ref{NECKMAPCHAR PROP}
-	respects composition.
-	Namely, suppose $T \xrightarrow{\varphi} T' \xrightarrow{\varphi'} T''$
-	define maps
-	$(T,E) \to (T',E') \to (T'',E'')$
-	in $\mathsf{Nec}$.
-	Then (ii) in Proposition \ref{NECKMAPCHAR PROP}
-	for $\varphi' \varphi$
-	follows from  
-	\[
-	\varphi' \varphi E
-	\supseteq
-	\varphi'
-	\left(E'_{\overline{\varphi T}}\right)
-	\supseteq
-	\left(\varphi' E'\right)_
-	{\overline{\varphi' (\overline{\varphi T})}}
-	=
-	\left(\varphi' E'\right)_
-	{\overline{\varphi' \varphi T}}
-	\supseteq
-	\left(
-	E''_{\overline{\varphi' T'}}\right)_
-	{\overline{\varphi' \varphi T}}
-	=
-	E''_{\overline{\varphi' \varphi T}}
-	\]
-	where the first and fourth steps are 
-	(ii) for $\varphi$ and $\varphi'$
-	while the second step is Lemma \ref{EFPHI LEM}.
-\end{remark}
-
-
-{\color{blue} HERE}
 
 
 
@@ -7369,31 +7365,33 @@ $\mathsf{Nec}$.
 	as the subpresheaf
 	of those factorizations with the property that
 	$J_0 \supseteq J_{\overline{\phi S}}$.
-	
-	
+
 	Note that the fact that this is a presheaf follows 
 	since
-	\[
-	\boldsymbol{E}^{\mathsf{i}}(F'_0)
-	=
-	\left(\boldsymbol{E}^{\mathsf{i}}(F_0)\right)_{F'_0}
-	=
-	\left(\boldsymbol{E}^{\mathsf{i}}(F_0)\right)_{\overline{\varphi' S'}}
-	\supseteq 
-	\left(E_{\overline{\varphi S}}\right)_{\overline{\varphi' S'}}
-	= 
-	E_{\overline{\varphi' S'}}.
-	\]
+\[
+	\boldsymbol{E}^{\mathsf{i}}(J'_0)
+=
+	\boldsymbol{E}^{\mathsf{i}}(J_0)
+	\cap
+	\boldsymbol{E}^{\mathsf{i}}(\overline{\phi' S'})
+\supseteq
+	\boldsymbol{E}^{\mathsf{i}}(J_{\overline{\phi S}})
+	\cap
+	\boldsymbol{E}^{\mathsf{i}}(\overline{\phi' S'})
+=
+	\boldsymbol{E}^{\mathsf{i}}(J_{\overline{\phi' S'}}).
+\]
 \end{definition}
 
 
 
 \begin{remark}
 	Note that all
-	$NW(T,E)$ as defined is indeed the nerve of an operad, i.e., 
-	$NW(T,E)(\eta)$ is discrete
+	$NW(\tau)$ defined above are indeed nerves of operads,
+	i.e., 
+	$NW(\tau)(\eta)$ is discrete
 	and
-	$NW(T,E)$ satisfies the strict Segal condition
+	$NW(\tau)$ satisfies the strict Segal condition
 	(cf. \cite[Cor 3.69]{BP_geo}).
 \end{remark}
 
@@ -7580,16 +7578,21 @@ $J_{k-1} \to J_{k} \to J^{\**}_k$).
 	finishing the proof.
 \end{proof}
 
-{\color{purple} HERE}
+
 
 \begin{corollary}
-	If $\psi \colon T \to T^{\**}$
-	defines a map of necklaces
-	$(T,E) \to (T^{\**},E^{\**})$
-	then 
-	it induces a map
-	$NW(T,E) \to NW(T^{\**},E^{\**})$.
+	Let $\tau \colon J \to T$ and
+	$\tau^{\**} \colon J^{\**} \to T^{\**}$
+	be necklaces and suppose 
+	$\psi \colon T\to T^{\**}$
+	induces a map $\tau \to \tau^{\**}$.
+%	
+	Then the induced map
+	$NW(T) \to NW(T^{\**})$
+	restricts to a map
+	$NW(\tau) \to NW(\tau^{\**})$.
 \end{corollary}
+
 
 
 \begin{proof}
@@ -7597,27 +7600,26 @@ $J_{k-1} \to J_{k} \to J^{\**}_k$).
 	map
 	$NW(T) \to NW(T^{\**})$
 	sends simplices such that
-	$\boldsymbol{E}^{\mathsf{i}}(F_0) \supseteq 
-	E_{\overline{\varphi S}}$
+	$J_0 \supseteq 
+	J_{\overline{\varphi S}}$
 	to simplices such that
-	$\boldsymbol{E}^{\mathsf{i}}(F^{\**}_0) \supseteq 
-	E^{\**}_{\overline{\varphi^{\**} S}}$.
+	$J^{\**}_0 \supseteq 
+	J^{\**}_{\overline{\varphi^{\**} S}}$.
 	This follows since
-	\[
-	\boldsymbol{E}^{\mathsf{i}}(F^{\**}_0)
-	=
-	\psi \left(\boldsymbol{E}^{\mathsf{i}}(F_0)\right)
+\[
+	J^{\**}_0 = 
+	\psi (J_0) \supseteq
+	\psi (J_{\overline{\varphi S}})
 	\supseteq
-	\psi \left( E_{\overline{\varphi S}} \right)
-	\supseteq
-	E^{\**}_{\overline{\psi (\overline{\varphi S})}}
+	J^{\**}_{\overline{\psi (\overline{\varphi S})}}
 	=
-	E^{\**}_{\overline{\varphi^{\**} S}}
-	\]
-	where the second step is our assumption on the simplex and
-	the third step is the characterization in 
-	Proposition \ref{NECKMAPCHAR PROP}(iii).
+	J^{\**}_{\overline{\varphi^{\**} S}}
+\]	
+where the third step is
+Remark \ref{NECKMAPCHAR REM}.
 \end{proof}
+
+
 
 
 
@@ -7634,7 +7636,7 @@ $J_{k-1} \to J_{k} \to J^{\**}_k$).
 	in $\mathsf{sOp}$.
 \end{proposition}
 
-{\color{red} HERE}
+
 
 \begin{proof}
 	We will verify \eqref{NECKCOL EQ}
@@ -7646,7 +7648,7 @@ $J_{k-1} \to J_{k} \to J^{\**}_k$).
 	$NW(\tau) \to X$
 	is the same as giving compatible maps
 	$NW(T_U) \to X$.
-	
+
 	Moreover, clearly both sides of 
 	\eqref{NECKCOL EQ} yield $\boldsymbol{E}(T)$
 	when evaluated on $\eta$.
@@ -7658,70 +7660,77 @@ $J_{k-1} \to J_{k} \to J^{\**}_k$).
 	evaluate $W(\tau),X$ on suitable 
 	$\boldsymbol{E}(T)$-colored trees, 
 	rather than on uncolored trees.
-	
-	Given $\varphi \colon S \to T$,
+
+	Given $\phi \colon S \to T$,
 	let us write
-	$S \xrightarrow{tall} S^E \xrightarrow{face} T$
+	$S \xrightarrow{t} S^{\tau} \xrightarrow{f,p} T$
 	for the smallest such factorization for which
-	$\boldsymbol{E}^{\mathsf{i}}(S^E)
-	\supseteq E_{\overline{\varphi S}}$.
+	$S^{\tau} 
+	\supseteq 
+	J_{\overline{\varphi S}}$.
 	Note that
-	$\left(NW(T,E)\right)(\vect{S}) \simeq 
-	\left(NW(T)\right)(\vect{S^E})$ by definition.
+	$NW(\tau )_{\mathfrak{s}}(S)
+	\simeq 
+	NW(\tau )_{\mathfrak{s}}(S^{\tau})$
+	by definition.
 	Given maps
 	$NW(T_U) \to X$
 	we now define the map
-	$NW(T,E) \to X$ via
-	\begin{equation}\label{LONGMAP EQ}
-	\begin{tikzcd}[column sep = 10pt, row sep=0]
-	NW(T,E)(\vect{S})
-	&
-	NW(T)(\vect{S^E})
+	$NW(\tau) \to X$ via
+\begin{equation}\label{LONGMAP EQ}
+\begin{tikzcd}[column sep = 20pt, row sep=0]
+	NW(\tau)_{\mathfrak{s}}(S)
+&
+	NW(\tau)_{\mathfrak{s}}(S^{\tau})
 	\ar{l}[swap]{\simeq}{(I)}
 	\ar{r}{\simeq}[swap]{(II)}
-	&
-	\underset{b \in B(\overline{\varphi S},E_{\overline{\varphi S}})}{\prod}
-	NW(T,E)(\vect{S^E_b})
-	\\
-	&&&
-	\underset{b \in B(\overline{\varphi S},E_{\overline{\varphi S}})}{\prod}
-	NW(T_{\varphi_{\**}b})(\vect{S^E_b})
+&
+	\underset{b \in B( \tau_{\overline{\phi S}})}{\prod}
+	NW(\tau)_{\mathfrak{s}}(S^{\tau}_b)
+\\
+&&&
+	\underset{b \in B( \tau_{\overline{\phi S}})}{\prod}
+	NW(T_{\varphi_{\**}b})_{\mathfrak{s}}(S^{\tau}_b)
 	\ar{lu}[swap]{\simeq}{(III)}
 	\ar{ld}{(IV)}
-	\\
-	X(\vect{S})
-	&
-	X(\vect{S^E})
+\\
+	X_{\mathfrak{s}}(S)
+&
+	X_{\mathfrak{s}}(S^{\tau})
 	\ar{r}{\simeq}[swap]{(V)}
 	\ar{l}{(VI)}
-	&
-	\underset{b \in B(\overline{\varphi S},E_{\overline{\varphi S}})}{\prod}
-	X(\vect{S^E_b})
-	\end{tikzcd}
-	\end{equation}
+&
+	\underset{b \in B(\tau_{\overline{\varphi S}})}{\prod}
+	X_{\mathfrak{s}}(S^{\tau}_b)
+\end{tikzcd}
+\end{equation}
 	where arrows (II) and (V) are isomorphims by the Segal condition
 	while (III) is an isomorphism since 
-	$S_b^E \to T$ factors through 
+	$S_b^{\tau} \to T$ factors through 
 	$T_{\varphi_{\**}b}$.
 	
-	Moreover, arrow (IV) in \eqref{LONGMAP EQ}
+	Moreover, the arrow (IV) in \eqref{LONGMAP EQ}
 	is induced by the chosen maps
 	$NW(T_U) \to X$,
 	so clearly 
 	\eqref{LONGMAP EQ}
 	denotes the only possible compatible map
 	$W(T) \to X$.
-	
+
+
 	It only remains to check that
 	\eqref{LONGMAP EQ}
 	is indeed a map in 
-	$\mathsf{PreOp}$, i.e. that it is natural in 
-	$\vect{S}$.
+	$\mathsf{PreOp}$, i.e. that it is natural on 
+	$\vect{S}=(S,\mathfrak{s})$.
 	To see this, one first readily checks that a map
 	$\psi \colon \vect{S} \to \vect{R}$
 	induces a compatible inclusion
-	$\psi \colon \vect{S^E} \hookrightarrow \vect{R^E}$
-	showing the naturality of the first and last arrows in the zigzag.
+	$\psi \colon S^{\tau} \hookrightarrow R^{\tau}$
+	showing the naturality of arrows (I),(VI) 
+	in the zigzag.
+
+{\color{red} HERE}
 	
 	Next, by Remark \ref{BEADMAP REM}
 	one has a map of beads
