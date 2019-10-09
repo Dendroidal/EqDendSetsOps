@@ -5593,1347 +5593,9 @@ We now have the following generalization of \cite[Prop 4.5]{CM13b} (see also \ci
 
 
 
+
+
 \section{The dendroidal $W_!$-construction}
-\label{WCONS AP}
-
-
-
-{\color{red} HERE}
-
-
-
-
-In this appendix we discuss the $W_!$ 
-construction in the operadic context by extending the  
-work of Dugger and Spivak in \cite{DS11} 
-(which deals with the categorical context).
-
-
-
-
-
-We now define our key notion.
-\begin{definition}
-A (dendroidal) \emph{necklace} is a pair $(T,E)$
-with $T \in \Omega$
-a tree and
-$E \subseteq \boldsymbol{E}^{\mathsf{i}}(T)$
-a subset of inner edges.
-%
-Moreover, given a necklace $(T,E)$
-\begin{enumerate}[label = (\roman*)]
-\item $E$ is called the set of \emph{joints} of $(T,E)$;
-\item writing $E^c$ for the complement of $E$ in 
-$\boldsymbol{E}^{\mathsf{i}}(T)$,
-the inner face $J=T-E^c \hookrightarrow T$
-is called the \emph{inner face of joints} of the necklace;
-\item for each $v \in \boldsymbol{V}(T-E^c)$,
-the outer face
-$\overline{\iota(J_v)} = T_v \hookrightarrow T$
-is called a \emph{bead} of the necklace.
-\end{enumerate}
-\end{definition}
-
-In the following, we write 
-$\mathsf{Face}_{sc}(J)$ for the \emph{Segal core poset} of $J$,
-consisting of those planar outer faces with no inner edges
-(these consist of either a single edge or a single vertex of $J$).
-
-\begin{definition}
-      Given a necklace 
-      $(T,E)$, 
-      and writing $J = T-E^c$,
-      we define its representable presheaf
-      $\Omega[T,E] \in \mathsf{dSet}$ by
-      \begin{equation}
-            \Omega[T,E] 
-            = 
-            \underset{U \in \mathsf{Face}_{sc}(J)}{\colim}
-            \Omega[\overline{\iota U}]
-            =
-            \bigcup_{U \in \mathsf{Face}_{sc}(J)} 
-            \Omega[\overline{\iota U}]
-      \end{equation}
-      where the union formula is taken inside $\Omega[T]$.
-      
-      The category $\mathsf{Nec}$ of necklaces is then the full subcategory of $\mathsf{dSet}$
-      spanned by the $\Omega[T,E]$.
-\end{definition}
-
-
-\begin{notation}
-  	Let $E \subseteq \boldsymbol{E}(T)$
-  	be a subset of edges (not necessarily inner)
-  	and $F \hookrightarrow T$ an outer face.
-  	Then we write
-\[
-  	E_F = E \cap \boldsymbol{E}^{\mathsf{i}}(F).
-\]
-\end{notation}
-
-
-
-\begin{lemma}\label{FACEINNECK LEM}
-	Let $(T,E)$ be a necklace. Then
-\begin{enumerate}[label=(\roman*)]
-	\item a face $U \hookrightarrow T$
-	is in $\Omega[T,E]$
-	iff its outer closure $\bar{U}$ is; 
-	\item an outer face 
-	$U = \bar{U} \hookrightarrow T$
-	is in $\Omega[T,E]$ iff $E_U = \emptyset$.
-\end{enumerate}
-\end{lemma}
-
-\begin{proof}
-	(i) follows since $\Omega[T,E]$
-	is a union of outer faces.
-	
-	The argument for (ii) is by induction on the number of edges in $E$,
-	with the base case where $E$ is empty being obvious.
-%	
-	Otherwise, letting $e\in E$, since $e$ is an inner edge of $T$
-	one has a grafting decomposition
-	$T = R \amalg_e S$
-	and clearly 
-	$U$ is in $\Omega[T,E]$
-	iff it is in either
-	$\Omega[R,E_R]$ or in $\Omega[S,E_S]$,
-	so the claim follows by the induction hypothesis.
-\end{proof}
-
-
-
-
-Note that 
-$\Omega[T,\emptyset] = \Omega[T]$,
-so that one has a natural inclusion
-$\Omega \subset \mathsf{Nec}$
-given by $T \mapsto (T,\emptyset)$.
-Before proceeding, we will need to better understand the maps in 
-$\mathsf{Nec}$.
-
-
-
-
-\begin{proposition}
-Let $(T,E)$ and $(T',E')$ be necklaces. 
-Any map $(T,E) \to (T',E')$ in $\mathsf{Nec}$
-is uniquely determined by some map 
-$T \to T'$ in $\Omega$. 
-More precisely, the exists a unique dashed arrow in 
-\begin{equation}\label{NECKMAP EQ}
-\begin{tikzcd}
-	\Omega[T,E] 
-	\ar[hookrightarrow]{r} 
-	\ar{d}
-&
-	\Omega[T] 
-	\ar[dashed]{d}{\exists !}
-\\
-	\Omega[T',E']
-	\ar[hookrightarrow]{r}
-&
-	\Omega[T']
-\end{tikzcd}
-\end{equation}
-making the diagram commute.
-\end{proposition}
-
-\begin{proof}
-	The composite
-	$\Omega[T,E] \to 
-	\Omega[T',E'] \to 
-	\Omega[T']$
-	in \eqref{NECKMAP EQ}
-	induces compatible maps
-	$\Omega[\overline{\iota U}] \to \Omega[T']$
-	in $\mathsf{dSet}$,
-	and hence 
-	compatible maps
-	$\overline{\iota U} \to T'$ 
-	in $\Omega$.
-	Hence, the result follows from the identification
-	$T
-	\simeq  
-	\underset{U \in \mathsf{Face}_{sc}(J)}{\colim}
-	\overline{\iota U}$, where the colimit is now in $\Omega$,
-	cf. \cite[Cor. 3.70]{BP_geo}.
-\end{proof}
-
-
-
-
-
-
-
-
-\begin{lemma}\label{EFPHI LEM}
-	Let $F \hookrightarrow T$
-	be an outer face,
-	$T \to T^{\**}$ a map in $\Omega$,
-	and $E \subseteq \boldsymbol{E}(T)$.
-	Then
-	\[
-	\varphi(E_F) 
-	\supseteq 
-	\left(\varphi E\right)_{\overline{\varphi F}}
-	\]
-\end{lemma}
-
-
-\begin{proof}
-Given an edge $e \in T$, 
-we will show it can only be
-$\varphi(e) \in \boldsymbol{E}^{\mathsf{i}}
-(\overline{\varphi F})$
-if 
-$e \in \boldsymbol{E}^{\mathsf{i}}
-(F)$.
-Indeed, if $e \nin \boldsymbol{E}^{\mathsf{i}}
-(F)$
-then either $e \leq_d l$ for $l$ some leaf of $F$
-or $e,r_F$ are $\leq_d$-incomparable, where $r_F$ is the root of $F$.
-Hence, one either has that
-$\varphi(e) \leq_d \varphi(l)$ where $\varphi(l)$ is a leaf of 
-$\overline{\varphi F}$
-or
-$\varphi(e),\varphi(r_F) = r_{\overline{\varphi F}}$
-are $\leq_d$-incomparable. But both cases imply 
-$\varphi(e) \nin \boldsymbol{E}^{\mathsf{i}}
-(\overline{\varphi F})$, as needed.
-\end{proof}
-
-
-
-\begin{proposition}\label{NECKMAPCHAR PROP}
-	Let $\varphi \colon T \to T'$ be a map of trees. 
-	The following are equivalent.
-\begin{enumerate}[label=(\roman*)]
-\item $\varphi$ induces a map 
-	$(T,E) \to (T',E')$ in $\mathsf{Nec}$;
-\item $\varphi (E) \supseteq E'_{\overline{\varphi T}}$;
-\item $\varphi (E_F) \supseteq E'_{\overline{\varphi F}}$
-	for all outer faces $F \hookrightarrow T$.
-\end{enumerate}
-\end{proposition}
-
-
-\begin{proof}
-(iii) $\Rightarrow$ (ii) is obvious.
-As for (ii) $\Rightarrow$ (iii),
-it follows from the 
-string of reverse inclusions
-\[
-\varphi(E_F)
-	\supseteq
-\left(\varphi E\right)_{\overline{\varphi F}}
-	\supseteq
-\left(E'_{\overline{\varphi T}}\right)_{\overline{\varphi F}}
-	=
-E'_{\overline{\varphi F}}
-\]
-where the first reverse inclusion is Lemma \ref{EFPHI LEM}
-and the second one follows directly from (ii).
-
-
-For (iii) implies (i), 
-note that $\phi$ will induce a map 
-$(T,E) \to (T,E')$
-provided that, for each bead $T_v$ of $(T,E)$
-it is $\varphi T_v$ in 
-$\Omega[T',E']$.
-By Lemma \ref{FACEINNECK LEM}
-this is equivalent to
-$E'_{\overline{\varphi T_v}} = \emptyset$,
-and this follows from (iii)
-since $E_{T_v} = \emptyset$
-due to $T_v$ being a bead.
-
-Lastly, we show that not (iii) implies not (i).
-Suppose $F$ is counterexample to (iii).
-The argument is by induction on the size of $E_F$.
-The base case is that where $E_F = \emptyset$, 
-so that $F$ is in 
-$\Omega[T,E]$ but, by failure of (iii) for $F$,
-$E'_{\overline{\varphi F}} \neq \emptyset$,
-and thus $\varphi F$ is not in 
-$\Omega[T',E']$,
-showing that (i) indeed fails.
-Otherwise, letting $e \in E_F$, one has grafting decompositions
-$F = F' \amalg_e F''$
-and 
-$\overline{\varphi F} = 
-\overline{\varphi F'}
-\amalg_{\varphi e}
-\overline{\varphi F''}$,
-and failure of (iii) for $F$
-implies that (iii) fails for either $F'$ or $F''$,
-so the induction hypothesis implies that (i) fails, finishing the proof.
-\end{proof}
-
-
-
-
-\begin{remark}\label{BEADMAP REM}
-	If $\varphi \colon T \to T'$ is injective
-	and induces a map of necklaces
-	$(T,E) \to (T',E')$ then
-	for each bead 
-	$T_{v} \hookrightarrow T$
-	there is a unique bead
-	$T'_{\varphi_{\**} v} \hookrightarrow T'$
-	such that there is a factorization	
-\begin{equation}
-\begin{tikzcd}
-	T_v
-	\ar[hookrightarrow]{r} 
-	\ar[dashed]{d}
-&
-	T
-	\ar[hookrightarrow]{d}
-\\
-	T'_{\varphi_{\**} v}
-	\ar[hookrightarrow]{r}
-&
-	T'
-\end{tikzcd}
-\end{equation}
-In particular, 
-this defines a map of sets of beads
-$\varphi_{\**} \colon 
-B(T,E) \to B(T',E')$.
-
-{\color{green} Moreover, adapting the proof of 
-``not (iii) implies not (i)''
-in Proposition \ref{NECKMAPCHAR PROP}
-it follows that the bead map
-$\varphi_{\**}$ is injective
-provided one additionally has that  
-$\varphi(E) = E'_{\overline{\varphi T}}$.}
-{\color{red} I don't think this part is actually being used}
-\end{remark}
-
-
-
-
-\begin{remark}
-One can check directly that 
-condition (ii) in Proposition \ref{NECKMAPCHAR PROP}
-respects composition.
-Namely, suppose $T \xrightarrow{\varphi} T' \xrightarrow{\varphi'} T''$
-define maps
-$(T,E) \to (T',E') \to (T'',E'')$
-in $\mathsf{Nec}$.
-Then (ii) in Proposition \ref{NECKMAPCHAR PROP}
-for $\varphi' \varphi$
-follows from  
-\[
-\varphi' \varphi E
-	\supseteq
-\varphi'
-\left(E'_{\overline{\varphi T}}\right)
-	\supseteq
-\left(\varphi' E'\right)_
-{\overline{\varphi' (\overline{\varphi T})}}
-	=
-\left(\varphi' E'\right)_
-{\overline{\varphi' \varphi T}}
-	\supseteq
-\left(
-E''_{\overline{\varphi' T'}}\right)_
-{\overline{\varphi' \varphi T}}
-	=
-E''_{\overline{\varphi' \varphi T}}
-\]
-where the first and fourth steps are 
-(ii) for $\varphi$ and $\varphi'$
-while the second step is Lemma \ref{EFPHI LEM}.
-\end{remark}
-
-
-
-
-\begin{definition}\label{NWTNS DEF}
-	Let $T \in \Omega$ be a tree.
-	We define 
-	$W(T) \in \mathsf{sOp}$
-	to be the operad whose nerve is the preoperad
-	$NW(T)$ with $n$-simplices given by
-\[
-	\left(\left(NW(T)\right)_n\right)_{\mathfrak{s}}(S)
-=
-\left\{
-\text{factorizations }
-S \xrightarrow{t} 
-F_0 \xrightarrow{i,p} 
-F_1 \xrightarrow{i,p} 
-\cdots \xrightarrow{i,p}
-F_n \xrightarrow{f,p}
-T
-\text{ in $\Omega$}
-\right\}
-\]
-if $\mathfrak{s} \colon \boldsymbol{E}(S) \to \boldsymbol{E}(T)$
-defines a map $\phi \colon S \to T$ in $\Omega$
-and
-$\left(\left(NW(T)\right)_n\right)_{\mathfrak{s}}(S) = \emptyset$
-otherwise.
-	
-Alternatively, it suffices to require that all maps
-$S \to F_i$ are tall
-and all maps $F_i \to T$ are face maps.
-
-The functoriality of 
-$NW(T)$
-with respect to a map $(S', \mathfrak s') \to ({S},\mathfrak{s})$
-is described by the diagram
-{\color{red} HERE}
-\[
-\begin{tikzcd}
-	S' \ar{r}{t} \ar{d}
-&
-	F'_0 \ar{r}{i,p} \ar{d}{o}
-&
-	F'_1 \ar{r}{i,p} \ar{d}{o}
-&
-	\cdots \ar{r}{i,p}
-&
-	F'_n \ar{r}{f,p} \ar{d}{o}
-&
-	T \ar[equal]{d}
-\\
-	S \ar{r}{t} 
-&
-	F_0 \ar{r}{i,p}
-&
-	F_1 \ar{r}{i,p}
-&
-	\cdots \ar{r}{i,p}
-&
-	F_n \ar{r}{f,p}
-&
-	T	
-\end{tikzcd}
-\]
-where 
-$S' \to F'_0 \to F_0$
-(resp. $F'_k \to F'_{k+1} \to F_{k+1}$)
-is defined as the ``tall followed by outer face''
-factorization of composite
-$S' \to S \to F_0$
-(resp. $F'_k \to F_{k} \to F_{k+1}$).
-
-
-More generally, 
-given a necklace $(T,E)$,
-we define
-$NW(T,E) \subseteq NW(T,\varnothing) = NW(T)$
-as the subpresheaf
-of those factorizations with the property that
-$\boldsymbol{E}^{\mathsf{i}}(F_0) \supseteq E_{\overline{\varphi S}}$.
-Note that the fact that this is a presheaf follows 
-since
-\[
-\boldsymbol{E}^{\mathsf{i}}(F'_0)
-	=
-\left(\boldsymbol{E}^{\mathsf{i}}(F_0)\right)_{F'_0}
-	=
-\left(\boldsymbol{E}^{\mathsf{i}}(F_0)\right)_{\overline{\varphi' S'}}
-	\supseteq 
-\left(E_{\overline{\varphi S}}\right)_{\overline{\varphi' S'}}
-	= 
-E_{\overline{\varphi' S'}}.
-\]
-\end{definition}
-
-
-
-\begin{remark}
-	Note that all
-	$NW(T,E)$ as defined is indeed the nerve of an operad, i.e., 
-	$NW(T,E)(\eta)$ is discrete
-	and
-	$NW(T,E)$ satisfies the strict Segal condition
-        (cf. \cite[Cor 3.69]{BP_geo}).
-\end{remark}
-
-
-
-
-Next, we discuss the functoriality of
-$NW(T)$ with respect to $T \in \Omega$.
-
-For each map $T \to T^{\**}$ in $\Omega$
-we define
-$\left(NW(T)\right)_n(\vect{S})
-\to 
-\left(NW(T^{\**})\right)_n(\vect{S})$
-via the diagram
-\begin{equation}\label{NWTTSTAR EQ}
-\begin{tikzcd}
-	S \ar{r}{t} \ar[equal]{d}
-&
-	F_0 \ar{r}{i,p} \ar{d}{d}
-&
-	F_1 \ar{r}{i,p} \ar{d}{d}
-&
-	\cdots \ar{r}{i,p}
-&
-	F_n \ar{r}{f,p} \ar{d}{d}
-&
-	T \ar{d}
-\\
-	S \ar{r}{t} 
-&
-	F^{\**}_0 \ar{r}{i,p}
-&
-	F^{\**}_1 \ar{r}{i,p}
-&
-	\cdots \ar{r}{i,p}
-&
-	F^{\**}_n \ar{r}{f,p}
-&
-	T^{\**}
-\end{tikzcd}
-\end{equation}
-where
-$F_n \to F^{\**}_n \to T^{\**}$
-(resp. 
-$F_{k-1} \to F^{\**}_{k-1} \to F^{\**}_k$)
-is the "degeneracy followed by face"
-factorization of the composite
-$F_n \to T \to T^{\**}$
-(resp.
-$F_{k-1} \to F_{k} \to F^{\**}_k$).
-
-
-
-
-
-
-\begin{proposition}
-	For any map $T \to T^{\**}$ in $\Omega$, the induced map
-	$\left(NW(T)\right)_{\mathfrak{s}}(S)
-	\to 
-	\left(NW(T^{\**})\right)_{\mathfrak{s}}(S)$
-	in 
-	\eqref{NWTTSTAR EQ}
-	is functorial on $(S,\mathfrak{s})$.
-\end{proposition}
-
-
-
-\begin{proof}
-First, note that the composite
-$\left(NW(T)\right)_{\mathfrak{s}}({S})
-\to 
-\left(NW(T)\right)_{\mathfrak{s}'}({S'})
-\to 
-\left(NW(T^{\**})\right)_{\mathfrak{s}'}({S'})$
-is computed by the left diagram below,
-where
-$S' \to F'_i \to F_i$
-and 
-$F'_i \to \left(F_i'\right)^{\**} \to T^{\**}$
-are the unique factorizations with the indicated properties.
-On the other hand, the composite
-$\left(NW(T)\right)_{\mathfrak{s}}(S)
-\to 
-\left(NW(T^{\**})\right)_{\mathfrak{s}}(S)
-\to 
-\left(NW(T^{\**})\right)_{\mathfrak{s}'}(S')$
-is computed as on the right
-with 
-$F_i \to F^{\**}_i \to T'$ and
-$S' \to \left(F_i^{\**}\right)' \to F^{\**}_i$
-the unique indicated factorizations.
-\begin{equation}
-\begin{tikzcd}
-	S \ar{r}{t} 
-&
-	F_i \ar{r}{f,p} 
-&
-	T \ar[equal]{d}
-&&%%%
-	S \ar{r}{t} \ar[equal]{d}
-&
-	F_i \ar{r}{f,p} \ar{d}{d}
-&
-	T \ar{d}
-\\
-	S' \ar{u} \ar{r}{t} \ar[equal]{d}
-&
-	F'_i \ar{r} \arrow{u}[swap]{o,p} \arrow{d}{d}
-&
-	T \ar{d}
-&&%%%
-	S \ar{r}
-&
-	F^{\**}_i \arrow{r}{f,p}
-&
-	T' \ar[equal]{d}
-\\
-	S' \ar{r}
-&
-	\left(F_i'\right)^{\**} \arrow{r}{f,p}
-&
-	T^{\**}
-&&%%%
-	S' \arrow{r}{t} \ar{u}
-&
-	\left(F_i^{\**}\right)' \ar{r} \arrow{u}[swap]{o,p}
-&
-	T^{\**}
-\end{tikzcd}
-\end{equation}
-The key to the proof is to show
-that the planar faces 
-$\left(F_i'\right)^{\**}$ and
-$\left(F_i^{\**}\right)'$
-of $T'$
-coincide, since it will then be automatic that all maps connecting the
-$\left(F_i'\right)^{\**}$ and
-$\left(F_i^{\**}\right)'$
-and $S'$, $T^{\**}$
-likewise match.
-
-To see this, we consider the following diagram.
-\begin{equation}
-\begin{tikzcd}
-	S' \ar{r}{t} \ar{d}
-&
-	F'_i \ar{r} \ar{d}{o,p}
-&
-	T \ar[equal]{d}
-\\
-	S  \ar{r}{t} \ar[equal]{d}
-&
-	F_i \ar{r}{f,p}  \ar{d}{d}
-&
-	T \ar{d}
-\\
-	S \ar{r}
-&
-	F_i^{\**} \ar{r}{f,p}
-&
-	T^{\**}
-\end{tikzcd}
-\end{equation}
-Both faces  
-$\left(F'_i\right)^{\**}$ and 
-$\left(F^{\**}_i\right)'
-$
-can alternatively be built by factoring
-the composite 
-$F'_i \to F_i \to F_i^{\**}$,
-with 
-$\left(F'_i\right)^{\**}$ 
-coming from the 
-degeneracy-face factorization
-and 
-$\left(F^{\**}_i\right)'
-$
-coming from the 
-tall-outer factorization.
-But since 
-$F'_i \to F_i \to F_i^{\**}$
-is a composite of convex maps 
-(see Remark \ref{CNVXM REM})
-it is again convex, 
-so the two factorizations coincide, 
-finishing the proof.
-\end{proof}
-
-
-
-\begin{corollary}
-	If $\psi \colon T \to T^{\**}$
-	defines a map of necklaces
-	$(T,E) \to (T^{\**},E^{\**})$
-	then 
-	it induces a map
-	$NW(T,E) \to NW(T^{\**},E^{\**})$.
-\end{corollary}
-
-
-\begin{proof}
-	We need to show that the 
-	map
-	$NW(T) \to NW(T^{\**})$
-	sends simplices such that
-	$\boldsymbol{E}^{\mathsf{i}}(F_0) \supseteq 
-	E_{\overline{\varphi S}}$
-	to simplices such that
-	$\boldsymbol{E}^{\mathsf{i}}(F^{\**}_0) \supseteq 
-	E^{\**}_{\overline{\varphi^{\**} S}}$.
-	This follows since
-\[
-\boldsymbol{E}^{\mathsf{i}}(F^{\**}_0)
-	=
-\psi \left(\boldsymbol{E}^{\mathsf{i}}(F_0)\right)
-	\supseteq
-\psi \left( E_{\overline{\varphi S}} \right)
-	\supseteq
-E^{\**}_{\overline{\psi (\overline{\varphi S})}}
-	=
-E^{\**}_{\overline{\varphi^{\**} S}}
-\]
-where the second step is our assumption on the simplex and
-the third step is the characterization in 
-Proposition \ref{NECKMAPCHAR PROP}(iii).
-\end{proof}
-
-
-
-\begin{proposition}\label{NECKCOL PROP}
-Let $(T,E)$ be a necklace.
-Then one has an identification
-\begin{equation}\label{NECKCOL EQ}
-W(T,E)
-\simeq 
-\underset{U \in \mathsf{Face}_{sc}(J)}{\colim}
-W(T_U)
-\end{equation}
-where the colimit takes place 
-in $\mathsf{sOp}$.
-\end{proposition}
-
-{\color{red} HERE}
-
-\begin{proof}
-	We will verify \eqref{NECKCOL EQ}
-	by working with nerves throughout.
-	More explicitly, 
-	we will show that for any $X\in \mathsf{PreOp}$
-	satisfying the strict Segal condition
-	giving a map
-	$NW(T,E) \to X$
-	is the same as giving compatible maps
-	$NW(T_U) \to X$.
-	
-	Moreover, clearly both sides of 
-	\eqref{NECKCOL EQ} yield $\boldsymbol{E}(T)$
-	when evaluated on $\eta$.
-	As such, we are free to fix throughout
-	a map of colors $\boldsymbol{E}(T) \to X(\eta)$
-	and verify the universal property 
-	for maps respecting this color assignment.
-	In particular, we are free to 
-	evaluate $W(T,E),X$ on suitable 
-	$\boldsymbol{E}(T)$-colored trees, 
-	rather than on uncolored trees.
-	
-	Given $\varphi \colon S \to T$,
-	let us write
-	$S \xrightarrow{tall} S^E \xrightarrow{face} T$
-	for the smallest such factorization for which
-	$\boldsymbol{E}^{\mathsf{i}}(S^E)
-	\supseteq E_{\overline{\varphi S}}$.
-	Note that
-	$\left(NW(T,E)\right)(\vect{S}) \simeq 
-	\left(NW(T)\right)(\vect{S^E})$ by definition.
-	Given maps
-	$NW(T_U) \to X$
-	we now define the map
-	$NW(T,E) \to X$ via
-\begin{equation}\label{LONGMAP EQ}
-\begin{tikzcd}[column sep = 10pt, row sep=0]
-	NW(T,E)(\vect{S})
-&
-	NW(T)(\vect{S^E})
-	\ar{l}[swap]{\simeq}{(I)}
-	\ar{r}{\simeq}[swap]{(II)}
-&
-	\underset{b \in B(\overline{\varphi S},E_{\overline{\varphi S}})}{\prod}
-	NW(T,E)(\vect{S^E_b})
-\\
-&&&
-	\underset{b \in B(\overline{\varphi S},E_{\overline{\varphi S}})}{\prod}
-NW(T_{\varphi_{\**}b})(\vect{S^E_b})
-	\ar{lu}[swap]{\simeq}{(III)}
-	\ar{ld}{(IV)}
-\\
-	X(\vect{S})
-&
-	X(\vect{S^E})
-	\ar{r}{\simeq}[swap]{(V)}
-	\ar{l}{(VI)}
-&
-	\underset{b \in B(\overline{\varphi S},E_{\overline{\varphi S}})}{\prod}
-	X(\vect{S^E_b})
-\end{tikzcd}
-\end{equation}
-where arrows (II) and (V) are isomorphims by the Segal condition
-while (III) is an isomorphism since 
-$S_b^E \to T$ factors through 
-$T_{\varphi_{\**}b}$.
-
-Moreover, arrow (IV) in \eqref{LONGMAP EQ}
-is induced by the chosen maps
-$NW(T_U) \to X$,
-so clearly 
-\eqref{LONGMAP EQ}
-denotes the only possible compatible map
-$W(T) \to X$.
-
-It only remains to check that
-\eqref{LONGMAP EQ}
-is indeed a map in 
-$\mathsf{PreOp}$, i.e. that it is natural in 
-$\vect{S}$.
-To see this, one first readily checks that a map
-$\psi \colon \vect{S} \to \vect{R}$
-induces a compatible inclusion
-$\psi \colon \vect{S^E} \hookrightarrow \vect{R^E}$
-showing the naturality of the first and last arrows in the zigzag.
-
-Next, by Remark \ref{BEADMAP REM}
-one has a map of beads
-$\psi_{\**} \colon 
-B(\overline{\varphi S},E_{\overline{\varphi S}})
-\to
-B(\overline{\varphi R},E_{\overline{\varphi R}})$
-for which one further has compatible maps
-$\vect{S^{E}_b}
-\to 
-\vect{R^{E}_{\psi_{\**}b}}$,
-showing the naturality of the second and fifth arrows.
-Lastly, for any bead 
-$b \in B(\overline{\varphi S},E_{\overline{\varphi S}})$
-one has
-$T_{\varphi_{\**}b} = T_{\varphi'_{\**} \psi_{\**}b}$
-showing naturality of the third and fourth arrows.
-\end{proof}
-
-
-
-
-\begin{remark}\label{PREOPCOLEV REM}
-	Let $I \xrightarrow{A_{\bullet}} \mathsf{PreOp}$
-	be a diagram of preoperads and let
-	$A = \colim_{i \in I} A_i$.
-	
-	For each $A(\eta)$-colored tree $\vect{S}$
-	let us write
-	$I_{\vect{S}/}$
-	for the category whose objects are factorizations
-	$(i,\boldsymbol{E}(S) \to A_i(\eta) \to A(\eta))$,
-	which we represent by 
-	$\boldsymbol{E}(S) \to A_i(\eta)$,
-	together with maps $i \to i'$ in $I$
-	satisfying the obvious compatibility.
-	
-	Then
-\[
-	A(\vect{S}) \simeq 
-	\underset{(\boldsymbol{E}(S) \to A_i(\eta)) \in I_{\vect{S}/}}{\colim}
-	A_i(\vect{S})
-\]
-where in the expression $A_i(\vect{S})$
-we slightly abuse notation by writing $\vect{S}$
-for $S$ with the coloring given by
-$\boldsymbol{E}(S) \to A_i(\eta)$.
-\end{remark}
-
-
-
-
-
-\begin{proposition}
-      \label{NWKANEX_PROP}
-	Let $X \in \mathsf{dSet}$ and define
-	$NW(X) \in \mathsf{PreOp}$ by
-\begin{equation}\label{NWKANEX EQ}
-	NW(X) =
-	\underset{((T,E) \to X)
-	\in \mathsf{Nec}_{/X}}{\colim}
-	NW(T,E).
-\end{equation}
-where
-$\mathsf{Nec}_{/X} = \mathsf{Nec} \downarrow X$ is the over category of maps $\Omega[T,E] \to X$, and
-the colimit is taken in $\mathsf{PreOp}$.
-	
-	Then $NW(X)$ satisfies the strict Segal condition.
-%
-	In particular, since $N$ is fully-faithful one has that
-	$NW(X)$ is the nerve of the simplicial operad
-\[
-W(X) =
-\underset{((T,E) \to X)
-	\in \mathsf{Nec}_{/X}}{\colim}
-W(T,E).
-\]
-where the colimit is now taken in simplicial operads.
-\end{proposition}
-
-
-
-\begin{proof}
-	We will evaluate 
-	$(NW(X))(\vect{S})$ as in \eqref{NWKANEX EQ}.
-	Following Remark \ref{PREOPCOLEV REM}
-	we write
-	$\mathsf{Nec}_{\vect{S}//X}
-	=
-	\left(\mathsf{Nec}_{/X}\right)_{\vect{S}/}$
-	for the category
-	whose objects are pairs of arrows
-	$\boldsymbol{E}(S) \to \Omega[T,E] \to X$
-	whose composite is the coloring $\vect{S}$.
-	Remark \ref{PREOPCOLEV REM} then says that
-\begin{equation}\label{NWKANEXEV EQ}
-\left(NW(X)\right)(\vect{S}) \simeq
-\underset{(\boldsymbol{E}(S) \to (T,E) \to X)
-	\in \mathsf{Nec}_{\vect{S}//X}}{\colim}
-\left(NW(T,E)\right)(\vect{S}).
-\end{equation}
-To show that $NW(X)$ satisfies the strict Segal condition, 
-we will rewrite \eqref{NWKANEXEV EQ} 
-by identifying appropriate subcategories of
-$\mathsf{Nec}_{\vect{S}//X}$.
-Firstly, write
-$\mathsf{Nec}_{\vect{S}//X}^{\Omega}
-\subset
-\mathsf{Nec}_{\vect{S}//X}$
-for the full subcategory of those objects for which the map
-$\boldsymbol{E}(S) \to \boldsymbol{E}(T)$
-defines a map $S \to T$ in $\Omega$.
-
-Additionally, we write 
-$
-\mathsf{Nec}_{\vect{S}//X}^{\Omega,nor}
-	\subset
-\mathsf{Nec}_{\vect{S}//X}^{\Omega}
-$
-for the subcategory of ``normalized factorizations'',
-which are defined by the property that
-$S \to T$ is a tall map and
-$E \supseteq \boldsymbol{E}^{\mathsf{i}}(\varphi(S))$.
-Moreover, 
-there is a retraction
-$
-	\mathsf{Nec}_{\vect{S}//X}^{\Omega}
-\to
-	\mathsf{Nec}_{\vect{S}//X}^{\Omega,nor}
-$
-which sends
-$\boldsymbol{E}(S) \to (T,E)$ to
-$n(T,E)=(\overline{\varphi S},
-E_{\overline{\varphi S}} \cup \boldsymbol{E}^{\mathsf{i}}(\varphi(S)))$.
-Crucially, note that one has a natural map
-$n(T,E) \to (T,E)$ in $\mathsf{Nec}$
-for which the induced map
-$\left(NW(n(T,E))\right)(\vect{S}) \to
-\left(NW(T,E)\right)(\vect{S})$
-is an isomorphism.
-
-Since 
-$\mathsf{Nec}_{\vect{S}//X}^{\Omega}$
-is a cosieve of 
-$\mathsf{Nec}_{\vect{S}//X}$
-and 
-$NW(T,E)(\vect{S}) = \emptyset$
-whenever $(T,E)$ is not in 
-$\mathsf{Nec}_{\vect{S}//X}^{\Omega}$
-one can replace 
-$\mathsf{Nec}_{\vect{S}//X}$
-with 
-$\mathsf{Nec}_{\vect{S}//X}^{\Omega}$
-on
-\eqref{NWKANEXEV EQ}.
-Moreover, by the discussion in the previous paragraph one can further replace it with
-2$\mathsf{Nec}_{\vect{S}//X}^{\Omega,nor}$.
-
-Moreover, the normalization conditions imply that
-$\mathsf{Nec}_{\vect{S}//X}^{\Omega,nor} 
-\simeq
-\prod_{v \in \boldsymbol{V}(S)}
-\mathsf{Nec}_{\vect{S_v}//X}^{\Omega,nor}$.
-Putting everything together we obtain that
-\begin{equation}
-\begin{aligned}
-\left(NW(X)\right)(\vect{S}) 
-	\simeq &
-	\underset{(\boldsymbol{E}(S) \to (T,E) \to X)
-	\in \mathsf{Nec}^{\Omega,nor}_{\vect{S}//X}}{\colim}
-\left(NW(T,E)\right)(\vect{S})
-\\
-	\simeq &
-\underset{(\boldsymbol{E}(S_v) \to (T_v,E_{T_v}) \to X)
-	\in 
-	\prod_{v \in \boldsymbol{V}(S)} \mathsf{Nec}^{\Omega,nor}_{\vect{S_v}//X}}{\colim}
-	\left(\prod_{v \in \boldsymbol{V}(S)}
-	\left(NW(T_v,E_{T_v})\right)(\vect{S_v})\right)
-\\
-	\simeq &
-	\prod_{v \in \boldsymbol{V}(S)}
-	\left(
-	\underset{(\boldsymbol{E}(S_v) \to (T_v,E_{T_v}) \to X)
-	\in \mathsf{Nec}^{\Omega,nor}_{\vect{S_v}//X}}{\colim}
-	\left(NW(T_v,E_{T_v})\right)(\vect{S_v})
-	\right)
-\\
-	\simeq &
-	\prod_{v \in \boldsymbol{V}(S)} 
-	\left(NW(X)\right)(\vect{S_v}) 
-\end{aligned}
-\end{equation}
-where the second step is the identification above together with 
-the strict Segal condition on 
-$NW(T,E)$,
-the third step is the fact that products commute with colimits in each variable, and the last step simply specifies
-the simplified version of \eqref{NWKANEXEV EQ}
-for $\vect{S_v}$.
-
-We have now shown the 
-strict Segal condition for $NW(X)$, 
-finishing the proof.
-\end{proof}
-
-
-Combining the previous proof with the description of the simplices 
-in Definition \ref{NWTNS DEF} gives the following.
-
-\begin{corollary}[{cf. \cite[Cor. 4.8]{DS11}}]
-	\label{NWXREPS COR}
-	Let $X\in \mathsf{dSet}$.
-	Then for each corolla $\vect{S}$ the simplices in 
-	$NW(X)_n(\vect{C})$
-	are represented by the following data:
-\begin{enumerate}[label=(\roman*)]
-\item a necklace $(T,E)$ 
-\item a map $\Omega[T,E] \to X$
-\item a tall simplex in $NW(T,E)_n(\vect{C})$, i.e. maps in $\Omega$
-\begin{equation}\label{STRINCOR EQ}
-\begin{tikzcd}
-	C \ar{r}{t}
-&
-	F_0 \ar{r}{i,p}
-&
-	F_1 \ar{r}{i,p}
-&
-	\cdots
-	\ar{r}{i,p}
-&
-	F_n \ar{r}{i,p}
-&
-	T
-\end{tikzcd}
-\end{equation}
-such that 
-$E \subseteq \boldsymbol{E}^{\mathsf{i}}(F_0)$
-and the composite 
-$\boldsymbol{E}(C) \to \boldsymbol{E}(T) \to X(\eta)$
-matches the coloring of $\vect{C}$.
-\end{enumerate}
-
-Further, two pieces of such data are subject to the equivalence relation generated as follows.  
-If there exists a map of necklaces $(T,E) \to (T^{\**},E^{\**})$
-such that the maps 
-$\Omega[T,E] \to X$,
-$\Omega[T^{\**},E^{\**}] \to X$
-are compatible in the obvious way and the 
-strings in \eqref{STRINCOR EQ}
-are compatible in the sense of 
-\eqref{NWTTSTAR EQ}.
-\end{corollary}
-
-
-
-Our final goal in this appendix is to show that, 
-among the representatives in 
-Corollary \ref{NWXREPS COR}
-one can always identify a nice representative that is 
-(suitably) unique.
-
-Firstly, we discuss uniqueness of 
-the maps
-$\Omega[T,E] \to X$ up to degeneracy.
-
-\begin{definition}
-	A map of necklaces 
-	$(T,E) \to (T^{\**},E^{\**})$
-	is called a \emph{degeneracy}
-	if the associated map
-	$\varphi \colon T \to T^{\**}$
-	is a degeneracy and
-	$(\varphi E)_{T^{\**}} = E'_{T^{\**}}$.
-\end{definition}
-
-
-\begin{definition}
-	Let $(T,E)$ be a necklace and $X \in \mathsf{dSet}$.
-	A map 
-	$\Omega[T,E] \to X$
-	is called \emph{totally non-degenerate}
-	if for all beads $T_v$ of $(T,E)$
-	the induced simplex
-	$\Omega[T_v] \to X$
-	is non-degenerate.
-\end{definition}
-
-
-\begin{lemma}\label{DEGNECK LEM}
-	Any map 
-	$\Omega[T,E] \to X$
-	has a factorization, unique up to unique isomorphism, as
-\[
-	\Omega[T,E] \to \Omega[T',E'] \to X
-\]
-where the first map is a degeneracy of necklaces
-and the second map is totally non-degenerate.
-\end{lemma}
-
-
-\begin{proof}
-	The proof is by induction on the size of $E$.
-	The base case is that of $E = \emptyset$
-	(note that then it must also be $E'=\emptyset$),
-	in which case the result reduces to 
-	\cite[Prop. 6.9]{CM11} or
-	\cite[Prop. 5.62]{Per18}.
-	Otherwise, let $e \in E$
-	and write the grafting decomposition
-	$T = R \amalg_e S$.
-	By the induction hypotheses, one has similar factorizations, unique up to unique isomorphism,
-	$\Omega[R,E_R] \to \Omega[R',(E_R)'] \to X$,
-	$\Omega[S,E_S] \to \Omega[S',(E_S)'] \to X$.
-	One then simply sets 
-	$T' = R' \amalg_e S'$
-	(where due to the uniqueness up to unique isomorphism, there is no ambiguity concerning the grafting edge)
-	and $E' = (E_R)' \cup (E_S)' \cup \{e\}$.
-\end{proof}
-
-
-
-Next, we also need a preferred form for the tall simplex data in \eqref{STRINCOR EQ}.
-
-
-
-\begin{definition}
-	A tall simplex as in 
-	\eqref{STRINCOR EQ}
-	is called \emph{flanked}
-	if $\boldsymbol{E}^{\mathsf{i}}(F_0) = E$
-	and $F_n = T$.
-\end{definition}
-
-
-\begin{remark}
-	If both flags in a pushforward diagram
-	\eqref{NWTTSTAR EQ}
-	are flanked,
-	then the associated maps of necklaces
-	$(T,E) \to (T',E')$
-	is a necklace degeneracy.
-\end{remark}
-
-
-\begin{lemma}\label{FLANKING LEM}
-	\begin{enumerate}[label=(\roman*)]
-	\item Any datum as in Corollary \ref{NWXREPS COR} is equivalent to one where the tall simplex is flanked;
-	\item if two flanked data are equivalent, then the equivalence can be described using via a zigzag involving only flanked data.
-	\end{enumerate}
-\end{lemma}
-
-
-
-\begin{proof}
-	The key to the proof is the fact that 
-	the map $J_n \to T$
-	induces a map of necklaces
-	$(J_0 \to J_n) \to (J \to T)$.
-	This map of necklaces then induces a pushforward of 
-	simplices
-\begin{equation}
-\begin{tikzcd}
-	S \ar{r}{t} \ar[equal]{d}
-&
-	J_0 \ar{r}{i,p} \ar[equal]{d}
-&
-	J_1 \ar{r}{i,p} \ar[equal]{d}
-&
-	\cdots
-	\ar{r}{i,p}
-&
-	J_n \ar[equal]{r} \ar[equal]{d}
-&
-	J_n \ar{d}
-\\
-	S \ar{r}{t}
-&
-	J_0 \ar{r}{i,p}
-&
-	J_1 \ar{r}{i,p}
-&
-	\cdots
-	\ar{r}{i,p}
-&
-	J_n \ar{r}{i,p}
-&
-	T
-\end{tikzcd}
-\end{equation}	
-where the top flag is flanked, so (i) follows.
-Moreover, (ii) follows by noting that the procedure above is natural.
-More precisely, 
-an arbitrary pushforward of flags as in 
-\eqref{NWTTSTAR EQ}
-induces a pushforward of flanked flags
-\begin{equation}
-\begin{tikzcd}
-	S \ar{r}{t} \ar[equal]{d}
-&
-	F_0 \ar{r}{i,p} \ar{d}{d}
-&
-	F_1 \ar{r}{i,p} \ar{d}{d}
-&
-	\cdots \ar{r}{i,p}
-&
-	F_n \ar[equal]{r} \ar{d}{d}
-&
-	F_n \ar{d}
-\\
-	S \ar{r}{t} 
-&
-	F^{\**}_0 \ar{r}{i,p}
-&
-	F^{\**}_1 \ar{r}{i,p}
-&
-	\cdots \ar{r}{i,p}
-&
-	F^{\**}_n \ar{r}{f,p}
-&
-	T^{\**}
-\end{tikzcd}
-\end{equation}
-\end{proof}
-
-
-
-\begin{corollary}
-	Each datum as in Corollary \ref{NWXREPS COR}
-	has a representative, unique up to unique isomorphism,
-	which is both flanked and totally non-degenerate.
-\end{corollary}
-
-
-
-\begin{proof}
-	By Lemma \ref{FLANKING LEM}(i)
-	any flag is equivalent to a flanked flag
-	and by Lemma \ref{DEGNECK LEM}
-	any flanked flag is equivalent to a flanked flag that is
-	totally non-degenerate.
-	
-	As for the uniqueness condition, 
-	by Lemma \ref{FLANKING LEM}(ii)
-	we need only consider zigzags of 
-	equivalences of flanked data, 
-	which are induced by necklace degeneracies.
-	But then, arguing by induction on the zigzag
-	and applying 
-	Lemma \ref{DEGNECK LEM}
-	one sees that the flanked data in the zigzag all have the same
-	totally non-degenerate quotient.
-\end{proof}
-
-
-
-
-\begin{example}\label{WPARTIALT_EX}
-      Let $U \in \Omega$ be a tree.
-      We will apply the previous result to describe
-      $W_!(\partial U)$.
-      Firstly, 
-      on any signature $\vect{C}$
-      other than the leaf-root signature
-      one readily sees that
-      $W_!(\partial U)(\vect{C}) = W_!(U)(\vect{C})$.
-
-	For the more interesting case of 
-	$W_!(\partial U)(\underline{l};r)$
-	note that a map
-	$\Omega[R,E] \to \Omega [U]$
-	is totally non-degenerate iff
-	the inducing map $R \to U$
-	is a face map. Moreover, we are free to choose the unique planar representative.
-	Next, note that 
-	$\Omega[R,E] \to \Omega [U]$
-	factors through $\partial \Omega[U]$
-	iff either $R \neq U$ or $E \neq \emptyset$.
-	In other words, the $n$-simplices of 
-	$W_!(\partial U)(\underline{l};r)$
-	are uniquely represented as strings
-\begin{equation}\label{WDELREP EQ}
-	F_0 \xrightarrow{i,p} 
-	F_1 \xrightarrow{i,p} 
-	\cdots \xrightarrow{i,p}
-	F_n = R \xrightarrow{i,p} U
-\end{equation}
-	such that either $F_n \neq U$ or $F_0 \neq \mathsf{lr(U)}$.
-
-In other words, 
-$W_!(\partial U)(\underline{l},r)$
-is the boundary of the nerve of the poset of inner faces
-$\mathsf{Face}_{inn}(U) \simeq 
-(0 \to 1)^{\times \boldsymbol{E}^{\mathsf{i}}(U)}$.
-More explicitly, 
-$W_!(\partial U)(\underline{l},r)$ 
-is identified with the \emph{domain} of the iterated pushout product
-\[
-	\left(
-	\{0,1\} \to \Delta[1]
-	\right)^{\square \boldsymbol{E}^{\mathsf{i}}(U)}.
-\]
-\end{example}
-
-
-
-
-\begin{example}\label{WPARTIALT2_EX}
-	Let $U\in \Omega$ and 
-	$\emptyset \neq E \subseteq \boldsymbol{E}^{\mathsf{i}}(U)$.
-	Just as in Example \ref{WPARTIALT_EX}
-	one has 
-	$W_!(\Lambda^E[U])(\vect{C}) = W_!(U)(\vect{C})$
-	whenever $\vect{C} \neq (\underline{l};r)$
-	(though we note that this fails for outer horns).
-	
-	Then, one has that 
-	$\Omega[R,\bar{E}] \to \Omega[U]$
-	factors through $\Lambda^E[U]$
-	iff either $R \not \supseteq U-E$ or $\bar{E}\neq \emptyset$.
-	I.e., the $n$-simplices of
-	$W_!(\Lambda^E[U])(\underline{l};r)$ 
-	are uniquely represented by a string
-	\eqref{WDELREP EQ}
-	such that either $F_n \not \supseteq U-E$
-	or $F_0 \neq \mathsf{lr}(U)$. 
-	More explicitly, 
-	$W_!(\Lambda^E[U])(\underline{l},r)$ 
-	is identified with the \emph{domain} of the iterated pushout product
-	\[
-	\left(
-	\{0,1\} \to \Delta[1]
-	\right)^{\square \boldsymbol{E}^{\mathsf{i}}(U)-E}
-	\square
-	\left(
-	\{1\} \to \Delta[1]
-	\right)^{\square E}.
-	\]
-\end{example}
-
-
-
-
-
-
-
-
-
-\section{The dendroidal $W_!$-construction (redux)}
 \label{WCONS AP}
 
 
@@ -6944,10 +5606,40 @@ work of Dugger and Spivak in \cite{DS11}
 (which deals with the categorical context).
 
 
-We now define our key notion.
+Our discussion will make systematic
+use of the factorizations in $\Omega$ given by 
+Proposition \ref{TREEFACT_PROP}.
+As such, we will find the convenient to label a 
+map in $\Omega$
+by either of the letters d/i/o/t/f/p
+to indicate that the map is
+a degeneracy/inner face/outer face/tall/face/planar.
+Moreover, given a map $\phi\colon S \to T$,
+we will then write
+\[
+	S \xrightarrow{d}
+	\phi S \xrightarrow{i,p}
+	\overline{\phi S} \xrightarrow{o,p}
+	T
+\]
+for the (strictly) unique 
+factorization of $\phi$ with the indicated properties.
+We note that the notation 
+$\phi(S)$ is motivated by the fact that this tree has edge set
+$\boldsymbol{E}(\phi S) = \phi (\boldsymbol{E}(S))$
+while the 
+$\overline{\phi S}$ notation is an instance of the 
+\emph{outer closure of an inner face}
+notation in \cite[Not. 2.14]{BP_edss}.
 
-\begin{definition}
-	A (dendroidal) \emph{necklace} is 
+
+
+We now define the notion of dendroidal necklace,
+generalizing the key notion in \cite{DS11}.
+ 
+
+\begin{definition}[{cf. \cite[\S 3]{DS11}}]
+	A \emph{necklace} is 
 	a planar inner face map
 	$\tau \colon J \to T$
 	in $\Omega$.
@@ -6978,10 +5670,10 @@ consisting of those planar outer faces with no inner edges
 	\Omega[\tau] 
 	= 
 	\underset{U \in \mathsf{Face}_{sc}(J)}{\colim}
-	\Omega[\overline{\iota U}]
+	\Omega[\overline{\tau U}]
 	=
 	\bigcup_{U \in \mathsf{Face}_{sc}(J)} 
-	\Omega[\overline{\iota U}]
+	\Omega[\overline{\tau U}]
 	\end{equation}
 	where the union formula is taken inside $\Omega[T]$.
 	
@@ -7243,46 +5935,30 @@ $\mathsf{Nec}$.
 
 
 
+
 \begin{remark}\label{BEADMAP REM}
-	If $\varphi \colon T \to T'$ is injective
-	and induces a map of necklaces
-	$(T,E) \to (T',E')$ then
-	for each bead 
-	$T_{v} \hookrightarrow T$
+	Let $\tau = (J \to T)$,
+	$\tau^{\**} = (J^{\**} \to T^{\**})$
+	be necklaces,
+	and $\varphi \colon T \to T^{\**}$
+	be a face map which induces a map of necklaces
+	$\tau \to \tau^{\**}$.
+
+	Then for each bead $T_{v} \hookrightarrow T$
+	of $\tau$
 	there is a unique bead
-	$T'_{\varphi_{\**} v} \hookrightarrow T'$
-	such that there is a factorization	
-	\begin{equation}
-	\begin{tikzcd}
-	T_v
-	\ar[hookrightarrow]{r} 
-	\ar[dashed]{d}
-	&
-	T
-	\ar[hookrightarrow]{d}
-	\\
-	T'_{\varphi_{\**} v}
-	\ar[hookrightarrow]{r}
-	&
-	T'
-	\end{tikzcd}
-	\end{equation}
+	$T^{\**}_{\varphi_{\**} v} \hookrightarrow T^{\**}$
+	of $\tau^{\**}$
+	such that
+	$T_v \hookrightarrow T \to T^{\**}$
+	factors as
+	$T_v \to T^{\**}_{\varphi_{\**}v} \hookrightarrow T^{\**}$.
+%	
 	In particular, 
 	this defines a map of sets of beads
 	$\varphi_{\**} \colon 
-	B(T,E) \to B(T',E')$.
-	
-	{\color{green} Moreover, adapting the proof of 
-		``not (iii) implies not (i)''
-		in Proposition \ref{NECKMAPCHAR PROP}
-		it follows that the bead map
-		$\varphi_{\**}$ is injective
-		provided one additionally has that  
-		$\varphi(E) = E'_{\overline{\varphi T}}$.}
-	{\color{red} I don't think this part is actually being used}
+	B(\tau) \to B(\tau^{\**})$.
 \end{remark}
-
-
 
 
 
@@ -7292,9 +5968,9 @@ $\mathsf{Nec}$.
 	$W(T) \in \mathsf{sOp}$
 	to be the operad whose nerve is the preoperad
 	$NW(T)$ with $n$-simplices given by
-	\[
-	\left(\left(NW(T)\right)_n\right)_{\mathfrak{s}}(S)
-	=
+\[
+	\left(NW(T)_n\right)_{\mathfrak{s}}(S)
+=
 	\left\{
 	\text{factorizations }
 	S \xrightarrow{t} 
@@ -7305,7 +5981,7 @@ $\mathsf{Nec}$.
 	T
 	\text{ in $\Omega$}
 	\right\}
-	\]
+\]
 	if $\mathfrak{s} \colon \boldsymbol{E}(S) \to \boldsymbol{E}(T)$
 	defines a map $\phi \colon S \to T$ in $\Omega$
 	and
@@ -7698,11 +6374,11 @@ Remark \ref{NECKMAPCHAR REM}.
 	\ar{r}{\simeq}[swap]{(V)}
 	\ar{l}{(VI)}
 &
-	\underset{b \in B(\tau_{\overline{\varphi S}})}{\prod}
+	\underset{b \in B(\tau_{\overline{\phi S}})}{\prod}
 	X_{\mathfrak{s}}(S^{\tau}_b)
 \end{tikzcd}
 \end{equation}
-	where arrows (II) and (V) are isomorphims by the Segal condition
+	where the arrows (II) and (V) are isomorphims by the Segal condition
 	while (III) is an isomorphism since 
 	$S_b^{\tau} \to T$ factors through 
 	$T_{\phi_{\**}b}$.
@@ -7713,7 +6389,7 @@ Remark \ref{NECKMAPCHAR REM}.
 	so clearly 
 	\eqref{LONGMAP EQ}
 	denotes the only possible compatible map
-	$W(T) \to X$.
+	$NW(T) \to X$.
 
 	It only remains to check that
 	\eqref{LONGMAP EQ}
@@ -7948,6 +6624,15 @@ Remark \ref{NECKMAPCHAR REM}.
 \end{proof}
 
 
+\begin{remark}
+	The normalization condition in the previous proof
+	is equivalent to requiring that the tall map
+	$\varphi \colon S \to T$
+	induces a map
+	$\mathsf{Sc}[S] \to \Omega[\tau]$.
+\end{remark}
+
+
 Combining the previous proof with the description of the simplices 
 in Definition \ref{NWTNS DEF} gives the following.
 
@@ -8085,7 +6770,7 @@ $\Omega[\tau] \xrightarrow{x} X$ up to degeneracy.
 	The uniqueness up to unique isomorphism property of
 	$tau'$ is easily seen to be inherited from 
 	the analogue property for 
-	$tau'_R,tau'_S$
+	$\tau'_R,\tau'_S$
 	(note that the ``unique isomorphism'' clause
 	implies that there is no ambiguity concerning the grafting edge $e$),
 	finishing the proof.
@@ -8101,7 +6786,43 @@ Next, we also need a preferred form for the tall simplex data in \eqref{STRINCOR
 	is called \emph{flanked}
 	if $J_0 = J$
 	and $J_n = T$.
+%	
+	Further, a quadruple
+	$(\tau,\phi,x,J_{\bullet})$
+	is called \emph{flanked} if $J_{\bullet}$ is.
 \end{definition}
+
+
+\begin{remark}
+	Suppose $(\tau,\phi,x,J_{\bullet})$
+	is a flanked quadruple
+	and set $\tau_k = (J_k \to T)$.
+	Then the structure maps in \eqref{STRINCOR EQ}
+	induce a diagram of necklace maps
+\begin{equation}
+\begin{tikzcd}[column sep=12pt]
+	\mathsf{Sc}[T]
+	\ar[equal]{r} 
+&
+	\Omega[\tau_n]
+	\ar{r}
+&
+	\Omega[\tau_{n-1}]
+	\ar{r}
+&
+	\cdots
+	\ar{r}
+&
+	\Omega[\tau_0]
+	\ar[equal]{r}
+&
+	\Omega[\tau]
+&
+	\mathsf{Sc}[S]
+	\ar{l}
+\end{tikzcd}
+\end{equation} 
+\end{remark}
 
 
 
