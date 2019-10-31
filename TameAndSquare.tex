@@ -10,7 +10,7 @@
 \usepackage{ifdraft}[pos=0.8]
 \ifdraft{
   \color[RGB]{63,63,63}
-%  \pagecolor[RGB]{220,220,204}
+  \pagecolor[RGB]{220,220,204}
   \usepackage[notref]{showkeys}
   \usepackage{todonotes}
 }
@@ -37,6 +37,7 @@
 % ------ New Characters --------------------------------------
 
 \usepackage[latin1]{inputenc}%
+\usepackage[T1]{fontenc}
 \usepackage{MnSymbol}
 \DeclareMathAlphabet\mathbb{U}{msb}{m}{n}
 %\usepackage{stmaryrd}
@@ -514,8 +515,9 @@ Third and last, it thus suffices to show that the top horizontal
 functor $N$ in \eqref{ADJSQ EQ}
 induces an equivalence of homotopy categories.
 This last step requires some care.
-The functor $N$ preserves all weak equivalences 
-({\color{red} ref for this})
+The functor $N$ preserves all weak equivalences
+(see e.g. the proof of Theorem \ref{PREQUIEQUIV THM})
+% ({\color{red} ref for this})
 (and is thus already a derived functor),
 but is not quite right Quillen 
 due to $\mathsf{PreOp}^G$ not having enough fibrant objects 
@@ -701,9 +703,9 @@ A more detailed discussion can be found in \cite{Per18}, \cite{BP_edss}.
 
 
 We first review the Cisinski-Moerdijk-Weiss category $\Omega$ of trees.
-Its objects can be encoded by tree diagrams $U$ as below
+Its objects can be encoded by (rooted) tree diagrams $U$ as below
 (though a more formal definition is also possible:
-in the prequels to this paper many of the {\color{red} key technical properties}
+in the prequels to this paper many of the key technical properties, including Proposition \ref{TREEFACT_PROP}, %{\color{red} }
 of $\Omega$
 are proven using 
 the \textit{broad posets} as introduced by Weiss in \cite{Wei12},
@@ -737,8 +739,8 @@ If an edge $t$ is pictorially above (or equal to) an edge $s$, we write $t \leq_
 A map of trees $\varphi \colon U \to V$ is defined to be
 a map of edge sets 
 $\varphi \colon \boldsymbol{E}(U) \to \boldsymbol{E}(V)$
-which preserves
-{\color{blue} the broad poset/operadic structure}
+which preserves  
+the order relations on edges %  {\color{blue} the broad poset/operadic structure}
 (see e.g. \cite[\S 2.1]{BP_edss} for a rigorous definition).
 
 We will also find it convenient to assume that 
@@ -864,8 +866,8 @@ and degeneracies collapse some of the unary vertices of $U$.
 \end{example}
 
 
-\begin{proposition}\label{TREEFACT_PROP}
-	[{\cite[Prop. 2.2]{BP_edss}}]
+\begin{proposition}[{\cite[Prop. 2.2]{BP_edss}}]
+      \label{TREEFACT_PROP}
 	A map of trees $\varphi \colon U \to V$ has a factorization, unique up to unique isomorphisms,
 \begin{equation}\label{TREEFACT_EQ}
 	U \xrightarrow{\varphi^-} 
@@ -1113,7 +1115,10 @@ In general, we have the following.
       $T = \amalg_{i \in I} T_i$ with $I$ a transitive $G$-set and $T_i$ trees.
       Alternatively, any choice of component $T_{\**}$ has a stabilizer $H \leq G$, and then we have a decomposition
       $T \simeq G \cdot_H T_{\**}$.
-      Finally, if $\Gamma \leq G \times \Aut(T_{\**})$ is the {\color{blue}graph subgroup} \todo{graph subgroup hasn't been defined yet} encoding the $H$-action on $T_{\**}$, we have
+      Finally, if $\Gamma \leq G \times \Aut(T_{\**})$ is the graph subgroup (cf. \eqref{NORMMAP EQ})
+      $\sets{(h,\phi)h)}{h \in H}$ associated to the homomorphism $\phi \colon H \to \Aut(T_{\**})$ encoding the $H$-action on $T_{\**}$,
+      % encoding the $H$-action on $T_{\**}$,
+      we have
       $T \simeq G \cdot T_{\**}/\Gamma$.
 \end{remark}
 
@@ -1130,7 +1135,7 @@ for the set of \textit{edge orbits}, \textit{inner edge orbits}, and \textit{$G$
 \begin{remark}
       The two representations of $G$-trees from \eqref{GTREE_EQ} play complementary roles in our analysis:
       the expanded representation displays all of the relevant edge information, and thus is often useful for describing maps between $G$-trees;
-      conversely, the orbital representation compactly displays the relevant data for composing norm maps of operads (e.g. {\color{blue} Example \ref{GTREENORM_EX}}).
+      conversely, the orbital representation compactly displays the relevant data for composing norm maps of operads (see e.g. \cite[Remark 3.39]{BP_edss}).
 \end{remark}
 
 As in $\Omega$,
@@ -1309,7 +1314,7 @@ $\Omega[T]$
 are then the basis for
 generalizing several fundamental
 presheaves in dendroidal sets $\mathsf{dSet}$
-{\color{red} add some Moerdijk reference}
+(cf. \cite[\S 2]{CM13a})
 to equivariant dendroidal sets
 $\mathsf{dSet}^G$
 (cf. \cite[\S 6]{Per18}),
@@ -1469,6 +1474,7 @@ and
 $(N \mathcal{O})(T) = 
 \mathsf{Op}\left(\Omega(T),\mathcal{O}\right)$
 for $\mathcal{O}\in \mathsf{Op}$.
+\todo[inline]{introduce $\Omega(T)$}
 Recall \cite[Prop. 5.3 and Thm. 6.1]{MW09}
 that the nerve functors $N$ are fully faithful, 
 with their essential image characterized
@@ -1570,6 +1576,10 @@ is then given by the right adjunction
 where we note that the right adjoints 
 $\upsilon_{\**}$, $\upsilon_{G,\**}$
 are fully faithful inclusions.
+Explicitly, 
+$\upsilon_{\**}(X)(G/H) = X^H$ and
+$\upsilon_{G,\**}(X)(T) \simeq X(T_{\**})^H \simeq \dSet^G(\Omega[T], X)$
+for $T \simeq G \cdot_H T_{\**}$ with $T_{\**} \in \Omega^H$.
 
 The fully faithful functors appearing in 
 \eqref{IOTASHADJ EQ},
@@ -1588,7 +1598,7 @@ to the colored context,
 here we regard $\mathsf{Op}_G$
 simply as the full subcategory of 
 $\mathsf{dSet}_G$
-of those objects satisfying a Segal condition,
+of those objects satisfying a Segal condition as in \cite[Defn. 3.35]{BP_edss},
 so that the fact that
 $N_G$ is fully faithful is tautological.
 \begin{equation}\label{ALLFULL EQ}
@@ -1777,7 +1787,7 @@ such that $X_n \to Y_n$ is a weak equivalence in $\dSet^G$ for all $n \geq 0$.
 Second, as discussed in 
 \cite[Ex. A.7]{BP_edss},
 $\Omega^{op} \times G$ is \emph{a generalized Reedy category}
-and the family of {\color{blue} graph subgroups} is
+and the family of graph subgroups of \eqref{NORMMAP EQ} is
 \emph{Reedy admissible}
 in the sense of \cite[Ex. A.2]{BP_edss}.
 Hence, by \cite[Thm. A.8]{BP_edss},
@@ -2747,7 +2757,8 @@ the result follows from Remark \ref{COLORTENSGAM REM}.
 
 We can now state the main result of this section.
 
-\begin{theorem}[{cf. \cite[Thm. 7.19]{CM13b}}]\label{TAMEMS_THM}
+\begin{theorem}[{cf. \cite[Thm. 7.19]{CM13b}}]
+      \label{TAMEMS_THM}
 	There is a model structure on 
 	$\mathsf{PreOp}^G$,
 	called the \emph{tame model structure},
@@ -6234,6 +6245,9 @@ generalizing the key notion in \cite{DS11}.
 		is called a \emph{bead} of the necklace.
 	\end{enumerate}
 \end{definition}
+  
+\todo[inline]{picture, explicitly outlining a necklace, highlighting the joints and the beads/outer closure?}
+\todo[inline]{why this matches dugger-spivak}
 
 In the following, we write 
 $\mathsf{Face}_{sc}(J)$ for the \emph{Segal core poset} of $J$,
@@ -6261,6 +6275,25 @@ consisting of those planar outer faces with no inner edges
 	spanned by the $\Omega[\mathfrak{n}]$.
 \end{definition}
 
+\begin{remark}
+      These presheaves interpolate between the Segal core and the representable sheaf:
+      writing $id_T \colon T \to T$ and $T_{\mathfrak n} \colon \mathsf{lr}(T) \to T$
+      for the extreme examples of necklaces,
+      we have
+      \[
+            \Omega[id_T] = Sc[T],
+            \qquad
+            \Omega[T_{\mathfrak n}] = \Omega[T].
+      \]
+      Moreover, 
+      % Given $T \in \Omega$,
+      % and writing $T_{\mathfrak{n}} \colon \mathsf{lr}(T) \to T$,
+      % one has 
+      % $\Omega[\mathfrak{n}_T] = \Omega[T]$,
+      that one has a natural inclusion
+      $\Omega \subset \mathsf{Nec}$
+      given by $T \mapsto T_{\mathfrak{n}}$.
+\end{remark}
 
 
 \begin{lemma}\label{FACEINNECK LEM}
@@ -6346,12 +6379,12 @@ consisting of those planar outer faces with no inner edges
 	\boldsymbol{E}^{\mathsf{i}}(F).
 \]
 \end{notation}
-
+\todo[inline]{example}
 
 
 \begin{corollary}\label{NECINT COR}
 	Let $\mathfrak{n} \colon J \to T$ be a necklace and
-	$F \to T$ be an inner face.
+	$F \to T$ be an outer face.
 	Then
 \[
 	\Omega[\mathfrak{n}_F] = \Omega[\mathfrak{n}] \cap \Omega[F]
@@ -6377,13 +6410,6 @@ consisting of those planar outer faces with no inner edges
 
 
 
-Given $T \in \Omega$,
-and writing $\mathfrak{n}_T \colon \mathsf{lr}(T) \to T$,
-one has 
-$\Omega[\mathfrak{n}_T] = \Omega[T]$,
-so that one has a natural inclusion
-$\Omega \subset \mathsf{Nec}$
-given by $T \mapsto \mathfrak{n}_T$.
 Before proceeding, we will need to better understand the maps in 
 $\mathsf{Nec}$.
 
@@ -7251,6 +7277,7 @@ between necklaces.
 \end{remark}
 
 
+
 Propositions \ref{NECKCOL PROP} and 
 \ref{NWKANEX_PROP}
 now combine to give the following.
@@ -7367,7 +7394,7 @@ making the diagram below commute.
 	discussed at the end of \S \ref{EDS_SEC}.
 %	
 	In particular, 
-	the ``genuine operadification''functor
+	the ``genuine operadification'' functor
 	$\tau_G \colon \mathsf{dSet}_G \to \mathsf{Op}_G$
 	first mentioned in
 	\eqref{TAUFUNCTS EQ}
@@ -7850,7 +7877,7 @@ and is the full equivariant generalization of
 (cf. Remark \ref{TWOHOMOP REM}).
 
 Most of the work will be spent 
-describing the ``genuine operadification''functor
+describing the ``genuine operadification'' functor
 $\tau_G \colon \mathsf{dSet}_G \to \mathsf{Op}_G$
 first mentioned in
 \eqref{TAUFUNCTS EQ}.
@@ -8485,7 +8512,8 @@ Let $X \in \mathsf{dSet}_G$ be a genuine $G$-$\infty$-operad. Then
 	\item[(a)] $\tau(X) \in \mathsf{dSet}_G$ is a genuine equivariant operad, i.e. it satisfies the strict right lifting condition against the Segal core inclusions
 	$Sc[T] \to \Omega[T]$ for $T \in \Omega_G$;
 	\item[(b)] the quotient map
-	$\upsilon_{\**}X \to \tau_G(X)$ is the universal map from $\upsilon_{\**}X$ to a genuine equivariant operad.
+              $\upsilon_{\**}X \to \tau_G(X)$ is the universal map from $\upsilon_{\**}X$ to a genuine equivariant operad;
+              in particular, $\tau_G$ is in fact the ``genuine operadification'' functor.
 	\end{itemize}
 \end{corollary}
 
