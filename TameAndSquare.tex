@@ -10,7 +10,7 @@
 \usepackage{ifdraft}[pos=0.8]
 \ifdraft{
   \color[RGB]{63,63,63}
-%  \pagecolor[RGB]{220,220,204}
+  \pagecolor[RGB]{220,220,204}
   \usepackage[notref]{showkeys}
   \usepackage{todonotes}
 }
@@ -704,13 +704,13 @@ A more detailed discussion can be found in \cite{Per18}, \cite{BP_edss}.
 
 
 We first review the Cisinski-Moerdijk-Weiss category $\Omega$ of trees.
-Its objects can be encoded by (rooted) tree diagrams $U$ as below
-(though a more formal definition is also possible:
-in the prequels to this paper many of the key technical properties, including Proposition \ref{TREEFACT_PROP}, %{\color{red} }
-of $\Omega$
-are proven using 
-the \textit{broad posets} as introduced by Weiss in \cite{Wei12},
-which are an algebraically flavored model for $\Omega$).
+Its objects can be encoded by (rooted) tree diagrams $U$ as below.
+% (though a more formal definition is also possible:
+% in the prequels to this paper many of the key technical properties, including Proposition \ref{TREEFACT_PROP}, %{\color{red} }
+% of $\Omega$
+% are proven using 
+% the \textit{broad posets} as introduced by Weiss in \cite{Wei12},
+% which are an algebraically flavored model for $\Omega$).
 \begin{equation}\label{eq:TREE}
 	\begin{tikzpicture}[auto,grow=up, level distance = 2.2em,
 	every node/.style={font=\scriptsize,inner sep = 2pt}]%
@@ -735,16 +735,28 @@ Edges with no vertices $\circ$ above them are called \textit{leaves}, the unique
 and edges that are neither are called \textit{inner edges};
 in the example above, $a$ and $b$ are leaves, $r$ is the root, and $c$ and $e$ are inner edges.
 The sets of edges, inner edges, leaves, and vertices of a tree $U$ are denoted $\boldsymbol{E}(U)$, $\boldsymbol{E}^{\mathsf{i}}(U)$, and $\boldsymbol{V}(U)$ respectively.
-\todo[inline]{add minimal about (generating) broad relations - see EDSS}
-If an edge $t$ is pictorially above (or equal to) an edge $s$, we write $t \leq_d s$.
+
+We briefly give a more formal, algebraically-flavored description of a tree,
+following Weiss \cite{Wei12}.
+For each edge $t$, let $t^\uparrow$ denote the tuple of edges immediately above $t$.
+In our example, $c^\uparrow = ab$, $a^\uparrow$ is undefined, and $e^\uparrow$ is empty.
+Each vertex can by then specified symbolically
+as a \textit{generating broad relation} $t^\uparrow \leq t$;
+the above relations then are equivalent to saying that
+$a$ is a leaf and $e$ is a \textit{stump}.
+These relations satisfy a natural form of transitivity,
+and the resulting closed set of broad relations form the \textit{broad poset} description of $T$.
+
+If an edge $t$ is pictorially above (or equal to) an edge $s$, we write $t \leq_d s$;
+equivalently, there exists a broad relation $s_1\dots s_n \leq s$ such that $t = s_i$ for some $i$.
 
 A map of trees $\varphi \colon U \to V$ is defined to be
 a map of edge sets 
 $\varphi \colon \boldsymbol{E}(U) \to \boldsymbol{E}(V)$
 which preserves  
-\todo[inline]{add quick intro to actual broad poset structure earlier in section}
-the broad poset relations on edges %  {\color{blue} the broad poset/operadic structure}
-(see e.g. \cite[\S 2.1]{BP_edss} for a rigorous definition).
+the broad poset relations on edges.
+
+Further discussion and more rigorous definitions can be found in e.g. \cite[\S 2.1]{BP_edss}.\\
 
 We will also find it convenient to assume that 
 each tree $U \in \Omega$ 
@@ -868,28 +880,36 @@ and degeneracies collapse some of the unary vertices of $U$.
       the first map is an inner face, the second an outer face, the third is a general face, while the fourth is a degeneracy.
 \end{example}
 
+\begin{notation}
+      \label{MAPLABELS_NOT}
+      We will label a 
+      map in $\Omega$
+      by the letters d/i/o/t/f/p
+      to indicate that the map is
+      a degeneracy/inner face/outer face/tall/face/planar.
+\end{notation}
 
 \begin{proposition}[{\cite[Prop. 2.2]{BP_edss}}]
-      \label{TREEFACT_PROP}
+      \label{NP_TREEFACT_PROP}
 	A map of trees $\varphi \colon U \to V$ has a factorization, unique up to unique isomorphisms,
-\begin{equation}\label{TREEFACT_EQ}
-	U \xrightarrow{\varphi^-} 
-	U' \xrightarrow{\varphi^i} 
-	U'' \xrightarrow{\varphi^o} V
-\end{equation}
-	as a degeneracy followed by an inner face map followed by an outer face map.
+        \begin{equation}\label{NP_TREEFACT_EQ}
+              U \xrightarrow{d} 
+              U' \xrightarrow{i} 
+              U'' \xrightarrow{o}
+              V
+        \end{equation}
+        with the indicated properties: as a degeneracy followed by an inner face map followed by an outer face map.
 \end{proposition}
-
 
 \begin{remark}\label{TODF REM}
 	A map $\psi \colon U \to V$
 	is tall (resp. a face)
-	iff in the decomposition \eqref{TREEFACT_EQ}
-	the component $\psi^o$ (resp. $\psi^-$)
+	iff in the decomposition \eqref{NP_TREEFACT_EQ}
+	the component labeled $o$ (resp. $d$) % $\psi^o$ (resp. $\psi^-$)
 	is an isomorphism.
 	As such, by combining the 
 	first two (resp. last two)
-	maps in \eqref{TREEFACT_EQ}
+	maps in \eqref{NP_TREEFACT_EQ}
 	one recovers the 
 	``tall-outer face'' 
 	(resp. ``degeneracy-face'')
@@ -901,12 +921,12 @@ and degeneracies collapse some of the unary vertices of $U$.
 	Following the previous remark, 
 	it is natural to consider the class of maps
 	$\psi \colon U \to V$ such that
-	the factor $\psi^i$ in \eqref{TREEFACT_EQ}
-	is an isomorphism.
-	Equivalently, $\psi$ is convex precisely if
+	the factor labled $i$ in \eqref{NP_TREEFACT_EQ}
+	is an isomorphism;
+	Equivalently, those maps $\psi$ such that
 	the ``tall-outer face'' and ``degeneracy-face''
 	factorizations coincide.
-	
+        
 	We call these maps \textit{convex},
 	since the are readily seen to be 
 	characterized by the following property:
@@ -919,43 +939,51 @@ and degeneracies collapse some of the unary vertices of $U$.
 
 
 When accounting for planar structures,
-one has the following refinement of \eqref{TREEFACT_EQ}.
+one has the following refinement of \eqref{NP_TREEFACT_EQ}.
 
-\begin{proposition}
+\begin{proposition}[{cf. \cite[Prop. 2.2]{BP_edss}}]
+      \label{TREEFACT_PROP}
       A map of trees $\varphi \colon U \to V$ has a strictly unique factorization
       \begin{equation}
-            \label{OMEGAFACT_EQ}
-            U \xrightarrow{\varphi^{\simeq}} U_p \xrightarrow{\varphi^-} U' \xrightarrow{\varphi^i} U'' \xrightarrow{\varphi^o} V            
+            \label{TREEFACT_EQ}
+            U \xrightarrow{\simeq} U_p \xrightarrow{d,p} \phi U \xrightarrow{i,p} \bar{\phi U} \xrightarrow{o,p} V
       \end{equation}
-      as, in order, an isomorphism followed by
-      a planar degeneracy, a planar inner face, and a planar outer face.
+      as indicated:
+      an isomorphism, a planar degeneracy, a planar inner face, and a planar outer face.
 \end{proposition}
+
+\begin{remark}
+      \label{TREEFACT_REM}
+      The notation $\phi(U)$ is motivated by the fact that this tree has edge set
+      $\boldsymbol{E}(\phi U) = \phi (\boldsymbol{E}(U))$,
+      while the 
+      $\overline{\phi U}$ notation is an instance of the 
+      \emph{outer closure of an inner face}
+      notation in \cite[Not. 2.14]{BP_edss}.
+\end{remark}
 
 
 \begin{remark}
 	Generalizing Remarks \ref{TODF REM} and \ref{CNVXM REM},
 	one has that for any subset 
 	of the symbols $\{\simeq,-,i,o\}$
-	in \eqref{OMEGAFACT_EQ},
+	in \eqref{TREEFACT_EQ},
 	the type of maps such that 
 	the corresponding factors are identities 
 	is closed under composition.
 	
 	For example, the maps $\psi$ such that 
-	$\psi^{\simeq},\psi^{i}$
-	are identities are the planar convex maps
+	the factors labeled $\simeq$ and $i,p$
+	are identities are the planar convex maps,
 	while those maps such that
-	$\varphi^{-},\varphi^o$
-	are identities are the (not necessarily planar) inner face maps,
-	both of which are closed under composition.	
+	the factors labeled $d,p$ and $o,p$ % $\varphi^{-},\varphi^o$
+	are identities are the (not necessarily planar) inner face maps;
+	both of these are closed under composition.	
 \end{remark}
 
 
-
-\begin{remark}
-      The subcategory of corollas and isomorphisms is isomorphic to the category $\Sigma$ of standard finite ordered sets and (non-ordered) isomorphisms.
-\end{remark}
-
+A \textit{corolla} is a tree with a single vertex.
+We note that the subcategory of $\Omega$ spanned by corollas and isomorphisms is isomorphic to the category $\Sigma$ of standard finite ordered sets and (non-ordered) isomorphisms.
 
 \begin{notation}
       \label{LR_NOT}
@@ -1033,7 +1061,7 @@ are defined in the obvious way as
 \label{GTREES SEC}
 
 We now recall the category $\Omega_G$ of equivariant trees, which encodes the combinatorics of compositions of norm maps;
-a thorough discussion can be found in \cite{Per18} or \cite[\S 2]{BP_edss}.
+a thorough discussion can be found in \cite[\S 5]{Per18} or \cite[\S 2]{BP_edss}.
 
 We begin with an explicit example.
 Let $G = D_{4} = \set{1,\rho,\rho^2,\rho^3, \sigma, \rho\sigma, \rho^2\sigma, \rho^3\sigma}$
@@ -1144,13 +1172,20 @@ for the set of \textit{edge orbits}, \textit{inner edge orbits}, and \textit{$G$
 As in $\Omega$,
 maps $\varphi \colon S \to T$ between $G$-trees
 can be built from a few basic types of maps.
-In each fiber over $\mathsf O_G$ 
-(i.e. if $\varphi$ is an identity between tree components), we say $\varphi$ is an
-\textit{(inner, outer) face map}, \textit{degeneracy map}, \textit{tall map}, or \textit{planar map} if
+
+Maps in each fiber over $\mathsf O_G$ are called \textit{rooted},
+as they give a planar isomorphism of $G$-sets on the set of tree components.
+
+A map $\varphi$ of $G$-trees is called a
+degeneracy/inner face/outer face/tall/face/planar map
+% (i.e. if $\varphi$ is an identity between tree components), we say $\varphi$ is an
+% \textit{(inner, outer) face map}, \textit{degeneracy map}, \textit{tall map}, or \textit{planar map} if
+if it is rooted and
 $\varphi_j \colon S_j \to T_{\varphi(j)}$ is so for some (and thus all) $j \in J$.
 The cartesian arrows are a new type of map, dubbed \textit{quotients},
 which act as twisted fold maps on the forest components;
 explicitly, $\varphi$ is a quotient iff $\varphi_j \colon S_j \to T_{\varphi(j)}$ is an isomorphism for some (and thus all) $j \in J$.
+
 
 We give a minimal example of a quotient below. 
 Further discussion and examples can be found in \cite[Rem. 5.49]{Per18}.
@@ -1213,15 +1248,19 @@ Further discussion and examples can be found in \cite[Rem. 5.49]{Per18}.
       \]
 \end{example}
 
-\begin{corollary}[{cf. \cite[Rem. 5.49]{Per18}}]
-	A map $\phi \colon S \to T$ in $\Omega_G$ has a factorization, unique up to unique isomorphisms,
-\[
-	S \xrightarrow{\phi^-} 
-	S' \xrightarrow{\phi^i} 
-	S'' \xrightarrow{\phi^o} 
-	\phi^{\**}T \xrightarrow{\phi^q} T
-\]
-	as, in order: a degeneracy map $\phi^-$, an inner face map $\phi^i$, an outer face map $\phi^o$, and a quotient map $\phi^q$.
+\begin{corollary}[{cf. Prop. \ref{TREEFACT_PROP}, \cite[Rem. 5.49]{Per18}}]
+      A map $\phi \colon S \to T$ in $\Omega_G$ has a strictly unique factorization
+      \[
+            S \xrightarrow{d,r} 
+            \phi S \xrightarrow{i,p} 
+            \bar{\phi S} \xrightarrow{o,p} 
+            \phi^{\**}T \xrightarrow{q} T
+      \]
+      as, in order,
+      a rooted degeneracy followed by
+      a planar inner face,
+      a planar outer face,
+      and a quotient map $q$.
 \end{corollary}
 
 \begin{definition}
@@ -6262,24 +6301,24 @@ We now have the following generalization of \cite[Prop 4.5]{CM13b} (see also \ci
 \section{The dendroidal $W_!$-construction}
 \label{WCONS AP}
 
-
+\todo[inline]{using $S$ and $T$ for regular trees, vs $U$ and $V$ as has typically been the case}
 
 In this appendix we discuss the 
 $W_!$-construction in the operadic context by extending the  
 work of Dugger and Spivak in \cite{DS11} 
 (which deals with the categorical context).
 
-
 Our discussion will make systematic
 use of the factorizations in $\Omega$ given by 
 Proposition \ref{TREEFACT_PROP}.
-As such, we will find the convenient to label a 
-map in $\Omega$
+We follow Notation \ref{MAPLABELS_NOT},
+and label 
+a map in $\Omega$
 by either of the letters d/i/o/t/f/p
 to indicate that the map is
 a degeneracy/inner face/outer face/tall/face/planar.
 Moreover, given a map $\phi\colon S \to T$,
-we will then write
+we write
 \[
 	S \xrightarrow{d}
 	\phi S \xrightarrow{i,p}
@@ -6287,14 +6326,15 @@ we will then write
 	T
 \]
 for the (strictly) unique 
-factorization of $\phi$ with the indicated properties.
-We note that the notation 
-$\phi(S)$ is motivated by the fact that this tree has edge set
-$\boldsymbol{E}(\phi S) = \phi (\boldsymbol{E}(S))$
-while the 
-$\overline{\phi S}$ notation is an instance of the 
-\emph{outer closure of an inner face}
-notation in \cite[Not. 2.14]{BP_edss}.
+factorization of $\phi$ with the indicated properties
+(cf. Remark \ref{TREEFACT_REM}).
+% We note that the notation 
+% $\phi(S)$ is motivated by the fact that this tree has edge set
+% $\boldsymbol{E}(\phi S) = \phi (\boldsymbol{E}(S))$
+% while the 
+% $\overline{\phi S}$ notation is an instance of the 
+% \emph{outer closure of an inner face}
+% notation in \cite[Not. 2.14]{BP_edss}.
 
 
 
@@ -8594,7 +8634,7 @@ Let $Z \in \mathsf{dSet}_G$ be a genuine $G$-$\infty$-operad. Then
         Note first that by Remark \ref{HOMOTBOUND REM}
 	any map $Sc[T] \to \tau_G(X)$ admits a factorization 
 	$Sc[T] \to X \xrightarrow{q} \tau_G(X)$.
-	
+	 
 	The right lifting property for $\tau_G(X)$
 	against the maps $Sc[T] \to \Omega[T]$
 	is then automatic from the lifting property for $X$.
