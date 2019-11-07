@@ -1,6 +1,6 @@
 \documentclass[a4paper,10pt
-,draft
-%, final
+%,draft
+, final
 ]{article}%
 
 
@@ -27,7 +27,9 @@
   final,
   pdftitle={Equivariant dendroidal sets and simplicial operads},
   pdfauthor={Bonventre, P. and Pereira, L. A.},
-  linktoc=page
+  linktoc=page,
+  pdfpagemode=UseNone,
+  pdfpagelayout=SinglePage,
 }
 
 %\externaldocument*[HGOP-]{HtpyGOp} % cite using names from other half
@@ -36,23 +38,32 @@
 
 % ------ New Characters --------------------------------------
 
+\let\llhook\lhook
 \usepackage[latin1]{inputenc}%
-%\usepackage[T1]{fontenc}
+\usepackage[T1]{fontenc}
 \usepackage{MnSymbol}
-\DeclareMathAlphabet\mathbb{U}{msb}{m}{n}
-%\usepackage{stmaryrd}
-%\usepackage{upgreek}
-\usepackage{mathrsfs}
-% \usepackage[english]{babel}
-% \usepackage{fouriernc}
-% \DeclareMathAlphabet{\mathscr}{U}{mathrsfs}{m}{n}`
-%\usepackage{pifont}
-%\newcommand{\cmark}{\text{\ding{51}}}
-%\newcommand{\xmark}{\text{\ding{55}}}
+\usepackage[
+cal = cm,
+bb = ams,
+frak = euler,
+scr = rsfs
+]{mathalpha}
 
-\usepackage[normalem]{ulem}%
-\usepackage{dsfont}%
-\usepackage{bbm}%
+% \DeclareMathAlphabet\mathbb{U}{msb}{m}{n}
+% %\usepackage{stmaryrd}
+% %\usepackage{upgreek}
+% \usepackage{mathrsfs}
+% % \usepackage[english]{babel}
+% % \usepackage{fouriernc}
+% % \DeclareMathAlphabet{\mathscr}{U}{mathrsfs}{m}{n}`
+% %\usepackage{pifont}
+% %\newcommand{\cmark}{\text{\ding{51}}}
+% %\newcommand{\xmark}{\text{\ding{55}}}
+
+\usepackage[normalem]{ulem} % underlining
+% \usepackage{dsfont} % double strike-through
+% \usepackage{bbm} % more blackboard bold
+
 
 
 %----- Enumerate ---------------------------------------------
@@ -6361,9 +6372,72 @@ generalizing the key notion in \cite{DS11}.
 		is called a \emph{bead} of the necklace.
 	\end{enumerate}
 \end{definition}
-  
-\todo[inline]{picture, explicitly outlining a necklace, highlighting the joints and the beads/outer closure?}
-\todo[inline]{why this matches dugger-spivak}
+
+\begin{example}
+      \label{NECKLACE_EX}
+      Consider the trees $J$ and $U$ below.
+      The labeling of edges indicates a map $\boldsymbol{E}(J) \to \boldsymbol{E}(U)$ which
+      extends to an inner face map.
+      \begin{equation}
+            \begin{tikzpicture}[auto,grow=up, level distance = 2.2em,
+                  every node/.style={font=\scriptsize,inner sep = 2pt}]%
+                  \tikzstyle{level 2}=[sibling distance=4em]%
+                  \tikzstyle{level 3}=[sibling distance=2.25em]%
+                  \node at (-5,0) [font=\normalsize] {$J$}
+                  child{node [dummy,label=-120:$v$] {}
+                    child{edge from parent node [swap] {$e$}
+                    }
+                    child{edge from parent node [swap] {$d$}}
+                    child{node [dummy,label=left:$u$] {}
+                      child{edge from parent node [near end] {$a$}} %{$\phantom{b}a$}
+                      edge from parent node {$c$}
+                    }
+                    edge from parent node [swap] {$r$}
+                  };        
+                  \node [font=\normalsize] {$U$}
+                  child{node [dummy] {}
+                    child{node [dummy] {}
+                      child{edge from parent node [swap] {$e$}}
+                      edge from parent node [swap] {$f$}
+                    }
+                    child{edge from parent node [swap] {$d$}}
+                    child{node [dummy] {}
+                      child{node [dummy] {}
+                        edge from parent node [near end, swap] {$b$}}
+                      child{edge from parent node [near end] {$\phantom{b}a$}}
+                      edge from parent node {$c$}
+                    }
+                    edge from parent node [swap] {$r$}
+                  };        
+            \end{tikzpicture}
+      \end{equation}
+      Here, $J = T \setminus \set{b,f}$, and the two beads are
+           \begin{equation}
+            \begin{tikzpicture}[auto,grow=up, level distance = 2.2em,
+                  every node/.style={font=\scriptsize,inner sep = 2pt}]%
+                  \tikzstyle{level 2}=[sibling distance=4em]%
+                  \tikzstyle{level 3}=[sibling distance=2.25em]%
+                  \node at (-5,0) [font=\normalsize] {$\overline{\mathfrak n J_u} = T_u$}
+                  child{node [dummy] {}
+                    child{node [dummy] {}
+                      edge from parent node [swap] {$b$}
+                    }
+                    child{edge from parent node [near end] {$\phantom{b}a$}}
+                    edge from parent node {$c$}
+                  };
+                  \node [font=\normalsize] {$\overline{\mathfrak n J_v} = T_v$}
+                  child{node [dummy] {}
+                    child{node [dummy] {}
+                      child{edge from parent node [swap] {$e$}}
+                      edge from parent node [swap] {$f$}
+                    }
+                    child{edge from parent node [swap] {$d$}}
+                    child{edge from parent node {$c$}}
+                    edge from parent node [swap] {$r$}
+                  };        
+            \end{tikzpicture}
+      \end{equation}
+\end{example}
 
 In the following, we write 
 $\mathsf{Face}_{sc}(J)$ for the \emph{Segal core poset} of $J$,
@@ -6409,6 +6483,20 @@ consisting of those planar outer faces with no inner edges
       that one has a natural inclusion
       $\Omega \subset \mathsf{Nec}$
       given by $T \mapsto T_{\mathfrak{n}}$.
+\end{remark}
+
+\begin{remark}
+      % \todo[inline]{why this matches dugger-spivak}
+      In the case where $U = [m]$ is linear,
+      an inner face $\mathfrak n \colon J \to U$ is isomorphic to some $[k]$ with $1 \leq k \leq m$,
+      and each bead of the necklace $\mathfrak n$
+      is some $[m_i]$, such that $m_1 + \dots + m_k = m$.
+      Then the associated presheaf
+      \( \Omega[\mathfrak n] = \iota_!(\Delta[m_1] \vee \dots \vee \Delta[m_k]) \)
+      is a necklace in the sense of Dugger-Spivak \cite{DS11},
+      and the natural map $\Omega[\mathfrak n] \to \Omega[U]$ is equal to
+      \( \iota_!\left(\Delta[\mathfrak n] \to \Delta[m]\right) \)
+      from \cite[\S 3]{DS11}.
 \end{remark}
 
 
@@ -6495,7 +6583,49 @@ consisting of those planar outer faces with no inner edges
 	\boldsymbol{E}^{\mathsf{i}}(F).
 \]
 \end{notation}
-\todo[inline]{example}
+
+\begin{example}
+      Let $\mathfrak n \colon J \to U$ be the necklace from Example \ref{NECKLACE_EX},
+      and consider the outer faces $F$ and $F'$ of $U$.
+      Then $J_F$ is as depicted and $J_{F'} = F'$.
+      \begin{equation}
+            \begin{tikzpicture}[auto,grow=up, level distance = 2.2em,
+                  every node/.style={font=\scriptsize,inner sep = 2pt}]%
+                  \tikzstyle{level 2}=[sibling distance=4em]%
+                  \tikzstyle{level 3}=[sibling distance=2.25em]%
+                  \node at (-10,0) [font=\normalsize] {$F$}
+                  child{node [dummy] {}
+                    child{node [dummy] {}
+                      child{edge from parent node [swap] {$e$}}
+                        edge from parent node [swap] {$f$}
+                    }
+                    child{edge from parent node [swap] {$d$}}
+                    child{edge from parent node {$c$}}
+                    edge from parent node [swap] {$r$}
+                  };
+                  \node at (-5,0) [font=\normalsize] {$J_F$}
+                  child{node [dummy] {}
+                    child{edge from parent node [swap] {$e$}}
+                    child{edge from parent node [swap] {$d$}}
+                    child{edge from parent node {$c$}}
+                    edge from parent node [swap] {$r$}
+                  };     
+                  \node [font=\normalsize] {$F' = J_{F'}$}
+                  child{node [dummy] {}
+                    child{edge from parent node [swap] {$f$}}
+                    child{edge from parent node [swap] {$d$}}
+                    child{node [dummy] {}
+                      child{edge from parent node [swap, near end] {$b$}}
+                      child{edge from parent node [near end] {$a$}} % {{$\phantom{b}a$}}
+                      edge from parent node {$c$}
+                    }
+                    edge from parent node [swap] {$r$}
+                  };
+            \end{tikzpicture}
+      \end{equation}
+      In particular, we note that $\boldsymbol{E}(J)$ and $\boldsymbol{E}(J_F)$ need not be comparable.
+\end{example}
+
 
 
 \begin{corollary}\label{NECINT COR}
