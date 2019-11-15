@@ -1,27 +1,27 @@
-\documentclass[a4paper,10pt
-,draft
+\documentclass[a4paper,10pt]{article}%
+%,draft
 %, final
-]{article}%
+
 
 
 % ---- Commands on draft --------
 
 \usepackage[dvipsnames]{xcolor}% adds colors
-\usepackage{ifdraft}[pos=0.8]
-\ifdraft{
-  \color[RGB]{63,63,63}
+%\usepackage{ifdraft}[pos=0.8]
+%\ifdraft{
+%  \color[RGB]{63,63,63}
 %  \pagecolor[RGB]{220,220,204}
-  \usepackage[notref]{showkeys}
-  \usepackage{todonotes}
-}
-{
-  \usepackage[disable]{todonotes}
-}
+%  \usepackage[notref]{showkeys}
+%  \usepackage{todonotes}
+%}
+%{
+%  \usepackage[disable]{todonotes}
+%}
 
 \pdfcompresslevel=0
 \pdfobjcompresslevel=0
 
-%\usepackage{xr-hyper}
+\usepackage{xr-hyper}
 \usepackage[pagebackref, colorlinks, citecolor=PineGreen, linkcolor=PineGreen]{hyperref}
 \hypersetup{
   final,
@@ -38,21 +38,22 @@
 
 % ------ New Characters --------------------------------------
 
-\let\llhook\lhook
+%\let\llhook\lhook
 \usepackage[latin1]{inputenc}%
 %\usepackage[T1]{fontenc}
 \usepackage{MnSymbol}
-\usepackage[
-cal = cm,
-bb = ams,
-frak = euler,
-scr = rsfs
-]{mathalpha}
+%\usepackage[
+%cal = cm,
+%bb = ams,
+%frak = euler,
+%scr = rsfs
+%]
+%{mathalpha}
 
-% \DeclareMathAlphabet\mathbb{U}{msb}{m}{n}
+ \DeclareMathAlphabet\mathbb{U}{msb}{m}{n}
 % %\usepackage{stmaryrd}
 % %\usepackage{upgreek}
-% \usepackage{mathrsfs}
+ \usepackage{mathrsfs}
 % % \usepackage[english]{babel}
 % % \usepackage{fouriernc}
 % % \DeclareMathAlphabet{\mathscr}{U}{mathrsfs}{m}{n}`
@@ -298,24 +299,24 @@ This paper is the last in a series of four
 (after \cite{Per18,BP_edss,BP_HGOP})
 and concludes a project to establish a homotopy theoretical equivalence
 between equivariant colored simplicial operads with norm maps
-and equivariant-$\infty$-operads in equivariant dendroidal sets,
+and $G$-$\infty$-operads in equivariant dendroidal sets,
 thus generalizing the analogous 
 Cisinski-Moerdijk project 
 \cite{CM13a,CM13b,CM11}
 in the non-equivariant setting.
 
 The key novelty (and difficulty) faced in the equivariant setting is that the homotopy theory of operads
-needs to account for an 
+then needs to account for an 
 extra piece of structure,
 the so called \emph{norm maps},
 which we now briefly recall
-(for further discussion, 
+(for a more extensive discussion, 
 see the introductions to any of
 \cite{Per18},\cite{BP_geo},\cite{BP_HGOP}).
 
 For simplicity,
 let us focus on the category
-$\mathsf{sOp}_{\**} = \mathsf{Op}_{\**}(\mathsf{sSet})$
+$\mathsf{sOp}_{\**}$
 of single colored simplicial operads.
 Letting $G$ be a fixed finite group,
 a $G$-equivariant (single colored simplicial) operad
@@ -345,9 +346,22 @@ such that the fixed point maps
 	\text{ such that }
 	\Gamma \cap \Sigma_n = \**
 \end{equation}
-are Kan equivalences in $\mathsf{sSet}$.
+are Kan equivalences.
+%\begin{remark}
+%	For $\mathfrak C = \**$ and $\Gamma \leq G \times \Sigma_n$ a $G$-graph subgroup corresponding to some homomorphism $H \to \Sigma_n$,
+%	$\O(n)^{\Gamma}$ corresponds to a space of \textit{norm multiplications}:
+%	For any $\O$-algebra $E$, the action map descends to an $H$-equivariant map
+%\[
+%	\O(n)^{\Gamma} \longto \Hom^H(N^\Gamma E, E)
+%\]
+%	where $N^\Gamma E = \alpha^{\**}E^{\times n}$ is the \textit{norm of $E$}, with $\alpha \colon H \xrightarrow{\simeq} \Gamma$ the isomorphism of groups.
+%	Equivalently, $N^\Gamma E \simeq N^A E$ for $A$ the $H$-set structure on $\set{1,\dots, n}$ induced by $\Gamma$.
 %
-The term \emph{graph subgroup} is motivated by a description of such $\Gamma$:
+%	Thus, we refer to the fixed-point spaces $\O(n)^\Gamma$,
+%	and more generally $\O(\vect C)^\Gamma$ for $\Gamma$ a graph subgroup which stabilizes the $\mathfrak C_\O$-signature $\vect C$,
+%	as \textit{spaces of norm maps}.
+%\end{remark}
+The term \emph{graph} is motivated by a description of such $\Gamma$:
 they are necessarily of the form
 $\Gamma = \{(h,\phi(H)) | h \in H\}$
 for some subgroup $H \leq G$
@@ -356,25 +370,31 @@ Such fixed points $\mathcal{O}(n)^{\Gamma}$
 are called 
 \emph{spaces of norm maps}
 since, for $X$ an $\O$-algebra,
-the algebra multiplication maps on the left below
-\[
-	\O(n) \times X^{\times n} \to X
-\qquad
-	\O(n)^{\Gamma} \times N_{\Gamma} X \to X
-\]
-induce $H$-equivariant maps as on the right above, 
-where $N_{\Gamma} X$ is a so called \emph{norm object},
-which denotes $X^{\times n}$ together with the $H$-action induced by the identification $H \simeq \Gamma$.
-
-
-{\color{red} HERE}
+ the algebra multiplication maps
+ on the left below
+ \[
+ 	\O(n) \times X^n \to X
+ \qquad
+ 	\O(n)^{\Gamma} \times N_{\Gamma} X \to X
+ \]
+ induce $H$-equivariant maps as on the right above,
+%the $G$-equivariaqnt structure maps on the left below
+%\[
+%      \O(n) \longto \Hom(X^n,X)
+%      \qquad
+%      \O(n)^\Gamma \longto \Hom^H(N_\Gamma X, X)
+%\]
+%induce the maps on the right,
+where 
+$N_{\Gamma} X$ is a so called 
+\emph{norm object},
+which denotes $X^n$ together with the $H$-action induced by the identification $H \simeq \Gamma$.
 
 
 The cornerstone of this project was the discovery by the authors of 
 a category $\Omega_G$ of $G$-trees 
 whose objects encode compositions of norm maps
-in a $G$-operad $\O$
-(a detailed discussion can be found in \cite[\S 4.3]{Per18}),
+in a $G$-operad $\O$,
 and which extends the Moerdijk-Weiss category $\Omega$
 of trees (whose objects encode composition in an operad).
 This category $\Omega_G$
@@ -382,12 +402,14 @@ then allowed us to build model structures
 on the categories
 $\mathsf{dSet}^G = \mathsf{Set}^{\Omega^{op} \times G}$
 of \emph{equivariant dendroidal sets}
-\cite[Thm. 2.1]{Per18}
-and $\mathsf{sOp}^G$
-of \emph{equivariant colored simplicial operads}
-\cite[Thm. I]{BP_HGOP},
+\cite{Per18}
+and 
+$\mathsf{sOp}^G$
+of 
+\emph{equivariant colored simplicial operads}
+\cite{BP_HGOP},
 where in both cases the notion of weak equivalence
-is determined by (a colored variant of) the norm map data as in 
+depends on (a colored variant of) the norm map data as in 
 \eqref{NORMMAP EQ}.
 Our main result in this paper is then the following,
 generalizing \cite[Thm. 8.15]{CM13b}.
@@ -405,8 +427,7 @@ is a variant of the nerve that accounts for homotopy information,
 called the \emph{homotopy coherent nerve},
 while the left adjoint $W_!$
 is a ``fattened operadification'' 
-which is related to the Boardman-Vogt resolution of operads
-(for details, see \cite[\S 4]{CM13b}).
+which is related to the Boardman-Vogt resolution of operads.
 
 We note that while, at the level of categories,
 the adjunction in Theorem \ref{QE THM}
@@ -425,8 +446,9 @@ and as noted in e.g. the intro to \cite{BP_HGOP},
 the operadic case is intrinsically outside the bounds of this formalism.
 
 
-The (conclusion to the) proof of Theorem \ref{QE THM}
-can be found at the end of \S \ref{PFMNTHM SEC}.
+The conclusion to the proof of Theorem \ref{QE THM}
+is given at the end of 
+\S \ref{PFMNTHM SEC}.
 However, this proof requires some background, which we now recall.
 Just as in \cite{CM13b},
 we make use of two additional categories,
@@ -505,8 +527,9 @@ Considering now the functors in
 \eqref{ADJSQ EQ},
 we have previously established that 
 $c_!$ and $\gamma^{\**}$
-are both left-Quillen equivalences
+are both left adjoints in a Quillen equivalence
 \cite[Thms. 4.30 and 4.41]{BP_edss}.
+
 
 The proof strategy for establishing 
 Theorem \ref{QE THM}
@@ -529,9 +552,10 @@ induces an equivalence of homotopy categories.
 As in \cite{CM13b},
 this last step requires some care.
 The functor $N$ preserves all weak equivalences
-(cf. the proof of Theorem \ref{PREQUIEQUIV THM})
+(see e.g. the proof of Theorem \ref{PREQUIEQUIV THM})
+% ({\color{red} ref for this})
 and is thus already a derived functor,
-but it is not quite right Quillen 
+but is not quite right Quillen 
 due to $\mathsf{PreOp}^G$ not having enough fibrant objects 
 or, dually, having too many cofibrant objects.
 To address this, we show in \S \ref{TAMEDEFEX SEC}
@@ -544,7 +568,7 @@ less cofibrant objects.
 Using this alternative model structure,
 it can then be shown 
 (Theorem \ref{PREQUIEQUIV THM})
-that $N$ becomes a right-Quillen equivalence,
+that $N$ becomes the right adjoint in a Quillen equivalence,
 concluding the argument.
 
 
@@ -556,21 +580,23 @@ concluding the argument.
 
 
 First, in \S 2 we mostly recall 
-some previous notions that are used throughout.
+some previous notions that are use throughout.
 Namely, 
 \S \ref{FORESTS_SEC} and \S \ref{GTREES SEC}
-recall the necessary properties of the categories 
-$\Omega$ of trees and $\Omega_G$ of $G$-trees,
-while \S \ref{EDS_SEC}
-recalls the model structure on the category 
+recall the key properties of the categories 
+$\Omega$ of trees and 
+$\Omega_G$ of $G$-trees needed throughout,
+while 
+\S \ref{EDS_SEC}
+recalls the category 
 $\mathsf{dSet}^G$
 of equivariant dendroidal sets.
 
 The overall goal of \S \ref{TAME_SEC}
-is to establish the existence of the alternative
-\emph{tame model structure} on $\mathsf{PreOp}^G$.
+is to produce the alternative \emph{tame model structure}
+on $\mathsf{PreOp}^G$.
 The content of \S \ref{JT_SEC} and \S \ref{SPREOP_SEC}
-is again expository in nature, 
+are again expository in nature, 
 recalling the model structures on 
 $\mathsf{sdSet}^G$, 
 $\mathsf{PreOp}^G$.
@@ -578,22 +604,21 @@ In \S \ref{FIBTENS_SEC}
 we introduce a somewhat novel construction,
 called the \emph{fibered tensored product}
 $\otimes_{\mathfrak{C}_{\bullet}}$,
-which is used in 
+which is then used in 
 \S \ref{TAMEDEFEX SEC}
 to describe and build the tame model structure on 
 $\mathsf{PreOp}^G$.
-%
-The use of $\otimes_{\mathfrak{C}_{\bullet}}$
-is motivated by the observation that the
-model structure on $\mathsf{sOp}^G$
+One advantage of framing our description 
+of the tame model structure
+in terms of $\otimes_{\mathfrak{C}_{\bullet}}$
+is that the model structure
+on $\mathsf{sOp}^G$
 can be described using an analogous tensor product,
-thus simplifying the task of showing that  
+thus simplifying the task of showing that the 
 $\tau \colon \mathsf{PreOp}^G_{tame}
 \rightleftarrows
 \mathsf{sOp}^G \colon N$
-is a Quillen adjunction
-(cf. Theorem \ref{PREQUIEQUIV THM}).
-
+adjunction is Quillen.
 
 
 The goal of \S \ref{QE_SEC} is to prove 
@@ -602,7 +627,7 @@ Theorem \ref{QE THM}
 whose proof is postponed to \S \ref{KEYRES SEC}).
 First,
 \S \ref{GSOP_SEC} recalls the model structure on
-$\mathsf{sOp}^G$.
+$\mathsf{sOp}^G$ from \cite{BP_HGOP}.
 Then, in 
 \S \ref{PREOPOPEQUIV SEC}
 we establish Theorem \ref{PREQUIEQUIV THM},
@@ -643,19 +668,15 @@ adjunction,
 extending work of Dugger-Spivak \cite{DS11}
 from the categorical context to the operadic context.
 This description plays a minor role in our proofs 
-in \S \ref{PFMNTHM SEC},
-being used to identify
+in Section \ref{PFMNTHM SEC},
+being used to describe
 $W_!$ when applied to an inner horn,
-cf. Lemma \ref{WLEFTQPUSH LEM}.
-%(this description is essentially left as an exercise to the reader in the proof of \cite[Prop. 4.5]{CM13b}).
-However, we believe our description is of intrinsic value,
-as our approach is rather different from that in \cite{DS11},
-being given in terms of 
-standard factorizations of maps in the
-category $\Omega$ of trees
-(see Proposition \ref{TREEFACT_PROP}).
-
-{\color{red} HERE}
+cf. Lemma \ref{WLEFTQPUSH LEM}
+(this description is essentially left as an exercise to the reader in the proof of \cite[Prop. 4.5]{CM13b}).
+Nonetheless, we believe our description is of intrinsic interest,
+since our approach is rather different from that in \cite{DS11},
+being focused on formal properties of the category
+$\Omega$ of trees.
 
 
 
@@ -1225,7 +1246,7 @@ explicitly, $\varphi$ is a quotient iff $\varphi_j \colon S_j \to T_{\varphi(j)}
 We give a minimal example of a quotient below. 
 Further discussion and examples can be found in \cite[Rem. 5.49]{Per18}.
 \begin{example}
-      Let $G = \mathbb Z/ 2\mathbb Z$ be the cyclic group with two elements.
+      Let $G = \mathbb{Z}/ 2\mathbb Z$ be the cyclic group with two elements.
       We have the following quotient map on $G$-corollas,
       where $\alpha \mapsto a$, $\alpha^- \mapsto -a$, $\beta \mapsto b$, $\gamma \mapsto c$.
       \[
@@ -8956,14 +8977,129 @@ cf. Lemma \ref{WLEFTQPUSH LEM}.
 
 
 
-
-
-
-
-
-
-\bibliography{biblio3}{}
-\bibliographystyle{amsalpha2}
+\providecommand{\bysame}{\leavevmode\hbox to3em{\hrulefill}\thinspace}
+\providecommand{\MR}{\relax\ifhmode\unskip\space\fi MR }
+% \MRhref is called by the amsart/book/proc definition of \MR.
+\providecommand{\MRhref}[2]{%
+	\href{http://www.ams.org/mathscinet-getitem?mr=#1}{#2}
+}
+\providecommand{\doi}[1]{%
+	doi:\href{https://dx.doi.org/#1}{#1}}
+\providecommand{\arxiv}[1]{%
+	arXiv:\href{https://arxiv.org/abs/#1}{#1}}
+\providecommand{\href}[2]{#2}
+\begin{thebibliography}{CM13b}
+	
+	\bibitem[Bek00]{Bek00}
+	T.~Beke, \emph{Sheafifiable homotopy model categories}, Math. Proc. Cambridge
+	Philos. Soc. \textbf{129} (2000), no.~3, 447--475.
+	\doi{10.1017/S0305004100004722}
+	
+	\bibitem[Ber07a]{Ber07}
+	J.~E. Bergner, \emph{A characterization of fibrant {S}egal categories}, Proc.
+	Amer. Math. Soc. \textbf{135} (2007), no.~12, 4031--4037.
+	
+	\bibitem[Ber07b]{Ber07b}
+	\bysame, \emph{A model category structure on the category of simplicial
+		categories}, Transactions of the American Mathematical Society \textbf{359}
+	(2007), no.~5, 2043--2058. \doi{10.1090/S0002-9947-06-03987-0}
+	
+	\bibitem[Ber17]{Ber17}
+	\bysame, \emph{Equivalence of models for equivariant
+		{$(\infty,1)$}-categories}, Glasg. Math. J. \textbf{59} (2017), no.~1,
+	237--253.
+	
+	\bibitem[BH15]{BH15}
+	A.~Blumberg and M.~Hill, \emph{Operadic multiplications in equivariant spectra,
+		norms, and transfers}, Adv. Math. \textbf{285} (2015), 658--708.
+	\doi{10.1016/j.aim.2015.07.013}
+	
+	\bibitem[BPa]{BP_edss}
+	P.~Bonventre and L.~A. Pereira, \emph{Equivariant dendroidal {S}egal spaces and
+		{$G$-$\infty$-}operads}, To appear in \textit{Algebraic \& Geometric
+		Topology}. arXiv preprint
+	\href{https://arxiv.org/abs/1801.02110v3}{1801.02110v3}.
+	
+	\bibitem[BPb]{BP_geo}
+	\bysame, \emph{Genuine equivariant operads}, arXiv preprint
+	\href{https://arxiv.org/abs/1707.02226v1}{1707.02226v1}.
+	
+	\bibitem[BPc]{BP_HGOP}
+	\bysame, \emph{On the homotopy theory of equivariant colored operads}, arXiv
+	preprint \href{https://arxiv.org/abs/1908.05440v1}{1908.05440v1}.
+	
+	\bibitem[CM11]{CM11}
+	D.-C. Cisinski and I.~Moerdijk, \emph{Dendroidal sets as models for homotopy
+		operads}, J. Topol. \textbf{4} (2011), no.~2, 257--299.
+	\doi{10.1112/jtopol/jtq039}
+	
+	\bibitem[CM13a]{CM13a}
+	\bysame, \emph{Dendroidal {S}egal spaces and {$\infty$}-operads}, J. Topol.
+	\textbf{6} (2013), no.~3, 675--704. \doi{10.1112/jtopol/jtt004}
+	
+	\bibitem[CM13b]{CM13b}
+	\bysame, \emph{Dendroidal sets and simplicial operads}, J. Topol. \textbf{6}
+	(2013), no.~3, 705--756. \doi{10.1112/jtopol/jtt006}
+	
+	\bibitem[DS11]{DS11}
+	D.~Dugger and D.~I. Spivak, \emph{Rigidification of quasi-categories}, Algebr.
+	Geom. Topol. \textbf{11} (2011), no.~1, 225--261.
+	\doi{10.2140/agt.2011.11.225}
+	
+	\bibitem[Hir03]{Hir03}
+	P.~S. Hirschhorn, \emph{Model categories and their localizations}, Mathematical
+	Surveys and Monographs, vol.~99, American Mathematical Society, Providence,
+	RI, 2003.
+	
+	\bibitem[HSS00]{HSS}
+	M.~Hovey, B.~Shipley, and J.~Smith, \emph{Symmetric spectra}, J. Amer. Math.
+	Soc. \textbf{13} (2000), no.~1, 149--208. \doi{10.1090/S0894-0347-99-00320-3}
+	
+	\bibitem[JT07]{JT07}
+	A.~Joyal and M.~Tierney, \emph{Quasi-categories vs {S}egal spaces}, Categories
+	in algebra, geometry and mathematical physics, Contemp. Math., vol. 431,
+	Amer. Math. Soc., Providence, RI, 2007, pp.~277--326.
+	\doi{10.1090/conm/431/08278}
+	
+	\bibitem[Lur09]{Lur09}
+	J.~Lurie, \emph{Higher topos theory}, Annals of Mathematics Studies, vol. 170,
+	Princeton University Press, Princeton, NJ, 2009. \doi{10.1515/9781400830558}
+	
+	\bibitem[MW09]{MW09}
+	I.~Moerdijk and I.~Weiss, \emph{On inner {K}an complexes in the category of
+		dendroidal sets}, Adv. Math. \textbf{221} (2009), no.~2, 343--389.
+	\doi{10.1016/j.aim.2008.12.015}
+	
+	\bibitem[MW07]{MW07}
+	I.~Moerdijk and I.~Weiss, \emph{Dendroidal sets}, Algebr. Geom. Topol.
+	\textbf{7} (2007), 1441--1470. \doi{10.2140/agt.2007.7.1441}
+	
+	\bibitem[Per18]{Per18}
+	L.~A. Pereira, \emph{Equivariant dendroidal sets}, Algebr. Geom. Topol.
+	\textbf{18} (2018), no.~4, 2179--2244. \doi{10.2140/agt.2018.18.2179}
+	
+	\bibitem[Rez01]{Rez01}
+	C.~Rezk, \emph{A model for the homotopy theory of homotopy theory}, Trans.
+	Amer. Math. Soc. \textbf{353} (2001), no.~3, 973--1007.
+	
+	\bibitem[RV14]{RV14}
+	E.~Riehl and D.~Verity, \emph{The theory and practice of {R}eedy categories},
+	Theory Appl. Categ. \textbf{29} (2014), 256--301.
+	
+	\bibitem[Sta14]{Sta14}
+	A.~E. Stanculescu, \emph{Constructing model categories with prescribed fibrant
+		objects}, Theory Appl. Categ. \textbf{29} (2014), No. 23, 635--653.
+	
+	\bibitem[Ste16]{Ste16}
+	M.~Stephan, \emph{On equivariant homotopy theory for model categories},
+	Homology Homotopy Appl. \textbf{18} (2016), no.~2, 183--208.
+	\doi{10.4310/HHA.2016.v18.n2.a10}
+	
+	\bibitem[Wei12]{Wei12}
+	I.~Weiss, \emph{Broad posets, trees, and the dendroidal category}, arXiv
+	preprint \href{https://arxiv.org/abs/1201.3987}{\texttt{1201.3987}}, 2012.
+	
+\end{thebibliography}
 
 
 
