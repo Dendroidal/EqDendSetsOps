@@ -907,7 +907,8 @@ A map of trees $\varphi \colon S \to T$ is called:
       with $\underline{l}_{(-)}$ and $r_{(-)}$ denoting the tuple of leaf edges and the root edge;
 \item a \textit{face map} if it is injective on edges;
       an \textit{inner face} if it is also tall; and
-      an \textit{outer face} if it does not factor through a non-isomorphism inner face map;
+      an \textit{outer face} if it does not
+      admit a factorization as a non-isomorphism inner face followed by a face map;
 \item a \textit{degeneracy} if it is surjective on edges and preserves leaves
       (and is thus tall).
 \end{itemize}
@@ -936,6 +937,7 @@ and degeneracies collapse some of the unary vertices of $S$.
       to indicate that the map is
       a degeneracy/inner face/outer face/tall/face/planar.
 \end{notation}
+
 
 \begin{proposition}[{\cite[Prop. 2.2]{BP_edss}}]
       \label{NP_TREEFACT_PROP}
@@ -998,11 +1000,11 @@ Proposition \ref{NP_TREEFACT_PROP}.
       A map of trees $\varphi \colon U \to V$ has a strictly unique factorization
 \begin{equation}\label{TREEFACT_EQ}
 	S \xrightarrow{\simeq} 
-	S_p \xrightarrow{d,p} 
-	\varphi S \xrightarrow{i,p} 
-	\overline{\varphi S} \xrightarrow{o,p} T
+	S_p \xrightarrow{pd} 
+	\varphi S \xrightarrow{pi} 
+	\overline{\varphi S} \xrightarrow{po} T
 \end{equation}
-      as an isomorphism followed by a planar degeneracy, a planar inner face, and a planar outer face.
+	as an isomorphism followed by a planar degeneracy, a planar inner face, and a planar outer face.
 \end{proposition}
 
 
@@ -1016,21 +1018,23 @@ Proposition \ref{NP_TREEFACT_PROP}.
 \end{remark}
 
 
+
 \begin{remark}
 	Generalizing Remarks \ref{TODF REM} and \ref{CNVXM REM},
 	one has that for any subset 
-	of the symbols $\{\simeq,-,i,o\}$
+	of the symbols $\{\simeq,pd,pi,po\}$
 	in \eqref{TREEFACT_EQ},
 	the type of maps such that 
 	the corresponding factors are identities 
 	is closed under composition.
-	
-	For example, the maps $\psi$ such that 
-	the factors labeled $\simeq$ and $i,p$
+
+	For example, the maps $\varphi$ such that 
+	the factors labeled $\simeq$ and $pi$
 	are identities are the planar convex maps,
 	while those maps such that
-	the factors labeled $d,p$ and $o,p$ % $\varphi^{-},\varphi^o$
-	are identities are the (not necessarily planar) inner face maps.
+	the factors labeled $pd$ and $po$ 
+	are identities are the 
+	(not necessarily planar) inner face maps.
 	Both of these kinds of maps are closed under composition.	
 \end{remark}
 
@@ -1045,13 +1049,12 @@ We note that the subcategory of $\Omega$ spanned by corollas and isomorphisms is
 \end{notation}
 
 
-{\color{red} HERE}
-
 Next, we recall the categories of (colored) forests used in 
 \cite{BP_HGOP}, 
 cf. \cite[Defn. 2.56]{BP_HGOP}.
 
-\begin{definition}
+
+\begin{definition}\label{FOR DEF}
       The category $\Phi$ of \textit{forests} is the coproduct completion of the category $\Omega$ of trees:
       objects are formal coproducts 
       $F = \amalg_{i \in I} F_i$ with $F_i \in \Omega$,
@@ -1096,11 +1099,11 @@ are defined in the natural way as
       $\Phi_\bullet^0 \subseteq \Phi_\bullet$
       the wide subcategory of those arrows whose maps on uncolored forests are outer faces.
       
-      Moreover, we write
-      $\Omega_{\mathfrak{C}} \subset \Phi_{\mathfrak{C}}$,
-      which we call the category of 
-      \emph{$\mathfrak{C}$-trees},
-      for the full subcategory spanned by the objects 
+	Lastly, we write
+	$\Omega_{\mathfrak{C}} \subset \Phi_{\mathfrak{C}}$,
+	which we call the category of 
+	\emph{$\mathfrak{C}$-trees},
+	for the full subcategory spanned by the objects 
       whose underlying forest is a tree,
       and 
       $\Sigma_{\mathfrak{C}} \subset \Omega_{\mathfrak{C}}$,
@@ -1116,63 +1119,70 @@ are defined in the natural way as
 \subsection{Equivariant trees}
 \label{GTREES SEC}
 
-We now recall the category $\Omega_G$ of equivariant trees, which encodes the combinatorics of compositions of norm maps.
+We next recall the category $\Omega_G$ of equivariant trees, which encodes the combinatorics of compositions of norm maps.
 A thorough discussion can be found in \cite[\S 5]{Per18} or \cite[\S 2]{BP_edss}.
 
-We begin with an explicit example.
-Let $G = D_{4} = \set{1,\rho,\rho^2,\rho^3, \sigma, \rho\sigma, \rho^2\sigma, \rho^3\sigma}$
+We begin with an example.
+Let $G =  
+\langle \rho, \sigma | \rho^4=1, \sigma^2 =1, 
+\sigma \rho = \rho^3 \sigma \rangle =
+\set{1,\rho,\rho^2,\rho^3, \sigma, \rho\sigma, \rho^2\sigma, \rho^3\sigma}$
 be the dihedral group with 8 elements,
 and $L \leq K \leq H \leq G$ denote the subgroups
 $H = \langle \rho^2,\sigma \rangle$, $K = \langle \rho^2 \rangle$, $L = \{1\}$.
-Then we have a $G$-tree $T$ as below,
-with the \textit{expanded representation} given by the two trees on the left below,
-and the \textit{orbital representation} given by the single decorated tree on the right.
-\begin{equation}
-      \label{GTREE_EQ}
-      \begin{tikzpicture}[auto,grow=up, level distance = 2.2em,
-            every node/.style={font=\scriptsize,inner sep = 2pt}]%
-            \tikzstyle{level 2}=[sibling distance=7.5em]%
-            \tikzstyle{level 3}=[sibling distance=2em]%
-            \node at (5.5,0){}%	
-            child{node [dummy] {}%
-              child{node [dummy] {}%
-                child{node {}%
-                  edge from parent node [swap,very near end] {$\rho^3 \sigma a$}}%
-                child[level distance = 2.4em]{node {$\rho\sigma b$}}%
-                  % edge from parent node [swap,near end] {$\rho\sigma b$}}%
-                child{node {}%
-                  edge from parent node [very near end] {$\rho \sigma a$}}%
-                edge from parent node [swap] {$\rho \sigma c$}}%
-              child{node [dummy] {}%
-                child{node {}%
-                  edge from parent node [swap,very near end] {$\rho^3 a$}}%
-                child[level distance = 2.4em]{node {$\rho b$}}%
-                % edge from parent node [swap,near end] {$\rho b$}}%
-                child{node {}%
-                  edge from parent node [very near end] {$\rho a$}}%
-                edge from parent node  {$\rho c$}}%
-              edge from parent node [swap] {$\rho d$}};%
-            \node at (0,0){}%	
-            child{node [dummy] {}%
-              child{node [dummy] {}%
-                child{node {}%
-                  edge from parent node [swap,very near end] {$\rho^2\sigma a$}}%
-                child[level distance = 2.4em]{node {$\sigma b$}}%
-                % edge from parent node [swap,near end] {$\sigma b$}}%
-                child{node {}%
-                  edge from parent node [very near end] {$\sigma a$}}%
-                edge from parent node [swap] {$\sigma c$}}%
-              child{node [dummy] {}%
-                child{node {}%
-                  edge from parent node [swap,very near end] {$\rho^2 a$}}%
-                child[level distance = 2.4em]{node {$b\phantom{j}$}}%
-                % edge from parent node [swap,near end] {$b\phantom{j}$}}%
-                child{node {}%
-                  edge from parent node [very near end] {$a$}}%
-                edge from parent node  {$c$}}%
-              edge from parent node [swap] {$d$}};%
+%
+There is then a $G$-tree $T \in \Omega_G$ with 
+\textit{expanded representation} given by the two trees on the left below,
+and \textit{orbital representation} given by the 
+single tree on the right.
+\begin{equation}\label{GTREE_EQ}
+\begin{tikzpicture}[auto,grow=up, level distance = 2.2em,
+	every node/.style={font=\scriptsize,inner sep = 2pt}]%
+\tikzstyle{level 2}=[sibling distance=7.5em]%
+\tikzstyle{level 3}=[sibling distance=2.2em]%
+	\node at (0,0){}%	
+	child{node [dummy] {}%
+		child{node [dummy] {}%
+			child{node {}%
+			edge from parent node [swap,very near end] {$\rho^2\sigma a$}}%
+			child[level distance = 2.7em]{
+			edge from parent node [swap,near end] {$\sigma b$}}%
+			child{node {}%
+			edge from parent node [very near end] 
+			{$\phantom{\rho^2}\sigma a$}}%
+		edge from parent node [swap] {$\sigma c$}}%
+		child{node [dummy] {}%
+			child{node {}%
+			edge from parent node [swap,very near end] {$\rho^2 a$}}%
+			child[level distance = 2.4em]{%
+			edge from parent node [swap,near end] {$b\phantom{j}$}}%
+			child{node {}%
+			edge from parent node [very near end] {$\phantom{\rho^2}a$}}%
+		edge from parent node  {$c$}}%
+	edge from parent node [swap] {$d$}};%
+	\node at (5.5,0) {}%
+	child{node [dummy] {}%
+		child{node [dummy] {}%
+			child{node {}%
+			edge from parent node [swap,very near end] {$\rho^3 \sigma a$}}%
+			child[level distance = 2.7em]{%
+			edge from parent node [swap,near end] {$\rho \sigma b$}}%
+			child{node {}%
+			edge from parent node [very near end] 
+			{$\phantom{\rho^3} \rho \sigma a$}}%
+		edge from parent node [swap] {$\rho \sigma c$}}%
+		child{node [dummy] {}%
+			child{node {}%
+			edge from parent node [swap,very near end] {$\rho^3 a$}}%
+			child[level distance = 2.7em]{%
+			edge from parent node [swap,near end] {$\rho b$}}%
+			child{node {}%
+			edge from parent node [very near end] 
+			{$\phantom{\rho^3}\rho a$}}%
+		edge from parent node  {$\rho c$}}%
+	edge from parent node [swap] {$\rho d$}};%
             \begin{scope}[every node/.style={font=\footnotesize}]%
-                  \node at (10,0) {}
+                  \node at (10.3,0) {}
                   child{node [dummy] {}%
                     child{node [dummy] {}%
                       child{node {}%
@@ -1183,19 +1193,30 @@ and the \textit{orbital representation} given by the single decorated tree on th
                     edge from parent node [right] {$(G/H) \cdot d$}};%
             \end{scope}%
             \draw[decorate,decoration={brace,amplitude=2.5pt}] (5.6,0) -- (-0.1,0) node[midway,inner sep=4pt,font=\normalsize]{$T$}; %
-            \node at (10,-0.15) [font=\normalsize] {$T$}; 
+            \node at (10.3,-0.15) [font=\normalsize] {$T$}; 
      \end{tikzpicture}%
 \end{equation}
-The expanded representation is a planar representation of the $G$-sets of edges and vertices, equipped with names for the edges which indicate the group action on the set of edges (and hence also vertices).
-In the orbital representation, each edge indicates an orbit worth of edges from the expanded representation,
-and is labeled by the appropriate transitive $G$-set.
+Edge labels in the expanded representation 
+encode a $G$-action, 
+so that the edges labeled $a,b,c,d$
+have isotropies $L,K,K,H$, respectively.
+On the other hand, the orbital representation displays the edge orbits in the expanded representation,
+labeled by the associated transitive $G$-set.
 
-In general, we have the following.
-\begin{definition}
-      Let $\Phi^G$ denote the category of forests with $G$-action. 
-      The category $\Omega_G$ of \textit{$G$-trees} is the full subcategory of $\Phi^G$ spanned by those $G$-forests whose
-      $G$-set $I$ of tree components has a transitive $G$-action.
-\end{definition}
+Formally, $\Omega_G$ is defined as follows.
+Write $\Phi^G$ for the category of 
+$G$-forests, i.e. $G$-objects in the category 
+$\Phi$ of forests
+in Definition \ref{FOR DEF}.
+We then define
+$\Omega_G \subset \Phi^{G}$
+as the full subcategory consisting of the
+(non-empty) $G$-forests
+such that the $G$-action is transitive on tree components.
+
+
+{\color{red} HERE}
+
 
 \begin{remark}
       We can describe $G$-trees in $\Omega_G$ by
@@ -1203,15 +1224,16 @@ In general, we have the following.
       Alternatively, any choice of component $T_{\**}$ has a stabilizer $H \leq G$, and then we have a decomposition
       $T \simeq G \cdot_H T_{\**}$.
       Finally, if $\Gamma \leq G \times \Aut(T_{\**})$ is the graph subgroup (cf. \eqref{NORMMAP EQ})
-      $\sets{(h,\phi)h)}{h \in H}$ associated to the homomorphism $\phi \colon H \to \Aut(T_{\**})$ encoding the $H$-action on $T_{\**}$,
+      $\Gamma = \sets{\left(h,\phi(h)\right)}{h \in H}$ associated to the homomorphism $\phi \colon H \to \Aut(T_{\**})$ encoding the $H$-action on $T_{\**}$,
       % encoding the $H$-action on $T_{\**}$,
       we have
       $T \simeq G \cdot T_{\**}/\Gamma$.
 \end{remark}
 
 For $T \in \Omega_G$, we write
-$\boldsymbol{E}_G(T) = \boldsymbol{E}(T)/G$, $\boldsymbol{E}^i_G(T) = \boldsymbol{E}^i(T)/G$, $\boldsymbol{V}_G(T) = \boldsymbol{V}(T)/G$
-for the set of \textit{edge orbits}, \textit{inner edge orbits}, and \textit{$G$-vertices}, respectively.
+$\boldsymbol{E}_G(T) = \boldsymbol{E}(T)/G$, $\boldsymbol{E}^{\mathsf{i}}_G(T) = \boldsymbol{E}^{\mathsf{i}}(T)/G$,
+$\boldsymbol{V}_G(T) = \boldsymbol{V}(T)/G$
+for the sets of \textit{edge orbits}, \textit{inner edge orbits}, and \textit{$G$-vertices}, respectively.
 
 \begin{remark}
       $\Omega_G$ is fibered over the \textit{orbit category} $\mathsf O_G$ of transitive $G$-sets and $G$-maps,
@@ -1244,71 +1266,81 @@ explicitly, $\varphi$ is a quotient iff $\varphi_j \colon S_j \to T_{\varphi(j)}
 We give a minimal example of a quotient below. 
 Further discussion and examples can be found in \cite[Rem. 5.49]{Per18}.
 \begin{example}
-      Let $G = \mathbb Z/ 2\mathbb Z$ be the cyclic group with two elements.
+      Let $G = \mathbb Z/ 2\mathbb Z = \{\pm 1\}$
+      be the cyclic group with two elements.
       We have the following quotient map on $G$-corollas,
-      where $\alpha \mapsto a$, $\alpha^- \mapsto -a$, $\beta \mapsto b$, $\gamma \mapsto c$.
-      \[
-            \begin{tikzpicture}[grow=up,auto,level distance=2.4em,
-                  every node/.style={font=\scriptsize,inner sep = 2pt}]%
-                  \tikzstyle{level 2}=[sibling distance=4em]%
-                  \begin{scope}[every node/.style={font=\footnotesize}]%
+      where $\alpha \mapsto a$, 
+      $\bar{\alpha} \mapsto -a$, 
+      $\beta \mapsto b$, 
+      $\gamma \mapsto c$.
+\[
+\begin{tikzpicture}[grow=up,auto,level distance=2em,
+	every node/.style={font=\scriptsize,inner sep = 2pt}]%
+\tikzstyle{level 2}=[sibling distance=2.5em]%
+\begin{scope}[every node/.style={font=\footnotesize},xshift=6.25cm]%
                         \node at (0,0) {}
                         child{node [dummy] {}
-                          child{edge from parent node [swap,near end] {$G/e+\alpha^{-}$}}
-                          child{node {$G/e + \beta$}}
-                          child{edge from parent node [near end] {$G/e + \alpha$}}
-                          edge from parent node [swap] {$G/2 + \gamma$}
+                          child{edge from parent node [swap,near end] {$G + \bar{\alpha}$}}
+                          child[level distance=2.5em]{node {$G + \beta$}}
+                          child{edge from parent node [near end] {$G + \alpha$}}
+                          edge from parent node [swap] {$G + \gamma$}
                         };
                         % 
-                        \node at (4.8,1) {$\xrightarrow{\qquad \qquad}$};
+                        \node at (2.25,0.8) {$\xrightarrow{\qquad}$};
                         % 
-                        \node at (8,0) {}
+                        \node at (4,0) {}
                         child{node [dummy] {}
-                          child{edge from parent node [swap] {$G/G + b$}}
-                          child{edge from parent node {$G/e+a$}}
+                          child{edge from parent node [swap,near end] {$G/G + b$}}
+                          child{edge from parent node [near end]{$G+a$}}
                           edge from parent node [swap] {$G/G+c$}
                         };
-                  \end{scope}%
-                  \begin{scope}[level distance=2em]
-                        \tikzstyle{level 2}=[sibling distance=3em]%
-                        \node at (-2,-2.5) {}
-                        child{node [dummy] {}
-                          child{edge from parent node [swap, near end] {$\alpha^{-}$}}
-                          child{edge from parent node [swap, very near end] {$\beta$}}
-                          child{edge from parent node [near end] {$\alpha$}}
-                          edge from parent node [swap] {$\gamma$}
-                        };
-                        \node at (2,-2.5) {}
-                        child{node [dummy] {}
-                          child{edge from parent node [swap, near end] {$-\alpha^{-}$}}
-                          child{edge from parent node [swap, very near end] {$-\beta$}}
-                          child{edge from parent node [near end] {$-\alpha$}}
-                          edge from parent node [swap] {$-\gamma$}
-                        };
-                        \node at (4.8,-1.7) {$\xrightarrow{ \qquad \qquad}$};
-                        \node at (8,-2.5) {}
+	\node at (0,-.15) [font=\normalsize] {$S$};
+	\node at (4,-.15) [font=\normalsize] {$T$};
+\end{scope}%
+\begin{scope}[level distance=2em]
+\tikzstyle{level 2}=[sibling distance=1.8em]%
+	\node at (-2,0) {}
+	child{node [dummy] {}
+		child{
+		edge from parent node [swap, near end] {$\bar{\alpha}$}}
+		child[level distance=2.5em]{
+		edge from parent node [swap, very near end] {$\beta$}}
+		child{
+		edge from parent node [near end] {$\alpha$}}
+	edge from parent node [swap] {$\gamma$} };
+	\node at (0.2,0) {}
+	child{node [dummy] {}
+		child{
+		edge from parent node [swap, near end] {$-\bar{\alpha}$}}
+		child[level distance=2.5em]{
+		edge from parent node [swap, very near end] {$-\beta$}}
+		child{
+		edge from parent node [near end] {$-\alpha$}}
+	edge from parent node [swap] {$-\gamma$}};
+	\node at (1.75,0.8) {$\xrightarrow{\qquad}$};
+	\node at (3,0) {}
                         child{node [dummy] {}
                           child{edge from parent node [swap, near end] {$-a$}}
-                          child{edge from parent node [swap, very near end] {$b$}}
+                          child[level distance=2.5em]{edge from parent node [swap, very near end] {$b$}}
                           child{edge from parent node [near end] {$a$}}
-                          edge from parent node [swap] {$c$}
-                        };                  
-                  \end{scope}
-                  \draw[decorate,decoration={brace,amplitude=2.5pt}] (2.1,-2.5) -- (-2.1,-2.5) node[midway,inner sep=4pt,font=\normalsize]{$S$}; %
-                  \node at (8,-2.65) [font=\normalsize] {$T$};
-                  \node at (8,-.15) [font=\normalsize] {$T$};
-                  \node at (0,-.15) [font=\normalsize] {$S$};
-            \end{tikzpicture}
-      \]
+	edge from parent node [swap] {$c$}};
+\draw[decorate,decoration={brace,amplitude=2.5pt}] 
+(0.3,0) -- (-2.1,0) node[midway,inner sep=4pt,font=\normalsize]{$S$}; %
+\node at (3,-0.15) [font=\normalsize] {$T$};
+\end{scope}
+\end{tikzpicture}
+\]
 \end{example}
 
+{\color{red} HERE}
+
 \begin{corollary}[{cf. Prop. \ref{TREEFACT_PROP}, \cite[Rem. 5.49]{Per18}}]
-      A map $\phi \colon S \to T$ in $\Omega_G$ has a strictly unique factorization
+      A map $\varphi \colon S \to T$ in $\Omega_G$ has a strictly unique factorization
       \[
             S \xrightarrow{d,r} 
-            \phi S \xrightarrow{i,p} 
-            \bar{\phi S} \xrightarrow{o,p} 
-            \phi^{\**}T \xrightarrow{q} T
+            \varphi S \xrightarrow{i,p} 
+            \bar{\varphi S} \xrightarrow{o,p} 
+            \varphi^{\**}T \xrightarrow{q} T
       \]
       as indicated:
       a rooted degeneracy followed by
@@ -1322,17 +1354,20 @@ Further discussion and examples can be found in \cite[Rem. 5.49]{Per18}.
       Further, we write $\Sigma_G \subseteq \Omega_G^0$ for the full subcategory spanned by \textit{$G$-corollas} and quotient maps,
       where $C \in \Omega_G$ is a $G$-corolla if $|\boldsymbol{V}_G(C)| = 1$.
 \end{definition}
+
       
-\begin{notation}
-      \label{LRG_NOT}
+\begin{notation}\label{LRG_NOT}
       As in Notation \ref{LR_NOT}, 
-      for any $T = \amalg_{i \in T}T_i \in \Omega_G$ there exists a unique $G$-corolla $\mathsf{lr}(T) \in \Sigma_G$ equipped with a planar tall map $\mathsf{lr}(T) \to T$
-      called the \textit{leaf-root} of $T$.
-      Explicitly, $\mathsf{lr}(T) = \amalg_{i \in I} \mathsf{lr}(T_i)$.
+      for any $G$-tree $T = \amalg_{i}T_i$ 
+      there is a unique $G$-corolla 
+      $\mathsf{lr}(T)$ together with a planar tall map $\mathsf{lr}(T) \to T$,
+      called the \textit{leaf-root of $T$}.
+      Explicitly, $\mathsf{lr}(T) = \amalg_{i} \mathsf{lr}(T_i)$.
 \end{notation}
 
 
-Finally, contrasting with the above, we define the faces of a $G$-trees non-equivariantly.
+Finally, contrasting with the above,
+we define the faces of a $G$-tree non-equivariantly.
 
 \begin{definition}
 	Let $T = \amalg_i T_i \in \Omega_G$ be a $G$-tree.
