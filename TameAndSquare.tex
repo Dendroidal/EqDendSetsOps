@@ -727,12 +727,6 @@ We start by recalling the Moerdijk-Weiss category $\Omega$ of trees
 \cite{MW07}.
 First, each object of $\Omega$ can be encoded by 
 a (rooted) tree diagram $T$ as below.
-% (though a more formal definition is also possible:
-% in the prequels to this paper many of the key technical properties, including Proposition \ref{TREEFACT_PROP}, %{\color{red} }
-% of $\Omega$
-% are proven using 
-% the \textit{broad posets} as introduced by Weiss in \cite{Wei12},
-% which are an algebraically flavored model for $\Omega$).
 \begin{equation}\label{eq:TREE}
 	\begin{tikzpicture}[auto,grow=up, level distance = 2.2em,
 	every node/.style={font=\scriptsize,inner sep = 2pt}]%
@@ -743,7 +737,8 @@ a (rooted) tree diagram $T$ as below.
               child{node [dummy] {}
                 edge from parent node [swap] {$e$}
               }
-              child{edge from parent node [swap,near end] {$d$}}
+              child[level distance = 2.9
+              em]{edge from parent node [swap] {$d$}}
               child{node [dummy] {}
                 child{edge from parent node [near end, swap] {$b$}}
                 child{edge from parent node [near end] {$\phantom{b}a$}}
@@ -755,11 +750,11 @@ a (rooted) tree diagram $T$ as below.
 \end{equation}
 Edges with no vertices $\circ$ above them are called \textit{leaves}, the unique bottom edge is called the \textit{root},
 and edges that are neither are called \textit{inner edges}.
-In the example above, $a$ and $b$ are leaves, $r$ is the root, and $c$ and $e$ are inner edges.
+In the example above, $a$, $b$ and $d$ are leaves, $r$ is the root, and $c$ and $e$ are inner edges.
 The sets of edges, inner edges, and vertices of a tree $T$ are denoted 
 $\boldsymbol{E}(T)$, 
 $\boldsymbol{E}^{\mathsf{i}}(T)$, 
-and $\boldsymbol{V}(T)$ respectively.
+and $\boldsymbol{V}(T)$, respectively.
 
 
 Describing the maps in $\Omega$ requires some care.
@@ -771,11 +766,11 @@ and further developed in \cite{Per18}.
 For each edge $t$ in a tree topped by a vertex $\circ$, we write
 $t^{\uparrow}$
 for the tuple of edges immediately above $t$.
-In the example \eqref{eq:TREE} one has  
+In \eqref{eq:TREE} one has  
 $r^{\uparrow} = cde$, 
 $c^\uparrow = ab$, 
 and $e^\uparrow = \epsilon$,
-where $\epsilon$ is the empty tuple.
+where $\epsilon$ denotes the empty tuple.
 We then encode each vertex symbolically as
 $t^{\uparrow} \leq t$,
 which we call a 
@@ -795,104 +790,108 @@ then form the \emph{broad poset associated with $T$}.
 A map of trees $\varphi \colon S \to T$
 in $\Omega$ is then an underlying map
 of edge sets 
-$\varphi \colon \boldsymbol{E}(U) \to \boldsymbol{E}(V)$
+$\varphi \colon \boldsymbol{E}(S) \to \boldsymbol{E}(T)$
 which preserves broad relations.
 
 
 
-If an edge $t$ is pictorially above (or equal to) an edge $s$, we write $t \leq_d s$;
-equivalently, there exists a broad relation $s_1\dots s_n \leq s$ such that $t = s_i$ for some $i$.
+If an edge $t$ is pictorially above (or equal to) an edge $s$, we write $t \leq_d s$.
+Equivalently, there exists a broad relation $s_1\dots s_n \leq s$ such that $t = s_i$ for some $i$.
 \\
 
-Additionally, we will find it convenient to assume that 
-each tree is equipped with a \textit{planar structure}.
-Informally, 
-this means that each object $T \in \Omega$
-has a preferred planar representation as in \eqref{eq:TREE}
-(a more formal definition of planar structures as
-suitable extensions of the partial order $\leq_d$ to a total order
-can be found in \cite[\S 3.1]{BP_geo}).
-Moreover, we will then prefer to work with a model of $\Omega$
-for which the subcategory of planar maps is skeletal,
-i.e. such that the only planar isomorphisms are the identities.
+Moreover,
+our discussion will be simplified by assuming 
+that $\Omega$ has exactly one representative of 
+each \emph{planarized tree},
+by which we mean a tree together with a planar representation as in \eqref{eq:TREE}
+(alternatively, 
+planarizations can be formalized as
+suitable extensions of $\leq_d$ to a total order
+\cite[\S 3.1]{BP_geo}).
+Importantly, this implies that each map  
+$\varphi \colon S \to T$ in $\Omega$
+has a (strictly) unique factorization
+$S \xrightarrow{\simeq} S' \to T$
+as an isomorphism followed by a \emph{planar map}
+\cite[Prop. 3.23]{BP_geo}.
+Informally, $S'$ is obtained by giving $S$ the planarization ``pulled back'' from $T$.
+Note that, 
+in particular, the subcategory of planar maps is skeletal,
+i.e. the only planar isomorphisms are the identities.
 
 
 
 
 \begin{notation}
-      We write $\eta$ for the \textit{stick} tree, the unique tree with a single edge and no vertices.
+	We write $\eta$ for the \textit{stick} tree, the unique tree with a single edge and no vertices.
 \end{notation}
 
 
 
 
-
-
-
-
-
-
-
-\begin{example}
-      \label{TREEMAP_EX}
-      The labels on the edges of the tree diagrams below indicate a map to $\boldsymbol{E}(T)$ with $T$ defined as in \eqref{eq:TREE}.
-      The maps determined by four leftmost trees are maps of trees, while the rightmost is not.
+\begin{example}\label{TREEMAP_EX}
+	The edge labels in each tree $S_i$ below determine maps
+	$\boldsymbol{E}(S_i) \to \boldsymbol{E}(T)$,
+	where $T$ is as in \eqref{eq:TREE}.
+	For $i \leq 4$ this encodes maps
+	$S_i \to T$ in $\Omega$,
+	but not for $i=5$.
 \begin{equation}
 \begin{tikzpicture}[auto, grow=up, level distance = 2.2em,
 	every node/.style={font=\scriptsize,inner sep = 2pt}]
 \tikzstyle{level 2}=[sibling distance=3em]%
 \tikzstyle{level 3}=[sibling distance=2.25em]%
-	\node at (0,0) {} % {$T \setminus \set{e}$}
+	\node at (0,0) [font=\normalsize] {$S_1$} % 
                   child{node [dummy] {}
-                    child{edge from parent node [swap] {$d$}}
+                    child{edge from parent node [swap] {$d\phantom{c}$}}
                     child{node [dummy] {}
                       child{edge from parent node [near end, swap] {$b$}}
                       child{edge from parent node [near end] {$\phantom{b}a$}}
-                      edge from parent node {$c$}
+                      edge from parent node {$\phantom{d}c$}
                     }
                     edge from parent node [swap] {$r$}
                   };
 \tikzstyle{level 2}=[sibling distance=2em]%
-	\node at (2.5,0) {} % {$\partial_{u,v}T$}
+	\node at (2.5,0) [font=\normalsize] {$S_2$} %
                   child{node [dummy] {}
                     child{edge from parent node [swap] {$e$}}
-                    child{edge from parent node [swap,near end] {$d$}}
+                    child [level distance = 2.7em] {edge from parent node [swap,near end] {$d$}}
                     child{edge from parent node {$c$}}
                     edge from parent node [swap] {$r$}
                   };
-	\node at (5.5,0) {} % {$\partial_v(T \setminus \set{c})$}
+	\node at (5.5,0) [font=\normalsize] {$S_3$} 
                   child{node [dummy] {}
                     child{node [dummy] {}
                       edge from parent node [swap] {$e$}
                     }
-                    child{edge from parent node [swap, very near end] {$d$}}
-                    child{edge from parent node [very near end] {$b$}}
+                    child [level distance = 2.7em]{edge from parent node [swap, very near end] {$d$}}
+                    child [level distance = 2.7em]{edge from parent node [very near end] {$b$}}
                     child{edge from parent node {$a$}}
                     edge from parent node [swap] {$r$}
                   };
 \tikzstyle{level 2}=[sibling distance=3em]%
-	\node at (9.2,0) {} % {$\sigma_d T$}
+	\node at (9.2,0) [font=\normalsize] {$S_4$} 
                   child{node [dummy] {}
                     child{node [dummy] {}
                       edge from parent node [swap] {$e$}
                     }
-                    child{node [dummy] {}
-                      child{edge from parent node [swap] {$d'$}}
+                    child[level distance = 2.5em]{node [dummy] {}
+                      child[level distance = 2.2em]{edge from parent node [swap] {$d'$}}
                       edge from parent node [swap] {$d$}
                     }
                     child{node [dummy] {}
-                      child{edge from parent node [swap] {$b$}}
-                      child{edge from parent node {$a$}}
+                      child{edge from parent node [swap,near end] {$b$}}
+                      child{edge from parent node [near end] {$\phantom{b}a$}}
                       edge from parent node {$c$}
                     }
                     edge from parent node [swap] {$r$}
                   };                    
-	\node at (12,0) {}
+	\node at (12,0) [font=\normalsize] {$S_5$}
                   child{node [dummy] {}
                     child{edge from parent node [swap] {$d$}}
                     child{node [dummy] {}
                       child{edge from parent node {$b$}}
-                      edge from parent node {$c$}
+                      edge from parent node {$\phantom{d}c$}
                     }
                     edge from parent node [swap] {$r$}
                   };
@@ -913,17 +912,21 @@ A map of trees $\varphi \colon S \to T$ is called:
       (and is thus tall).
 \end{itemize}
 
-Pictorially, an inner face map 
-$U\to V$ removes some edges in $V$
-(while merging the vertices adjacent to those edges),
-outer face maps remove some vertices of $V$,
-and degeneracies collapse some of the unary vertices of $U$.
+Pictorially, inner face maps 
+$S \to T$ remove some edges in $T$
+(and merge the vertices adjacent to those edges),
+outer face maps remove some vertices of $T$,
+and degeneracies collapse some of the unary vertices of $S$.
 
 
 \begin{example}
-      In Example \ref{TREEMAP_EX},
-      the first map is an inner face, the second an outer face, the third is a face that is neither inner not outer, and the fourth is a degeneracy.
+	In Example \ref{TREEMAP_EX},
+	$S_1 \to T$ is an inner face, 
+	$S_2 \to T$ is an outer face,
+	$S_3 \to T$ is a face that is neither inner nor outer,
+	and $S_4 \to T$ is a degeneracy.
 \end{example}
+
 
 \begin{notation}
       \label{MAPLABELS_NOT}
@@ -938,19 +941,19 @@ and degeneracies collapse some of the unary vertices of $U$.
       \label{NP_TREEFACT_PROP}
 	A map of trees $\varphi \colon U \to V$ has a factorization, unique up to unique isomorphisms,
         \begin{equation}\label{NP_TREEFACT_EQ}
-              U \xrightarrow{d} 
-              U' \xrightarrow{i} 
-              U'' \xrightarrow{o}
-              V
+              S \xrightarrow{d} 
+              S' \xrightarrow{i} 
+              S'' \xrightarrow{o}
+              T
         \end{equation}
-        as indicated: a degeneracy followed by an inner face map followed by an outer face map.
+        as a degeneracy followed by an inner face followed by an outer face.
 \end{proposition}
 
 \begin{remark}\label{TODF REM}
-	A map $\psi \colon U \to V$
+	A map $\varphi \colon S \to T$
 	is tall (resp. a face)
 	iff in the decomposition \eqref{NP_TREEFACT_EQ}
-	the component labeled $o$ (resp. $d$) % $\psi^o$ (resp. $\psi^-$)
+	the component labeled $o$ (resp. $d$)
 	is an isomorphism.
 	As such, by combining the 
 	first two (resp. last two)
@@ -963,47 +966,51 @@ and degeneracies collapse some of the unary vertices of $U$.
 \end{remark}
 
 
+
 \begin{remark}\label{CNVXM REM}
 	Following the previous remark, 
 	it is natural to consider the class of maps
-	$\psi \colon U \to V$ such that
-	the factor labeled $i$ in \eqref{NP_TREEFACT_EQ}
-	is an isomorphism;
-	Equivalently, $\psi$ is convex precisely if
+	$\varphi \colon S \to T$
+	such that the inner face factor
+	in \eqref{NP_TREEFACT_EQ} is an isomorphism.
+	We call these maps \textit{convex},
+	since they are readily seen to be 
+	characterized by the following property:
+	if $e <_d e' <_d e''$ in $T$ 
+	and $e,e''$ are in the image of $\varphi$
+	then so is $e'$.
+	Notably, it follows from this characterization that convex maps are closed under composition.
+	
+	Equivalently, $\varphi$ is convex precisely if
 	the ``tall-outer face'' and ``degeneracy-face''
 	factorizations coincide.
-        
-	We call these maps \textit{convex},
-	since the are readily seen to be 
-	characterized by the following property:
-	if $e <_d e' <_d e''$
-	in $V$ and $e,e''$ are in the image of $\psi$
-	then so is $e'$.
-	
-	Notably, it follows from this characterization that convex maps are closed under composition.
+	In particular, outer faces are characterized
+	as the convex faces.
 \end{remark}
 
 
 When accounting for planar structures,
-one has the following refinement of \eqref{NP_TREEFACT_EQ}.
+one has the following refinement of 
+Proposition \ref{NP_TREEFACT_PROP}.
 
 \begin{proposition}[{cf. \cite[Prop. 2.2]{BP_edss}}]
       \label{TREEFACT_PROP}
       A map of trees $\varphi \colon U \to V$ has a strictly unique factorization
-      \begin{equation}
-            \label{TREEFACT_EQ}
-            U \xrightarrow{\simeq} U_p \xrightarrow{d,p} \phi U \xrightarrow{i,p} \overline{\phi U} \xrightarrow{o,p} V
-      \end{equation}
-      as indicated:
-      an isomorphism followed by a planar degeneracy, a planar inner face, and a planar outer face.
+\begin{equation}\label{TREEFACT_EQ}
+	S \xrightarrow{\simeq} 
+	S_p \xrightarrow{d,p} 
+	\varphi S \xrightarrow{i,p} 
+	\overline{\varphi S} \xrightarrow{o,p} T
+\end{equation}
+      as an isomorphism followed by a planar degeneracy, a planar inner face, and a planar outer face.
 \end{proposition}
 
-\begin{remark}
-      \label{TREEFACT_REM}
-      The notation $\phi(U)$ is motivated by the fact that this tree has edge set
-      $\boldsymbol{E}(\phi U) = \phi (\boldsymbol{E}(U))$,
+
+\begin{remark}\label{TREEFACT_REM}
+      The notation $\varphi S$ is motivated by the fact that this tree has edge set
+      $\boldsymbol{E}(\varphi S) = \phi (\boldsymbol{E}(S))$,
       while the 
-      $\overline{\phi U}$ notation is an instance of the 
+      notation $\overline{\varphi S}$ is an instance of the 
       \emph{outer closure of an inner face}
       notation in \cite[Not. 2.14]{BP_edss}.
 \end{remark}
@@ -1033,13 +1040,16 @@ We note that the subcategory of $\Omega$ spanned by corollas and isomorphisms is
 
 \begin{notation}
       \label{LR_NOT}
-      For each $U \in \Omega$, there exists a unique corolla $\mathsf{lr}(U) \in \Sigma$ equipped with a planar tall map $\mathsf{lr}(U) \to U$,
-      which we call the \textit{leaf-root} of $U$.
+      For each $T \in \Omega$, there exists a unique corolla $\mathsf{lr}(T) \in \Sigma$ equipped with a planar tall map $\mathsf{lr}(T) \to T$,
+      which we call the \textit{leaf-root} of $T$.
 \end{notation}
 
 
+{\color{red} HERE}
 
-Next, we consider categories of (colored) forests (cf. \cite[Defn. 2.56]{BP_HGOP}).
+Next, we recall the categories of (colored) forests used in 
+\cite{BP_HGOP}, 
+cf. \cite[Defn. 2.56]{BP_HGOP}.
 
 \begin{definition}
       The category $\Phi$ of \textit{forests} is the coproduct completion of the category $\Omega$ of trees:
@@ -1048,12 +1058,12 @@ Next, we consider categories of (colored) forests (cf. \cite[Defn. 2.56]{BP_HGOP
       and an arrow 
       $\varphi \colon \amalg_{i \in I} F_i \to
       \amalg_{j \in J} F'_j$ is given by
-      a map $\varphi \colon I \to J$ and
+      a map of indexing sets $\varphi \colon I \to J$ and
       maps $\varphi_i \colon F_i \to F'_{\varphi(i)}$ in $\Omega$ for each $i \in I$.
 
 The sets of \emph{edges}, \emph{inner edges}, \emph{vertices}
 of a forest $F = \amalg_i F_i$
-are defined in the obvious way as
+are defined in the natural way as
 \[
 	\boldsymbol{E}(F)
 	\simeq
@@ -1072,11 +1082,11 @@ are defined in the obvious way as
 
 \begin{definition}\label{CFOREST_DEF}
       Let $\mathfrak C$ be a set of colors.
-      The category $\Phi_{\mathfrak C}$ of \textit{$\mathfrak C$-forests} has
+      The category $\Phi_{\mathfrak C}$ of \textit{$\mathfrak C$-forests} has:
       \begin{itemize}
       \item objects pairs $\vect F = (F, \mathfrak c)$ with
             $F \in \Phi$ a forest and
-            $\mathfrak c \colon \boldsymbol{E}(F) \to \mathfrak C$ a coloring of its edges.
+            $\mathfrak c \colon \boldsymbol{E}(F) \to \mathfrak C$ a coloring of its edges;
       \item arrows $\vect F = (F, \mathfrak c) \to (F', \mathfrak c') = \vect{F'}$ maps
             $\varphi \colon F \to F'$ in $\Phi$ such that $\mathfrak c = \mathfrak c' \varphi$.
       \end{itemize}      
@@ -1106,8 +1116,8 @@ are defined in the obvious way as
 \subsection{Equivariant trees}
 \label{GTREES SEC}
 
-We now recall the category $\Omega_G$ of equivariant trees, which encodes the combinatorics of compositions of norm maps;
-a thorough discussion can be found in \cite[\S 5]{Per18} or \cite[\S 2]{BP_edss}.
+We now recall the category $\Omega_G$ of equivariant trees, which encodes the combinatorics of compositions of norm maps.
+A thorough discussion can be found in \cite[\S 5]{Per18} or \cite[\S 2]{BP_edss}.
 
 We begin with an explicit example.
 Let $G = D_{4} = \set{1,\rho,\rho^2,\rho^3, \sigma, \rho\sigma, \rho^2\sigma, \rho^3\sigma}$
