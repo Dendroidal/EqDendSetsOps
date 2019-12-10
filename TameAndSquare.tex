@@ -1296,10 +1296,17 @@ for the sets of \textit{edge orbits}, \textit{inner edge orbits}, and \textit{$G
 \end{remark}
 
 
+Following the discussion at the end of \S \ref{FORESTS_SEC},
+each $G$-tree
+$T = \amalg_{i \in I} T_i$
+is a planarized forest,
+so that each tree component $T_i$
+is planarized and the set $I$ of components
+is totally ordered.
 
 As was the case in $\Omega$,
 maps $\varphi \colon S \to T$ in $\Omega_G$
-are built from a few basic types of maps.
+are likewise built from a few basic types of maps.
 
 Recall that a map
 $\varphi \colon 
@@ -1319,26 +1326,36 @@ is all maps
 $S_i \to T_{\varphi(i)}, i \in I$
 are isomorphisms in $\Omega$
 and called a 
-\emph{shuffling map} if
+\emph{sorted map} if
 $\varphi \colon I \to J$
-is an isomorphism of sets.
-Further, a shuffling map
+is an ordered isomorphism of sets.
+Further, a sorted map
 is called a
-\emph{shuffling degeneracy/tall map/face/inner face/outer face}
+\emph{sorted degeneracy/tall map/face/inner face/outer face}
 if each of the component maps is a
 degeneracy/tall map/face/inner face/outer face 
 in $\Omega$.
 
- 
+
+
+\begin{definition}
+	We write $\Omega_G^0 \subseteq \Omega_G$ for the wide subcategory of $G$-trees and quotient maps.
+	Further, we write $\Sigma_G \subseteq \Omega_G^0$ for the full subcategory spanned by \textit{$G$-corollas} and quotient maps,
+	where $C \in \Omega_G$ is a $G$-corolla if $|\boldsymbol{V}_G(C)| = 1$.
+\end{definition}
 
 \begin{example}
       Let $G = \mathbb Z/ 2\mathbb Z = \{\pm 1\}$
       be the cyclic group with two elements.
-      We have the following quotient map on $G$-corollas,
-      where $\alpha \mapsto a$, 
-      $\bar{\alpha} \mapsto -a$, 
-      $\beta \mapsto b$, 
-      $\gamma \mapsto c$.
+%      
+      In the diagram below,
+      the assignment 
+	$\alpha \mapsto a$, 
+	$\bar{\alpha} \mapsto -a$, 
+	$\beta \mapsto b$, 
+	$\gamma \mapsto c$
+	determines a quotient map
+	$S \to T$.
 \[
 \begin{tikzpicture}[grow=up,auto,level distance=2em,
 	every node/.style={font=\scriptsize,inner sep = 2pt}]%
@@ -1387,9 +1404,9 @@ in $\Omega$.
 	\node at (3,0) {}
 	child{node [dummy] {}
 		child{
-		edge from parent node [swap, near end] {$-a$}}
+		edge from parent node [swap, near end] {$b$}}
 		child[level distance=2.5em]{
-		edge from parent node [swap, very near end] {$b$}}
+		edge from parent node [swap, very near end] {$-a$}}
 		child{
 		edge from parent node [near end] {$a$}}
 	edge from parent node [swap] {$c$}};
@@ -1403,7 +1420,7 @@ in $\Omega$.
 
 
 
-\begin{corollary}[{cf. Prop. \ref{TREEFACT_PROP}, \cite[Rem. 5.49]{Per18}}]
+\begin{corollary}[{cf. Prop. \ref{NP_TREEFACT_PROP}, \cite[Rem. 5.49]{Per18}}]
 	A map $\varphi \colon S \to T$ in $\Omega_G$ has
 	a factorization
 	\[
@@ -1413,22 +1430,63 @@ in $\Omega$.
 	T^{\**} \xrightarrow{q} T,
 	\]
 	unique up to unique 
-	isomorphisms, as
-	a shuffling degeneracy followed by
-	a shuffling inner face,
-	a shuffling outer face,
+	sorted isomorphisms, as
+	a sorted degeneracy followed by
+	a sorted inner face,
+	a sorted outer face,
 	and a quotient map.
 \end{corollary}
 
 
-{\color{red} HERE}
+
+\begin{remark}
+	Sorted maps
+	$\varphi \colon S \to T$ in $\Omega_G$
+	are necessarily independent,
+	so one may ask if such a map is a planar map,
+	which is then equivalent
+	to each component map
+	$S_i \to T_{\varphi(i)}$
+	being planar.
+
+	On the other hand, a quotient map
+	$S \to T$ in $\Omega_G$
+	is independent iff it is an isomorphism,
+	so a quotient is planar iff it is an identity.
+	More generally, 
+	one can only expect
+	a quotient map to componentwise planar,
+	i.e. for the maps 
+	$S_i \to T_{\varphi(i)}$
+	to be planar, which (as these are isomorphisms) is the same
+	as the maps
+	$S_i \to T_{\varphi(i)}$
+	being identities.
+	A quotient map with this additional property is called 
+	a \emph{pullback map}.
+\end{remark}
 
 
-\begin{definition}
-      We denote by $\Omega_G^0 \subseteq \Omega_G$ the wide subcategory of $G$-trees and quotient maps.
-      Further, we write $\Sigma_G \subseteq \Omega_G^0$ for the full subcategory spanned by \textit{$G$-corollas} and quotient maps,
-      where $C \in \Omega_G$ is a $G$-corolla if $|\boldsymbol{V}_G(C)| = 1$.
-\end{definition}
+
+\begin{corollary}
+	[{cf. Prop. \ref{TREEFACT_PROP}, \cite[Rem. 5.49]{Per18}}]
+	A map $\varphi \colon S \to T$ in $\Omega_G$ has
+	a strictly unique factorization
+\[
+	S \xrightarrow{\simeq,s}
+	S \xrightarrow{spd} 
+	S' \xrightarrow{spi} 
+	S'' \xrightarrow{spo} 
+	\varphi^{\**}T \to T,
+\]
+	as a sorted isomorphism
+	followed by a sorted planar degeneracy,
+	a sorted planar inner face,
+	a sorted planar outer face,
+	and a pullback map.
+\end{corollary}
+
+
 
       
 \begin{notation}\label{LRG_NOT}
@@ -1440,6 +1498,7 @@ in $\Omega$.
       Explicitly, $\mathsf{lr}(T) = \amalg_{i} \mathsf{lr}(T_i)$.
 \end{notation}
 
+{\color{red} HERE}
 
 Finally, contrasting with the above,
 we define the faces of a $G$-tree non-equivariantly.
