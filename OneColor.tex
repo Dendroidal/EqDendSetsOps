@@ -247,12 +247,13 @@ cd,patterns,calc}
 
 
 
+
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % ------------------------------ MAIN BODY ------------------------------
 
 % ---- Title --------
 
-\title{Homotopy theory of equivariant colored operads with fixed colors}
+\title{The homotopy theory of equivariant operads, color by color}
 
 \author{Peter Bonventre, Lu\'is A. Pereira}%
 
@@ -262,265 +263,294 @@ cd,patterns,calc}
 % ---- Document body ----
 
 \begin{document}
-	
-	\maketitle
-	
-	\begin{abstract}
-		We build model structures 
-		on the category of equivariant simplicial operads
-		with weak equivalences determined by families of subgroups,
-		both in the context of operads with a fixed set of colors and in the context of all colored operads.
-		In particular, by specifying to the family of graph subgroups 
-		(or, more generally, one of the indexing systems of Blumberg-Hill),
-		we obtain model structures on the category of equivariant simplicial operads
-		whose weak equivalences are determined by norm map data.
-	\end{abstract}
-	
-	
-	
-	\tableofcontents
-	
-	
-	
-	
 
-	
-	
-	\section{Introduction}
-	
-	This paper follows \cite{Per18}, \cite{BP_geo}, \cite{BP_edss}
-	as part of a larger project studying 
-	\emph{equivariant operads with norm maps}.
-	Here, norm maps are an extra piece of data 
-	(not present non-equivariantly)
-	which must be considered
-	when studying equivariant operads,
-	the importance of which was made clear by
-	Hill, Hopkins, Ravenel 
-	in their solution to the Kervaire invariant one problem \cite{HHR16}.
-	
-	
-	For concreteness, let us fix a finite group $G$
-	and consider the category
-	$\mathsf{sOp}^{G}_{\**} = \mathsf{Op}_{\**}(\mathsf{sSet}^G)$
-	or, in words,
-	the category of single colored operads
-	in the category $\mathsf{sSet}^G$
-	of simplicial sets with a $G$-action.
-	We note that, for $\O \in \mathsf{sOp}^{G}_{\**}$,
-	the $n$-th operadic level $\O(n)$ has both a $\Sigma_n$-action and a $G$-action, commuting with each other, or, equivalently, 
-	a $G \times \Sigma_n$-action.
-	One of the key upshots
-	of Blumberg and Hill's work \cite{BH15}
-	is that in $\mathsf{sOp}^{G}_{\**}$
-	the preferred notion of weak equivalence is that of \emph{graph equivalence},
-	i.e. those maps 
-	$\O \to \mathcal{P}$
-	such that the fixed point maps
-	\begin{equation}\label{GRAPHEQ EQ}
-	\O(n)^{\Gamma} \xrightarrow{\sim} \mathcal{P}(n)^{\Gamma}
-	\qquad
-	\text{for }
-	\Gamma \leq G \times \Sigma_n
-	\text{ such that }
-	\Gamma \cap \Sigma_n = \**
-	\end{equation}
-	are Kan equivalences in $\mathsf{sSet}$.
-	%
-	Here, the term ``graph'' comes from a neat characterization of the $\Gamma$
-	as in \eqref{GRAPHEQ EQ}:
-	such a $\Gamma$ is necessarily the graph of a partial homomorphism
-	$\phi \colon H \to \Sigma_n$ for some subgroup $H \leq G$,
-	i.e.
-	$\Gamma = \sets{(h,\phi(h))}{h \in H}$. 
-	Note that one hence has a canonical isomorphism $\Gamma \simeq H$.
-	%
-	Briefly, the need to consider such \emph{graph subgroups} $\Gamma$ comes from the study of algebras.
-	Suppose $X \in \mathsf{sSet}^G$ is an algebra over
-	$\O$,
-	so that one has algebra multiplication maps
-	as on the left below
-	\begin{equation}\label{ALGNORM EQ}
-	\O(n) \times X^n \to X
-	\qquad \qquad
-	\O(n)^{\Gamma} \times N_{\Gamma}X \to X
-	\end{equation}
-	which are required to be 
-	$G \times \Sigma_n$-equivariant
-	(where the target $X$ is given the trivial $\Sigma_n$-action).
-	One then has induced 
-	$H$-equivariant maps 
-	on the right in \eqref{ALGNORM EQ},
-	where the \emph{norm object} $N_{\Gamma} X$
-	denotes $X^{n}$ with the $H$-action determined by $\Gamma \simeq H$.
-	In particular, each point
-	$\rho \in \O(n)^{\Gamma}$
-	determines a $H$-equivariant \emph{norm map}
-	$\rho \colon N_{\Gamma} X \to X$,  
-	and such maps turn out to be a key piece of data
-	for algebras in the equivariant context.
-	The reason to prefer the graph equivalences in \eqref{GRAPHEQ EQ}
-	is then to ensure that weakly equivalent operads
-	have equivalent ``spaces of norm maps'' $\O(n)^{\Gamma}$.
-	
-	
-	
-	The existence of a model structure 
-	on $\mathsf{sOp}^G_{\**}$
-	with weak equivalences given by the graph equivalences
-	in \eqref{GRAPHEQ EQ}
-	was established independently as a particular case of either
-	\cite[Thm. I]{BP_geo} or \cite[Thm. 3.1]{GW18}.
-	It seems worth noting that these results are somewhat non formal.
-	On the one hand, using the description 
-	$\mathsf{sOp}_{\**}^G \simeq \mathsf{Op}_{\**}(\mathsf{sSet}^G)$
-	as single colored operads enriched in 
-	$\mathsf{sSet}^G$,
-	one could obtain a model structure
-	on $\mathsf{sOp}_{\**}^G$
-	by applying \cite[Thm. 3.2]{BM03}
-	to the genuine/strong model structure on $\mathsf{sSet}^G$.
-	Alternatively, one also has an identification
-	$\mathsf{sOp}_{\**}^G \simeq 
-	\left(\mathsf{Op}_{\**}(\mathsf{sSet})\right)^G$
-	as $G$-objects on the category
-	$\mathsf{Op}_{\**}(\mathsf{sSet})$
-	of single colored simplicial operads,
-	so one could likewise build a model structure on 
-	$\mathsf{sOp}_{\**}^G$
-	by applying \cite[Prop. 2.6]{Ste16}
-	to the category
-	$\mathsf{Op}_{\**}(\mathsf{sSet})$
-	with its usual model structure.
-	However, neither of these approaches
-	recovers the graph equivalences in \eqref{GRAPHEQ EQ},
-	instead leading to a weaker notion of equivalence for which the fixed points in \eqref{GRAPHEQ EQ}
-	only need to be weak equivalences for
-	$\Gamma \leq G \leq G \times \Sigma_n$.
-	
-	
-	Our main result in this paper, 
-	given by Theorem \ref{THMIII}, 
-	extends the graph equivalence model structures of
-	\cite[Thm. I]{BP_geo}, \cite[Thm. 3.1]{GW18}
-	from the context of single colored operads 
-	to the context of operads with a varying set of colors
-	(also known as multicategories).
-	Alternatively, one may regard Theorem \ref{THMIII} as extending the well known Dwyer-Kan model structures on all colored operads (and maps that change colors) in
-	\cite[Thm 1.14]{CM13b}, \cite[Thm. 2]{Rob11}
-	from the non-equivariant context to the 
-	equivariant context.
-	
-	
-	Our motivation comes from the fact that 
-	Theorem \ref{THMIII} is necessary to 
-	generalize the Cisinski-Moerdijk project in
-	\cite{CM11}, \cite{CM13a}, \cite{CM13b} to the equivariant context.
-	We recall that their work is based on the identification of a category
-	$\Omega$ of trees, 
-	the combinatorics of which encode
-	composition of operations in an operad.
-	That project then culminates in the existence of a Quillen equivalence
-	\begin{equation}\label{CMMAINTHM EQ}
-	W_!\colon \mathsf{dSet} \rightleftarrows \mathsf{sOp}_{\bullet} \colon hcN
-	\end{equation}
-	where 
-	$\mathsf{sOp}_{\bullet}$
-	is the category of simplicial operads for all colors
-	(here, and throughout the paper, we use $\bullet$ to indicate 
-	that colors/objects are allowed to change),
-	$\mathsf{dSet} = \mathsf{Set}^{\Omega^{op}}$
-	is the category of presheaves on $\Omega$
-	equipped with the model structure for which the fibrant objects are the so called $\infty$-operads,
-	and the right adjoint $hcN$ is an operadic generalization of the homotopy coherent nerve of \cite{Cor82} (cf. \cite{Joy}, \cite[\S 1.1.5]{Lur09}).
-	
-	Similarly, the project this paper belongs to is based on the identification by the authors of a category
-	$\Omega_G$ of \emph{$G$-trees},
-	the combinatorics of which encode compositions of norm maps in a $G$-equivariant operad.
-	%
-	One of our main goals, established
-	in the sequel to this paper as \cite[Thm. I]{BP_TAS},
-	is to show that 
-	\eqref{CMMAINTHM EQ}
-	generalizes to a Quillen equivalence 
-	\begin{equation}\label{BPMAINTHM EQ}
-	W_!\colon 
-	\mathsf{dSet}^G \rightleftarrows \mathsf{sOp}_{\bullet}^G
-	\colon hcN
-	\end{equation}
-	where the underlying categories are simply the categories 
-	of $G$-objects on the categories in 
-	\eqref{CMMAINTHM EQ},
-	but where both categories have a (non formal) notion of weak equivalence determined by graph subgroups.
-	The model structure on $\mathsf{dSet}^G$
-	was built in \cite{Per18},
-	generalizing the non-equivariant analogue result in \cite{BM11},
-	and in \cite{BP_edss} we likewise generalized \cite{CM13a},
-	which studies auxiliary model structures 
-	used in \cite{CM13b} to obtain the equivalence 
-	\eqref{CMMAINTHM EQ}.
-	Theorem \ref{THMIII} herein then builds 
-	the required model structure on 
-	$\mathsf{sOp}_{\bullet}^G$,
-	with the equivalence \eqref{BPMAINTHM EQ}
-	shown in the sequel \cite{BP_TAS}.
-	
-	
-	Much as in the single colored case,
-	building our desired model structure
-	on $\mathsf{sOp}^G_{\bullet}$
-	is again non formal,
-	but the colored case brings a few new notable nuances.
-	Firstly, since 
-	$\mathsf{sOp}_{\bullet}^G$
-	is the category of $G$-objects on 
-	$\mathsf{sOp}_{\bullet}$
-	and the latter
-	includes maps that change colors,
-	the group $G$ typically acts non-trivially
-	on the colors $\mathfrak{C}_{\mathcal{O}}$
-	of a colored $G$-operad
-	$\O \in \mathsf{sOp}_{\bullet}^G$.
-	By contrast, in the category
-	$\mathsf{Op}_{\bullet}(\mathsf{sSet}^G)$
-	of colored operads in $\mathsf{sSet}^G$
-	the group $G$ never acts on objects (or, equivalently, acts trivially).
-	As such, there is a proper inclusion
-	$\mathsf{Op}_{\bullet}(\mathsf{sSet}^G)
-	\subsetneq \mathsf{sOp}_{\bullet}^G$,
-	so a model structure on 
-	$\mathsf{sOp}_{\bullet}^G$
-	can not be built using the enriched colored operad results of \cite{Cav}.
-	Secondly, just as in the single colored case, 
-	one could also try to build a model structure
-	on $\mathsf{sOp}^G_{\bullet}$
-	by applying 
-	\cite[Prop 2.6]{Ste16}
-	to the model structure on $\mathsf{sOp}_\bullet$.
-	Yet again such an approach would not produce
-	the desired notion of equivalences as suggested by graph subgroups.
-	%
-	It is worth noting that the issue here is intrinsically operadic
-	and does not occur when working with categories.
-	Indeed, the inclusion
-	$\mathsf{sCat}^G_{\bullet} \subset 
-	\mathsf{sOp}^G_{\bullet}$
-	of colored $G$-categories into 
-	colored $G$-operads identifies
-	$\mathsf{sCat}^G_{\bullet} = 
-	\mathsf{sOp}^G_{\bullet} \downarrow \**$
-	as the overcategory over the terminal category $\**$.
-	Hence, our model structure on 
-	$\mathsf{sOp}^G_{\bullet}$
-	induces a model structure on 
-	$\mathsf{sCat}^G_{\bullet}$ which % \emph{does}
-	in fact \emph{will} 
-	coincide with the model structure obtained by applying
-	\cite[Prop. 2.6]{Ste16}
-	to the usual model structure on $\mathsf{sCat}_{\bullet}$.
-	
-	
-	
+\maketitle
+
+\begin{abstract}
+        We build model structures 
+	on the category of equivariant simplicial operads with a fixed $G$-set of colors,
+	with weak equivalences determined by families of subgroups.
+	In particular, by specifying to the family of graph subgroups 
+	(or, more generally, one of the indexing systems of Blumberg-Hill),
+	we obtain model structures on the category of equivariant simplicial operads with a fixed $G$-set of colors
+	whose weak equivalences are determined by norm map data.
+\end{abstract}
+
+
+
+\tableofcontents
+
+
+
+
+
+
+
+\section{Introduction}
+
+This paper follows \cite{Per18}, \cite{BP_geo}, \cite{BP_edss}
+as part of a larger project studying 
+\emph{equivariant operads with norm maps}.
+Here, norm maps are an extra piece of data 
+(not present non-equivariantly)
+which must be considered
+when studying equivariant operads,
+the importance of which was made clear by
+Hill, Hopkins, Ravenel 
+in their solution to the Kervaire invariant one problem \cite{HHR16}.
+
+
+For concreteness, let us fix a finite group $G$
+and consider the category
+$\mathsf{sOp}^{G}_{\**} = \mathsf{Op}_{\**}(\mathsf{sSet}^G)$
+or, in words,
+the category of single colored operads
+in the category $\mathsf{sSet}^G$
+of simplicial sets with a $G$-action.
+We note that, for $\O \in \mathsf{sOp}^{G}_{\**}$,
+the $n$-th operadic level $\O(n)$ has both a $\Sigma_n$-action and a $G$-action, commuting with each other, or, equivalently, 
+a $G \times \Sigma_n$-action.
+One of the key upshots
+of Blumberg and Hill's work \cite{BH15}
+is that in $\mathsf{sOp}^{G}_{\**}$
+the preferred notion of weak equivalence is that of \emph{graph equivalence},
+i.e. those maps 
+$\O \to \mathcal{P}$
+such that the fixed point maps
+\begin{equation}\label{GRAPHEQ EQ}
+\O(n)^{\Gamma} \xrightarrow{\sim} \mathcal{P}(n)^{\Gamma}
+\qquad
+\text{for }
+\Gamma \leq G \times \Sigma_n
+\text{ such that }
+\Gamma \cap \Sigma_n = \**
+\end{equation}
+are Kan equivalences in $\mathsf{sSet}$.
+%
+Here, the term ``graph'' comes from a neat characterization of the $\Gamma$
+as in \eqref{GRAPHEQ EQ}:
+such a $\Gamma$ is necessarily the graph of a partial homomorphism
+$\phi \colon H \to \Sigma_n$ for some subgroup $H \leq G$,
+i.e.
+$\Gamma = \sets{(h,\phi(h))}{h \in H}$. 
+Note that one hence has a canonical isomorphism $\Gamma \simeq H$.
+%
+Briefly, the need to consider such \emph{graph subgroups} $\Gamma$ comes from the study of algebras.
+Suppose $X \in \mathsf{sSet}^G$ is an algebra over
+$\O$,
+so that one has algebra multiplication maps
+as on the left below
+\begin{equation}\label{ALGNORM EQ}
+\O(n) \times X^n \to X
+\qquad \qquad
+\O(n)^{\Gamma} \times N_{\Gamma}X \to X
+\end{equation}
+which are required to be 
+$G \times \Sigma_n$-equivariant
+(where the target $X$ is given the trivial $\Sigma_n$-action).
+One then has induced 
+$H$-equivariant maps 
+on the right in \eqref{ALGNORM EQ},
+where the \emph{norm object} $N_{\Gamma} X$
+denotes $X^{n}$ with the $H$-action determined by $\Gamma \simeq H$.
+In particular, each point
+$\rho \in \O(n)^{\Gamma}$
+determines a $H$-equivariant \emph{norm map}
+$\rho \colon N_{\Gamma} X \to X$,  
+and such maps turn out to be a key piece of data
+for algebras in the equivariant context.
+The reason to prefer the graph equivalences in \eqref{GRAPHEQ EQ}
+is then to ensure that weakly equivalent operads
+have equivalent ``spaces of norm maps'' $\O(n)^{\Gamma}$.
+
+
+
+The existence of a model structure 
+on $\mathsf{sOp}^G_{\**}$
+with weak equivalences given by the graph equivalences
+in \eqref{GRAPHEQ EQ}
+was established independently as a particular case of either
+\cite[Thm. I]{BP_geo} or \cite[Thm. 3.1]{GW18}.
+It seems worth noting that these results are somewhat non formal.
+On the one hand, using the description 
+$\mathsf{sOp}_{\**}^G \simeq \mathsf{Op}_{\**}(\mathsf{sSet}^G)$
+as single colored operads enriched in 
+$\mathsf{sSet}^G$,
+one could obtain a model structure
+on $\mathsf{sOp}_{\**}^G$
+by applying \cite[Thm. 3.2]{BM03}
+to the genuine/strong model structure on $\mathsf{sSet}^G$.
+Alternatively, one also has an identification
+$\mathsf{sOp}_{\**}^G \simeq 
+\left(\mathsf{Op}_{\**}(\mathsf{sSet})\right)^G$
+as $G$-objects on the category
+$\mathsf{Op}_{\**}(\mathsf{sSet})$
+of single colored simplicial operads,
+so one could likewise build a model structure on 
+$\mathsf{sOp}_{\**}^G$
+by applying \cite[Prop. 2.6]{Ste16}
+to the category
+$\mathsf{Op}_{\**}(\mathsf{sSet})$
+with its usual model structure.
+However, neither of these approaches
+recovers the graph equivalences in \eqref{GRAPHEQ EQ},
+instead leading to a weaker notion of equivalence for which the fixed points in \eqref{GRAPHEQ EQ}
+only need to be weak equivalences for
+$\Gamma \leq G \leq G \times \Sigma_n$.
+
+
+Our main results in this paper, 
+Theorems \ref{THMI} and \ref{THMII}, %  \ref{THMIII}, 
+extends the graph equivalence model structures of
+\cite[Thm. I]{BP_geo}, \cite[Thm. 3.1]{GW18}
+from the context of single-colored operads 
+to the context of operads with any fixed $G$-set of colors.
+
+In the main result of the sequel \cite[Thm A]{BP_ACOP},
+we synthesize these into a single model structure on the category
+$\sOp^G_\bullet = \Op_\bullet(\sSet)^G$
+of equivariant operads with varying $G$-sets of colors
+(here and throughout the paper, we use $\bullet$ to indicate that colors/objects are allowed to change),
+extending the well known Dwyer-Kan model structures on all colored operads (and maps that change colors) in
+\cite[Thm 1.14]{CM13b}, \cite[Thm. 2]{Rob11}
+from the non-equivariant context to the 
+equivariant context.
+
+This paper is part of a program \cite{Per18,BP_geo,BP_edss,BP_ACOP,BP_TAS} of the authors to generalized the Cisinski-Moerdijk project of \cite{CM11,CM13a,CM13b} to the equivariant setting,
+which builds a Quillen equivalence between simplicial operads and a homotopy coherent combinatorial version akin to the quasicategories of Joyal and Lurie.
+
+Further discussion and context can be found in the introductions to e.g. 
+\cite{BP_geo,BP_ACOP,BP_TAS}.
+
+% Our motivation comes from the fact that 
+% Theorem \ref{THMIII} is necessary to 
+% generalize the Cisinski-Moerdijk project in
+% \cite{CM11}, \cite{CM13a}, \cite{CM13b} to the equivariant context.
+% We recall that their work is based on the identification of a category
+% $\Omega$ of trees, 
+% the combinatorics of which encode
+% composition of operations in an operad.
+% That project then culminates in the existence of a Quillen equivalence
+% \begin{equation}\label{CMMAINTHM EQ}
+% 	W_!\colon \mathsf{dSet} \rightleftarrows \mathsf{sOp}_{\bullet} \colon hcN
+% \end{equation}
+% where 
+% $\mathsf{sOp}_{\bullet}$
+% is the category of simplicial operads for all colors
+% (here, and throughout the paper, we use $\bullet$ to indicate 
+% that colors/objects are allowed to change),
+% $\mathsf{dSet} = \mathsf{Set}^{\Omega^{op}}$
+% is the category of presheaves on $\Omega$
+% equipped with the model structure for which the fibrant objects are the so called $\infty$-operads,
+% and the right adjoint $hcN$ is an operadic generalization of the homotopy coherent nerve of \cite{Cor82} (cf. \cite{Joy}, \cite[\S 1.1.5]{Lur09}).
+
+% Similarly, the project this paper belongs to is based on the identification by the authors of a category
+% $\Omega_G$ of \emph{$G$-trees},
+% the combinatorics of which encode compositions of norm maps in a $G$-equivariant operad.
+% %
+% One of our main goals, established
+% in the sequel to this paper as \cite[Thm. I]{BP_TAS},
+% is to show that 
+% \eqref{CMMAINTHM EQ}
+% generalizes to a Quillen equivalence 
+% \begin{equation}\label{BPMAINTHM EQ}
+% W_!\colon 
+% \mathsf{dSet}^G \rightleftarrows \mathsf{sOp}_{\bullet}^G
+% \colon hcN
+% \end{equation}
+% where the underlying categories are simply the categories 
+% of $G$-objects on the categories in 
+% \eqref{CMMAINTHM EQ},
+% but where both categories have a (non formal) notion of weak equivalence determined by graph subgroups.
+% The model structure on $\mathsf{dSet}^G$
+% was built in \cite{Per18},
+% generalizing the non-equivariant analogue result in \cite{BM11},
+% and in \cite{BP_edss} we likewise generalized \cite{CM13a},
+% which studies auxiliary model structures 
+% used in \cite{CM13b} to obtain the equivalence 
+% \eqref{CMMAINTHM EQ}.
+% Theorem \ref{THMIII} herein then builds 
+% the required model structure on 
+% $\mathsf{sOp}_{\bullet}^G$,
+% with the equivalence \eqref{BPMAINTHM EQ}
+% shown in the sequel \cite{BP_TAS}.
+
+
+Much as in the single colored case,
+building our desired model structure
+on $\mathsf{sOp}^G_{\mathfrak C} = \Op^G_{\mathfrak C}(\sSet)$,
+the category of $G$-operads with fixed $G$-set $\mathfrak C$ of colors,
+is again non formal,
+and additionally the many-colored case brings a few new notable nuances.
+
+First, in the single-colored case, we have
+$\sOp^G_{\**} = \Op_{\**}(\sSet^G)$
+that equivariant operads can be recovered as regular operads enriched in a $G$-equivariant setting.
+However, as the group $G$ may act non-trivially on the set $\mathfrak C$ of colors,
+no such result holds.
+Moreover, for fixed $G$-set $\mathfrak C$,
+$\sOp^G_{\mathfrak C}$ cannot be realized as $G$-objects in some category\footnote{
+There in an inclusion
+$\sOp^G_{\mathfrak C} \hookrightarrow \left(\sOp_{|\mathfrak C|}\right)^G$,
+where $|\mathfrak C|$ is the underlying set of $\mathfrak C$,
+and we note that the right-hand side includes all possible $G$-set structures on $|\mathfrak C|$.
+However, the sophistication needed to deal with this category is similar to what is needed in the context of
+all $G$-sets of colors simultaneously,
+and thus we do not pursue this observation further.}.
+Together, these imply that we cannot apply the formal techniques of e.g. \cite{Cav,Ste16};
+in any case, such approaches would not yield the notion of equivalences sugggested by graph subgroups.
+
+
+% Firstly, since 
+% $\mathsf{sOp}_{\bullet}^G$
+% is the category of $G$-objects on 
+% $\mathsf{sOp}_{\bullet}$
+% and the latter
+% includes maps that change colors,
+% the group $G$ typically acts non-trivially
+% on the colors $\mathfrak{C}_{\mathcal{O}}$
+% of a colored $G$-operad
+% $\O \in \mathsf{sOp}_{\bullet}^G$.
+% By contrast, in the category
+% $\mathsf{Op}_{\bullet}(\mathsf{sSet}^G)$
+% of colored operads in $\mathsf{sSet}^G$
+% the group $G$ never acts on objects (or, equivalently, acts trivially).
+% As such, there is a proper inclusion
+% $\mathsf{Op}_{\bullet}(\mathsf{sSet}^G)
+% \subsetneq \mathsf{sOp}_{\bullet}^G$,
+% so a model structure on 
+% $\mathsf{sOp}_{\bullet}^G$
+% can not be built using the enriched colored operad results of \cite{Cav}.
+% Secondly, just as in the single colored case, 
+% one could also try to build a model structure
+% on $\mathsf{sOp}^G_{\bullet}$
+% by applying 
+% \cite[Prop 2.6]{Ste16}
+% to the model structure on $\mathsf{sOp}_\bullet$.
+% Yet again such an approach would not produce
+% the desired notion of equivalences as suggested by graph subgroups.
+% %
+% It is worth noting that the issue here is intrinsically operadic
+% and does not occur when working with categories.
+% Indeed, the inclusion
+% $\mathsf{sCat}^G_{\bullet} \subset 
+% \mathsf{sOp}^G_{\bullet}$
+% of colored $G$-categories into 
+% colored $G$-operads identifies
+% $\mathsf{sCat}^G_{\bullet} = 
+% \mathsf{sOp}^G_{\bullet} \downarrow \**$
+% as the overcategory over the terminal category $\**$.
+% Hence, our model structure on 
+% $\mathsf{sOp}^G_{\bullet}$
+% induces a model structure on 
+% $\mathsf{sCat}^G_{\bullet}$ which % \emph{does}
+% in fact \emph{will} 
+% coincide with the model structure obtained by applying
+% \cite[Prop. 2.6]{Ste16}
+% to the usual model structure on $\mathsf{sCat}_{\bullet}$.
+
+
+
 
 
 
@@ -553,18 +583,18 @@ and the fact that the dendroidal nerve \cite[\S 1]{MW07} of an operad is contrav
 %$\Omega$.
 
 
-As usual in the literature on colored categories/operads
-\cite{BM07,Rob11,CM13b,Cav},
-our first step towards building the model structures 
-in Theorem \ref{THMIII}
-on the category
-$\mathsf{sOp}^G_{\bullet}$
-of equivariant operads with all colors 
-will be to build intermediate model structures on the categories
-$\mathsf{sOp}^G_{\mathfrak{C}}$
-with a fixed $G$-set of colors $\mathfrak{C}$,
-which are given by Theorem \ref{THMI}.
-Before stating this result, we discuss some preliminaries.
+% As usual in the literature on colored categories/operads
+% \cite{BM07,Rob11,CM13b,Cav},
+% our first step towards building the model structures 
+% in Theorem \ref{THMIII}
+% on the category
+% $\mathsf{sOp}^G_{\bullet}$
+% of equivariant operads with all colors 
+% will be to build intermediate model structures on the categories
+% $\mathsf{sOp}^G_{\mathfrak{C}}$
+% with a fixed $G$-set of colors $\mathfrak{C}$,
+% which are given by Theorem \ref{THMI}.
+% Before stating this result, we discuss some preliminaries.
 
 
 
@@ -621,37 +651,37 @@ this implies that $\O(\vect{C})$ has a $\Lambda$-action.
 
 
 \begin{customthm}{I}\label{THMI}
-	Let $G$ be a finite group. Fix a $G$-set of colors $\mathfrak{C}$
-	and a $(G,\Sigma)$-family $\F = \set{\F_n}_{n \geq 0}$.
-	
-	Then there exists a model structure on
-	$\mathsf{sOp}^G_{\mathfrak{C}} = 
-	\mathsf{Op}^G_{\mathfrak{C}}(\mathsf{sSet})$,
-	which we call the \emph{$\mathcal{F}$-model structure},
-	such that a map
-	$\mathcal{O} \to \mathcal{P}$
-	is a weak equivalence (resp. fibration) if the maps
-	\begin{equation}\label{THMI_EQ}
+Let $G$ be a finite group. Fix a $G$-set of colors $\mathfrak{C}$
+and a $(G,\Sigma)$-family $\F = \set{\F_n}_{n \geq 0}$.
+
+Then there exists a model structure on
+$\mathsf{sOp}^G_{\mathfrak{C}}$ ,
+%\mathsf{Op}^G_{\mathfrak{C}}(\mathsf{sSet})$,
+which we call the \emph{$\mathcal{F}$-model structure},
+such that a map
+$\mathcal{O} \to \mathcal{P}$
+is a weak equivalence (resp. fibration) if the maps
+\begin{equation}\label{THMI_EQ}
 	\O(\vect{C})^{\Lambda} \to \mathcal{P}(\vect{C})^{\Lambda}
-	\end{equation}
-	are Kan equivalences (Kan fibrations)
-	in $\mathsf{sSet}$
-	for all $\mathfrak{C}$-signatures $\vect{C}$
-	and $\Lambda \in \F$ which stabilizes $\vect{C}$.
-	
-	More generally, a model structure on 
-	$\Op^G_{\mathfrak C}(\V)$
-	with weak equivalences/fibrations determined as in 
-	\eqref{THMI_EQ}
-	exists provided that:
-	\begin{enumerate}[label = (\roman*)]
-		\item $\V$ is a cofibrantly generated model category
-		such that the domains of the generating (trivial) cofibrations are small;
-		\item for any finite group $G$, the $G$-object category $\V^G$ admits the genuine model structure (Definition \ref{GENMOD DEF});
-		\item $(\V, \otimes)$ is a closed symmetric monoidal model category with cofibrant unit;
-		\item $(\V, \otimes)$ satisfies the global monoid axiom (Definition \ref{GLOBMONAX_DEF});
-		\item $(\V, \otimes)$ has cofibrant symmetric pushout powers (Definition \ref{CSPP_DEF}).
-	\end{enumerate}
+\end{equation}
+are Kan equivalences (Kan fibrations)
+in $\mathsf{sSet}$
+for all $\mathfrak{C}$-signatures $\vect{C}$
+and $\Lambda \in \F$ which stabilizes $\vect{C}$.
+
+More generally, a model structure on 
+$\Op^G_{\mathfrak C}(\V)$
+with weak equivalences/fibrations determined as in 
+\eqref{THMI_EQ}
+exists provided that:
+\begin{enumerate}[label = (\roman*)]
+	\item $\V$ is a cofibrantly generated model category
+	such that the domains of the generating (trivial) cofibrations are small;
+	\item for any finite group $G$, the $G$-object category $\V^G$ admits the genuine model structure (Definition \ref{GENMOD DEF});
+	\item $(\V, \otimes)$ is a closed symmetric monoidal model category with cofibrant unit;
+	\item $(\V, \otimes)$ satisfies the global monoid axiom (Definition \ref{GLOBMONAX_DEF});
+	\item $(\V, \otimes)$ has cofibrant symmetric pushout powers (Definition \ref{CSPP_DEF}).
+\end{enumerate}
 \end{customthm}
 
 
@@ -694,216 +724,30 @@ indexing systems of Blumberg-Hill \cite{BH15}.
 Notably, the graph subgroups in \eqref{GRAPHEQ EQ} form an indexing system.
 
 
-\vskip 10pt
-
-
-Before stating our main result, Theorem \ref{THMIII},
-we need some additional preliminaries,
-starting with a small restriction on the 
-$(G,\Sigma)$-family $\mathcal{F} = \{\F_n\}$.
-Noting that $\F_1$ is a family of subgroups of 
-$G \times \Sigma_1^{op} \simeq G$,
-we freely identify 
-$H \in \F_1$ with the corresponding subgroup $H \leq G$.
-
-\begin{definition}\label{FAMRESUNI DEF}
-	Write $G \times \Sigma_n^{op} \xrightarrow{\pi_n} 
-	G$
-	for the natural projection.
-	
-	We say that a $(G,\Sigma)$-family $\F$ 
-	\emph{has enough units}	if,
-	for all $H \in \F_n$, $n\geq 0$,
-	it is $\pi_n(H) \in \F_1$.
-\end{definition}
-
-The motivation for this condition is discussed in Remark \ref{WHYEU REM}.
-
-
-Next, to formulate Theorem \ref{THMIII} we need a notion of 
-\emph{essential surjectivity}.
-As such, we recall the following construction, 
-which associates to a $\V$-category $\mathcal{C}$
-a \emph{category of components} $\pi_0 \mathcal{C}$.
-
-
-
-
-\begin{definition}
-	Suppose $\V$ is as in Theorem \ref{THMI}
-	(in particular, $\V$ has a cofibrant unit).
-	
-	Given $\mathcal C \in \Cat_{\mathfrak{C}}(\V)$, we define 
-	$\pi_0 \mathcal C \in \Cat_{\mathfrak{C}} = \Cat_{\mathfrak{C}}(\mathsf{Set})$ 
-	to be the ordinary category with the same objects and
-	\[
-	\pi_0(\mathcal{C})(c,d)=
-	\Ho(\V)(1_\V, \mathcal C(c,c'))=
-	[1_\V, \mathcal{C}_f(c,c')]
-	\]
-	where $[-,-]$ denotes homotopy equivalence classes of maps
-	and $\mathcal{C}_f$ denotes a fibrant replacement of
-	$\mathcal C$ in the \emph{canonical model structure} on $\Cat_{\mathfrak{C}}(\V)$
-	\cite{BM13} (also, see Remarks 
-	\ref{RESTTOCATS REM} and \ref{GTRIV REM}).
-\end{definition}
-
-Further writing 
-$j^{\**} \colon 
-\mathsf{Op}^G_{\bullet}(\V) \to \mathsf{Cat}^G_{\bullet}(\V)$
-for the ``underlying category''
-functor which forgets the non-unary operations, 
-we can now state our main result.
-
-
-
-
-\begin{customthm}{III}\label{THMIII}
-	Fix a finite group $G$ 
-	and a $(G,\Sigma)$-family $\F = \set{\F_n}_{n \geq 0}$
-	which has enough units.
-	
-	Then there exists a model structure on
-	$\mathsf{sOp}^G_{\bullet} = 
-	\mathsf{Op}^G_{\bullet}(\mathsf{sSet})$,
-	which we call the \emph{$\F$-model structure},
-	such that a map
-	$F\colon \mathcal{O} \to \mathcal{P}$
-	is a weak equivalence (resp. trivial fibration) if
-	\begin{itemize}
-		\item the maps
-		\begin{equation}\label{THMIII1ST EQ}
-		\O(\vect{C})^{\Lambda} \to \mathcal{P}(F(\vect{C}))^{\Lambda}
-		\end{equation}
-		are Kan equivalences (trivial Kan fibrations)
-		in $\mathsf{sSet}$
-		for all $\mathfrak{C}$-signatures $\vect{C}$
-		and $\Lambda \in \F$ which stabilizes $\vect{C}$;
-		\item 
-		the maps of unenriched categories
-		\begin{equation}\label{THMIII2ND EQ}
-		\pi_0 j^{\**} \O^H 
-		\to 
-		\pi_0 j^{\**} \mathcal{P}^H 
-		\end{equation}
-		are essentially surjective (surjective on objects)
-		for all $H \in \F_1$.
-	\end{itemize}
-	More generally, a $\F$-model structure on 
-	$\Op^G_{\bullet}(\V)$
-	with weak equivalences/trivial fibrations as in 
-	\eqref{THMIII1ST EQ},\eqref{THMIII2ND EQ}
-	exists provided $(\V,\otimes)$ satisfies 
-	(i),(ii),(iii),(iv),(v) in Theorem \ref{THMI}
-	as well as:
-	\begin{enumerate}
-		\item[(vi)] $\V$ is right proper;
-		\item[(vii)]
-		for any finite group $G$, fixed points
-		$(-)^{G} \colon \V^G \to \V$
-		send genuine trivial cofibrations to trivial cofibrations;
-		\item[(viii)] $(\V, \otimes)$ has a generating set of intervals
-		(Definition \ref{INTGENSET DEF}).
-	\end{enumerate}
-\end{customthm}
-
-
-\begin{remark}
-	Maps satisfying both weak equivalence conditions in 
-	\eqref{THMIII1ST EQ},\eqref{THMIII2ND EQ}
-	are called \emph{Dwyer-Kan equivalences},
-	while maps satisfying only \eqref{THMIII1ST EQ}
-	are called \emph{local equivalences}.
-\end{remark}
-
-
-\begin{remark}\label{WHYEU REM}
-	The ``enough units'' condition in Definition \ref{FAMRESUNI DEF}
-	ensures compatibility of the \emph{local equivalences}
-	in \eqref{THMIII1ST EQ}
-	with the essential surjectivity in	\eqref{THMIII2ND EQ}.
-	%
-	Informally, this guarantees the spaces 
-	$\O(\vect{C})^{\Lambda}$
-	are homotopically well behaved when replacing colors 
-	in $\vect{C}$
-	(for details, see \S \ref{HMTYEQ SEC}).
-\end{remark}
-
-
-
-
-\begin{remark}\label{WETRFCAN REM}
-	The requirement that the maps in 
-	\eqref{THMIII1ST EQ}
-	are weak equivalences implies that the maps in
-	\eqref{THMIII2ND EQ}
-	are fully faithful.
-	Therefore, the condition following \eqref{THMIII2ND EQ}
-	can be restated as saying that those maps are
-	equivalences of categories (resp. equivalences of categories that are surjective on objects) or, in other words,
-	that the maps in \eqref{THMIII2ND EQ}
-	are weak equivalences/trivial fibrations in the canonical model structure on the category $\mathsf{Cat}$ of unenriched categories
-	\cite{Rez}.
-\end{remark}
-
-
-
-
-\begin{remark}\label{FIBSALT REM}
-	In light of Remark \ref{WETRFCAN REM}, 
-	it is natural to ask if the fibrations in Theorem \ref{THMIII}
-	admit an analogous description.
-	That is, we may ask if a map $F\colon \O \to \mathcal{P}$
-	is a fibration in the sense of Theorem \ref{THMIII}
-	iff the maps in 
-	\eqref{THMIII1ST EQ}
-	are Kan fibrations in $\mathsf{sSet}$
-	and the maps in
-	\eqref{THMIII2ND EQ}
-	are isofibrations (i.e. fibrations in the canonical model structure in $\mathsf{Cat}$).
-	
-	However, at our level of generality we can only guarantee the 
-	``only if'' direction of this characterization.
-	For the ``if'' direction to hold we need to either demand
-	that $\P$ itself is fibrant or
-	impose an extra condition on the unit of $\V$ (which happens to be satisfied by $\mathsf{sSet}$).
-	See Propositions \ref{ISOFIBEASY PROP} and \ref{ISOFIBHARD PROP} for more details.
-\end{remark}
-
-
 
 \begin{remark}\label{RESTTOCATS REM}
-	As noted at the end of the introduction, 
-	there is an identification
-	$\Cat_\bullet^G(\V) \simeq \Op_\bullet^G(\V) \downarrow \**$,
+        There are identifications
+	$\Cat_\bullet^G(\V) \simeq \Op_\bullet^G(\V) \downarrow \**$ and
+        $\Cat_{\mathfrak C}^G(\V) \simeq \Op_{\mathfrak C}^G(\V) \downarrow \**$,
 	where $\**$ denotes the terminal $\V$-category,
-	so the $\F$-model structure on $\Op_\bullet^G(\V)$
-	also induces a model structure on $\Cat_\bullet^G(\V)$.
-	Since $\Cat_\bullet^G(\V)$ contains only unary operations,
+	so the $\F$-model structure on $\Op_{\mathfrak C}^G(\V)$
+	also induces a model structure on $\Cat_{\mathfrak C}^G(\V)$.
+	Since $\Cat_{\mathfrak C}^G(\V)$ contains only unary operations,
 	this latter model structure depends only on $\F_1$,
 	which is identified with a family of subgroups of $G$ itself.
-	In fact, the resulting model structure on 
-	$\Cat_\bullet^G(\V)$ matches the model structure 
-	obtained by applying \cite{Ste16}
-	to the family $\F_1$ and the canonical model structure on
-	$\Cat_\bullet(\V)$.
-	
-	Moreover, we note that the analogues for $\Cat_\bullet^G(\V)$
-	of all three of Theorems \ref{THMI},\ref{THMII},\ref{THMIII}
+        Moreover, we note that the analogues for $\Cat_{\mathfrak C}^G(\V)$
+	of both Theorems \ref{THMI} and \ref{THMII}
 	follow from our proofs without using either
 	the cofibrant pushout power condition (v)
 	in Theorem \ref{THMI}
-	or (vii) in Theorem \ref{THMIII},
-	and without additional restrictions on $\F_1$
-	(i.e. no analogues of the  pseudo indexing system and ``enough units'' conditions are needed).
-	For details, see Remarks \ref{CSPNTHI REM}, \ref{ALBEETA REM}.
+	(i.e. no analogues of the pseudo indexing system condition is needed).
+	For details, see Remark \ref{CSPNTHI REM}. % \cite[Remark \ref{ALBEETA REM}]{BP_ACOP}
 \end{remark}
 
 
 
 \begin{remark}\label{SEMI_REM}
-	When working with operads, some authors (e.g. \cite{Spi,Whi17,WY18})
+	When working with operads, many authors (e.g. \cite{Spi,Whi17,WY18}, including ourselves \cite{BP_geo})
 	discuss \emph{semi-model structures}.
 	Briefly, these are a weakening of Quillen's original definition
 	where those factorization and lifting axioms
@@ -913,14 +757,14 @@ we can now state our main result.
 	We note that, in particular, semi-model structures suffice for 
 	performing %cofibrant and 
 	bifibrant replacements.
-	
+        
 	The semi-model structure analogues of 
-	Theorems \ref{THMI},\ref{THMII},\ref{THMIII}
+	Theorems \ref{THMI} and \ref{THMII}
 	can be obtained by slight variants of our proofs
 	without using the global monoid axiom (iv).
 	% in Theorem \ref{THMI}.
-	For details, see Remarks \ref{THMISM REM}, 
-	\ref{JCELLSM REM}, \ref{MONAXSUP REM}.
+	For details, see Remark \ref{THMISM REM}.
+	% \ref{JCELLSM REM}, \ref{MONAXSUP REM}.
 \end{remark}
 
 
@@ -936,19 +780,17 @@ we can now state our main result.
 	(v) of Theorem \ref{THMI}.
 	However, in this specific case 
 	there are less restrictive sufficient conditions available in the literature, such as those in \cite[Thm. 1.1]{PS18}.
-	
+
 	If one further specifies to 
-	$G=\**$ and the categorical case $\Cat_\bullet(\V)$,
+	$G=\**$ and the categorical case $\Cat_{\mathfrak C}(\V)$,
 	there is only one interesting choice of family $\F_1$,
 	i.e. the non-empty family of subgroups of $\Sigma_1$,
 	which recovers the \emph{canonical model structure} on 
-	$\Cat_\bullet(\V)$ discussed in \cite{BM13}.
+	$\Cat_{\mathfrak c}(\V) \subseteq \Cat_\bullet(\V)$ discussed in \cite{BM13}.
 	In this case, an analysis of our proofs shows that
 	one \emph{can}
 	drop assumptions (iii),(v) of Theorem \ref{THMI},
-	assumption (vii) of Theorem \ref{THMIII},
 	and replace the global monoid axiom in (iv) 
-	of Theorem \ref{THMI}
 	with the usual Schwede-Shipley
 	monoid axiom \cite{SS00}
 	(see Remark \ref{MONAX_REM}),
@@ -965,8 +807,8 @@ we can now state our main result.
 
 The examples of 
 model categories satisfying 
-all of conditions (i) through (vii)
-in Theorems \ref{THMI} and \ref{THMIII}
+all of conditions (i) through (v)
+in Theorem \ref{THMI}
 are fairly limited, 
 mostly due to 
 the cofibrant pushout powers axiom (v),
@@ -978,25 +820,27 @@ in Remarks
 
 Below we list those examples of categories satisfying all conditions that we are aware of.
 \begin{enumerate}[label = (\alph*)]
-	\item $(\mathsf{sSet},\times)$ or $(\mathsf{sSet}_{\**},\wedge)$
-	with the Kan model structure.
-	\item $(\mathsf{Top},\times)$ or $(\mathsf{Top}_{\**},\wedge)$
-	with the usual Serre model structure.
-	\item $(\mathsf{Set},\times)$ the category of sets with its canonical model structure,
-	where weak equivalences are the bijections and all maps are both cofibrations and fibrations.
-	\item $(\Cat,\times)$ the category of usual categories
-	with the ``folk'' or canonical model structure (e.g. \cite{Rez})
-	where weak equivalences are the equivalences of categories,
-	cofibrations are the functors which are injective on objects,
-	and fibrations are the isofibrations.
+\item $(\mathsf{sSet},\times)$ or $(\mathsf{sSet}_{\**},\wedge)$
+with the Kan model structure.
+\item $(\mathsf{Top},\times)$ or $(\mathsf{Top}_{\**},\wedge)$
+with the usual Serre model structure.
+\item $(\mathsf{Set},\times)$ the category of sets with its canonical model structure,
+where weak equivalences are the bijections and all maps are both cofibrations and fibrations.
+\item $(\Cat,\times)$ the category of usual categories
+with the ``folk'' or canonical model structure (e.g. \cite{Rez})
+where weak equivalences are the equivalences of categories,
+cofibrations are the functors which are injective on objects,
+and fibrations are the isofibrations.
 \end{enumerate}
-In all these cases, conditions (i),(iii),(vi) are well known and
-(viii) follows from either 
-\cite[Lemma 1.12]{BM13} or \cite[Lemma 2.1]{BM13}.
+In all these cases, conditions (i) and (iii) % and (vi)
+are well known.
+% and
+% (viii) follows from either 
+% \cite[Lemma 1.12]{BM13} or \cite[Lemma 2.1]{BM13}.
 Moreover,
-the existence of the genuine model structures on $\V^G$ in (ii),
-the global monoid axiom in (iv),
-and the fixed point condition in (vii)
+the existence of the genuine model structures on $\V^G$ in (ii)
+and the global monoid axiom in (iv)
+% and the fixed point condition in (vii)
 all follow from Proposition \ref{WEAKCELL PROP}
 since these $(\V,\otimes)$ satisfy the usual monoid axiom and
 are readily seen to satisfy the conditions in Definition \ref{WEAKCELL DEF}.
@@ -1033,14 +877,18 @@ It then follows that $u^{\square n}$
 is a pushout of the map
 $\Sigma_n/\Sigma_n \cdot (0 \rightleftarrows 1)$.
 
-
+\begin{remark}
+        These examples also satisfy the axioms necessary for \cite[Thm A]{BP_ACOP},
+        yielding a Dwyer-Kan model structure on $\Op_\bullet^G(\V)$.
+        See \cite[\S 1.2]{BP_ACOP} for details.
+\end{remark}
 
 
 \begin{remark}\label{CPPWHY REM}
 	As noted above, the cofibrant pushout powers
 	condition (v) is the most restrictive 
 	out of all the conditions in 
-	Theorems \ref{THMI} and \ref{THMIII}.
+	Theorem \ref{THMI}. % and \ref{THMIII}.
 	Nonetheless, we chose to use this property 
 	since it has two very convenient bootstrapping properties.
 	Firstly, as used in the previous discussion, \cite[Rmk. 6.17]{BP_geo}
@@ -1065,8 +913,8 @@ example for which our results do not apply.
 	The category $(\mathsf{Sp}^{\Sigma}(\mathsf{sSet}),\wedge)$
 	of symmetric spectra (on simplicial sets),
 	with the positive $S$ model structure,
-	satisfies most of the axioms in Theorems 
-	\ref{THMI} and \ref{THMIII}, 
+	satisfies most of the axioms in Theorem
+	\ref{THMI} (and \cite[Thm A]{BP_ACOP}), 
 	with the exceptions being 
 	the cofibrant unit requirement in (iii)
 	and the cofibrant pushout powers axiom in (v).
@@ -1087,11 +935,11 @@ example for which our results do not apply.
 	Proposition \ref{SIGMAWRGF PROP}, and its direct precursor
 	\cite[Prop. 6.24]{BP_geo}
 	were originally inspired by \cite[Thm. 1.2]{Pe16}).
-	
+
 	As such, we believe that symmetric spectra
 	$\mathsf{Sp}^{\Sigma}(\mathsf{sSet})$
 	likely satisfy a close analogue of Theorems 
-	\ref{THMI}, \ref{THMII}, \ref{THMIII}.
+	\ref{THMI}, \ref{THMII} (and \cite[Thm A]{BP_ACOP}).
 	However, such results 
 	would be fundamentally unsatisfying, 
 	since the resulting notion of weak equivalence on
@@ -1100,11 +948,11 @@ example for which our results do not apply.
 	does not match the correct notion of 
 	\emph{genuine equivalences of $G$-spectra}.
 	More precisely, the latter equivalences are a localization of the former, so that the direct analogues of 
-	Theorems \ref{THMI}, \ref{THMII}, \ref{THMIII}
+	Theorems \ref{THMI}, \ref{THMII} (and \cite[Thm A]{BP_ACOP})
 	would at best represent only an intermediate step
 	towards the ``genuine'' results
 	for equivariant colored spectral operads.
-	
+
 	More generally,
 	for an arbitrary model category $\V$,
 	the initial choice of the $(G,\Sigma)$-family $\F$ in  
@@ -1116,17 +964,14 @@ example for which our results do not apply.
 
 
 
-
-
-
 \subsection{Outline}
 
 
 In \S \ref{PRE SEC} we start by discussing some preliminary notions that will be needed throughout.
 As noted in the introduction to 
-\S \ref{PRE SEC}, our treatment will be simplified by regarding the category
-$\mathsf{Op}_{\bullet}(\V)$
-as suitably ``fibered'' over the category $\mathsf{Set}$
+\S \ref{PRE SEC}, our color-fixed treatment will be simplified by a universal approach,
+working with the category $\Op_\bullet(\V)$ of all colors simultaneously,
+regarded as suitably ``fibered'' over the category $\mathsf{Set}$
 of sets.
 To that end, 
 \S \ref{GROTFIB SEC}
@@ -1188,36 +1033,31 @@ Lastly, \S \ref{INDSYS SEC} proves Theorem \ref{THMII}
 via a more careful analysis of the argument in the proof of 
 Theorem \ref{THMI}.
 
-Our final main section, \S \ref{MS_SEC}, is dedicated to proving 
-Theorem \ref{THMIII}.
-In \S \ref{MAPSOPG_SEC} we identify the relevant classes of maps
-in $\mathsf{Op}^G_{\bullet}(\V)$.
-Then, in \S \ref{GENCOF SEC} we identify
-the necessary sets of generating (trivial) cofibrations,
-and outline the overall proof of Theorem \ref{THMIII},
-with \S \ref{TRIVCOF_SEC},\ref{EQUIVOBJ_SEC},\ref{HMTYEQ SEC}
-concluding the proof by addressing the hardest steps.
-Additionally, \S \ref{ISOFIB_SEC} discusses an alternate description
-of the fibrations in
-$\mathsf{Op}^G_{\bullet}(\V)$,
-elaborating on 
-Remark \ref{FIBSALT REM}.
+% Our final main section, \S \ref{MS_SEC}, is dedicated to proving 
+% Theorem \ref{THMIII}.
+% In \S \ref{MAPSOPG_SEC} we identify the relevant classes of maps
+% in $\mathsf{Op}^G_{\bullet}(\V)$.
+% Then, in \S \ref{GENCOF SEC} we identify
+% the necessary sets of generating (trivial) cofibrations,
+% and outline the overall proof of Theorem \ref{THMIII},
+% with \S \ref{TRIVCOF_SEC},\ref{EQUIVOBJ_SEC},\ref{HMTYEQ SEC}
+% concluding the proof by addressing the hardest steps.
+% Additionally, \S \ref{ISOFIB_SEC} discusses an alternate description
+% of the fibrations in
+% $\mathsf{Op}^G_{\bullet}(\V)$,
+% elaborating on 
+% Remark \ref{FIBSALT REM}.
 
 
 
-
-Lastly, in Appendix \ref{MONAD_APDX}
+In Appendix \ref{MONAD_APDX},
 we fill in some technical work that was postponed in \S \ref{PRE SEC}, \S\ref{FIXCOL SEC},
 by providing the full description of the ``free operad monad''
 from \S \ref{EQCOSYMSEQ SEC}
 and by proving Lemma \ref{OURE LEM},
 which provides the key filtrations used in the proofs of
 Theorems \ref{THMI} and \ref{THMII}.
-
-
-
-
-
+ 
 
 
 
@@ -1227,15 +1067,17 @@ Theorems \ref{THMI} and \ref{THMII}.
 
 Much as in the non-equivariant case, 
 our approach to building the model structures
-in Theorem \ref{THMIII},
+in \cite[Thm. \ref{AC-THMIII}]{BP_ACOP},
 on the category $\mathsf{Op}^G_{\bullet}(\V)$
 of equivariant operads on all sets of colors,
 will be to first build the model structures in Theorem \ref{THMI},
 on the subcategories $\mathsf{Op}^G_{\mathfrak{C}}(\V)$
 with a fixed $G$-set of colors $\mathfrak{C}$.
 
-However, the equivariant setting presents some technical challenges that will require us to repackage the non-equivariant narrative of
-\cite{CM13b},\cite{Cav} somewhat.
+However, the equivariant setting preesents some
+technical challenges that will
+require us to somewhat repackage the non-equivarinat narrative of \cite{CM13b,Cav}.
+
 
 To see why, recall that \cite{CM13b},\cite{Cav}
 follow a ``work color by color and then assemble'' strategy.
@@ -3337,7 +3179,7 @@ $G \ltimes \Sigma_{\mathfrak{C}}^{op}$.
 Our goal in this section is to describe the category 
 $\mathsf{Op}^{G}_{\bullet}(\V)$
 of equivariant colored operads in a way suitable for our 
-proof of the main theorems in \S \ref{FIXCOL SEC} and \S \ref{MS_SEC}.
+proof of the main theorems in \S \ref{FIXCOL SEC}. % and \S \ref{MS_SEC}.
 
 We start by considering the non-equivariant case
 $G = \**$,
@@ -3789,7 +3631,7 @@ the filtrations of free operad extensions
 in Lemma \ref{OURE LEM}
 (whose proof is deferred to Appendix \ref{MONAD_APDX}).
 
-Lastly, \S \ref{MS_SEC} proves 
+Lastly, \S \ref{INDSYS SEC} proves 
 Theorem \ref{THMII} via a more careful analysis
 of the filtrations in the proof of Theorem \ref{THMI}.
 
@@ -4689,7 +4531,7 @@ we will be interested in three main examples of $(G,\Sigma)$-families:
 	\mathsf{dSet}^G \rightleftarrows 
 	\mathsf{dSet}^G \colon hcN$
 	in \cite[Thm. I]{BP_TAS} 
-	(see \eqref{BPMAINTHM EQ}).
+	(see \cite[Equation \eqref{AC-BPMAINTHM_EQ}]{BP_ACOP}).
 	
 	\item Lastly, there are the indexing systems of Blumberg and Hill,
 	which are special subfamilies of $\F^{\Gamma}$
@@ -8718,8 +8560,8 @@ We can finally prove Lemma \ref{OURE LEM}.
 This subsection is dedicated to proving
 Corollary \ref{LOCALISO_COR} below,
 which was used 
-during the proof of Proposition \ref{J-CELL_PROP}
-in \S \ref{TRIVCOF_SEC},
+during the proof of \cite[Prop. \ref{AC-J_CELL_PROP}]{BP_ACOP},
+%in \S \ref{TRIVCOF_SEC},
 and deals with pushouts in 
 $\mathsf{Op}_{\bullet}(\V)$
 whose maps are injective on colors.
