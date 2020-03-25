@@ -901,7 +901,8 @@ are weak equivalences/trivial fibrations in the canonical model structure on the
 	or (vii) in Theorem \ref{THMA},
 	and without additional restrictions on $\F_1$
 	(i.e. no analogues of the  pseudo indexing system and ``enough units'' conditions are needed).
-	For details, see Remarks \ref{CSPNTHI REM}, \ref{ALBEETA REM}.
+	For details, see \cite[Rem. \ref{OC-CSPNTHI REM}]{BP_FCOP} and
+	Remark \ref{ALBEETA REM}.
 \end{remark}
 
 
@@ -3777,7 +3778,7 @@ $\mathsf{Op}^{G}_{\mathfrak{C}}(\V)$.
 The key ingredients to this proof are
 Proposition \ref{SIGMAWRGF PROP} in \S \ref{EHT_SEC} and
 the filtrations of free operad extensions 
-in Lemma \ref{OURE LEM}
+in \cite[Lemma \ref{OC-OURE LEM}]{BP_FCOP}
 (whose proof is deferred to \cite[App. \ref{OC-MONAD_APDX}]{BP_FCOP}).
 
 Lastly, \S \ref{MS_SEC} proves 
@@ -4918,407 +4919,92 @@ $\mathsf{Sym}^G_{\mathfrak{C}}(\V)$.
 %
 
 
-The key to proving Theorem \ref{THMI} will be a suitable filtration of free operad extensions in $\mathsf{Op}_{\mathfrak{C}}^G(\V)$,
-i.e. of pushouts as in \eqref{OURE EQ} below.
-This filtration is given by Lemma \ref{OURE LEM},
-whose proof is postponed to \cite[\S \ref{OC-PUSHOUT_SEC}]{BP_FCOP}.
-%culminating in Proposition \ref{FILTPUSHG PROP}.
-The following discussion and lemma summarizes the key properties of the filtration we will need.
-
-We denote by $\Omega^a_{\mathfrak{C}}$
-the $\mathfrak{C}$-colored variant of the 
-\emph{alternating trees} $\Omega^a$ of \cite[Def. 5.52]{BP_geo}
-(formally, $\Omega^a_{\mathfrak{C}}$ is defined by copying
-Definition \ref{COLFOR DEF} but with 
-$F$, $\rho \colon F \to F'$ therein now in $\Omega^a$).
-%
-Its objects are trees $\vect{T}$ 
-whose set of vertices is partitioned into ``active'' and ``inert'' vertices,
-$\boldsymbol{V}(\vect T) = 
-\boldsymbol{V}^{ac}(\vect T) \amalg \boldsymbol{V}^{in}(\vect T)$,
-in such a way that adjacent vertices are in different sides of the partition and the ``outer vertices'' (i.e. those adjacent to a leaf or root) are active.
-Its maps are informally described as tall maps of trees that 
-``send inert vertices to inert vertices''.
-
-\begin{example}\label{ALTMAP EX}
-	Below we depict a planar alternating map $f \colon T \to S$
-	between alternating trees $S,T \in \Omega^a$.
-	Active vertices are black $\bullet$ and inert vertices are white $\circ$.
-	Pictorially, active vertices $\bullet$
-	can be expanded to an alternating tree of the same arity,
-	while inert vertices $\circ$ are preserved.
-	\[
-	\begin{tikzpicture}[grow=up,auto,level distance=2.3em,every node/.style = {font=\footnotesize},dummy/.style={circle,draw,inner sep=0pt,minimum size=2.1mm}]
-	\tikzstyle{level 2}=[sibling distance = 4em]
-	\tikzstyle{level 3}=[sibling distance = 3em]
-	\tikzstyle{level 4}=[sibling distance = 1.5em]
-	\node at (0,0.75) [font = \normalsize] {$T$}
-	child{node [dummy,fill = black] {}
-		child{node [dummy,fill=white] {}
-			child{node [dummy,fill = black] {}
-				child
-				child
-			}
-			child{node [dummy,fill = black] {}
-				edge from parent node [near end] {$d$}}
-			edge from parent node [swap] {$e$}}
-		child{node [dummy,fill=white] {}
-			edge from parent node [swap, near end] {$c$}}
-		child{node [dummy,fill=white] {}
-			child{node [dummy,fill = black] {}
-				child
-				edge from parent node [swap, near end] {$a\phantom{d}$}}
-			child{node [dummy,fill = black] {}
-				child
-				child
-			}
-			edge from parent node {$b$}}
-	};
-	\begin{scope}[level distance=1.75em]
-	\tikzstyle{level 3}=[sibling distance = 6em]
-	\tikzstyle{level 4}=[sibling distance = 4em]
-	\tikzstyle{level 5}=[sibling distance = 3em]
-	\tikzstyle{level 6}=[sibling distance = 1.5em]
-	\tikzstyle{level 7}=[sibling distance = 1em]
-	\node at (8,0) [font = \normalsize] {$S$}
-	child{node [dummy,fill = black] {}
-		child{node [dummy,fill = white] {}
-			child{node [dummy,fill = black] {}
-				child{node [dummy,fill=white] {}
-					child{node [dummy,fill = black] {}
-						child
-						child
-					}
-					child{node [dummy,fill = black] {}
-						child{node [dummy,fill=white] {}
-							child{node [dummy,fill = black] {}}
-							child{node [dummy,fill = black] {}}
-						}
-						child{node [dummy,fill=white] {}}
-						edge from parent node [near end] {$d$}}
-					edge from parent node [swap] {$e\phantom{1}$}}
-			}
-			child{node [dummy,fill = black] {}
-				child{node [dummy,fill=white] {}
-					edge from parent node [swap, near end] {$c\phantom{1}$}}
-				child{node [dummy,fill=white] {}
-					child{node [dummy,fill = black] {}
-						child{node [dummy,fill=white] {}
-							child{node [dummy,fill = black] {}
-								child
-							}
-						}
-						edge from parent node [swap,near end] {$a\phantom{d}$}}
-					child{node [dummy,fill = black] {}
-						child
-						child
-					}
-					edge from parent node [near end] {$\phantom{1}b$}}
-			}
-		}
-	};
-	\end{scope}
-	\draw [->] (2.5,2) -- node [swap] {$f$} (5,2);
-	\end{tikzpicture}
-	\]
-\end{example}
 
 
 
 
-Furthermore, we write
-$\Omega_{\mathfrak C}^a[k] \subseteq \Omega_{\mathfrak C}^a$
-for the full subcategory of $\vect{T}$ such that 
-$|\boldsymbol{V}^{in}(\vect{T})| = k$,
-i.e. such that $\vect{T}$ has exactly $k$ inert vertices.
-Crucially, $\Omega^a_{\mathfrak{C}}[k]$
-turns out to be a groupoid
-(indeed, maps in $\Omega^a_{\mathfrak{C}}[k]$ can only replanarize vertices, 
-or else the number of $\circ$ vertices would increase).
-%
-Adapting \eqref{LRDEF EQ} and \eqref{VFUNDEF EQ}, 
-we have functors
-\[
-\mathsf{lr}_{\mathfrak C}^{a} \colon
-\Omega^a_{\mathfrak{C}}[k]
-\to
-\Sigma_{\mathfrak{C}}
-	\qquad
-\boldsymbol{V}^{in} \colon
-\Omega^a_{\mathfrak{C}}[k]
-\to
-\Sigma_k \wr \Sigma_{\mathfrak{C}}
-\]
-where $\mathsf{lr}_{\mathfrak C}^{a}$ is defined as before (one just ignores the vertex partition data)
-and $\boldsymbol{V}^{in}$ is the tuple containing only the inert vertices.
 
-
-
-\begin{lemma}\label{OURE LEM}
-Fix a $G$-set of colors $\mathfrak{C}$ and let
-$u\colon X \to Y$ be a map in $\mathsf{Sym}^G_{\mathfrak{C}}(\V)$
-and
-$\mathbb{F} X \to \O$ be a map in $\mathsf{Op}^G_{\mathfrak{C}}(\V)$.
-Then, for the pushout 
-\begin{equation}\label{OURE EQ}
-\begin{tikzcd}
-	\mathbb F X \arrow[d, "\mathbb{F}u"'] \arrow[r]
-&
-	\O \arrow[d]
-\\
-	\mathbb F Y \arrow[r]
-&
-\O[u]
-\end{tikzcd}
-\end{equation}
-in the category of operads $\mathsf{Op}^G_{\mathfrak{C}}(\V)$
-the map $\O \to \O[u]$ admits an underlying filtration
-\begin{equation}\label{OUFILRE EQ}
-\O = \O_0 \to \O_1 \to \O_2 \to \cdots \to \O_{\infty} = \O[u]
-\end{equation}
-of maps in $\mathsf{Sym}^G_{\mathfrak{C}}(\V)$ 
-where each map $\O_{k-1} \to \O_k$ fits into a pushout
-\begin{equation}\label{OUPUSHRE EQ}
-\begin{tikzcd}
-	\bullet 
-	\arrow{d}[swap]{\left(\mathsf{lr}_{\mathfrak C}^{a,op}\right)_!
-	n_k^{(\O,X,Y)}}
-	 \arrow[r]
-&
-	\O_{k-1} \arrow[d]
-\\
-	\bullet \arrow[r]
-&
-	\O_k
-\end{tikzcd}
-\end{equation}
-for 
-$
-\left(\mathsf{lr}_{\mathfrak C}^{a,op}\right)_! \colon
-\mathcal{V}^{G \ltimes \Omega^a_{\mathfrak{C}}[k]^{op}}
-\to
-\mathcal{V}^{G \ltimes \Sigma_{\mathfrak{C}}^{op}}
-=
-\mathsf{Sym}^G_{\mathfrak{C}}(\V)
-$
-is as in Proposition \ref{EQQUILADJ PROP}
-and $n_k^{(\O,X,Y)}$ the natural transformation in 
-$\mathcal{V}^{G \ltimes \Omega^a_{\mathfrak{C}}[k]^{op}}$
-whose constituent arrows for $\vect{T} \in \Omega^a_{\mathfrak C}[k]$ are
-\begin{equation}\label{NKOXY EQ}
-n_k^{(\O,X,Y)}(\vect{T})=
-	\left(
-		\bigotimes_{v \in \boldsymbol{V}^{ac}(\vect{T})}\O(\vect{T}_v)
-	\otimes
-		\mathop{\mathlarger{\mathlarger{\mathlarger{\square}}}}\limits_{v \in \boldsymbol{V}^{in}(\vect{T})} u(\vect{T}_v)
-          \right)
-          =
-          \left(
-                \mathop{\mathlarger{\mathlarger{\mathlarger{\square}}}}\limits_{v \in \boldsymbol{V}^{ac}(\vect{T})} \left( \emptyset \to \O(\vect{T}_v)\right) 
-          \square
-          \mathop{\mathlarger{\mathlarger{\mathlarger{\square}}}}\limits_{v \in \boldsymbol{V}^{in}(\vect{T})} u(\vect{T}_v)
-          \right)
-\end{equation}
-\end{lemma}
-
-
-We can now prove our first main result, Theorem \ref{THMI}.
-
-
-\begin{proof}[Proof of Theorem \ref{THMI}]    
-Writing
-$\mathcal{I}_{\mathfrak{C},\mathcal{F}}$,
-$\mathcal{J}_{\mathfrak{C},\mathcal{F}}$
-for the generating sets
-of the $\F$-model structure on 
-$\mathsf{Sym}^G_{\mathfrak{C}}(\V)$
-(cf. Remark \ref{VGSIGF REM}),
-it is immediate by adjunction
-that the desired transfer $\F$-model structure
-on $\mathsf{Op}^G_{\mathfrak{C}}(\V)$
-will have generating sets 
-$\mathbb{F}^G_{\mathfrak{C}}\mathcal{I}_{\mathfrak{C},\mathcal{F}}$,
-$\mathbb{F}^G_{\mathfrak{C}}\mathcal{J}_{\mathfrak{C},\mathcal{F}}$.
-	 
-By \cite[Thm. 11.3.2]{Hir03},
-we need only show that all maps in
-$(\mathbb{F}^G_{\mathfrak{C}}\mathcal{J}_{\mathfrak{C},\mathcal{F}})$-cell
-are $\F$-weak equivalences in $\mathsf{Sym}^G_{\mathfrak{C}}(\V)$.
-Moreover, since trivial $\F$-cofibrations are genuine trivial cofibrations and 
-genuine weak equivalences are $\F$-weak equivalences, one needs only consider the genuine case, i.e. the case of $\F_{all}$ the family of all subgroups (this repeats the argument in \eqref{FAMTOGEN EQ}).
-
-
-Since we are assuming $\V$ satisfies the global monoidal axiom,
-cf. Definition \ref{GLOBMONAX_DEF}, 
-it is thus enough to show that pushouts of maps in 
-$(\mathbb{F}^G_{\mathfrak{C}}\mathcal{J}_{\mathfrak{C},\mathcal{F}_{all}})$,
-i.e. maps $\O \to \O[u]$ in \eqref{OURE EQ}
-for $u \in \mathcal{J}_{\mathfrak{C},\mathcal{F}_{all}}$,
-are equivariant $\otimes$-trivial cofibrations
-in $\mathsf{Sym}^G_{\mathfrak{C}}(\V) = \V^{G \ltimes \Sigma^{op}_{\mathfrak{C}}}$.
-
-
-
-We thus now assume 
-$u \in \mathcal{J}_{\mathfrak{C},\mathcal{F}_{all}}$.
-Now note that, for $\vect{T} \in \Omega^a_{\mathfrak{C}}[k]$,
-it is
-\[
-	\mathop{\mathlarger{\mathlarger{\mathlarger{\square}}}}\limits_{v \in \boldsymbol{V}^{in}(\vect{U})} u(\vect{T}_v)
-=
-	u^{\square k}\left( \boldsymbol{V}^{in}(\vect T) \right)
-\]
-where
-$u^{\square k} \in 
-\V^{\Sigma_k \wr (G \ltimes \Sigma^{op}_{\mathfrak{C}})}$
-is as defined in \eqref{FSQNDEF EQ}.
-By Proposition \ref{SIGMAWRGF PROP},
-$u^{\square k}$ is a genuine trivial cofibration in 
-$\V^{\Sigma_k \wr (G \ltimes \Sigma^{op}_{\mathfrak{C}})}$
-so that,
-by Proposition \ref{EQQUILADJ PROP},
-$u^{\square k}(\boldsymbol{V}^{in}(-))$
-is similarly a genuine trivial cofibration in 
-$\V^{G \ltimes \Omega^{a,op}_{\mathfrak{C}}[k]}$.
-It is now clear that
-the map $n_k^{(\O,X,Y)}$ in \eqref{NKOXY EQ}
-is an equivariant
-$\otimes$-trivial cofibration in 
-$\V^{G \ltimes \Omega^{a,op}_{\mathfrak{C}}[k]}$,
-so that by 
-Proposition \ref{REGEOTCOF PROP}
-the maps $\O_{k-1} \to \O_{k}$
-in the pushouts \eqref{OUPUSHRE EQ}
-are genuine $\otimes$-trivial cofibrations
-in 
-$\mathsf{Sym}^G_{\mathfrak{C}}(\V)
-= \V^{G\ltimes \Sigma^{op}_{\mathfrak{C}}}$.
-Thus the composite $\O \to \O[u]$
-is also an
-equivariant $\otimes$-trivial cofibration,
-and the result follows.
-\end{proof}
+\section{Preliminaries for ALL COLORS paper}
 
 
 
 
-For later reference, 
-we highlight two consequences of the previous proof.
+\subsection{On model structures on fibers}
+
+
 
 
 \begin{remark}\label{GOTC_REM}
-$\F$-trivial cofibrations in $\Op^G_{\mathfrak C}(\V)$ are underlying genuine $\otimes$-trivial cofibrations
-in $\mathsf{Sym}^G_{\mathfrak C}(\V)$.
+	$\F$-trivial cofibrations in $\Op^G_{\mathfrak C}(\V)$ are underlying genuine $\otimes$-trivial cofibrations
+	in $\mathsf{Sym}^G_{\mathfrak C}(\V)$.
 \end{remark}
 
 \begin{remark}
-The generating (trivial) cofibrations in
-$\mathsf{Op}^G_{\mathfrak{C},\F}(\V)$
-are the sets
-\begin{equation}\label{FVGSIGF EQ}
+	The generating (trivial) cofibrations in
+	$\mathsf{Op}^G_{\mathfrak{C},\F}(\V)$
+	are the sets
+	\begin{equation}\label{FVGSIGF EQ}
 	\mathbb{F}^G_{\mathfrak{C}}\mathcal{I}_{\mathfrak{C},\mathcal{F}}
-=
+	=
 	\left\{
 	\mathbb{F}^G_{\mathfrak{C}}
 	\left(\Sigma_{\mathfrak{C}}[G \cdot_{\mathfrak{C}} \vect{C}]/\Lambda \cdot i \right)
 	\right\}
-\qquad \qquad
+	\qquad \qquad
 	\mathbb{F}^G_{\mathfrak{C}}\mathcal{I}_{\mathfrak{C},\mathcal{F}}
-=
+	=
 	\left\{
 	\mathbb{F}^G_{\mathfrak{C}}
 	\left(\Sigma_{\mathfrak{C}}[G \cdot_{\mathfrak{C}} \vect{C}]/\Lambda \cdot j \right)
 	\right\}
-\end{equation}
-where $\vect{C}$ ranges over $\Sigma_{\mathfrak{C}}$,
-$\Lambda$ ranges over $\F_{\vect{C}}$,
-$i$ ranges over $\mathcal{I}$,
-and $j$ ranges over $\mathcal{J}$.
+	\end{equation}
+	where $\vect{C}$ ranges over $\Sigma_{\mathfrak{C}}$,
+	$\Lambda$ ranges over $\F_{\vect{C}}$,
+	$i$ ranges over $\mathcal{I}$,
+	and $j$ ranges over $\mathcal{J}$.
 \end{remark}
+
+
+{\color{red} HERE}
 
 
 
 \begin{corollary}\label{OPADJ_COR}
-\begin{enumerate}[label=(\roman*)]
-\item \label{OPCOCHADJ_LBL}
-	For any $(G,\Sigma)$-family $\F$ and map of colors 
-	$\varphi \colon \mathfrak C \to \mathfrak D$, the induced adjunction
+	[cf. \cite[Cor. \ref{OC-OPADJ_COR}]{BP_FCOP}]
+	\begin{enumerate}[label=(\roman*)]
+		\item \label{OPCOCHADJ_LBL}
+		For any $(G,\Sigma)$-family $\F$ and map of colors 
+		$\varphi \colon \mathfrak C \to \mathfrak D$, the induced adjunction
 		\[
 		\check{\varphi}_! \colon \mathsf{Op}^G_{\mathfrak{C},\F}
-			\rightleftarrows
+		\rightleftarrows
 		\mathsf{Op}^G_{\mathfrak{D},\F} \colon \varphi^{\**}
 		\]
-	is a Quillen adjunction.
-\item \label{OPFIXSETCHGR_LBL}
-	For any homomorphism $\phi \colon G \to \bar G$,
-	$(G,\Sigma)$-family $\F$ and $(\bar G,\Sigma)$-family $\bar{\F}$,
-	and $\bar G$-set of colors $\mathfrak C$,
-	the adjunction
+		is a Quillen adjunction.
+		\item \label{OPFIXSETCHGR_LBL}
+		For any homomorphism $\phi \colon G \to \bar G$,
+		$(G,\Sigma)$-family $\F$ and $(\bar G,\Sigma)$-family $\bar{\F}$,
+		and $\bar G$-set of colors $\mathfrak C$,
+		the adjunction
 		\[
 		\check{\phi}_! \colon \mathsf{Op}^G_{\mathfrak{C},\F}
-			\rightleftarrows
+		\rightleftarrows
 		\mathsf{Op}^{\bar{G}}_{\mathfrak{C},\bar{\F}} \colon \phi^{\**}
 		\]
-	is a Quillen adjunction whenever $\F \subseteq \phi^{\**} \bar{\F}$.
-\item \label{OPCOMBADJ_LBL}
-	For any homomorphism $\phi \colon G \to \bar G$,
-	$(G,\Sigma)$-family $\F$ and $(\bar G,\Sigma)$-family $\bar{\F}$,
-	and $G$-set of colors $\mathfrak C$,
-	the adjunction
-            \[
-                  \bar{G} \cdot_G (-) \colon \mathsf{Op}^G_{\mathfrak{C},\F}
-                  \rightleftarrows
-                  \mathsf{Op}^{\bar{G}}_{\bar{G} \cdot_G \mathfrak{C},\bar{\F}} \colon \mathsf{fgt}
-            \]
-	is a Quillen adjunction whenever $\F \subseteq \phi^{\**} \bar{\F}$.
-      \end{enumerate}
+		is a Quillen adjunction whenever $\F \subseteq \phi^{\**} \bar{\F}$.
+		\item \label{OPCOMBADJ_LBL}
+		For any homomorphism $\phi \colon G \to \bar G$,
+		$(G,\Sigma)$-family $\F$ and $(\bar G,\Sigma)$-family $\bar{\F}$,
+		and $G$-set of colors $\mathfrak C$,
+		the adjunction
+		\[
+		\bar{G} \cdot_G (-) \colon \mathsf{Op}^G_{\mathfrak{C},\F}
+		\rightleftarrows
+		\mathsf{Op}^{\bar{G}}_{\bar{G} \cdot_G \mathfrak{C},\bar{\F}} \colon \mathsf{fgt}
+		\]
+		is a Quillen adjunction whenever $\F \subseteq \phi^{\**} \bar{\F}$.
+	\end{enumerate}
 \end{corollary}
-
-\begin{proof}
-	Since operadic weak equivalences, fibrations and the forgetful functors $\varphi^{\**},\phi^{\**}$, $\mathsf{fgt}$
-	are all defined in terms of the underlying symmetric sequences,
-	this follows from Corollary \ref{SYMADJ_COR}.
-\end{proof}
-
-
-
-
-
-
-\begin{remark}\label{CSPNTHI REM}
-When \eqref{OURE EQ}
-is a diagram in $\mathsf{Cat}^G_{\mathfrak{C}}(\V)$, 
-the map 
-$n_k^{(\mathcal{O},X,Y)}(\vect{T})$
-in \eqref{NKOXY EQ}
-is necessarily $\emptyset \to \emptyset$
-unless $\vect{T}$ is a linear tree.
-But, if $\vect{T}$ is linear,
-its automorphism group in 
-$G \ltimes \Omega_{\mathfrak{C}}^{a,op}[k]$
-is simply a subgroup of $G$
-and does not permute the factors in \eqref{NKOXY EQ}.
-Hence, the key claim in the proof of Theorem \ref{THMI},
-i.e. that 
-$n_k^{(\mathcal{O},X,Y)}$
-is an equivariant $\otimes$-trivial cofibration in
-$\V^{G \ltimes \Omega_{\mathfrak{C}}^{a,op}[k]}$,
-follows by replacing the use of Proposition \ref{SIGMAWRGF PROP}
-with the more elementary
-Proposition \ref{RESGEN PROP},
-and thus does not require
-the cofibrant pushout powers condition
-in Definition \ref{CSPP_DEF} and Theorem \ref{THMI}.
-\end{remark}
-
-
-
-
-
-
-
-
-
 
 
 
