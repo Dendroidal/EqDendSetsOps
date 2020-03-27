@@ -2352,18 +2352,16 @@ $\mathsf{Alg}_{T^I}^{\pi^I}(\mathcal{C}^I)
 \end{itemize}
 \end{proposition}
 
-\begin{proof}
-%(i) is well known (one can simply create cartesian arrows pointwise), and 
-Both parts follow readily from the definitions.
-\end{proof}
 
 
 
 
-
-
-\subsection{Equivariant colored symmetric sequences}
+\subsection{Colored symmetric sequences and colored operads}
 \label{EQCOSYMSEQ SEC}
+
+
+\subsubsection*{Colored symmetric sequences}
+
 
 We now discuss the categories
 $\mathsf{Sym}_{\bullet}(\V)$,
@@ -2374,199 +2372,166 @@ of symmetric sequences appearing in \eqref{FIBADJMON EQ}.
 \begin{definition}\label{CSYM DEF}
 	Let $\mathfrak {C} \in \mathsf{Set}$ be a fixed set of colors (or objects).
 	A tuple
-    $\vect C = (\mathfrak c_1, \dots, \mathfrak c_n; \mathfrak c_0) \in \mathfrak{C}^{\times n+1}$
+	$\vect C = (\mathfrak c_1, \dots, \mathfrak c_n; \mathfrak c_0) \in \mathfrak{C}^{\times n+1}$
 	is called a \textit{$\mathfrak {C}$-signature} of \textit{arity} $n$.
 	The \textit{$\mathfrak C$-symmetric category} $\Sigma_{\mathfrak C}$ is the category whose objects are the $\mathfrak{C}$-signatures and the morphisms are action maps
-\begin{equation}\label{CSYM EQ1}
-\vect{C} =
-(\mathfrak c_1, \dots, \mathfrak c_n; \mathfrak c_0) \xrightarrow{\sigma} (\mathfrak c_{\sigma^{-1}(1)}, \dots, \mathfrak c_{\sigma^{-1}(n)}; \mathfrak c_0)
-= \vect{C} \sigma^{-1}
-\end{equation}
-for each permutation $\sigma \in \Sigma_n$, with the natural notion of composition.
-
-	Alternatively, we will find it useful to visualize signatures as corollas (i.e. trees with a single node)
+	\begin{equation}\label{CSYM EQ1}
+	\vect{C} =
+	(\mathfrak c_1, \dots, \mathfrak c_n; \mathfrak c_0) \xrightarrow{\sigma} (\mathfrak c_{\sigma^{-1}(1)}, \dots, \mathfrak c_{\sigma^{-1}(n)}; \mathfrak c_0)
+	= \vect{C} \sigma^{-1}
+	\end{equation}
+	for each permutation $\sigma \in \Sigma_n$, with the natural notion of composition.
+	
+	Alternatively, one can visualize signatures as corollas (i.e. trees with a single node)
 	with edges decorated by colors in $\mathfrak{C}$, as depicted below, so that the map labeled $\sigma$
-        is the unique map of trees indicated such that the coloring of an edge equals the coloring of its image.
-\begin{equation}\label{CSYM EQ2}
-\begin{tikzpicture}
-      [grow=up,auto,level distance=2.3em,every node/.style = {font=\footnotesize},dummy/.style={circle,draw,inner sep=0pt,minimum size=1.75mm}]
-      
-      \node at (0,0) [font=\normalsize]{$\vect{C}$}
-		child{node [dummy] {}
-			child{
+	is the unique map of trees indicated such that the coloring of an edge equals the coloring of its image.
+	\begin{equation}\label{CSYM EQ2}
+	\begin{tikzpicture}
+	[grow=up,auto,level distance=2.3em,every node/.style = {font=\footnotesize},dummy/.style={circle,draw,inner sep=0pt,minimum size=1.75mm}]
+	
+	\node at (0,0) [font=\normalsize]{$\vect{C}$}
+	child{node [dummy] {}
+		child{
 			edge from parent node [swap,near end] {$\mathfrak c_n$} node [name=Kn] {}}
-			child{
+		child{
 			edge from parent node [near end] {$\mathfrak c_1$}
-node [name=Kone,swap] {}}
+			node [name=Kone,swap] {}}
 		edge from parent node [swap] {$\mathfrak c_0$}
-		};
-		\draw [dotted,thick] (Kone) -- (Kn) ;
+	};
+	\draw [dotted,thick] (Kone) -- (Kn) ;
 	\node at (5,0) [font=\normalsize] {$\vect{C} \sigma^{-1}
-	$}
-		child{node [dummy] {}
-			child{
+		$}
+	child{node [dummy] {}
+		child{
 			edge from parent node [swap,near end] {$\mathfrak c_{\sigma^{-1}(n)}$} node [name=Kn] {}}
-			child{
+		child{
 			edge from parent node [near end] {$\mathfrak c_{\sigma^{-1}(1)}$}
-node [name=Kone,swap] {}}
+			node [name=Kone,swap] {}}
 		edge from parent node [swap] {$\mathfrak c_0$}
-		};
-		\draw [dotted,thick] (Kone) -- (Kn) ;
-
-\draw[->] (1.5,0.8) -- node{$\sigma$} (3,0.8);
-\end{tikzpicture}
-\end{equation}
-Given any map of colors $\varphi \colon \mathfrak{C} \to \mathfrak{D}$ there is a functor (abusively written)
-$\varphi \colon \Sigma_{\mathfrak{C}} \to \Sigma_{\mathfrak{D}}$,
-given by 
-$\varphi (\mathfrak c_1, \dots, \mathfrak c_n; \mathfrak c_0) = (\varphi(\mathfrak c_1),\cdots,\varphi(\mathfrak c_n);\varphi(\mathfrak c_0))$. 
+	};
+	\draw [dotted,thick] (Kone) -- (Kn) ;
+	
+	\draw[->] (1.5,0.8) -- node{$\sigma$} (3,0.8);
+	\end{tikzpicture}
+	\end{equation}
+	Given any map of colors $\varphi \colon \mathfrak{C} \to \mathfrak{D}$ there is a functor (abusively written)
+	$\varphi \colon \Sigma_{\mathfrak{C}} \to \Sigma_{\mathfrak{D}}$,
+	given by 
+	$\varphi (\mathfrak c_1, \dots, \mathfrak c_n; \mathfrak c_0) = (\varphi(\mathfrak c_1),\cdots,\varphi(\mathfrak c_n);\varphi(\mathfrak c_0))$. 
 \end{definition}
 
 
 \begin{remark}\label{GLOBSIG REM}
-The notation $\vect{C} \sigma^{-1}$
-in \eqref{CSYM EQ1},\eqref{CSYM EQ2}
-reflects the fact that $\Sigma_n$
-acts on the right on $\mathfrak{C}$-signatures of arity $n$
-via 
-$\vect{C} \sigma = (\mathfrak{c}_i)\sigma = 
-(\mathfrak{c}_{\sigma(i)})$,
-where we make the convention that $\sigma(0)=0$.
+	The notation $\vect{C} \sigma^{-1}$
+	in \eqref{CSYM EQ1},\eqref{CSYM EQ2}
+	reflects the fact that $\Sigma_n$
+	acts on the right on $\mathfrak{C}$-signatures of arity $n$
+	via 
+	$\vect{C} \sigma = (\mathfrak{c}_i)\sigma = 
+	(\mathfrak{c}_{\sigma(i)})$,
+	where we make the convention that $\sigma(0)=0$.
 \end{remark}
 
 
-
-\begin{remark}
-If one regards $\mathfrak{C} \in \mathsf{Set}$
-as a discrete category, 
-following Notation \ref{SIGWR NOT} one has an identification 
-of groupoids
-$\Sigma_{\mathfrak{C}} = (\Sigma \wr \mathfrak{C}) \times \mathfrak{C}$,
-where the 
-$\Sigma \wr \mathfrak{C}$ factor accounts for the sources
-$\mathfrak{c}_1,\cdots,\mathfrak{c}_n$ of a signature
-and the $\mathfrak{C}$ factor accounts for the target 
-$\mathfrak{c}_0$.
-\end{remark}
-
-
-
-\begin{notation}
-We will (slightly abusively) write
-$\Sigma_{\bullet} \to \mathsf{Set}$
-for the Grothendieck construction (see Notation \ref{GROTHCONS NOT})
-of the functor
-$\mathsf{Set} \to \mathsf{Cat}$ given by
-$\mathfrak{C} \mapsto \Sigma_{\mathfrak{C}}$.
-
-More explicitly, 
-the objects of $\Sigma_{\bullet}$
-are the $\vect{C} \in \Sigma_{\mathfrak{C}}$ 
-for some set of colors $\mathfrak{C}$
-and an arrow from
-$\vect{C} \in \Sigma_{\mathfrak{C}}$ to
-$\vect{D} \in \Sigma_{\mathfrak{D}}$
-over $\varphi \colon \mathfrak{C} \to \mathfrak{D}$
-is an arrow
-$\varphi \vect{C} \to \vect{D}$ in $\Sigma_{\mathfrak{D}}$.
-\end{notation}
 
 
 \begin{definition}\label{CSSYM DEF}
-Let $\mathcal{V}$ be a category.
-The category $\mathsf{Sym}_\bullet(\mathcal{V})$ of
-\textit{symmetric sequences on $\mathcal{V}$} 
-(on all colors) is the category with:
-\begin{itemize}
-\item objects given by pairs $(\mathfrak C, X)$ with
-      $\mathfrak{C} \in \mathsf{Set}$ a set of colors and
-      $X \colon \Sigma_{\mathfrak{C}}^{op} \to \mathcal{V}$ a functor;
-\item arrows $(\mathfrak C, X) \to (\mathfrak D, Y)$ given by a map 
-      $\varphi \colon \mathfrak{C} \to \mathfrak{D}$ of colors and a natural transformation $X \Rightarrow Y \varphi$ as below.
-\begin{equation}
-\begin{tikzcd}[row sep = tiny, column sep = 45pt]
-                  \Sigma_{\mathfrak{C}}^{op} \arrow[dr, "X"{name=U}] 
-                  \arrow{dd}[swap]{\varphi}
-\\
-	& \mathcal{V}
-\\
-                  |[alias=V]| \Sigma_{\mathfrak{D}}^{op} \arrow[ur, "Y"']
-                  \arrow[Leftarrow, from=V, to=U,shorten >=0.25cm,shorten <=0.25cm]
-\end{tikzcd}
-\end{equation}
-\end{itemize}
+	Let $\mathcal{V}$ be a category.
+	The category $\mathsf{Sym}_\bullet(\mathcal{V})$ of
+	\textit{symmetric sequences on $\mathcal{V}$} 
+	(on all colors) is the category with:
+	\begin{itemize}
+		\item objects given by pairs $(\mathfrak C, X)$ with
+		$\mathfrak{C} \in \mathsf{Set}$ a set of colors and
+		$X \colon \Sigma_{\mathfrak{C}}^{op} \to \mathcal{V}$ a functor;
+		\item arrows $(\mathfrak C, X) \to (\mathfrak D, Y)$ given by a map 
+		$\varphi \colon \mathfrak{C} \to \mathfrak{D}$ of colors and a natural transformation $X \Rightarrow Y \varphi$ as below.
+		\begin{equation}
+		\begin{tikzcd}[row sep = tiny, column sep = 45pt]
+		\Sigma_{\mathfrak{C}}^{op} \arrow[dr, "X"{name=U}] 
+		\arrow{dd}[swap]{\varphi}
+		\\
+		& \mathcal{V}
+		\\
+		|[alias=V]| \Sigma_{\mathfrak{D}}^{op} \arrow[ur, "Y"']
+		\arrow[Leftarrow, from=V, to=U,shorten >=0.25cm,shorten <=0.25cm]
+		\end{tikzcd}
+		\end{equation}
+	\end{itemize}
 \end{definition}
 
 
-\begin{remark}\label{SUBCATDOWNL REM}
-Given a category $\V$, let $\Cat \downarrow^l \V$ denote the category with
-objects given by functors $\mathcal{C} \to \V$,
-and arrows from $\mathcal{C} \to \V$ to $\mathcal{D} \to \V$
-given by pairs 
-$(\varphi,\phi)$ with 
-$\varphi \colon \mathcal{C} \to \mathcal{D}$ a functor and
-$\phi$ a natural transformation
-\begin{equation}\label{SUBCATDOWNL EQ}
-\begin{tikzcd}[row sep = tiny, column sep = 45pt]
-	\mathcal C \arrow{dr}[name=U]{} \arrow{dd}[swap]{\varphi}
-\\
-	& \mathcal{V}
-\\
-	|[alias=V]| \mathcal D \arrow{ur}[swap]{}
-	\arrow[Leftarrow, from=V, to=U,shorten >=0.25cm,shorten <=0.25cm
-    ,swap,"\phi"]
-\end{tikzcd}
-\end{equation}
-Then $\mathsf{Sym}_{\bullet}(\mathcal{V})$ is naturally a (neither wide nor full) subcategory of  $\mathsf{Cat}\downarrow^l \mathcal{V}$.
-\end{remark}
+
+
+{\color{red} HERE}
+
+
+\begin{notation}
+	We will (slightly abusively) write
+	$\Sigma_{\bullet} \to \mathsf{Set}$
+	for the Grothendieck construction (see Notation \ref{GROTHCONS NOT})
+	of the functor
+	$\mathsf{Set} \to \mathsf{Cat}$ given by
+	$\mathfrak{C} \mapsto \Sigma_{\mathfrak{C}}$.
+	
+	More explicitly, 
+	the objects of $\Sigma_{\bullet}$
+	are the $\vect{C} \in \Sigma_{\mathfrak{C}}$ 
+	for some set of colors $\mathfrak{C}$
+	and an arrow from
+	$\vect{C} \in \Sigma_{\mathfrak{C}}$ to
+	$\vect{D} \in \Sigma_{\mathfrak{D}}$
+	over $\varphi \colon \mathfrak{C} \to \mathfrak{D}$
+	is an arrow
+	$\varphi \vect{C} \to \vect{D}$ in $\Sigma_{\mathfrak{D}}$.
+\end{notation}
 
 
 
 \begin{remark}\label{COLCHADJ REM}
-We caution that 
-$\mathsf{Sym}_{\bullet}(\V)$
-is quite different from the presheaf category 
-$\mathsf{Fun}(\Sigma_{\bullet}^{op},\V)$.
-
-Instead, one should think of 
-$\mathsf{Sym}_{\bullet}(\V)$
-as a form of ``fibered presheaves''.
-More precisely, 
-one has a (split) Grothendieck fibration
-$\mathsf{Sym}_{\bullet}(\V) \to \mathsf{Set}$
-with fiber over 
-$\mathfrak{C} \in \mathsf{Set}$
-the presheaf category
-$\Sym_{\mathfrak C}(\V)=
-\mathsf{Fun}(\Sigma_{\mathfrak{C}}^{op},\mathcal{V})$.
-Note that,
-for any map $\varphi \colon \mathfrak{C} \to \mathfrak{D}$,
-one has adjunctions
-\begin{equation}\label{COLCHADJ EQ}
-\varphi_! \colon \Sym_{\mathfrak C}(\V) 
-\rightleftarrows 
-\Sym_{\mathfrak D}(\V) \colon \varphi^{\**}
-\end{equation}
-where $\varphi^{\**}$
-(resp. $\varphi_!$)
-is precomposition with (left Kan extension along)
-$\varphi\colon 
-\Sigma^{op}_{\mathfrak{C}}
-\to 
-\Sigma^{op}_{\mathfrak{D}}$,
-so that the Grothendieck fibration
-$\mathsf{Sym}_{\bullet}(\V) \to \mathsf{Set}$
-is also an opfibration. 
+	We caution that 
+	$\mathsf{Sym}_{\bullet}(\V)$
+	is quite different from the presheaf category 
+	$\mathsf{Fun}(\Sigma_{\bullet}^{op},\V)$.
+	
+	Instead, one should think of 
+	$\mathsf{Sym}_{\bullet}(\V)$
+	as a form of ``fibered presheaves''.
+	More precisely, 
+	one has a (split) Grothendieck fibration
+	$\mathsf{Sym}_{\bullet}(\V) \to \mathsf{Set}$
+	with fiber over 
+	$\mathfrak{C} \in \mathsf{Set}$
+	the presheaf category
+	$\Sym_{\mathfrak C}(\V)=
+	\mathsf{Fun}(\Sigma_{\mathfrak{C}}^{op},\mathcal{V})$.
+	Note that,
+	for any map $\varphi \colon \mathfrak{C} \to \mathfrak{D}$,
+	one has adjunctions
+	\begin{equation}\label{COLCHADJ EQ}
+	\varphi_! \colon \Sym_{\mathfrak C}(\V) 
+	\rightleftarrows 
+	\Sym_{\mathfrak D}(\V) \colon \varphi^{\**}
+	\end{equation}
+	where $\varphi^{\**}$
+	(resp. $\varphi_!$)
+	is precomposition with (left Kan extension along)
+	$\varphi\colon 
+	\Sigma^{op}_{\mathfrak{C}}
+	\to 
+	\Sigma^{op}_{\mathfrak{D}}$,
+	so that the Grothendieck fibration
+	$\mathsf{Sym}_{\bullet}(\V) \to \mathsf{Set}$
+	is also an opfibration. 
 \end{remark}
 
 
-\begin{remark}\label{SUBCOCART REM}
-The forgetful functor $\mathsf{Cat} \downarrow^l \mathcal{V} \to \mathsf{Cat}$
-remembering only the source category is likewise both a fibration and an opfibration, 
-with a diagram \eqref{SUBCATDOWNL EQ}
-being a cartesian arrow if  $\phi$ an isomorphism
-and cocartesian if it is a left Kan extension. 
-\end{remark}
+
+
+\subsubsection*{Representable functors}
+
+
+{\color{red} HERE}
 
 
 Building on Remark \ref{COLCHADJ REM},
@@ -2632,260 +2597,7 @@ Alternatively, this result states that
 the fibered Yoneda $\Sigma_{\bullet}[-]$
 preserves cocartesian arrows.
 
-
-\begin{proof}
-For $Y \in \mathsf{Sym}_{\mathfrak{D}}$, by the (usual) Yoneda lemma one has isomorphisms
-\begin{equation}\label{TWOYON EQ}
-\mathsf{Sym}_{\mathfrak{D}}
-(\Sigma_{\mathfrak{D}}[\varphi \vect{C}],Y)
-\simeq
-Y(\varphi \vect{C})
-\simeq
-\mathsf{Sym}_{\mathfrak{C}}(\Sigma_{\mathfrak{C}}[\vect{C}],\varphi^{\**}Y)
-\end{equation}
-proving 
-$\Sigma_{\mathfrak{D}}[\varphi \vect{C}] \simeq \varphi_! \Sigma_{\mathfrak{C}}[\vect{C}]$.
-That this identification is adjoint to the canonical map
-$\Sigma_{\mathfrak{C}}[\vect{C}]
-\to
-\varphi^{\**}\Sigma_{\mathfrak{C}}[\varphi\vect{C}]$
-in $\mathsf{Sym}_{\mathfrak{C}}$
-follows since this sends
-$id_{\vect{C}}$ to $id_{\varphi\vect{C}}$
-(and since these identities determine the isomorphisms in \eqref{TWOYON EQ}).
-\end{proof}
-
-
-
-Now let $G$ be a group. Writing 
-$\mathsf{Sym}^G_\bullet(\mathcal{V})
-=
-\left(\mathsf{Sym}_\bullet(\mathcal{V})\right)^G$
-for the category of $G$-objects
-on $\mathsf{Sym}_{\bullet}(\V)$,
-the abstract nonsense argument in Remark \ref{FUNISGROTH REM}
-yields that
-$\mathsf{Sym}^G_\bullet(\mathcal{V}) \to \mathsf{Set}^G$
-is again a Grothendieck fibration.
-For each $\mathfrak{C} \in \mathsf{Set}^G$,
-we will then write
-$\mathsf{Sym}^G_{\mathfrak{C}}(\V)$
-to denote the fiber of
-$\mathsf{Sym}^G_\bullet(\mathcal{V}) \to \mathsf{Set}^G$
-over $\mathfrak{C}$.
-We caution that 
-$\mathsf{Sym}^G_{\mathfrak{C}}(\V)$
-\emph{is not} the category 
-$\left(\mathsf{Sym}_{\mathfrak{C}}(\V)\right)^G$
-of $G$-objects on $\mathsf{Sym}_{\mathfrak{C}}(\V)$
-unless the $G$-action on $\mathfrak{C}$
-happens to be trivial.
-
-We will thus find it convenient to have a more explicit description of
-$\mathsf{Sym}^G_{\mathfrak{C}}(\V)$,
-provided by the following result, 
-which adapts
-\cite[Lemma A.6]{BP_geo}.
-In fact, we prove a more general description
-for the categories $\mathsf{Cat} \downarrow^l \mathcal{V}$
-in Remark \ref{SUBCATDOWNL REM},
-for which the natural ``source category'' functor
-$\mathsf{Cat} \downarrow^l \mathcal{V} \to \mathsf{Cat}$
-is likewise a split Grothendieck fibration,
-with fiber over $\mathcal{C} \in \mathsf{Cat}$
-given by $\mathsf{Fun}(\mathcal{C},\mathcal{V})$.
-
-
-
-\begin{proposition}\label{EQUIVFNCON PROP}
-Let $G$ be a group and $\mathfrak{C} \in \mathsf{Set}^G$
-be a $G$-set. There is then a natural identification
-\[
-\mathsf{Sym}^G_{\mathfrak{C}}(\V)
-\simeq
-\mathsf{Fun}(G \ltimes \Sigma^{op}_{\mathfrak{C}},\V).
-\]
-More generally, for a category $\mathcal{B}$,
-the fiber of
-$\left(\mathsf{Cat} \downarrow^l \V \right)^{\mathcal{B}}
-\to \mathsf{Cat}^{\mathcal{B}}$
-over a functor
-$\mathcal{B} \xrightarrow{b \mapsto \mathcal{C}_b} \mathsf{Cat}$
-is given by
-\begin{equation}\label{FUNBLTICV EQ}
-\mathsf{Fun}(\mathcal{B} \ltimes \mathcal{C}_{\bullet},\V).
-\end{equation}
-%\begin{equation}
-%	\begin{tikzcd}
-%		&
-%		\mathsf{Sym}(\mathcal{V}) \arrow{d}{\mathsf{fgt}}
-%&
-%		&
-%		\mathsf{Cat}\downarrow^l \mathcal{V} \arrow{d}{\mathsf{fgt}}
-%\\
-%		G \arrow{r}[swap]{\mathfrak{C}} \arrow[dashed]{ru} &
-%		\mathsf{Set}
-%&
-%		\mathcal{D} \arrow{r}[swap]{\mathcal{C}_{\bullet}} \arrow[dashed]{ru} &
-%		\mathsf{Cat}
-%	\end{tikzcd}
-%\end{equation}
-\end{proposition}
-
-
-
-\begin{proof}
-It is immediate from the definitions that
-$\mathsf{Sym}^G_{\mathfrak{C}}(\C)$
-matches the fiber of 
-$\left(\mathsf{Cat} \downarrow^l \V \right)^{G}
-\to \mathsf{Cat}^{G}$
-over $\Sigma_{\mathfrak{C}}^{op} \in \mathsf{Cat}^G$,
-so we need only address the general case.
-
-As in Notation \ref{GROTHCONS NOT},
-let us write $\varphi_! \colon \mathcal{C}_b \to \mathcal{C}_{b'}$
-for the functor induced by the arrow 
-$\varphi \colon b \to b'$
-in $\mathcal{B}$.
-Unpacking definitions, an object of 
-$\left(\mathsf{Cat} \downarrow^l \V \right)^{\mathcal{B}}$
-over 
-$\mathcal{C}_{\bullet} \colon \mathcal{B} \to \mathsf{Cat}$
-corresponds to the data of functors
-$\gamma_b \colon \mathcal{C}_b \to \mathcal{V}$ for each $b \in \mathcal{B}$
-and natural transformations
-$\phi_{\varphi} \colon \gamma_b \Rightarrow \gamma_{b'} \varphi_!$
-for each $\varphi \colon b \to b'$ in $\mathcal{B}$
-\begin{equation}\label{EQUIVFUNEX EQ}
-\begin{tikzcd}[row sep = tiny, column sep = 50pt]
-		\mathcal{C}_{b} \arrow{dr}[name=U]{\gamma_b} \arrow{dd}[swap]{\varphi_!}
-	\\
-		& \mathcal{V}
-	\\
-		|[alias=V]| \mathcal{C}_{b'} \arrow{ur}[swap]{\gamma_{b'}}
-	\arrow[Leftarrow, from=V, to=U,shorten >=0.25cm,shorten <=0.25cm
-	,swap, near end, "\phi_{\varphi}"
-	]
-\end{tikzcd}
-\end{equation}
-subject to the requirements that
-$\gamma_b \overset{\phi_{\varphi}}{\Rightarrow}
-\gamma_{b'} \varphi_!
-\overset{\phi_{\psi}\varphi_!}{\Rightarrow}
-\gamma_{b'} \varphi_! \psi_!
-$
-equals 
-$\gamma_b \overset{\phi_{\psi\varphi}}{\Rightarrow}
-\gamma_{b'} \varphi_! \psi_!
-$
-for composable $b \xrightarrow{\varphi} b' \xrightarrow{\psi} b''$
-and that
-$\phi_{id_b} = id_{\gamma_b}$.
-
-We now claim that the data above is exactly the data of a functor
-$F \colon \mathcal{B} \ltimes \mathcal{C}_{\bullet} \to \mathcal{V}$.
-To ease notation, we follow
-Remark \ref{GROTHUNPCK REM}
-and describe arrows in 
-$\mathcal{B} \ltimes \mathcal{C}_{\bullet}$
-as composites
-$c \rightsquigarrow \varphi_! c \xrightarrow{f} c'$.
-On fiber arrows 
-$f\colon c \to c'$ in $\mathcal{C}_b$
-set $F(f) = \gamma_b(f)$,
-and on cocartesian arrows set
-$F(c \rightsquigarrow \varphi_! c) =
-(\phi_{\varphi})_c$.
-Then:
-\begin{enumerate*}[label=(\roman*)]
-\item
-associativity and unitality of $F$ with respect to fiber arrows is equivalent to associativity and unitality of the $\gamma_b$;
-\item associativity and unitality of $F$ with respect to the cocartesian arrows is equivalent to the conditions following 
-\eqref{EQUIVFUNEX EQ};
-\item $F$ respecting the commutative squares \eqref{GROTHUNPCK EQ}
-is equivalent to naturality of the $\phi_{\varphi}$.
-\end{enumerate*}
-
-This finishes the proof that \eqref{FUNBLTICV EQ} has the correct set of objects. The claim that it also has the correct arrows is similar.
-\end{proof}
-
-
-Following the result above, 
-we will represent $G$-equivariant symmetric sequences
-$X \in \mathsf{Sym}^G_{\mathfrak{C}}(\mathcal{V})$
-for some $\mathfrak{C} \in \mathsf{Set}^G$
-as functors
-$X \colon G \ltimes \Sigma_{\mathfrak{C}}^{op} \to \mathcal{V}$,
-and objects of
-$\left( \mathsf{Cat} \downarrow^{l} \mathcal{V} \right)^G$
-as functors $G \ltimes \mathcal{C} \to \V$.
-
-
-\begin{remark}\label{RHOPURP REM}
-Recall that, if $\mathcal{C}\in \mathsf{Cat}^G$ is a category with a $G$-action,
-then 
-$\Sigma \wr \mathcal{C}$
-has a $G$-action where $G$ acts diagonally on tuples $(c_i)$ with $c_i \in \mathcal{C}$.
-Therefore, by applying the 
-$\Sigma \wr (-)$
-construction to the categories
-$\mathsf{Cat} \downarrow^l \V$
-in Remark \ref{SUBCATDOWNL REM}
-(note that that one can apply $\Sigma \wr (-)$
-to the entirety of diagram \eqref{SUBCATDOWNL REM}),
-one obtains a description of the functor
-\begin{equation}\label{RHOPURP EQ}
-\begin{tikzcd}[column sep =40,row sep =0]
-	\left( \mathsf{Cat} \downarrow^{l} \mathcal{V} \right)^G
-	\ar{r}{\Sigma \wr (-) } &
-	\left( \mathsf{Cat} \downarrow^{l} \Sigma \wr \mathcal{V} \right)^G
-\\
-	G \ltimes \mathcal{C} \to \mathcal{V} \ar[mapsto]{r} &
-	\left(G \ltimes (\Sigma \wr \mathcal{C}) \to 
-	\Sigma \wr (G \ltimes  \mathcal{C}) \to \Sigma \wr \mathcal{V}\right)
-\end{tikzcd}
-\end{equation}
-where the functor
-$G \ltimes (\Sigma \wr \mathcal{C}) \to 
-\Sigma \wr (G \ltimes  \mathcal{C})$
-is the natural inclusion described in Remark \ref{WRDIAG REM}.
-\end{remark}
-
-
-\subsubsection*{Representable functors}\label{REPFUN_SEC}
-
-Since  
-$\mathsf{Sym}^G_{\mathfrak{C}}(\mathcal{V}) \simeq 
-\V^{G \ltimes \Sigma^{op}_{\mathfrak{C}}}$ is again a functor category, 
-we will find it useful to discuss its representable functors.
-In the following discussion 
-we set $\V = \mathsf{Set}$ and abbreviate
-$\mathsf{Sym}^G_{\mathfrak{C}} = \mathsf{Sym}^G_{\mathfrak{C}}(\mathsf{Set})$.
-
-As the objects of 
-$G \ltimes \Sigma^{op}_{\mathfrak{C}}$
-are simply the signatures
-$\vect{C} \in \Sigma_{\mathfrak{C}}$,
-each such signature induces a representable functor
-$\left(G \ltimes \Sigma^{op}_{\mathfrak{C}}\right)(\vect{C},-)$
-in 
-$\mathsf{Sym}^G_{\mathfrak{C}}$.
-However, caution is needed.
-If one forgets the $G$-action on $\mathfrak{C}$,
-then $\vect{C} \in \Sigma_{\mathfrak{C}}$
-likewise induces a representable functor 
-$\Sigma_{\mathfrak{C}}[\vect{C}]=\Sigma^{op}_{\mathfrak{C}}(\vect{C},-)$
-in $\mathsf{Sym}_{\mathfrak{C}}$,
-as discussed in Notation \ref{FIBYON NOT}.
-%
-As such, our next task is to understand the relation between 
-$\left(G \ltimes \Sigma^{op}_{\mathfrak{C}}\right)(\vect{C},-)$
-and 
-$\Sigma_{\mathfrak{C}}[\vect{C}]$
-in such a way that we have analogues of the 
-fibered Yoneda \eqref{FIBYON EQ}
-and Proposition \ref{FIBYONPUSH PROP}.
+{\color{red} HERE}
 
 
 As in our previous work in 
@@ -3119,6 +2831,344 @@ so that \eqref{PUSHEQAG EQ} then yields
 \mathfrak{c}_! \Sigma_{\tau}[F]
 \end{equation}
 \end{remark}
+
+
+
+\subsubsection*{Colored operads}
+
+
+
+
+
+Our goal in this section is to describe the category 
+$\mathsf{Op}^{G}_{\bullet}(\V)$
+of equivariant colored operads in a way suitable for our 
+proof of the main theorems in \S \ref{FIXCOL SEC} and \S \ref{MS_SEC}.
+
+We start by considering the non-equivariant case
+$G = \**$,
+for which we will describe
+$\mathsf{Op}_{\bullet}(\V)$
+as the category of fiber algebras over a certain fibered monad $\mathbb{F}$ on 
+$\mathsf{Sym}_\bullet(\mathcal{V})$.
+
+The restrictions of $\mathbb{F}$ to each fiber
+$\mathsf{Sym}_{\mathfrak{C}}(\V)$,
+i.e. the fiber monads $\mathbb{F}_{\mathfrak{C}}$,
+are simply the ``free operad with set of objects $\mathfrak{C}$'' monads,
+which are well known to be defined using 
+$\mathfrak{C}$-colored trees.
+
+As such, cf. Definition \ref{COLFOR DEF},
+we first write 
+$\Omega_{\mathfrak{C}} \subset \Phi_{\mathfrak{C}}$
+for the subcategory of $\mathfrak{C}$-colored forests which happen to be trees,
+as well as 
+$\Omega^0_{\mathfrak{C}} \subseteq \Omega_{\mathfrak{C}}$
+for the wide subcategory whose arrows are the isomorphisms.
+%
+Next, following \cite[Notation 3.38]{BP_geo},
+there is a ``colored arity functor''
+\begin{equation}\label{LRDEF EQ}
+\Omega_{\mathfrak C}^0 \xrightarrow{\mathsf{lr}_{\mathfrak C}} \Sigma_{\mathfrak{C}}
+\end{equation}
+which we call the \emph{leaf-root functor}, described as follows.
+Given $\vect{T} \in \Omega^0_{\mathfrak{C}}$, 
+its leaf-root
+$\mathsf{lr}(\vect{T}) \in \Sigma_{\mathfrak{C}}$
+is the only $\mathfrak{C}$-corolla
+admitting a planar tall map
+$\mathsf{lr}(\vect{T}) \to \vect{T}$
+(see \cite[Defs. 3.21 and 3.35]{BP_geo}),
+where by tall map we mean a map
+which sends leaves to leaves and the root to the root.
+
+
+\begin{example}
+	For $\vect{T},\vect{S}$ the trees in Example \ref{COLFORES EX},
+	we depict $\mathsf{lr}(\vect{T})$, $\mathsf{lr}(\vect{S})$
+	below,
+	which, informally, are obtained by keeping only the leaves and roots of the trees $\vect{T}, \vect{S}$.
+	\begin{equation}
+	\begin{tikzpicture}[auto,grow=up, level distance = 2.2em,
+	every node/.style={font=\scriptsize,inner sep = 2pt}]%
+	\tikzstyle{level 2}=[sibling distance=3em]%
+	\node at (0,0) [font = \normalsize] {$\mathsf{lr}(\vect{T})$}%	
+	child{node [dummy] {}%
+		child{node {}%
+			edge from parent node [swap, near end] {$\mathfrak{c}\phantom{\mathfrak{b}}$}}%
+		child{node {}%
+			edge from parent node [near end] {$\mathfrak{b}$}}%
+		edge from parent node [swap] {$\mathfrak{a}$}};%
+	\node at (3,0) [font = \normalsize] {$\mathsf{lr}(\vect{S})$}%	
+	child{node [dummy] {}%
+		edge from parent node [swap] {$\mathfrak{a}$}};%
+	\end{tikzpicture}%
+	\end{equation}%
+	Alternatively, in signature notation we have
+	$\mathsf{lr}(\vect{T}) = (\mathfrak{b},\mathfrak{c};\mathfrak{a})$
+	and 
+	$\mathsf{lr}(\vect{S}) = (;\mathfrak{a})$.
+\end{example}
+
+
+
+\begin{remark}\label{ETACNOT REM}
+	Note that for a stick tree $\eta_{\mathfrak{c}}$,
+	consisting of a single edge decorated by the color 
+	$\mathfrak{c} \in \mathfrak{C}$,
+	it is 
+	$\mathsf{lr}(\eta_{\mathfrak{c}}) = (\mathfrak{c};\mathfrak{c})$,
+	which is the corolla with two edges (a leaf and a root),
+	both labeled by $\mathfrak{c}$.
+\end{remark}
+
+\begin{remark}
+	The colored leaf-root functor is in fact fibered over $\mathsf{Set}^G$.
+	More explicitly, for any map of colors 
+	$\varphi \colon \mathfrak C \to \mathfrak D$,
+	we have the following commuting diagram.
+	\begin{equation}
+	\label{COLORLR_EQ}
+	\begin{tikzcd}
+	\Omega_{\mathfrak C}^0 \arrow[r, "\varphi"] \arrow[d, "\mathsf{lr}_{\mathfrak C}"']
+	&
+	\Omega_{\mathfrak D}^0 \arrow[d, "\mathsf{lr}_{\mathfrak D}"]
+	\\
+	\Sigma_{\mathfrak C} \arrow[r, "\varphi"]
+	&
+	\Sigma_{\mathfrak D}
+	\end{tikzcd}
+	\end{equation}
+\end{remark}
+
+For each $\mathfrak{C}$-signature $\vect{C}$,
+we write $\vect{C} \downarrow \Omega_{\mathfrak{C}}^0$
+for the undercategory with respect to $\mathsf{lr}$, 
+whose objects consist of a tree $\vect{T}\in \Omega_{\mathfrak{C}}^0$
+together with a choice of isomorphism 
+$\vect{C} \to \mathsf{lr}(\vect{T})$.
+Morally, $\vect{C} \downarrow \Omega_{\mathfrak{C}}^0$
+is the ``groupoid of trees with arity $\vect{C}$. 
+
+We can now provide the ``usual'' formula for the ``free operad monad''
+(see \cite[page 816]{BM07} for the non-colored case).
+Letting $X \in \mathsf{Sym}_{\mathfrak{C}}(\V)$,
+then for each $\mathfrak{C}$-signature $\vect{C}$ we have
+\begin{equation}\label{FROPEXP EQ}
+\mathbb{F}_{\mathfrak{C}} X (\vect{C})
+=
+\coprod_{[\vect{T}] \in 
+	\mathsf{Iso}(\vect{C} \downarrow \Omega^0_{\mathfrak{C}})}
+\left(
+\left(
+\bigotimes_{v \in \boldsymbol{V}(T)} X(\vect{T}_v)
+\right)
+\cdot_{\mathsf{Aut}_{\Omega_{\mathfrak{C}}}(\vect{T})}
+\mathsf{Aut}_{\Sigma_{\mathfrak{C}}}(\vect{C})
+\right)
+\end{equation}
+where $\mathsf{Iso}(-)$ denotes isomorphism classes of objects.
+
+However, one drawback of the formula  
+\eqref{FROPEXP EQ}
+is that it is not immediately clear how it should be modified 
+in the equivariant case,
+where $\mathfrak{C}$ is a $G$-set
+and $X \in \mathsf{Sym}^G_{\mathfrak{C}}$
+is a functor 
+$X \colon G \ltimes \Sigma_{\mathfrak{C}}^{op} \to \V$.
+To address this, we first repackage \eqref{FROPEXP EQ}, 
+following our approach in \cite[\S 4]{BP_geo}.
+We first need to define another functor, which we call the \emph{vertex functor}.
+As motivation, we note that
+in \eqref{FROPEXP EQ}
+the $\mathsf{Aut}_{\Omega_{\mathfrak{C}}}(\vect{T})$-action
+on the term
+$\bigotimes_{v \in \boldsymbol{V}(T)} X(\vect{T}_v)$
+depends on both permutations 
+of the set $\boldsymbol{V}(T)$
+and on automorphisms of the corollas $\vect{T}_v$.
+As such, rather than regard the vertices of $\vect{T}$ as merely a set
+we define 
+\begin{equation}\label{VFUNDEF EQ}
+\Omega_{\mathfrak{C}}^0 \xrightarrow{\boldsymbol{V}} \Sigma \wr \Sigma_{\mathfrak{C}}
+\qquad 
+\vect{T} \mapsto 
+\boldsymbol{V}(\vect{T})=(\vect{T}_v )_{v \in \boldsymbol{V}(T)}
+\end{equation}
+In words, $\boldsymbol{V}(\vect{T})$
+is the tuple of corollas indexed by the vertices of $T$. 
+Note that,
+by regarding $\boldsymbol{V}(\vect{T})$ as an object in 
+$\Sigma \wr \Sigma_{\mathfrak{C}}$ rather than just a set,
+we keep track of extra automorphism data.
+
+Noting that both the leaf root and vertex functors are naturally compatible with change of colors 
+$\varphi \colon \mathfrak{C} \to \mathfrak{D}$, 
+we can now provide the following alternative 
+description of \eqref{FROPEXP EQ}.
+
+
+
+\begin{definition}\label{FREEOP DEF}
+	Let $\mathcal{V}$ be a closed symmetric monoidal category.
+	
+	The \textit{fibered free operad monad} $\mathbb{F}$ on $\mathsf{Sym}_\bullet(\mathcal{V})$ 
+	assigns to 
+	$\Sigma_{\mathfrak{C}}^{op} \xrightarrow{X} \mathcal{V}$
+	the left Kan extension
+	\begin{equation}\label{FREEOP_EQ}
+	\begin{tikzcd}[column sep = 50pt]
+	\Omega^{0,op}_{\mathfrak{C}}
+	\arrow[d, "\mathsf{lr}^{op}"']
+	\arrow[r, "\boldsymbol{V}^{op}"]
+	&
+	(\Sigma \wr \Sigma_{\mathfrak{C}})^{op} \arrow[r, "(\Sigma \wr X^{op})^{op}"]
+	\arrow[dl, Rightarrow]
+	&
+	(\Sigma \wr \V^{op})^{op} \arrow[r, "\otimes"]
+	&
+	\V
+	\\
+	\Sigma^{op}_{\mathfrak{C}}
+	\arrow[urrr, "\Lan = \mathbb F_{\mathfrak{C}} X = \mathbb F X"']
+	\end{tikzcd}
+	\end{equation}
+\end{definition}
+The complete discussion of the monad structure
+$\mathbb{F}\mathbb{F} \Rightarrow \mathbb{F}$,
+$id \Rightarrow \mathbb{F}$ 
+can be found in \cite[App. \ref{OC-MONAD_APDX}]{BP_FCOP},
+culminating in \cite[Def. \ref{OC-COLORMON_DEF}]{BP_FCOP}.
+
+
+\begin{remark}\label{CONVER REM}
+	To relate \eqref{FROPEXP EQ} and \eqref{FREEOP_EQ}, recall that, 
+	for any span 
+	$\bar{\mathcal{G}} \overset{k}{\leftarrow} \mathcal{G} \xrightarrow{X} \mathcal{V}$
+	with $\mathcal{G},\bar{\mathcal{G}}$ groupoids,
+	one has the formula
+	\[\Lan X (\bar{G}) \simeq 
+	\colim_{(k(g) \to \bar{g})\in (\mathcal{G} \downarrow \bar{g})} X(g) \simeq
+	\coprod_{[k(g) \to \bar{g}] 
+		\in \mathsf{Iso}(\mathcal{G} \downarrow \bar{g})}
+	\mathsf{Aut}_{\bar{\mathcal{G}}}(\bar{g})
+	\cdot_{\mathsf{Aut}_{\mathcal{G}}(g)}
+	X(g)
+	\]
+	where the first identification is
+	(the dual of) \cite[Thm. 1.3.5]{Ri14}
+	and the second identification uses the observation that
+	$\mathcal{G} \downarrow \bar{g}$ is also a groupoid.
+\end{remark}
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Equivariant colored symmetric sequences and colored operads}
+
+
+
+
+Since  
+$\mathsf{Sym}^G_{\mathfrak{C}}(\mathcal{V}) \simeq 
+\V^{G \ltimes \Sigma^{op}_{\mathfrak{C}}}$ is again a functor category, 
+we will find it useful to discuss its representable functors.
+In the following discussion 
+we set $\V = \mathsf{Set}$ and abbreviate
+$\mathsf{Sym}^G_{\mathfrak{C}} = \mathsf{Sym}^G_{\mathfrak{C}}(\mathsf{Set})$.
+
+As the objects of 
+$G \ltimes \Sigma^{op}_{\mathfrak{C}}$
+are simply the signatures
+$\vect{C} \in \Sigma_{\mathfrak{C}}$,
+each such signature induces a representable functor
+$\left(G \ltimes \Sigma^{op}_{\mathfrak{C}}\right)(\vect{C},-)$
+in 
+$\mathsf{Sym}^G_{\mathfrak{C}}$.
+However, caution is needed.
+If one forgets the $G$-action on $\mathfrak{C}$,
+then $\vect{C} \in \Sigma_{\mathfrak{C}}$
+likewise induces a representable functor 
+$\Sigma_{\mathfrak{C}}[\vect{C}]=\Sigma^{op}_{\mathfrak{C}}(\vect{C},-)$
+in $\mathsf{Sym}_{\mathfrak{C}}$,
+as discussed in Notation \ref{FIBYON NOT}.
+%
+As such, our next task is to understand the relation between 
+$\left(G \ltimes \Sigma^{op}_{\mathfrak{C}}\right)(\vect{C},-)$
+and 
+$\Sigma_{\mathfrak{C}}[\vect{C}]$
+in such a way that we have analogues of the 
+fibered Yoneda \eqref{FIBYON EQ}
+and Proposition \ref{FIBYONPUSH PROP}.
+
+
+{\color{red} HERE}
+
+
+Now let $G$ be a group. Writing 
+$\mathsf{Sym}^G_\bullet(\mathcal{V})
+=
+\left(\mathsf{Sym}_\bullet(\mathcal{V})\right)^G$
+for the category of $G$-objects
+on $\mathsf{Sym}_{\bullet}(\V)$,
+the abstract nonsense argument in Remark \ref{FUNISGROTH REM}
+yields that
+$\mathsf{Sym}^G_\bullet(\mathcal{V}) \to \mathsf{Set}^G$
+is again a Grothendieck fibration.
+For each $\mathfrak{C} \in \mathsf{Set}^G$,
+we will then write
+$\mathsf{Sym}^G_{\mathfrak{C}}(\V)$
+to denote the fiber of
+$\mathsf{Sym}^G_\bullet(\mathcal{V}) \to \mathsf{Set}^G$
+over $\mathfrak{C}$.
+We caution that 
+$\mathsf{Sym}^G_{\mathfrak{C}}(\V)$
+\emph{is not} the category 
+$\left(\mathsf{Sym}_{\mathfrak{C}}(\V)\right)^G$
+of $G$-objects on $\mathsf{Sym}_{\mathfrak{C}}(\V)$
+unless the $G$-action on $\mathfrak{C}$
+happens to be trivial.
+
+We will thus find it convenient to have a more explicit description of
+$\mathsf{Sym}^G_{\mathfrak{C}}(\V)$,
+provided by the following result, 
+which adapts
+\cite[Lemma A.6]{BP_geo}.
+
+
+
+\begin{proposition}\label{EQUIVFNCON PROP}
+	Let $G$ be a group and $\mathfrak{C} \in \mathsf{Set}^G$
+	be a $G$-set. There is then a natural identification
+	\[
+	\mathsf{Sym}^G_{\mathfrak{C}}(\V)
+	\simeq
+	\mathsf{Fun}(G \ltimes \Sigma^{op}_{\mathfrak{C}},\V).
+	\]
+\end{proposition}
+
+
+
+Following the result above, 
+we will represent $G$-equivariant symmetric sequences
+$X \in \mathsf{Sym}^G_{\mathfrak{C}}(\mathcal{V})$
+for some $\mathfrak{C} \in \mathsf{Set}^G$
+as functors
+$X \colon G \ltimes \Sigma_{\mathfrak{C}}^{op} \to \mathcal{V}$.
+
+
+
+
 
 
 \begin{definition}
@@ -3452,228 +3502,6 @@ the orbits $\underline{n}_+ /\Lambda$.
 \subsection{Equivariant colored symmetric operads}
 \label{EQCOSYMOP SEC}
 
-Our goal in this section is to describe the category 
-$\mathsf{Op}^{G}_{\bullet}(\V)$
-of equivariant colored operads in a way suitable for our 
-proof of the main theorems in \S \ref{FIXCOL SEC} and \S \ref{MS_SEC}.
-
-We start by considering the non-equivariant case
-$G = \**$,
-for which we will describe
-$\mathsf{Op}_{\bullet}(\V)$
-as the category of fiber algebras over a certain fibered monad $\mathbb{F}$ on 
-$\mathsf{Sym}_\bullet(\mathcal{V})$.
-
-The restrictions of $\mathbb{F}$ to each fiber
-$\mathsf{Sym}_{\mathfrak{C}}(\V)$,
-i.e. the fiber monads $\mathbb{F}_{\mathfrak{C}}$,
-are simply the ``free operad with set of objects $\mathfrak{C}$'' monads,
-which are well known to be defined using 
-$\mathfrak{C}$-colored trees.
-
-As such, cf. Definition \ref{COLFOR DEF},
-we first write 
-$\Omega_{\mathfrak{C}} \subset \Phi_{\mathfrak{C}}$
-for the subcategory of $\mathfrak{C}$-colored forests which happen to be trees,
-as well as 
-$\Omega^0_{\mathfrak{C}} \subseteq \Omega_{\mathfrak{C}}$
-for the wide subcategory whose arrows are the isomorphisms.
-%
-Next, following \cite[Notation 3.38]{BP_geo},
-there is a ``colored arity functor''
-\begin{equation}\label{LRDEF EQ}
-\Omega_{\mathfrak C}^0 \xrightarrow{\mathsf{lr}_{\mathfrak C}} \Sigma_{\mathfrak{C}}
-\end{equation}
-which we call the \emph{leaf-root functor}, described as follows.
-Given $\vect{T} \in \Omega^0_{\mathfrak{C}}$, 
-its leaf-root
-$\mathsf{lr}(\vect{T}) \in \Sigma_{\mathfrak{C}}$
-is the only $\mathfrak{C}$-corolla
-admitting a planar tall map
-$\mathsf{lr}(\vect{T}) \to \vect{T}$
-(see \cite[Defs. 3.21 and 3.35]{BP_geo}),
-where by tall map we mean a map
-which sends leaves to leaves and the root to the root.
-
-
-\begin{example}
-For $\vect{T},\vect{S}$ the trees in Example \ref{COLFORES EX},
-we depict $\mathsf{lr}(\vect{T})$, $\mathsf{lr}(\vect{S})$
-below,
-which, informally, are obtained by keeping only the leaves and roots of the trees $\vect{T}, \vect{S}$.
-\begin{equation}
-	\begin{tikzpicture}[auto,grow=up, level distance = 2.2em,
-	every node/.style={font=\scriptsize,inner sep = 2pt}]%
-		\tikzstyle{level 2}=[sibling distance=3em]%
-			\node at (0,0) [font = \normalsize] {$\mathsf{lr}(\vect{T})$}%	
-				child{node [dummy] {}%
-					child{node {}%
-					edge from parent node [swap, near end] {$\mathfrak{c}\phantom{\mathfrak{b}}$}}%
-					child{node {}%
-					edge from parent node [near end] {$\mathfrak{b}$}}%
-				edge from parent node [swap] {$\mathfrak{a}$}};%
-			\node at (3,0) [font = \normalsize] {$\mathsf{lr}(\vect{S})$}%	
-				child{node [dummy] {}%
-				edge from parent node [swap] {$\mathfrak{a}$}};%
-	\end{tikzpicture}%
-\end{equation}%
-Alternatively, in signature notation we have
-$\mathsf{lr}(\vect{T}) = (\mathfrak{b},\mathfrak{c};\mathfrak{a})$
-and 
-$\mathsf{lr}(\vect{S}) = (;\mathfrak{a})$.
-\end{example}
-
-
-
-\begin{remark}\label{ETACNOT REM}
-Note that for a stick tree $\eta_{\mathfrak{c}}$,
-consisting of a single edge decorated by the color 
-$\mathfrak{c} \in \mathfrak{C}$,
-it is 
-$\mathsf{lr}(\eta_{\mathfrak{c}}) = (\mathfrak{c};\mathfrak{c})$,
-which is the corolla with two edges (a leaf and a root),
-both labeled by $\mathfrak{c}$.
-\end{remark}
-
-\begin{remark}
-      The colored leaf-root functor is in fact fibered over $\mathsf{Set}^G$.
-      More explicitly, for any map of colors 
-      $\varphi \colon \mathfrak C \to \mathfrak D$,
-      we have the following commuting diagram.
-      \begin{equation}
-            \label{COLORLR_EQ}
-            \begin{tikzcd}
-                  \Omega_{\mathfrak C}^0 \arrow[r, "\varphi"] \arrow[d, "\mathsf{lr}_{\mathfrak C}"']
-                  &
-                  \Omega_{\mathfrak D}^0 \arrow[d, "\mathsf{lr}_{\mathfrak D}"]
-                  \\
-                  \Sigma_{\mathfrak C} \arrow[r, "\varphi"]
-                  &
-                  \Sigma_{\mathfrak D}
-            \end{tikzcd}
-      \end{equation}
-\end{remark}
-
-For each $\mathfrak{C}$-signature $\vect{C}$,
-we write $\vect{C} \downarrow \Omega_{\mathfrak{C}}^0$
-for the undercategory with respect to $\mathsf{lr}$, 
-whose objects consist of a tree $\vect{T}\in \Omega_{\mathfrak{C}}^0$
-together with a choice of isomorphism 
-$\vect{C} \to \mathsf{lr}(\vect{T})$.
-Morally, $\vect{C} \downarrow \Omega_{\mathfrak{C}}^0$
-is the ``groupoid of trees with arity $\vect{C}$. 
-
-We can now provide the ``usual'' formula for the ``free operad monad''
-(see \cite[page 816]{BM07} for the non-colored case).
-Letting $X \in \mathsf{Sym}_{\mathfrak{C}}(\V)$,
-then for each $\mathfrak{C}$-signature $\vect{C}$ we have
-\begin{equation}\label{FROPEXP EQ}
-\mathbb{F}_{\mathfrak{C}} X (\vect{C})
-=
-\coprod_{[\vect{T}] \in 
-\mathsf{Iso}(\vect{C} \downarrow \Omega^0_{\mathfrak{C}})}
-\left(
-\left(
-\bigotimes_{v \in \boldsymbol{V}(T)} X(\vect{T}_v)
-\right)
-\cdot_{\mathsf{Aut}_{\Omega_{\mathfrak{C}}}(\vect{T})}
-\mathsf{Aut}_{\Sigma_{\mathfrak{C}}}(\vect{C})
-\right)
-\end{equation}
-where $\mathsf{Iso}(-)$ denotes isomorphism classes of objects.
-
-However, one drawback of the formula  
-\eqref{FROPEXP EQ}
-is that it is not immediately clear how it should be modified 
-in the equivariant case,
-where $\mathfrak{C}$ is a $G$-set
-and $X \in \mathsf{Sym}^G_{\mathfrak{C}}$
-is a functor 
-$X \colon G \ltimes \Sigma_{\mathfrak{C}}^{op} \to \V$.
-To address this, we first repackage \eqref{FROPEXP EQ}, 
-following our approach in \cite[\S 4]{BP_geo}.
-We first need to define another functor, which we call the \emph{vertex functor}.
-As motivation, we note that
-in \eqref{FROPEXP EQ}
-the $\mathsf{Aut}_{\Omega_{\mathfrak{C}}}(\vect{T})$-action
-on the term
-$\bigotimes_{v \in \boldsymbol{V}(T)} X(\vect{T}_v)$
-depends on both permutations 
-of the set $\boldsymbol{V}(T)$
-and on automorphisms of the corollas $\vect{T}_v$.
-As such, rather than regard the vertices of $\vect{T}$ as merely a set
-we define 
-\begin{equation}\label{VFUNDEF EQ}
-\Omega_{\mathfrak{C}}^0 \xrightarrow{\boldsymbol{V}} \Sigma \wr \Sigma_{\mathfrak{C}}
-\qquad 
-\vect{T} \mapsto 
-\boldsymbol{V}(\vect{T})=(\vect{T}_v )_{v \in \boldsymbol{V}(T)}
-\end{equation}
-In words, $\boldsymbol{V}(\vect{T})$
-is the tuple of corollas indexed by the vertices of $T$. 
-Note that,
-by regarding $\boldsymbol{V}(\vect{T})$ as an object in 
-$\Sigma \wr \Sigma_{\mathfrak{C}}$ rather than just a set,
-we keep track of extra automorphism data.
-
-Noting that both the leaf root and vertex functors are naturally compatible with change of colors 
-$\varphi \colon \mathfrak{C} \to \mathfrak{D}$, 
-we can now provide the following alternative 
-description of \eqref{FROPEXP EQ}.
-
-
-
-\begin{definition}\label{FREEOP DEF}
-Let $\mathcal{V}$ be a closed symmetric monoidal category.
-
-The \textit{fibered free operad monad} $\mathbb{F}$ on $\mathsf{Sym}_\bullet(\mathcal{V})$ 
-assigns to 
-$\Sigma_{\mathfrak{C}}^{op} \xrightarrow{X} \mathcal{V}$
-the left Kan extension
-\begin{equation}\label{FREEOP_EQ}
-\begin{tikzcd}[column sep = 50pt]
-	\Omega^{0,op}_{\mathfrak{C}}
-	\arrow[d, "\mathsf{lr}^{op}"']
-	\arrow[r, "\boldsymbol{V}^{op}"]
-&
-	(\Sigma \wr \Sigma_{\mathfrak{C}})^{op} \arrow[r, "(\Sigma \wr X^{op})^{op}"]
-	\arrow[dl, Rightarrow]
-&
-	(\Sigma \wr \V^{op})^{op} \arrow[r, "\otimes"]
-&
-	\V
-\\
-	\Sigma^{op}_{\mathfrak{C}}
-	\arrow[urrr, "\Lan = \mathbb F_{\mathfrak{C}} X = \mathbb F X"']
-\end{tikzcd}
-\end{equation}
-\end{definition}
-The complete discussion of the monad structure
-$\mathbb{F}\mathbb{F} \Rightarrow \mathbb{F}$,
-$id \Rightarrow \mathbb{F}$ 
-can be found in \cite[App. \ref{OC-MONAD_APDX}]{BP_FCOP},
-culminating in \cite[Def. \ref{OC-COLORMON_DEF}]{BP_FCOP}.
-
-
-\begin{remark}\label{CONVER REM}
-To relate \eqref{FROPEXP EQ} and \eqref{FREEOP_EQ}, recall that, 
-for any span 
-$\bar{\mathcal{G}} \overset{k}{\leftarrow} \mathcal{G} \xrightarrow{X} \mathcal{V}$
-with $\mathcal{G},\bar{\mathcal{G}}$ groupoids,
-one has the formula
-\[\Lan X (\bar{G}) \simeq 
-\colim_{(k(g) \to \bar{g})\in (\mathcal{G} \downarrow \bar{g})} X(g) \simeq
-\coprod_{[k(g) \to \bar{g}] 
-\in \mathsf{Iso}(\mathcal{G} \downarrow \bar{g})}
-\mathsf{Aut}_{\bar{\mathcal{G}}}(\bar{g})
-\cdot_{\mathsf{Aut}_{\mathcal{G}}(g)}
-X(g)
-\]
-where the first identification is
-(the dual of) \cite[Thm. 1.3.5]{Ri14}
-and the second identification uses the observation that
-$\mathcal{G} \downarrow \bar{g}$ is also a groupoid.
-\end{remark}
 
 
 By the abstract nonsense argument in 
@@ -3686,8 +3514,8 @@ To describe $\mathbb{F}^G$,
 note that \eqref{FREEOP_EQ}
 can be regarded as an arrow in 
 the category $\mathsf{Cat} \downarrow^l \V$
-from Remark \ref{SUBCATDOWNL REM}
-which, being a left Kan extension, is cocartesian over $\mathsf{Cat}$ (cf. Remark \ref{SUBCOCART REM}).
+from \cite[Rem. \ref{OC-SUBCATDOWNL REM}]{BP_FCOP}
+which, being a left Kan extension, is cocartesian over $\mathsf{Cat}$ (cf. \cite[Rem. \ref{OC-SUBCOCART REM}]{BP_FCOP}).
 Hence, if $X \in \mathsf{Sym}_{\bullet}^G(\V)$
 is $G$-equivariant, 
 \eqref{FREEOP_EQ} is then a cocartesian arrow in 
@@ -3708,7 +3536,7 @@ affects the top composite in \eqref{FREEOP_EQ},
 with the non-obvious issue being that of understanding
 what happens to the middle map
 therein, which can be described using
-Remark \ref{RHOPURP REM}.
+\cite[Rem. \ref{OC-RHOPURP REM}]{BP_FCOP}.
 Putting all of this together
 (and using the isomorphisms
 $G \ltimes \mathcal{C}^{op} \simeq (G \ltimes \mathcal{C})^{op}$
@@ -4073,21 +3901,6 @@ be a cofibrantly generated (monoidal) model category.
 	\end{enumerate}
 \end{proposition}
 
-\begin{proof}
-For (i), we apply \cite[Theorem 2.1.19]{Hov99} to the generating sets in 
-\eqref{GENGENSETEQ}.
-All conditions therein are immediate 
-% (in $\Set$, fixed points commute with all direct limits)
-except for the requirement that
-$\mathcal{J}_{G}\text{-cell} \subseteq \mathcal{W}_G$,
-which holds since the conditions in Definition \ref{WEAKCELL DEF}
-guarantee that $H$-fixed points of maps in 
-$\mathcal{J}_{G}$-cell are in $\mathcal{J}$-cell.
-
-(ii) is similar. Definition \ref{WEAKCELL DEF}
-implies that $H$-fixed points of maps in 
-$\mathcal{J}^{\otimes}_{G}$-cell are in $\mathcal{J}^{\otimes}$-cell.
-\end{proof}
 
 
 
@@ -4193,30 +4006,6 @@ In particular, the $\V^{\G}_{\F}$
 model structures exist whenever $\V$ has weak acyclic cellular fixed points.
 \end{proposition}
 
-\begin{proof}
-For the main claim, only the ``if'' direction requires proof.
-Much as in Proposition \ref{WEAKCELL PROP}(i), 
-we consider \cite[Theorem 2.1.19]{Hov99}
-applied to the generating sets in \eqref{VGFGEN EQ},
-and again the only non immediate condition is the requirement
-$\mathcal{J}_{\F}\text{-cell} \subseteq \mathcal{W}_{\F}$,
-where $\mathcal{W}_{\F}$ denotes the weak equivalences 
-in $\V^{\G}_{\F}$.
-By Remark \ref{SIGMACOF_REM}, it suffices to show 
-$\mathcal{J}_{\F_x}\text{-cell} \subseteq \mathcal{W}_{\F_x}$
-for all $x \in \G$.
-This now follows since
-\begin{equation}\label{FAMTOGEN EQ}
-\mathcal{J}_{\F_x}\text{-cell} \subseteq 
-\mathcal{J}_{\Aut(x)}\text{-cell} \subseteq 
-\mathcal{W}_{\Aut(x)} \subseteq 
-\mathcal{W}_{\F_x}
-\end{equation}
-where the middle inclusion follows by the existence of the 
-genuine model structure on $\V^{\Aut(x)}$.
-
-The ``in particular'' claim now reduces to Proposition \ref{WEAKCELL PROP}(i).
-\end{proof}
 
 
 
@@ -4347,18 +4136,12 @@ $\phi^{\**}\left(j \otimes X\right) \simeq j \otimes \phi^{\**}\left( X\right)$.
 
 
 
-
-
-
 \begin{definition}[{\cite[Def. 6.16]{BP_geo}}]\label{CSPP_DEF}
       We say a symmetric monoidal model category $\V$ has \textit{cofibrant symmetric pushout powers} if,
       for all (trivial) cofibrations $f$, 
       the pushout product power $f^{\square n}$
       is a $\Sigma_n$-genuine (trivial) cofibration in $\V^{\Sigma_n}$ for all $n \geq 1$. 
 \end{definition}
-
-
-
 
 
 
@@ -4620,6 +4403,30 @@ $j$ ranges over $\mathcal{J}$.
 
 \section{Preliminaries for ALL COLORS paper}
 
+
+\subsection{Symmetric sequences and operads}
+
+
+
+
+
+
+
+
+
+\subsection{model structures bla}
+
+
+
+
+
+
+\begin{remark}\label{FALLMAXMIN REM}
+The case $\F_{all}$ of the family of all subgroups
+minimizes the classes of weak equivalences and fibrations
+and thus, conversely, 
+it maximizes the classes of cofibrations and trivial cofibrations.
+\end{remark}
 
 
 \subsection{On model structures on fibers}
@@ -5840,9 +5647,9 @@ since these are preserved under pullback
 
 \begin{proof}
 	We reduce to the case $\F=\F_{all}$,
-	as that makes (TC1),(TC2) in (Definition \ref{OPGENCOF DEF}) as large as possible 
-	and $\mathcal{F}$-weak equivalences as small as possible
-	(cf. \eqref{FAMTOGEN EQ} and the proof of Theorem \ref{THMI}).
+	as that makes (TC1),(TC2) in Definition \ref{OPGENCOF DEF} as large as possible 
+	and $\mathcal{F}$-weak equivalences as small as possible,
+	cf. Remark \ref{FALLMAXMIN REM}.
 		
 	By the global monoid axiom (Definition \ref{GLOBMONAX_DEF}) and
 	the closure under transfinite composition properties in Lemma \ref{TRANSCOMP_ES_LEM} and Remark \ref{LOCOTIMESTRI REM},
