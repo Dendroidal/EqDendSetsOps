@@ -25,7 +25,7 @@
 \usepackage{ifdraft}
 \ifdraft{
   \color[RGB]{63,63,63}
-  \pagecolor[RGB]{220,220,204}
+%  \pagecolor[RGB]{220,220,204}
   \usepackage[notref]{showkeys}
   \usepackage{todonotes}
 }
@@ -655,15 +655,30 @@ equivariant context.
 
 
 
+
+%As usual in the literature on colored categories/operads
+%\cite{BM07,Rob11,CM13b,Cav},
+%our first step towards building the model structures 
+%in Theorem \ref{THMA}
+%was to build intermediate model structures on the categories
+%$\mathsf{sOp}^G_{\mathfrak{C}}$
+%with a fixed $G$-set of colors $\mathfrak{C}$.
+%The constructions of these were the main results, \cite[Thms \ref{OC-THMI}, \ref{OC-THMII}]{BP_FCOP}, of the prequel.
+%While these model structures do not appear explicitly in the statement of Theorem \ref{THMA},
+%they play an essential role in its proof.
+
+
+
+
 \subsection{Main Results}
 
 
 Before stating our main result, Theorem \ref{THMA},
-we need three preliminary discussions.
+we require some preliminary setup.
 
 First, as noted in \eqref{GRAPHEQ EQ},
 our preferred notion of equivalence of equivariant operads is determined by the graph subgroups.
-However, as in \cite{BP_FCOP}, we will work with a largely arbitrary collection of subgroups.
+However, as in \cite{BP_FCOP}, we will work with general collections of subgroups.
 
 \begin{definition}\label{FAM1ST DEF}
 	A \emph{$(G,\Sigma)$-family} is a
@@ -674,21 +689,21 @@ However, as in \cite{BP_FCOP}, we will work with a largely arbitrary collection 
 \end{definition}
 The use of $\Sigma_n^{op}$ rather than $\Sigma_n$
 in Definition \ref{FAM1ST DEF} 
-(and throughout the paper) 
+(and throughout) 
 is motivated by regarding $\Sigma$
 as the category of corollas (i.e. trees with a single node; 
-see %\eqref{OPSSYMS EQ},\eqref{CSYM EQ1},
-\eqref{CSYM EQ2}),
+see \eqref{OPSSYMS EQ},\eqref{CSYM EQ1},\eqref{CSYM EQ2}),
 and the fact that the dendroidal nerve \cite[\S 1]{MW07} of an operad is contravariant on the category of trees.
 % $\Omega$.
 
 
-To prove Theorem \ref{THMA}, we need a small restriction on the 
-$(G,\Sigma)$-family $\mathcal{F} = \{\F_n\}$.
+In contrast to \cite[Thm. \ref{OC-THMI}]{BP_FCOP},
+Theorem \ref{THMA} requires a minor restriction on the 
+$(G,\Sigma)$-family $\mathcal{F}$.
 Noting that $\F_1$ is a family of subgroups of 
 $G \times \Sigma_1^{op} \simeq G$,
-we freely identify 
-$H \in \F_1$ with the corresponding subgroup $H \leq G$.
+we regard 
+$H \in \F_1$ as a subgroup $H \leq G$.
 
 \begin{definition}\label{FAMRESUNI DEF}
 	Write $G \times \Sigma_n^{op} \xrightarrow{\pi_n} 
@@ -700,56 +715,76 @@ $H \in \F_1$ with the corresponding subgroup $H \leq G$.
 	for all $H \in \F_n$, $n\geq 0$,
 	it is $\pi_n(H) \in \F_1$.
 \end{definition}
-\noindent The motivation for this condition is discussed in Remark \ref{WHYEU REM}.
-
-Second, recall that for a set $\mathfrak C$, a \textit{$\mathfrak C$-signature}
-is a tuple
-$\vect{C} = (\mathfrak{c}_1,\cdots,\mathfrak{c}_n;\mathfrak{c}_0) = (\mathfrak c_i)_{0 \leq i \leq n}$
-of elements of $\mathfrak C$.
-The set $\mathfrak C^{\times n+1}$ of $n$-ary signatures is naturally equipped with a $\Sigma_n^{op}$-action
-(via the inclusion $\Sigma_n^{op} \leq \Sigma_{n+1}^{op}$).
-If in fact $\mathfrak C$ is a $G$-set, then
-$\mathfrak C^{\times n+1}$ has an action by $G \times \Sigma_n$;
-explicitly, 
-$(g,\sigma)(\mathfrak c_1, \dots, \mathfrak c_n; \mathfrak c_0) = (g \mathfrak c_{\sigma 1}, \dots, g \mathfrak c_{\sigma n}; g c_0)$.
-As such, we say that a subgroup 
-$\Lambda \leq G \times \Sigma_n^{op}$
-\emph{stabilizes} a signature $\vect{C} = (\mathfrak c_i)_{0 \leq i \leq n}$ if
-$g \mathfrak c_{\sigma i} = \mathfrak c_i$ for all $(g,\sigma) \in \Lambda$.
-
-Now, a colored operad $\O \in \Op_\bullet(\V)$
-has in particular
-an associated set of colors, $\mathfrak C$, 
-and levels $\O(\vect C) = \O(\mathfrak c_1, \dots, \mathfrak c_n; \mathfrak c_0)$ indexed by the $\mathfrak C$-signatures.
-When $\O \in \Op_\bullet^G(\V)$ is an equivariant colored operad, the associated set $\mathfrak C$ is in fact a $G$-set.
-Moreover, the action of $G \times \Sigma_n$ on the set $\mathfrak C^{\times n+1}$ of $n$-ary signatures
-is associated to
-a system of associative and unital isomorphisms
-\begin{equation}\label{OPSSYMS EQ}
-        \O(\mathfrak{c}_1,\cdots,\mathfrak{c}_n;\mathfrak{c}_0)
-        \to 
-        \O(g \mathfrak{c}_{\sigma(1)},\cdots,g \mathfrak{c}_{\sigma(n)};g\mathfrak{c}_0)
-\end{equation}
-for $(g,\sigma) \in G \times \Sigma_n^{op}$.
-%
-Specifically, if $\Lambda$ stabilizes $\vect C$, then
-$\O(\vect C)$ has a $\Lambda$-action.
+ The motivation for the condition
+in Definition \ref{FAMRESUNI DEF} is discussed in Remark \ref{WHYEU REM}.
 
 
 
+Next, recall that a colored operad $\O$	
+with color set $\mathfrak{C}$ has levels 	
+$	
+\O(\vect{C})=	
+\O(\mathfrak{c}_1,\cdots,\mathfrak{c}_n;\mathfrak{c}_0)$	
+indexed by tuples	
+$\vect{C} = (\mathfrak{c}_1,\cdots,\mathfrak{c}_n;\mathfrak{c}_0) = (\mathfrak c_i)_{0 \leq i \leq n}$	
+of elements in $\mathfrak{C}$, called \emph{$\mathfrak{C}$-signatures}.	
+If the operad is symmetric one has associative and unital isomorphisms	
+$	
+\O(\mathfrak{c}_1,\cdots,\mathfrak{c}_n;\mathfrak{c}_0) \to 	
+\O(\mathfrak{c}_{\sigma(1)},\cdots,\mathfrak{c}_{\sigma(n)};\mathfrak{c}_0)	
+$	
+for each permutation $\sigma \in \Sigma_n$.	
+On the other hand, if 	
+$\O \in \mathsf{sOp}^G_{\mathfrak{C}}$	
+is a $G$-equivariant operad, 	
+the color set $\mathfrak{C}$ is itself a $G$-set	
+and one similarly has associative and unital isomorphisms	
+$	
+\O(\mathfrak{c}_1,\cdots,\mathfrak{c}_n;\mathfrak{c}_0) \to 	
+\O(g\mathfrak{c}_{1},\cdots,g\mathfrak{c}_{n};g\mathfrak{c}_0)	
+$ for $g \in G$.
+All together, one thus has isomorphisms	
+\begin{equation}\label{OPSSYMS EQ}	
+\O(\mathfrak{c}_1,\cdots,\mathfrak{c}_n;\mathfrak{c}_0)	
+\to 	
+\O(g \mathfrak{c}_{\sigma(1)},\cdots,g \mathfrak{c}_{\sigma(n)};g\mathfrak{c}_0)	
+\end{equation}	
+for $(g,\sigma) \in G \times \Sigma_n^{op}$.	
+Note that these isomorphisms 	
+are associated with an action of 	
+$G \times \Sigma_n^{op}$	
+on the set $\mathfrak{C}^{n+1}$ of $n$-ary signatures via	
+$(g,\sigma) (\mathfrak{c}_i)_{0\leq i \leq n}	
+= (g \mathfrak{c}_{\sigma(i)})_{0\leq i \leq n}$,	
+where we implicitly write $\sigma(0)=0$.
+
+As such, we say that a subgroup 	
+$\Lambda \leq G \times \Sigma_n^{op}$	
+\emph{stabilizes} a signature $\vect{C}=(\mathfrak{c}_i)_{0 \leq i \leq n}$ if,	
+for any $(g,\sigma) \in \Lambda$,	
+it is 	
+$\mathfrak{c}_i = g \mathfrak{c}_{\sigma(i)}$ for $0 \leq i \leq n$.	
+Note that,	
+for $\O \in \mathsf{sOp}^G_{\mathfrak{C}}$,	
+the level $\O(\vect{C})$ has a $\Lambda$-action.
 
 
-Third, to formulate Theorem \ref{THMA} we need a notion of 
+
+
+Lastly, we need a notion of 
 \emph{essential surjectivity}.
 As such, we recall the following construction, 
 which associates to a $\V$-category $\mathcal{C}$
 a \emph{category of components} $\pi_0 \mathcal{C}$.
 
+
+
 \begin{definition}
-	Suppose $\V$ satisfies conditions (i)-(viii) of Theorem \ref{THMA};
-	in particular, $\V$ has a cofibrant unit.
+	Suppose $\V$ is as in Theorem \ref{THMA}
+	(in particular, $\V$ has a cofibrant unit).
         % 
-	Given $\mathcal C \in \Cat_{\mathfrak{C}}(\V)$, we define 
+	Given $\mathcal C \in \Cat_{\mathfrak{C}}(\V)$, 
+	define 
 	$\pi_0 \mathcal C \in \Cat_{\mathfrak{C}} = \Cat_{\mathfrak{C}}(\mathsf{Set})$ 
 	to be the ordinary category with the same objects and
         \[
@@ -764,15 +799,13 @@ a \emph{category of components} $\pi_0 \mathcal{C}$.
         \ref{RESTTOCATS REM} and \ref{GTRIV REM}).
 \end{definition}
 
-Further, we write
+Further writing
 $j^{\**} \colon 
 \mathsf{Op}^G_{\bullet}(\V) \to \mathsf{Cat}^G_{\bullet}(\V)$
 for the ``underlying category''
-functor which forgets the non-unary operations.
+functor which forgets the non-unary operations,
+we can now state the main result.
 
-\vskip 10pt
-
-We now state our main result.
 
 \begin{customthm}{A}\label{THMA}
 Fix a finite group $G$ 
@@ -829,13 +862,13 @@ exists provided $(\V,\otimes)$ satisfies:
 \end{customthm}
 
 
-
-\noindent Maps satisfying both weak equivalence conditions in 
+\begin{remark}
+Maps satisfying both weak equivalence conditions in 
 \eqref{THMIII1ST EQ},\eqref{THMIII2ND EQ}
 are called \emph{Dwyer-Kan equivalences},
 while maps satisfying only \eqref{THMIII1ST EQ}
 are called \emph{local equivalences}.
-
+\end{remark}
 
 
 \begin{remark}\label{WHYEU REM}
@@ -898,23 +931,6 @@ are weak equivalences/trivial fibrations in the canonical model structure on the
 
 
 
-As usual in the literature on colored categories/operads
-\cite{BM07,Rob11,CM13b,Cav},
-our first step towards building the model structures 
-in Theorem \ref{THMA}
-was to build intermediate model structures on the categories
-$\mathsf{sOp}^G_{\mathfrak{C}}$
-with a fixed $G$-set of colors $\mathfrak{C}$.
-The constructions of these were the main results, \cite[Thms \ref{OC-THMI}, \ref{OC-THMII}]{BP_FCOP}, of the prequel.
-While these model structures do not appear explicitly in the statement of Theorem \ref{THMA},
-they play an essential role in its proof.
-
-\begin{remark}
-        The restriction of the model structures from Theorem \ref{THMA}
-        to the fixed-color categories $\Op_{\mathfrak C}^G(\V) \subseteq \Op_\bullet^G(\V)$
-        almost recovers the model structures from \cite[Thms. \ref{OC-THMI},\ref{OC-THMII}]{BP_FCOP}.
-        However, the $\Op_{\mathfrak C}^G(\V)$ have fibrations that $\Op_\bullet^G(\V)$ doesn't detect; see Proposition \ref{FIBERGLMOD PROP}.
-\end{remark}
 
 
 
@@ -953,7 +969,7 @@ they play an essential role in its proof.
 
 
 \begin{remark}\label{SEMI_REM}
-	When working with operads, some authors (e.g. \cite{Spi,Whi17,WY18,BP_geo})
+	When working with operads, some authors (e.g. \cite{Spi,Whi17,WY18})
 	discuss \emph{semi-model structures}.
 	Briefly, these are a weakening of Quillen's original definition
 	where those factorization and lifting axioms
@@ -976,7 +992,7 @@ they play an essential role in its proof.
 
 
 \begin{remark}\label{GTRIV REM}
-	It may be tempting to think that if the group $G=\**$ is trivial
+	It may be tempting to think that, if the group $G=\**$ is trivial,
 	one can omit the existence of genuine model structures assumption in (ii) of Theorem \ref{THMA}.
 	However, that is not the case since, 
 	even when $\F$ is the $(G,\Sigma)$-family of trivial subgroups
