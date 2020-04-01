@@ -1084,72 +1084,18 @@ non-example.
 \subsection{Outline}
 
 
-In \S \ref{PRE SEC} we start by discussing some preliminary notions that will be needed throughout.
-As noted in the introduction to 
-\S \ref{PRE SEC}, our treatment will be simplified by regarding the category
+\S \ref{SUM SEC} mostly recalls the notions and results from
+\cite{BP_FCOP} that we will use,
+recalling in particular the model structures
+on fixed color operads 
+$\mathsf{Op}_{\mathfrak{C}}(\V)$ from
+\cite[Thm. \ref{OC-THMI}]{BP_FCOP},
+which form the basis of the model structures on
 $\mathsf{Op}_{\bullet}(\V)$
-as suitably ``fibered'' over the category $\mathsf{Set}$
-of sets.
-To that end, 
-\cite[\S \ref{OC-GROTFIB SEC}]{BP_FCOP}
-recalls the necessary notion of Grothendieck fibration 
-while \cite[\S \ref{OC-FIBCAT_SEC}]{BP_FCOP}
-discusses how the notions of adjunction and monad % notions from category theory
-interact with such fibrations.
-%
-\S \ref{EQCOSYMSEQ SEC}
-discusses the category
-$\mathsf{Sym}_{\bullet}(\V)$
-of all colored symmetric sequences,
-with the highlights being 
-\cite[Prop. \ref{OC-EQUIVFNCON PROP}]{BP_FCOP},
-which shows that the category
-$\mathsf{Sym}^G_{\mathfrak{C}}(\V)$
-of $G$-symmetric sequences with a fixed $G$-set of objects
-$\mathfrak{C}$ can be described as a presheaf category,
-and 
-\cite[Prop. \ref{OC-REPALTDESC PROP}]{BP_FCOP},
-which provides a convenient description of the representable functors in 
-$\mathsf{Sym}^G_{\mathfrak{C}} = \mathsf{Sym}^G_{\mathfrak{C}}(\mathsf{Set})$.
-%
-Lastly, \cite[\S \ref{OC-EQCOSYMOP SEC}]{BP_FCOP}
-briefly describes the category 
-$\mathsf{Op}_{\bullet}(\V)$ 
-of all colored operads as the algebras over a ``fibered monad''
-on  
-$\mathsf{Sym}_{\bullet}(\V)$,
-and unpacks the abstract discussion in \cite[\S \ref{OC-FIBCAT_SEC}]{BP_FCOP}
-so as to likewise describe the category 
-$\mathsf{Op}_{\bullet}^G(\V)$ 
-of all equivariant colored operads
-as algebras on 
-$\mathsf{Sym}^G_{\bullet}(\V)$.
+in Theorem \ref{THMA}.
 
 
-\cite[\S \ref{OC-FIXCOL SEC}]{BP_FCOP}
-is dedicated to proving our two main results in the fixed color context, \cite[Thm. \ref{OC-THMI}]{BP_FCOP} and \cite[Thm. \ref{OC-THMII}]{BP_FCOP}.
-Firstly, in \cite[\S \ref{OC-EHT_SEC}]{BP_FCOP} we discuss the global monoid axiom mentioned in Theorem \ref{THMA}
-and extend much of the work 
-concerning equivariant model structures determined by families of subgroups in \cite[\S 6]{BP_geo}
-from the context of groups to the context of groupoids,
-culminating in 
-\cite[Prop. \ref{OC-SIGMAWRGF PROP}]{BP_FCOP},
-which concerns the properties of pushout powers $f^{\square n}$
-and is the key technical result in the whole of \cite[\S \ref{OC-FIXCOL SEC}]{BP_FCOP}.
-%
-\cite[\S \ref{OC-SYMC_MS_SEC}]{BP_FCOP} then specifies the theory in
-\cite[\S \ref{OC-EHT_SEC}]{BP_FCOP}
-to obtain model structures on the categories
-$\mathsf{Sym}^G_{\mathfrak{C}}(\V)$ of symmetric sequences with fixed colors,
-which are then used in \cite[\S \ref{OC-OPC_MS_SEC}]{BP_FCOP}
-to obtain transferred model structures on the 
-categories
-$\mathsf{Op}^G_{\mathfrak{C}}(\V)$
-of operads with fixed colors, establishing 
-\cite[Thm. \ref{OC-THMI}]{BP_FCOP}.
-
-
-Our final main section, \S \ref{MS_SEC}, is dedicated to proving 
+\S \ref{MS_SEC} is dedicated to proving 
 Theorem \ref{THMA}.
 In \S \ref{MAPSOPG_SEC} we identify the relevant classes of maps
 in $\mathsf{Op}^G_{\bullet}(\V)$.
@@ -1169,149 +1115,59 @@ Remark \ref{FIBSALT REM}.
 
 
 
-
-\section{Preliminaries}\label{PRE SEC}
-
-
-Much as in the non-equivariant case, 
-our approach to building the model structures
-in Theorem \ref{THMA},
-on the category $\mathsf{Op}^G_{\bullet}(\V)$
-of equivariant operads on all sets of colors,
-will be to first build the model structures in 
-\cite[Thm. \ref{OC-THMI}]{BP_FCOP},
-on the subcategories $\mathsf{Op}^G_{\mathfrak{C}}(\V)$
-with a fixed $G$-set of colors $\mathfrak{C}$.
-
-However, the equivariant setting presents some technical challenges that will require us to repackage the non-equivariant narrative of
-\cite{CM13b},\cite{Cav} somewhat.
-
-To see why, recall that \cite{CM13b},\cite{Cav}
-follow a ``work color by color and then assemble'' strategy.
-More precisely, first the model structures on fixed color operads 
-$\mathsf{Op}_{\mathfrak{C}}(\V)$
-are built by identifying these as algebras over a monad
-$\mathbb{F}_{\mathfrak{C}}$
-on the category $\mathsf{Sym}_{\mathfrak{C}}(\V)$
-of fixed color symmetric sequences.
-As such, maps of operads that do not fix colors
-only appear afterward when assembling the model structure on the full category $\mathsf{Op}_{\bullet}(\V)$.
-
-However, when working equivariantly, 
-while the maps in the fixed $G$-set of objects categories 
-$\mathsf{Op}^G_{\mathfrak{C}}(\V)$ do fix colors, 
-the $G$-action on \emph{objects}
-$\O \in \mathsf{Op}^G_{\mathfrak{C}}(\V)$
-involves maps of operads $\O \xrightarrow{g} \O$
-that need not fix colors (unless $\mathfrak{C}$ is a trivial $G$-set).
-In other words, when discussing equivariant operads,
-even the fixed color categories 
-$\mathsf{Op}^G_{\mathfrak{C}}(\V)$
-require color change data.
-Due to this issue, 
-our approach will be that the transition from the non-equivariant to the equivariant case is easier to describe 
-if we regard the "all colors" framework as the primary framework,
-and then restrict to color fixed operads only when needed.
-
-More explicitly, the basis of our approach is to combine the 
-fixed color symmetric sequence categories
-$\mathsf{Sym}_{\mathfrak{C}}(\V)$ for all color sets 
-$\mathfrak{C} \in \mathsf{Set}$
-(and change of color data between them)
-into a single category $\mathsf{Sym}_{\bullet}(\V)$.
-There is then a Grothendieck fibration
-$\mathsf{Sym}_{\bullet}(\V) \to \mathsf{Set}$
-which records the underlying set of colors,
-and whose fiber over $\mathfrak{C} in \mathsf{Set}$ is 
-$\mathsf{Sym}_{\mathfrak{C}}(\V)$.
-Similarly, the monads $\mathbb{F}_{\mathfrak{C}}$
-on $\mathsf{Sym}_{\mathfrak{C}}(\mathcal{V})$
-(and change of color data between them) 
-assemble into a single monad $\mathbb{F}$
-on $\mathsf{Sym}_{\bullet}(\V)$
-which is suitably compatible with 
-the Grothendieck fibration 
-$\mathsf{Sym}_{\bullet}(\V) \to \mathsf{Set}$,
-and, by considering (a subcategory of) algebras over $\mathbb{F}$,
-one obtains the category $\mathsf{Op}_{\bullet}(\V)$
-of colored operads for all colors.
-These fit together as on the left below.
-\begin{equation}\label{FIBADJMON EQ}
-\begin{tikzcd}[row sep = small, column sep = tiny]
-\Sym_\bullet(\V) \arrow[rr, "\mathbb F"] \arrow[dr]
-&&
-\Op_\bullet(\V) \arrow[dl]
-&&& % ----------
-\Sym^G_\bullet(\V) \arrow[rr, "\mathbb F^G"] \arrow[dr]
-&&
-\Op^G_\bullet(\V) \arrow[dl]
-\\
-&
-\mathsf{Set}
-&
-&&& % ----------
-&
-\mathsf{Set}^G
-\end{tikzcd}
-\end{equation}
-Within this "all colors" framework, passing to the equivariant case is simply a matter of applying $G$-objects throughout as on the right above, 
-so that one has a Grothendieck fibration
-$\mathsf{Sym}_{\bullet}^G \to \mathsf{Set}^G$
-with a compatible monad $\mathbb{F}^G$
-from which one obtains the category 
-$\mathsf{Op}_{\bullet}(\V)$
-of $G$-equivariant colored operads for all colors. 
+\section{Summary of previous work}
+\label{SUM SEC}
 
 
-The plan for this preliminary section is then as follows.
-%
-\cite[\S \ref{OC-GROTFIB SEC}]{BP_FCOP} recalls the notion of Grothendieck fibration and
-introduces some related constructions that are used throughout.
-%
-\cite[\S \ref{OC-FIBCAT_SEC}]{BP_FCOP} discusses how the usual notions of adjunction and monad interact with Grothendieck fibrations,
-allowing us to regard the monads
-(and associated adjunctions)
-in \eqref{FIBADJMON EQ}
-as being suitably fibered over $\mathsf{Set}$ and $\mathsf{Set}^G$.
-%
-\S \ref{EQCOSYMSEQ SEC} then applies the abstract theory in 
-\cite[\S \ref{OC-GROTFIB SEC}]{BP_FCOP},
-\cite[\S \ref{OC-FIBCAT_SEC}]{BP_FCOP}
-to discuss the global categories
-$\mathsf{Sym}_{\bullet}(\V)$,
+This section is mostly expository, 
+recalling the key definitions and results 
+in \cite{BP_FCOP} that we need to 
+prove Theorem \ref{THMA},
+while converting some technical results therein 
+to a more convenient format.
+
+
+In \S \ref{COSYMSEQ SEC} and \S \ref{EQCOSYMSEQ SEC} 
+we recall the definitions
+of the categories
 $\mathsf{Sym}^G_{\bullet}(\V)$
-of symmetric sequences, 
-with most of the work being devoted to providing 
-explicit descriptions of the equivariant fibers
-$\mathsf{Sym}^G_{\mathfrak{C}}(\V)$
-for $\mathfrak{C} \in \mathsf{Set}^G$
-and of the representable functors in these fibers.
-%
-Lastly, in \cite[\S \ref{OC-EQCOSYMOP SEC}]{BP_FCOP}, 
-we describe the fibered monad $\mathbb F$ 
-(see \cite[\eqref{OC-FREEOP_EQ}]{BP_FCOP}, which is elaborated in 
-\cite[App. \ref{OC-MONAD_APDX}]{BP_FCOP}),
-and determine the fibers of the equivariant monad $\mathbb F^G$ (see \cite[\eqref{OC-FGC_EQ}]{BP_FCOP}).
+of equivariant symmetric sequences and
+$\mathsf{Op}^G_{\bullet}(\V)$
+of equivariant operads.
+Of particular importance is the discussion on 
+representable functors in 
+$\mathsf{Sym}^G_{\bullet}
+=
+\mathsf{Sym}^G_{\bullet}(\mathsf{Set})$,
+culminating in \eqref{REPALTDESC EQ},
+which are needed in \S \ref{GENCOF SEC}
+when describing the generating (trivial) cofibrations
+in $\mathsf{Op}^G_{\bullet}(\V)$.
 
 
-As a side note, we observe that our discussion of fibered category theory will
-also help streamline our work in the sequel \cite{BP_TAS}.
-Therein, we will need to establish a Quillen equivalence
-$\tau \colon \mathsf{PreOp}^G \rightleftarrows \mathsf{sOp}^G\colon N$
-between the category of (simplicial) preoperads and
-the category of simplicial operads.
-In that work, the claim that the adjunction is Quillen 
-will be greatly simplified by noting that in both categories 
-the generating (trivial) cofibrations
-can be described using a ``fibered simplicial cotensoring''.
-
+\S \ref{COLFIXMOD SEC} then recalls
+\cite[Thm. \ref{OC-THMI}]{BP_FCOP}
+as Theorem \ref{THMIREST},
+which discusses the model structures on the categories
+$\mathsf{Op}^G_{\mathfrak{C}}(\V)$
+of fixed color operads
+that are one of the main ingredients to building 
+the model structure on 
+$\mathsf{Op}^G_{\bullet}(\V)$
+in Theorem \ref{THMA}.
+The (rather technical) condition in
+Remark \ref{GOTC_REM} is of particular importance,
+as it plays a key role in proving Theorem \ref{THMA}
+(more concretely, it is needed in the
+proof of Proposition \ref{J_CELL_PROP},
+which is one of the key claims needed for Theorem \ref{THMA}).
 
 
 
 
 
 \subsection{Colored symmetric sequences and colored operads}
-\label{EQCOSYMSEQ SEC}
+\label{COSYMSEQ SEC}
 
 
 \subsubsection*{Colored symmetric sequences}
@@ -1933,6 +1789,7 @@ is an identify on colors.
 
 
 \subsection{Equivariant colored symmetric sequences and colored operads}
+\label{EQCOSYMSEQ SEC}
 
 
 
