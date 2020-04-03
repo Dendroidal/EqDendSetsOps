@@ -4,6 +4,9 @@
 ]{article}%
 
 
+
+
+
 % ---- Commands on draft --------
 
 \usepackage[dvipsnames]{xcolor}% adds colors
@@ -21,7 +24,7 @@
 \pdfcompresslevel=0
 \pdfobjcompresslevel=0
 
-%\usepackage{xr-hyper}
+
 \usepackage[pagebackref, colorlinks, citecolor=PineGreen, linkcolor=PineGreen]{hyperref}
 \hypersetup{
   final,
@@ -32,7 +35,12 @@
   pdfpagelayout=SinglePage,
 }
 
-%\externaldocument*[HGOP-]{HtpyGOp} % cite using names from other half
+
+\usepackage{xr-hyper} % for \externaldocument
+\externaldocument[OC-]{OneColor} % cite using names from other half
+\externaldocument[AC-]{AllColors} % cite using names from other half
+
+
 
 \usepackage{amsmath, amsthm}% {amsfonts, amssymb}
 
@@ -290,8 +298,10 @@ cd,patterns,calc}
 
 \section{Introduction}
 
-This paper is the last in a series of four
-(after \cite{Per18,BP_edss,BP_HGOP})
+
+
+This paper is the last in a series of five
+(after \cite{Per18,BP_edss,BP_FCOP,BP_ACOP})
 and concludes a project to establish a homotopy theoretical equivalence
 between equivariant colored simplicial operads with norm maps
 and equivariant-$\infty$-operads in equivariant dendroidal sets,
@@ -307,7 +317,7 @@ the so called \emph{norm maps},
 which we now briefly recall
 (for further discussion, 
 see the introductions to any of
-\cite{Per18},\cite{BP_geo},\cite{BP_HGOP}).
+\cite{Per18},\cite{BP_geo},\cite{BP_FCOP}).
 
 For simplicity,
 let us focus on the category
@@ -330,7 +340,7 @@ is that of \emph{graph equivalence},
 by which we mean maps
 $\mathcal{O} \to \mathcal{P}$
 in $\mathsf{sOp}_{\**}^G$
-such that the fixed point maps
+such that the fixed point maps for \emph{graph subgroups}
 \begin{equation}\label{NORMMAP EQ}
 	\mathcal{O}(n)^{\Gamma}
 	\xrightarrow{\sim}
@@ -343,7 +353,7 @@ such that the fixed point maps
 \end{equation}
 are Kan equivalences in $\mathsf{sSet}$.
 %
-The term \emph{graph subgroup} is motivated by a description of such $\Gamma$:
+The term graph subgroup is motivated by a description of such $\Gamma$:
 they are necessarily of the form
 $\Gamma = \{(h,\phi(H)) | h \in H\}$
 for some subgroup $H \leq G$
@@ -353,6 +363,7 @@ are called
 \emph{spaces of norm maps}
 since, for $X$ an $\O$-algebra,
 the algebra multiplication maps on the left below
+(see, e.g., \cite[\eqref{AC-ALGNORM EQ}]{BP_ACOP})
 \[
 	\O(n) \times X^{\times n} \to X
 \qquad
@@ -377,7 +388,7 @@ of \emph{equivariant dendroidal sets}
 \cite[Thm. 2.1]{Per18}
 and $\mathsf{sOp}^G$
 of \emph{equivariant colored simplicial operads}
-\cite[Thm. I]{BP_HGOP},
+\cite[Thm. \ref{AC-THMA}]{BP_ACOP},
 where in both cases the notion of weak equivalence
 is determined by (a colored variant of) the norm map data as in 
 \eqref{NORMMAP EQ}.
@@ -393,12 +404,12 @@ generalizing \cite[Thm. 8.15]{CM13b}.
 	equivariant simplicial operads with norm maps.
 \end{customthm}
 Here the right adjoint $hcN$
-is a variant of the nerve that accounts for homotopy information,
+is a variant of the nerve functor accounting for homotopy information,
 called the \emph{homotopy coherent nerve},
 while the left adjoint $W_!$
 is a ``fattened operadification'' 
 which is related to the Boardman-Vogt resolution of operads
-(for details, see \cite[\S 4]{CM13b}).
+(see \cite[\S 4]{CM13b} for details).
 
 
 
@@ -424,7 +435,7 @@ $\mathsf{sSet}^G$, $\mathsf{sCat}^G$
 used in \cite{Ber17}
 are built formally from the non-equivariant model structures
 on $\mathsf{sSet}$, $\mathsf{sCat}$
-using the abstract framework from \cite{Ste16}.
+by using the abstract framework in \cite{Ste16}.
 On the other hand, applying that framework to the operadic context results in model structures
 on 
 $\mathsf{dSet}^G$
@@ -461,8 +472,8 @@ and $\gamma^{\**}$, $c_!$ are the natural inclusions.
 
 The model structures on the categories featured in 
 \eqref{ADJSQ EQ}
-were built in previous work:
-more specifically
+were built in previous work.
+More specifically,
 \cite[Thm. 2.1]{Per18} provides the model structure on
 $\mathsf{dSet}^G$,
 \cite[Thm. I]{BP_HGOP} provides the model structure on
@@ -522,12 +533,14 @@ Theorem \ref{QE THM}
 can then be summarized as follows.
 
 First, the $(W_!,hcN)$ adjunction
-is shown to be Quillen (cf. Proposition \ref{W!_LEFTQ_PROP}).
+is shown to be Quillen (Proposition \ref{W!_LEFTQ_PROP}).
 
 Second, the square 
 \eqref{ADJSQ EQ}
 is shown to commute at the level of homotopy categories 
-(this is what is actually shown at the end of 
+(this is 
+%what is actually
+shown at the end of 
 \S \ref{PFMNTHM SEC}, 
 by establishing the zigzag of weak equivalences in 
 \eqref{BIGZIG EQ}).
@@ -547,7 +560,7 @@ To address this, we show in \S \ref{TAMEDEFEX SEC}
 that $\mathsf{PreOp}^G$
 admits an alternative model structure, 
 called the \emph{tame model structure} 
-(cf. Theorem \ref{TAMEMS_THM}),
+(Theorem \ref{TAMEMS_THM}),
 with the same weak equivalences but
 less cofibrant objects.
 Using this alternative model structure,
@@ -565,7 +578,7 @@ concluding the argument.
 
 
 First, in \S 2 we mostly recall 
-some previous notions that are used throughout.
+some notions from previous work that are used throughout.
 Namely, 
 \S \ref{FORESTS_SEC} and \S \ref{GTREES SEC}
 recall the necessary properties of the categories 
@@ -637,7 +650,7 @@ and is at the core of the proof of
 Theorem \ref{PREQUIEQUIV THM}
 and thus also of Theorem \ref{QE THM}.
 
-
+{\color{red}
 In Appendix \ref{WCONS AP}
 we provide an explicit description of the left adjoint
 in the 
@@ -663,8 +676,7 @@ being given in terms of
 standard factorizations of maps in the
 category $\Omega$ of trees
 (see Proposition \ref{TREEFACT_PROP}).
-
-{\color{red} HERE}
+}
 
 
 
@@ -681,8 +693,7 @@ the natural discretizations of
 $hcN(\O) \in \mathsf{dSet}^G$
 and
 $N(\O) \in \mathsf{sdSet}^G$
-coincide, 
-cf. Proposition \ref{HOOPID_PROP},
+coincide (Proposition \ref{HOOPID_PROP}),
 thus generalizing the non-equivariant analogue result
 \cite[Prop. 4.8]{CM13b}.
 Just as in the non-equivariant story,
@@ -701,7 +712,7 @@ is a Quillen adjunction,
 though Proposition \ref{W!_LEFTQ_PROP}
 does not require the full strength of 
 Proposition \ref{HOOPID_PROP}.
-A more detailed discussion can be found in 
+A detailed discussion can be found in 
 Remark \ref{TWOHOMOP REM}.
 
 
@@ -716,7 +727,8 @@ In this mostly expository section,
 we recall the categories of trees,
 as well as the associated presheaf categories,
 which will be needed throughout the paper.
-A more detailed discussion can be found in \cite{Per18}, \cite{BP_edss}.
+A more detailed discussion can be found in 
+\cite[\S 5,\S 6]{Per18}, \cite[\S 2]{BP_edss}.
 
 
 \subsection{Trees and forests}
