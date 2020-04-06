@@ -2307,13 +2307,13 @@ and maps that are the identity on colors.
 	Lastly, for $f \colon \mathfrak{C} \to \mathfrak{D}$
 	a map of $G$-sets of colors
 	we define adjoint functors
-\[
+\begin{equation}
 	f_{!} \colon
 	\mathsf{PreOp}^{G}_{\mathfrak{C}}
 	\rightleftarrows
 	\mathsf{PreOp}^{G}_{\mathfrak{D}}
 	\colon f^{\**}
-\]
+\end{equation}
 	via the pushout and pullback squares below
 	(note that 
 	$\mathsf{sk}_{\eta} f_! A = \coprod_{\mathfrak{C}} \Omega[\eta]$ depends only on 
@@ -2338,6 +2338,23 @@ and maps that are the identity on colors.
 	\end{tikzcd}
 	\]
 \end{definition}
+
+
+
+\begin{remark}\label{GROTHFIBOP REM}
+	The color functor \eqref{COLORSET EQ}
+	is both a Grothendieck opfibration and fibration
+	(cf. \cite[\S \ref{OC-GROTFIB SEC}]{BP_FCOP}),
+	with cocartesian (resp. cartesian) arrows the natural maps
+	$A \to f_! A$ (resp. $f^{\**} X \to X$).
+	In particular, maps
+	$f_! A \to B$ over a
+	map of colors $\mathfrak{D} \to \mathfrak{E}$
+	are in bijection with maps
+	$A \to B$ over the
+	over the composite map of colors $\mathfrak{C} \to \mathfrak{D} \to \mathfrak{E}$,
+	and dually for $f^{\**} X$.
+\end{remark}
 
 
 
@@ -2812,12 +2829,12 @@ following from Remark \ref{REPSEGOPS REM}.
 \subsection{Fibered simplicial tensor and cotensor}
 \label{FIBTENS_SEC}
 
-{\color{red} HERE}
+
 
 In this section we introduce an auxiliary 
 simplicial tensoring on
 $\mathsf{PreOp}^G$
-that will play a major role in our definition of the tame model structure 
+that will play a key role in our definition of the tame model structure 
 $\mathsf{PreOp}^G_{tame}$ in \S \ref{TAMEDEFEX SEC},
 as well as streamline the comparison 
 between
@@ -2829,8 +2846,8 @@ We first define the adjoint simplicial cotensoring,
 which admits a very simple description in terms
 of the $X_{\mathfrak{c}}(U)$ construction introduced in
 Notation \ref{XUDECALT NOT}
-and the identification 
-\eqref{PREOPCOLFIXEQ EQ}.
+(and the identification 
+\eqref{PREOPCOLFIXEQ EQ}).
 
 
 
@@ -2855,7 +2872,8 @@ and the identification
 	Alternatively, 
 	$\left\{K, X \right\}_{\mathsf{\mathfrak{C}_{\bullet}}}$
 	is given by the pullback in $\mathsf{sdSet}^G$
-	(where the left square simply evaluates the right square
+	(where the bottom map is induced by the map $K \to \**$,
+	and the left square simply evaluates the right square
 	at $U \in \Omega$)
 \begin{equation}
 \begin{tikzcd}
@@ -2959,12 +2977,25 @@ is given by the following pushout when $U=[n]$ is linear.
 	{\{K,-\}_{\mathfrak{C}_{\bullet}}}
 \end{tikzcd}
 \]
-Moreover, this adjunction is fibered over the color set functor
+Moreover, this adjunction is a fibered adjunction over the color set functor
 $\mathfrak{C}_{\bullet} \colon
 \mathsf{PreOp}^G \to \mathsf{Set}^G$,
-which in particular means that for each fixed set of colors
+cf. \cite[Def. \ref{OC-FIBADJ DEF}]{BP_FCOP}.
+In particular, for each fixed $G$-set of colors
 $\mathfrak{C}$
 one has a restricted adjunction as on the right above.
+Moreover, by 
+\cite[Prop. \ref{OC-FIBADJCAR PROP}]{BP_FCOP} and its dual,
+these functors are compatible with (co)cocartesian arrows.
+I.e., cf. Remark \ref{GROTHFIBOP REM},
+one has
+$(f_!A) \otimes_{\mathfrak{C}_{\bullet}} K
+\simeq
+f_!(A \otimes_{\mathfrak{C}_{\bullet}} K)$
+and 
+$\{K,f^{\**}X\}_{\mathfrak{C}_{\bullet}}
+\simeq
+f^{\**}(\{K,X\}_{\mathfrak{C}_{\bullet}})$.
 \end{remark}
 
 
@@ -2974,7 +3005,7 @@ one has a restricted adjunction as on the right above.
 	preserves colimits on the $X$ variable.
 	However, some care is needed when dealing with the 
 	$K$ variable.
-	For each fixed color set $\mathfrak{C}$, one has that the functor
+	For each fixed color $G$-set $\mathfrak{C}$, one has that the functor
 \[
 \begin{tikzcd}[row sep = 0, column sep = 40pt]
 	\mathsf{PreOp}^G_{\mathfrak{C}} \times \mathsf{sSet} \ar{r}{(-)\otimes_{\mathfrak{C}_{\bullet}}(-)} 
@@ -3002,9 +3033,16 @@ On the other hand, for coproducts one instead has that the canonical map
 X \otimes_{\mathfrak{C}_{\bullet}} (\amalg_i K_i)
 \]
 is a cocartesian arrow over the fold map
-$\amalg_i \mathfrak{C} \to \mathfrak{C}$.
+$\nabla \colon 
+\amalg_i \mathfrak{C} \to \mathfrak{C}$, 
+i.e.
+$
+\nabla_!
+\left(\amalg_i X \otimes_{\mathfrak{C}_{\bullet}} K_i\right)
+\simeq
+X \otimes_{\mathfrak{C}_{\bullet}} (\amalg_i K_i)
+$.
 \end{remark}
-
 
 
 
@@ -3057,6 +3095,10 @@ $\amalg_i \mathfrak{C} \to \mathfrak{C}$.
 
 \begin{proof}
 Since the left square below is a pushout square
+(this follows by noting that the 
+horizontal arrows are cocartesian, as per 
+Remark \ref{TENSCOADJ REM};
+see the universal property in Remark \ref{GROTHFIBOP REM})
 \[
 \begin{tikzcd}
 	X \otimes_{\mathfrak{C}_{\bullet}} K \ar{r} \ar{d} 
@@ -3078,7 +3120,8 @@ $(X \to Y) \square_{\mathfrak{C}_{\bullet}} k
 \simeq 
 (f_!X \to Y) \square_{\mathfrak{C}_{\bullet}} k$.
 Since $f_!X \to Y$ is the identity on colors,
-Remark \ref{COLORTENSGAM REM} then says that the center squares below are pushout squares.
+Remark \ref{COLORTENSGAM REM} then says that 
+the two middle squares below are pushout squares.
 \[
 \begin{tikzcd}
 	f_! X \times K 
@@ -3118,8 +3161,8 @@ Remark \ref{COLORTENSGAM REM} then says that the center squares below are pushou
 \end{tikzcd}
 \]
 A standard argument
-(see, e.g. \cite[Obs. 5.1]{RV14})
-then shows that the pushout map for the right square above is a pushout of the pushout map for the left square, 
+(e.g. \cite[Obs. 5.1]{RV14})
+then shows that the pushout map for the rightmost square above is a pushout of the pushout map for the leftmost square, 
 finishing the proof.	
 \end{proof}
 
