@@ -296,21 +296,34 @@ cd,patterns,calc}
 
 \section{Introduction}
 
-\todo[inline]{introduce this adjunction}
 
-In Appendix \ref{WCONS AP}
-we provide an explicit description of the left adjoint
-in the 
-$W_! 
-\colon 
-\mathsf{dSet} 
-\rightleftarrows 
-\mathsf{Op}
-\colon 
-hcN$
-adjunction,
-extending work of Dugger-Spivak \cite{DS11}
+
+\todo[inline]{Boardman-Vogt construction?}
+
+\todo[inline]{introduce this adjunction}
+Once we have a definition of $W(U)$, we can extend this construction to all of $\dSet$ using Yoneda:
+\begin{definition}
+        The adjunction
+        \begin{equation} \label{SOPDSET_EQ}
+                W_! \colon \dSet \rightleftarrows \sOp \colon h c N           
+        \end{equation}
+        is then defined by
+        \[
+                W_!X = \colim_{\Omega[U] \to X}W(U)
+                \qquad
+                hcN\O(U) = \sOp^G(W(U), \O)
+        \]      
+\end{definition}
+
+However, this description is opaque/unenlightening.
+In the categorical setting,
+this left adjoint $W_!$ admits 
+a more explicit description, due to Dugger and Spivak \cite{DS11},
+in terms of so called \emph{necklaces}.
+%
+This paper extends their work 
 from the categorical context to the operadic context.
+
 
 This description plays a % minor
 role in the proof of the title result from \cite{BP_TAS},
@@ -331,55 +344,59 @@ category $\Omega$ of trees
 
 \subsection{Main Results}
 
-In the categorical setting
-the left adjoint $W_!$ admits 
-an explicit description, due to Dugger and Spivak \cite{DS11},
-in terms of so called \emph{necklaces},
-which we extend to the operadic setting in 
-Appendix \ref{WCONS AP}.
-We now summarize the results in that appendix we will need.
 
 
+\begin{theorem}
+        There is a functor $W \colon \Omega \to \sOp$,
+        defined on a tree $U \in \Omega$ as follows:
+        it has colors $\boldsymbol{E}(U)$, and
+        is defined on a $\boldsymbol{E}(U)$-corolla 
+        $\vect{C} = (C,\mathfrak{c})$
+        to have $n$-simplices 
+        \begin{equation}\label{WU_EQ}
+                W(U)_n(\vect C) =
+                \begin{cases}
+                        \left\{\text{factorizations }
+                                C \xrightarrow{t} 
+                                F_0 \xrightarrow{i,p} 
+                                \cdots \xrightarrow{i,p}
+                                F_n \xrightarrow{f,p} U
+                        \right\}
+                        &
+                        \mbox{if $\boldsymbol{E}(C) \xrightarrow{\mathfrak{c}} \boldsymbol{E}(U)$ defines a map in $\Omega$}
+                        \\
+                        \varnothing
+                        &
+                        \mbox{otherwise.}
+                \end{cases}
+        \end{equation}
+        where we label maps in $\Omega$ as
+        $t/i/f/p$
+        to indicate they are 
+        tall/inner faces/faces/planar
+        (cf. \S \ref{FORESTS_SEC}).
+\end{theorem}
+\begin{proof}
+        Combination of Definition \ref{NWTNS DEF}, Remark \ref{NWTNS_REM}, Proposition \ref{NWTNS_NAT_PROP}
+\end{proof}
 
-For a tree $U \in \Omega$ there is 
-a simplicial operad
-$W(U) \in \mathsf{sOp}$
-with set of colors $\boldsymbol{E}(U)$
-and whose $n$-simplices evaluated at
-a $\boldsymbol{E}(U)$-corolla
-$\vect{C} = (C,\mathfrak{c})$
-
-
-\begin{equation}\label{WU_EQ}
-	W(U)_n(\vect C) =
-	\begin{cases}
-	\left\{\text{factorizations }
-	C \xrightarrow{t} 
-	F_0 \xrightarrow{i,p} 
-	\cdots \xrightarrow{i,p}
-	F_n \xrightarrow{f,p} U
-	\right\}
-&
-	\mbox{if $\boldsymbol{E}(C) \xrightarrow{\mathfrak{c}} \boldsymbol{E}(U)$ defines a map in $\Omega$}
-\\
-	\varnothing
-&
-	\mbox{otherwise.}
-\end{cases}
-\end{equation}
-where we label maps in $\Omega$ as
-$t/i/f/p$
-to indicate they are 
-tall/inner faces/faces/planar
-(cf. \S \ref{FORESTS_SEC}).
+\begin{theorem}
+        \begin{enumerate}
+        \item Above theorem extends to necklaces (Corollary \ref{NWTNS_NNAT_COR})
+        \item $W(X) = \colim_{\Omega[\mathfrak n] \to X \in \mathsf{Nec}_{/ X}} W(\mathfrak n)$ (Theorem \ref{KANEXTCHAR THM})
+        \item $W(X)_n(\vect S)$ are equivalence classes of quadruples (Cor. \ref{NWXREPS COR})
+        \item these classes have chosen reps, unique up to unique iso (Cor. \ref{NWXREPS2_COR})
+        \end{enumerate}
+\end{theorem}
 
 
 \begin{remark}
 	The factorization description in \eqref{WU_EQ}
-	reflects our approach in Appendix \ref{WCONS AP},
-	which makes heavy use of the factorizations in 
-	Proposition \ref{TREEFACT_PROP}.
-	However, there is a simpler and more familiar description of $W(U)(\vect{C})$.
+	reflects our heavy use of the factorizations in 
+	Proposition \ref{TREEFACT_PROP},
+        and is suited for a variety of analyses in \cite{BP_TAS}.
+        
+	However, the results below also provide a simpler and more familiar description of $W(U)(\vect{C})$.
 	If one lets
 	$C \xrightarrow{t} U_C \xrightarrow{o,p} U$
 	denote the unique ``tall followed by planar outer face'' factorization, 
@@ -390,22 +407,22 @@ tall/inner faces/faces/planar
 	are precisely the strings of planar inner faces of $U_C$.
 	And since the latter are in bijection with strings of subsets of inner edges $\boldsymbol{E}^{\mathsf{i}}(U_C)$, 
 	we have 
-\begin{equation}\label{WU_EQ2}
-	W(U)(\vect C) =
-	\begin{cases}
-	\Delta[1]^{\times \boldsymbol{E}^{\mathsf{i}}(U_{C})}
-	\qquad
-&
-	\mbox{if $\boldsymbol{E}(C) \xrightarrow{\mathfrak{c}} \boldsymbol{E}(U)$ defines a map in $\Omega$}
-\\
-\varnothing
-&
-	\mbox{otherwise,}
-	\end{cases}
-\end{equation}
-which recovers the description in \cite[\S 4]{CM13b}.
+        \begin{equation}\label{WU_EQ2}
+                W(U)(\vect C) =
+                \begin{cases}
+                        \Delta[1]^{\times \boldsymbol{E}^{\mathsf{i}}(U_{C})}
+                        \qquad
+                        &
+                        \mbox{if $\boldsymbol{E}(C) \xrightarrow{\mathfrak{c}} \boldsymbol{E}(U)$ defines a map in $\Omega$}
+                        \\
+                        \varnothing
+                        &
+                        \mbox{otherwise,}
+                \end{cases}
+        \end{equation}
+        recovering the description in \cite[\S 4]{CM13b}.
+        Thus, in particular, the adjunction \eqref{SOPDSET_EQ} agrees with the adjunction from \cite{CM13b}.
 \end{remark}
-
 
 
 \begin{remark}
@@ -419,19 +436,6 @@ which recovers the description in \cite[\S 4]{CM13b}.
 	via systematic use of 
 	Proposition \ref{TREEFACT_PROP}.
 \end{remark}
-
-
-The adjunction
-\begin{equation} \label{SOPDSET_EQ}
-	W_! \colon \dSet \rightleftarrows \sOp \colon h c N           
-\end{equation}
-is then defined by
-\[
-	W_!X = \colim_{\Omega[U] \to X}W(U)
-	\qquad
-	hcN\O(U) = \sOp^G(W(U), \O)
-\]
-
 
 
 
@@ -870,10 +874,12 @@ exists only if $\varphi$ is independent
 
 
 
+\subsection{Preoperads}
 
-\subsection{Other needed results}
+\todo[inline]{definition}
+\todo[inline]{notation $X_{\mathfrak c}(U)$}
 
-\todo[inline]{Nerve Theorem}
+\subsection{Nerve Theorem}
 
 
 We now recall \cite[Prop. 5.3 and Thm. 6.1]{MW09}
@@ -1549,6 +1555,7 @@ $\mathsf{Nec}$.
 
 
 \begin{remark}
+        \label{NWTNS_REM}
 	Note that all
 	$NW(\mathfrak{n})$ defined above are indeed nerves of operads,
 	i.e., 
@@ -1610,6 +1617,7 @@ $J_{k-1} \to J_{k} \to J^{\**}_k$).
 
 
 \begin{proposition}
+        \label{NWTNS_NAT_PROP}
 	For any map $T \to T^{\**}$ in $\Omega$, the induced map
 	$\left(NW(T)\right)_{\mathfrak{s}}(S)
 	\to 
@@ -1744,6 +1752,7 @@ $J_{k-1} \to J_{k} \to J^{\**}_k$).
 
 
 \begin{corollary}
+        \label{NWTNS_NNAT_COR}
 	Let $\mathfrak{n} \colon J \to T$ and
 	$\mathfrak{n}^{\**} \colon J^{\**} \to T^{\**}$
 	be necklaces and suppose 
@@ -2624,6 +2633,7 @@ $(J_0 \to J_n) \to (J^{\**}_0 \to J^{\**}_n)$.
 
 
 \begin{corollary}[{cf. \cite[Cor. 4.8]{DS11}}]
+        \label{NWXREPS2_COR}
 	Each quadruple $(\mathfrak{n},\phi,x,J_{\bullet})$ as in Corollary \ref{NWXREPS COR}
 	has a representative, unique up to unique isomorphism,
 	which is both flanked and totally non-degenerate.
