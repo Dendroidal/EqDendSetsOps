@@ -325,61 +325,120 @@ category $\Omega$ of trees
 (see Proposition \ref{TREEFACT_PROP}).
 
 
+
+
+
+
+\subsection{Main Results}
+
+In the categorical setting
+the left adjoint $W_!$ admits 
+an explicit description, due to Dugger and Spivak \cite{DS11},
+in terms of so called \emph{necklaces},
+which we extend to the operadic setting in 
+Appendix \ref{WCONS AP}.
+We now summarize the results in that appendix we will need.
+
+
+
+For a tree $U \in \Omega$ there is 
+a simplicial operad
+$W(U) \in \mathsf{sOp}$
+with set of colors $\boldsymbol{E}(U)$
+and whose $n$-simplices evaluated at
+a $\boldsymbol{E}(U)$-corolla
+$\vect{C} = (C,\mathfrak{c})$
+
+
+\begin{equation}\label{WU_EQ}
+	W(U)_n(\vect C) =
+	\begin{cases}
+	\left\{\text{factorizations }
+	C \xrightarrow{t} 
+	F_0 \xrightarrow{i,p} 
+	\cdots \xrightarrow{i,p}
+	F_n \xrightarrow{f,p} U
+	\right\}
+&
+	\mbox{if $\boldsymbol{E}(C) \xrightarrow{\mathfrak{c}} \boldsymbol{E}(U)$ defines a map in $\Omega$}
+\\
+	\varnothing
+&
+	\mbox{otherwise.}
+\end{cases}
+\end{equation}
+where we label maps in $\Omega$ as
+$t/i/f/p$
+to indicate they are 
+tall/inner faces/faces/planar
+(cf. \S \ref{FORESTS_SEC}).
+
+
+\begin{remark}
+	The factorization description in \eqref{WU_EQ}
+	reflects our approach in Appendix \ref{WCONS AP},
+	which makes heavy use of the factorizations in 
+	Proposition \ref{TREEFACT_PROP}.
+	However, there is a simpler and more familiar description of $W(U)(\vect{C})$.
+	If one lets
+	$C \xrightarrow{t} U_C \xrightarrow{o,p} U$
+	denote the unique ``tall followed by planar outer face'' factorization, 
+	repeated use of Proposition \ref{TREEFACT_PROP}
+	shows that the 
+	$F_0 \to \cdots \to F_n$
+	strings in \eqref{WU_EQ}
+	are precisely the strings of planar inner faces of $U_C$.
+	And since the latter are in bijection with strings of subsets of inner edges $\boldsymbol{E}^{\mathsf{i}}(U_C)$, 
+	we have 
+\begin{equation}\label{WU_EQ2}
+	W(U)(\vect C) =
+	\begin{cases}
+	\Delta[1]^{\times \boldsymbol{E}^{\mathsf{i}}(U_{C})}
+	\qquad
+&
+	\mbox{if $\boldsymbol{E}(C) \xrightarrow{\mathfrak{c}} \boldsymbol{E}(U)$ defines a map in $\Omega$}
+\\
+\varnothing
+&
+	\mbox{otherwise,}
+	\end{cases}
+\end{equation}
+which recovers the description in \cite[\S 4]{CM13b}.
+\end{remark}
+
+
+
+\begin{remark}
+	One neat feature of the description in 
+	\eqref{WU_EQ}
+	is that the nerve $N W(U)$
+	can be defined identically 
+	(cf. Definition \ref{NWTNS DEF}),
+%	It is then straightforward to check that the nerve thus defined has the required functoriality and satisfies the strict Segal condition.
+	allowing us to deduce many properties of $W_!$
+	via systematic use of 
+	Proposition \ref{TREEFACT_PROP}.
+\end{remark}
+
+
+The adjunction
+\begin{equation} \label{SOPDSET_EQ}
+	W_! \colon \dSet \rightleftarrows \sOp \colon h c N           
+\end{equation}
+is then defined by
+\[
+	W_!X = \colim_{\Omega[U] \to X}W(U)
+	\qquad
+	hcN\O(U) = \sOp^G(W(U), \O)
+\]
+
+
+
+
 \section{Preliminaries}
 
-\subsection{Other needed results}
-
-\todo[inline]{Nerve Theorem}
 
 
-We now recall \cite[Prop. 5.3 and Thm. 6.1]{MW09}
-that the nerve
-$N \colon \mathsf{\O} \to \mathsf{dSet}$
-is then a fully faithful inclusion
-whose (essential) image can be characterized
-as those
-dendroidal sets $X \in \mathsf{dSet}$
-with the strict right lifting property against inner horn inclusions
-$\Lambda^e[U] \to \Omega[T]$ for $U\in\Omega,e\in \boldsymbol{E}(U)$.
-Next,
-following either \cite[Prop. 2.5 and Cor. 2.6]{CM13a}
-or \cite[Props. 3.22 and 3.31]{BP_edss},
-this is in turn equivalent to the strict right lifting property of $X$
-against Segal core inclusions
-$Sc[U] \to \Omega[T]$ for $U \in \Omega$,
-which is in turn equivalent to the strict Segal condition
-(cf. Definition \ref{SEGCOLCHAR DEF}) below,
-demanding that the maps
-\begin{equation}\label{STRSEGCON EQ}
-	X(U)
-	\xrightarrow{\simeq}
-	X(Sc[U]),
-	\quad
-	U \in \Omega
-\qquad \qquad
-	X_{\mathfrak{c}}(U) 
-	\xrightarrow{\simeq}
-	\prod_{v \in \boldsymbol{V}(U)}
-	X_{\mathfrak{c}_v}(U_v),
-	\quad
-	U \in \Omega,
-	\mathfrak{c} \colon 
-	\boldsymbol{E}(U) \to X(\eta)
-\end{equation}
-are all isomorphisms.
-Moreover, one then has the following alternate formula for the nerve
-$N \O$ evaluated at
-$U\in \Omega,
-\mathfrak{c} \colon \boldsymbol{E}(U) \to \mathfrak{C}_{\O}$.
-\begin{equation}\label{ALTNER EQ}
-	(N \O)_{\mathfrak{c}} (U) 
-	= 
-	\prod_{v \in \boldsymbol{E}(U)}
-	\O(U_v,\mathfrak{c}_v)
-	=
-	\prod_{v \in \boldsymbol{E}(U)}
-	\O(\vect{U}_v).
-\end{equation}
 
 
 \subsection{Trees and forests}
@@ -451,10 +510,8 @@ These relations, together with identity relations $t \leq t$,
 then form the \emph{broad poset associated with $T$}
 (alternatively, this broad poset data
 is essentially equivalent to the data of
-the colored operad $\Omega(T)$ associated to $T$, 
-cf. \cite[\S 3]{MW07},
-\cite[Rem. 4.4]{Per18}
-or \eqref{TAUNER EQ}).
+the colored operad $\Omega(T)$ associated to $T$ 
+(cf. \cite[\S 3]{MW07}, \cite[Rem. 4.4]{Per18}, \cite[Eq. \eqref{TAS-TAUNER EQ}]{BP_TAS}).
 
 
 A map of trees $\varphi \colon S \to T$
@@ -605,12 +662,12 @@ and degeneracies collapse some of the unary vertices of $S$.
 
 
 \begin{notation}\label{MAPLABELS_NOT}
-	In the remainder of \S \ref{EQTRDS SEC}
-      we will label a 
-      map in $\Omega$
-      by the letters d/i/o/t/f/p
-      to indicate that the map is
-      a degeneracy/inner face/outer face/tall/face/planar.
+	Throughout the remainder of this paper,
+        we will label a 
+        map in $\Omega$
+        by the letters d/i/o/t/f/p
+        to indicate that the map is
+        a degeneracy/inner face/outer face/tall/face/planar.
 \end{notation}
 
 
@@ -807,6 +864,68 @@ exists only if $\varphi$ is independent
 	for the further subcategory of objects whose underlying tree is a corolla
 	and whose maps are isomorphisms.
 \end{definition}
+
+
+
+
+
+
+
+\subsection{Other needed results}
+
+\todo[inline]{Nerve Theorem}
+
+
+We now recall \cite[Prop. 5.3 and Thm. 6.1]{MW09}
+that the nerve
+$N \colon \mathsf{\O} \to \mathsf{dSet}$
+is then a fully faithful inclusion
+whose (essential) image can be characterized
+as those
+dendroidal sets $X \in \mathsf{dSet}$
+with the strict right lifting property against inner horn inclusions
+$\Lambda^e[U] \to \Omega[T]$ for $U\in\Omega,e\in \boldsymbol{E}(U)$.
+Next,
+following either \cite[Prop. 2.5 and Cor. 2.6]{CM13a}
+or \cite[Props. 3.22 and 3.31]{BP_edss},
+this is in turn equivalent to the strict right lifting property of $X$
+against Segal core inclusions
+$Sc[U] \to \Omega[T]$ for $U \in \Omega$,
+which is in turn equivalent to the strict Segal condition
+(cf. \cite[Def. \ref{TAS-SEGCOLCHAR DEF}]{BP_TAS}) below,
+demanding that the maps
+\begin{equation}\label{STRSEGCON EQ}
+	X(U)
+	\xrightarrow{\simeq}
+	X(Sc[U]),
+	\quad
+	U \in \Omega
+\qquad \qquad
+	X_{\mathfrak{c}}(U) 
+	\xrightarrow{\simeq}
+	\prod_{v \in \boldsymbol{V}(U)}
+	X_{\mathfrak{c}_v}(U_v),
+	\quad
+	U \in \Omega,
+	\mathfrak{c} \colon 
+	\boldsymbol{E}(U) \to X(\eta)
+\end{equation}
+are all isomorphisms.
+Moreover, one then has the following alternate formula for the nerve
+$N \O$ evaluated at
+$U\in \Omega,
+\mathfrak{c} \colon \boldsymbol{E}(U) \to \mathfrak{C}_{\O}$.
+\begin{equation}\label{ALTNER EQ}
+	(N \O)_{\mathfrak{c}} (U) 
+	= 
+	\prod_{v \in \boldsymbol{E}(U)}
+	\O(U_v,\mathfrak{c}_v)
+	=
+	\prod_{v \in \boldsymbol{E}(U)}
+	\O(\vect{U}_v).
+\end{equation}
+
+
 
 
 
@@ -2050,7 +2169,7 @@ now combine to give the following.
 \begin{theorem}[{cf. \cite[Thm. 1.3]{DS11}}]
 	\label{KANEXTCHAR THM}
 	Consider the following diagram,
-	were the functors labeled $W$ 
+	where the functors labeled $W$ 
 	are as defined by Definition \ref{NWTNS DEF}
 	and Proposition \ref{NWKANEX_PROP}.
 \begin{equation}
@@ -2154,14 +2273,14 @@ making the diagram below commute.
 \begin{remark}\label{GTAUFUNEX REM}
 	All the work in this appendix can be adapted to the categories
 	$\mathsf{dSet}_G$ and $\mathsf{Op}_G$
-	of genuine dendroidal sets and genuine operads
-	discussed at the end of \S \ref{EDS_SEC}.
+	of \textit{genuine equivariant dendroidal sets} and \textit{genuine equivariant operads},
+	introduced in \cite[\S 5.4]{Per18} and \cite[\S \ref{TAS-EDS_SEC}]{BP_TAS}, and \cite{BP_geo} respectively.
 %	
 	In particular, 
 	the ``genuine operadification'' functor
 	$\tau_G \colon \mathsf{dSet}_G \to \mathsf{Op}_G$
-	first mentioned in
-	\eqref{TAUFUNCTS EQ}
+	from
+	\cite[Eq. \eqref{TAS-TAUFUNCTS EQ}]{BP_TAS}
 	can be described via an analogue of
 	Remark \ref{TAUFUNEX REM}.
 	
@@ -2619,98 +2738,6 @@ $(J_0 \to J_n) \to (J^{\**}_0 \to J^{\**}_n)$.
 \]
 \end{example}
 
-
-
-\section{Conclusions}
-
-In the categorical setting
-the left adjoint $W_!$ admits 
-an explicit description, due to Dugger and Spivak \cite{DS11},
-in terms of so called \emph{necklaces},
-which we extend to the operadic setting in 
-Appendix \ref{WCONS AP}.
-We now summarize the results in that appendix we will need.
-
-
-
-For a tree $U \in \Omega$ there is 
-a simplicial operad
-$W(U) \in \mathsf{sOp}$
-with set of colors $\boldsymbol{E}(U)$
-and whose $n$-simplices evaluated at
-a $\boldsymbol{E}(U)$-corolla
-$\vect{C} = (C,\mathfrak{c})$
-
-
-\begin{equation}\label{WU_EQ}
-	W(U)_n(\vect C) =
-	\begin{cases}
-	\left\{\text{factorizations }
-	C \xrightarrow{t} 
-	F_0 \xrightarrow{i,p} 
-	\cdots \xrightarrow{i,p}
-	F_n \xrightarrow{f,p} U
-	\right\}
-&
-	\mbox{if $\boldsymbol{E}(C) \xrightarrow{\mathfrak{c}} \boldsymbol{E}(U)$ defines a map in $\Omega$}
-\\
-	\varnothing
-&
-	\mbox{otherwise.}
-\end{cases}
-\end{equation}
-where we label maps in $\Omega$ as
-$t/i/f/p$
-to indicate they are 
-tall/inner faces/faces/planar
-(cf. \S \ref{FORESTS_SEC}).
-
-
-\begin{remark}
-	The factorization description in \eqref{WU_EQ}
-	reflects our approach in Appendix \ref{WCONS AP},
-	which makes heavy use of the factorizations in 
-	Proposition \ref{TREEFACT_PROP}.
-	However, there is a simpler and more familiar description of $W(U)(\vect{C})$.
-	If one lets
-	$C \xrightarrow{t} U_C \xrightarrow{o,p} U$
-	denote the unique ``tall followed by planar outer face'' factorization, 
-	repeated use of Proposition \ref{TREEFACT_PROP}
-	shows that the 
-	$F_0 \to \cdots \to F_n$
-	strings in \eqref{WU_EQ}
-	are precisely the strings of planar inner faces of $U_C$.
-	And since the latter are in bijection with strings of subsets of inner edges $\boldsymbol{E}^{\mathsf{i}}(U_C)$, 
-	we have 
-\begin{equation}\label{WU_EQ2}
-	W(U)(\vect C) =
-	\begin{cases}
-	\Delta[1]^{\times \boldsymbol{E}^{\mathsf{i}}(U_{C})}
-	\qquad
-&
-	\mbox{if $\boldsymbol{E}(C) \xrightarrow{\mathfrak{c}} \boldsymbol{E}(U)$ defines a map in $\Omega$}
-\\
-\varnothing
-&
-	\mbox{otherwise,}
-	\end{cases}
-\end{equation}
-which recovers the description in \cite[\S 4]{CM13b}.
-\end{remark}
-
-
-
-\begin{remark}
-	One neat feature of the description in 
-	\eqref{WU_EQ}
-	is that the nerve $N W(U)$
-	can be defined identically 
-	(cf. Definition \ref{NWTNS DEF}),
-%	It is then straightforward to check that the nerve thus defined has the required functoriality and satisfies the strict Segal condition.
-	allowing us to deduce many properties of $W_!$
-	via systematic use of 
-	Proposition \ref{TREEFACT_PROP}.
-\end{remark}
 
 
 
