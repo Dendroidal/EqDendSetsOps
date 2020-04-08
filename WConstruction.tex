@@ -374,13 +374,13 @@ category $\Omega$ of trees
         $t/i/f/p$
         to indicate they are 
         tall/inner faces/faces/planar
-        (cf. \S \ref{FORESTS_SEC}).
+        (cf. \S \ref{TREES_SEC}).
 \end{theorem}
 \begin{proof}
         Combination of Definition \ref{NWTNS DEF}, Remark \ref{NWTNS_REM}, Proposition \ref{NWTNS_NAT_PROP}
 \end{proof}
 
-\begin{theorem}
+\begin{theorem}[Outline]
         \begin{enumerate}
         \item Above theorem extends to necklaces (Corollary \ref{NWTNS_NNAT_COR})
         \item $W(X) = \colim_{\Omega[\mathfrak n] \to X \in \mathsf{Nec}_{/ X}} W(\mathfrak n)$ (Theorem \ref{KANEXTCHAR THM})
@@ -435,7 +435,6 @@ category $\Omega$ of trees
 	allowing us to deduce many properties of $W_!$
 	via systematic use of 
 	Proposition \ref{TREEFACT_PROP}.
-        \todo[inline]{find examples}
 \end{remark}
 
 
@@ -443,17 +442,19 @@ category $\Omega$ of trees
 
 \section{Preliminaries}
 
+We will often find it convenient and fruitful to
+not work with operads directly, but instead with their nerves.
+To that end, 
+we first recall the category of (colored) trees in \S \ref{TREES_SEC},
+then several associated presheaf categories, as well as their connections to (simplicial) operads using the nerve, in \S \ref{NERVE_SEC}.
 
 
-\todo[inline]{come back}
+\subsection{The category of (colored) trees}
+\label{TREES_SEC}
 
+\todo[inline]{trees in $\Omega$ will be denoted $T$. This disagrees with TAS, where $T$ is reserved for $G$-trees (except in the appendix)}
 
-\subsection{Trees and forests}
-\label{FORESTS_SEC}
-
-\todo[inline]{come back}
-
-We start by recalling the Moerdijk-Weiss category $\Omega$ of trees
+We begin by recalling the Moerdijk-Weiss category $\Omega$ of trees
 \cite{MW07}.
 First, each object of $\Omega$ can be encoded by 
 a (rooted) tree diagram $T$ as below.
@@ -487,8 +488,9 @@ $\boldsymbol{E}^{\mathsf{i}}(T)$,
 and $\boldsymbol{V}(T)$, respectively.
 
 
-Describing the maps in $\Omega$ requires some care.
-To do so, we recall the algebraic notion of
+While the tree diagram description above is a helpful heuristic for describing objects in $\Omega$,
+in order to describe the arrows,
+we will use the algebraic notion of
 a \emph{broad poset},
 originally due to Weiss \cite{Wei12}
 and further developed in \cite{Per18}.
@@ -539,8 +541,8 @@ our discussion will be simplified by assuming
 that $\Omega$ has exactly one representative of 
 each \emph{planarized tree},
 by which we mean a tree together with a planar representation as in \eqref{eq:TREE}
-(alternatively, 
-planarizations can be formalized as
+(algebraically, 
+planarizations are
 suitable extensions of $\leq_d$ to a total order
 \cite[\S 3.1]{BP_geo}).
 Importantly, this implies that each map  
@@ -560,7 +562,6 @@ i.e. the only planar isomorphisms are the identities.
 \begin{notation}
 	We write $\eta$ for the \textit{stick} tree, the unique tree with a single edge and no vertices.
 \end{notation}
-
 
 
 
@@ -681,7 +682,7 @@ and degeneracies collapse some of the unary vertices of $S$.
 
 \begin{proposition}[{\cite[Prop. 2.2]{BP_edss}}]
       \label{NP_TREEFACT_PROP}
-	A map of trees $\varphi \colon U \to V$ has a factorization, unique up to unique isomorphisms,
+	A map of trees $\varphi \colon S \to T$ has a factorization, unique up to unique isomorphisms,
         \begin{equation}\label{NP_TREEFACT_EQ}
               S \xrightarrow{d} 
               S' \xrightarrow{i} 
@@ -737,7 +738,7 @@ Proposition \ref{NP_TREEFACT_PROP}.
 
 \begin{proposition}[{cf. \cite[Prop. 2.2]{BP_edss}}]
       \label{TREEFACT_PROP}
-      A map of trees $\varphi \colon U \to V$ has a strictly unique factorization
+      A map of trees $\varphi \colon S \to T$ has a strictly unique factorization
 \begin{equation}\label{TREEFACT_EQ}
 	S \xrightarrow{\simeq} 
 	S_p \xrightarrow{pd} 
@@ -780,10 +781,6 @@ Proposition \ref{NP_TREEFACT_PROP}.
 % \end{remark}
 
 
-A \textit{corolla} is a tree with a single vertex.
-We note that the subcategory of $\Omega$ spanned by corollas and isomorphisms is naturally identified with to the category $\Sigma$ of standard finite ordered sets
-$\{1,2,\cdots,n\}$ and (non-ordered) isomorphisms.
-
 
 %\begin{notation}
 %      \label{LR_NOT}
@@ -799,19 +796,43 @@ Next, we recall the categories of colored trees used in
         Let $\mathfrak C$ be a set of colors.
         The category $\Omega_{\mathfrak C}$ of \textit{$\mathfrak C$-trees} has:
         \begin{itemize}
-        \item objects pairs $\vect U = (U, \mathfrak c)$ with
-                $U \in \Omega$ a tree and
-                $\mathfrak c \colon \boldsymbol{E}(U) \to \mathfrak C$ a coloring of its edges;
-        \item arrows $\vect U = (U, \mathfrak c) \to (U', \mathfrak c') = \vect{U'}$ maps
-                $\varphi \colon U \to U'$ in $\Omega$ such that $\mathfrak c = \mathfrak c' \varphi$.
-        \end{itemize}      
-        We write
-        $\Sigma_{\mathfrak{C}} \subset \Omega_{\mathfrak{C}}$,
-        which we call the category of 
-        \emph{$\mathfrak{C}$-corollas},
-        for the further subcategory of objects whose underlying tree is a corolla
-        and whose maps are isomorphisms.
+        \item objects pairs $\vect T = (T, \mathfrak c)$ with
+                $T \in \Omega$ a tree and
+                $\mathfrak c \colon \boldsymbol{E}(T) \to \mathfrak C$ a coloring of its edges;
+        \item arrows $\vect S = (S, \mathfrak d) \to (T, \mathfrak c) = \vect{T}$ maps
+                $\varphi \colon S \to T$ in $\Omega$ such that $\mathfrak d = \mathfrak c \varphi$.
+        \end{itemize}
 \end{definition}
+
+
+\begin{definition}
+        A \textit{corolla} is a tree with a single vertex.
+        Similarly, a \textit{$\mathfrak C$-corolla} is
+        a $\mathfrak C$-tree whose underlying tree is a corolla.
+\end{definition}
+
+\begin{notation}
+        For any tree $T$ and $v \in \boldsymbol{V}(T)$,
+        we let $T_v \to T$ denote the planar outer face consisting of only this vertex.
+        Algebraically, if the vertex $v$ corresponds to the generating broad relation $e^\uparrow \leq e$,
+        then $T_v$ has edge set $e^{\uparrow} \cup \set{e}$
+        and the single broad relation $e^\uparrow \leq e$.
+        % We note that the subcategory of $\Omega$ spanned by corollas and isomorphisms is naturally identified with to the category $\Sigma$ of standard finite ordered sets
+        % $\{1,2,\cdots,n\}$ and (non-ordered) isomorphisms.
+
+        Similarly, for any $\mathfrak C$-tree $\vect T = (T, \mathfrak c \colon \boldsymbol{E}(T) \to \mathfrak C)$
+        and any vertex $v \in \boldsymbol{V}(T)$,
+        we write $\vect T_v = (T_v, \mathfrak c_v)$ for the associated $\mathfrak C$-corolla,
+        where $\mathfrak c_v$ is the restriction of $\mathfrak c$ to $\boldsymbol{E}(T_v) \subseteq \boldsymbol{E}(T)$. 
+        % We write
+        % $\Sigma_{\mathfrak{C}} \subset \Omega_{\mathfrak{C}}$,
+        % which we call the category of 
+        % \emph{$\mathfrak{C}$-corollas},
+        % for the further subcategory of objects whose underlying tree is a corolla
+        % and whose maps are isomorphisms.
+        \todo[inline]{can't find a similar discussion in TAS}        
+\end{notation}
+
 
 
 
@@ -825,63 +846,63 @@ in the category $\Sym_\bullet(\sSet)$ of \textit{colored symmetric sequences}.
 Explicitly, a simplicial operad $\O \in \sOp$ with color set $\mathfrak C$ has levels $\O(\vect C)$ indexed by
 $\mathfrak C$-corollas $\vect C = (C, \mathfrak c \colon \boldsymbol{E}(C) \to \mathfrak C)$.
 Additionally, $\O$ has composition laws induced by $\mathfrak C$-colored trees.
-A full discussion can be found in \textcolor{red}{CITATION: TAS? OneColor?}
+A full discussion can be found in \textcolor{red}{CITATION}
 
 \begin{example}
         One important class of colored operads are the free operads generated by trees.
-        Given $U \in \Omega$, we define $\Omega(U)$ to be the $\boldsymbol{E}(U)$-colored operad which,
-        when evaluated on an $\boldsymbol{E}(U)$-colored corolla
-        $\vect C = (C, \mathfrak c \colon \boldsymbol{E}(C) \to \boldsymbol{E}(U))$, is given by
+        Given $T \in \Omega$, we define $\Omega(T)$ to be the $\boldsymbol{E}(T)$-colored operad which,
+        when evaluated on an $\boldsymbol{E}(T)$-colored corolla
+        $\vect C = (C, \mathfrak c \colon \boldsymbol{E}(C) \to \boldsymbol{E}(T))$, is given by
         \begin{equation}\label{OMEGADEF_EQ}
-                \Omega(F)(\vect C) =
+                \Omega(T)(\vect C) =
                 \begin{cases}
                         \** \qquad & 
                         \mbox{if
-                          $\mathfrak{c} \colon \boldsymbol{E}(C) \to \boldsymbol{E}(F)$
-                          defines a map $C \to F$ in $\Phi$}
+                          $\mathfrak{c} \colon \boldsymbol{E}(C) \to \boldsymbol{E}(T)$
+                          defines a map $C \to T$ in $\Omega$}
                         \\
                         \varnothing & \text{otherwise.}
                 \end{cases}
         \end{equation}
         We note that since all levels of 
-        $\Omega(F)$ are either $\**$ or $\emptyset$,
+        $\Omega(T)$ are either $\**$ or $\emptyset$,
         there is always at most one possible way to compose operations,
-        and hence at most one possible operad structure on $\Omega(F)$.
+        and hence at most one possible operad structure on $\Omega(T)$.
         That the operad structure indeed exists
         (i.e. that composition is always defined)
         follows from of the observation that,
-        for any tree $V \in \Omega$,
+        for any other tree $S \in \Omega$,
         a coloring
-        $\mathfrak{c} \colon \boldsymbol{E}(V) \to \boldsymbol{E}(U)$
+        $\mathfrak{c} \colon \boldsymbol{E}(S) \to \boldsymbol{E}(T)$
         defines a map
-        $V \to U$ in $\Omega$
+        $S \to T$ in $\Omega$
         iff
         the restrictions
-        $\mathfrak{c}_v \colon \boldsymbol{E}(V_v) \to \boldsymbol{E}(U)$
+        $\mathfrak{c}_v \colon \boldsymbol{E}(S_v) \to \boldsymbol{E}(T)$
         define maps
-        $V_v \to U$ in $\Omega$
-        for all vertices $v \in \boldsymbol{V}(V)$.
+        $S_v \to T$ in $\Omega$
+        for all vertices $v \in \boldsymbol{V}(S)$.
 \end{example}
 
 (Simplicial) operads can also be identified as presheaves satisfying a strict Segal condition,
-under the \textit{nerve} construction.
-As this is the perspective we find fruitful for our proofs, 
-we briefly discuss this narrative.
+under the \textit{nerve} construction (Theorem \ref{SSC_THM} below).
+As this perspective is quite helpful,
+we briefly discuss this connection.
 
 Recall that the nerve functor
 $N \colon \Cat \to \sSet$
 sends a category $\mathcal C$ to the simplicial set $N \mathcal C$
 $N \mathcal C_n = \Hom([n], \mathcal C)$,
 where $[n] = \set{0 \to 1 \to \dots \to n}$.
-
+%
 Similarly, the \textit{dendroidal nerve} functor
 \begin{equation}
         \label{OPN_EQ}
         N \colon \Op \to \dSet
 \end{equation}
-sends an operad $\O$ to the dendroidal set defined on $U \in \Omega$ by
-$N \O(U) = \Hom(\Omega(U), \O)$,
-with $\Omega(U)$ as in \eqref{OMEGADEF_EQ}.
+sends an operad $\O$ to the dendroidal set defined on $T \in \Omega$ by
+$N \O(T) = \Hom(\Omega(T), \O)$,
+with $\Omega(T)$ as in \eqref{OMEGADEF_EQ}.
 
 This functor extends by postcomposition to the associated categories of simplicial presheaves,
 yielding the leftmost equation below,
@@ -908,13 +929,19 @@ some discussion on simplicial dendroidal sets and preoperads,
 and connect back to the nerve functor in Theorem \ref{SSC_THM}.
 
 \begin{notation}[{cf. \cite[\S 4]{BP_edss}, \cite[\S 3]{BP_TAS}}]
+        \label{PREOP_NOT}
         \begin{itemize}
-        \item For $U \in \Omega$, let $\Omega[U] \in \dSet$ denote the representable presheaf $\Omega[U](V) = \Omega(V,U)$.
-                Note that $\Omega[U] = N\Omega(U)$.
-        \item For $U \in \Omega$, let $Sc[U] \subseteq \Omega[U] \in \dSet$ denote the \textit{Segal core} of $U$
+        \item For $T \in \Omega$, 
+                let $\Omega[T]$ denote 
+                the representable presheaf $\Omega[T](S) = \Omega(S,T)$.
+                Note that $\Omega[T] = N\Omega(T)$.
+        \item For $T \in \Omega$ and $e \in \boldsymbol{E}^i(T)$,
+                let $Sc[T] \subseteq \Lambda^e[T] \subseteq \Omega[T]$ denote
+                the \textit{Segal core} of $T$
+                and the \textit{inner horn} of $T$ associated to $e$
                 (e.g. \cite[\S 2]{CM13a}, \cite[\S 2.3]{BP_edss}). % \cite[Eq. \eqref{TAS-eq:SC}]{BP_TAS})
-        \item For $X \in \sdSet$, we write $X_n(U)$ for the evaluation at $n \in \Delta$ and $U \in \Omega$,
-                and refer to $n$ and $U$ as the \textit{simplicial} and \textit{dendroidal} directions, respectively.
+        \item For $X \in \sdSet$, we write $X_n(T)$ for the evaluation at $n \in \Delta$ and $T \in \Omega$,
+                and refer to $n$ and $T$ as the \textit{simplicial} and \textit{dendroidal} directions, respectively.
         % \item More generally, we write
         %         \begin{equation}
         %                 \label{SDSET_EQ}
@@ -932,32 +959,42 @@ and connect back to the nerve functor in Theorem \ref{SSC_THM}.
         %         \]
         \item (cf. \cite[Eq. \eqref{TAS-COLORSET EQ}]{BP_TAS})
                 Given $X \in \PreOp$, we call $X(\eta)$ the \textit{color set} of $X$ .
-        \item (cf. \cite[Not. \ref{TAS-XUDECALT NOT}]{BP_TAS})
-                Given $X \in \PreOp$, $U \in \Omega$, and a coloring $\mathfrak c \colon \boldsymbol{E}(U) \to X(\eta)$,
-                we define $X_{\mathfrak c}(U) \in \sSet$ as the pullback below.
+        \item \label{XUC_LBL}
+                (cf. \cite[Not. \ref{TAS-XUDECALT NOT}]{BP_TAS})
+                Given $X \in \PreOp$, $T \in \Omega$, and a coloring $\mathfrak c \colon \boldsymbol{E}(T) \to X(\eta)$,
+                we define $X_{\mathfrak c}(T) \in \sSet$ as the pullback below.
                 \begin{equation}
                         \label{XUDECALT EQ}
                         \begin{tikzcd}
-                                X_{\mathfrak C}(U) \arrow[r] \arrow[d]
+                                X_{\mathfrak C}(T) \arrow[r] \arrow[d]
                                 &
-                                X(U) \arrow[d]
+                                X(T) \arrow[d]
                                 \\
                                 \** \arrow[r, "\mathfrak c"]
                                 &
                                 \displaystyle{
-                                  \prod\limits_{\boldsymbol{E}(U)} X(\eta)
+                                  \prod\limits_{\boldsymbol{E}(T)} X(\eta)
                                 }
                         \end{tikzcd}
                 \end{equation}
-                Note that we have a coproduct decomposition
-                \begin{equation}
-                        \label{COLDEC_EQ}
-                        X(U) \simeq \coprod_{\mathfrak c \colon \boldsymbol{E}(U) \to X(\eta)} X_{\mathfrak c}(U).
-                \end{equation}
         \item Given any $A \in \dSet$, we abusively write $A \in \PreOp \subseteq \sdSet$ for the
-                simplicially-constant presheaf $A_n(U) = A(U)$.
+                simplicially-constant presheaf $A_n(T) = A(T)$.
         \end{itemize}
 \end{notation}
+
+\begin{remark}
+        For any $X$, $T$, $\mathfrak c$ as in Notation \ref{PREOP_NOT}\ref{XUC_LBL},
+        we have a coproduct decomposition \cite[Eq. \eqref{TAS-COLDEC_EQ}]{BP_TAS}
+        \begin{equation}
+                \label{COLDEC_EQ}
+                X(T) \simeq \coprod_{\mathfrak c \colon \boldsymbol{E}(T) \to X(\eta)} X_{\mathfrak c}(T).
+        \end{equation}
+        Moreover, $X_{\mathfrak c}(T)$ is natural in $(T, \mathfrak c) \in \Omega_{\mathfrak C}^{op}$,
+        and in fact
+        $X$ is determined by the presheaf $(T, \mathfrak c) \mapsto X_{\mathfrak c}(T)$
+        (cf. \cite[Eq. \eqref{TAS-PREOPCOLFIXEQ EQ}]{BP_TAS}).
+\end{remark}
+
 
 \begin{definition}
         \label{SSC_DEF}
@@ -965,24 +1002,24 @@ and connect back to the nerve functor in Theorem \ref{SSC_THM}.
         any of the following equivalent conditions hold:
         \begin{enumerate}
         \item $X$ has the strict right lifting property against
-                all inner horn inclusions $\Lambda^e[U] \to \Omega[U]$,
-                for all $U \in \Omega$ and $e \in \boldsymbol{E}^i(U)$ an inner edge.
+                all inner horn inclusions $\Lambda^e[T] \to \Omega[T]$,
+                for all $T \in \Omega$ and $e \in \boldsymbol{E}^i(T)$ an inner edge.
         \item $X$ has the strict right lifting property against
-                all Segal core inclusions $Sc[U] \to \Omega[U]$, for all $U \in \Omega$,
+                all Segal core inclusions $Sc[T] \to \Omega[T]$, for all $T \in \Omega$,
         \item The maps
-                $X(U) \to X(Sc[U])$ % limit over Segal core poset of $U$
-                % induced by $Sc[U] \to \Omega[U]$
+                $X(T) \to X(Sc[T])$ % limit over Segal core poset of $T$
+                % induced by $Sc[T] \to \Omega[T]$
                 are isomorphisms of simplicial sets
-                for all $U \in \Omega$.
+                for all $T \in \Omega$.
         \item The Segal maps
-                $X_{\mathfrak c}(U) \to \prod_{v \in \boldsymbol{V}(U)} X_{\mathfrak c_v}(U_v)$
+                $X_{\mathfrak c}(T) \to \prod_{v \in \boldsymbol{V}(T)} X_{\mathfrak c_v}(T_v)$
                 are isomorphisms of simplicial sets
-                for all $U \in \Omega$ and colorings $\mathfrak c \colon \boldsymbol{E}(U) \to X(\eta)$.
+                for all $T \in \Omega$ and colorings $\mathfrak c \colon \boldsymbol{E}(T) \to X(\eta)$.
         \end{enumerate}
         % the Segal maps
-        % $X_{\mathfrak c}(U) \to \prod_{v \in \boldsymbol{V}(U)} X_{\mathfrak c_v}(U_v)$
+        % $X_{\mathfrak c}(T) \to \prod_{v \in \boldsymbol{V}(T)} X_{\mathfrak c_v}(T_v)$
         % are isomorphisms of simplicial sets
-        % for all $U \in \Omega$ and colorings $\mathfrak c \colon \boldsymbol{E}(U) \to X(\eta)$.
+        % for all $T \in \Omega$ and colorings $\mathfrak c \colon \boldsymbol{E}(T) \to X(\eta)$.
 \end{definition}
 
 \begin{remark}
@@ -1072,7 +1109,7 @@ generalizing the key notion in \cite{DS11}.
 \begin{example}
       \label{NECKLACE_EX}
       Consider the trees $J$ and $T$ below.
-      The labeling of the edges indicates a map $\boldsymbol{E}(J) \to \boldsymbol{E}(U)$ which
+      The labeling of the edges indicates a map $\boldsymbol{E}(J) \to \boldsymbol{E}(T)$ which
       encodes an inner face map.
       \begin{equation}
             \begin{tikzpicture}[auto,grow=up, level distance = 2.2em,
