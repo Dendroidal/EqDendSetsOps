@@ -34,7 +34,7 @@
 \usepackage[pagebackref, colorlinks, citecolor=PineGreen, linkcolor=PineGreen]{hyperref}
 \hypersetup{
   final,
-  pdftitle={Left adjoint to the operadic homotopy coherent nerve},
+  pdftitle={Rigidification of dendroidal $\infty$-operads}
   pdfauthor={Bonventre, P. and Pereira, L. A.},
   linktoc=page,
   pdfpagemode=UseNone,
@@ -271,7 +271,7 @@ cd,patterns,calc}
 
 % ---- Title --------
 
-\title{Left adjoint to the operadic homotopy coherent nerve}
+\title{Rigidification of dendroidal $\infty$-operads}
 
 \author{Peter Bonventre, Lu\'is A. Pereira}%
 
@@ -444,7 +444,6 @@ category $\Omega$ of trees
 \section{Preliminaries}
 
 
-\subsection{Simplicial operads}
 
 \todo[inline]{come back}
 
@@ -793,169 +792,96 @@ $\{1,2,\cdots,n\}$ and (non-ordered) isomorphisms.
 %\end{notation}
 
 
-Next, we recall the categories of (colored) forests used in 
+Next, we recall the categories of colored trees used in 
 \cite[Def. \ref{OC-COLFOR DEF}]{BP_FCOP}.
 
-
-\begin{definition}\label{FOR DEF}
-      The category $\Phi$ of \textit{forests} is the coproduct completion of the category $\Omega$ of trees:
-      objects are formal coproducts 
-      $F = \amalg_{i \in I} F_i$ with $F_i \in \Omega$,
-      and an arrow 
-      $\varphi \colon \amalg_{i \in I} F_i \to
-      \amalg_{j \in J} F'_j$ is given by
-      a map of indexing sets $\varphi \colon I \to J$ and
-      maps $\varphi_i \colon F_i \to F'_{\varphi(i)}$ in $\Omega$ for each $i \in I$.
-
-The sets of \emph{edges}, \emph{inner edges}, \emph{vertices}
-of a forest $F = \amalg_i F_i$
-are defined in the natural way as
-\[
-	\boldsymbol{E}(F)
-	\simeq
-	\amalg_i \boldsymbol{E}(F_i),
-\qquad
-	\boldsymbol{E}^{\mathsf{i}}(F)
-	\simeq
-	\amalg_i \boldsymbol{E}^{\mathsf{i}}(F_i),
-\qquad
-	\boldsymbol{V}(F)
-	\simeq
-	\amalg_i \boldsymbol{V}(F_i).
-\]
-\end{definition}
-
-
-As with trees $T \in \Omega$, 
-we assume that each forest $F = \amalg_{i \in I} F_i \in \Phi$
-is planarized \cite[Def. 3.2 and Rem. 3.15]{BP_geo}, 
-which is equivalent to choosing a total order of the indexing set $I$ and a planarization of each $F_i$.
-Moreover, we similarly assume that $\Phi$ contains exactly one representative of each planarization,
-so that the only planar isomorphisms are again the identities.
-
-However, we caution that, in order to pullback a planarization
-along $\varphi \colon F \to \tilde{F}$,
-one needs to assume  
-$\varphi$ sends roots of $F$
-to $\leq_d$-incomparable edges of $\tilde{F}$, 
-i.e. that $\varphi$ is an \emph{independent map}
-\cite[Def. 5.28]{Per18}.
-As such, in the context of forests our definition of 
-planar map requires that the map is independent
-\cite[Prop. 3.19]{BP_geo}.
-In particular, the factorization
-$F \xrightarrow{\simeq} F' \to \tilde{F}$
-of a map $\varphi$ as an isomorphism followed by a planar map
-exists only if $\varphi$ is independent
-\cite[Prop. 3.24]{BP_geo}.
-
-
 \begin{definition}\label{CFOREST_DEF}
-      Let $\mathfrak C$ be a set of colors.
-      The category $\Phi_{\mathfrak C}$ of \textit{$\mathfrak C$-forests} has:
-      \begin{itemize}
-      \item objects pairs $\vect F = (F, \mathfrak c)$ with
-            $F \in \Phi$ a forest and
-            $\mathfrak c \colon \boldsymbol{E}(F) \to \mathfrak C$ a coloring of its edges;
-      \item arrows $\vect F = (F, \mathfrak c) \to (F', \mathfrak c') = \vect{F'}$ maps
-            $\varphi \colon F \to F'$ in $\Phi$ such that $\mathfrak c = \mathfrak c' \varphi$.
-      \end{itemize}      
-	Lastly, we write
-	$\Omega_{\mathfrak{C}} \subset \Phi_{\mathfrak{C}}$,
-	which we call the category of 
-	\emph{$\mathfrak{C}$-trees},
-	for the full subcategory spanned by the objects 
-	whose underlying forest is a tree,
-	and 
-	$\Sigma_{\mathfrak{C}} \subset \Omega_{\mathfrak{C}}$,
-	which we call the category of 
-	\emph{$\mathfrak{C}$-corollas},
-	for the further subcategory of objects whose underlying tree is a corolla
-	and whose maps are isomorphisms.
+        Let $\mathfrak C$ be a set of colors.
+        The category $\Omega_{\mathfrak C}$ of \textit{$\mathfrak C$-trees} has:
+        \begin{itemize}
+        \item objects pairs $\vect U = (U, \mathfrak c)$ with
+                $U \in \Omega$ a tree and
+                $\mathfrak c \colon \boldsymbol{E}(U) \to \mathfrak C$ a coloring of its edges;
+        \item arrows $\vect U = (U, \mathfrak c) \to (U', \mathfrak c') = \vect{U'}$ maps
+                $\varphi \colon U \to U'$ in $\Omega$ such that $\mathfrak c = \mathfrak c' \varphi$.
+        \end{itemize}      
+        We write
+        $\Sigma_{\mathfrak{C}} \subset \Omega_{\mathfrak{C}}$,
+        which we call the category of 
+        \emph{$\mathfrak{C}$-corollas},
+        for the further subcategory of objects whose underlying tree is a corolla
+        and whose maps are isomorphisms.
 \end{definition}
 
 
-\todo[inline]{discussion of $\Omega(U)$}
 
-\subsection{dendroidal sets}
+\subsection{Operads, preoperads, and nerves}
+\label{NERVE_SEC}
 
-\todo[inline]{$Sc[U]$}
+We write $\sOp = \Op(\sSet)$ for the category of \textit{colored simplicial operads}, also called \textit{simplicially enriched multicategories}.
+Formally, these are 
+algebras over the monad $\mathbb F$ from \cite[Def. \ref{OC-FREEOP DEF}]{BP_FCOP}
+in the category $\Sym_\bullet(\sSet)$ of \textit{colored symmetric sequences}.
+Explicitly, a simplicial operad $\O \in \sOp$ with color set $\mathfrak C$ has levels $\O(\vect C)$ indexed by
+$\mathfrak C$-corollas $\vect C = (C, \mathfrak c \colon \boldsymbol{E}(C) \to \mathfrak C)$.
+Additionally, $\O$ has composition laws induced by $\mathfrak C$-colored trees.
+A full discussion can be found in \textcolor{red}{CITATION: TAS? OneColor?}
 
+\begin{example}
+        One important class of colored operads are the free operads generated by trees.
+        Given $U \in \Omega$, we define $\Omega(U)$ to be the $\boldsymbol{E}(U)$-colored operad which,
+        when evaluated on an $\boldsymbol{E}(U)$-colored corolla
+        $\vect C = (C, \mathfrak c \colon \boldsymbol{E}(C) \to \boldsymbol{E}(U))$, is given by
+        \begin{equation}\label{OMEGADEF_EQ}
+                \Omega(F)(\vect C) =
+                \begin{cases}
+                        \** \qquad & 
+                        \mbox{if
+                          $\mathfrak{c} \colon \boldsymbol{E}(C) \to \boldsymbol{E}(F)$
+                          defines a map $C \to F$ in $\Phi$}
+                        \\
+                        \varnothing & \text{otherwise.}
+                \end{cases}
+        \end{equation}
+        We note that since all levels of 
+        $\Omega(F)$ are either $\**$ or $\emptyset$,
+        there is always at most one possible way to compose operations,
+        and hence at most one possible operad structure on $\Omega(F)$.
+        That the operad structure indeed exists
+        (i.e. that composition is always defined)
+        follows from of the observation that,
+        for any tree $V \in \Omega$,
+        a coloring
+        $\mathfrak{c} \colon \boldsymbol{E}(V) \to \boldsymbol{E}(U)$
+        defines a map
+        $V \to U$ in $\Omega$
+        iff
+        the restrictions
+        $\mathfrak{c}_v \colon \boldsymbol{E}(V_v) \to \boldsymbol{E}(U)$
+        define maps
+        $V_v \to U$ in $\Omega$
+        for all vertices $v \in \boldsymbol{V}(V)$.
+\end{example}
 
+(Simplicial) operads can also be identified as presheaves satisfying a strict Segal condition,
+under the \textit{nerve} construction.
+As this is the perspective we find fruitful for our proofs, 
+we briefly discuss this narrative.
 
-% \begin{notation}[cf. \cite[Not. \ref{TAS-XUDECALT NOT}]{BP_TAS}]
-%         Given $A \in \dSet$ $U \in \Omega$, and a coloring $\mathfrak c \colon \boldsymbol{E}(U) \to X(\eta)$,
-%         define $A_{\mathfrak c}(U) \in \Set$ to be the pullback below.
-%         \begin{equation}
-%                 \label{AUDECALT_EQ}
-%                 \begin{tikzcd}
-%                         X_{\mathfrak C}(U) \arrow[r] \arrow[d]
-%                         &
-%                         X(U) \arrow[d]
-%                         \\
-%                         \** \arrow[r, "\mathfrak c"]
-%                         &
-%                         \displaystyle{
-%                           \prod\limits_{\boldsymbol{E}(U)} X(\eta)
-%                         }
-%                 \end{tikzcd}
-%         \end{equation}
-% \end{notation}
-
-% \begin{definition}
-%         \label{SSCDSET_DEF}
-%         We say $X \in \dSet$ satisfies the \textit{strict Segal condition} if
-%         any of the following equivalent conditions hold:
-%         \begin{enumerate}
-%         \item $X$ has the strict right lifting property against
-%                 all inner horn inclusions $\Lambda^e[U] \to \Omega[U]$.
-%         \item $X$ has the strict right lifting property against
-%                 all Segal core inclusions $Sc[U] \to \Omega[U]$, $U \in \Omega$.
-%         \item The Segal maps
-%                 $X(U) \to X(Sc[U]) = \lim_{v \in \boldsymbol{V}(U)}X(U_v)$
-%                 are bijections
-%                 for all $U \in \Omega$.
-%         \item The Segal maps
-%                 $X_{\mathfrak c}(U) \to \prod_{v \in \boldsymbol{V}(U)} X_{\mathfrak c_v}(U_v)$
-%                 are bijetions
-%                 for all $U \in \Omega$ and colorings $\mathfrak c \colon \boldsymbol{E}(U) \to X(\eta)$.
-%         \end{enumerate}
-% \end{definition}
-
-% \begin{remark}
-%         The above conditions are in fact equivalent:
-%         (i) iff (ii) follows by either \cite[Prop. 2.5 and Cor. 2.6]{CM13a} or \cite[Props. 3.22, 3.31]{BP_edss};
-%         (ii) iff (iii) is clear;
-%         (iii) iff (iv) follows by \eqref{AUDECALT_EQ}. 
-% \end{remark}
-
-% \begin{theorem}[{\cite[Prop. 5.3 and Thm. 6.1]{MW09}}]
-%         The nerve $N \colon \Op \to \dSet$
-%         is a fully faithful inclusion whose (essential) image is spanned by those $X \in dSet$
-%         satisfying the strict Segal condition.
-% \end{theorem}
-
-
-\subsection{Preoperads}
-
-Much of the discussion will be made easier by
-considering the \textit{nerves} of (simplicial) operads.
-
-
-
-Recall that the nerve functor $N \colon \Cat \to \sSet$ sends a category $\mathcal C$ to the simplicial set $N \mathcal C$
+Recall that the nerve functor
+$N \colon \Cat \to \sSet$
+sends a category $\mathcal C$ to the simplicial set $N \mathcal C$
 $N \mathcal C_n = \Hom([n], \mathcal C)$,
 where $[n] = \set{0 \to 1 \to \dots \to n}$.
-Moreover, the (essential) image of the nerve is spanned by those simplicial sets $X$ satisfying a strict Segal condition.
 
 Similarly, the \textit{dendroidal nerve} functor
 \begin{equation}
         \label{OPN_EQ}
         N \colon \Op \to \dSet
 \end{equation}
-sends an operad $\O$ to the dendroidal set
-$N \O(U) = \Hom(\Omega(U), \O)$. 
-
+sends an operad $\O$ to the dendroidal set defined on $U \in \Omega$ by
+$N \O(U) = \Hom(\Omega(U), \O)$,
+with $\Omega(U)$ as in \eqref{OMEGADEF_EQ}.
 
 This functor extends by postcomposition to the associated categories of simplicial presheaves,
 yielding the leftmost equation below,
@@ -981,8 +907,12 @@ We now recall from \cite[\S 4]{BP_edss} and \cite[\S 3]{BP_TAS}
 some discussion on simplicial dendroidal sets and preoperads,
 and connect back to the nerve functor in Theorem \ref{SSC_THM}.
 
-\begin{notation}
+\begin{notation}[{cf. \cite[\S 4]{BP_edss}, \cite[\S 3]{BP_TAS}}]
         \begin{itemize}
+        \item For $U \in \Omega$, let $\Omega[U] \in \dSet$ denote the representable presheaf $\Omega[U](V) = \Omega(V,U)$.
+                Note that $\Omega[U] = N\Omega(U)$.
+        \item For $U \in \Omega$, let $Sc[U] \subseteq \Omega[U] \in \dSet$ denote the \textit{Segal core} of $U$
+                (e.g. \cite[\S 2]{CM13a}, \cite[\S 2.3]{BP_edss}). % \cite[Eq. \eqref{TAS-eq:SC}]{BP_TAS})
         \item For $X \in \sdSet$, we write $X_n(U)$ for the evaluation at $n \in \Delta$ and $U \in \Omega$,
                 and refer to $n$ and $U$ as the \textit{simplicial} and \textit{dendroidal} directions, respectively.
         % \item More generally, we write
@@ -1030,15 +960,18 @@ and connect back to the nerve functor in Theorem \ref{SSC_THM}.
 \end{notation}
 
 \begin{definition}
+        \label{SSC_DEF}
         We say $X \in \PreOp$ satisfies the \textit{strict Segal condition} if
         any of the following equivalent conditions hold:
         \begin{enumerate}
         \item $X$ has the strict right lifting property against
-                all inner horn inclusions $\Lambda^e[U] \to \Omega[U]$.
+                all inner horn inclusions $\Lambda^e[U] \to \Omega[U]$,
+                for all $U \in \Omega$ and $e \in \boldsymbol{E}^i(U)$ an inner edge.
         \item $X$ has the strict right lifting property against
-                all Segal core inclusions $Sc[U] \to \Omega[U]$, $U \in \Omega$.
-        \item The Segal maps
-                $X(U) \to X(Sc[U]) = \lim_{v \in \boldsymbol{V}(U)}X(U_v)$
+                all Segal core inclusions $Sc[U] \to \Omega[U]$, for all $U \in \Omega$,
+        \item The maps
+                $X(U) \to X(Sc[U])$ % limit over Segal core poset of $U$
+                % induced by $Sc[U] \to \Omega[U]$
                 are isomorphisms of simplicial sets
                 for all $U \in \Omega$.
         \item The Segal maps
@@ -1062,7 +995,7 @@ and connect back to the nerve functor in Theorem \ref{SSC_THM}.
 
 We recall \cite[Prop. 5.3 and Thm. 6.1]{MW09} that the nerve functor
 $N \colon \Op \to \dSet$ is a fully-faithful inclusion whose (essential) image is precisely
-those $X \in \dSet$ satisfying the strict Segal condition.
+those $X \in \dSet$ satisfying the strict Segal condition Definition \ref{SSC_DEF}(i).
 This immediately extends to simplicial presheaves.
 \begin{theorem}
         \label{SSC_THM}
@@ -1071,7 +1004,7 @@ This immediately extends to simplicial presheaves.
         those preoperads $X$ satisfying the strict Segal condition.
 \end{theorem}
 
-\todo[inline]{come back}
+
 
 
 
