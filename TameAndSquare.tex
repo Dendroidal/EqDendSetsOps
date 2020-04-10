@@ -5804,7 +5804,9 @@ which is the equivariant analogue of
 	Suppose that $\mathcal{O} \in \mathsf{Op}^{G}$
 	is $\Sigma$-cofibrant.
 	Further, let $C \in \Sigma_G$ be any $G$-corolla and consider 
-	a pushout in $\mathsf{Op}^{G}$ of the form
+	a pushout in 
+	$\mathsf{Op}^{G} = \mathsf{Op}^{G}(\mathsf{Set})$ 
+	of the form
 	\begin{equation}\label{PUSHOUTPROP EQ}
 	\begin{tikzcd}
 	\partial \Omega(C) \ar{r} \ar{d} & \mathcal{O} \ar{d}
@@ -5824,10 +5826,19 @@ which is the equivariant analogue of
 
 \subsection{The characteristic edge lemma}
 
-
+The proof of Lemma \ref{KEYPR LEM}
+will use the \emph{characteristic edge lemma}
+\cite[Lemma 3.4]{BP_edss},
+repackaged below as 
+Lemma \ref{CHAREDGE LEM}
+in a form better suited for our application.
+We start with some notation.
+For a discussion of (non-)degenerate 
+dendrices in a dendroidal set,
+see \cite[Prop. 5.62]{Per18}.
 
 \begin{notation}
-	Let $Y \in \mathsf{dSet}^G$ be a $G$-equivariant dendroidal set and 
+	Let $Y \in \mathsf{dSet}^G$ be a $G$-dendroidal set and 
 	$y \colon \Omega[U^y] \to Y$
 	a dendrex, $U^y \in \Omega$.
 	
@@ -5889,12 +5900,13 @@ which is the equivariant analogue of
 \end{notation}
 
 
-\begin{remark}
-	Recalling that $G$ acts on dendrices by postcomposition, i.e.
-	$gy$ is the composite
-	$\Omega[U^y] \xrightarrow{y} Y \xrightarrow{g} Y$
-	we see that $U^{gy} = U^{y}$.
-	Moreover, the action extends to principal subpresheaves and
+\begin{remark}\label{PRINGACT REM}
+	For $Y \in \mathsf{dSet}^G$, the group $G$
+	acts on dendrices by postcomposition,
+	i.e. $gy$ is the composite
+	$\Omega[U^y] \xrightarrow{y} Y \xrightarrow{g} Y$.
+	In particular, note that $U^{gy} = U^{y}$.
+	Moreover, this action extends to principal subpresheaves as
 	$g \langle y \rangle = \langle g y \rangle$.
 	
 	As such, if $\langle y\rangle$ is $\Sigma$-free, a coherent inner edge set 
@@ -5923,7 +5935,8 @@ are discussed in Remarks \ref{CH02 REM}, \ref{DCC REM}.
 	a set of $\Sigma$-free principal subpresheaves of $Y$. 
 	Suppose further that 
 	$\left\{ \langle y \rangle \right\}$ is equipped 
-	with a poset structure compatible with the natural $G$-action
+	with a poset structure compatible with the $G$-action
+	in Remark \ref{PRINGACT REM}
 	and which satisfies the descending chain condition.
 	For each $\langle y \rangle$ denote
 	\[
@@ -5944,10 +5957,10 @@ are discussed in Remarks \ref{CH02 REM}, \ref{DCC REM}.
 	\left\{ \Xi^{\langle y \rangle} \right \} 
 	%=\left\{ \Xi^y \subseteq \boldsymbol{E}^{\mathsf{i}}(U^y)\right\}
 	$
-	is a \emph{characteristic inner edge collection} 
-	of $\left\{ \langle y \rangle \right\}$ with respect to $X$ if
-	for some (and thus any) choice of non-degenerate representatives
-	$y\colon \Omega[U^y] \to Y$ one has that:
+	is a \emph{characteristic inner edge collection 
+	of $\left\{ \langle y \rangle \right\}$ with respect to $X$} if,
+	for some (and thus any) choice of non-degenerate representatives $y\colon \Omega[U^y] \to Y$,
+	one has that:
 	\begin{enumerate}
 		\item[(Ch0.1)] $y \colon \Omega[U^y] \to Y$ is injective away from
 		$y^{-1}\left( X_{< \langle y \rangle} \right)$; 
@@ -5959,17 +5972,17 @@ are discussed in Remarks \ref{CH02 REM}, \ref{DCC REM}.
 		\Xi^{g \langle y \rangle}$,
 		i.e. $\Xi^y = \Xi^{gy}$;
 		\item[(Ch1)] if $V \hookrightarrow U^y$ is an outer face and $\Xi^y_V = \emptyset$,
-		then $\langle \partial_V y \rangle \subseteq X_{< \langle y \rangle}$;
+		then $\langle \partial_V (y) \rangle \subseteq X_{< \langle y \rangle}$;
 		\item[(Ch2)] if $V \hookrightarrow U^y$ is any face and
-		$\langle \partial_{V-\Xi^y_V} y\rangle \subseteq X$,
+		$\langle \partial_{V-\Xi^y_V} (y)\rangle \subseteq X$,
 		then
-		$\langle \partial_V y\rangle \subseteq X_{< \langle y \rangle}$;
+		$\langle \partial_V (y)\rangle \subseteq X_{< \langle y \rangle}$;
 		\item[(Ch3)] if $\langle \bar{y} \rangle \not \geq \langle y \rangle$,
 		$V \hookrightarrow U^y$,
 		and
-		$\langle \partial_{V-\Xi^y_V} y\rangle \subseteq \langle \bar{y} \rangle$,
+		$\langle \partial_{V-\Xi^y_V} (y)\rangle \subseteq \langle \bar{y} \rangle$,
 		then
-		$\langle \partial_V y\rangle \subseteq X_{< \langle y \rangle}$.
+		$\langle \partial_V (y)\rangle \subseteq X_{< \langle y \rangle}$.
 	\end{enumerate}
 \end{definition}
 
@@ -5979,20 +5992,23 @@ are discussed in Remarks \ref{CH02 REM}, \ref{DCC REM}.
 	$\langle y \rangle$ is played by a special chosen representative,
 	which we here denote by
 	$y^{\mathsf{pl}} \in \langle y \rangle$. 
-	The motivation for this is that in some key examples, such as in \cite[Ex. 3.9]{BP_edss}, one can choose preferred ``planar representatives'',
+	The motivation for this is that in some key examples, such as in \cite[Ex. 3.9]{BP_edss}, one can choose preferred ``planar representatives for principal presheaves'',
 	allowing for a pictorial depiction of the dendrices and poset as in
 	\cite[Fig. 3.1]{BP_edss}. 
 	
-	There is then a bijection $\{\langle y \rangle\} = \{ y^{\mathsf{pl}}\}$ between principal presheaves and the set of representatives, but while the former has a $G$-action the latter a priori does not (as $gy^{\mathsf{pl}}$ may not be planar). Translating the $G$-action along this bijection one has that the action of $g$ on $y^{\mathsf{pl}}$ is
+	There is then a bijection $\{\langle y \rangle\} = \{ y^{\mathsf{pl}}\}$ between principal presheaves and the set of representatives, but while the former has a $G$-action the latter a priori does not (as $gy^{\mathsf{pl}}$ may not be planar). Translating the $G$-action along this bijection one has that the action of $g$ on $y^{\mathsf{pl}}$ gives
 	$(g y^{\mathsf{pl}})^{\mathsf{pl}}$ and (ii),(iii) in 
 	(Ch0.2) of \cite[Rem. 3.7]{BP_edss} precisely 
 	encode this action on planar representatives.
 \end{remark}
 
 \begin{remark}\label{DCC REM}
-	Recall that a poset satisfies the descending chain condition if there are no infinite descending chains or, equivalently, if any non-empty subset has a minimal element. As such, while the proof of \cite[Lemma 3.4]{BP_edss}
-	assumed the poset $\{\langle y \rangle\}$ was finite,
-	since that proof follows by iteratively adding elements to $G$-equivariant convex subsets of the poset (cf. the last paragraph of the proof in loc. cit.), the argument generalizes to any poset satisfying the descending chain condition.
+	Recall that a poset satisfies the 
+	\emph{descending chain condition}
+	if it has no infinite descending chains or, equivalently, if any non-empty subset has a minimal element. As such, while  \cite[Lemma 3.4]{BP_edss}
+	assumed that the poset $\{\langle y \rangle\}$ was finite,
+	since its proof follows by iteratively adding elements to $G$-equivariant convex subsets of the poset (cf. the last paragraph of the proof in loc. cit.), 
+	the argument generalizes to any poset satisfying the descending chain condition.
 \end{remark}
 
 \begin{lemma}[{cf. \cite[Lemma 3.4]{BP_edss}}]
@@ -6002,8 +6018,8 @@ are discussed in Remarks \ref{CH02 REM}, \ref{DCC REM}.
 	\left\{ \Xi^{\langle y \rangle} \right \} 
 	%=\left\{ \Xi^y \subseteq \boldsymbol{E}^{\mathsf{i}}(U^y)\right\}
 	$
-	is a \emph{characteristic inner edge collection} 
-	of $\left\{ \langle y \rangle \right\}$ with respect to $X$ then
+	is a \emph{characteristic inner edge collection 
+	of $\left\{ \langle y \rangle \right\}$ with respect to $X$} then
 	\begin{equation}\label{CHAREDGE EQ}
 	X \to X \cup \bigcup_{\{\langle y \rangle\}} \langle y \rangle
 	\end{equation}
