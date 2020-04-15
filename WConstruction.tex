@@ -14,7 +14,7 @@
 \ifdraft{
   \color[RGB]{63,63,63}
   \pagecolor[RGB]{220,220,204}
-  \usepackage[notref]{showkeys}
+  \usepackage[notref]{showkeys} % notref - don't show reference names, only labels
   \usepackage{todonotes}
 }
 {
@@ -296,49 +296,73 @@ cd,patterns,calc}
 
 \section{Introduction}
 
+In this paper, we provide an explicit description of the rigidification of a (dendroidal) $\infty$-operad into a simplicial operad.
 
+An $\infty$-operad is a generalization of an operad, first introduced by Moerdijk-Weiss \cite{MW07}, where
+composition is only required to be associative and unital ``up to higher homotopies'', in an appropriate sense.
+They are encoded as dendroidal sets $X \in \dSet = \Set^{\Omega^{op}}$,
+i.e. presheaves of sets on the category $\Omega$ of trees,
+which satisfy a certain lifting condition (cf. \cite[\S 2.1]{CM11}).
+Cisinski-Moerdijk \cite[\S 4]{CM13b},
+building off work of Berger-Moerdijk \cite{BM06,BM07} on abstract Boardman-Vogt constructions,
+describe this rigidification as a functor on all dendroidal sets.
+Their process is as follows.
 
-\todo[inline]{Boardman-Vogt construction?}
-
-\todo[inline]{introduce this adjunction}
-Once we have a definition of $W(U)$, we can extend this construction to all of $\dSet$ using Yoneda:
-%
-The adjunction
-\begin{equation} \label{SOPDSET_EQ}
+First, for each tree $T \in \Omega$, they produce a natural rigidification,
+i.e. a simplicial operad $W(T) \in \sOp$,
+of the representable dendroidal set $\Omega[T]$
+(\cite[Rem. 7.3]{MW09}, \cite[Eq. (4.2.1)]{CM13b}).
+One can then extend this to a functor on all dendroidal sets,
+or more accurately to the left adjoint of a nerve-realization adjunction,
+yielding
+\begin{equation}
+        \label{SOPDSET_EQ}
         W_! \colon \dSet \rightleftarrows \sOp \colon h c N           
 \end{equation}
-is defined by
+defined by
 \begin{equation}
         \label{WXDEF_EQ}
-        W_!X = \colim_{\Omega[U] \to X}W(U),
+        W_!X = \colim_{\Omega[T] \to X}W(T),
         \qquad
-        hcN\O(U) = \sOp^G(W(U), \O).
+        hcN\O(U) = \sOp^G(W(T), \O).
 \end{equation}
-% $W_!(X) = \colim_{\Omega[U] \to X} W(U)$.
-However, this description is opaque/unenlightening.
+% $W_!(X) = \colim_{\Omega[T] \to X} W(T)$.
+% \textcolor{OliveGreen}{Given any simplicial operad $\O \in \sOp$, one can also then define the \textit{Boardman-Vogt $W$-construction},
+% a natural cofibrant resoltuion of the operad $\O$,
+% as the counit
+% $W_! hcN \O \to \O$.}
+
+However, the description of $W_!X$ in \eqref{WXDEF_EQ} is opaque/unenlightening and hard to unpack,
+even for natural/relevant/traditional dendroidal sets such as inner horns $\Lambda^e[T]$ or Segal cores $Sc[T]$.
+
 In the categorical setting,
-this left adjoint $W_!$ admits 
-a more explicit description, due to Dugger and Spivak \cite{DS11},
+$W_!$ admits 
+a more detailed description due to Dugger and Spivak \cite{DS11},
 in terms of so called \emph{necklaces}.
-%
+
 This paper extends their work 
 from the categorical context to the operadic context.
-
-
-This description plays a % minor
-role in the proof of the title result from \cite{BP_TAS},
-by providing an identification of $W_!$ applied to an inner horn in Example \ref{WPARTIALT2_EX}
-(cf. \cite[Lem. \ref{TAS-WLEFTQPUSH LEM}]{BP_TAS}).
-%(this description is essentially left as an exercise to the reader in the proof of \cite[Prop. 4.5]{CM13b}).
-
-Moreover, we believe our description is of intrinsic value,
-as our approach is rather different from that in \cite{DS11},
+Moreover, we believe our results are of intrinsic value,
+as our approach, in particular our descriptions of $W(T)$ as well as $W_! X$,
+is rather different from that in either \cite{CM13b} or \cite{DS11},
 as it is given in terms of 
 standard factorizations of maps in the
 category $\Omega$ of trees
-(see Proposition \ref{TREEFACT_PROP}).
+(cf. Proposition \ref{TREEFACT_PROP}).
 
+The authors were motivated to provide this description of the adjunction \eqref{SOPDSET_EQ}
+in order to fill a minor step,
+the identification of $W_!$ applied to an inner horn as in Example \ref{WPARTIALT2_EX} (cf. \cite[Lem. \ref{TAS-WLEFTQPUSH LEM}]{BP_TAS})\footnote{\textcolor{OliveGreen}{This description is essentially left as an exercise to the reader in the proof of \cite[Prop. 4.5]{CM13b}}},
+in the proof of the title result from \cite{BP_TAS}:
+the equivariant generalization
+\[
+        W_! \colon \dSet^G \rightleftarrows \sOp^G \colon h c N           
+\]
+of \eqref{SOPDSET_EQ} is a Quillen equivalence between models for ``equivariant operads with norm maps''.
+More details about this result can be found in \cite{BP_TAS},
+with further context found in the other papers of the associated project \cite{Per18,BP_geo,BP_edss,BP_FCOP,BP_ACOP}, of which \cite{BP_TAS} is the capstone.
 
+\todo[inline]{Boardman-Vogt construction?}
 
 
 
@@ -353,7 +377,7 @@ category $\Omega$ of trees
         There is a functor $W \colon \Omega \to \sOp$,
         defined on a tree $U \in \Omega$ as follows.
         The simplicial operad $W(U)$ has colors $\boldsymbol{E}(U)$, and
-        is defined on a $\boldsymbol{E}(U)$-corolla 
+        is defined on an $\boldsymbol{E}(U)$-corolla 
         $\vect{C} = (C,\mathfrak{c})$
         to have $n$-simplices 
         \begin{equation}\label{WU_EQ}
@@ -380,17 +404,17 @@ category $\Omega$ of trees
         (cf. \S \ref{TREES_SEC}).
 \end{customthm}
 \begin{proof}
-        This follows from Definition \ref{NWTNS DEF}, Remark \ref{NWTNS_REM}, and Proposition \ref{NWTNS_NAT_PROP}.
+        This follows from Remark \ref{NERVEEVAL_REM}, Definition \ref{NWTNS DEF}, Remark \ref{NWTNS_REM}, and Proposition \ref{NWTNS_NAT_PROP}.
 \end{proof}
 
 \begin{customthm}{B}
         Let $X \in \dSet$.
-        For each $n \in \Delta$ and $X(\eta)$-colored corolla $\vect S$,
-        the objects in $W(X)_n(\vect S)$ are given, up to unique isomorphism, by tuples
+        For each $n \in \Delta$ and $X(\eta)$-colored corolla $\vect C$,
+        the elements of $W(X)_n(\vect C)$ are given, up to unique isomorphism, by tuples
         \[
-                (\mathfrak n, S \xrightarrow{\phi} T, \Omega[\mathfrak n] \xrightarrow{x} X, J_\bullet)
+                (\mathfrak n, C \xrightarrow{\phi} T, \Omega[\mathfrak n] \xrightarrow{x} X, J_\bullet)
         \]
-        as in Corollary \ref{NWTNS_NNAT_COR},
+        as in Corollary \ref{NWXREPS COR},
         % where
         % \begin{enumerate}[label=(\roman*)]
         % \item $(J \xrightarrow{\mathfrak{n}} T) \in \mathsf{Nec}$ is a \textit{necklace} (Definition \ref{NECKLACE_DEF}); 
@@ -427,20 +451,25 @@ category $\Omega$ of trees
 	% 	$J_0 \supseteq J$,
 	% \end{enumerate}
         such that
-        $J_{\bullet}$ is \textit{flanked} (cf. Definition \ref{FLANKED_DEF}) and
-        $x$ is \textit{totally non-degenerate} (cf. Definition \ref{TOTNONDEG_DEF}).
+        $J_{\bullet}$ is flanked and
+        $x$ totally non-degenerate.
 \end{customthm}
+
+The category of $\mathfrak C$-colored trees is recalled in Definition \ref{CTREE_DEF}, while
+the adjectives \textit{flanked} and \textit{totally non-degenerate} are introduced in Definitions \ref{FLANKED_DEF} and \ref{TOTNONDEG_DEF}, respectively.
+
 \begin{proof}[Proof outline]
         First, we show that Theorem \ref{WU_THM} extends to \textit{necklaces} (Definition \ref{NECKLACE_DEF}) in Corollary \ref{NWTNS_NNAT_COR}.
         %
-        Next, in Theorem \ref{KANEXTCHAR THM},
+        Second, in Theorem \ref{KANEXTCHAR THM},
         we show that $W(X)$, as defined in \eqref{WXDEF_EQ}, can be described by
         the colimit
         $W(X) = \colim_{\Omega[\mathfrak n] \to X \in \mathsf{Nec}_{/ X}} W(\mathfrak n)$
         over the category $\mathsf{Nec}_{/ X}$ of necklaces over $X$.
         %
-        In Corollary \ref{NWXREPS COR}, we describe the levels $W(X)_n(\vect C)$ of this colimit as equivalence classess of tuples.
-        Finally, in Corollary \ref{NWXREPS2_COR} we prove that these classes have chosen representatives, unique up to unique isomorphism.
+        Third, we describe the levels $W(X)_n(\vect C)$ of this colimit as equivalence classes of tuples
+        in Corollary \ref{NWXREPS COR}.
+        Finally, we prove in Corollary \ref{NWXREPS2_COR} that these classes have chosen representatives, unique up to unique isomorphism.
 \end{proof}
 
 
@@ -478,23 +507,6 @@ category $\Omega$ of trees
         Thus, in particular, the adjunction \eqref{SOPDSET_EQ} agrees with the adjunction from \cite{CM13b}.
 \end{remark}
 
-
-\begin{remark}
-	One neat feature of the description in 
-	\eqref{WU_EQ}
-	is that the nerve $N W(U)$
-	can be defined identically 
-	(cf. Definition \ref{NWTNS DEF}; 
-	compare with \cite[Rem. \ref{TAS-NERVESIMDES REM}]{BP_TAS}).
-%	It is then straightforward to check that the nerve thus defined has the required functoriality and satisfies the strict Segal condition.
-%	allowing us to deduce many properties of $W_!$
-%	via systematic use of 
-%	Proposition \ref{TREEFACT_PROP}.
-	As an aside, one can verify directly that
-	Definition \ref{NWTNS DEF}
-	defines a preoperad satisfying the strict Segal condition,
-	thereby inducing the operad structure on $W(U)$.
-\end{remark}
 
 
 
@@ -796,7 +808,7 @@ and degeneracies collapse some of the unary vertices of $S$.
 Next, we recall the categories of colored trees used in 
 \cite[Def. \ref{OC-COLFOR DEF}]{BP_FCOP}.
 
-\begin{definition}\label{CFOREST_DEF}
+\begin{definition}\label{CTREE_DEF}
         Let $\mathfrak C$ be a set of colors.
         The category $\Omega_{\mathfrak C}$ of \textit{$\mathfrak C$-trees} has:
         \begin{itemize}
@@ -879,7 +891,7 @@ We end this subsection with a discussion of corollas.
 \subsection{Operads, preoperads, and nerves}
 \label{NERVE_SEC}
 
-The goal of this subsection is to setup and prove Theorem \ref{SSC_THM},
+The goal of this mostly expository subsection is to recall the setup and proof of Theorem \ref{SSC_THM},
 which allows us to identify simplicial operads as presheaves satisfying a strict Segal condition.
 We first recall simplicial operads and preoperads.
 
@@ -1030,12 +1042,12 @@ denote the categories of \textit{dendroidal sets} and \textit{simplicial dendroi
                 % \qquad
                 X(-) \colon \dSet \to \sSet,
                 \qquad
-                X(A)_n = X_n(A) = \dSet(A, X_n).
+                X(A)_n = X_n(A) = \dSet(A, X_n),
         \end{equation}
-        for the colimit-preserving functor
+        equivalently the colimit-preserving functor
         such that
         % $X_{\Delta[n]} = X_n$ and 
-        $X\left(G \cdot\Omega[U]\right) = X(U)$ for
+        $X\left(\Omega[U]\right) = X(U)$ for
         % $n \geq 0$,
         $U \in \Omega$.
         % Explicitly, % $X_K(U) = \sSet(K, X(U))$ and
@@ -1216,7 +1228,8 @@ and $\mathsf{PreOp} \hookrightarrow \sdSet$.
 \end{proof}
 
 
-\begin{remark}
+\begin{remark}[{cf. \cite[Eq. \eqref{TAS-STRSEGCON EQ}]{BP_TAS}}]
+        \label{NERVEEVAL_REM}
         Given a $\mathfrak C$-colored operad $\O \in \sOp$, then using the notation from \eqref{XUDECALT EQ} we have
         \[
                 N\O_{\mathfrak c}(C) = \O(\vect C),
@@ -1224,10 +1237,29 @@ and $\mathsf{PreOp} \hookrightarrow \sdSet$.
                 N \O_{\mathfrak c}(T) = \prod_{v \in \boldsymbol{V}(T)} \O(T_v, \mathfrak c_v).
         \]
         for all $\mathfrak C$-corollas $\vect C = (C, \mathfrak c)$ and
-        $\mathfrak C$-trees $\vect T = (T, \mathfrak c)$.
+        $\mathfrak C$-trees $\vect T = (T, \mathfrak c)$ 
         % 
         In particular, $\Omega[T] = N\Omega(T)$ (cf. \cite[Rem. \ref{TAS-NERVESIMDES REM}]{BP_TAS}).
 \end{remark}
+
+
+% \begin{remark}
+% 	One neat feature of the description in 
+% 	\eqref{WU_EQ}
+% 	is that the nerve $N W(U)$
+% 	can be defined identically 
+% 	(cf. Definition \ref{NWTNS DEF}; 
+% 	compare with \cite[Rem. \ref{TAS-NERVESIMDES REM}]{BP_TAS}).
+% %	It is then straightforward to check that the nerve thus defined has the required functoriality and satisfies the strict Segal condition.
+% %	allowing us to deduce many properties of $W_!$
+% %	via systematic use of 
+% %	Proposition \ref{TREEFACT_PROP}.
+% 	As an aside, one can verify directly that
+% 	Definition \ref{NWTNS DEF}
+% 	defines a preoperad satisfying the strict Segal condition,
+% 	thereby inducing the operad structure on $W(U)$.
+% \end{remark}
+
 
 
 
@@ -1856,7 +1888,11 @@ $\mathsf{Nec}$.
 	$NW(\mathfrak{n})(\eta)$ is discrete
 	and
 	$NW(\mathfrak{n})$ satisfies the strict Segal condition
-	(cf. \cite[Cor 3.69]{BP_geo}).
+	(cf. \cite[Cor 3.69]{BP_geo} \todo{not sure what this refers to}).
+        \textcolor{blue}{Definition \ref{SSC_DEF}.}
+          
+        \textcolor{blue}{Following Remark \ref{NERVEEVAL_REM}, we conclude that
+        $W(U)$ as defined in \eqref{WU_EQ} is in fact a simplicial operad.}
 \end{remark}
 
 
@@ -1880,7 +1916,7 @@ via the diagram
 &
 	\cdots \ar{r}{i,p}
 &
-	J_n \ar{r}{f,p} \ar{d}{d}
+J_n \ar{r}{f,p} \ar{d}{d}
 &
 	T \ar{d}
 \\
@@ -3042,12 +3078,6 @@ $(J_0 \to J_n) \to (J^{\**}_0 \to J^{\**}_n)$.
 	\right)^{\square E}.
 \]
 \end{example}
-
-
-
-
-
-
 
 
 
