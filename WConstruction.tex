@@ -396,140 +396,169 @@ of \eqref{SOPDSET_EQ} is a Quillen equivalence between models for ``equivariant 
 More details about this result can be found in \cite{BP_TAS},
 with further context found in the other papers of the associated project \cite{Per18,BP_geo,BP_edss,BP_FCOP,BP_ACOP}, of which \cite{BP_TAS} is the capstone.\\
 
-\todo[inline]{come back}
+{\color{red} HERE}
 
-We end this introduction with a represenative example of a necklace.
-Categorically, a necklace is a chain of $n$-simplexes $\Delta[n]$, glued together along their terminal vertices.
-Operadically, a (dendroidal set determined by a) necklace is a chain of $\Omega[T]$ glued together.
-However, as trees have many ``terminal vertices'' (i.e. leaves),
-one needs to choose how to glue these $\Omega[T]$ together;
-equivalently, one need to choose how to \textit{graft} the various trees together.
-
-We encode this choice by a (planar) inner face map of trees $\mathfrak n \colon J \to T$.
-Consider the following map of trees below, where
-edges with the same name are mapped to each other.
-\begin{equation}
-        \label{NECKEX_EQ}
-        \begin{tikzpicture}[grow=up,auto,level distance=2em, every node/.style = {font=\footnotesize,inner sep=2pt},
-                dummy/.style={circle,draw,inner sep=0pt,minimum size=1.375mm}]                
-                \tikzstyle{level 2}=[sibling distance=3.5em]%
-                \tikzstyle{level 3}=[sibling distance=2.25em]%
-                \tikzstyle{level 4}=[sibling distance=1.25em]%
-                \tikzstyle{level 5}=[sibling distance=0.875em]%
-                \node (T) at (7,0) [font=\normalsize] {$T$}
-                child{node [dummy] {}
-                  child[sibling distance =5em]{node [dummy] {}
-                    child[sibling distance =3.5em]{node [dummy] {}
-                      child{node [dummy] {}
-                      }
-                      child{node [dummy] {}
-                        child{node [dummy] {}}
-                        child{node [dummy] {}}
-                        edge from parent node [near end] {$c$}}
-                      edge from parent node [swap, near end] {$d$}}
-                    child[sibling distance =3.5em]{node [dummy] {}
-                      edge from parent node [near end] {$b$}}
-                  }
-                  child[sibling distance =7em]{node [dummy] {}
-                    child
-                    child{node [dummy] {}
-                      child
-                      child
-                    }
-                    edge from parent node {$a$}}
-                  edge from parent node [swap] {$e$}
-                };
-                \tikzstyle{level 2}=[sibling distance=2.3em]%
-                \tikzstyle{level 3}=[sibling distance=2em]%
-                \tikzstyle{level 4}=[sibling distance=1em]%
-                \node (J) at (0,0) [font=\normalsize] {$J$}
-                child{node [dummy] {}
-                  child{node [dummy] {}
-                    child{node [dummy] {}
-                      edge from parent node [swap] {$c$}}	
-                    edge from parent node [swap] {$d$}}
-                  child{node [dummy] {}
-                    edge from parent node [near end,swap] {$b$}}
-                  child{node [dummy] {}
-                    child
-                    child
-                    child
-                    edge from parent node {$a$}}
-                  edge from parent node [swap] {$e$}
-                };
-                \draw [->,dashed] ($(J)+(2,3.5em)$) -- node {$\mathfrak n$} ($(T)+(-2.25,3.5em)$);
-        \end{tikzpicture}
+In the work of Dugger and Spivak in the categorical context
+\cite{DS11},
+a \emph{necklace} is a simplicial set of the form
+$\Delta^{n_1} \vee 
+\Delta^{n_2} \vee \cdots \vee
+\Delta^{n_r}$
+where each $\Delta^{n_i}$ is glued along its terminal vertex to the initial vertex of $\Delta^{n_{i+1}}$.
+Since the $\Delta^n$ are simply the representable presheaves in 
+$\mathsf{sSet}$,
+their role in the operadic context is naturally taken by the 
+representable presheaves $\Omega[T]$ of $\mathsf{dSet}$
+for $T$ a tree.
+However, formulating the notion of necklace in the dendroidal context requires some care.
+This is because, while each $\Omega[T]$ does have a terminal vertex, 
+corresponding to the root of the tree, 
+it also in general has 
+\emph{multiple} initial vertices, corresponding to the leaves
+of the tree.
+As such, when specifying a dendroidal necklace
+one must also specify the leaves along which to glue.
+As an example, the tree arrangement on the left below
+\begin{equation}\label{SUBSDATUMTREES EQ}
+\begin{tikzpicture}[grow=up,auto,level distance=2.1em,
+every node/.style = {font=\footnotesize,inner sep=2pt},
+dummy/.style={circle,draw,inner sep=0pt,minimum size=1.375mm}]
+\begin{scope}[xshift=-2em]
+\begin{scope}
+\tikzstyle{level 2}=[sibling distance=2.25em]%
+\tikzstyle{level 3}=[sibling distance=1.25em]%
+\node at (-0.5,1) [font = \normalsize] {$T_1$}
+child{node [dummy] {}
+	child
+	child{node [dummy] {}
+		child
+		child
+	}
+	edge from parent node {$a$}};
+\end{scope}
+\node at (1,1) [font = \normalsize] {$T_2$}
+child{node [dummy] {}
+	edge from parent node [swap] {$b$}};
+\begin{scope}
+\tikzstyle{level 2}=[sibling distance=0.875em]%
+\node at (2.2,3) [font = \normalsize] {$T_3$}
+child{node [dummy] {}
+	child{node [dummy] {}}
+	child{node [dummy] {}}
+	edge from parent node {$c$}};
+\end{scope}
+\begin{scope}
+\tikzstyle{level 2}=[sibling distance=1.25em]%
+\node at (2.5,1) [font = \normalsize] {$T_4$}
+child{node [dummy] {}
+	child{node[dummy] {}}
+	child{
+		edge from parent node {$c$}}
+	edge from parent node [swap] {$d$}};
+\end{scope}
+\begin{scope}
+\tikzstyle{level 2}=[sibling distance=3.5em]%
+\tikzstyle{level 3}=[sibling distance=2.25em]%
+\node at (1,-1) [font = \normalsize] {$T_5$}
+child{node [dummy] {}
+	child[sibling distance = 4em]{edge from parent node [swap,near end] {$d$} }
+	child[sibling distance = 3.5em]{edge from parent node [swap,near end] {$b$} }
+	child[sibling distance = 4em]{ edge from parent node {$a$} }
+	edge from parent node [swap] {$e$}};
+\end{scope}
+\end{scope}
+\begin{scope}[yshift=-0.5em,xshift=1em]
+\begin{scope}[level distance=2.3em]
+\tikzstyle{level 2}=[sibling distance=3.5em]%
+\tikzstyle{level 3}=[sibling distance=2.25em]%
+\tikzstyle{level 4}=[sibling distance=1.25em]%
+\tikzstyle{level 5}=[sibling distance=0.875em]%
+\node at (5.5,0) [font = \normalsize] {$T$}
+	child{node [dummy] {}
+		child[sibling distance =4em]{node [dummy] {}
+			child{node [dummy] {}
+			}
+			child{node [dummy] {}
+				child{node [dummy] {}}
+				child{node [dummy] {}}
+			edge from parent node [near end] {$c$}}
+		edge from parent node [swap, near end] {$d$}}
+		child[sibling distance =3.5em]{node [dummy] {}
+		edge from parent node [swap,near end] {$b$}}
+	child[sibling distance =4em]{node [dummy] {}
+		child
+		child{node [dummy] {}
+			child
+			child
+		}
+		edge from parent node {$a$}}
+	edge from parent node [swap] {$e$}};
+\end{scope}
+\begin{scope}[level distance=2.3em]
+\tikzstyle{level 2}=[sibling distance=2.3em]%
+\tikzstyle{level 3}=[sibling distance=1em]%
+\node at (10.5,0.3) [font = \normalsize] {$J$}
+	child{node [dummy] {}
+		child{node [dummy] {}
+			child{node [dummy] {}
+			edge from parent node [swap] {$c$}}	
+		edge from parent node [swap] {$d$}}
+		child{node [dummy] {}
+		edge from parent node [near end,swap] {$b$}}
+		child{node [dummy] {}
+			child
+			child
+			child
+		edge from parent node {$a$}}
+	edge from parent node [swap] {$e$}};
+\end{scope}
+\draw [->] (9.1,1) -- node {$\mathfrak{n}$} (7.6,1);
+\end{scope}
+\end{tikzpicture}
 \end{equation}
-
-Now, for each vertex in $\boldsymbol{V}(J) = \set{v_a, v_b, v_c, v_d, v_e}$, named by their root edge,
-we can consider the ``image'' (of that vertex under the map $\mathfrak n$.
-These vertices and images are called the \textit{joints} and \textit{beads} of the necklace, respectively.
-From \eqref{NECKEX_EQ}, the five beads/subtrees
-% $\set{T_{v_a}, T_{v_b}, T_{v_c}, T_{v_d}, T_{v_e}}$ of $T$
-are given below.
-\begin{equation}
-        \begin{tikzpicture}[grow=up,auto,level distance=2em, every node/.style = {font=\footnotesize,inner sep=2pt},
-                dummy/.style={circle,draw,inner sep=0pt,minimum size=1.375mm}]                
-                % T_a
-                \tikzstyle{level 2}=[sibling distance=2.25em]%
-                \tikzstyle{level 3}=[sibling distance=1.25em]%
-                \node at (0,0) [font=\normalsize] {$\ T_{v_a}$}
-                child{node [dummy] {}
-                  child
-                  child{node [dummy] {}
-                    child
-                    child
-                  }
-                  edge from parent node {$a$}
-                };
-                % T_b
-                \node (Tb) at (2.5,0) [font=\normalsize] {$\ T_{v_b}$}
-                child{node [dummy] {}
-                  edge from parent node {$b$}
-                };
-                % T_c
-                \tikzstyle{level 2}=[sibling distance=0.875em]%
-                \node (UC) at (5,0) [font=\normalsize] {$\ T_{v_c}$}
-                child{node [dummy] {}
-                  child{node [dummy] {}}
-                  child{node [dummy] {}}
-                  edge from parent node {$c$}
-                };
-                % T_d
-                \tikzstyle{level 2}=[sibling distance=1.25em]%
-                \node (Ud) at (7.5,0) [font=\normalsize] {$\ T_{v_d}$}
-                child{node [dummy] {}
-                  child{node[dummy] {}}
-                  child{
-                    edge from parent node {$c$}}
-                  edge from parent node [swap] {$d$}
-                };
-                % T_e
-                \tikzstyle{level 2}=[sibling distance=3.5em]%
-                \tikzstyle{level 3}=[sibling distance=2.25em]%
-                \tikzstyle{level 4}=[sibling distance=1.25em]%
-                \tikzstyle{level 5}=[sibling distance=0.875em]%
-                \node (Te) at (11,0) [font=\normalsize] {$\ T_{v_e}$}
-                child{node [dummy] {}
-                  child[sibling distance = 5em]{node [dummy] {}
-                    child[sibling distance = 3.5em]{edge from parent node [swap,near end] {$d$} }
-                    child[sibling distance = 3.5em]{edge from parent node [near end] {$b$} }
-                  }
-                  child[sibling distance = 7em]{ edge from parent node {$a$} }
-                  edge from parent node [swap] {$e$}
-                };                
-        \end{tikzpicture}
+gives rise to a dendroidal necklace
+(where $\vee_e$ denotes gluing along the edge $e$)
+\begin{equation}\label{DENDNECBAD EQ}
+\Omega[T_1] \vee_a 
+\left(
+\Omega[T_2] \vee_b
+\left(
+\Omega[T_3] \vee_c
+\Omega[T_4] \vee_d
+\Omega[T_5]
+\right)
+\right)
 \end{equation}
+However, in practice \eqref{DENDNECBAD EQ} is rather awkward due to the need to include brackets, 
+as well as the existence of distinct bracketing orders.
+To address this, we will prefer a different presentation of dendroidal necklaces.
+First, note that by gluing (also known as grafting) the $T_i$ in 
+\eqref{SUBSDATUMTREES EQ} as suggested by the arrangement, 
+one obtains the tree $T$ therein.
+In addition, the tree $J$ encodes the \emph{arrangement}
+of the $T_i$ itself. 
+To make this more precise,
+note that $J$ can be obtained by replacing each $T_i$ 
+in the left arrangement with the corolla (i.e. tree with a single vertex tree) with the same number of leaves,
+and then performing the grafting.
+Moreover, this procedure gives rise to the indicated map
+$\mathfrak{n} \colon J \to T$
+in \eqref{SUBSDATUMTREES EQ}, which completely encodes the left arrangement of the $T_i$: 
+inner edges of $J$ encode the gluing edges;
+the vertices of $J$ are in natural bijection with the set of the $T_i$; the $T_i$ themselves are the (outer) subtrees of $T$ whose outer edges (i.e. leaves and root)
+are the image under $\mathfrak{n}$
+of the corresponding vertex of $J$.
+As such, we will regard such maps 
+$\mathfrak{n} \colon J \to T$
+themselves as our description of a dendroidal necklace.
 
-Morally, the dendroidal set presented by this necklace, denoted $\Omega[\mathfrak n]$, is constructed by
-gluing the presheaves
-$\Omega[T_{v_a}], \Omega[T_{v_b}], \Omega[T_{v_c}], \Omega[T_{v_d}], \Omega[T_{v_e}] \subseteq \Omega[T]$
-together
-in the same manor that the subtrees
-$T_{v_a}, T_{v_b}, T_{v_c}, T_{v_d}, T_{v_e} \subseteq T$
-are grafted together to form $T$,
-which is precisely encoded by the tree $J$.
-That is, ``we glue the beads togther along the joints.''
+
+{\color{red} HERE}
+
+
+
+
+
 
 
 \todo[inline]{Boardman-Vogt construction?}
