@@ -286,124 +286,151 @@ cd,patterns,calc}
 \maketitle
 
 \begin{abstract}
-        We provide an explicit description of the left adjoint $W_!$
-        to the operadic/dendroidal nerve functor
-        $hc N \colon \sOp \to \dSet$,
-        extending work of Dugger-Spivak from the categorical context to the operadic one.
+	We give an explicit description
+	of the rigidification of an $\infty$-operad
+	as a simplicial operad.
+	This description is based on the notion of 
+	dendroidal necklace, 
+	extending work of 
+	Dugger and Spivak
+	from the categorical context to 
+	the operadic context,
+	although with a different framework,
+	which relates constructions involving necklaces 
+	to a standard factorization
+	of maps in the category of trees.
 \end{abstract}
 
 \tableofcontents
 
 
-{\color{red} to be incorporated somewhere(or eventually deleted)}
-
-
-We provide an explicit description of the left adjoint
-in the 
-$W_! 
-\colon 
-\mathsf{dSet} 
-\rightleftarrows 
-\mathsf{Op}
-\colon 
-hcN$
-adjunction,
-extending work of Dugger-Spivak \cite{DS11}
-from the categorical context to the operadic context.
-This description plays a minor role in our proofs 
-in \cite[\S \ref{TAS-PFMNTHM SEC}]{BP_TAS},
-being used to identify
-$W_!$ when applied to an inner horn,
-cf. \cite[Lemma \ref{TAS-WLEFTQPUSH LEM}]{BP_TAS}.
-%(this description is essentially left as an exercise to the reader in the proof of \cite[Prop. 4.5]{CM13b}).
-However, we believe our description is of intrinsic value,
-as our approach is rather different from that in \cite{DS11},
-being given in terms of 
-standard factorizations of maps in the
-category $\Omega$ of trees
-(see Proposition \ref{TREEFACT_PROP}).
 
 
 
-{\color{red} HERE}
 
 
 \section{Introduction}
 
-In this paper, we provide an explicit description of the rigidification of a (dendroidal) $\infty$-operad into a simplicial operad.
+The notion of \emph{$\infty$-operad} is a generalization of the notion of \emph{colored operad}
+(also sometimes called \emph{multicategories}),
+introduced by Moerdijk-Weiss \cite{MW07},
+where composition of operations is only defined up to a
+``contractible space of choices'',
+in the same way that quasi-categories generalize categories.
+Moreover, just as quasi-categories are defined as those simplicial sets 
+$X \in \mathsf{sSet} = \mathsf{Set}^{\Delta^{op}}$
+(for $\Delta$ the simplicial category)
+satisfying a lifting condition against inner horn inclusions,
+so too are $\infty$-operads defined as those \emph{dendroidal sets}
+$X \in \mathsf{dSet} = \mathsf{Set}^{\Omega^{op}}$
+(for $\Omega$ the category of trees)
+satisfying a lifting condition against 
+dendroidal inner horn inclusions \cite[\S 2.1]{CM11}.
 
-An $\infty$-operad is a generalization of an operad, first introduced by Moerdijk-Weiss \cite{MW07}, where
-composition is only required to be associative and unital ``up to higher homotopies'', in an appropriate sense.
-They are encoded as dendroidal sets $X \in \dSet = \Set^{\Omega^{op}}$,
-i.e. presheaves of sets on the category $\Omega$ of trees,
-which satisfy a certain lifting condition (cf. \cite[\S 2.1]{CM11}).
-Cisinski-Moerdijk \cite[\S 4]{CM13b},
-building off work of Berger-Moerdijk \cite{BM06,BM07} on abstract Boardman-Vogt constructions,
-describe this rigidification as a functor on all dendroidal sets.
-Their process is as follows.
 
-First, for each tree $T \in \Omega$, they produce a natural rigidification,
-i.e. a simplicial operad $W(T) \in \sOp$,
-of the representable dendroidal set $\Omega[T]$
-(\cite[Rem. 7.3]{MW09}, \cite[Eq. (4.2.1)]{CM13b}).
-One can then extend this to a functor on all dendroidal sets,
-or more accurately to the left adjoint of a nerve-realization adjunction,
-yielding
-\begin{equation}
-        \label{SOPDSET_EQ}
-        W_! \colon \dSet \rightleftarrows \sOp \colon h c N           
+There are two main ways for converting 
+a presheaf $X \in \mathsf{dSet}$
+into a (strict) operad,
+given by the left adjoints
+$W_!$, $\tau$
+in two adjunctions of the form below,
+where $\Op$ (resp. $\sOp$) denotes operads of sets (resp. of simplicial sets)
+\begin{equation}\label{SOPDSET_EQ}
+	W_! \colon \dSet \rightleftarrows \sOp \colon h c N
+	\qquad
+	\tau \colon \dSet \rightleftarrows \Op \colon N
 \end{equation}
-defined by
-\begin{equation}
-        \label{WXDEF_EQ}
-        W_!X = \colim_{\Omega[T] \to X}W(T),
-        \qquad
-        hcN\O(U) = \sOp^G(W(T), \O).
+Before recalling how these adjunctions are defined,
+we discuss their importance. 
+First, in the $(\tau,N)$-adjunction,
+the right adjoint, the \emph{nerve} $N$,
+is a fully faithful inclusion whose image consists of 
+(certain) $\infty$-operads,
+thus making precise the idea that 
+$\infty$-operads generalize operads.
+On the other hand, the $(W_!,hcN)$-adjunction
+is important for the homotopy theory of $\infty$-operads,
+as it was shown to be a Quillen equivalence \cite{CM13b}
+between the model structure on $\dSet$ with the 
+$\infty$-operads as the fibrant objects and
+the canonical model structure on $\sOp$.
+In addition, in \cite{BP_TAS} the authors established an equivariant
+version of the Quillen equivalence in \cite{CM13b},
+modeling the homotopy theory of 
+\emph{equivariant operads with norm maps}.
+
+Common to both adjunctions in \eqref{SOPDSET_EQ}
+is that both right adjoints
+$hcN$, $N$ are straightforward to describe, 
+while the left adjoints $W_!$, $\tau$ are more mysterious,
+as they involve colimits in operads.
+The main goal of this paper, 
+which is an offshoot of our work in \cite{BP_TAS},
+is to give an explicit description of $W_!$
+{(\color{red} ref)}, 
+generalizing work of Dugger and Spivak \cite{DS11}
+in the context of quasi-categories.
+Additionally, a variation of our main constructions
+gives a description of the simpler functor $\tau$
+{(\color{red} ref)}.
+
+We now recall the definitions of the functors in
+\eqref{SOPDSET_EQ}.
+First, each tree $T \in \Omega$
+has an associated colored operad
+$\Omega(T) \in \mathsf{Op}$
+with colors the edges of the tree and 
+operations generated by the nodes
+{(\color{red} see citation for details;
+	see ref for our model in this paper)}.
+Moreover, there is a ``fattened'' replacement 
+$W(T) \in \sOp$ for $\Omega(T)$,
+which can be built 
+(\cite[Rem. 7.3]{MW09}, \cite[Eq. (4.2.1)]{CM13b})
+as the Boardman-Vogt construction on
+$\Omega(T)$
+{(\color{red} see ref for an alternative definition)},
+which replaces the non-empty mapping sets of 
+$\Omega(T)$, which are all singletons $\**$,
+with larger \emph{contractible spaces}.
+The functors $hcN$ and $N$ called, respectively,
+the \emph{homotopy coherent nerve}
+and the \emph{nerve}
+are then given by (where $\O$ is in $\sOp$ or $\Op$ as appropriate)
+\begin{equation}\label{TWONER EQ}
+	hcN \O(T) = \sOp(W(T),\O),
+	\qquad
+	N \O(T) = \Op(\Omega(T),\O).
 \end{equation}
-% $W_!(X) = \colim_{\Omega[T] \to X} W(T)$.
-% \textcolor{OliveGreen}{Given any simplicial operad $\O \in \sOp$, one can also then define the \textit{Boardman-Vogt $W$-construction},
-% a natural cofibrant resoltuion of the operad $\O$,
-% as the counit
-% $W_! hcN \O \to \O$.}
+Loosely speaking, $hcN$ can then be regarded as a variant of $N$
+obtained by replacing the notion of equality with that of homotopy.
+Writing 
+$\Omega[T]\in \mathsf{dSet} = \mathsf{Set}^{\Omega^{op}}$
+for the representable functor
+$\Omega[T](-) = \mathsf{dSet}(-,T)$
+associated to $T \in \Omega$,
+by abstract non-sense one then has the formulas
+\begin{equation}\label{WXDEF_EQ}
+	W_!X = \colim_{\Omega[T] \to X} W(T),
+\qquad
+	\tau = \colim_{\Omega[T] \to X} \Omega(T).
+\end{equation}
+However, as previously noted, 
+the colimits in \eqref{WXDEF_EQ}
+take place in $\sOp$, $\Op$,
+making these formulas rather opaque.
+Just as in the work in \cite{DS11} in the categorical context,
+the key to obtaining explicit formulas for
+$W_!$, $\tau$ will be the notion of (dendroidal) necklace,
+which we now introduce.
 
-However, the description of $W_!X$ in \eqref{WXDEF_EQ} is opaque/unenlightening and hard to unpack,
-even for natural/relevant/traditional dendroidal sets such as inner horns $\Lambda^e[T]$ or Segal cores $Sc[T]$.
-
-In the categorical setting,
-$W_!$ admits 
-a more detailed description due to Dugger and Spivak \cite{DS11},
-in terms of so called \emph{necklaces}.
-
-This paper extends their work 
-from the categorical context to the operadic context.
-Moreover, we believe our results are of intrinsic value,
-as our approach, in particular our descriptions of $W(T)$ as well as $W_! X$,
-is rather different from that in either \cite{CM13b} or \cite{DS11},
-as it is given in terms of 
-standard factorizations of maps in the
-category $\Omega$ of trees
-(cf. Proposition \ref{TREEFACT_PROP}).
-
-The authors were motivated to provide this description of the adjunction \eqref{SOPDSET_EQ}
-in order to fill a minor step,
-the identification of $W_!$ applied to an inner horn as in Example \ref{WPARTIALT2_EX} (cf. \cite[Lem. \ref{TAS-WLEFTQPUSH LEM}]{BP_TAS})\footnote{\textcolor{OliveGreen}{This description is essentially left as an exercise to the reader in the proof of \cite[Prop. 4.5]{CM13b}}},
-in the proof of the title result from \cite{BP_TAS}:
-the equivariant generalization
-\[
-        W_! \colon \dSet^G \rightleftarrows \sOp^G \colon h c N           
-\]
-of \eqref{SOPDSET_EQ} is a Quillen equivalence between models for ``equivariant operads with norm maps''.
-More details about this result can be found in \cite{BP_TAS},
-with further context found in the other papers of the associated project \cite{Per18,BP_geo,BP_edss,BP_FCOP,BP_ACOP}, of which \cite{BP_TAS} is the capstone.\\
-
-{\color{red} HERE}
 
 In the work of Dugger and Spivak in the categorical context
 \cite{DS11},
 a \emph{necklace} is a simplicial set of the form
 $\Delta^{n_1} \vee 
 \Delta^{n_2} \vee \cdots \vee
-\Delta^{n_r}$
+\Delta^{n_k}$
 where each $\Delta^{n_i}$ is glued along its terminal vertex to the initial vertex of $\Delta^{n_{i+1}}$.
 Since the $\Delta^n$ are simply the representable presheaves in 
 $\mathsf{sSet}$,
@@ -418,8 +445,11 @@ it also in general has
 of the tree.
 As such, when specifying a dendroidal necklace
 one must also specify the leaves along which to glue.
-As an example, the tree arrangement on the left below
-\begin{equation}\label{SUBSDATUMTREES EQ}
+As an example, the tree arrangement of the trees
+$T_1,T_2,T_3,T_4,T_5$
+in Figure \ref{FIGURE}
+\begin{figure}[ht]
+\[
 \begin{tikzpicture}[grow=up,auto,level distance=2.1em,
 every node/.style = {font=\footnotesize,inner sep=2pt},
 dummy/.style={circle,draw,inner sep=0pt,minimum size=1.375mm}]
@@ -440,7 +470,7 @@ child{node [dummy] {}
 child{node [dummy] {}
 	edge from parent node [swap] {$b$}};
 \begin{scope}
-\tikzstyle{level 2}=[sibling distance=0.875em]%
+\tikzstyle{level 2}=[sibling distance=0.95em]%
 \node at (2.2,3) [font = \normalsize] {$T_3$}
 child{node [dummy] {}
 	child{node [dummy] {}}
@@ -457,8 +487,7 @@ child{node [dummy] {}
 	edge from parent node [swap] {$d$}};
 \end{scope}
 \begin{scope}
-\tikzstyle{level 2}=[sibling distance=3.5em]%
-\tikzstyle{level 3}=[sibling distance=2.25em]%
+\tikzstyle{level 2}=[sibling distance=3.5em,level distance=1.8em]%
 \node at (1,-1) [font = \normalsize] {$T_5$}
 child{node [dummy] {}
 	child[sibling distance = 4em]{edge from parent node [swap,near end] {$d$} }
@@ -515,7 +544,10 @@ child{node [dummy] {}
 \draw [->] (9.1,1) -- node {$\mathfrak{n}$} (7.6,1);
 \end{scope}
 \end{tikzpicture}
-\end{equation}
+\]
+\caption{Encoding a dendroidal necklace}
+\label{FIGURE}
+\end{figure}
 gives rise to a dendroidal necklace
 (where $\vee_e$ denotes gluing along the edge $e$)
 \begin{equation}\label{DENDNECBAD EQ}
@@ -533,7 +565,7 @@ However, in practice \eqref{DENDNECBAD EQ} is rather awkward due to the need to 
 as well as the existence of distinct bracketing orders.
 To address this, we will prefer a different presentation of dendroidal necklaces.
 First, note that by gluing (also known as grafting) the $T_i$ in 
-\eqref{SUBSDATUMTREES EQ} as suggested by the arrangement, 
+Figure \ref{FIGURE} as suggested by the arrangement, 
 one obtains the tree $T$ therein.
 In addition, the tree $J$ encodes the \emph{arrangement}
 of the $T_i$ itself. 
@@ -557,11 +589,20 @@ themselves as our description of a dendroidal necklace.
 
 
 
+This paper extends their work 
+from the categorical context to the operadic context.
+Moreover, we believe our results are of intrinsic value,
+as our approach, in particular our descriptions of $W(T)$ as well as $W_! X$,
+is rather different from that in either \cite{CM13b} or \cite{DS11},
+as it is given in terms of 
+standard factorizations of maps in the
+category $\Omega$ of trees
+(cf. Proposition \ref{TREEFACT_PROP}).
 
+{\color{red} HERE}
 
+the identification of $W_!$ applied to an inner horn as in Example \ref{WPARTIALT2_EX} (cf. \cite[Lem. \ref{TAS-WLEFTQPUSH LEM}]{BP_TAS})\footnote{\textcolor{OliveGreen}{This description is essentially left as an exercise to the reader in the proof of \cite[Prop. 4.5]{CM13b}}},
 
-
-\todo[inline]{Boardman-Vogt construction?}
 
 
 \subsection{Main Results}
@@ -678,6 +719,37 @@ we generalize the notion of Dugger-Spivak necklaces \cite{DS11} from the categor
         in Corollary \ref{NWXREPS COR}.
         Finally, we prove in Corollary \ref{NWXREPS2_COR} that these classes have chosen representatives, unique up to unique isomorphism.
 \end{proof}
+
+
+
+
+{\color{red} to be incorporated somewhere(or eventually deleted)}
+
+
+We provide an explicit description of the left adjoint
+in the 
+$W_! 
+\colon 
+\mathsf{dSet} 
+\rightleftarrows 
+\mathsf{Op}
+\colon 
+hcN$
+adjunction,
+extending work of Dugger-Spivak \cite{DS11}
+from the categorical context to the operadic context.
+This description plays a minor role in our proofs 
+in \cite[\S \ref{TAS-PFMNTHM SEC}]{BP_TAS},
+being used to identify
+$W_!$ when applied to an inner horn,
+cf. \cite[Lemma \ref{TAS-WLEFTQPUSH LEM}]{BP_TAS}.
+%(this description is essentially left as an exercise to the reader in the proof of \cite[Prop. 4.5]{CM13b}).
+However, we believe our description is of intrinsic value,
+as our approach is rather different from that in \cite{DS11},
+being given in terms of 
+standard factorizations of maps in the
+category $\Omega$ of trees
+(see Proposition \ref{TREEFACT_PROP}).
 
 
 
