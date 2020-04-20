@@ -312,7 +312,7 @@ cd,patterns,calc}
 \section{Introduction}
 
 The notion of \emph{$\infty$-operad} is a generalization of the notion of \emph{colored operad}
-(also sometimes called \emph{multicategories}),
+(also sometimes called \emph{multicategory}),
 introduced by Moerdijk-Weiss \cite{MW07},
 where composition of operations is only defined up to a
 ``contractible space of choices'',
@@ -613,7 +613,7 @@ as it may prove easier to generalize to other diagram categories.
 
 
 \subsection{Main result}
-
+\label{MAINRESULT_SEC}
 
 As noted following \eqref{SOPDSET_EQ},
 the nerve $N\colon \mathsf{Op} \to \mathsf{dSet}$
@@ -643,7 +643,8 @@ one likewise has a fully faithful inclusion
 $N\colon \sOp \to \mathsf{sdSet} = \mathsf{dSet}^{\Delta^{op}}$
 with essential image those
 $X \in \mathsf{sdSet}$
-which both have satisfy the strict Segal condition on each simplicial level and have constant object set. 
+which both have satisfy the strict Segal condition on each simplicial level and have constant object set.
+\todo[inline]{Peter: this is not the version of the strict Segal condition used in \S 3. The point of the last subsection of \S 2 is to convert this to the version actually used, as well as to define $N \colon \sOp \to \PreOp$ in terms of the notation from \eqref{XUDECALT EQ}.}
 Applying the trick above,
 one then has the following compact description
 of the simplicial operads $W(T) \in \sOp$ in \eqref{WXDEF_EQ}.
@@ -833,7 +834,7 @@ based on \eqref{PROPA EQ}.
 {\color{red} HERE}
 
 \begin{proof}[Proof outline]
-        First, we show that the functor from Proposition \ref{WU_THM} extends to the category of (operadic) necklaces in Corollary \ref{NWTNS_NNAT_COR}.
+        First, we show that the functor \eqref{PROPA EQ} extends to the category of (operadic) necklaces in Corollary \ref{NWTNS_NNAT_COR}.
         %
         Second, in Theorem \ref{KANEXTCHAR THM},
         we show that $W_!(X)$, as defined in \eqref{WXDEF_EQ}, can be described as
@@ -1279,9 +1280,9 @@ We end this subsection with a discussion of corollas.
 \subsection{Operads, and nerves}
 \label{NERVE_SEC}
 
-The goal of this mostly expository subsection is to recall the setup and proof of Theorem \ref{SSC_THM},
-which allows us to identify simplicial operads as presheaves satisfying a strict Segal condition.
-We first recall simplicial operads and preoperads.
+% The goal of this mostly expository subsection is to recall the setup and proof of Theorem \ref{SSC_THM},
+% which allows us to identify simplicial operads as presheaves satisfying a strict Segal condition.
+% We first recall simplicial operads and preoperads.
 
 
 \subsubsection*{Simplicial operads}
@@ -1422,7 +1423,7 @@ denote the categories of \textit{dendroidal sets} and \textit{simplicial dendroi
 \begin{definition}
         For $T \in \Omega$, let $\Omega[T] \in \dSet$ denote the \textit{representable} dendroidal set
         $\Omega[T](S) = \Omega(S,T)$.
-
+        %
         Let $Sc[T] \subseteq \Omega[T]$ denote the \textit{Segal core} of $T$, given by
         \[
                 Sc[T] = \bigcup_{U \in \mathsf{Face}_{sc}(T)} \Omega[U],
@@ -1511,6 +1512,21 @@ denote the categories of \textit{dendroidal sets} and \textit{simplicial dendroi
         Henceforth, we will work with the $X_{\mathfrak c}(T)$ notation as the levels of our preoperads.
 \end{remark}
 
+
+\begin{remark}[{cf. \cite[ (\ref{TAS-STRSEGCON EQ})]{BP_TAS}}]
+        \label{NERVEEVAL_REM}
+        Given a $\mathfrak C$-colored operad $\O \in \sOp$, using the notation from \eqref{XUDECALT EQ} we have
+        \[
+                N\O_{\mathfrak c}(C) = \O(\vect C),
+                \qquad
+                N \O_{\mathfrak c}(T) = \prod_{v \in \boldsymbol{V}(T)} \O(T_v, \mathfrak c_v).
+        \]
+        for all $\mathfrak C$-corollas $\vect C = (C, \mathfrak c)$ and
+        $\mathfrak C$-trees $\vect T = (T, \mathfrak c)$.
+        % 
+        % In particular, $\Omega[T] = N\Omega(T)$ (cf. \cite[Rem. \ref{TAS-NERVESIMDES REM}]{BP_TAS}).
+\end{remark}
+
 \subsubsection*{The strict Segal condition and the nerve}
 
 % We now define the strict Segal condition.
@@ -1519,9 +1535,10 @@ denote the categories of \textit{dendroidal sets} and \textit{simplicial dendroi
         \label{SSC_DEF}
         We say $X \in \PreOp$ satisfies the \textit{strict Segal condition} if
         the Segal maps
-        \[
-                X_{\mathfrak c}(T) \to \prod_{v \in \boldsymbol{V}(T)} X_{\mathfrak c_v}(T_v)
-        \]
+        \begin{equation}
+                \label{SSC_EQ}
+                X_{\mathfrak c}(T) \xrightarrow{\simeq} \prod_{v \in \boldsymbol{V}(T)} X_{\mathfrak c_v}(T_v)
+        \end{equation}
         (induced by the inclusions $\vect T_v \hookrightarrow \vect T$)
         are isomorphisms of simplicial sets
         for all $T \in \Omega$ and colorings $\mathfrak c \colon \boldsymbol{E}(T) \to X(\eta)$.
@@ -1529,7 +1546,8 @@ denote the categories of \textit{dendroidal sets} and \textit{simplicial dendroi
 
 \begin{remark}
         \label{SSC_REM}
-        This strict Segal condition is equivalent to the following conditions:
+        This strict Segal condition is equivalent to the following conditions,
+        where we note that condition (i) is the description given in \cite{MW09} and \S \ref{MAINRESULT_SEC}.        
         \begin{enumerate}
         \item $X_n$ has the strict right lifting property against
                 the inner horn inclusions $\Lambda^e[T] \to \Omega[T]$,
@@ -1569,12 +1587,16 @@ denote the categories of \textit{dendroidal sets} and \textit{simplicial dendroi
         (i) iff (iii) and (ii) iff (iv) follow by either \cite[Prop. 2.5 and Cor. 2.6]{CM13a} or \cite[Props. 3.22, 3.31]{BP_edss}, and
         (iv) is equivalent to Definition \ref{SSC_DEF} by \eqref{XUDECALT EQ} and \eqref{COLDEC_EQ}.
 
-        While we will exclusively use the description from Definition \ref{SSC_DEF} in this paper,
-        the conditions above are closer to the original discussions of
-        \textit{Segal operads} (and \textit{$\infty$-operads})
-        in the model structures on $\sdSet$ (and $\dSet$),
-        cf. \cite[Cor. 5.6]{CM13a}, \cite[Prop. 5.3]{BP_edss}.
+        In particular, the essential image of $N \colon \sOp \to \PreOp$ is precisely those $X \in \PreOp$ satisfying the strict Segal condition \eqref{SSC_EQ}.
+
+        % ---------- taken care of in introduction ----------
+        % While we will exclusively use the description from Definition \ref{SSC_DEF} in this paper,
+        % the conditions above are closer to the original discussions of
+        % \textit{Segal operads} (and \textit{$\infty$-operads})
+        % in the model structures on $\sdSet$ (and $\dSet$),
+        % cf. \cite[Cor. 5.6]{CM13a}, \cite[Prop. 5.3]{BP_edss}.
 \end{remark}
+
 
 % \begin{definition}
 %         \label{SSC_DEF}
@@ -1636,78 +1658,87 @@ denote the categories of \textit{dendroidal sets} and \textit{simplicial dendroi
 
 {\color{red}I see no reason why the nonsense below is needed.
 Or most of the nonsense above. What's the point of this crap?}
+{\color{blue}
+  Because at no point in TAS do we actually say what we mean by the strict Segal condition in $\PreOp$,
+  and the one you give in the intro is not the same as what is used in \S 3,
+  nor do we observe that $N \colon \sOp \to \PreOp$ has the properties we want [though this is corrected in your introduction],
+  nor do we observe that the notation behaves as in Remark \ref{NERVEEVAL_REM}, obvious as it may be.
+  
+  In any case, much of this can be removed due to the more  introduction.}
+
 
 {\color{pink} 
 
-Now, recall that the nerve functor
-$N \colon \Cat \to \sSet$
-sends a category $\mathcal C$ to the simplicial set
-$N \mathcal C_n = \Hom([n], \mathcal C)$,
-where $[n] = \set{0 \to 1 \to \dots \to n}$.
-%
-Similarly, the \textit{dendroidal nerve} is given by
-\begin{equation}
-        \label{OPN_EQ}
-        N \colon \Op \to \dSet,
-        \qquad
-        N\O(T) = \Hom(\Omega(T), \O),
-\end{equation}
-% sends an operad $\O$ to the dendroidal set defined on $T \in \Omega$ by
-% $N \O(T) = \Hom(\Omega(T), \O)$,
-with $\Omega(T)$ as in \eqref{OMEGADEF_EQ}.
+% Now, recall that the nerve functor
+% $N \colon \Cat \to \sSet$
+% sends a category $\mathcal C$ to the simplicial set
+% $N \mathcal C_n = \Hom([n], \mathcal C)$,
+% where $[n] = \set{0 \to 1 \to \dots \to n}$.
+% %
+% Similarly, the \textit{dendroidal nerve} is given by
+% \begin{equation}
+%         \label{OPN_EQ}
+%         N \colon \Op \to \dSet,
+%         \qquad
+%         N\O(T) = \Hom(\Omega(T), \O),
+% \end{equation}
+% % sends an operad $\O$ to the dendroidal set defined on $T \in \Omega$ by
+% % $N \O(T) = \Hom(\Omega(T), \O)$,
+% with $\Omega(T)$ as in \eqref{OMEGADEF_EQ}.
 
-This functor extends by postcomposition to the associated categories of simplicial presheaves,
-yielding the left functor below,
-\begin{equation}
-        \label{SOPN_EQ}
-        N^{\Delta^{op}} \colon \Op^{\Delta^{op}} \to \sdSet,
-        \qquad
-        N \colon \sOp \to \PreOp.
-\end{equation}
-This $N^{\Delta^{op}}$ restricts to the right functor in \eqref{SOPN_EQ}
-using the inclusions
-$\sOp \hookrightarrow \Op^{\Delta^{op}}$,
-where we regard simplicially operads as those simplicial objects in operads whose
-structure maps are all the identity on the set of colors,
-and $\mathsf{PreOp} \hookrightarrow \sdSet$.
-
-
-
-\begin{theorem}
-        \label{SSC_THM}
-        The nerve functor $N \colon \sOp \to \PreOp$
-        is fully-faithful, with essential image
-        those preoperads $X$ satisfying the strict Segal condition.
-\end{theorem}
-\begin{proof}
-        By \cite[Prop. 5.3 and Thm. 6.1]{MW09},
-        the nerve functor
-        $N \colon \Op \to \dSet$
-        is fully faithful, with essential image
-        those $A \in \dSet$ with the strict right lifting property against all inner horn inclusions $\Lambda^e[T] \to \Omega[T]$.
-        This implies $N^{\Delta^{op}}$ is fully-faithful, and moreover
-        the essential image of $N^{\Delta^{op}} \colon \Op^{\Delta^{op}} \to \sdSet$ is precisely
-        those $X \in \sdSet$ satisfying the strict Segal condition from Remark \ref{SSC_REM}(i).
-        % (one direction is immediate; for the other, we need that if $X$ is levelwise in the image of the nerve functor,
-        % then all the simplicial structure maps are in fact maps of operads by fully-faithfullness).
-        Restricting the source to $\sOp \hookrightarrow \Op^{\Delta^{op}}$, we may restrict the target to $\PreOp \hookrightarrow \sdSet$,
-        in which case Remark \ref{SSC_REM}(i) is equivalent to the strict Segal condition from Definition \ref{SSC_DEF}.
-\end{proof}
+%   The dendroidal nerve $N$ from \eqref{SOPDSET_EQ}
+%   extends by postcomposition to the associated categories of simplicial presheaves,
+%   yielding the left functor below,
+% \begin{equation}
+%         \label{SOPN_EQ}
+%         N^{\Delta^{op}} \colon \Op^{\Delta^{op}} \to \sdSet,
+%         \qquad
+%         N \colon \sOp \to \PreOp.
+% \end{equation}
+% This $N^{\Delta^{op}}$ restricts to the right functor in \eqref{SOPN_EQ}
+% using the inclusions
+% $\sOp \hookrightarrow \Op^{\Delta^{op}}$,
+% where we regard simplicially operads as those simplicial objects in operads whose
+% structure maps are all the identity on the set of colors,
+% and $\mathsf{PreOp} \hookrightarrow \sdSet$.
 
 
-\begin{remark}[{cf. \cite[ (\ref{TAS-STRSEGCON EQ})]{BP_TAS}}]
-        \label{NERVEEVAL_REM}
-        Given a $\mathfrak C$-colored operad $\O \in \sOp$, using the notation from \eqref{XUDECALT EQ} we have
-        \[
-                N\O_{\mathfrak c}(C) = \O(\vect C),
-                \qquad
-                N \O_{\mathfrak c}(T) = \prod_{v \in \boldsymbol{V}(T)} \O(T_v, \mathfrak c_v).
-        \]
-        for all $\mathfrak C$-corollas $\vect C = (C, \mathfrak c)$ and
-        $\mathfrak C$-trees $\vect T = (T, \mathfrak c)$.
-        % 
-        In particular, $\Omega[T] = N\Omega(T)$ (cf. \cite[Rem. \ref{TAS-NERVESIMDES REM}]{BP_TAS}).
-\end{remark}
+
+% \begin{theorem}
+%         \label{SSC_THM}
+%         The nerve functor $N \colon \sOp \to \PreOp$
+%         is fully-faithful, with essential image
+%         those preoperads $X$ satisfying the strict Segal condition.
+% \end{theorem}
+% \begin{proof}
+%         By \cite[Prop. 5.3 and Thm. 6.1]{MW09},
+%         the nerve functor
+%         $N \colon \Op \to \dSet$
+%         is fully faithful, with essential image
+%         those $A \in \dSet$ with the strict right lifting property against all inner horn inclusions $\Lambda^e[T] \to \Omega[T]$.
+%         This implies $N^{\Delta^{op}}$ is fully-faithful, and moreover
+%         the essential image of $N^{\Delta^{op}} \colon \Op^{\Delta^{op}} \to \sdSet$ is precisely
+%         those $X \in \sdSet$ satisfying the strict Segal condition from Remark \ref{SSC_REM}(i).
+%         % (one direction is immediate; for the other, we need that if $X$ is levelwise in the image of the nerve functor,
+%         % then all the simplicial structure maps are in fact maps of operads by fully-faithfullness).
+%         Restricting the source to $\sOp \hookrightarrow \Op^{\Delta^{op}}$, we may restrict the target to $\PreOp \hookrightarrow \sdSet$,
+%         in which case Remark \ref{SSC_REM}(i) is equivalent to the strict Segal condition from Definition \ref{SSC_DEF}.
+% \end{proof}
+
+
+% \begin{remark}[{cf. \cite[ (\ref{TAS-STRSEGCON EQ})]{BP_TAS}}]
+%         \label{NERVEEVAL_REM}
+%         Given a $\mathfrak C$-colored operad $\O \in \sOp$, using the notation from \eqref{XUDECALT EQ} we have
+%         \[
+%                 N\O_{\mathfrak c}(C) = \O(\vect C),
+%                 \qquad
+%                 N \O_{\mathfrak c}(T) = \prod_{v \in \boldsymbol{V}(T)} \O(T_v, \mathfrak c_v).
+%         \]
+%         for all $\mathfrak C$-corollas $\vect C = (C, \mathfrak c)$ and
+%         $\mathfrak C$-trees $\vect T = (T, \mathfrak c)$.
+%         % 
+%         In particular, $\Omega[T] = N\Omega(T)$ (cf. \cite[Rem. \ref{TAS-NERVESIMDES REM}]{BP_TAS}).
+% \end{remark}
 
 
 % \begin{remark}
@@ -2356,7 +2387,7 @@ $\mathsf{Nec}$.
 	repeated use of Proposition \ref{TREEFACT_PROP}
 	shows that the 
 	$F_0 \to \cdots \to F_n$
-	strings in \eqref{WU_EQ}
+	strings in \eqref{PROPA EQ}
 	are precisely the strings of planar inner faces of $U_C$.
 	And since the latter are in bijection with strings of subsets of inner edges $\boldsymbol{E}^{\mathsf{i}}(U_C)$, 
 	we have 
@@ -2387,8 +2418,14 @@ $\mathsf{Nec}$.
 	and
 	$NW(\mathfrak{n})$ satisfies the strict Segal condition
 	(cf. \cite[Cor 3.77]{BP_geo} \todo{not sure what this refers to.
-	Luis: it refers to the relevant thing being cited: substitution data. Maybe actually putting some thought into things would work better than leaving freaking TODO notes everywhere for no reason...}).
-          
+          Luis: it refers to the relevant thing being cited: substitution data. Maybe actually putting some thought into things would work better than leaving freaking TODO notes everywhere for no reason...
+        }
+        {\color{blue}I thought this was telling readers what we meant by the strict Segal condition in $\PreOp$, as that had not yet appeared in the text.
+          If it is referencing why this is strict Segal, at least some discussion (along the lines of what you wrote below) is needed. I would also add a reference to Notation 3.88 (using the arXiv numbering).\\
+        Additionally, just as an FYI, the numbering in \cite{BP_geo} on the arXiv is different than our local version: Equations (3.66) and (3.68) are not labeled online. As the arXiv version is the current public version, I would go with their numbering.}
+        ).
+
+        
 {\color{red}
 
 Namely, the strict Segal condition of $NW(T)$ follows due to all maps
