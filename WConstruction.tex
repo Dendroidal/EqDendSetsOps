@@ -1264,9 +1264,100 @@ $N \colon \Op \to \mathsf{dSet}$,
 which consists of the objects satisfying 
 the strict Segal condition \eqref{SCV1 EQ}.
 
+Some of our arguments in \S \ref{WCONS AP}
+will be simplified by using an alternative formulation of \eqref{SCV1 EQ},
+which is motivated by the fact that colored operads
+$\Op$ are most commonly defined using colored trees.
+As such, we first recall the following, cf. 
+\cite[Def. \ref{OC-COLFOR DEF}]{BP_FCOP}.
+
+
+\begin{definition}\label{CTREE_DEF}
+	Let $\mathfrak C$ be a set of colors.
+	The category $\Omega_{\mathfrak C}$ of \textit{$\mathfrak C$-trees} has objects pairs $(T, \mathfrak c)$ with 
+	$T \in \Omega$ a tree and
+	$\mathfrak c \colon \boldsymbol{E}(T) \to \mathfrak C$ a coloring of its edges,
+	and arrows
+	$(S, \mathfrak d) \to (T, \mathfrak c)$
+	given by maps
+	$\varphi \colon S \to T$ in $\Omega$ such that $\mathfrak d = \mathfrak c \varphi$.
+	
+	Moreover, any a map of color sets
+	$f \colon \mathfrak C \to \mathfrak D$
+	induces a functor
+	$f\colon \Omega_{\mathfrak{C}} \to \Omega_{\mathfrak{D}}$
+	via
+	$(T,\mathfrak{c}) \mapsto (T,f\mathfrak{c})$.
+\end{definition}
+
+
+
+\begin{notation}
+	Given $X \in \dSet$, tree $T \in \Omega$, 
+	and coloring $\mathfrak c \colon \boldsymbol{E}(T) \to X(\eta)$,
+	we write $X_{\mathfrak c}(T) \in \Set$ for the pullback below.
+	\begin{equation}
+	\label{XUDECALT EQ}
+	\begin{tikzcd}
+	X_{\mathfrak c}(T) \arrow[r] \arrow[d]
+	&
+	X(T) \arrow[d]
+	\\
+	\** \arrow{r}[swap]{\mathfrak c}
+	&
+	\displaystyle{
+		\prod\limits_{\boldsymbol{E}(T)} X(\eta)
+	}
+	\end{tikzcd}
+	\end{equation}
+\end{notation}
+
+
+
+
+\begin{remark}
+	The notation above gives a decomposition
+	$X(T) \simeq \coprod_{\{\mathfrak c \colon \boldsymbol{E}(T) \to X(\eta)\}} X_{\mathfrak c}(T)$
+	for any $X\in \dSet$.
+	Moreover, the assignment
+	$(T,\mathfrak c) \mapsto X_{\mathfrak{c}}(T)$ 
+	is functorial on
+	$X(\eta)$-trees $(T,\mathfrak c) \in \Omega^{op}_{X(\eta)}$,
+	so that $X$ has an equivalent description
+	as a presheaf on $\Omega_{X(\eta)}$.
+	In fact, a little more is true. 
+	If one writes 
+	$\mathsf{dSet}_{\mathfrak{C}} \subset \dSet$
+	for the subcategory of those $X$ such that
+	$X(\eta) = \mathfrak{C}$ and maps that are the identity on 
+	$X(\eta)$, there is an equivalence of categories ({cf. \cite[ \eqref{TAS-PREOPCOLFIXEQ EQ}]{BP_TAS}})
+\[
+\dSet_{\mathfrak C} \xrightarrow{\simeq}
+ \Fun_{\**}(\Omega_{\mathfrak C}^{op}, \Set),
+\qquad
+\big(T \mapsto X(T)\big) \mapsto \big( (T, \mathfrak c) \mapsto X_{\mathfrak c}(T) \big)
+\]
+where $\Fun_{\**}$ denotes \emph{pointed functors},
+i.e. functors $X$ such that
+$X_{\mathfrak c}(\eta) = \**$
+for $\mathfrak{c} \in \mathfrak{C}$.
+\end{remark}
+
+Using the $X_{\mathfrak c}(T)$ notation, 
+the Segal condition in \eqref{SCV1 EQ}
+then decomposes into isomorphisms
+	\begin{equation}\label{SSV2 EQ}
+	X_{\mathfrak c}(T) \xrightarrow{\simeq} \prod_{v \in \boldsymbol{V}(T)} X_{\mathfrak c_v}(T_v)
+	\end{equation}
+for any $X(\eta)$-tree $(T,\mathfrak{c})$,
+and with $\mathfrak{c}_v$
+the restricted coloring
+$\boldsymbol{E}(T_v) \to \boldsymbol{E}(T) \to X(\eta)$.
+
 
 
 {\color{red} HERE}
+
 
 
 
@@ -1282,30 +1373,9 @@ denote the categories of \textit{dendroidal sets} and \textit{simplicial dendroi
 {\color{red} HERE}
 
 
-Next, we recall the categories of colored trees used in 
-\cite[Def. \ref{OC-COLFOR DEF}]{BP_FCOP}.
 
-\begin{definition}\label{CTREE_DEF}
-        Let $\mathfrak C$ be a set of colors.
-        The category $\Omega_{\mathfrak C}$ of \textit{$\mathfrak C$-trees} has:
-        \begin{itemize}
-        \item objects pairs $\vect T = (T, \mathfrak c)$ with
-                $T \in \Omega$ a tree and
-                $\mathfrak c \colon \boldsymbol{E}(T) \to \mathfrak C$ a coloring of its edges;
-        \item arrows $\vect S = (S, \mathfrak d) \to (T, \mathfrak c) = \vect{T}$ maps
-                $\varphi \colon S \to T$ in $\Omega$ such that $\mathfrak d = \mathfrak c \varphi$.
-        \end{itemize}
-\end{definition}
 
-For any map of sets $f \colon \mathfrak C \to \mathfrak D$, there is an associated functor
-\begin{equation}
-        \label{TREECHANGEC_EQ}
-        f \colon \Omega_{\mathfrak C} \to \Omega_{\mathfrak D},
-        \qquad
-        \vect T = (T, \mathfrak c)
-        \longmapsto
-        (T, \boldsymbol{E}(T) \xrightarrow{\mathfrak c} \mathfrak C \xrightarrow{f} \mathfrak D) =: f \vect T.
-\end{equation}
+
 
 
 
@@ -1407,14 +1477,6 @@ with $f \vect C$ as in \eqref{TREECHANGEC_EQ}.
 % $f_! \O = \mathop{coeq}\left( \mathbb F(f_! \mathbb F \O) \rightrightarrows \mathbb F f_! \O\right)$.
 
 
-\begin{definition}
-        The category $\sOp$ of \textit{colored simplicial operads}
-        has objects $(\O, \mathfrak C)$ where $\O$ is a $\mathfrak C$-colored operad,
-        and arrows $(\O, \mathfrak C) \to (\P, \mathfrak D)$ given by pairs $(F,f)$
-        where $f \colon \mathfrak C \to \mathfrak D$ is a map of sets and
-        $F \colon \O \to f^{\**}\P$ is a map of $\mathfrak C$-colored operads.
-\end{definition}
-
 
 \begin{example}
         One important class of colored operads are the free operads generated by trees.
@@ -1462,49 +1524,6 @@ e.g. \cite[\S 4]{BP_edss}, \cite[\S \ref{TAS-JT_SEC}, \S \ref{TAS-SPREOP_SEC}]{B
 {\color{red} HERE}
 
 
-Let $\dSet = \Set^{\Omega^{op}}$ and $\sdSet = \Set^{\Delta^{op} \times \Omega^{op}}$
-denote the categories of \textit{dendroidal sets} and \textit{simplicial dendroidal sets}.
-
-\begin{definition}
-        For $T \in \Omega$, let $\Omega[T] \in \dSet$ denote the \textit{representable} dendroidal set
-        $\Omega[T](S) = \Omega(S,T)$.
-        %
-        Let $Sc[T] \subseteq \Omega[T]$ denote the \textit{Segal core} of $T$, given by
-        \[
-                Sc[T] = \bigcup_{U \in \mathsf{Face}_{sc}(T)} \Omega[U],
-        \]
-        where
-        $\mathsf{Face}_{sc}(T)$ is the poset of planar outer faces of $T$ with no inner edges
-        (i.e. $U$ is either a single edge or a single vertex)
-        and the union takes place in $\Omega[U]$.
-\end{definition}
-
-\begin{notation}
-        For $X \in \sdSet$, we write $X_n(T)$ for the evaluation at $n \in \Delta$ and $T \in \Omega$,
-        and refer to $n$ and $T$ as the \textit{simplicial} and \textit{dendroidal} directions, respectively.
-        %
-        More generally, for $X \in \sdSet$ we write
-        \begin{equation}
-                \label{SDSET_EQ}
-                % X_{(-)} \colon \sSet \to \dSet^G,
-                % \qquad
-                X(-) \colon \dSet \to \sSet,
-                \qquad
-                X(A)_n = X_n(A) = \dSet(A, X_n),
-        \end{equation}
-        for the unique (up to unique natural isomorphism) colimit-preserving functor
-        such that
-        % $X_{\Delta[n]} = X_n$ and 
-        $X\left(\Omega[U]\right) = X(U)$ for
-        % $n \geq 0$,
-        $U \in \Omega$.
-        % Explicitly, % $X_K(U) = \sSet(K, X(U))$ and
-        % $X(A)_n = \dSet(A, X_n)$.
-        % \item Given $X \in \sdSet$, we write $\sk_\eta X \in \sdSet$ for the \textit{skeleton}, given by
-        %         \[
-        %                 (\sk_\eta X)(U) = \coprod_{\boldsymbol{E}(U)} X(\eta).
-        %         \]
-\end{notation}
 
 \begin{definition}
         Let $\PreOp \subseteq \sdSet$ denote the full subcategory spanned by the \textit{preoperads},
@@ -1513,80 +1532,13 @@ denote the categories of \textit{dendroidal sets} and \textit{simplicial dendroi
         For $X \in \PreOp$, we call $X(\eta)$ the \textit{color set} of $X$.
 \end{definition}
 
-\begin{notation}
-        Given $X \in \PreOp$, $T \in \Omega$, and a coloring $\mathfrak c \colon \boldsymbol{E}(T) \to X(\eta)$,
-        we define $X_{\mathfrak c}(T) \in \sSet$ as the pullback below.
-        \begin{equation}
-                \label{XUDECALT EQ}
-                \begin{tikzcd}
-                        X_{\mathfrak c}(T) \arrow[r] \arrow[d]
-                        &
-                        X(T) \arrow[d]
-                        \\
-                        \** \arrow[r, "\mathfrak c"]
-                        &
-                        \displaystyle{
-                          \prod\limits_{\boldsymbol{E}(T)} X(\eta)
-                        }
-                \end{tikzcd}
-        \end{equation}
-\end{notation}
-
-\begin{remark}
-        For any $X$, $T$, $\mathfrak c$ as in \eqref{SDSET_EQ} % in Notation \ref{PREOP_NOT}\ref{XUC_LBL},
-        we have a coproduct decomposition \cite[ \eqref{TAS-COLDEC_EQ}]{BP_TAS}
-        \begin{equation}
-                \label{COLDEC_EQ}
-                X(T) \simeq \coprod_{\mathfrak c \colon \boldsymbol{E}(T) \to X(\eta)} X_{\mathfrak c}(T).
-        \end{equation}
-        Moreover, $X_{\mathfrak c}(T)$ is natural in $(T, \mathfrak c) \in \Omega_{\mathfrak C}^{op}$
-        and in fact
-        $X$ is determined by the presheaf $(T, \mathfrak c) \mapsto X_{\mathfrak c}(T)$
-        (cf. \cite[ \eqref{TAS-PREOPCOLFIXEQ EQ}]{BP_TAS}).
-        % \begin{proposition}[{cf. \cite[ \eqref{TAS-PREOPCOLFIXEQ EQ}]{BP_TAS}}]
-        %         There is an equivalence of categories
-        %         \[
-        %                 \PreOp_{\mathfrak C} \to \Fun_{\**}(\Omega_{\mathfrak C}^{op}, \sSet),
-        %                 \qquad
-        %                 \big(T \mapsto X(T)\big) \mapsto \big( (T, \mathfrak c) \mapsto X_{\mathfrak c}(T) \big)
-        %         \]
-        %         where $\Fun_{\**}(\Omega_{\mathfrak C}^{op}, \sSet) \subseteq \Fun(\Omega_{\mathfrak C}^{op}, \sSet)$
-        %         is the subcategory spanned by those functors $Y$ such that $Y(\eta, \mathfrak c) = \**$ for all colorings of the stick tree $\eta$.
-        % \end{proposition}
-        
-        Henceforth, we will work with the $X_{\mathfrak c}(T)$ notation as the levels of our preoperads.
-\end{remark}
 
 
-\begin{remark}[{cf. \cite[ (\ref{TAS-STRSEGCON EQ})]{BP_TAS}}]
-        \label{NERVEEVAL_REM}
-        Given a $\mathfrak C$-colored operad $\O \in \sOp$, using the notation from \eqref{XUDECALT EQ} we have
-        \[
-                N\O_{\mathfrak c}(C) = \O(\vect C),
-                \qquad
-                N \O_{\mathfrak c}(T) = \prod_{v \in \boldsymbol{V}(T)} \O(T_v, \mathfrak c_v).
-        \]
-        for all $\mathfrak C$-corollas $\vect C = (C, \mathfrak c)$ and
-        $\mathfrak C$-trees $\vect T = (T, \mathfrak c)$.
-        % 
-        % In particular, $\Omega[T] = N\Omega(T)$ (cf. \cite[Rem. \ref{TAS-NERVESIMDES REM}]{BP_TAS}).
-\end{remark}
 
 \subsubsection*{The strict Segal condition and the nerve}
 
 % We now define the strict Segal condition.
 
-\begin{definition}
-        \label{SSC_DEF}
-        We say $X \in \PreOp$ satisfies the \textit{strict Segal condition} if
-        the Segal maps
-        \begin{equation}\label{SSC_EQ}
-                X_{\mathfrak c}(T) \xrightarrow{\simeq} \prod_{v \in \boldsymbol{V}(T)} X_{\mathfrak c_v}(T_v)
-        \end{equation}
-        (induced by the inclusions $\vect T_v \hookrightarrow \vect T$)
-        are isomorphisms of simplicial sets
-        for all $T \in \Omega$ and colorings $\mathfrak c \colon \boldsymbol{E}(T) \to X(\eta)$.
-\end{definition}
 
 \begin{remark}
         \label{SSC_REM}
