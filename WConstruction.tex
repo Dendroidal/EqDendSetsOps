@@ -1387,7 +1387,7 @@ As such, we first recall the following, cf.
 
 
 
-\begin{notation}
+\begin{notation}\label{MAPSOVCOL NOT}
 	Given $X \in \dSet$, tree $T \in \Omega$, 
 	and coloring $\mathfrak c \colon \boldsymbol{E}(T) \to X(\eta)$,
 	we write $X_{\mathfrak c}(T) \in \Set$ for the pullback below.
@@ -1464,8 +1464,7 @@ $\boldsymbol{E}(T_v) \to \boldsymbol{E}(T) \to X(\eta)$.
 \end{example}
 
 
-
-\begin{remark}
+\begin{remark}\label{PULLBACKS REM}
 Given a map of colors 
 $f \colon \mathfrak{C} \to \mathfrak{D}$,
 the identification \eqref{DSETCID EQ}
@@ -1481,6 +1480,9 @@ f^{\**} \colon \dSet_{\mathfrak{D}} \to \dSet_{\mathfrak{C}}
 \qquad \qquad
 f^{\**} \colon \Op_{\mathfrak{D}} \to \Op_{\mathfrak{C}}
 \]
+Note that maps $X \to Y$ in either $\dSet$ or $\Op$
+over a color map $f$ are then in bijection with fixed color maps
+$X \to f^{\**} Y$.
 \end{remark}
 
 
@@ -2051,13 +2053,12 @@ $J'_{\overline{\varphi J}}$.
 \end{remark}
 
 
-{\color{red} HERE}
-
 
 \begin{remark}\label{BEADMAP REM}
-	Let $\mathfrak{n},\mathfrak{n}',T,T',\varphi$ be as in the previous remark.
+	Let $\mathfrak{n},\mathfrak{n}',T,T',\varphi$ be as in the previous remark and suppose in addition that $\varphi$ is a face map.
 %
-	Then, for each bead $T_{b} \hookrightarrow T$
+	Then, since different beads share at most one edge,
+	for each bead $T_{b} \hookrightarrow T$
 	of $\mathfrak{n}$,
 	there is a unique bead
 	$T'_{\varphi_{\**} b} \hookrightarrow T'$
@@ -2467,7 +2468,7 @@ where the third step is
 Remark \ref{NECKMAPCHAR REM}.
 \end{proof}
 
-{\color{red} HEREHREREHEREHREHRHEHRE}
+
 
 We now introduce a notation that plays an important role 
 in two key technical results,
@@ -2485,34 +2486,53 @@ $\boldsymbol{E}^{\mathsf{i}}(F \vee F')
 \cup
 \boldsymbol{E}^{\mathsf{i}}(F')$.
 
+
 \begin{notation}\label{STAU NOT}
 	Let $\mathfrak{n} \colon J \to T$
-	be a necklace and $\phi\colon S \to T$ a map in $\Omega$.
-	
-	We write
-	$S^{\mathfrak{n}} = \phi S \vee J_{\overline{\phi S}}$,
+	be a necklace,
+	$\phi\colon S \to T$ a map in $\Omega$
+	and $S \xrightarrow{t} F \xrightarrow{p,o} T$
+	its tall-outer factorization.
+%
+	We then write
+	$J^{\phi} = \phi S \vee J_{F}$,
 	where the join is 
-	taken in $\mathsf{Face}_{inn}(\overline{\phi S})$.
+	taken in $\mathsf{Face}_{inn}(F)$.
 \end{notation}
 
+\begin{remark}
+	Following Notation \ref{MAPSOVCOL NOT},
+	we write $NW(\mathfrak{n})_{\phi}(S)$ for those maps over a coloring $\phi \colon \boldsymbol{E}(S) \to \boldsymbol{E}(T)$
+	which, by the description in \eqref{NWTDEF EQ},
+	must be the map of trees $\phi\colon S \to T$
+	given by the composite therein.
+\end{remark}
+
+
+
 \begin{remark}\label{STAU REM}
-	In the context of Notation \ref{STAU NOT}
-	one has natural identifications
-\begin{equation}
-\begin{tikzcd}[column sep = 12pt]
-	NW(\mathfrak{n})_{\phi}(S^{\mathfrak{n}}) 
+	In the context of Notation \ref{STAU NOT},
+	and writing 
+	$\bar{\phi} \colon S \to F$,
+	$\iota \colon F \to T$,
+	$\iota^{\phi} \colon J^{\phi} \to T$,
+	for the natural maps,
+	one has identifications
+	\begin{equation}
+	\begin{tikzcd}[column sep = 12pt]
+	NW(\mathfrak{n})_{\iota^{\phi}}(J^{\phi}) 
 	\ar{r}{\simeq}
-&
+	&
 	NW(\mathfrak{n})_{\phi}(S)
-&
-	NW(S^{\mathfrak{n}} \to \overline{\phi T})_{\phi}(S)
+	&
+	NW(J^{\phi} \to F)_{\bar{\phi}}(S)
 	\ar{l}[swap]{\simeq}
-\end{tikzcd}
-\end{equation}
-induced by the natural maps
-$S \to S^{\mathfrak{n}}$ between trees and 
-$(S^{\mathfrak{n}} \to \overline{\phi T}) \to \mathfrak{n}$
-between necklaces.
+	\end{tikzcd}
+	\end{equation}
+	induced by the natural maps
+	$S \to J^{\phi}$ between trees and 
+	$\iota \colon (J^{\phi} \to F) \to \mathfrak{n}$
+	between necklaces.
 \end{remark}
 
 
@@ -2521,75 +2541,85 @@ between necklaces.
 \begin{proposition}\label{NECKCOL PROP}
 	Let $\mathfrak{n} \colon J \to T$ be a necklace.
 	Then one has an identification
-\begin{equation}\label{NECKCOL EQ}
+	\begin{equation}\label{NECKCOL EQ}
 	W(\mathfrak{n})
 	\simeq 
 	\underset{U \in \mathsf{Face}_{sc}(J)}{\colim}
 	W(T_U)
-\end{equation}
+	\end{equation}
 	where the colimit takes place 
 	in $\mathsf{sOp}$.
 \end{proposition}
 
 
-
 \begin{proof}
 	We will verify \eqref{NECKCOL EQ}
-	by working with nerves throughout.
+	at the level of nerves.
 	More explicitly, 
-	we will show, that for any $X\in \mathsf{PreOp}$
-	satisfying the strict Segal condition,
+	we will show that for any $X \in \mathsf{sdSet}$
+	with constant objects and 
+	satisfying the strict Segal condition
+	(cf. Remark \ref{SIMPOPREM}),
 	giving a map
 	$NW(\mathfrak{n}) \to X$
 	is the same as giving compatible maps
 	$NW(T_U) \to X$.
-
+	
 	Moreover, clearly both sides of 
 	\eqref{NECKCOL EQ} yield $\boldsymbol{E}(T)$
-	when evaluated on $\eta$.
-	As such, we are free to fix throughout
-	a map of colors $\boldsymbol{E}(T) \to X(\eta)$
-	and verify the universal property 
-	for maps respecting this color assignment.
-	In particular, we are free to 
-	evaluate $W(\mathfrak{n}),X$ on suitable 
-	$\boldsymbol{E}(T)$-colored trees, 
+	when evaluated at $\eta$.
+	As such, we are free to fix a coloring
+	$\mathfrak{c} \colon \boldsymbol{E}(T) \to X(\eta)$
+	and verify the universal property
+	restricted to maps respecting this color assignment.
+	And, by using the identification \eqref{DSETCID EQ} and the 
+	last comment in Remark \ref{PULLBACKS REM},
+	we may evaluate $NW(\mathfrak{n}),X$
+	on $\boldsymbol{E}(T)$-colored trees $(S,\phi)$, 
 	rather than on uncolored trees.
 
+	
 	Given maps $NW(T_U) \to X$
 	we now define the map $NW(\mathfrak{n}) \to X$ via 
-	(where $S^{\mathfrak{n}}$ is as in Notation \ref{STAU NOT})
+	(where $J^{\phi}$, $F$, $\bar{\phi}$, $\iota$, $\iota^{\phi}$
+	are as in Remark \ref{STAU REM},
+	and 
+	$\iota_{\**} \colon 
+	\boldsymbol{B}(\mathfrak{n}_{F})
+	\to 
+	\boldsymbol{B}(\mathfrak{n})$
+	is the map of bead sets in Remark \ref{BEADMAP REM})
 \begin{equation}\label{LONGMAP EQ}
 \begin{tikzcd}[column sep = 20pt, row sep=0]
-	NW(\mathfrak{n})_{\mathfrak{s}}(S)
+	NW(\mathfrak{n})_{\phi}(S)
 &
-	NW(\mathfrak{n})_{\mathfrak{s}}(S^{\mathfrak{n}})
+	NW(\mathfrak{n})_{\iota^{\phi}}(J^{\phi})
 	\ar{l}[swap]{\simeq}{(I)}
 	\ar{r}{\simeq}[swap]{(II)}
 &
-	\underset{b \in B( \mathfrak{n}_{\overline{\phi S}})}{\prod}
-	NW(\mathfrak{n})_{\mathfrak{s}}(S^{\mathfrak{n}}_b)
+	\underset{b \in \boldsymbol{B}(\mathfrak{n}_{F})}{\prod}
+	NW(\mathfrak{n})_{\iota^{\phi}_b}(J^{\phi}_b)
 \\
 &&&
-	\underset{b \in B( \mathfrak{n}_{\overline{\phi S}})}{\prod}
-	NW(T_{\phi_{\**}b})_{\mathfrak{s}}(S^{\mathfrak{n}}_b)
+	\underset{b \in \boldsymbol{B}(\mathfrak{n}_{F})}{\prod}
+	NW(T_{\iota_{\**}b})_{\iota^{\phi}_b}(J^{\phi}_b)
 	\ar{lu}[swap]{\simeq}{(III)}
 	\ar{ld}{(IV)}
 \\
-	X_{\mathfrak{s}}(S)
+	X_{\mathfrak{c}\phi}(S)
 &
-	X_{\mathfrak{s}}(S^{\mathfrak{n}})
+	X_{\mathfrak{c}\iota^{\phi}}(J^{\phi})
 	\ar{r}{\simeq}[swap]{(V)}
 	\ar{l}{(VI)}
 &
-	\underset{b \in B(\mathfrak{n}_{\overline{\phi S}})}{\prod}
-	X_{\mathfrak{s}}(S^{\mathfrak{n}}_b)
+	\underset{b \in \boldsymbol{B}(\mathfrak{n}_{F})}{\prod}
+	X_{\mathfrak{c}\iota^{\phi}_b}(J^{\phi}_b)
 \end{tikzcd}
 \end{equation}
 	where the arrows (II) and (V) are isomorphisms by the Segal condition
 	while (III) is an isomorphism since 
-	$S_b^{\mathfrak{n}} \to T$ factors through 
-	$T_{\phi_{\**}b}$.
+	$J^{\phi}_b \to T$ factors through 
+	$T_{\iota_{\**}b}$.
 	
 	Moreover, the arrow (IV) in \eqref{LONGMAP EQ}
 	is induced by the chosen maps
@@ -2602,34 +2632,36 @@ between necklaces.
 	It only remains to check that
 	\eqref{LONGMAP EQ}
 	is indeed a map in 
-	$\mathsf{PreOp}$, i.e. that it is natural on 
-	$\vect{S}=(S,\mathfrak{s})$.
+	$\mathsf{sdSet}$, i.e. that it is natural on 
+	$(S,\phi)$.
 	To see this, one first readily checks that a map
-	$\psi \colon \vect{S} \to \vect{R}$
+	$\psi \colon (S,\phi) \to (S^{\**},\phi^{\**})$
 	induces a compatible inclusion
-	$\psi \colon S^{\mathfrak{n}} \hookrightarrow R^{\mathfrak{n}}$
+	$\psi \colon J^{\phi} \hookrightarrow J^{\phi^{\**}}$
 	showing the naturality of arrows (I),(VI) 
 	in the zigzag.
-
+%
 	Next, by Remark \ref{BEADMAP REM}
 	one has a map of bead sets
 	$\psi_{\**} \colon 
-	B(\mathfrak{n}_{\overline{\phi S}})
+	\boldsymbol{B}(\mathfrak{n}_{F})
 	\to
-	B(\mathfrak{n}_{\overline{\phi' R}})$
+	\boldsymbol{B}(\mathfrak{n}_{F^{\**}})$
 	for which one has further compatible maps
-	$S^{\mathfrak{n}}_b
+	$J^{\phi}_b
 	\to 
-	R^{\mathfrak{n}}_{\psi_{\**}b}$,
+	J^{\phi^{\**}}_{\psi_{\**}b}$,
 	showing the naturality of the arrows (II),(V).
 	Lastly, for any bead 
-	$b \in B(\mathfrak{n}_{\overline{\phi S}})$
+	$b \in \boldsymbol{B}(\mathfrak{n}_{F})$
 	one has
-	$T_{\phi_{\**}b} = T_{\phi'_{\**} \psi_{\**}b}$
+	$T_{\iota_{\**}b} = T_{(\iota^{\**})_{\**} \psi_{\**}b}$,
 	showing naturality of the arrows (III),(IV).
 \end{proof}
 
 
+
+{\color{red} HERE}
 
 
 
