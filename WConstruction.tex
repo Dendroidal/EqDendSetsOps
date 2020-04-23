@@ -2079,18 +2079,20 @@ $J'_{\overline{\varphi J}}$.
 
 \section{The dendroidal $W_!$-construction}\label{WCONS SEC}
 
+This section will establish the description
+of the $W_!$-construction in \eqref{SOPDSET_EQ}
+given in Theorem \ref{THMB}.
 
-
-Our discussion of the dendroidal $W_!$-construction
-will make systematic
-use of the factorizations in $\Omega$ given by 
-Proposition \ref{TREEFACT_PROP}.
-We follow Notation \ref{MAPLABELS_NOT},
-and label 
-a map in $\Omega$
-by either of the letters d/i/o/t/f/p
+Throughout we make  
+use of the factorizations in $\Omega$ given in 
+Proposition \ref{TREEFACT_PROP},
+and follow Notation \ref{MAPLABELS_NOT}
+by labeling a map by the letters d/i/o/t/f/p
 to indicate that the map is
 a degeneracy/inner face/outer face/tall/face/planar.
+We first build $W(T)$ for a tree $T$, cf. Proposition \ref{PROPA PROP}.
+
+
 
 
 
@@ -2099,48 +2101,53 @@ a degeneracy/inner face/outer face/tall/face/planar.
 	Let $T \in \Omega$ be a tree.
 	We define 
 	$W(T) \in \mathsf{sOp}$
-	to be the operad whose nerve is the preoperad
-	$NW(T)$ with $n$-simplices given by
-\[
-	\left(NW(T)_n\right)_{\mathfrak{s}}(S)
+	to be the simplicial operad whose nerve is the 
+	simplicial dendroidal set 
+	$NW(T) \in \mathsf{sdSet}$
+	(cf. Remark \ref{SIMPOPREM})
+	with $n$-simplices given by
+\begin{equation}\label{NWTDEF EQ}
+	NW(T)_n(S)
 =
 	\left\{
-	\text{factorizations }
+	\text{composable strings }
 	S \xrightarrow{t} 
 	J_0 \xrightarrow{i,p} 
 	J_1 \xrightarrow{i,p} 
 	\cdots \xrightarrow{i,p}
-	J_n \xrightarrow{f,p}
+	J_n \xrightarrow{i,p}
+	F \xrightarrow{o,p}
 	T
-	\text{ in $\Omega$}
-	\right\}
-\]
-	if $\mathfrak{s} \colon \boldsymbol{E}(S) \to \boldsymbol{E}(T)$
-	defines a map $\phi \colon S \to T$ in $\Omega$
-	and
-	$\left(\left(NW(T)\right)_n\right)_{\mathfrak{s}}(S) = \emptyset$
-	otherwise.
-	
-	Alternatively, it suffices to require that all maps
-	$S \to F_i$ are tall
-	and all maps $J_i \to T$ are planar face maps.
+	\text{ of arrows in $\Omega$}
+	\right\}.
+\end{equation}
+	Equivalently, 
+	it suffices to require that the
+	$S \to J_i$ are tall maps
+	and the $J_i \to T$ are planar face maps.
+	We note that $F$ is superfluous, 
+	being determined by $J_n \xrightarrow{f,p} T$,
+	but including it will make \eqref{NWNWORKS DEF} 
+	below more readable.
+	See also Remark \ref{J0JFREPACK REM}.
 
-	
-	The functoriality of 
+	Functoriality of 
 	$NW(T)$
-	with respect to a map $(S', \mathfrak s') \to ({S},\mathfrak{s})$
+	with respect to a map $S^{\**} \to S$
 	is described by the diagram
-\[
+\begin{equation}\label{NWFUNC EQ}
 \begin{tikzcd}
-	S' \ar{r}{t} \ar{d}
+	S^{\**} \ar{r}{t} \ar{d}
 &
-	J'_0 \ar{r}{i,p} \ar{d}{o}
+	J^{\**}_0 \ar{r}{i,p} \ar{d}{o}
 &
-	J'_1 \ar{r}{i,p} \ar{d}{o}
+	J^{\**}_1 \ar{r}{i,p} \ar{d}{o}
 &
 	\cdots \ar{r}{i,p}
 &
-	J'_n \ar{r}{f,p} \ar{d}{o}
+	J^{\**}_n \ar{r}{i,p} \ar{d}{o}
+&
+	F^{\**} \ar{r}{o,p} \ar{d}{o}
 &
 	T \ar[equal]{d}
 \\
@@ -2152,83 +2159,98 @@ a degeneracy/inner face/outer face/tall/face/planar.
 &
 	\cdots \ar{r}{i,p}
 &
-	J_n \ar{r}{f,p}
+	J_n \ar{r}{i,p}
+&
+	F \ar{r}{o,p}
 &
 	T	
 \end{tikzcd}
-\]
-	where 
-	$S' \to J'_0 \to J_0$
-	(resp. $J'_k \to J'_{k+1} \to J_{k+1}$)
-	is defined as the ``tall followed by outer face''
-	factorization of composite
-	$S' \to S \to J_0$
-	(resp. $J'_k \to J_{k} \to J_{k+1}$).
+\end{equation}
+	where the maps $J^{\**}_k \to J_k$ and 
+	$F^{\**} \to F$
+	are inductively defined by taking
+	$S^{\**} \to J^{\**}_0 \to J_0$
+	(resp. $J^{\**}_k \to J^{\**}_{k+1} \to J_{k+1}$,
+	$J^{\**}_n \to F^{\**} \to F$)
+	to be the ``tall followed by outer face''
+	factorization of the composite
+	$S^{\**} \to S \to J_0$
+	(resp. $J^{\**}_k \to J_{k} \to J_{k+1}$,
+	$J^{\**}_n \to J_n \to F$).
 
 	More generally, 
 	given a necklace $\mathfrak{n}\colon J \to T$,
 	we define
 	$NW(\mathfrak{n}) \subseteq NW(T)$
-	as the subpresheaf
-	of those factorizations with the property that
-	$J_0 \supseteq J_{\overline{\phi S}}$.
-
-	Note that the fact that this is a presheaf follows 
-	since
-\[
-	\boldsymbol{E}^{\mathsf{i}}(J'_0)
+	as the subpresheaf formed by those strings in 
+	\eqref{NWTDEF EQ} such that
+	one has $J_0 \supseteq J_{F}$
+	(where $J_{F}$ is as in Notation \ref{JFNOT NOT}).
+	The fact that this $NW(\mathfrak{n})$ is a presheaf follows 
+	since, for $S^{\**} \to S$, 
+	$J_1,J_i^{\**}$, $F,F^{\**}$ as in \eqref{NWFUNC EQ},
+	it is
+\begin{equation}\label{NWNWORKS DEF}
+	\boldsymbol{E}^{\mathsf{i}}(J^{\**}_0)
 =
 	\boldsymbol{E}^{\mathsf{i}}(J_0)
 	\cap
-	\boldsymbol{E}^{\mathsf{i}}(\overline{\phi' S'})
+	\boldsymbol{E}^{\mathsf{i}}(F^{\**})
 \supseteq
-	\boldsymbol{E}^{\mathsf{i}}(J_{\overline{\phi S}})
+	\boldsymbol{E}^{\mathsf{i}}(J_{F})
 	\cap
-	\boldsymbol{E}^{\mathsf{i}}(\overline{\phi' S'})
+	\boldsymbol{E}^{\mathsf{i}}(F^{\**})
 =
-	\boldsymbol{E}^{\mathsf{i}}(J_{\overline{\phi' S'}}).
-\]
+	\boldsymbol{E}^{\mathsf{i}}(J_{F^{\**}})
+\end{equation}
+where the first step is 
+\cite[Lemma 2.5]{BP_edss}
+applied to 
+$J^{\**}_0 \xrightarrow{o} J_0 \xrightarrow{i} F$
+and 
+$J^{\**}_0 \xrightarrow{i} 
+F^{\**} \xrightarrow{o}
+F$,
+the second is the definition of $NW(\mathfrak{n})$,
+and the third follows from Notation \ref{JFNOT NOT}
+and the fact that $F^{\**} \subseteq F$.
 \end{definition}
 
 
+\begin{remark}\label{J0JFREPACK REM}
+	Writing $\phi \colon S \to T$ for the full composite in \eqref{NWTDEF EQ},
+	one has that the $F$ therein is $\overline{\phi S}$
+	(cf. Notation \ref{TREEFACT NOT})
+	In particular, the condition $J_0 \supseteq J_F$
+	defining $NW(\mathfrak{n})$
+	becomes $J_0 \supseteq J_{\overline{\phi S}}$.
+\end{remark}
 
 
 \begin{remark}\label{NWTNS_REM}
-	Note that all
-	$NW(\mathfrak{n})$ defined above are indeed nerves of operads,
-	i.e., 
-	$NW(\mathfrak{n})(\eta)$ is discrete
-	and
-	$NW(\mathfrak{n})$ satisfies the strict Segal condition
-	(cf. \cite[Cor 3.77]{BP_geo} 
-        {\color{blue} I would also add a reference to Notation 3.88 (using the arXiv numbering).\\
-        Additionally, just as an FYI, the numbering in \cite{BP_geo} on the arXiv is different than our local version: Equations (3.66) and (3.68) are not labeled online. As the arXiv version is the current public version, I would go with their numbering.}
-        ).
-
-        
-{\color{red}
-
-Namely, the strict Segal condition of $NW(T)$ follows due to all maps
-$S \to J_i$ in \eqref{PROPA EQ} being tall maps,
-while the fact that objects are constant follows since if
-$S = \eta$ is the stick tree (the tree with no vertices),
-which represents objects, 
-then it must be $J_i=\eta$ for all $i$,
-due to the only tree that receives a tall map from $\eta$ being $\eta$ itself.
-}
+	The $NW(\mathfrak{n})$ given by Definition \ref{NWTNS DEF}
+	are nerves of simplicial operads,
+	cf. Remark \ref{SIMPOPREM}.
+	Indeed, to verify the Segal condition \eqref{SCV2 EQ} note that,
+	as the maps $S \to J_i$ in \eqref{NWFUNC EQ}
+	are tall, they are uniquely determined by maps
+	$S_v \to J_{i,v}$ for $v \in \boldsymbol{V}(S)$,
+	cf. \cite[Cor 3.75]{BP_geo} 
+	(see also \ref{GRAFT REM}).
+	Moreover,  $NW(\mathfrak{n})(\eta)$ is a discrete simplicial set
+	since for $S=\eta$ it must be $J_i = \eta$ in \eqref{NWTDEF EQ},
+	due to only $\eta$ receiving tall maps from $\eta$.
 \end{remark}
-
 
 
 Next, we discuss the functoriality of
 $NW(T)$ with respect to $T \in \Omega$.
-
-For each map $T \to T^{\**}$ in $\Omega$
-we define
-$\left(NW(T)\right)_{n,\mathfrak{s}}(S)
+%
+For a map $T \to T'$ in $\Omega$ we define
+$NW(T)_n(S)
 	\to 
-\left(NW(T^{\**})\right)_{n,\mathfrak{s}^{\**}}(S)$
-via the diagram
+NW(T')_n(S)$
+via the diagram (where we drop the superfluous $F$ in \eqref{NWTDEF EQ})
 \begin{equation}\label{NWTTSTAR EQ}
 \begin{tikzcd}
 	S \ar{r}{t} \ar[equal]{d}
@@ -2245,68 +2267,67 @@ J_n \ar{r}{f,p} \ar{d}{d}
 \\
 	S \ar{r}{t} 
 &
-	J^{\**}_0 \ar{r}{i,p}
+	J'_0 \ar{r}{i,p}
 &
-	J^{\**}_1 \ar{r}{i,p}
+	J'_1 \ar{r}{i,p}
 &
 	\cdots \ar{r}{i,p}
 &
-	J^{\**}_n \ar{r}{f,p}
+	J'_n \ar{r}{f,p}
 &
-	T^{\**}
+	T'
 \end{tikzcd}
 \end{equation}
-where
-$J_n \to J^{\**}_n \to T^{\**}$
+where the maps $J_k \to J'_k$
+are (backwards) inductively defined
+by taking 
+$J_n \to J'_n \to T'$
 (resp. 
-$J_{k-1} \to J^{\**}_{k-1} \to J^{\**}_k$)
-is the "degeneracy followed by face"
+$J_{k-1} \to J'_{k-1} \to J'_k$)
+to be the "degeneracy followed by face"
 factorization of the composite
-$J_n \to T \to T^{\**}$
+$J_n \to T \to T'$
 (resp.
-$J_{k-1} \to J_{k} \to J^{\**}_k$).
+$J_{k-1} \to J_{k} \to J'_k$).
 
 
 
-
-\begin{proposition}
-        \label{NWTNS_NAT_PROP}
-	For any map $T \to T^{\**}$ in $\Omega$, the induced map
-	$\left(NW(T)\right)_{\mathfrak{s}}(S)
+\begin{proposition}\label{NWTNS_NAT_PROP}
+	For any map $T \to T'$ in $\Omega$, the induced map
+	$NW(T)(S)
 	\to 
-	\left(NW(T^{\**})\right)_{\mathfrak{s}}(S)$
+	NW(T')(S)$
 	in 
 	\eqref{NWTTSTAR EQ}
-	is functorial on $(S,\mathfrak{s})$.
+	is functorial on $S$.
 \end{proposition}
-
 
 
 \begin{proof}
 	First, note that the composite
-	$\left(NW(T)\right)_{\mathfrak{s}}({S})
+	$NW(T)({S})
 	\to 
-	\left(NW(T)\right)_{\mathfrak{s}'}({S'})
+	NW(T)({S^{\**}})
 	\to 
-	\left(NW(T^{\**})\right)_{\mathfrak{s}'}({S'})$
+	NW(T')({S^{\**}})$
 	is computed by the left diagram below,
 	where
-	$S' \to J'_i \to J_i$
+	$S^{\**} \to J^{\**}_i \to J_i$
 	and 
-	$J'_i \to \left(J_i'\right)^{\**} \to T^{\**}$
+	$J^{\**}_i \to \left(J_i^{\**}\right)' \to T'$
 	are the unique factorizations with the indicated properties.
 	On the other hand, the composite
-	$\left(NW(T)\right)_{\mathfrak{s}}(S)
+	$NW(T)(S)
 	\to 
-	\left(NW(T^{\**})\right)_{\mathfrak{s}}(S)
+	NW(T')(S)
 	\to 
-	\left(NW(T^{\**})\right)_{\mathfrak{s}'}(S')$
+	NW(T')(S^{\**})$
 	is computed as on the right
 	with 
-	$J_i \to J^{\**}_i \to T*$ and
-	$S' \to \left(J_i^{\**}\right)' \to J^{\**}_i$
+	$J_i \to J'_i \to T*$ and
+	$S^{\**} \to \left(J_i'\right)^{\**} \to J'_i$
 	the unique indicated factorizations.
-\begin{equation}
+\begin{equation}\label{NWTNS_NAT_EQ1}
 \begin{tikzcd}
 	S \ar{r}{t} 
 &
@@ -2320,48 +2341,49 @@ $J_{k-1} \to J_{k} \to J^{\**}_k$).
 &
 	T \ar{d}
 \\
-	S' \ar{u} \ar{r}{t} \ar[equal]{d}
+	S^{\**} \ar{u} \ar{r}{t} \ar[equal]{d}
 &
-	J'_i \ar{r} \arrow{u}[swap]{o,p} \arrow{d}{d}
+	J^{\**}_i \ar{r} \arrow{u}[swap]{o,p} \arrow{d}{d}
 &
 	T \ar{d}
 &&%%%
 	S \ar{r}
 &
-	J^{\**}_i \arrow{r}{f,p}
+	J'_i \arrow{r}{f,p}
 &
-	T^{\**} \ar[equal]{d}
+	T' \ar[equal]{d}
 \\
-	S' \ar{r}
+	S^{\**} \ar{r}
 &
-	\left(J_i'\right)^{\**} \arrow{r}{f,p}
+	\left(J_i^{\**}\right)' \arrow{r}{f,p}
 &
-	T^{\**}
+	T'
 &&%%%
-	S' \arrow{r}{t} \ar{u}
+	S^{\**} \arrow{r}{t} \ar{u}
 &
-	\left(J_i^{\**}\right)' \ar{r} \arrow{u}[swap]{o,p}
+	\left(J_i'\right)^{\**} \ar{r} \arrow{u}[swap]{o,p}
 &
-	T^{\**}
+	T'
 \end{tikzcd}
 \end{equation}
 	The key to the proof is to show
 	that the planar faces 
-	$\left(J_i'\right)^{\**}$ and
-	$\left(J_i^{\**}\right)'$
-	of $T^{\**}$
+	$\left(J_i^{\**}\right)'$ and
+	$\left(J_i'\right)^{\**}$
+	of $T'$
 	coincide, since it will then be automatic that all maps connecting the
-	$\left(J_i'\right)^{\**}$ and
-	$\left(J_i^{\**}\right)'$
-	and $S'$, $T^{\**}$
+	$\left(J_i^{\**}\right)'$ and
+	$\left(J_i'\right)^{\**}$
+	and $S^{\**}$, $T'$
 	likewise match.
 
-	To see this, we consider the following diagram.
+	To see this, we consider the following diagram
+	which combines the top halves in \eqref{NWTNS_NAT_EQ1}.
 \begin{equation}
 \begin{tikzcd}
-	S' \ar{r}{t} \ar{d}
+	S^{\**} \ar{r}{t} \ar{d}
 &
-	J'_i \ar{r} \ar{d}{o,p}
+	J^{\**}_i \ar{r} \ar{d}{o,p}
 &
 	T \ar[equal]{d}
 \\
@@ -2373,77 +2395,79 @@ $J_{k-1} \to J_{k} \to J^{\**}_k$).
 \\
 	S \ar{r}
 &
-	J_i^{\**} \ar{r}{f,p}
+	J_i' \ar{r}{f,p}
 &
-	T^{\**}
+	T'
 \end{tikzcd}
 \end{equation}
 	Both faces  
-	$\left(J'_i\right)^{\**}$ and 
-	$\left(J^{\**}_i\right)'
+	$\left(J^{\**}_i\right)'$ and 
+	$\left(J'_i\right)^{\**}
 	$
-	can alternatively be built by factoring
+	can be built by factoring
 	the composite 
-	$J'_i \to J_i \to J_i^{\**}$,
+	$J^{\**}_i \to J_i \to J_i'$,
 	with 
-	$\left(J'_i\right)^{\**}$ 
+	$\left(J^{\**}_i\right)'$ 
 	coming from the 
 	degeneracy-face factorization
 	and 
-	$\left(J^{\**}_i\right)'$
+	$\left(J'_i\right)^{\**}$
 	coming from the 
 	tall-outer factorization.
 	But since 
-	$J'_i \to J_i \to J_i^{\**}$
-	is a composite of convex maps 
-        it is again convex (see Remark \ref{TREEFACTNAMES_REM}), 
+	$J^{\**}_i \to J_i \to J_i'$
+	is a composite of convex maps (cf. Definition \ref{TREEMAP_DEF})
+    it is again convex (see Remark \ref{TREEFACTNAMES_REM}), 
 	so the two factorizations coincide, 
 	finishing the proof.
 \end{proof}
 
 
 
-\begin{corollary}
-        \label{NWTNS_NNAT_COR}
+
+\begin{corollary}\label{NWTNS_NNAT_COR}
 	Let $\mathfrak{n} \colon J \to T$ and
-	$\mathfrak{n}^{\**} \colon J^{\**} \to T^{\**}$
+	$\mathfrak{n}' \colon J' \to T'$
 	be necklaces and suppose 
-	$\psi \colon T\to T^{\**}$
-	induces a map $\mathfrak{n} \to \mathfrak{n}^{\**}$.
+	$\psi \colon T\to T'$
+	induces a map $\mathfrak{n} \to \mathfrak{n}'$.
 %	
 	Then the induced map
-	$NW(T) \to NW(T^{\**})$
+	$NW(T) \to NW(T')$
 	restricts to a map
-	$NW(\mathfrak{n}) \to NW(\mathfrak{n}^{\**})$.
+	$NW(\mathfrak{n}) \to NW(\mathfrak{n}')$.
 \end{corollary}
 
 
 
 \begin{proof}
-	We need to show that the 
-	map
-	$NW(T) \to NW(T^{\**})$
-	sends simplices such that
+	Following Remark \ref{J0JFREPACK REM},
+	we need to show that the map
+	$NW(T) \to NW(T')$
+	sends simplices \eqref{NWTDEF EQ}
+	such that
 	$J_0 \supseteq 
-	J_{\overline{\varphi S}}$
+	J_{\overline{\phi S}}$
 	to simplices such that
-	$J^{\**}_0 \supseteq 
-	J^{\**}_{\overline{\varphi^{\**} S}}$.
+	$J'_0 \supseteq 
+	J'_{\overline{\phi' S}}$,
+	where $\phi,\phi'$ are the composites of each simplex.
 	This follows since
 \[
-	J^{\**}_0 = 
+	J'_0 = 
 	\psi (J_0) \supseteq
-	\psi (J_{\overline{\varphi S}})
+	\psi (J_{\overline{\phi S}})
 	\supseteq
-	J^{\**}_{\overline{\psi (\overline{\varphi S})}}
+	J'_{\overline{\psi (\overline{\phi S})}}
 	=
-	J^{\**}_{\overline{\varphi^{\**} S}}
+	J'_{\overline{\psi' S}}
 \]	
 where the third step is
 Remark \ref{NECKMAPCHAR REM}.
 \end{proof}
 
-
+{\color{red} HEREHREREHEREHREHRHEHRE}
 
 We now introduce a notation that plays an important role 
 in two key technical results,
