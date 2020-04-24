@@ -1089,29 +1089,31 @@ are defined in the natural way as
 \end{definition}
 
 
-As with trees $T \in \Omega$, 
-we assume that each forest $F = \amalg_{i \in I} F_i \in \Phi$
-is planarized \cite[Def. 3.2 and Rem. 3.15]{BP_geo}, 
-which is equivalent to choosing a total order of the indexing set $I$ and a planarization of each $F_i$.
-Moreover, we similarly assume that $\Phi$ contains exactly one representative of each planarization,
-so that the only planar isomorphisms are again the identities.
-
-However, we caution that, in order to pullback a planarization
-along $\varphi \colon F \to \tilde{F}$,
-one needs to assume  
-$\varphi$ sends roots of $F$
-to $\leq_d$-incomparable edges of $\tilde{F}$, 
-i.e. that $\varphi$ is an \emph{independent map}
-\cite[Def. 5.28]{Per18}.
-As such, in the context of forests our definition of 
-planar map requires that the map is independent
-\cite[Prop. 3.19]{BP_geo}.
-In particular, the factorization
-$F \xrightarrow{\simeq} F' \to \tilde{F}$
-of a map $\varphi$ as an isomorphism followed by a planar map
-exists only if $\varphi$ is independent
-\cite[Prop. 3.24]{BP_geo}.
-
+\begin{remark}
+        \label{PLANARFOR_REM}
+        As with trees $T \in \Omega$, 
+        we assume that each forest $F = \amalg_{i \in I} F_i \in \Phi$
+        is planarized \cite[Def. 3.2 and Rem. 3.15]{BP_geo}, 
+        which is equivalent to choosing a total order of the indexing set $I$ and a planarization of each $F_i$.
+        Moreover, we similarly assume that $\Phi$ contains exactly one representative of each planarization,
+        so that the only planar isomorphisms are again the identities.
+        
+        However, we caution that, in order to pullback a planarization
+        along $\varphi \colon F \to \tilde{F}$,
+        one needs to assume  
+        $\varphi$ sends roots of $F$
+        to $\leq_d$-incomparable edges of $\tilde{F}$, 
+        i.e. that $\varphi$ is an \emph{independent map}
+        \cite[Def. 5.28]{Per18}.
+        As such, in the context of forests our definition of 
+        planar map requires that the map is independent
+        \cite[Prop. 3.19]{BP_geo}.
+        In particular, the factorization
+        $F \xrightarrow{\simeq} F' \to \tilde{F}$
+        of a map $\varphi$ as an isomorphism followed by a planar map
+        exists only if $\varphi$ is independent
+        \cite[Prop. 3.24]{BP_geo}.
+\end{remark}
 
 \begin{definition}\label{CFOREST_DEF}
       Let $\mathfrak C$ be a set of colors.
@@ -1502,14 +1504,13 @@ in $\Omega$.
 %\end{notation}
 
 
-
-Lastly, in contrast to the notion of sorted face map above,
+We contrast the notion of sorted face map above
+with two additional notions of face.
+First, 
+% Lastly, in contrast to the notion of sorted face map above,
 the description of the model structure
 on equivariant dendroidal sets $\mathsf{dSet}^G$
-will require an additional notion of face.
-
-
-
+will require a notion where the source is a \textit{non-eqiuvariant} tree.
 \begin{definition}
 	Let $T = \amalg_i T_i$ be a $G$-tree.
 	
@@ -1521,6 +1522,46 @@ will require an additional notion of face.
 	and let $\mathsf{Face}_{\mathsf{sc}}(T) \subseteq \mathsf{Face}(T)$ denote the subposet spanned by the planar outer faces of $T$ with no inner edges
 	(these are the faces determined by either a single edge or a single vertex of $T$).
 \end{definition}
+
+We can think of these faces as coming from manipulations of the \textit{expanded} representation of a $G$-tree.
+Second, there is a notion of face corresponding to manipulations of the \textit{orbital} represetation of a $G$-tree,
+which plays a role in describing Segal conditions (e.g. Remark \ref{SCTCOLPR REM} and Appendix \ref{HGEO AP}).
+
+\begin{definition}[{cf. \cite[Def. 2.16]{BP_edss}}]
+        \label{ORBITALFACE_DEF}
+	An \textit{orbital face} of a $G$-tree $T$ is
+        a map $S \to T$ of $G$-trees
+	that is injective on edges.
+
+        An orbital face is called
+	\textit{inner} (resp. \textit{outer}) if any (and thus all) of its component maps are,
+        and \textit{planar} if it is a planar map of forests (Remark \ref{PLANARFOR_REM}).
+\end{definition}
+
+\begin{notation}
+        \label{TVG_NOT}
+        Following Notation \ref{TV_NOT}, 
+        for each $T \in \Omega_G$ and $G$-vertex $v \in \boldsymbol{V}_G(T)$, we write 
+        $T_v \hookrightarrow T$ for the unique planar orbital outer face whose only
+        $G$-vertex is $v$.
+\end{notation}
+
+\begin{example}\label{ORBFACE EQ}
+	Let $T$ be the $G$-tree in \eqref{GTREE_EQ},
+	whose edge orbits we abbreviate as $Ga,Gb,Gc,Gd$,
+        and whose $G$-vertices we label $v = (Gc \leq Gd)$ and $u = (Ga, Gb \leq Gc)$. 
+	
+	$T$ has orbital faces
+	$T_u = T-Gd = T-\{d,\rho d\}$
+	and 
+	$T_v = T-Gc = T-\{c,\sigma c, \rho c, \rho \sigma c\}$,
+	where we note that the expanded representation of
+	$T-Gd$ has four tree components
+	(in contrast to $T$ and $T-Gc$, whose expanded representations have only two components).
+	The term ``orbital'' refers to the fact that orbital faces 
+	correspond to (usual) faces of the underlying tree in the orbital representation.        
+\end{example}
+
 
 
 
@@ -2664,7 +2705,8 @@ X_{\mathfrak{c}}(A).
         where $\mathfrak{c}_v$
         denotes the restricted coloring given by the composite
         $\boldsymbol{E}(T_v) \to \boldsymbol{E}(T) 
-        \xrightarrow{\mathfrak{c}} X(\eta)$. 
+        \xrightarrow{\mathfrak{c}} X(\eta)$
+        for $T_v$ as in Notation \ref{TVG_NOT}.
 \end{remark}
 
 
@@ -7396,41 +7438,45 @@ whose equivariant generalization turns out to involve
 \emph{orbital representations of $G$-trees}
 rather than expanded representations
 (cf. \eqref{GTREE_EQ}).
-As such, we will need to recall the notions of 
-orbital face/horn introduced in 
-\cite[\S2.2,\S2.3]{BP_edss},
-which are distinct from any of the notions recalled in 
-\S \ref{EDS_SEC}.
-We first recall the notion of orbital face.
+As such, much of our discussion will require manipulating orbital faces (Def. \ref{ORBITALFACE_DEF}) and
+orbital horns (Eq. \eqref{ORBITALHORN_EQ} below),
+first introduced in
+\cite[\S2.2,\S2.3]{BP_edss}
+(and distinct from the notions recalled in 
+\S \ref{EDS_SEC}).
+
+% We first recall the notion of orbital face.
 
 
-\begin{definition}
-        \label{ORBITALFACE_DEF}
-	A map $S \to T$ of $G$-trees
-	that is injective on edges is called an
-	\emph{orbital face map}.
-\end{definition}
+% \begin{definition}
+%         \label{ORBITALFACE_DEF}
+% 	A map $S \to T$ of $G$-trees
+% 	that is injective on edges is called an
+% 	\emph{orbital face map}.
+% \end{definition}
 
 
-\begin{example}\label{ORBFACE EQ}
-	Let $T$ be the $G$-tree in \eqref{GTREE_EQ},
-	whose edge orbits we abbreviate as $Ga,Gb,Gc,Gd$.
+% \begin{example}\label{ORBFACE EQ}
+% 	Let $T$ be the $G$-tree in \eqref{GTREE_EQ},
+% 	whose edge orbits we abbreviate as $Ga,Gb,Gc,Gd$.
 	
-	$T$ has orbital faces
-	$T-Gd = T-\{d,\rho d\}$
-	and 
-	$T-Gc = T-\{c,\sigma c, \rho c, \rho \sigma c\}$,
-	where we note that the expanded representation of
-	$T-Gd$ has four tree components
-	(in contrast to $T$ and $T-Gc$, whose expanded representations have only two components).
-	The term ``orbital'' refers to the fact that orbital faces 
-	correspond to (usual) faces of the underlying tree in the orbital representation.
-\end{example}
+% 	$T$ has orbital faces
+% 	$T-Gd = T-\{d,\rho d\}$
+% 	and 
+% 	$T-Gc = T-\{c,\sigma c, \rho c, \rho \sigma c\}$,
+% 	where we note that the expanded representation of
+% 	$T-Gd$ has four tree components
+% 	(in contrast to $T$ and $T-Gc$, whose expanded representations have only two components).
+% 	The term ``orbital'' refers to the fact that orbital faces 
+% 	correspond to (usual) faces of the underlying tree in the orbital representation.
+% \end{example}
 
-As one would expect, an orbital outer face 
-$S \to T$ is called \emph{inner} if it is given by removing inner edges (e.g. $T-Gc$ in Example \ref{ORBFACE EQ}).
-This leads to the following,
-which is the key definition in {\color{red} sequel},
+% As one would expect, an orbital outer face 
+% $S \to T$ is called \emph{inner} if it is given by removing inner edges (e.g. $T-Gc$ in Example \ref{ORBFACE EQ}).
+
+We first give a general description of $\tau_G(Z)$ for any $Z \in \dSet_G$,
+utilizing orbital faces.
+The following is the key definition in \cite{BP_WCONS},
 and is connected to the description of the $W$-construction
 (cf. \eqref{WU_EQ}) built therein.
 
@@ -7778,11 +7824,12 @@ $\mathsf{Face}_o(T)$
 for the poset of planar orbital faces, 
 the \emph{orbital $G$-inner horn} 
 $\Lambda_o^E[T] \in \mathsf{dSet}^G$ is given by
-\[
-\Lambda_o^E[T]
-= \mathop{\colim}\limits_{S \in \mathsf{Face}_o(T), (T - E) \not\into S} \Omega[S]
-= \bigcup_{S \in \mathsf{Face}_o(T), (T - E) \not\into S} \Omega[S].
-\]
+\begin{equation}
+        \label{ORBITALHORN_EQ}
+        \Lambda_o^E[T]
+        = \mathop{\colim}\limits_{S \in \mathsf{Face}_o(T), (T - E) \not\into S} \Omega[S]
+        = \bigcup_{S \in \mathsf{Face}_o(T), (T - E) \not\into S} \Omega[S].
+\end{equation}
 We caution that this differs from 
 the $\Lambda^E[T]$ horns in 
 \eqref{GINNERHORN_EQ} and Definition \ref{GENINFOP DEF},
