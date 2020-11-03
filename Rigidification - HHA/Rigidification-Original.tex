@@ -1,36 +1,9 @@
-\documentclass[a4paper,10pt
-,draft
-%, final
-]{article}%
+\documentclass[a4paper,10pt]{article}%
 
 
 
-
-
-% ---- Commands on draft --------
-
+% ---------- hypperref
 \usepackage[dvipsnames]{xcolor}% adds colors
-\usepackage{ifdraft}[pos=0.8]
-\ifdraft{
-  \color[RGB]{63,63,63}
-%  \pagecolor[RGB]{220,220,204}
-  \usepackage[notref]{showkeys} % notref - don't show reference names, only labels
-  \usepackage{todonotes}
-}
-{
-  \usepackage[disable]{todonotes}
-}
-
-\pdfcompresslevel=0
-\pdfobjcompresslevel=0
-
-
-\usepackage{xr-hyper} % for \externaldocument
-\externaldocument[OC-]{OneColor} % cite using names from other half
-\externaldocument[AC-]{AllColors} % cite using names from other half
-\externaldocument[TAS-]{TameAndSquare} % cite using names from other half
-
-
 \usepackage[pagebackref, colorlinks, citecolor=PineGreen, linkcolor=PineGreen]{hyperref}
 \hypersetup{
   final,
@@ -42,17 +15,10 @@
 }
 
 
-
-
-
-
 \usepackage{amsmath, amsthm}% {amsfonts, amssymb}
 
-% ------ New Characters --------------------------------------
-
-\let\llhook\lhook
+% ---------- New Characters
 \usepackage[latin1]{inputenc}%
-%\usepackage[T1]{fontenc}
 \usepackage{MnSymbol}
 \usepackage[
 cal = cm,
@@ -61,67 +27,26 @@ frak = euler,
 scr = rsfs
 ]{mathalpha}
 
-% \DeclareMathAlphabet\mathbb{U}{msb}{m}{n}
-% %\usepackage{stmaryrd}
-% %\usepackage{upgreek}
-% \usepackage{mathrsfs}
-% % \usepackage[english]{babel}
-% % \usepackage{fouriernc}
-% % \DeclareMathAlphabet{\mathscr}{U}{mathrsfs}{m}{n}`
-% %\usepackage{pifont}
-% %\newcommand{\cmark}{\text{\ding{51}}}
-% %\newcommand{\xmark}{\text{\ding{55}}}
-
-\usepackage[normalem]{ulem} % underlining
-% \usepackage{dsfont} % double strike-through
-% \usepackage{bbm} % more blackboard bold
+% \usepackage[normalem]{ulem} % underlining
 
 
-
-%----- Enumerate ---------------------------------------------
-% \usepackage{paralist} % for inparaenum
-% \usepackage{enumerate}%
+% ---------- Enumerate
 \usepackage[inline,shortlabels]{enumitem}%
 \setenumerate{label=(\roman*)}
 
-% ---------- Page Typesetting ----------
+% ---------- Page Typesetting
 \usepackage[final]{microtype}
 \usepackage{relsize}
 \usepackage{geometry}
 
-%-------- Tikz ---------------------------
-
+%-------- Tikz
 \usepackage{tikz}%
-\usetikzlibrary{matrix,arrows,decorations.pathmorphing,
-cd,patterns,calc}
-\tikzset{%
-  % treenode/.style = {shape=rectangle, rounded corners, draw, align=center, font=\footnotesize,
-  %                    top color=white, bottom color=blue!20},%
-  % root/.style     = {treenode, font=\Large, bottom color=red!30},%
-  % env/.style      = {treenode, font=\ttfamily\normalsize},%
+\usetikzlibrary{matrix,arrows,decorations.pathmorphing,decorations.pathreplacing,cd,patterns,calc}
+\tikzset{
   dummy/.style    = {circle,draw,inner sep=0pt,minimum size=2mm}%
-}%
+}
 
-\usetikzlibrary[decorations.pathreplacing]
-
-
-
-
-% ----- Labels Changed? --------
-
-\makeatletter
-
-\def\@testdef #1#2#3{%
-  \def\reserved@a{#3}\expandafter \ifx \csname #1@#2\endcsname
-  \reserved@a  \else
-  \typeout{^^Jlabel #2 changed:^^J%
-    \meaning\reserved@a^^J%
-    \expandafter\meaning\csname #1@#2\endcsname^^J}%
-  \@tempswatrue \fi}
-
-\makeatother
-
-%%%%%%%%%%%%%%%%%%%%%%%%% INTERNAL REFERENCES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ---------- internal references
 
 \numberwithin{equation}{section} 
 \numberwithin{figure}{section}
@@ -130,19 +55,13 @@ cd,patterns,calc}
 \mathtoolsset{showonlyrefs,showmanualtags} % Only number equations which are referenced with eqref
 
 
-% ------- New Theorems/ Definition/ Names-----------------------
-
- % \theoremstyle{plain} % bold name, italic text
+% \theoremstyle{plain} % bold name, italic text
 \newtheorem{theorem}[equation]{Theorem}%
-\newtheorem*{theorem*}{Theorem}%
 \newtheorem{lemma}[equation]{Lemma}%
 \newtheorem{proposition}[equation]{Proposition}%
 \newtheorem{corollary}[equation]{Corollary}%
-\newtheorem{conjecture}[equation]{Conjecture}%
-\newtheorem*{conjecture*}{Conjecture}%
-\newtheorem{claim}[equation]{Claim}%
 
-%%%%%% Fancy Numbering for Theorems
+% custom numbering for Main Results
 \newtheorem{innercustomgeneric}{\customgenericname}
 \providecommand{\customgenericname}{}
 \newcommand{\newcustomtheorem}[2]{%
@@ -158,130 +77,74 @@ cd,patterns,calc}
 \newcustomtheorem{customthm}{Theorem}
 \newcustomtheorem{customprop}{Proposition}
 \newcustomtheorem{customcor}{Corollary}
-%%%%%%%%%%%%%
 
+
+% definition-style
 \theoremstyle{definition} % bold name, plain text
 \newtheorem{definition}[equation]{Definition}%
-\newtheorem*{definition*}{Definition}%
 \newtheorem{example}[equation]{Example}%
 \newtheorem{remark}[equation]{Remark}%
 \newtheorem{notation}[equation]{Notation}%
-\newtheorem{convention}[equation]{Convention}%
-\newtheorem{assumption}[equation]{Assumption}%
-\newtheorem{exercise}{Exercise}%
-
-
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% ------------------------------ COMMANDS ------------------------------
 
 % ---------- macros
-
-\newcommand{\set}[1]{\left\{#1\right\}}%
-\newcommand{\sets}[2]{\left\{ #1 \;|\; #2\right\}}%
-\newcommand{\longto}{\longrightarrow}%
-\newcommand{\into}{\hookrightarrow}%
-\newcommand{\onto}{\twoheadrightarrow}%
 
 \usepackage{harpoon}
 \newcommand{\vect}[1]{\text{\overrightharp{\ensuremath{#1}}}}
 
-
-% ---------- operators
-
-\newcommand{\Sym}{\ensuremath{\mathsf{Sym}}}%
-\newcommand{\Fin}{\mathsf{F}}%
-\newcommand{\Set}{\ensuremath{\mathsf{Set}}}
-\newcommand{\Top}{\ensuremath{\mathsf{Top}}}
-\newcommand{\sSet}{\ensuremath{\mathsf{sSet}}}%
-\newcommand{\Cat}{\mathsf{Cat}}
-\newcommand{\sCat}{\mathsf{sCat}}
-\newcommand{\Op}{\mathsf{Op}}%
-\newcommand{\sOp}{\ensuremath{\mathsf{sOp}}}%
-\newcommand{\sSym}{\ensuremath{\mathsf{sSym}}}%
-\newcommand{\fgt}{\ensuremath{\mathsf{fgt}}}%
+\newcommand{\Set}{\mathsf{Set}}
+\newcommand{\sSet}{\mathsf{sSet}}
+\newcommand{\Op}{\mathsf{Op}}
+\newcommand{\sOp}{\mathsf{sOp}}
 \newcommand{\dSet}{\mathsf{dSet}}
-\newcommand{\sdSet}{\mathsf{sdSet}}
-\newcommand{\PreOp}{\mathsf{PreOp}}
 \newcommand{\Fun}{\mathsf{Fun}}
-\newcommand{\Fib}{\mathsf{Fib}}
-\newcommand{\Alg}{\mathsf{Alg}}
-\newcommand{\Kl}{\mathsf{Kl}}
 
+\DeclareMathOperator{\colim}{colim}
 
-
-\DeclareMathOperator{\hocmp}{hocmp}%
-\DeclareMathOperator{\cmp}{cmp}%
-\DeclareMathOperator{\hofiber}{hofiber}%
-\DeclareMathOperator{\fiber}{fiber}%
-\DeclareMathOperator{\hocofiber}{hocof}%
-\DeclareMathOperator{\hocof}{hocof}%
-\DeclareMathOperator{\holim}{holim}%
-\DeclareMathOperator{\hocolim}{hocolim}%
-\DeclareMathOperator{\colim}{colim}%
-\DeclareMathOperator{\Lan}{Lan}%
-\DeclareMathOperator{\Ran}{Ran}%
-\DeclareMathOperator{\Map}{Map}%
-\DeclareMathOperator{\Id}{Id}%
-\DeclareMathOperator{\mlf}{mlf}%
-\DeclareMathOperator{\Hom}{Hom}%
-\DeclareMathOperator{\Ho}{Ho}
-\DeclareMathOperator{\Aut}{Aut}%
-\DeclareMathOperator{\Stab}{Stab}
-\DeclareMathOperator{\Iso}{Iso}
-\DeclareMathOperator{\Ob}{Ob}
-
-% ---------- shortcuts
-
-\newcommand{\F}{\ensuremath{\mathcal F}}
-\newcommand{\V}{\ensuremath{\mathcal V}}
-\newcommand{\Q}{\ensuremath{\mathcal Q}}
-\renewcommand{\O}{\ensuremath{\mathcal O}}
-\renewcommand{\P}{\ensuremath{\mathcal P}}
-\newcommand{\C}{\ensuremath{\mathcal C}}
-\newcommand{\A}{\ensuremath{\mathcal A}}
-
-\newcommand{\del}{\partial}%
-
-\newcommand{\ki}{\chi}
-\newcommand{\ksi}{\xi}
-\newcommand{\Ksi}{\Xi}
-
-\newcommand{\lltimes}{\underline{\ltimes}}
-
-% detecting $\V$-categories:
-
-\newcommand{\I}{\mathbb I}
-\newcommand{\J}{\mathbb J}
-\newcommand{\1}{\ensuremath{\mathbbm 1}}%{\ensuremath{\mathbb{id}}} %\eta
-
-% lazy shortcuts
-
-\newcommand{\SC}{\Sigma_{\mathfrak C}}
-\newcommand{\OC}{\Omega_{\mathfrak C}}
-\newcommand{\UV}{\underline{\mathcal V}}
-\newcommand{\UC}{\underline{\mathfrak C}}
+\renewcommand{\O}{\mathcal O}
 
 
 
 
 
 
+% ---------- MAIN BODY ----------
 
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% ------------------------------ MAIN BODY ------------------------------
-
-% ---- Title --------
+\begin{document}
 
 \title{Rigidification of dendroidal infinity-operads}
 
-\author{Peter Bonventre, Lu\'is A. Pereira}%
+% First named author
+\author{Peter Bonventre}
+%\email{peterbonventre@uky.edu}
+%\address{Department of Mathematics and Computer Science,
+%  College of the Holy Cross,
+%  Worcester, MA, 01610}
+% \ack{The first-named author gratefully acknowledges the support of the University of Kentucky, where they were a postdoc for the duration of the research leading to this paper.}
 
-\date{\today}
+% Second named author
+\author{Peter Bonventre and Lu\'is A. Pereira}%
+%\email{luisalexandrepereira@outlook.com}
+%\address{TBD} % 
+
+%\classification{55P91,18M75}
+%\keywords{operad,dendroidal set}
 
 
-% ---- Document body --------
+%\EditFlow{200426-Pereira}
 
-\begin{document}
+%\received{Month Day, Year}   % receive date (for example: October 11, 1999)
+%\revised{Month Day, Year}    % date of revision; omit, if no revision;
+                             % if multiple revisions, separate by commas
+%\accepted{Month Day, Year}  % acceptance date
+%\published{Month Day, Year}  % publish date
+%\submitted{Bill Murray}      % Name of Journal's Editor, who handled Article 
+%\volumeyear{2021} % Volume Year
+%\volumenumber{23} % Volume Number 
+%\issuenumber{1}   % Issue Number
+%\startpage{1}     % PageNumber of first page
+%\articlenumber{1} % Sequence number of article within issue
+
+%\owner{International Press}
 
 \maketitle
 
@@ -300,6 +163,7 @@ cd,patterns,calc}
 	to a standard factorization
 	of maps in the category of trees.
 \end{abstract}
+
 
 \tableofcontents
 
@@ -362,7 +226,7 @@ modeling the homotopy theory of
 In particular, 
 our work here plays a minor but necessary role in the proofs
 in \cite{BP_TAS},
-cf. \cite[Lemma \ref{TAS-WLEFTQPUSH LEM}]{BP_TAS},
+cf. \cite[Lemma 4.52]{BP_TAS},
 by giving an explicit description\footnote{It is worth noting that the description of these specific operads is well known,
 yet the extant references we are aware of seem to leave
 this description as an exercise to the reader.}
@@ -1233,7 +1097,7 @@ and convex maps combine outer faces and degeneracies (cf. Remark \ref{TREEFACTNA
       as the smallest (planar) outer face containing $F$.
 \end{notation}
 
-\begin{remark}[{cf. \cite[Rems. \ref{TAS-TODF REM}, \ref{TAS-CNVXM REM}, \ref{TAS-TREEMAPCOMP_REM}]{BP_TAS}}]
+\begin{remark}[{cf. \cite[Remarks 2.8, 2.9, 2.13]{BP_TAS}}]
         \label{TREEFACTNAMES_REM}
     For any subset
 	$\mathcal{S} \subseteq \{\simeq,pd,pi,po\}$
@@ -1361,14 +1225,14 @@ the strict Segal condition \eqref{SCV1 EQ}
 \cite[Prop. 5.3 and Thm. 6.1]{MW09}
 together with Remark \ref{SSCOTHER REM} below).
 For the usual description of $\Op$, see 
-\cite[\S 1]{CM13b} or \cite[Def. \ref{OC-FREEOP DEF}]{BP_FCOP}.
+\cite[\S 1]{CM13b} or \cite[Def. 4.33]{BP_FCOP}.
 
 Some of our arguments in \S \ref{WCONS SEC}
 will be simplified by using an alternative formulation of \eqref{SCV1 EQ},
 which is motivated by the fact that colored operads
 $\Op$ are most commonly defined using colored trees.
 As such, we first recall the following, cf. 
-\cite[Def. \ref{OC-COLFOR DEF}]{BP_FCOP}.
+\cite[Def. 3.21]{BP_FCOP}.
 
 
 \begin{definition}\label{CTREE_DEF}
@@ -1429,7 +1293,7 @@ As such, we first recall the following, cf.
 	$\mathsf{dSet}_{\mathfrak{C}} \subset \dSet$
 	for the subcategory of those $X$ such that
 	$X(\eta) = \mathfrak{C}$ and maps that are the identity on 
-	$X(\eta)$, there is an equivalence of categories ({cf. \cite[ \eqref{TAS-PREOPCOLFIXEQ EQ}]{BP_TAS}})
+	$X(\eta)$, there is an equivalence of categories ({cf. \cite[Eq. (3.21)]{BP_TAS}})
 \begin{equation}\label{DSETCID EQ}
 \dSet_{\mathfrak C} \xrightarrow{\simeq}
  \Fun_{\**}(\Omega_{\mathfrak C}^{op}, \Set),
@@ -3075,7 +2939,7 @@ making the diagram below commute.
 	the ``genuine operadification'' functor
 	$\tau_G \colon \mathsf{dSet}_G \to \mathsf{Op}_G$
 	from
-	\cite[ \eqref{TAS-TAUFUNCTS EQ}]{BP_TAS}
+	\cite[Eq. (2.42)]{BP_TAS}
 	can be described via an analogue of
 	Remark \ref{TAUFUNEX REM}.
 
@@ -3091,18 +2955,18 @@ are the full subcategory of $G$-forests for which
 the $G$-action is transitive on tree components.
 Extending Proposition \ref{TREEFACT_PROP},
 maps in $\Omega_G$ likewise have a standard factorization
-\cite[Cor. \ref{TAS-OMGFACT COR}]{BP_TAS},
+\cite[Cor. 2.27]{BP_TAS},
 which allows for a generalization of the work herein.
 
 For instance, an \emph{equivariant necklace}
 is a map $\mathfrak{n} \colon J \to T$ of $G$-trees
 that is a planar orbital inner face 
-\cite[Def. \ref{TAS-DENDNECK DEF}]{BP_TAS}.
+\cite[Def. A.3]{BP_TAS}.
 Explicitly, this means that $\mathfrak{n}$
 is an ordered isomorphism on roots/components which is a planar inner face on each tree component.
 Moreover, letting $\Omega[T] \in \dSet^G$ for $T \in \Omega_G$
  be the representables 
-in \cite[\S\ref{TAS-EDS_SEC}]{BP_TAS},
+in \cite[\S 2.3]{BP_TAS},
 one may define $\Omega[J \to T]$ just as in 
 \eqref{NECKLACE_DEF}.
 Altogether, adapting Remark \ref{TAUFUNEX REM},
@@ -3666,10 +3530,71 @@ establishing \eqref{WU_EQ2}.
 
 
 
+% ---------- bibliography
+        
+\providecommand{\bysame}{\leavevmode\hbox to3em{\hrulefill}\thinspace}
+\providecommand{\MR}{\relax\ifhmode\unskip\space\fi MR }
+% \MRhref is called by the amsart/book/proc definition of \MR.
+\providecommand{\MRhref}[2]{%
+  \href{http://www.ams.org/mathscinet-getitem?mr=#1}{#2}
+}
+\providecommand{\doi}[1]{%
+  doi:\href{https://dx.doi.org/#1}{#1}}
+\providecommand{\arxiv}[1]{%
+  arXiv:\href{https://arxiv.org/abs/#1}{#1}}
+\providecommand{\href}[2]{#2}
+\begin{thebibliography}{MW07}
 
+\bibitem[BPa]{BP_edss}
+P.~Bonventre and L.~A. Pereira, \emph{Equivariant dendroidal {S}egal spaces and
+  {$G$-$\infty$-}operads}, To appear in \textit{Algebraic \& Geometric
+  Topology}. arXiv preprint
+  \href{https://arxiv.org/abs/1801.02110v3}{1801.02110v3}.
 
-\bibliography{biblio3}{}
-\bibliographystyle{amsalpha2}
+\bibitem[BPb]{BP_TAS}
+\bysame, \emph{Equivariant dendroidal sets and simplicial operads}, arXiv
+  preprint \href{https://arxiv.org/abs/1911.06399}{1911.06399}.
+
+\bibitem[BPc]{BP_geo}
+\bysame, \emph{Genuine equivariant operads}, arXiv preprint
+  \href{https://arxiv.org/abs/1707.02226v2}{1707.02226v2}.
+
+\bibitem[BPd]{BP_FCOP}
+\bysame, \emph{Homotopy theory of equivariant operads with fixed colors}, arXiv
+  preprint \href{https://arxiv.org/abs/1908.05440v2}{1908.05440v2}.
+
+\bibitem[CM11]{CM11}
+D.-C. Cisinski and I.~Moerdijk, \emph{Dendroidal sets as models for homotopy
+  operads}, J. Topol. \textbf{4} (2011), no.~2, 257--299.
+  \doi{10.1112/jtopol/jtq039}
+
+\bibitem[CM13]{CM13b}
+\bysame, \emph{Dendroidal sets and simplicial operads}, J. Topol. \textbf{6}
+  (2013), no.~3, 705--756. \doi{10.1112/jtopol/jtt006}
+
+\bibitem[DS11]{DS11}
+D.~Dugger and D.~I. Spivak, \emph{Rigidification of quasi-categories}, Algebr.
+  Geom. Topol. \textbf{11} (2011), no.~1, 225--261.
+  \doi{10.2140/agt.2011.11.225}
+
+\bibitem[MW09]{MW09}
+I.~Moerdijk and I.~Weiss, \emph{On inner {K}an complexes in the category of
+  dendroidal sets}, Adv. Math. \textbf{221} (2009), no.~2, 343--389.
+  \doi{10.1016/j.aim.2008.12.015}
+
+\bibitem[MW07]{MW07}
+I.~Moerdijk and I.~Weiss, \emph{Dendroidal sets}, Algebr. Geom. Topol.
+  \textbf{7} (2007), 1441--1470. \doi{10.2140/agt.2007.7.1441}
+
+\bibitem[Per18]{Per18}
+L.~A. Pereira, \emph{Equivariant dendroidal sets}, Algebr. Geom. Topol.
+  \textbf{18} (2018), no.~4, 2179--2244. \doi{10.2140/agt.2018.18.2179}
+
+\bibitem[Wei12]{Wei12}
+I.~Weiss, \emph{Broad posets, trees, and the dendroidal category}, arXiv
+  preprint \href{https://arxiv.org/abs/1201.3987}{\texttt{1201.3987}}, 2012.
+
+\end{thebibliography}
 
 
 
