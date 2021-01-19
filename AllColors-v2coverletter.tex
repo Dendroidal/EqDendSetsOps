@@ -1,29 +1,79 @@
-% LaTeX file for resume 
-% This file uses the resume document class (res.cls)
+\documentclass[a4paper,10pt
+,draft
+]{article}%
 
-\documentclass{article} 
-% the margin option causes section titles to appear to the left of body text 
-\textwidth=5.2in % increase textwidth to get smaller right margin
-%\usepackage{helvetica} % uses helvetica postscript font (download helvetica.sty)
-%\usepackage{newcent}   % uses new century schoolbook postscript font 
-\usepackage{url}
-\usepackage{hyperref}
+
+
+% ---- Commands on draft --------
+
+\usepackage[dvipsnames]{xcolor}% adds colors
+\usepackage{ifdraft}
+\ifdraft{
+	\color[RGB]{63,63,63}
+	\pagecolor[RGB]{220,220,204}
+	\usepackage[notref]{showkeys}
+	\usepackage{todonotes}
+}
+%{
+%	\usepackage[disable]{todonotes}
+%}
+
+
+
+\pdfcompresslevel=0
+\pdfobjcompresslevel=0
+
+\usepackage{xr-hyper}
+\usepackage[pagebackref, colorlinks, citecolor=PineGreen, linkcolor=PineGreen]{hyperref}
 \hypersetup{
-  % colorlinks,
-  final,
-  pdftitle={},
-  pdfauthor={Bonventre, P. and Pereira, L. A.},
-  % pdfsubject={Your subject here},
-  % pdfkeywords={keyword1, keyword2},
-  linktoc=page
+	final,
+	pdftitle={Edits to ``On the homotopy theory of equivariant colored operads''},
+	pdfauthor={Bonventre, P. and Pereira, L. A.},
+	linktoc=page
 }
 
-\usepackage{xr}
+\externaldocument[TAS-]{TameAndSquare} % cite using names from other half
+\externaldocument[OC-]{OneColor} % cite using names from other half
 \externaldocument{AllColors-v2}
 
-\input{commands.tex}%
 
-%-------- TIKZ -----------------------------------------
+
+\usepackage{amsmath, amsthm}% {amsfonts, amssymb}
+
+
+% ------ New Characters --------------------------------------
+
+\usepackage[latin1]{inputenc}%
+\usepackage{MnSymbol}
+
+
+\usepackage[normalem]{ulem}% underlining
+%\usepackage{dsfont}% double strike-through
+\usepackage{bbm}% more bb
+
+
+\DeclareMathAlphabet\mathbb{U}{msb}{m}{n}
+\usepackage{upgreek}
+\usepackage{mathrsfs}
+
+
+
+\usepackage[normalem]{ulem}
+
+%----- Enumerate ---------------------------------------------
+\usepackage[inline,shortlabels]{enumitem}% % can use \begin{enumerate*} for inparaenum
+\setenumerate{label=(\roman*)}
+
+
+
+% ---------- Page Typesetting ----------
+\usepackage[final]{microtype}
+\usepackage{relsize}
+\usepackage{geometry}
+
+
+%-------- Tikz ---------------------------
+
 \usepackage{tikz}%
 \usetikzlibrary{matrix,arrows,decorations.pathmorphing,
 cd,patterns,calc}
@@ -37,19 +87,183 @@ cd,patterns,calc}
 }%
 
 \usetikzlibrary[decorations.pathreplacing]
-% \usetikzlibrary{external}\tikzexternalize
-% \makeatletters
-% \renewcommand{\todo}[2][]{\tikzexternaldisable\@todo[#1]{#2}\tikzexternalenable}
 
-% \makeatother
+
+% ----- Labels Changed? --------
+
+\makeatletter
+
+\def\@testdef #1#2#3{%
+  \def\reserved@a{#3}\expandafter \ifx \csname #1@#2\endcsname
+  \reserved@a  \else
+  \typeout{^^Jlabel #2 changed:^^J%
+    \meaning\reserved@a^^J%
+    \expandafter\meaning\csname #1@#2\endcsname^^J}%
+  \@tempswatrue \fi}
+
+\makeatother
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%% INTERNAL REFERENCES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\numberwithin{equation}{section} 
+\numberwithin{figure}{section}
+
+\usepackage{mathtools}
+\mathtoolsset{showonlyrefs,showmanualtags} % Only number equations which are referenced with eqref
+
+
+% ------- New Theorems/ Definition/ Names-----------------------
+
+ % \theoremstyle{plain} % bold name, italic text
+\newtheorem{theorem}[equation]{Theorem}%
+\newtheorem*{theorem*}{Theorem}%
+\newtheorem{lemma}[equation]{Lemma}%
+\newtheorem{proposition}[equation]{Proposition}%
+\newtheorem{corollary}[equation]{Corollary}%
+\newtheorem{conjecture}[equation]{Conjecture}%
+\newtheorem*{conjecture*}{Conjecture}%
+\newtheorem{claim}[equation]{Claim}%
+
+%%%%%% Fancy Numbering for Theorems
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+  \newenvironment{#1}[1]
+  {%
+   \renewcommand\customgenericname{#2}%
+   \renewcommand\theinnercustomgeneric{##1}%
+   \innercustomgeneric
+  }
+  {\endinnercustomgeneric}
+}
+
+\newcustomtheorem{customthm}{Theorem}
+\newcustomtheorem{customcor}{Corollary}
+%%%%%%%%%%%%%
+
+\theoremstyle{definition} % bold name, plain text
+\newtheorem{definition}[equation]{Definition}%
+\newtheorem*{definition*}{Definition}%
+\newtheorem{example}[equation]{Example}%
+\newtheorem{remark}[equation]{Remark}%
+\newtheorem{notation}[equation]{Notation}%
+\newtheorem{convention}[equation]{Convention}%
+\newtheorem{assumption}[equation]{Assumption}%
+\newtheorem{exercise}{Exercise}%
+
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ------------------------------ COMMANDS ------------------------------
+
+% ---------- macros
+
+\newcommand{\set}[1]{\left\{#1\right\}}%
+\newcommand{\sets}[2]{\left\{ #1 \;|\; #2\right\}}%
+\newcommand{\longto}{\longrightarrow}%
+\newcommand{\into}{\hookrightarrow}%
+\newcommand{\onto}{\twoheadrightarrow}%
+
+\usepackage{harpoon}
+\newcommand{\vect}[1]{\text{\overrightharp{\ensuremath{#1}}}}
+
+
+% ---------- operators
+
+\newcommand{\Sym}{\ensuremath{\mathsf{Sym}}}%
+\newcommand{\Fin}{\mathsf{F}}%
+\newcommand{\Set}{\ensuremath{\mathsf{Set}}}
+\newcommand{\Top}{\ensuremath{\mathsf{Top}}}
+\newcommand{\sSet}{\ensuremath{\mathsf{sSet}}}%
+\newcommand{\Cat}{\mathsf{Cat}}
+\newcommand{\sCat}{\mathsf{sCat}}
+\newcommand{\Op}{\mathsf{Op}}%
+\newcommand{\sOp}{\ensuremath{\mathsf{sOp}}}%
+\newcommand{\fgt}{\ensuremath{\mathsf{fgt}}}%
+\newcommand{\dSet}{\mathsf{dSet}}
+\newcommand{\Fun}{\mathsf{Fun}}
+\newcommand{\Fib}{\mathsf{Fib}}
+\newcommand{\Alg}{\mathsf{Alg}}
+\newcommand{\Kl}{\mathsf{Kl}}
+
+
+
+\DeclareMathOperator{\hocmp}{hocmp}%
+\DeclareMathOperator{\cmp}{cmp}%
+\DeclareMathOperator{\hofiber}{hofiber}%
+\DeclareMathOperator{\fiber}{fiber}%
+\DeclareMathOperator{\hocofiber}{hocof}%
+\DeclareMathOperator{\hocof}{hocof}%
+\DeclareMathOperator{\holim}{holim}%
+\DeclareMathOperator{\hocolim}{hocolim}%
+\DeclareMathOperator{\colim}{colim}%
+\DeclareMathOperator{\Lan}{Lan}%
+\DeclareMathOperator{\Ran}{Ran}%
+\DeclareMathOperator{\Map}{Map}%
+\DeclareMathOperator{\Id}{Id}%
+\DeclareMathOperator{\mlf}{mlf}%
+\DeclareMathOperator{\Hom}{Hom}%
+\DeclareMathOperator{\Ho}{Ho}
+\DeclareMathOperator{\Aut}{Aut}%
+\DeclareMathOperator{\Stab}{Stab}
+\DeclareMathOperator{\Iso}{Iso}
+\DeclareMathOperator{\Ob}{Ob}
+
+% ---------- shortcuts
+
+\newcommand{\F}{\ensuremath{\mathcal F}}
+\newcommand{\V}{\ensuremath{\mathcal V}}
+\newcommand{\Q}{\ensuremath{\mathcal Q}}
+\renewcommand{\O}{\ensuremath{\mathcal O}}
+\renewcommand{\P}{\ensuremath{\mathcal P}}
+\newcommand{\C}{\ensuremath{\mathcal C}}
+\newcommand{\A}{\ensuremath{\mathcal A}}
+\newcommand{\G}{\ensuremath{\mathcal G}}
+
+\newcommand{\del}{\partial}%
+
+\newcommand{\ki}{\chi}
+\newcommand{\ksi}{\xi}
+\newcommand{\Ksi}{\Xi}
+
+\newcommand{\lltimes}{\underline{\ltimes}}
+
+% detecting $\V$-categories:
+
+\newcommand{\I}{\mathbb I}
+\newcommand{\J}{\mathbb J}
+\newcommand{\1}{\ensuremath{\mathbbm 1}}%{\ensuremath{\mathbb{id}}} %\eta
+
+% lazy shortcuts
+
+\newcommand{\SC}{\Sigma_{\mathfrak C}}
+\newcommand{\OC}{\Omega_{\mathfrak C}}
+\newcommand{\UV}{\underline{\mathcal V}}
+\newcommand{\UC}{\underline{\mathfrak C}}
+
+
+
+
+
+
+
+
+
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ------------------------------ MAIN BODY ------------------------------
+
+% ---- Title --------
+
+\title{Edits to ``On the homotopy theory of equivariant colored operads''}
+
+\author{Peter Bonventre, Lu\'is A. Pereira}%
+
+\date{\today}
+
 
 \begin{document} 
- 
-\title{Edits to ``On the homotopy theory of equivariant colored operads''
-\\[12pt]} % the \\[12pt] adds a blank line after name
- 
-\author{Bonventre, P. and Pereira, L. A.}
- 
+  
 \maketitle
  
 
@@ -81,7 +295,8 @@ We are confident in our work in that paper.
 \begin{enumerate}
 \item[(9)] Added the reference equation (2.13), corrected typos, and slightly rephrased Definition \ref{GCC_DEF} to promote clarity
 \item[(10)] We have decided to avoid a notational index, but have gone over the paper to insert notational reminders as needed.
-\item[(11)] We have added a sentence to Remark \ref{GOTC_REM2} to make add some comparisons to related concepts.
+\item[(11)] We have added a sentence to Remark \ref{GOTC_REM2} making a general statement regarding some of these comparisons, as well as refer back to Remark \ref{GTRIV REM}, Remark 4.8 of [BPd], and Remark 6.18 of [BPb].
+        
         There is a lot that can be said on this topic.
         However, at the end of the day, the conditions for equivariant model structures and those for projective model structures usually cannot be compared;
         the different end goals, combined with the desire to be as flexible as possible, leads to similar-looking but quite distinct conditions.
