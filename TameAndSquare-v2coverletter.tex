@@ -1,0 +1,314 @@
+\documentclass[a4paper,10pt
+%,draft
+]{article}%
+
+
+
+% ---- Commands on draft --------
+
+\usepackage[dvipsnames]{xcolor}% adds colors
+\usepackage{ifdraft}
+\ifdraft{
+	\color[RGB]{63,63,63}
+	\pagecolor[RGB]{220,220,204}
+	\usepackage[notref]{showkeys}
+	\usepackage{todonotes}
+}
+%{
+%	\usepackage[disable]{todonotes}
+%}
+
+
+
+\pdfcompresslevel=0
+\pdfobjcompresslevel=0
+
+\usepackage{xr-hyper}
+\usepackage[pagebackref, colorlinks, citecolor=PineGreen, linkcolor=PineGreen]{hyperref}
+\hypersetup{
+	final,
+	pdftitle={Edits to ``Equivariant dendroidal sets and simplicial operads''},
+	pdfauthor={Bonventre, P. and Pereira, L. A.},
+	linktoc=page
+}
+
+\externaldocument[TAS-]{TameAndSquare} % cite using names from other half
+\externaldocument[OC-]{OneColor} % cite using names from other half
+\externaldocument{AllColors-v2}
+
+
+\usepackage{amsmath, amsthm}% {amsfonts, amssymb}
+
+
+% ------ New Characters --------------------------------------
+
+\usepackage[latin1]{inputenc}%
+\usepackage{MnSymbol}
+
+
+\usepackage[normalem]{ulem}% underlining
+%\usepackage{dsfont}% double strike-through
+\usepackage{bbm}% more bb
+
+
+\DeclareMathAlphabet\mathbb{U}{msb}{m}{n}
+\usepackage{upgreek}
+\usepackage{mathrsfs}
+
+\usepackage[normalem]{ulem}
+
+
+%----- Enumerate ---------------------------------------------
+\usepackage[inline,shortlabels]{enumitem}% % can use \begin{enumerate*} for inparaenum
+\setenumerate{label=(\roman*)}
+
+
+
+% ---------- Page Typesetting ----------
+\usepackage[final]{microtype}
+\usepackage{relsize}
+\usepackage{geometry}
+
+
+%-------- Tikz ---------------------------
+
+\usepackage{tikz}%
+\usetikzlibrary{matrix,arrows,decorations.pathmorphing,
+cd,patterns,calc}
+\tikzset{%
+  treenode/.style = {shape=rectangle, rounded corners,%
+                     draw, align=center,%
+                     top color=white, bottom color=blue!20},%
+  root/.style     = {treenode, font=\Large, bottom color=red!30},%
+  env/.style      = {treenode, font=\ttfamily\normalsize},%
+  dummy/.style    = {circle,draw,inner sep=0pt,minimum size=2mm}%
+}%
+
+\usetikzlibrary[decorations.pathreplacing]
+
+
+% ----- Labels Changed? --------
+
+\makeatletter
+
+\def\@testdef #1#2#3{%
+  \def\reserved@a{#3}\expandafter \ifx \csname #1@#2\endcsname
+  \reserved@a  \else
+  \typeout{^^Jlabel #2 changed:^^J%
+    \meaning\reserved@a^^J%
+    \expandafter\meaning\csname #1@#2\endcsname^^J}%
+  \@tempswatrue \fi}
+
+\makeatother
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%% INTERNAL REFERENCES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\numberwithin{equation}{section} 
+\numberwithin{figure}{section}
+
+\usepackage{mathtools}
+\mathtoolsset{showonlyrefs,showmanualtags} % Only number equations which are referenced with eqref
+
+
+% ------- New Theorems/ Definition/ Names-----------------------
+
+ % \theoremstyle{plain} % bold name, italic text
+\newtheorem{theorem}[equation]{Theorem}%
+\newtheorem*{theorem*}{Theorem}%
+\newtheorem{lemma}[equation]{Lemma}%
+\newtheorem{proposition}[equation]{Proposition}%
+\newtheorem{corollary}[equation]{Corollary}%
+\newtheorem{conjecture}[equation]{Conjecture}%
+\newtheorem*{conjecture*}{Conjecture}%
+\newtheorem{claim}[equation]{Claim}%
+
+%%%%%% Fancy Numbering for Theorems
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+  \newenvironment{#1}[1]
+  {%
+   \renewcommand\customgenericname{#2}%
+   \renewcommand\theinnercustomgeneric{##1}%
+   \innercustomgeneric
+  }
+  {\endinnercustomgeneric}
+}
+
+\newcustomtheorem{customthm}{Theorem}
+\newcustomtheorem{customcor}{Corollary}
+%%%%%%%%%%%%%
+
+\theoremstyle{definition} % bold name, plain text
+\newtheorem{definition}[equation]{Definition}%
+\newtheorem*{definition*}{Definition}%
+\newtheorem{example}[equation]{Example}%
+\newtheorem{remark}[equation]{Remark}%
+\newtheorem{notation}[equation]{Notation}%
+\newtheorem{convention}[equation]{Convention}%
+\newtheorem{assumption}[equation]{Assumption}%
+\newtheorem{exercise}{Exercise}%
+
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ------------------------------ COMMANDS ------------------------------
+
+% ---------- macros
+
+\newcommand{\set}[1]{\left\{#1\right\}}%
+\newcommand{\sets}[2]{\left\{ #1 \;|\; #2\right\}}%
+\newcommand{\longto}{\longrightarrow}%
+\newcommand{\into}{\hookrightarrow}%
+\newcommand{\onto}{\twoheadrightarrow}%
+
+\usepackage{harpoon}
+\newcommand{\vect}[1]{\text{\overrightharp{\ensuremath{#1}}}}
+
+
+% ---------- operators
+
+\newcommand{\Sym}{\ensuremath{\mathsf{Sym}}}%
+\newcommand{\Fin}{\mathsf{F}}%
+\newcommand{\Set}{\ensuremath{\mathsf{Set}}}
+\newcommand{\Top}{\ensuremath{\mathsf{Top}}}
+\newcommand{\sSet}{\ensuremath{\mathsf{sSet}}}%
+\newcommand{\Cat}{\mathsf{Cat}}
+\newcommand{\sCat}{\mathsf{sCat}}
+\newcommand{\Op}{\mathsf{Op}}%
+\newcommand{\sOp}{\ensuremath{\mathsf{sOp}}}%
+\newcommand{\fgt}{\ensuremath{\mathsf{fgt}}}%
+\newcommand{\dSet}{\mathsf{dSet}}
+\newcommand{\Fun}{\mathsf{Fun}}
+\newcommand{\Fib}{\mathsf{Fib}}
+\newcommand{\Alg}{\mathsf{Alg}}
+\newcommand{\Kl}{\mathsf{Kl}}
+
+
+
+\DeclareMathOperator{\hocmp}{hocmp}%
+\DeclareMathOperator{\cmp}{cmp}%
+\DeclareMathOperator{\hofiber}{hofiber}%
+\DeclareMathOperator{\fiber}{fiber}%
+\DeclareMathOperator{\hocofiber}{hocof}%
+\DeclareMathOperator{\hocof}{hocof}%
+\DeclareMathOperator{\holim}{holim}%
+\DeclareMathOperator{\hocolim}{hocolim}%
+\DeclareMathOperator{\colim}{colim}%
+\DeclareMathOperator{\Lan}{Lan}%
+\DeclareMathOperator{\Ran}{Ran}%
+\DeclareMathOperator{\Map}{Map}%
+\DeclareMathOperator{\Id}{Id}%
+\DeclareMathOperator{\mlf}{mlf}%
+\DeclareMathOperator{\Hom}{Hom}%
+\DeclareMathOperator{\Ho}{Ho}
+\DeclareMathOperator{\Aut}{Aut}%
+\DeclareMathOperator{\Stab}{Stab}
+\DeclareMathOperator{\Iso}{Iso}
+\DeclareMathOperator{\Ob}{Ob}
+
+% ---------- shortcuts
+
+\newcommand{\F}{\ensuremath{\mathcal F}}
+\newcommand{\V}{\ensuremath{\mathcal V}}
+\newcommand{\Q}{\ensuremath{\mathcal Q}}
+\renewcommand{\O}{\ensuremath{\mathcal O}}
+\renewcommand{\P}{\ensuremath{\mathcal P}}
+\newcommand{\C}{\ensuremath{\mathcal C}}
+\newcommand{\A}{\ensuremath{\mathcal A}}
+\newcommand{\G}{\ensuremath{\mathcal G}}
+
+\newcommand{\del}{\partial}%
+
+\newcommand{\ki}{\chi}
+\newcommand{\ksi}{\xi}
+\newcommand{\Ksi}{\Xi}
+
+\newcommand{\lltimes}{\underline{\ltimes}}
+
+% detecting $\V$-categories:
+
+\newcommand{\I}{\mathbb I}
+\newcommand{\J}{\mathbb J}
+\newcommand{\1}{\ensuremath{\mathbbm 1}}%{\ensuremath{\mathbb{id}}} %\eta
+
+% lazy shortcuts
+
+\newcommand{\SC}{\Sigma_{\mathfrak C}}
+\newcommand{\OC}{\Omega_{\mathfrak C}}
+\newcommand{\UV}{\underline{\mathcal V}}
+\newcommand{\UC}{\underline{\mathfrak C}}
+
+
+
+
+
+
+
+
+
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ------------------------------ MAIN BODY ------------------------------
+
+% ---- Title --------
+
+\title{Edits to ``Equivariant dendroidal sets and simplicial operads''}
+
+\author{Peter Bonventre, Lu\'is A. Pereira}%
+
+% \date{\today}
+
+
+\begin{document} 
+  
+\maketitle
+ 
+
+
+
+\section{General comments}
+
+The referee report included 40 line-by-line comments, 
+all of which consisted of typos/minor changes to wording
+or requests for minor clarification or extra detail in proofs.
+All of these have been addressed in the following sections;
+the numbering of the items below refer to the numbering in the referee report,
+while the numbering of the cited results refer to the number in the new version of the article.
+
+      
+
+\section{Non-changes}
+
+\begin{enumerate}
+        \item things
+\end{enumerate}
+
+\section{Changes}
+
+\begin{enumerate}
+\item stuff
+\end{enumerate}
+
+
+
+\section{Minor changes and typos}
+ 
+\begin{enumerate}
+\item more stuff
+\end{enumerate}
+
+
+
+
+
+
+\end{document} 
+
+
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
